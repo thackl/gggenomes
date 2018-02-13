@@ -35,11 +35,11 @@ as_tibble.tbl_genomes <- function(x, ...) {
 }
 
 
-#' expose
+#' expose non-standard evaluation
 #'
 #' @export
 expose <- function(data, what) {
-    UseMethod('expose')
+        UseMethod('expose', data)
 }
 #' @export
 #' @importFrom rlang enquo quo_text
@@ -49,14 +49,11 @@ expose.tbl_genomes <- function(data, what=contigs) {
     data[[what_string]]
 }
 #' @export
-expose_contigs <- function() {
-    function() data[["contigs"]]
-}
-
-#' @export
 #' @importFrom rlang enquo quo_text
 expose_data <- function(what=contigs) {
     what_string <- rlang::quo_text(rlang::enquo(what))
-    if(is.null(data[[what_string]])) stop('Unknown data set ', what, call. = FALSE);
-    function(data, ...) data[[what_string]]
+    function(data, ...){
+        if(is.null(data[[what_string]])) stop('Unknown data set ', what, call. = FALSE);
+        data[[what_string]]
+    }
 }

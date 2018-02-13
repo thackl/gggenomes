@@ -2,10 +2,10 @@
 % Please edit documentation in R/tbl_genomes.R
 \name{expose}
 \alias{expose}
-\title{expose}
+\title{expose non-standard evaluation}
 \usage{
 expose(data, what)
 }
 \description{
-expose
+expose non-standard evaluation
 }
