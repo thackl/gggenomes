@@ -4,10 +4,21 @@
 \alias{geom_link}
 \title{draw links}
 \usage{
-geom_link(mapping = NULL, data = NULL, nudge_frac = 0.1, ...)
+geom_link(mapping = NULL, data = expose_data(links), nudge_frac = 0.1,
+  ...)
 }
 \arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+default), it is combined with the default mapping at the top level of the
+plot. You must supply \code{mapping} if there is no plot mapping.}
+
 \item{data}{link_layout}
+
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{color = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 
 \item{array}{set to non-NULL to generate default arrows}
 }

@@ -8,10 +8,18 @@
 gggenomes <- function(data = NULL, ...){
     envir <- parent.frame()
                
-    p <- ggplot(data = contig_layout, environment = envir)
+    p <- ggplot(data = data, environment = envir)
     class(p) <- c('gggenomes', class(p))
-    p + theme_genomes() +
-        scale_y_genomes(contig_layout)
+    p
+}
+
+#' ggplot.default tries to \code{fortify(data)}
+#'
+#' @export
+ggplot.tbl_genomes <- function(data = NULL, mapping = aes(), ...,
+                               environment = parent.frame()) {
+    print("class method")
+    ggplot2:::ggplot.data.frame(data = data, mapping = mapping, environment = environment)
 }
 
 #' gggenomes default theme
@@ -35,6 +43,8 @@ theme_genomes <- function(){
 #' @import ggplot2
 #' @export
 #' @return ggplot scale object
-scale_y_genomes <- function(contig_layout){
-    scale_y_reverse(breaks=unique(contig_layout$gix), labels=unique(contig_layout$gid))
+scale_y_genomes <- function(data){
+    scale_y_reverse(
+        breaks=unique(expose(data)$gix),
+        labels=unique(expose(data)$gid))
 }
