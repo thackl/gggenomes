@@ -4,7 +4,8 @@
 \alias{geom_contig}
 \title{draw contigs}
 \usage{
-geom_contig(mapping = NULL, data = NULL, arrow = NULL, ...)
+geom_contig(mapping = NULL, data = expose_data(contigs), arrow = NULL,
+  ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

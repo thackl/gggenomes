@@ -5,15 +5,17 @@
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
-geom_contig <- function(mapping = NULL, data = NULL, arrow = NULL, ...){
+geom_contig <- function(mapping = NULL, data = expose_data(contigs), arrow = NULL, ...){
 
-    mapping <- aesIntersect(mapping, aes_(x=~cstart, xend=~cend, y=~gix, yend=~gix))
+    default_aes <- aes_(y=~gix, yend=~gix, offset=~goffset+coffset,
+                        length=~clength, strand=~gstrand*cstrand)
+    mapping <- aesIntersect(mapping, default_aes)
 
     # default arrow
     if (!is_null(arrow) & !inherits(arrow, "array"))
         arrow <- arrow(length = unit(3, "pt")) 
 
-    geom_segment(mapping = mapping, data = expose_data(), arrow = arrow, ...)
+    geom_segment(mapping = mapping, data = data, arrow = arrow, stat=StatOffsetLength, ...)
 }
 
 #' draw links

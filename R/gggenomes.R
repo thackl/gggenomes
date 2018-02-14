@@ -16,10 +16,27 @@ gggenomes <- function(data = NULL, ...){
 #' ggplot.default tries to \code{fortify(data)}
 #'
 #' @export
-ggplot.tbl_genomes <- function(data = NULL, mapping = aes(), ...,
+ggplot.tbl_genomes <- function(data, mapping = aes(), ...,
                                environment = parent.frame()) {
-    print("class method")
-    ggplot2:::ggplot.data.frame(data = data, mapping = mapping, environment = environment)
+  if (!missing(mapping) && !inherits(mapping, "uneval")) {
+    stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
+  }
+
+  p <- structure(list(
+    data = data,
+    layers = list(),
+    scales = ggplot2:::scales_list(),
+    mapping = mapping,
+    theme = list(),
+    coordinates = coord_cartesian(default = TRUE),
+    facet = facet_null(),
+    plot_env = environment
+  ), class = c("gg", "ggplot"))
+
+  p$labels <- ggplot2:::make_labels(mapping)
+
+  ggplot2:::set_last_plot(p)
+  p
 }
 
 #' gggenomes default theme

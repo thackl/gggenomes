@@ -4,7 +4,7 @@
 \alias{ggplot.tbl_genomes}
 \title{ggplot.default tries to \code{fortify(data)}}
 \usage{
-\method{ggplot}{tbl_genomes}(data = NULL, mapping = aes(), ...,
+\method{ggplot}{tbl_genomes}(data, mapping = aes(), ...,
   environment = parent.frame())
 }
 \description{

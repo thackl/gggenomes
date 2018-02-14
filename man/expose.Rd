@@ -2,10 +2,15 @@
 % Please edit documentation in R/tbl_genomes.R
 \name{expose}
 \alias{expose}
-\title{expose non-standard evaluation}
+\title{expose with non-standard evaluation of `what` argument.}
 \usage{
 expose(data, what)
 }
+\arguments{
+\item{data}{tbl_genomes}
+
+\item{what}{tbl to expose}
+}
 \description{
-expose non-standard evaluation
+expose with non-standard evaluation of `what` argument.
 }
