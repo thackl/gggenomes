@@ -7,7 +7,7 @@
 #' @return ggplot object
 gggenomes <- function(data = NULL, ...){
     envir <- parent.frame()
-               
+
     p <- ggplot(data = data, environment = envir)
     class(p) <- c('gggenomes', class(p))
     p
@@ -56,12 +56,12 @@ theme_genomes <- function(){
 }
 
 #' y scale with genome labels
-#' 
+#'
 #' @import ggplot2
 #' @export
 #' @return ggplot scale object
-scale_y_genomes <- function(data){
+scale_y_genomes <- function(data, ...){
     scale_y_reverse(
         breaks=unique(expose(data)$gix),
-        labels=unique(expose(data)$gid))
+        labels=unique(expose(data)$gid), ...)
 }

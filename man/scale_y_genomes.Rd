@@ -4,7 +4,7 @@
 \alias{scale_y_genomes}
 \title{y scale with genome labels}
 \usage{
-scale_y_genomes(data)
+scale_y_genomes(data, ...)
 }
 \value{
 ggplot scale object

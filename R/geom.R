@@ -1,7 +1,7 @@
 #' draw contigs
-#' 
+#'
 #' @param data contig_layout
-#' @param array set to non-NULL to generate default arrows
+#' @param arrow set to non-NULL to generate default arrows
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
@@ -13,13 +13,29 @@ geom_contig <- function(mapping = NULL, data = expose_data(contigs), arrow = NUL
 
     # default arrow
     if (!is_null(arrow) & !inherits(arrow, "array"))
-        arrow <- arrow(length = unit(3, "pt")) 
+        arrow <- arrow(length = unit(3, "pt"))
 
     geom_segment(mapping = mapping, data = data, arrow = arrow, stat=StatOffsetLength, ...)
 }
 
+#' draw features
+#'
+#' @param data feature_layout
+geom_feature <- function(mapping = NULL, data = expose_data(features), arrow = NULL, ...){
+
+    default_aes <- aes_(y=~gix, yend=~gix, offset=~foffset,
+                        start=~fstart, end=~fend, strand=~fstrand)
+    mapping <- gggenomes:::aesIntersect(mapping, default_aes)
+
+    # default arrow
+    #if (!is_null(arrow) & !inherits(arrow, "array"))
+    #    arrow <- arrow(length = unit(3, "pt"))
+
+    geom_segment(mapping = mapping, data = data, arrow = arrow, stat=StatOffsetRange, ...)
+}
+
 #' draw links
-#' 
+#'
 #' @param data link_layout
 #' @inheritParams ggplot2::geom_polygon
 #' @param array set to non-NULL to generate default arrows
@@ -30,4 +46,3 @@ geom_link <- function(mapping = NULL, data = expose_data(links), nudge_frac=.1, 
 
     geom_polygon(mapping = mapping, data=data, ...)
 }
-

@@ -15,14 +15,12 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{contig_layout}
 
-\item{arrow}{specification for arrow heads, as created by arrow().}
+\item{arrow}{set to non-NULL to generate default arrows}
 
 \item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
-
-\item{array}{set to non-NULL to generate default arrows}
 }
 \description{
 draw contigs
