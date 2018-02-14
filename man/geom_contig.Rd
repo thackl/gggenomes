@@ -4,8 +4,8 @@
 \alias{geom_contig}
 \title{draw contigs}
 \usage{
-geom_contig(mapping = NULL, data = expose_data(contigs), arrow = NULL,
-  ...)
+geom_contig(mapping = NULL, data = expose_data(contigs),
+  stat = StatOffsetLength, arrow = NULL, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -14,6 +14,9 @@ default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{contig_layout}
+
+\item{stat}{The statistical transformation to use on the data for this
+layer, as a string.}
 
 \item{arrow}{set to non-NULL to generate default arrows}
 

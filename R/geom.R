@@ -5,40 +5,57 @@
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
-geom_contig <- function(mapping = NULL, data = expose_data(contigs), arrow = NULL, ...){
+geom_contig <- function(mapping = NULL, data = expose_data(contigs),
+    stat = StatOffsetLength, arrow = NULL, ...){
 
     default_aes <- aes_(y=~gix, yend=~gix, offset=~goffset+coffset,
                         length=~clength, strand=~gstrand*cstrand)
     mapping <- aesIntersect(mapping, default_aes)
 
     # default arrow
-    if (!is_null(arrow) & !inherits(arrow, "array"))
+    if (!is_null(arrow) & !inherits(arrow, "arrow"))
         arrow <- arrow(length = unit(3, "pt"))
 
-    geom_segment(mapping = mapping, data = data, arrow = arrow, stat=StatOffsetLength, ...)
+    geom_segment(mapping = mapping, data = data, stat = stat, arrow = arrow, ...)
 }
 
 #' draw features
 #'
 #' @param data feature_layout
-geom_feature <- function(mapping = NULL, data = expose_data(features), arrow = NULL, ...){
+geom_feature <- function(mapping = NULL, data = expose_data(features),
+    stat=StatOffsetRange, arrow = NULL, ...){
 
     default_aes <- aes_(y=~gix, yend=~gix, offset=~foffset,
                         start=~fstart, end=~fend, strand=~fstrand)
     mapping <- gggenomes:::aesIntersect(mapping, default_aes)
 
     # default arrow
-    #if (!is_null(arrow) & !inherits(arrow, "array"))
-    #    arrow <- arrow(length = unit(3, "pt"))
+    if (!is_null(arrow) & !inherits(arrow, "arrow"))
+        arrow <- arrow(length = unit(3, "pt"))
 
-    geom_segment(mapping = mapping, data = data, arrow = arrow, stat=StatOffsetRange, ...)
+    geom_segment(mapping = mapping, data = data, stat = stat, arrow = arrow, ...)
+}
+
+#' draw genes
+#'
+#' @param data feature_layout
+#' @inheritParams gggenes::geom_gene_arrow
+#' @importFrom gggenes geom_gene_arrow
+#' @export
+geom_gene <- function(mapping = NULL, data = expose_data(features),
+    stat = StatOffsetGene, ...){
+
+    default_aes <- aes_(y=~gix,start=~fstart,end=~fend,offset=~foffset,strand=~fstrand)
+    mapping <- aesIntersect(mapping, default_aes)
+
+    gggenes::geom_gene_arrow(mapping = mapping, data = data, stat = stat, ...)
 }
 
 #' draw links
 #'
 #' @param data link_layout
-#' @inheritParams ggplot2::geom_polygon
 #' @param array set to non-NULL to generate default arrows
+#' @inheritParams ggplot2::geom_polygon
 #' @importFrom ggplot2 geom_polygon
 #' @export
 geom_link <- function(mapping = NULL, data = expose_data(links), nudge_frac=.1, ...){
