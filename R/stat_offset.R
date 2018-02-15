@@ -10,18 +10,17 @@ stat_offset_length <- function (mapping = NULL, data = NULL, geom = "segment",
 
 StatOffsetLength <- ggproto(
     "StatOffsetLength", Stat,
-    compute_panel = function(data, scales){
-        if(any(names(data) == 'strand')){
-            data$x <- ifelse(data$strand < 0, data$offset + data$length, data$offset)
-            data$xend <- ifelse(data$strand < 0, data$offset, data$offset + data$length)
-        }else{
-            data$x <- data$offset
-            data$xend <- data$offset + data$length
-        }
+    compute_group = function(data, scales){
+        # set strand (too lazy to handle cases w/o)
+        if(!any(names(data) == 'strand')) data$strand <- 1
+
+        # x and xend depending on strand
+        data$x    <- ifelse(data$strand < 0, data$offset + data$length, data$offset)
+        data$xend <- ifelse(data$strand < 0, data$offset, data$offset + data$length)
         data
     },
     required_aes = c("offset","length"),
-    default_aes = aes(strand = 1)
+    default_aes = aes(strand = 1) # makes it "known aesthetics"
 )
 
 #' @export
@@ -37,17 +36,16 @@ stat_offset_range <- function (mapping = NULL, data = NULL, geom = "segment",
 StatOffsetRange <- ggproto(
     "StatOffsetRange", Stat,
     compute_panel = function(data, scales){
-        if(any(names(data) == 'strand')){
-            data$x <- ifelse(data$strand < 0, data$offset + data$end, data$offset + data$start)
-            data$xend <- ifelse(data$strand < 0, data$offset + data$start, data$offset + data$end)
-        }else{
-            data$x <- data$start + data$offset
-            data$xend <- data$end + data$offset
-        }
+        # set strand (too lazy to handle cases w/o)
+        if(!any(names(data) == 'strand')) data$strand <- 1
+
+        # x and xend depending on strand
+        data$x    <- ifelse(data$strand < 0, data$offset + data$end, data$offset + data$start)
+        data$xend <- ifelse(data$strand < 0, data$offset + data$start, data$offset + data$end)
         data
     },
     required_aes = c("offset","start","end"),
-    default_aes = aes(strand = 1)
+    default_aes = aes(strand = 1) # makes it "known aesthetics"
 )
 
 #' @export
@@ -70,15 +68,14 @@ stat_offset_gene <- function (mapping = NULL, data = expose_data(features),
 StatOffsetGene <- ggproto(
     "StatOffsetGene", Stat,
     compute_panel = function(data, scales){
-        if(any(names(data) == 'strand')){
-            data$xmin <- ifelse(data$strand < 0, data$offset + data$end, data$offset + data$start)
-            data$xmax <- ifelse(data$strand < 0, data$offset + data$start, data$offset + data$end)
-        }else{
-            data$xmin <- data$start + data$offset
-            data$xmax <- data$end + data$offset
-        }
+        # set strand (too lazy to handle cases w/o)
+        if(!any(names(data) == 'strand')) data$strand <- 1
+
+        # xmin and xmax depending on strand
+        data$xmin <- ifelse(data$strand < 0, data$offset + data$end, data$offset + data$start)
+        data$xmax <- ifelse(data$strand < 0, data$offset + data$start, data$offset + data$end)
         data
     },
     required_aes = c("offset","start","end"),
-    default_aes = aes(strand = 1)
+    default_aes = aes(strand = 1) # makes it "known aesthetics"
 )
