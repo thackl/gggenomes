@@ -2,11 +2,11 @@
 % Please edit documentation in R/gggenomes.R
 \name{ggplot.tbl_genomes}
 \alias{ggplot.tbl_genomes}
-\title{ggplot.default tries to \code{fortify(data)}}
+\title{ggplot.default tries to `fortify(data)` and we don't want that}
 \usage{
 \method{ggplot}{tbl_genomes}(data, mapping = aes(), ...,
   environment = parent.frame())
 }
 \description{
-ggplot.default tries to \code{fortify(data)}
+ggplot.default tries to `fortify(data)` and we don't want that
 }
