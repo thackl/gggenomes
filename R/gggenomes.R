@@ -5,7 +5,7 @@
 #' @importFrom ggplot2 ggplot
 #' @export
 #' @return ggplot object
-gggenomes <- function(data = NULL, ...){
+gggenomes <- function(data = NULL, mapping = aes(), ...){
     envir <- parent.frame()
 
     p <- ggplot(data = data, environment = envir)

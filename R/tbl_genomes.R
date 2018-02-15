@@ -26,11 +26,20 @@ as_tbl_genomes.Granges <- function(x, ...) {
         as_tbl_genomes(x)
     }, error = function(e) stop('No support for ', class(x)[1], ' objects', call. = FALSE))
 }
+
+#' @export
+as.data.frame.tbl_genomes <- function(x, ...)expose(x)
+
+#' `ggplot2::facet_null` checks data with `emtpy(df)` using `dim`. This causes
+#' and error because dim(tbl_genomes) is undefined. Return dim of primary table
+#' instead
+#'
+#' @export
+dim.tbl_genomes <- function(x) dim(expose(x))
+
 #' @export
 #' @importFrom tibble as_tibble
 as_tibble.tbl_genomes <- function(x, ...) expose(x)
-#' @export
-as.data.frame.tbl_genomes <- function(x, ...) expose(x)
 #' @export
 #' @importFrom ggplot2 fortify
 fortify.tbl_genomes <- function(x, ...) expose(x)
