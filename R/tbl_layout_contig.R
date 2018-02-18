@@ -1,5 +1,15 @@
+#' Layout contigs
+#'
+#' @param rubber white space between contigs in bases, or relative to largest
+#' genomes if <1.
+#' @param  rubber_style regular spread aligned
 #' @export
-tbl_layout_contig <- function(contigs, rubber_frac=0.005){
+tbl_layout_contig <- function(contigs, rubber=0.01,
+    rubber_style = c("regular", "center", "spread")){
+
+    rubber_style <- match.arg(rubber_style)
+    if(! rubber_style == "regular") stop("Not yet implement")
+
     # contig idx
     layout <- contigs %>%
         as_tibble %>%
@@ -16,9 +26,11 @@ tbl_layout_contig <- function(contigs, rubber_frac=0.005){
         )
 
     # infer rubber length from genome lengths
-    rubber <- layout %>% summarize(glength=sum(clength)) %>%
-        pull(glength) %>% max %>%
-        "*"(rubber_frac) %>% ceiling
+    if(rubber < 1){
+        rubber <- layout %>% summarize(glength=sum(clength)) %>%
+            pull(glength) %>% max %>%
+            "*"(rubber) %>% ceiling
+    }
 
     # compute contig offsets and compose tbl_layout_contig
     layout %<>%
