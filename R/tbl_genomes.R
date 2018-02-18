@@ -2,8 +2,8 @@
 #'
 #' @rdname tbl_genomes
 #' @export
-tbl_genomes <- function(contigs = NULL, links = NULL, features = NULL) {
-  as_tbl_genomes(list(contigs = contigs, links = links, features = features))
+tbl_genomes <- function(contigs = NULL, links = NULL, features = NULL, ...) {
+  as_tbl_genomes(list(contigs = contigs, links = links, features = features, ...))
 }
 #' @export
 as_tbl_genomes <- function(x, ...) {

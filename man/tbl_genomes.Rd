@@ -4,7 +4,7 @@
 \alias{tbl_genomes}
 \title{tbl genomes}
 \usage{
-tbl_genomes(contigs = NULL, links = NULL, features = NULL)
+tbl_genomes(contigs = NULL, links = NULL, features = NULL, ...)
 }
 \description{
 tbl genomes
