@@ -3,6 +3,10 @@
 #' @export
 #' @return tibble
 read_gffs <- function(gff_files, gids = NULL){
+    if (!requireNamespace("rtracklayer", quietly = TRUE)) {
+        stop("Package 'rtracklayer' needed for this function to work. Please install it.",
+             call. = FALSE)
+    }
     data <- map(gff_files, function(gff){
         as.data.frame(rtracklayer::import(gff))
     }) %>% bind_rows %>% as_tibble %>%
@@ -17,8 +21,6 @@ read_gffs <- function(gff_files, gids = NULL){
 #' `##sequence-region` annotation (`rtracklayer` ignores those)
 #'
 #' @param gids genome IDs to use with each file. If `NULL` infer from file name.
-#' @importFrom stringr str_replace
-#' @importFrom rtracklayer import
 #' @export
 #' @return A tibble with columns: 'gid', 'cid', 'length'.
 read_gffs_as_contigs <- function(gff_files, gids = NULL){
@@ -31,7 +33,7 @@ read_gffs_as_contigs <- function(gff_files, gids = NULL){
     # genome ids
     if(is.null(gids)){
         gids <- sapply(gff_files, basename) %>%
-            str_replace(".gff", "")
+            stringr::str_replace(".gff", "")
         if(any(duplicated(gids))) stop("Filenames gave non-unique genome IDs, usee `gid=` to specify manually")
     }
     names(data) <- gids
