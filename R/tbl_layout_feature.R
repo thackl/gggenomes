@@ -2,7 +2,7 @@
 tbl_layout_feature <- function(features, contig_layout){
     print("TODO: check start < end")
     layout <- features %>%
-        select(cid=1,fstart=2,fend=3,fstrand=4)
+        select(cid=1,fstart=2,fend=3,fstrand=4, everything())
 
     contig_info <- contig_layout %>%
         mutate(
@@ -14,5 +14,5 @@ tbl_layout_feature <- function(features, contig_layout){
         mutate(
             fstrand=fstrand*gcstrand,
             foffset=gcoffset) %>%
-        select(cid, gid, gix, foffset, fstart, fend, fstrand)
+        select(cid, gid, gix, foffset, fstart, fend, fstrand, everything())
 }

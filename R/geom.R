@@ -63,3 +63,15 @@ geom_link <- function(mapping = NULL, data = expose_data(links), nudge_frac=.1, 
 
     geom_polygon(mapping = mapping, data=data, ...)
 }
+
+#' draw feature labels
+#'
+#' @export
+geom_feature_label <- function(){
+    mapping <- aesIntersect(mapping, aes_(y=~gix,start=~(fstart+fend)/2,offset=~foffset,~strand=1))
+
+    geom_text(
+        expose_data(features),
+        stat=gggenomes:::StatOffsetRange,
+        angle=45,hjust = 0, nudge_y = 0.2, size=1.2)
+}

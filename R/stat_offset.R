@@ -38,14 +38,15 @@ StatOffsetRange <- ggproto(
     compute_panel = function(data, scales){
         # set strand (too lazy to handle cases w/o)
         if(!any(names(data) == 'strand')) data$strand <- 1
+        if(!any(names(data) == 'end')) data$end <- data$start
 
         # x and xend depending on strand
         data$x    <- ifelse(data$strand < 0, data$offset + data$end, data$offset + data$start)
         data$xend <- ifelse(data$strand < 0, data$offset + data$start, data$offset + data$end)
         data
     },
-    required_aes = c("offset","start","end"),
-    default_aes = aes(strand = 1) # makes it "known aesthetics"
+    required_aes = c("offset","start"),
+    default_aes = aes(strand = 1, end = start) # makes it "known aesthetics"
 )
 
 #' @export
