@@ -59,6 +59,7 @@ geom_gene <- function(mapping = NULL, data = expose_data(features),
 #' @importFrom ggplot2 geom_polygon
 #' @export
 geom_link <- function(mapping = NULL, data = expose_data(links), nudge_frac=.1, ...){
+    write('# TODO: StatOffset', stderr())
     mapping <- aesIntersect(mapping, aes_(x=~x, y=quo(gix + nudge_sign * !!nudge_frac), group=~lix))
 
     geom_polygon(mapping = mapping, data=data, ...)
@@ -67,11 +68,12 @@ geom_link <- function(mapping = NULL, data = expose_data(links), nudge_frac=.1, 
 #' draw feature labels
 #'
 #' @export
-geom_feature_label <- function(){
-    mapping <- aesIntersect(mapping, aes_(y=~gix,start=~(fstart+fend)/2,offset=~foffset,~strand=1))
+geom_feature_label <- function(mapping = NULL, data = expose_data(features),
+    stat = StatOffsetRange, angle = 45,hjust = 0, nudge_y = 0.2, size = 2, ...){
 
-    geom_text(
-        expose_data(features),
-        stat=gggenomes:::StatOffsetRange,
-        angle=45,hjust = 0, nudge_y = 0.2, size=1.2)
+    default_aes <- aes_(y=~gix,start=~(fstart+fend)/2,offset=~foffset,strand=1)
+    mapping <- aesIntersect(mapping, default_aes)
+
+    geom_text(mapping = mapping, data = data, stat = stat,
+        angle = angle, hjust = hjust, nudge_y = nudge_y, size = size, ...)
 }
