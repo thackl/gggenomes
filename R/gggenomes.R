@@ -13,7 +13,7 @@ gggenomes <- function(data = NULL, mapping = aes(),
     theme = c("clean", NULL), theme_args = list(),
     ..., environment = parent.frame()){
 
-    if(!any(class(data) == "tbl_genomes")) data <- as_tbl_genomes(data)
+    if(!class(data) == "tbl_genomes") data <- as_tbl_genomes(data)
 
     p <- ggplot(data = data, mapping = mapping, environment = environment)
 
