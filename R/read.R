@@ -1,5 +1,7 @@
 #' Read .gff files using `rtracklayer::import`
 #'
+#' Assume Chromosome IDs are unique amongst files
+#' 
 #' @export
 #' @return tibble
 read_gffs <- function(gff_files, gids = NULL){
@@ -8,10 +10,8 @@ read_gffs <- function(gff_files, gids = NULL){
              call. = FALSE)
     }
     data <- map(gff_files, function(gff){
-        as.data.frame(rtracklayer::import(gff))
-    }) %>% bind_rows %>% as_tibble %>%
-        select(cid=seqnames,start,end,strand,everything()) %>%
-        mutate(strand = match(strand, c("-", "*", "+")) - 2)
+        as_tbl_feature(rtracklayer::import(gff))
+    }) %>% bind_rows
     write("TODO: list types, suggest filter", stderr())
     
     data

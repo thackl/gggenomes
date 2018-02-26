@@ -5,3 +5,7 @@ aesIntersect <- function(aes1, aes2) {
         class = 'uneval'
     )
 }
+
+null_else <- function(a, b) {
+    if (is.null(a)) NULL else b
+}

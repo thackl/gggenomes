@@ -10,5 +10,5 @@ read_gffs(gff_files, gids = NULL)
 tibble
 }
 \description{
-Read .gff files using `rtracklayer::import`
+Assume Chromosome IDs are unique amongst files
 }

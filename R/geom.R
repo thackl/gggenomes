@@ -19,6 +19,20 @@ geom_contig <- function(mapping = NULL, data = expose_data(contigs),
     geom_segment(mapping = mapping, data = data, stat = stat, arrow = arrow, ...)
 }
 
+#' @export
+geom_chromosomes <- function(mapping = NULL, data = expose_data(chromosomes),
+    arrow = NULL, ...){
+
+    default_aes <- aes_(x=~x,xend=~xend,y=~y,yend=~y)
+    mapping <- aesIntersect(mapping, default_aes)
+
+    # default arrow
+    if (!is_null(arrow) & !inherits(arrow, "arrow"))
+        arrow <- arrow(length = unit(3, "pt"))
+
+    geom_segment(mapping = mapping, data = data, arrow = arrow, ...)
+}
+
 #' draw features
 #'
 #' @param data feature_layout

@@ -8,7 +8,36 @@
 #' @importFrom ggplot2 ggplot
 #' @export
 #' @return ggplot object
-gggenomes <- function(data = NULL, mapping = aes(),
+#' @param ... layout parameter
+gggenomes <- function(chromosomes, features = list(), links = list(), ...,
+                      scale = c("lab", "numlab", NULL),
+                      theme = c("clean", NULL),
+                      mapping = aes(), environment = parent.frame()){
+
+    #    if(!class(chromosomes) == "tbl_genomes") data <- as_tbl_genomes(data)
+    layout <- create_layout(chromosomes, features, links, ...)
+
+    p <- ggplot(data = layout, mapping = mapping, environment = environment)
+    class(p) <- c('gggenomes', class(p))
+
+    scale_name <- null_else(scale[[1]], match.arg(scale[[1]], c("lab", "numlab")))
+    if(!is.null(scale_name)){ # add gggenomes scale
+        scale_args <- if(is.list(scale) && length(scale) >1) scale[-1] else list()
+        scale_args$data <- layout
+        p <- p + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
+    }
+
+    theme_name <- null_else(theme[[1]], match.arg(theme[[1]], c("clean")))
+    if(!is.null(theme_name)){ # add theme
+        theme_args <- if(is.list(theme) && length(theme) >1) theme[-1] else list()
+        p <- p + do.call(paste0("theme_gggenomes_", theme), theme_args)
+    }
+
+    p
+}
+
+
+gggenomes.deprecated <- function(data = NULL, mapping = aes(),
     scale = c("lab", "numlab", NULL), scale_args = list(),
     theme = c("clean", NULL), theme_args = list(),
     ..., environment = parent.frame()){
@@ -35,7 +64,7 @@ gggenomes <- function(data = NULL, mapping = aes(),
 #' ggplot.default tries to `fortify(data)` and we don't want that
 #'
 #' @export
-ggplot.tbl_genomes <- function(data, mapping = aes(), ...,
+ggplot.tbl_genome_layout <- function(data, mapping = aes(), ...,
                                environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
