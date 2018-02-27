@@ -3,13 +3,13 @@
 \name{dim.tbl_genome_layout}
 \alias{dim.tbl_genome_layout}
 \title{`ggplot2::facet_null` checks data with `emtpy(df)` using `dim`. This causes
-and error because dim(tbl_genomes) is undefined. Return dim of primary table
-instead}
+and error because dim(tbl_genome_layout) is undefined. Return dim of primary
+table instead}
 \usage{
 \method{dim}{tbl_genome_layout}(x)
 }
 \description{
 `ggplot2::facet_null` checks data with `emtpy(df)` using `dim`. This causes
-and error because dim(tbl_genomes) is undefined. Return dim of primary table
-instead
+and error because dim(tbl_genome_layout) is undefined. Return dim of primary
+table instead
 }

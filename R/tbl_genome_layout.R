@@ -63,12 +63,14 @@ expose <- function(data, what){
 }
 #' @export
 expose.tbl_genome_layout <- function(data, what=chromosomes) {
-    what_string <- rlang::quo_text(rlang::enquo(what))
-    if(is.null(data[[what_string]])) stop('Unknown data set ', what, call. = FALSE);
-    data[[what_string]]
+  what_string <- rlang::quo_text(rlang::enquo(what))
+  if(is.null(data[[what_string]])) stop('Unknown data set ', what, call. = FALSE);
+  data[[what_string]]
 }
+#' @param what data set to expose from tbl_genome_layout
+#' @param ... filter arguments passed through to [dplyr::filter].
 #' @export
-expose_data <- function(what=chromosomes, ...) {
+data <- function(what=chromosomes, ...) {
   what_string <- rlang::quo_text(rlang::enquo(what))
   dots <- quos(...)
     function(data, ...){
@@ -77,10 +79,10 @@ expose_data <- function(what=chromosomes, ...) {
     }
 }
 #' @export
-d <- expose_data
+expose_data <- data
 #' `ggplot2::facet_null` checks data with `emtpy(df)` using `dim`. This causes
-#' and error because dim(tbl_genomes) is undefined. Return dim of primary table
-#' instead
+#' and error because dim(tbl_genome_layout) is undefined. Return dim of primary
+#' table instead
 #'
 #' @export
 dim.tbl_genome_layout <- function(x) dim(expose(x))
