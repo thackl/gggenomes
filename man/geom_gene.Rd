@@ -4,17 +4,13 @@
 \alias{geom_gene}
 \title{draw genes}
 \usage{
-geom_gene(mapping = NULL, data = expose_data(features),
-  stat = StatOffsetGene, ...)
+geom_gene(mapping = NULL, data = expose_data(features), ...)
 }
 \arguments{
 \item{mapping}{As
 standard for ggplot2.}
 
 \item{data}{feature_layout}
-
-\item{stat}{As
-standard for ggplot2.}
 
 \item{...}{As
 standard for ggplot2.}

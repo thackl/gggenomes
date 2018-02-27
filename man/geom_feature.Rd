@@ -4,8 +4,8 @@
 \alias{geom_feature}
 \title{draw features}
 \usage{
-geom_feature(mapping = NULL, data = expose_data(features),
-  stat = StatOffsetRange, arrow = NULL, ...)
+geom_feature(mapping = NULL, data = expose_data(features), arrow = NULL,
+  ...)
 }
 \arguments{
 \item{data}{feature_layout}

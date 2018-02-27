@@ -5,8 +5,7 @@
 \title{draw feature labels}
 \usage{
 geom_feature_label(mapping = NULL, data = expose_data(features),
-  stat = StatOffsetRange, angle = 45, hjust = 0, nudge_y = 0.2,
-  size = 2, ...)
+  angle = 45, hjust = 0, nudge_y = 0.2, size = 2, ...)
 }
 \description{
 draw feature labels
