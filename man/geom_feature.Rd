@@ -5,7 +5,7 @@
 \title{draw features}
 \usage{
 geom_feature(mapping = NULL, data = expose_data(features), arrow = NULL,
-  ...)
+  nudge_by_strand = NULL, ...)
 }
 \arguments{
 \item{data}{feature_layout}

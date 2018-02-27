@@ -4,7 +4,8 @@
 \alias{geom_gene}
 \title{draw genes}
 \usage{
-geom_gene(mapping = NULL, data = expose_data(features), ...)
+geom_gene(mapping = NULL, data = expose_data(features),
+  nudge_by_strand = NULL, ...)
 }
 \arguments{
 \item{mapping}{As
