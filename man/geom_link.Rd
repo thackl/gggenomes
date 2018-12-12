@@ -4,8 +4,7 @@
 \alias{geom_link}
 \title{draw links}
 \usage{
-geom_link(mapping = NULL, data = expose_data(links), nudge_frac = 0.1,
-  ...)
+geom_link(mapping = NULL, data = use(links), nudge_frac = 0.1, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -15,9 +14,9 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{link_layout}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{array}{set to non-NULL to generate default arrows}

@@ -2,13 +2,20 @@
 % Please edit documentation in R/read.R
 \name{read_gffs}
 \alias{read_gffs}
-\title{Read .gff files using `rtracklayer::import`}
+\title{Read .gff files}
 \usage{
-read_gffs(gff_files, gids = NULL)
+read_gffs(gff_files, genome_ids = NULL)
+}
+\arguments{
+\item{gff_files}{to read}
+
+\item{genome_ids}{for each file. Only necessary of contig_ids are not unique
+among different genomes.}
 }
 \value{
 tibble
 }
 \description{
-Assume Chromosome IDs are unique amongst files
+Uses `rtracklayer::import`. Assume contig IDs are unique amongst files if
+genome_ids are not provided
 }

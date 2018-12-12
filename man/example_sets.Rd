@@ -4,7 +4,7 @@
 \alias{example_sets}
 \title{Example data sets}
 \usage{
-example_sets()
+example_sets(quiet = FALSE)
 }
 \description{
 list available example data sets

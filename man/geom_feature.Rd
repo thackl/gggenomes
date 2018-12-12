@@ -4,7 +4,7 @@
 \alias{geom_feature}
 \title{draw features}
 \usage{
-geom_feature(mapping = NULL, data = expose_data(features), arrow = NULL,
+geom_feature(mapping = NULL, data = use(features), arrow = NULL,
   nudge_by_strand = NULL, ...)
 }
 \arguments{

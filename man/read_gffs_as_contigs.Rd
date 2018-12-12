@@ -2,18 +2,17 @@
 % Please edit documentation in R/read.R
 \name{read_gffs_as_contigs}
 \alias{read_gffs_as_contigs}
-\title{Read genome ID, contig ID and contig lengths from .gff files. Parses
-`##sequence-region` annotation (`rtracklayer` ignores those)}
+\title{Read genome_ids, contig_ids and contig lengths from .gff files.}
 \usage{
-read_gffs_as_contigs(gff_files, gids = NULL)
+read_gffs_as_contigs(gff_files, genome_ids = NULL)
 }
 \arguments{
-\item{gids}{genome IDs to use with each file. If `NULL` infer from file name.}
+\item{genome_ids}{to use with each file. If `NULL` infer from file name.}
 }
 \value{
-A tibble with columns: 'gid', 'cid', 'length'.
+A tibble with columns: genome_id, contig_id, length.
 }
 \description{
-Read genome ID, contig ID and contig lengths from .gff files. Parses
-`##sequence-region` annotation (`rtracklayer` ignores those)
+Parses `##sequence-region` annotation using `grep`. `rtracklayer` ignores
+those lines.
 }

@@ -9,62 +9,35 @@
 #' @export
 #' @return ggplot object
 #' @param ... layout parameter
-gggenomes <- function(chromosomes, features = list(), links = list(), ...,
-                      scale = c("lab", "numlab", NULL),
-                      theme = c("clean", NULL),
-                      mapping = aes(), environment = parent.frame()){
+gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
+    scale = c("lab", "numlab", NULL), theme = c("clean", NULL),
+    mapping = aes(), environment = parent.frame()){
 
-    #    if(!class(chromosomes) == "tbl_genomes") data <- as_tbl_genomes(data)
-    layout <- create_layout(chromosomes, features, links, ...)
-
-    p <- ggplot(data = layout, mapping = mapping, environment = environment)
-    class(p) <- c('gggenomes', class(p))
-
-    scale_name <- null_else(scale[[1]], match.arg(scale[[1]], c("lab", "numlab")))
-    if(!is.null(scale_name)){ # add gggenomes scale
-        scale_args <- if(is.list(scale) && length(scale) >1) scale[-1] else list()
-        scale_args$data <- layout
-        p <- p + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
-    }
-
-    theme_name <- null_else(theme[[1]], match.arg(theme[[1]], c("clean")))
-    if(!is.null(theme_name)){ # add theme
-        theme_args <- if(is.list(theme) && length(theme) >1) theme[-1] else list()
-        p <- p + do.call(paste0("theme_gggenomes_", theme), theme_args)
-    }
-
-    p
-}
-
-
-gggenomes.deprecated <- function(data = NULL, mapping = aes(),
-    scale = c("lab", "numlab", NULL), scale_args = list(),
-    theme = c("clean", NULL), theme_args = list(),
-    ..., environment = parent.frame()){
-
-    if(!class(data) == "tbl_genomes") data <- as_tbl_genomes(data)
-
-    p <- ggplot(data = data, mapping = mapping, environment = environment)
-
-    if(!is.null(theme)){ # add theme
-        theme <- match.arg(theme)
-        p <- p + do.call(paste0("theme_gggenomes_", theme), theme_args)
-    }
-
-    if(!is.null(scale)){ # add sca;e
-        scale <- match.arg(scale)
-        scale_args$data <- data
-        p <- p + do.call(paste0("scale_gggenomes_", scale), scale_args)
-    }
-
-    class(p) <- c('gggenomes', class(p))
-    p
+  layout <- as_genomes(contigs, genes, links, ...)
+  
+  p <- ggplot(data = layout, mapping = mapping, environment = environment)
+  class(p) <- c('gggenomes', class(p))
+  
+  scale_name <- scale[[1]] %||% match.arg(scale[[1]], c("lab", "numlab"))
+  if(!is.null(scale_name)){ # add gggenomes scale
+    scale_args <- if(is.list(scale) && length(scale) >1) scale[-1] else list()
+    scale_args$data <- layout
+    p <- p + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
+  }
+  
+  theme_name <- theme[[1]] %||% match.arg(theme[[1]], c("clean"))
+  if(!is.null(theme_name)){ # add theme
+    theme_args <- if(is.list(theme) && length(theme) >1) theme[-1] else list()
+    p <- p + do.call(paste0("theme_gggenomes_", theme), theme_args)
+  }
+  
+  p
 }
 
 #' ggplot.default tries to `fortify(data)` and we don't want that
 #'
 #' @export
-ggplot.tbl_genome_layout <- function(data, mapping = aes(), ...,
+ggplot.tbl_genome <- function(data, mapping = aes(), ...,
                                environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
@@ -111,8 +84,8 @@ NULL
 #' @import ggplot2
 #' @export
 scale_gggenomes_lab <- function(data, ...){
-    breaks <- unique(expose(data)$gix)
-    labels <- unique(expose(data)$gid)
+    breaks <- unique(expose(data)$.gix)
+    labels <- unique(expose(data)$genome_id)
     limits <- c(max(breaks) + .5, min(breaks) -.5)
     scale_y_continuous("", limits = limits, breaks = breaks,
         labels = labels, trans = scales::reverse_trans(), ...)
@@ -120,8 +93,8 @@ scale_gggenomes_lab <- function(data, ...){
 #' @rdname scale_gggenomes
 #' @export
 scale_gggenomes_numlab <- function(data, ...){
-    breaks <- unique(expose(data)$gix)
-    labels <- paste("[", breaks, "] ", unique(expose(data)$gid), sep="")
+    breaks <- unique(expose(data)$.gix)
+    labels <- paste("[", breaks, "] ", unique(expose(data)$genome_id), sep="")
     limits <- c(max(breaks) + .5, min(breaks) -.5)
     scale_y_continuous("", limits = limits, breaks = breaks,
         labels = labels, trans = scales::reverse_trans(), ...)

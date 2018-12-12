@@ -4,7 +4,7 @@
 \alias{example_files}
 \title{list files from example data sets}
 \usage{
-example_files(set, patt = "*")
+example_files(set = NULL, patt = "*", ...)
 }
 \arguments{
 \item{set}{data set, see `example_sets` for a list}
