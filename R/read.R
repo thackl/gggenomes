@@ -59,10 +59,8 @@ read_gffs <- function(gff_files, genome_ids = NULL){
 #' @export
 #' @return tibble
 read_paf <- function(file){
-  read_tsv(pipe(paste("cut -f1-12", paf_file)), col_names=FALSE)
-    #as_tbl_link(
-    #q_cid = 1, q_start = 3, q_end = 4,
-    #t_cid = 6, t_start = 8, t_end = 9,
-    #strand = 5, q_length = 2, t_length = 7, 
-    #match = 10, bases = 11, qual = 12)
+  cols <- c("query_contig_id", "query_length", "query_start", "query_end", "strand",
+            "target_contig_id", "target_length", "target_start", "target_end",
+            "align_matches", "align_length", "align_qual")
+  read_tsv(pipe(paste("cut -f1-12", paf_file)), col_names=cols)
 }

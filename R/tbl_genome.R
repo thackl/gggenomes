@@ -5,10 +5,11 @@
 as_genomes <- function(contigs, genes = NULL, links = NULL, ...) {
 
   contigs %<>% as_contigs
-  genes %<>% as_features(contigs)
-    #links = as_links(links),
+  if(!is.null(genes)) genes %<>% as_features(contigs)
+  ll <- list(NULL, NULL)
+  if(!is.null(links)) ll <- as_links(links, contigs)
 
-  x <- list(contigs=contigs, genes=genes)
+  x <- list(contigs=contigs, genes=genes, links=ll[[1]], links_orig=ll[[2]])
   set_class(x, "tbl_genome", "prepend")
 }
 

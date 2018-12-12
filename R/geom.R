@@ -61,7 +61,7 @@ geom_gene <- function(mapping = NULL, data = use(genes),
 #' @export
 geom_link <- function(mapping = NULL, data = use(links), nudge_frac=.1, ...){
 
-  default_aes <- aes_(x=~x, y=quo(gix + nudge_sign * !!nudge_frac), group=~lix)
+  default_aes <- aes(x=x, y=.gix + .nudge_sign * !!nudge_frac, group=.lix)
   mapping <- aes_intersect(mapping, default_aes)
 
   geom_polygon(mapping = mapping, data=data, ...)

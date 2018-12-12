@@ -28,9 +28,18 @@ as_contigs.default <- function(x, ...) {
 as_contigs.tbl_df <- function(x, everything=TRUE){
   vars <- c("genome_id","contig_id","length")
   require_vars(x, vars)
+  
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
-  layout(set_class(x, "tbl_contig", "prepend"))
+  x <- layout(set_class(x, "tbl_contig", "prepend"))
+
+  # do this last to avoid layout modification stripping the attribute
+  attr(x, "require_genome_id") <- FALSE
+  if(nrow(count(x, genome_id, contig_id)) != nrow(count(x, contig_id))){
+    "NOTE: contig_ids are not unique among genomes. So genome_ids are required also for features and links"
+    attr(x, "require_genome_id") <- TRUE
+  }
+  x
 }
 
 # recompute layout
