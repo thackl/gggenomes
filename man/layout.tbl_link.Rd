@@ -4,7 +4,8 @@
 \alias{layout.tbl_link}
 \title{Layout tbl_link}
 \usage{
-\method{layout}{tbl_link}(x, contigs, ...)
+\method{layout}{tbl_link}(x, contigs, features = NULL,
+  adjacent_only = TRUE, ...)
 }
 \arguments{
 \item{x}{an object coercible to a `tbl_feature`}
