@@ -9,7 +9,7 @@ gggenomes(contigs, genes = NULL, links = NULL, ..., scale = c("lab",
   environment = parent.frame())
 }
 \arguments{
-\item{...}{currently not used}
+\item{...}{passed through to contig layout}
 
 \item{scale}{choose a gggenomes dafault y-scale, NULL to omit.}
 

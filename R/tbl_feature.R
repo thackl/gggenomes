@@ -38,10 +38,10 @@ as_features.tbl_df <- function(x, contigs, ..., everything=TRUE){
   layout(set_class(x, "tbl_feature", "prepend"), contigs, ...)
 }
 
-# backtransform (drop for features, features, backtrans for links
 #' @export
 as_tibble.tbl_feature <- function(x, ...){
-  stop("TODO")
+  # drop all the layout stuff
+  select(ungroup(x),-y,-x,-xend,-starts_with("."))
 }
 
 #' Layout tbl_feature

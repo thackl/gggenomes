@@ -4,7 +4,7 @@
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param scale choose a gggenomes dafault y-scale, NULL to omit.
 #' @inheritParams ggplot2::ggplot
-#' @param ... currently not used
+#' @param ... passed through to contig layout
 #' @importFrom ggplot2 ggplot
 #' @export
 #' @return ggplot object
@@ -13,7 +13,7 @@ gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
     scale = c("lab", "numlab", NULL), theme = c("clean", NULL),
     mapping = aes(), environment = parent.frame()){
 
-  layout <- as_genomes(as_contigs(contigs), genes, links, ...)
+  layout <- as_genomes(contigs=contigs, genes=genes, links=links, ...)
   
   p <- ggplot(data = layout, mapping = mapping, environment = environment)
   class(p) <- c('gggenomes', class(p))
@@ -58,6 +58,12 @@ ggplot.tbl_genome <- function(data, mapping = aes(), ...,
 
   ggplot2:::set_last_plot(p)
   p
+}
+
+#' @export
+layout.gggenomes <- function(x){
+  x$data <- layout(x$data)
+  x
 }
 
 #' gggenomes default theme

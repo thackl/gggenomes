@@ -9,7 +9,7 @@ as_links <- function(x, contigs, ..., everything=TRUE){
 #' @export
 as_links.default <- function(x, contigs, ..., everything=TRUE){
     # try to coerce into tbl
-    as_tbl_link(as_tibble(x), ...)
+    as_links(as_tibble(x), contigs, ..., everything=everything)
 }
 
 #' @export
@@ -35,10 +35,9 @@ as_links.tbl_df <- function(x, contigs, ..., everything=TRUE){
   layout(set_class(x, "tbl_link", "prepend"), contigs, ...)
 }
 
-# recompute layout
 #' @export
-as_links.tbl_link <- function(x, ...){
-    stop("TODO")
+as_tibble.tbl_link <- function(x, ...){
+  stop("laying out links is a lossy process and cannot be reversed!")
 }
 
 as_feature_links <- function(x, features, ..., everything=TRUE){
@@ -51,7 +50,6 @@ as_feature_links <- function(x, features, ..., everything=TRUE){
 #' @inheritParams as_links
 #' @param ... not used
 layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
-  x_orig <- x
   contigs %<>% ungroup
 
   if(!has_vars(x, c("query_start", "query_end", "target_start", "target_end"))){
@@ -92,9 +90,9 @@ layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
     mutate(x=x+.offset) %>%
     arrange(.lix, .gix)
 
-    x$.pix <- rep(1:4, nrow(x)/4)
-    x$.pix[x$.pix==3 & x$.strand < 0] <- 5
-    x$.nudge_sign <- rep(c(1,1,-1,-1), nrow(x)/4)
+  x$.pix <- rep(1:4, nrow(x)/4)
+  x$.pix[x$.pix==3 & x$.strand < 0] <- 5
+  x$.nudge_sign <- rep(c(1,1,-1,-1), nrow(x)/4)
 
-  list(x, x_orig) # return tbl_link and orig links
+  set_class(x, "tbl_link", "prepend")
 }

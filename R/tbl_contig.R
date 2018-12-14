@@ -25,13 +25,12 @@ as_contigs.default <- function(x, ...) {
 }
 
 #' @export
-as_contigs.tbl_df <- function(x, everything=TRUE){
+as_contigs.tbl_df <- function(x, everything=TRUE, ...){
   vars <- c("genome_id","contig_id","length")
   require_vars(x, vars)
-  
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
-  x <- layout(set_class(x, "tbl_contig", "prepend"))
+  x <- layout(set_class(x, "tbl_contig", "prepend"), ...)
 
   # do this last to avoid layout modification stripping the attribute
   attr(x, "require_genome_id") <- FALSE
@@ -42,23 +41,17 @@ as_contigs.tbl_df <- function(x, everything=TRUE){
   x
 }
 
-# recompute layout
 #' @export
-layout.tbl_contig_layout <- function(x, ...){
-    stop("TODO")
-}
-
-# backtransform (drop for contigs, features, backtrans for links
-#' @export
-as_tbl_contig.tbl_contig_layout <- function(x, ...){
-    stop("TODO")
+as_tibble.tbl_contig <- function(x, ...){
+  # drop all the layout stuff
+  select(ungroup(x),-y,-x,-xend,-starts_with("."))
 }
 
 # compute layout
 #' @export
 layout.tbl_contig <- function(x, rubber=0.01,
         rubber_style = c("regular", "center", "spread")){
-    
+    print(rubber)
     rubber_style <- match.arg(rubber_style)
     if(! rubber_style == "regular") stop("Not yet implement")
 

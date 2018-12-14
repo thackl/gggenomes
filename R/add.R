@@ -1,15 +1,15 @@
 #' @export
-add_contigs <- function(x, contigs){
+add_contigs <- function(x, contigs, ...){
   UseMethod("add_contigs")
 }
 #' @export
-add_contigs.gggenomes <- function(x, contigs){
-  x$data <- add_contigs(x$data, contigs)
+add_contigs.gggenomes <- function(x, contigs, ...){
+  x$data <- add_contigs(x$data, contigs, ...)
   x
 }
 #' @export
-add_contigs.tbl_genome <- function(x, contigs){
-  x$contigs <- as_contigs(contigs)
+add_contigs.tbl_genome <- function(x, contigs, ...){
+  x$contigs <- as_contigs(contigs, ...)
   # layout(x)
   x
 }
@@ -66,8 +66,7 @@ add_links.gggenomes <- function(x, links, track_id="links"){
 
 #' @export
 add_links.tbl_genome <- function(x, links, track_id="links"){
-  ll <- as_links(links, x$contigs)
-  x[[track_id]] <- ll[[1]] # this is lossy, thus
-  x[[paste0(track_id, "_")]] <- ll[[2]] # also store orig links
+  x[[track_id]] <- as_links(links, x$contigs) # this is lossy, so
+  x[[paste0(track_id, "_")]] <- links # also store orig links for re-layout
   x
 }

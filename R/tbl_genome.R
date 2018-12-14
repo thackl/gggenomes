@@ -6,9 +6,33 @@ as_genomes <- function(contigs, genes = NULL, links = NULL, ...) {
   x <- list()
   x %<>% set_class("tbl_genome", "prepend")
 
-  x %<>% add_contigs(contigs)
+  x %<>% add_contigs(contigs, ...)
   if(!is.null(genes)) x %<>% add_genes(genes)
   if(!is.null(links)) x %<>% add_links(links)
+  x
+}
+
+#' @export
+layout.tbl_genome <- function(x){
+  # ignore contigs or orig link data (_)
+  # use orig link data to re-layout links
+  for (track_id in names(x)[-1]){ # first is contigs
+    if(stringr::str_sub(track_id, -1) == '_'){
+      print(paste(track_id, "doing nothing"))
+      next;
+    }else if(inherits(x[[track_id]], "tbl_link")){
+      print(paste(track_id, "recomputing layout"))
+      x[[track_id]] <- as_links(x[[paste0(track_id, '_')]], x$contigs)
+    }else{
+      print(paste(track_id, "updating layout"))
+      x[[track_id]] <- layout(x[[track_id]], x$contigs)
+    }
+  }
+  x
+}
+#' @export
+layout.gggenomes <- function(x){
+  x$data <- layout(x$data)
   x
 }
 
@@ -32,7 +56,7 @@ expose <- function(data, what){
 #' @export
 expose.tbl_genome <- function(data, what=contigs) {
   what_string <- rlang::quo_text(rlang::enquo(what))
-  if(is.null(data[[what_string]])) stop('Unknown data set ', what, call. = FALSE);
+  if(is.null(data[[what_string]])) stop('expose: Unknown data set ', what, call. = FALSE);
   data[[what_string]]
 }
 
@@ -45,7 +69,7 @@ use <- function(what=contigs, ...) {
   what_string <- rlang::quo_text(rlang::enquo(what))
   dots <- quos(...)
     function(data, ...){
-        if(is.null(data[[what_string]])) stop('Unknown data set ', what, call. = FALSE);
+        if(is.null(data[[what_string]])) stop('use: Unknown data set ', what, call. = FALSE);
         data[[what_string]] %>% filter(!!! dots)
     }
 }
