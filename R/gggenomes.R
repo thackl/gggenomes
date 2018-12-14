@@ -13,7 +13,7 @@ gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
     scale = c("lab", "numlab", NULL), theme = c("clean", NULL),
     mapping = aes(), environment = parent.frame()){
 
-  layout <- as_genomes(contigs, genes, links, ...)
+  layout <- as_genomes(as_contigs(contigs), genes, links, ...)
   
   p <- ggplot(data = layout, mapping = mapping, environment = environment)
   class(p) <- c('gggenomes', class(p))

@@ -3,14 +3,13 @@
 #' @rdname tbl_genome
 #' @export
 as_genomes <- function(contigs, genes = NULL, links = NULL, ...) {
+  x <- list()
+  x %<>% set_class("tbl_genome", "prepend")
 
-  contigs %<>% as_contigs
-  if(!is.null(genes)) genes %<>% as_features(contigs)
-  ll <- list(NULL, NULL)
-  if(!is.null(links)) ll <- as_links(links, contigs)
-
-  x <- list(contigs=contigs, genes=genes, links=ll[[1]], links_orig=ll[[2]])
-  set_class(x, "tbl_genome", "prepend")
+  x %<>% add_contigs(contigs)
+  if(!is.null(genes)) x %<>% add_genes(genes)
+  if(!is.null(links)) x %<>% add_links(links)
+  x
 }
 
 #' `ggplot2::facet_null` checks data with `empty(df)` using `dim`. This causes
