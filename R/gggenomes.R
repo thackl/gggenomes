@@ -71,7 +71,7 @@ layout.gggenomes <- function(x){
 #' @importFrom ggplot2 theme
 #' @inheritParams ggplot2::theme_bw
 #' @export
-theme_gggenomes_clean <- function(base_size = 11, base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22){
+theme_gggenomes_clean <- function(base_size = 24, base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22){
   theme_bw(
     base_size = base_size, base_family = base_family, 
     base_line_size = base_line_size, base_rect_size = base_rect_size

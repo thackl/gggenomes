@@ -71,7 +71,7 @@ geom_link <- function(mapping = NULL, data = use(links), nudge_frac=.1, ...){
 #'
 #' @export
 geom_gene_label <- function(mapping = NULL, data = use(genes),
-    angle = 45,hjust = 0, nudge_y = 0.2, size = 2, ...){
+    angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)
   mapping <- aes_intersect(mapping, default_aes)
@@ -81,7 +81,7 @@ geom_gene_label <- function(mapping = NULL, data = use(genes),
 }
 #' @export
 geom_feature_label <- function(mapping = NULL, data = use(features),
-    angle = 45,hjust = 0, nudge_y = 0.2, size = 2, ...){
+    angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)
   mapping <- aes_intersect(mapping, default_aes)

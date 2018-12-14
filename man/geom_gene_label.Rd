@@ -5,7 +5,7 @@
 \title{draw feature labels}
 \usage{
 geom_gene_label(mapping = NULL, data = use(genes), angle = 45,
-  hjust = 0, nudge_y = 0.2, size = 2, ...)
+  hjust = 0, nudge_y = 0.1, size = 6, ...)
 }
 \description{
 draw feature labels
