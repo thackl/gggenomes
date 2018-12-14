@@ -8,7 +8,7 @@
 geom_contig <- function(mapping = NULL, data = use(contigs),
     arrow = NULL, ...){
 
-  default_aes <- aes(.x, .y, xend=.xend, yend=.y)
+  default_aes <- aes(x, y, xend=xend, yend=y)
   mapping <- aes_intersect(mapping, default_aes)
 
   # default arrow
@@ -25,7 +25,7 @@ geom_contig <- function(mapping = NULL, data = use(contigs),
 geom_feature <- function(mapping = NULL, data = use(features),
                          arrow = NULL, nudge_by_strand = NULL, ...){
 
-  default_aes <- aes(.x, .y, xend=.xend, yend=.y, size=3)
+  default_aes <- aes(x, y, xend=xend, yend=y, size=3)
   mapping <- aes_intersect(mapping, default_aes)
   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)
 
@@ -45,7 +45,7 @@ geom_feature <- function(mapping = NULL, data = use(features),
 geom_gene <- function(mapping = NULL, data = use(genes),
     nudge_by_strand = NULL, ...){
 
-  default_aes <- aes(y=.y,xmin=.x,xmax=.xend)
+  default_aes <- aes(y=y,xmin=x,xmax=xend)
   mapping <- aes_intersect(mapping, default_aes)
   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand, "y")
 
