@@ -63,17 +63,20 @@ ggplot.tbl_genome <- function(data, mapping = aes(), ...,
 #' gggenomes default theme
 #' @importFrom ggplot2 theme_bw
 #' @importFrom ggplot2 theme
+#' @inheritParams ggplot2::theme_bw
 #' @export
-theme_gggenomes_clean <- function(...){
-    theme_bw() + theme(
-        panel.border = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = "white"),
-        axis.ticks.x=element_blank(),
-        axis.title.y=element_blank(),
-        axis.ticks.y=element_blank()) +
-            theme(...)
+theme_gggenomes_clean <- function(base_size = 11, base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22){
+  theme_bw(
+    base_size = base_size, base_family = base_family, 
+    base_line_size = base_line_size, base_rect_size = base_rect_size
+  ) + theme(
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "white"),
+    axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+    axis.ticks.y=element_blank())
 }
 #' y scale with genome labels
 #'
