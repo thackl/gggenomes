@@ -87,11 +87,11 @@ layout.tbl_contig <- function(x, rubber=0.01,
       mutate(
         .offset = .goffset + c(0, cumsum(length + rubber)[-n()]), # offset
         .strand = .gstrand*.cstrand,
-        .y = .gix, #yend=gix
-        .x =    dplyr::if_else(.strand < 0, .offset+length, .offset),
-        .xend = dplyr::if_else(.strand < 0, .offset, .offset+length)
+        y = .gix, #yend=gix
+        x =    dplyr::if_else(.strand < 0, .offset+length, .offset),
+        xend = dplyr::if_else(.strand < 0, .offset, .offset+length)
       ) %>%
-      select(.y, .x, .xend, .strand, everything())
+      select(y, x, xend, .strand, everything())
 
     # grouping removes tbl_contig
     set_class(x, "tbl_contig", "prepend")

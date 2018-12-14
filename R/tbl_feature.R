@@ -52,14 +52,14 @@ as_tibble.tbl_feature <- function(x, ...){
 #' @param ... not used
 layout.tbl_feature <- function(x, contigs, ...){
   x <- contigs %>% ungroup() %>%
-    select(genome_id, contig_id, .y, .offset, .gcstrand=.strand) %>%
+    select(genome_id, contig_id, y, .offset, .gcstrand=.strand) %>%
     inner_join(x, .) %>%
     mutate(
       .strand = .strand*.gcstrand,
-      .x =    dplyr::if_else(.strand < 0, .offset+end, .offset+start),
-      .xend = dplyr::if_else(.strand < 0, .offset+start, .offset+end)
+      x =    dplyr::if_else(.strand < 0, .offset+end, .offset+start),
+      xend = dplyr::if_else(.strand < 0, .offset+start, .offset+end)
     ) %>%
-      select(.y, .x, .xend, .strand, genome_id, everything())
+      select(y, x, xend, .strand, genome_id, everything())
 
   set_class(x, "tbl_feature", "prepend")
 }
