@@ -12,29 +12,6 @@ as_genomes <- function(contigs, genes = NULL, links = NULL, ...) {
   x
 }
 
-#' @export
-layout.tbl_genome <- function(x){
-  # ignore contigs or orig link data (_)
-  # use orig link data to re-layout links
-  for (track_id in names(x)[-1]){ # first is contigs
-    if(stringr::str_sub(track_id, -1) == '_'){
-      print(paste(track_id, "doing nothing"))
-      next;
-    }else if(inherits(x[[track_id]], "tbl_link")){
-      print(paste(track_id, "recomputing layout"))
-      x[[track_id]] <- as_links(x[[paste0(track_id, '_')]], x$contigs)
-    }else{
-      print(paste(track_id, "updating layout"))
-      x[[track_id]] <- layout(x[[track_id]], x$contigs)
-    }
-  }
-  x
-}
-#' @export
-layout.gggenomes <- function(x){
-  x$data <- layout(x$data)
-  x
-}
 
 #' `ggplot2::facet_null` checks data with `empty(df)` using `dim`. This causes
 #' and error because dim(tbl_genome_layout) is undefined. Return dim of primary
@@ -72,4 +49,23 @@ use <- function(what=contigs, ...) {
         if(is.null(data[[what_string]])) stop('use: Unknown data set ', what, call. = FALSE);
         data[[what_string]] %>% filter(!!! dots)
     }
+}
+
+#' @export
+layout.tbl_genome <- function(x){
+  # ignore contigs or orig link data (_)
+  # use orig link data to re-layout links
+  for (track_id in names(x)[-1]){ # first is contigs
+    if(stringr::str_sub(track_id, -1) == '_'){
+      #print(paste(track_id, "- skipping"))
+      next;
+    }else if(inherits(x[[track_id]], "tbl_link")){
+      #print(paste(track_id, "- recomputing layout"))
+      x[[track_id]] <- as_links(x[[paste0(track_id, '_')]], x$contigs)
+    }else{
+      #print(paste(track_id, "- updating layout"))
+      x[[track_id]] <- layout(x[[track_id]], x$contigs)
+    }
+  }
+  x
 }

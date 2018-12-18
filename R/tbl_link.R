@@ -27,9 +27,9 @@ as_links.tbl_df <- function(x, contigs, ..., everything=TRUE){
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
   if(!has_vars(x, "strand")){
-    x$.strand <- 0L
+    x$strand <- 0L
   }else{
-    x$.strand <- as_numeric_strand(x$strand)
+    x$strand <- as_numeric_strand(x$strand)
   }
 
   layout(set_class(x, "tbl_link", "prepend"), contigs, ...)
@@ -74,10 +74,10 @@ layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
   }
 
   x %<>% mutate_if(is.factor, as.character)
-  if(!has_vars(x, "strand")){
-    x$.strand <- 0L
+  if(has_name(x, "strand")){
+    x$strand <- 0L
   }else{
-    x$.strand <- as_numeric_strand(x$strand)
+    x$strand <- as_numeric_strand(x$strand)
   }
 
   x %<>% mutate(.lix=row_number()) %>%
@@ -91,7 +91,7 @@ layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
     arrange(.lix, .gix)
 
   x$.pix <- rep(1:4, nrow(x)/4)
-  x$.pix[x$.pix==3 & x$.strand < 0] <- 5
+  x$.pix[x$.pix==3 & x$strand < 0] <- 5
   x$.nudge_sign <- rep(c(1,1,-1,-1), nrow(x)/4)
 
   set_class(x, "tbl_link", "prepend")

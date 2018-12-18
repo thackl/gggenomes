@@ -3,15 +3,15 @@
 #' A `tbl_contig` is a data frame for storing contig (or chromosome)
 #' information for multiple genomes. Obligatory columns are `genome_id`,
 #' `contig_id`, and contig `length`.
-#' 
-#' @param x an object convertible to a `tbl_contig` 
-#' 
+#'
+#' @param x an object convertible to a `tbl_contig`
+#'
 #' @examples
 #' chr <- tibble(
 #'   genome_id = c(rep("A", 1), rep("B",2)),
 #'   contig_id = c("a1", "b1", "b2"),
 #'   length = c(5000,3000,1400))
-#' 
+#'
 #' as_contigs(chr)
 #' @export
 as_contigs <- function(x, ...){
@@ -29,8 +29,54 @@ as_contigs.tbl_df <- function(x, everything=TRUE, ...){
   vars <- c("genome_id","contig_id","length")
   require_vars(x, vars)
   other_vars <- if(everything) tidyselect::everything else function() NULL;
-  x <- as_tibble(select(x, vars, other_vars()))
-  x <- layout(set_class(x, "tbl_contig", "prepend"), ...)
+  x <- select(x, vars, other_vars())
+  layout.tbl_contig(x, ...)
+}
+
+#' @export
+as_tibble.tbl_contig <- function(x, ...){
+  # drop all the layout stuff
+  drop_layout(x)
+  strip_class(x, "tbl_contig")
+}
+
+
+
+# compute layout
+#' @export
+layout.tbl_contig <- function(x, rubber=0.01,
+    rubber_style = c("regular", "center", "spread")){
+  rubber_style <- match.arg(rubber_style)
+  if(! rubber_style == "regular") stop("Not yet implement")
+
+  # contig idx
+  # TODO: custom g-order
+  if(!has_name(x, ".gix")) x %<>% mutate(.gix = match(genome_id, unique(.$genome_id)))
+  # TODO: custom g-strand - flip entire genomes
+  if(!has_name(x, "strand")) x$strand <- 1L
+  # TODO: different starts for genomes, e.g. center-align genomes of diff. length
+  if(!has_name(x, ".goffset")) x$.goffset <- 0
+
+  x %<>%
+    group_by(.gix) %>%
+    mutate(.cix = row_number())
+
+  # infer rubber length from genome lengths
+  if(rubber < 1){
+    rubber <- x %>% summarize(.glength=sum(length)) %>%
+      pull(.glength) %>% max %>%
+      "*"(rubber) %>% ceiling
+  }
+
+  # compute contig offsets and compose layout
+  x %<>%
+  mutate(
+    .offset = .goffset + c(0, cumsum(length + rubber)[-n()]), # offset
+    y = .gix, #yend=gix
+    x =    dplyr::if_else(strand < 0, .offset+length, .offset),
+    xend = dplyr::if_else(strand < 0, .offset, .offset+length)
+  ) %>%
+    select(y, x, xend, strand, everything())
 
   # do this last to avoid layout modification stripping the attribute
   attr(x, "require_genome_id") <- FALSE
@@ -38,54 +84,13 @@ as_contigs.tbl_df <- function(x, everything=TRUE, ...){
     "NOTE: contig_ids are not unique among genomes. So genome_ids are required also for features and links"
     attr(x, "require_genome_id") <- TRUE
   }
-  x
+
+  add_class(x, "tbl_contig")
 }
 
 #' @export
-as_tibble.tbl_contig <- function(x, ...){
-  # drop all the layout stuff
-  select(ungroup(x),-y,-x,-xend,-starts_with("."))
-}
-
-# compute layout
-#' @export
-layout.tbl_contig <- function(x, rubber=0.01,
-        rubber_style = c("regular", "center", "spread")){
-    print(rubber)
-    rubber_style <- match.arg(rubber_style)
-    if(! rubber_style == "regular") stop("Not yet implement")
-
-    # contig idx
-    x %<>%
-      mutate(
-        .gix = match(genome_id, unique(.$genome_id)),  # TODO: custom g-order
-        .gstrand = 1L,                     # TODO: custom g-strand
-        .goffset = 0                       # TODO: custom g-offset
-      ) %>%
-      group_by(.gix) %>%
-      mutate(
-        .cix = row_number(),               # TODO: custom c-order
-        .cstrand = 1L                      # TODO: custom c-strand
-      )
-
-    # infer rubber length from genome lengths
-    if(rubber < 1){
-        rubber <- x %>% summarize(.glength=sum(length)) %>%
-            pull(.glength) %>% max %>%
-            "*"(rubber) %>% ceiling
-    }
-
-    # compute contig offsets and compose layout
-    x %<>%
-      mutate(
-        .offset = .goffset + c(0, cumsum(length + rubber)[-n()]), # offset
-        .strand = .gstrand*.cstrand,
-        y = .gix, #yend=gix
-        x =    dplyr::if_else(.strand < 0, .offset+length, .offset),
-        xend = dplyr::if_else(.strand < 0, .offset, .offset+length)
-      ) %>%
-      select(y, x, xend, .strand, everything())
-
-    # grouping removes tbl_contig
-    set_class(x, "tbl_contig", "prepend")
+drop_layout.tbl_contig <- function(x, keep="strand"){
+  drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
+  drop <- drop[!drop %in% keep]
+  discard(x, names(x) %in% drop)
 }

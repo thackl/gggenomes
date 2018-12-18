@@ -17,7 +17,7 @@ aes_nudge_by_strand <- function(mapping, nudge_by_strand, keys = c("y", "yend"))
   for(k in keys){
     if(is.null(mapping[[k]])) stop("'", k, "' not defined, cannot modify")
     
-    mapping[[k]] <- rlang::parse_expr(paste0(rlang::quo_text(mapping[[k]]),'+ .strand * ',nudge_by_strand))
+    mapping[[k]] <- rlang::parse_expr(paste0(rlang::quo_text(mapping[[k]]),'+ strand * ',nudge_by_strand))
   }
   mapping
 }

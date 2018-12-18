@@ -1,6 +1,6 @@
 #' Coerce data into a feature tibble
-#' 
-#' @param x an object coercible to a `tbl_feature` 
+#'
+#' @param x an object coercible to a `tbl_feature`
 #' @param contigs a tbl_contig the features are associated with
 #' @param ... passed on to `layout()`
 #' @param everything keep non-required columns
@@ -29,47 +29,27 @@ as_features.tbl_df <- function(x, contigs, ..., everything=TRUE){
 
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
-  if(!has_vars(x, "strand")){
-    x$.strand <- 0L
+  if(!has_name(x, "strand")){
+    x$gene_strand <- 0L
   }else{
-    x$.strand <- as_numeric_strand(x$strand)
+    x$gene_strand <- as_numeric_strand(x$strand)
   }
-
-  layout(set_class(x, "tbl_feature", "prepend"), contigs, ...)
+  layout_features(x, contigs, ...)
 }
 
 #' @export
 as_tibble.tbl_feature <- function(x, ...){
-  # drop all the layout stuff
-  select(ungroup(x),-y,-x,-xend,-starts_with("."))
+  drop_layout(x)
+  strip_class(x, "tbl_feature")
 }
 
-#' Layout tbl_feature
-#'
-#' Augment tbl_feature with all data necessary for plotting
-#' 
-#' @inheritParams as_features
-#' @param ... not used
-layout.tbl_feature <- function(x, contigs, ...){
-  x <- contigs %>% ungroup() %>%
-    select(genome_id, contig_id, y, .offset, .gcstrand=.strand) %>%
-    inner_join(x, .) %>%
-    mutate(
-      .strand = .strand*.gcstrand,
-      x =    dplyr::if_else(.strand < 0, .offset+end, .offset+start),
-      xend = dplyr::if_else(.strand < 0, .offset+start, .offset+end)
-    ) %>%
-      select(y, x, xend, .strand, genome_id, everything())
-
-  set_class(x, "tbl_feature", "prepend")
-}
 
 #' Encode strand numerically
 #'
 #' This functions converts common formats for strand encoding ("+/-/*",
 #' "TRUE/FALSE/NA") into a `(1,-1,0)` representation. This numeric endoding
 #' makes it easy to use strandness directly in arthmetic computations.
-#' 
+#'
 #' @param strand a vector encoding strandness
 #' @export
 as_numeric_strand <- function(strand){
@@ -93,4 +73,37 @@ as_numeric_strand <- function(strand){
     stop("Unknown strand encoding")
   }
   strand
+}
+
+#' Layout tbl_feature
+#'
+#' Augment tbl_feature with all data necessary for plotting
+#'
+#' @inheritParams as_features
+#' @param ... not used
+layout.tbl_feature <- function(x, contigs, ...){
+  drop_layout(x) %>%
+    layout_features(contigs, ...)
+}
+
+layout_features <- function(x, contigs, ...){
+  join_by <- c("contig_id")
+  if(has_name(x, "genome_id")) join_by <- c("genome_id", "contig_id")
+  x <- contigs %>% ungroup() %>%
+    select(genome_id, contig_id, y, contig_strand=strand, .offset) %>%
+    inner_join(x, ., by=join_by) %>%
+    mutate(
+      strand = gene_strand * contig_strand,
+      x =    dplyr::if_else(strand < 0, .offset+end, .offset+start),
+      xend = dplyr::if_else(strand < 0, .offset+start, .offset+end)) %>%
+    select(y, x, xend, strand, genome_id, everything(), -contig_strand)
+
+  add_class(x, "tbl_feature")
+}
+
+#' @export
+drop_layout.tbl_feature <- function(x, keep="gene_strand"){
+  drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
+  drop <- drop[!drop %in% keep]
+  discard(x, names(x) %in% drop)
 }

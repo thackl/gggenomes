@@ -21,6 +21,8 @@ gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
   scale_name <- scale[[1]] %||% match.arg(scale[[1]], c("lab", "numlab"))
   if(!is.null(scale_name)){ # add gggenomes scale
     scale_args <- if(is.list(scale) && length(scale) >1) scale[-1] else list()
+    p$data[["ggargs_"]]$scale_args <- scale_args # store for recomputation on re-layout
+    p$data[["ggargs_"]]$scale_name <- scale_name
     scale_args$data <- layout
     p <- p + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
   }
@@ -32,6 +34,16 @@ gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
   }
   
   p
+}
+
+#' @export
+layout.gggenomes <- function(x){
+  x$data <- layout(x$data)
+  scale_name <- x$data[["ggargs_"]]$scale_name
+  scale_args <- x$data[["ggargs_"]]$scale_args
+  scale_args$data <- x$data
+  x <- x + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
+  x
 }
 
 #' ggplot.default tries to `fortify(data)` and we don't want that
@@ -58,12 +70,6 @@ ggplot.tbl_genome <- function(data, mapping = aes(), ...,
 
   ggplot2:::set_last_plot(p)
   p
-}
-
-#' @export
-layout.gggenomes <- function(x){
-  x$data <- layout(x$data)
-  x
 }
 
 #' gggenomes default theme
@@ -93,11 +99,12 @@ NULL
 #' @import ggplot2
 #' @export
 scale_gggenomes_lab <- function(data, ...){
-    breaks <- unique(expose(data)$.gix)
-    labels <- unique(expose(data)$genome_id)
-    limits <- c(max(breaks) + .5, min(breaks) -.5)
-    scale_y_continuous("", limits = limits, breaks = breaks,
-        labels = labels, trans = scales::reverse_trans(), ...)
+  dd <- unique(select(data$contigs, .gix, genome_id))
+  breaks <- dd$.gix
+  labels <- dd$genome_id
+  limits <- c(max(breaks) + .5, min(breaks) -.5)
+  scale_y_continuous("", limits = limits, breaks = breaks,
+    labels = labels, trans = scales::reverse_trans(), ...)
 }
 #' @rdname scale_gggenomes
 #' @export

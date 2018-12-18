@@ -13,8 +13,8 @@ add_contigs.tbl_genome <- function(x, contigs, ...){
   # layout(x)
   x
 }
-#- links --------------------------------------------------------------------
 
+#- features --------------------------------------------------------------------
 #' @export
 add_features <- function(x, features, track_id="features"){
   UseMethod("add_features")
@@ -27,13 +27,12 @@ add_features.gggenomes <- function(x, features, track_id="features"){
 }
 
 #' @export
-add_features.tbl_genome <- function(x, genes, track_id="genes"){
+add_features.tbl_genome <- function(x, genes, track_id="features"){
   x[[track_id]] <- as_features(genes, x$contigs)
   x
 }
 
-#- links --------------------------------------------------------------------
-
+#- genes --------------------------------------------------------------------
 #' @export
 add_genes <- function(x, genes, track_id="genes"){
   UseMethod("add_genes")
