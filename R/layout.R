@@ -87,3 +87,33 @@ flip <- function(x, genomes=NULL, ...){
   x$data$contigs <- as_contigs(bind_rows(l))
   layout(x)
 }
+
+#' @export
+focus <- function(x, ..., track_id="genes", plus=2000){
+  if(length(plus==1)) plus <- c(plus,plus)
+
+  # Specifu 'ID' column - so far not required for features
+  bounds <- filter(x$data[[track_id]], ...) %>%
+    group_by(genome_id, contig_id) %>%
+    summarize(
+      min=min(start) - plus[1],
+      max=max(end) + plus[2]) %>%
+    left_join(select(x$data$contigs, genome_id, contig_id, length), by=c("genome_id", "contig_id")) %>%
+    mutate(
+      min = if_else(min<0,0,min),
+      max = if_else(length < max, length, max))
+
+  # make sure plus is >0, <contig_length
+  x$data$genes %<>% left_join(bounds, by=c("genome_id", "contig_id")) %>%
+    print %T>%
+    filter(start > min & start < max & end > min & end < max) %>%
+    mutate(start = start-min, end = end-min, min=NULL, max=NULL) %>%
+    add_class("tbl_feature")
+
+  x$data$contigs %<>%
+    inner_join(bounds) %>%
+      mutate(length=max-min+1, min=NULL, max=NULL) %>%
+      add_class("tbl_contig") %>% layout
+
+  layout(x)
+}
