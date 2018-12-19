@@ -84,8 +84,8 @@ layout_contigs <- function(x, rubber=0.01,
   mutate(
     .offset = .goffset + c(0, cumsum(length + rubber)[-n()]), # offset
     y = .gix, #yend=gix
-    x =    dplyr::if_else(strand < 0, .offset+length, .offset),
-    xend = dplyr::if_else(strand < 0, .offset, .offset+length)
+    x =    dplyr::if_else(strand == -1, .offset+length, .offset),
+    xend = dplyr::if_else(strand == -1, .offset, .offset+length)
   ) %>%
     select(y, x, xend, strand, everything())
 

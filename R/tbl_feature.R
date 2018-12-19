@@ -30,9 +30,9 @@ as_features.tbl_df <- function(x, contigs, ..., everything=TRUE){
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
   if(!has_name(x, "strand")){
-    x$gene_strand <- 0L
+    x$feature_strand <- 0L
   }else{
-    x$gene_strand <- as_numeric_strand(x$strand)
+    x$feature_strand <- as_numeric_strand(x$strand)
   }
   layout_features(x, contigs, ...)
 }
@@ -94,20 +94,20 @@ layout_features <- function(x, contigs, ...){
     inner_join(x, ., by=join_by) %>%
     mutate(
       x = case_when(
-        .strand < 0 & gene_strand < 0 ~ .offset+(end-.length)*-1,
-        .strand < 0 & gene_strand >=0 ~ .offset+(start-.length)*-1,
-        .strand >= 0 & gene_strand < 0 ~ .offset+end,
-        .strand >= 0 & gene_strand >= 0 ~ .offset+start
+        .strand < 0 & feature_strand < 0 ~ .offset+(end-.length)*-1,
+        .strand < 0 & feature_strand >=0 ~ .offset+(start-.length)*-1,
+        .strand >= 0 & feature_strand < 0 ~ .offset+end,
+        .strand >= 0 & feature_strand >= 0 ~ .offset+start
       ),
       xend = case_when(
-        .strand < 0 & gene_strand < 0 ~ .offset+(start-.length)*-1,
-        .strand < 0 & gene_strand >=0 ~ .offset+(end-.length)*-1,
-        .strand >= 0 & gene_strand < 0 ~ .offset+start,
-        .strand >= 0 & gene_strand >= 0 ~ .offset+end
+        .strand < 0 & feature_strand < 0 ~ .offset+(start-.length)*-1,
+        .strand < 0 & feature_strand >=0 ~ .offset+(end-.length)*-1,
+        .strand >= 0 & feature_strand < 0 ~ .offset+start,
+        .strand >= 0 & feature_strand >= 0 ~ .offset+end
       ),
-      strand = gene_strand * .strand
-      #x =    ifelse(gene_strand < 0, .offset+end, .offset+start),
-      #xend = ifelse(gene_strand < 0, .offset+start, .offset+end)
+      strand = feature_strand * .strand
+      #x =    ifelse(feature_strand < 0, .offset+end, .offset+start),
+      #xend = ifelse(feature_strand < 0, .offset+start, .offset+end)
     ) %>%
     select(y, x, xend, strand, genome_id, everything(),
            -.strand, -.length)
@@ -116,7 +116,7 @@ layout_features <- function(x, contigs, ...){
 }
 
 #' @export
-drop_layout.tbl_feature <- function(x, keep="gene_strand"){
+drop_layout.tbl_feature <- function(x, keep="feature_strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
   discard(x, names(x) %in% drop)
