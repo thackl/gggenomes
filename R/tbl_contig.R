@@ -30,7 +30,7 @@ as_contigs.tbl_df <- function(x, everything=TRUE, ...){
   require_vars(x, vars)
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- select(x, vars, other_vars())
-  layout.tbl_contig(x, ...)
+  layout_contigs(x, ...)
 }
 
 #' @export
@@ -42,9 +42,20 @@ as_tibble.tbl_contig <- function(x, ...){
 
 
 
-# compute layout
+#' Layout tbl_contig
+#'
+#' Augment tbl_feature with all data necessary for plotting
+#'
+#' @inheritParams as_features
+#' @param ... not used
 #' @export
-layout.tbl_contig <- function(x, rubber=0.01,
+layout.tbl_contig <- function(x, ...){
+  drop_layout(x) %>%
+    layout_contigs(...)
+}
+
+#' @export
+layout_contigs <- function(x, rubber=0.01,
     rubber_style = c("regular", "center", "spread")){
   rubber_style <- match.arg(rubber_style)
   if(! rubber_style == "regular") stop("Not yet implement")
