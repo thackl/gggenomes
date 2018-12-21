@@ -58,27 +58,18 @@ layout_features <- function(x, contigs, ...){
   join_by <- c("contig_id")
   if(has_name(x, "genome_id")) join_by <- c("genome_id", "contig_id")
   x <- contigs %>% ungroup() %>%
-    select(genome_id, contig_id, .length=length, y, .strand=strand, .offset) %>%
+    select(genome_id, contig_id, y, .length=length, .strand=strand,
+           .offset) %>%
     inner_join(x, ., by=join_by) %>%
     mutate(
-      x = case_when(
-        .strand < 0 & feature_strand < 0 ~ .offset+(end-.length)*-1,
-        .strand < 0 & feature_strand >=0 ~ .offset+(start-.length)*-1,
-        .strand >= 0 & feature_strand < 0 ~ .offset+end,
-        .strand >= 0 & feature_strand >= 0 ~ .offset+start
-      ),
-      xend = case_when(
-        .strand < 0 & feature_strand < 0 ~ .offset+(start-.length)*-1,
-        .strand < 0 & feature_strand >=0 ~ .offset+(end-.length)*-1,
-        .strand >= 0 & feature_strand < 0 ~ .offset+start,
-        .strand >= 0 & feature_strand >= 0 ~ .offset+end
-      ),
+      x = x(start, end, feature_strand, .strand, .offset, .length),
+      xend = xend(start, end, feature_strand, .strand, .offset, .length),
       strand = feature_strand * .strand
       #x =    ifelse(feature_strand < 0, .offset+end, .offset+start),
       #xend = ifelse(feature_strand < 0, .offset+start, .offset+end)
     ) %>%
     select(y, x, xend, strand, genome_id, everything(),
-           -.strand, -.length)
+           -.strand, -.offset, -.length)
 
   add_class(x, "tbl_feature")
 }

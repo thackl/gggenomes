@@ -38,3 +38,17 @@ as_factor_strand <- function(strand){
     strand <- as_numeric_strand(strand)
   factor(c("-", NA, "+")[strand+2], levels=c("+","-"))
 }
+
+
+x <- function(start, end, feature_strand, contig_strand=0,
+              contig_offset, contig_length){
+  contig_offset + ifelse(contig_strand >= 0,
+    ifelse(feature_strand >= 0, start, end),
+    ifelse(feature_strand <0, (end-contig_length)*-1, (start-contig_length)*-1)
+  )
+}
+
+xend <- function(start, end, feature_strand, contig_strand=0,
+                 contig_offset, contig_length){
+  x(start=end, end=start, feature_strand=feature_strand, contig_strand=contig_strand, contig_offset=contig_offset, contig_length=contig_length)
+}
