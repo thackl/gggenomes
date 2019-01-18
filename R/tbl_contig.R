@@ -69,8 +69,8 @@ layout_contigs <- function(x, rubber=0.01,
   if(!has_name(x, ".goffset")) x$.goffset <- 0
 
   x %<>%
-    group_by(.gix) %>%
-    mutate(.cix = row_number())
+    group_by(genome_id) %>%
+      mutate(.cix = row_number())
 
   # infer rubber length from genome lengths
   if(rubber < 1){
