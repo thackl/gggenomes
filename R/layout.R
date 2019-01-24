@@ -115,9 +115,9 @@ focus <- function(x, ..., track_id="genes", plus=2000, center=c("center", "left"
   # make sure plus is >0, <contig_length
   for (track_id in names(x$data)[-1]){ # first is contigs
     if(inherits(x$data[[track_id]], "tbl_feature")){
-      #print(paste(track_id, "- recomputing layout"))
+      print(paste(track_id, "- recomputing layout"))
       x$data[[track_id]] %<>% left_join(bounds, by=c("genome_id", "contig_id")) %>%
-        filter(start >= min_plus & start <= max_plus & end >= min_plus & end <= max_plus) %>%
+        filter(end >= min_plus & start <= max_plus) %>%
         #mutate(start = start-center, end = end-center, min=NULL, max=NULL) %>%
         add_class("tbl_feature")
     }
