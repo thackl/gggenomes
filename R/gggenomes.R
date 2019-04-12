@@ -98,20 +98,23 @@ NULL
 #' @rdname scale_gggenomes
 #' @import ggplot2
 #' @export
-scale_gggenomes_lab <- function(data, ...){
+scale_gggenomes_lab <- function(data, limits = NULL, ...){
   dd <- unique(select(data$contigs, .gix, genome_id))
   breaks <- dd$.gix
   labels <- dd$genome_id
-  limits <- c(max(breaks) + .5, min(breaks) -.5)
+
+  print(limits)
+  limits <- limits %||% c(max(breaks) + .5, min(breaks) -.5)
+  print(limits)
   scale_y_continuous("", limits = limits, breaks = breaks,
     labels = labels, trans = scales::reverse_trans(), ...)
 }
 #' @rdname scale_gggenomes
 #' @export
-scale_gggenomes_numlab <- function(data, ...){
+scale_gggenomes_numlab <- function(data, limits = NULL, ...){
     breaks <- unique(expose(data)$.gix)
     labels <- paste("[", breaks, "] ", unique(expose(data)$genome_id), sep="")
-    limits <- c(max(breaks) + .5, min(breaks) -.5)
+    limits <- limits %||% c(max(breaks) + .5, min(breaks) -.5)
     scale_y_continuous("", limits = limits, breaks = breaks,
         labels = labels, trans = scales::reverse_trans(), ...)
 }
