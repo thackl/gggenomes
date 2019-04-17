@@ -97,7 +97,7 @@ center <- function(min, max, strand, length, center=c("center", "left", "right")
 }
 
 #' @export
-focus <- function(x, ..., track_id="genes", plus=2000, center=c("center", "left", "right")){
+focus <- function(x, ..., track_id="genes", plus=2000, center=c("center", "left", "right"), restrict_to_contig=TRUE){
   if(length(plus==1)) plus <- c(plus,plus)
 
   # Specifu 'ID' column - so far not required for features
@@ -108,9 +108,14 @@ focus <- function(x, ..., track_id="genes", plus=2000, center=c("center", "left"
       max=max(end), max_plus=max + plus[2]) %>%
      left_join(select(x$data$contigs, genome_id, contig_id, length, .strand=strand), by=c("genome_id", "contig_id")) %>%
     mutate(
-      center = center(min, max, .strand, length, center),
+      center = center(min, max, .strand, length, center))
+
+  if(restrict_to_contig){
+    bounds <- mutate(bounds,
       min_plus = if_else(min_plus<0,0,min_plus),
-      max_plus = if_else(length < max_plus, length, max_plus))
+      max_plus = if_else(length < max_plus, length, max_plus)
+    )
+  }
 
   # make sure plus is >0, <contig_length
   for (track_id in names(x$data)[-1]){ # first is contigs
