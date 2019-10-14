@@ -103,9 +103,7 @@ scale_gggenomes_lab <- function(data, limits = NULL, ...){
   breaks <- dd$.gix
   labels <- dd$genome_id
 
-  print(limits)
   limits <- limits %||% c(max(breaks) + .5, min(breaks) -.5)
-  print(limits)
   scale_y_continuous("", limits = limits, breaks = breaks,
     labels = labels, trans = scales::reverse_trans(), ...)
 }

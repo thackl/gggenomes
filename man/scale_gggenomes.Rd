@@ -6,9 +6,9 @@
 \alias{scale_gggenomes_numlab}
 \title{y scale with genome labels}
 \usage{
-scale_gggenomes_lab(data, ...)
+scale_gggenomes_lab(data, limits = NULL, ...)
 
-scale_gggenomes_numlab(data, ...)
+scale_gggenomes_numlab(data, limits = NULL, ...)
 }
 \description{
 y scale with genome labels

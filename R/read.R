@@ -58,7 +58,7 @@ read_gffs <- function(gff_files, genome_ids = NULL){
 #' @importFrom readr read_tsv
 #' @export
 #' @return tibble
-read_paf <- function(file){
+read_paf <- function(paf_file){
   cols <- c("query_contig_id", "query_length", "query_start", "query_end", "strand",
             "target_contig_id", "target_length", "target_start", "target_end",
             "align_matches", "align_length", "align_qual")
