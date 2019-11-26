@@ -8,12 +8,41 @@ drop_layout <- function(data, ...){
     UseMethod("drop_layout")
 }
 
+
+#' Select genomes by name or position
+#'
+#' Choose which genomes to show and in which order. Uses dyplr::select syntax,
+#' which means unquoted genome names, positional arguments and select helper
+#' functions, such as `starts_with()` are supported. Renaming is not supported
+#' at this point because changing the genome_id might break associations with
+#' other tracks.
+#'
+#' @export
+#' @param x a gggenomes object
+#' @inheritParams dplyr::select
+select.gggenomes <- function(x, ...){
+  # split by genome_id
+  l <- x$data$contigs %<>%
+  drop_layout(keep="strand") %>%
+    split_by(genome_id)
+
+  n <- tidyselect::vars_select(names(l), ...)
+  l <- l[n]
+  # names(l) <- names(n) # we don't want rename because changing the genome_id
+  # would break connection to genes
+  
+  # recompute layout
+  x$data$contigs <- as_contigs(bind_rows(l))
+  layout(x)
+}
+
 #' Reorder genomes and contigs
 #'
 #' contigs can be char or numeric (current pos)
 #'
 #' @export
 reorder <- function(x, genomes=NULL, ...){
+  warning("somethings off here. use `select` for genomes. Contigs need new function");
   TODO("partial matches a la match.arg")
   contigs <- list(...)
   # nothing to do
