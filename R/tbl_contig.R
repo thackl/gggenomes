@@ -82,7 +82,7 @@ layout_contigs <- function(x, rubber=0.01,
   # compute contig offsets and compose layout
   x %<>%
   mutate(
-    .offset = .goffset + c(0, cumsum(length + rubber)[-n()]), # offset
+    .offset = .goffset + c(0, cumsum(length + rubber)[-dplyr::n()]), # offset
     y = .gix, #yend=gix
     x =    dplyr::if_else(strand == -1, .offset+length, .offset),
     xend = dplyr::if_else(strand == -1, .offset, .offset+length)
