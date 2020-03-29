@@ -55,10 +55,12 @@ layout.tbl_contig <- function(x, ...){
 }
 
 #' @export
-layout_contigs <- function(x, rubber=0.01,
+layout_contigs <- function(x, rubber=0.05,
     rubber_style = c("regular", "center", "spread")){
   rubber_style <- match.arg(rubber_style)
   if(! rubber_style == "regular") stop("Not yet implement")
+
+  print(rubber)
 
   # contig idx
   # TODO: custom g-order
@@ -68,15 +70,13 @@ layout_contigs <- function(x, rubber=0.01,
   # TODO: different starts for genomes, e.g. center-align genomes of diff. length
   if(!has_name(x, ".goffset")) x$.goffset <- 0
 
-  x %<>%
-    group_by(genome_id) %>%
+  x %<>% group_by(genome_id) %>%
       mutate(.cix = row_number())
 
   # infer rubber length from genome lengths
   if(rubber < 1){
-    rubber <- x %>% summarize(.glength=sum(length)) %>%
-      pull(.glength) %>% max %>%
-      "*"(rubber) %>% ceiling
+    len <- x %>% summarize(length=sum(length))
+    rubber <- ceiling(max(len$length) * rubber)
   }
 
   # compute contig offsets and compose layout

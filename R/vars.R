@@ -19,7 +19,7 @@ require_vars <- function(x, vars, warn_only=FALSE){
 #'
 #' Returns TRUE if all variables exists. If `any=TRUE` returns TRUE if at least
 #' one variable exists.
-#' 
+#'
 #' @param x object
 #' @param vars variables to test
 #' @param any if TRUE not all but at least one variable has to exists

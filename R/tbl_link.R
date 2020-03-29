@@ -54,14 +54,17 @@ layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
 
   if(!has_vars(x, c("query_start", "query_end", "target_start", "target_end"))){
     if(has_vars(x, c("query_start", "query_end", "target_start", "target_end"),
-                any=TRUE)){ stop("Need either all of query_start,query_end,target_start,target_end or none!")}
+                any=TRUE)){
+      stop("Need either all of query_start,query_end,target_start,target_end or none!")}
     query_contigs <- select(contigs, query_contig_id=contig_id, q.gix=.gix,
-           query_end=length) %>% mutate(query_start=0)
+      query_end=length, q.strand=strand) %>% mutate(query_start=0)
     target_contigs <- select(contigs, target_contig_id=contig_id, t.gix=.gix,
-        target_end=length) %>% mutate(target_start=0)
+      target_end=length, t.strand=strand) %>% mutate(target_start=0)
   }else{
-    query_contigs <- select(contigs, query_contig_id=contig_id, q.gix=.gix)
-    target_contigs <- select(contigs, target_contig_id=contig_id, t.gix=.gix)
+    query_contigs <- select(contigs, query_contig_id=contig_id, q.gix=.gix,
+                            q.strand=strand)
+    target_contigs <- select(contigs, target_contig_id=contig_id, t.gix=.gix,
+                             t.strand=strand)
   }
   x %<>% inner_join(query_contigs) %>% inner_join(target_contigs)
 
@@ -70,11 +73,12 @@ layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
     x %<>% filter(abs(t.gix-q.gix)==1)
 
   if(nrow(x)==0){
-    stop("No links found between adjacent genomes in provided contig_layout, consider reordering genomes")
+    warning("No links found between adjacent genomes in provided contig_layout, consider reordering genomes")
+    return(tibble())
   }
 
   x %<>% mutate_if(is.factor, as.character)
-  if(has_name(x, "strand")){
+  if(!has_name(x, "strand")){
     x$strand <- 0L
   }else{
     x$strand <- as_numeric_strand(x$strand)
@@ -83,16 +87,21 @@ layout.tbl_link <- function(x, contigs, features=NULL, adjacent_only=TRUE, ...){
   x %<>% mutate(.lix=row_number()) %>%
     # polygon-id - order of points in polygon
     gather(".pid", "x", query_start, query_end, target_end, target_start) %>%
-    mutate(contig_id=ifelse(.pid %in% c("query_start", "query_end"), query_contig_id, target_contig_id)) %>%
+    mutate(
+      contig_id=ifelse(.pid %in% c("query_start", "query_end"), query_contig_id, target_contig_id)) %>%
     select(-starts_with("q."), -starts_with("t.")) %>%
     arrange(.lix) %>%
-    inner_join(select(contigs, genome_id, contig_id, .gix, .offset)) %>%
-    mutate(x=x+.offset) %>%
+    inner_join(select(contigs, genome_id, contig_id, .gix, .offset, .length=length, .strand=strand)) %>%
+    mutate(x=.offset+ifelse(.strand >= 0, x, (x-.length)*-1)) %>%
+    group_by(.lix) %>%
+    mutate(.x_center = mean(x), .y_center = mean(.gix)) %>% ungroup %>%
     arrange(.lix, .gix)
 
+  # index polygon points
   x$.pix <- rep(1:4, nrow(x)/4)
   x$.pix[x$.pix==3 & x$strand < 0] <- 5
   x$.nudge_sign <- rep(c(1,1,-1,-1), nrow(x)/4)
+  x %<>% arrange(.lix, .gix, .pix)
 
   set_class(x, "tbl_link", "prepend")
 }

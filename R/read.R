@@ -14,7 +14,7 @@ read_gffs <- function(gff_files, genome_ids = NULL){
          call. = FALSE)
   }
   if(!is.null(genome_ids)) names(gff_files) <- genome_ids
-  
+
   TODO("list types, suggest filter")
   map_df(gff_files, function(gff){
     as_tibble(rtracklayer::import(gff)) %>%
@@ -36,7 +36,7 @@ read_gffs <- function(gff_files, genome_ids = NULL){
         mutate(length = to - from + 1) %>%
             select(-from, -to)
     })
-    
+
     # genome ids
     if(is.null(genome_ids)){
         genome_ids <- sapply(gff_files, basename) %>%

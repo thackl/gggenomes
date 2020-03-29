@@ -9,15 +9,18 @@
 #' @export
 #' @return ggplot object
 #' @param ... layout parameter
-gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
+gggenomes <- function(contigs = NULL, genes = NULL, links = NULL, ...,
     scale = c("lab", "numlab", NULL), theme = c("clean", NULL),
-    mapping = aes(), environment = parent.frame()){
+    mapping = aes(), rubber=0.05, environment = parent.frame()){
 
-  layout <- as_genomes(contigs=contigs, genes=genes, links=links, ...)
-  
+  # layout options need to be saved to also be applied on re-layout - temp solution
+  layout <- as_genomes(contigs=contigs, genes=genes, links=links, rubber=rubber)
+
   p <- ggplot(data = layout, mapping = mapping, environment = environment)
   class(p) <- c('gggenomes', class(p))
-  
+
+  p$data[["ggargs_"]]$rubber <- rubber
+
   scale_name <- scale[[1]] %||% match.arg(scale[[1]], c("lab", "numlab"))
   if(!is.null(scale_name)){ # add gggenomes scale
     scale_args <- if(is.list(scale) && length(scale) >1) scale[-1] else list()
@@ -26,13 +29,13 @@ gggenomes <- function(contigs, genes = NULL, links = NULL, ...,
     scale_args$data <- layout
     p <- p + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
   }
-  
+
   theme_name <- theme[[1]] %||% match.arg(theme[[1]], c("clean"))
   if(!is.null(theme_name)){ # add theme
     theme_args <- if(is.list(theme) && length(theme) >1) theme[-1] else list()
     p <- p + do.call(paste0("theme_gggenomes_", theme), theme_args)
   }
-  
+
   p
 }
 
@@ -79,7 +82,7 @@ ggplot.tbl_genome <- function(data, mapping = aes(), ...,
 #' @export
 theme_gggenomes_clean <- function(base_size = 24, base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22){
   theme_bw(
-    base_size = base_size, base_family = base_family, 
+    base_size = base_size, base_family = base_family,
     base_line_size = base_line_size, base_rect_size = base_rect_size
   ) + theme(
     panel.border = element_blank(),

@@ -5,13 +5,25 @@
 \title{draw genes}
 \usage{
 geom_gene(mapping = NULL, data = use(genes), nudge_by_strand = NULL,
-  ...)
+  arrowhead_width = grid::unit(2, "mm"),
+  arrowhead_height = grid::unit(3, "mm"),
+  arrow_body_height = grid::unit(3, "mm"), ...)
 }
 \arguments{
 \item{mapping}{As
 standard for ggplot2.}
 
 \item{data}{feature_layout}
+
+\item{arrowhead_width}{\code{grid::unit()} object giving the width of the
+arrowhead.  Defaults to 4 mm. If the gene is drawn smaller than this width,
+only the arrowhead will be drawn, compressed to the length of the gene.}
+
+\item{arrowhead_height}{\code{grid::unit()} object giving the height of the
+arrowhead.  Defaults to 4 mm.}
+
+\item{arrow_body_height}{\code{grid::unit()} object giving the height of the body
+of the arrow. Defaults to 3 mm.}
 
 \item{...}{As
 standard for ggplot2.}

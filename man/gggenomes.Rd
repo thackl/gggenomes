@@ -4,9 +4,9 @@
 \alias{gggenomes}
 \title{Plot genomes, features and synteny maps}
 \usage{
-gggenomes(contigs, genes = NULL, links = NULL, ..., scale = c("lab",
-  "numlab", NULL), theme = c("clean", NULL), mapping = aes(),
-  environment = parent.frame())
+gggenomes(contigs = NULL, genes = NULL, links = NULL, ...,
+  scale = c("lab", "numlab", NULL), theme = c("clean", NULL),
+  mapping = aes(), environment = parent.frame())
 }
 \arguments{
 \item{...}{passed through to contig layout}

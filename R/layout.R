@@ -8,8 +8,7 @@ drop_layout <- function(data, ...){
     UseMethod("drop_layout")
 }
 
-
-#' Select genomes by name or position
+#' Select sets (genomes) by name or position
 #'
 #' Choose which genomes to show and in which order. Uses dyplr::select syntax,
 #' which means unquoted genome names, positional arguments and select helper
@@ -20,101 +19,131 @@ drop_layout <- function(data, ...){
 #' @export
 #' @param x a gggenomes object
 #' @inheritParams dplyr::select
-select.gggenomes <- function(x, ...){
+select_set <- function(x, ...){
   # split by genome_id
-  l <- x$data$contigs %<>%
+  l <- x$data$contigs %>%
   drop_layout(keep="strand") %>%
-    split_by(genome_id)
+    thacklr::split_by(genome_id)
 
   n <- tidyselect::vars_select(names(l), ...)
   l <- l[n]
   # names(l) <- names(n) # we don't want rename because changing the genome_id
   # would break connection to genes
-  
-  # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l))
-  layout(x)
-}
-
-#' Reorder genomes and contigs
-#'
-#' contigs can be char or numeric (current pos)
-#'
-#' @export
-reorder <- function(x, genomes=NULL, ...){
-  warning("somethings off here. use `select` for genomes. Contigs need new function");
-  TODO("partial matches a la match.arg")
-  contigs <- list(...)
-  # nothing to do
-  if(is.null(genomes) && is_empty(contigs)) return(x)
-
-  # split by contig id
-  l <- x$data$contigs %>%
-    drop_layout(keep="strand") %>%
-    thacklr::split_by(genome_id)
-
-  # reorder by genomes
-  if(!is.null(genomes))
-    l <- l[str_which_unique(names(l), genomes)]
-
-  # reorder contigs
-  if(!is_empty(contigs)){
-    if(length(names(contigs)) < length(contigs))
-      stop("All contig vectors need to be named")
-
-    names(contigs) <- str_subset_unique(names(l), names(contigs))
-    for (gid in names(contigs)){
-      cids <- contigs[[gid]]
-      if(is.numeric(cids))
-        cidx <- cids
-      else
-        cidx <- na.omit(match(l[[gid]]$contig_id, cids))
-
-      l[[gid]] <- l[[gid]][cidx,]
-    }
-  }
 
   # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l))
+  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
   layout(x)
 }
 
 #' @export
-flip <- function(x, genomes=NULL, ...){
-  contigs <- list(...)
-  # nothing to do
-  if(is.null(genomes) && is_empty(contigs)) return(x)
-  # split by contig id
+#' @param x a gggenomes object
+#' @param set a genome to select seqs from
+#' @inheritParams dplyr::select
+select_seq <- function(x, set, ...){
+  # split by genome_id
   l <- x$data$contigs %>%
-    drop_layout(keep="strand") %>%
+  drop_layout(keep="strand") %>%
     thacklr::split_by(genome_id)
-  # flip entire genomes
-  if(!is.null(genomes)){
-    for(gid in str_subset_unique(names(l), genomes)){
-      l[[gid]]$strand <- l[[gid]]$strand * -1
-    }
-  }
-
-  if(!is_empty(contigs)){
-    if(length(names(contigs)) < length(contigs))
-      stop("All contig vectors need to be named")
-
-    names(contigs) <- str_subset_unique(names(l), names(contigs))
-    for (gid in names(contigs)){
-      cids <- contigs[[gid]]
-      if(is.numeric(cids)){
-        l[[gid]]$strand[cids] <- l[[gid]]$strand[cids] * -1
-      }else{
-        cidx <- str_which_unique(l[[gid]]$contig_id, cids)
-        l[[gid]]$strand[cidx] <- l[[gid]]$strand[cidx] * -1
-      }
-    }
-  }
+  # get the current genome (set)
+  n <- tidyselect::vars_select(names(l), {{set}})
+  s <- l[[n]]
+  # select contigs of choice
+  ids <- tidyselect::vars_select(s$contig_id, ...)
+  i <- match(ids, s$contig_id)
+  s <- s[i,]
+  l[[n]] <- s
 
   # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l))
+  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
   layout(x)
 }
+
+
+#' Flip sets (genomes) by name or position
+#'
+#' Invert the order and orientation of all sequences (contigs) of the specified
+#' sets. Uses dyplr::select syntax, which means unquoted names, positional
+#' arguments and select helper functions, such as `starts_with()` are supported.
+#'
+#' @export
+#' @param x a gggenomes object
+#' @inheritParams dplyr::select
+flip_set <- function(x, ...){
+  l <- x$data$contigs %>%
+  drop_layout(keep="strand") %>%
+    thacklr::split_by(genome_id)
+  # get the current genome (set)
+  sets <- tidyselect::vars_select(names(l), ...)
+  for (set in sets){
+    l[[set]] <- l[[set]][rev(seq_len(nrow(l[[set]]))),]
+    l[[set]]$strand <- l[[set]]$strand *-1
+  }
+  # recompute layout
+  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
+
+  layout(x)
+}
+
+#' Flip sequences (contigs) by name or position
+#'
+#' Invert the order and orientation of all specified sequences (contigs). Uses
+#' dyplr::select syntax, which means unquoted names, positional arguments and
+#' select helper functions, such as `starts_with()` are supported.
+#'
+#' @export
+#' @param x a gggenomes object
+#' @inheritParams dplyr::select
+#' @export
+flip_seq <- function(x, set, ...){
+  # split by genome_id
+  l <- x$data$contigs %>%
+  drop_layout(keep="strand") %>%
+    thacklr::split_by(genome_id)
+  # get the current genome (set)
+  n <- tidyselect::vars_select(names(l), {{set}})
+  s <- l[[n]]
+  # select contigs of choice
+  ids <- tidyselect::vars_select(s$contig_id, ...)
+  i <- match(ids, s$contig_id)
+  s$strand[i] <- s$strand[i] * -1
+  l[[n]] <- s
+
+  # recompute layout
+  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
+  layout(x)
+}
+
+
+## flip_seq <- function(x, ...){
+##   contigs <- x$data$contigs %>% drop_layout(keep="strand")
+##   seq_ids <- tidyselect::vars_select(contigs$contig_id, ...)
+##   i <- contigs$contig_id %in% seq_ids
+##   contigs$strand[i] <- contigs$strand[i] * -1
+
+##   # recompute layout
+##   x$data$contigs <- as_contigs(contigs)
+##   layout(x)
+## }
+
+
+#' Shift set (genomes) by a certain offset
+#'
+#' @export
+#' @param x a gggenomes object
+#' @param set the set to shift
+#' @param by shift by this much
+shift_set <- function(x, set, by){
+  set_id <- tidyselect::vars_select(unique(x$data$contigs$genome_id), {{set}})
+  x$data$contigs %<>%
+    left_join(tibble(genome_id = set_id, by =by)) %>%
+    mutate(.goffset=.goffset+ifelse(is.na(by), 0, by),by=NULL) %>%
+    add_class("tbl_contig") %>%
+    drop_layout(keep = c("strand", ".goffset")) %>%
+    layout_contigs(rubber = x$data[["ggargs_"]]$rubber)
+
+  layout(x)
+}
+
 
 
 center <- function(min, max, strand, length, center=c("center", "left", "right")){
@@ -162,7 +191,7 @@ focus <- function(x, ..., track_id="genes", plus=2000, center=c("center", "left"
       mutate(.goffset=0-center, center=NULL) %>%
       add_class("tbl_contig") %>%
       drop_layout(keep = c("strand", ".goffset")) %>%
-      layout_contigs
+      layout_contigs(rubber=x$data[["ggargs_"]]$rubber)
 
   layout(x)
 }

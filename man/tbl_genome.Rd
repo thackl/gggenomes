@@ -4,7 +4,7 @@
 \alias{as_genomes}
 \title{Genome Layout}
 \usage{
-as_genomes(contigs, genes = NULL, links = NULL, ...)
+as_genomes(contigs = NULL, genes = NULL, links = NULL, ...)
 }
 \description{
 Genome Layout

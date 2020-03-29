@@ -30,7 +30,7 @@ as_numeric_strand <- function(strand){
 }
 
 #' Convert numeric `1,-1,0` strand to `+,-,NA`-factor
-#' 
+#'
 #' @param strand a vector encoding strandness
 #' @export
 as_factor_strand <- function(strand){
