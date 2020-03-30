@@ -61,19 +61,6 @@ expose.tbl_genome <- function(data, what=contigs) {
   data[[what_string]]
 }
 
-#' Use a (filtered) tibble inside a `geom_*` call.
-#'
-#' @inheritParams expose
-#' @param ... filter arguments passed through to [dplyr::filter].
-#' @export
-use <- function(what=contigs, ...) {
-  what_string <- rlang::quo_text(rlang::enquo(what))
-  dots <- quos(...)
-    function(data, ...){
-        if(is.null(data[[what_string]])) stop('use: Unknown data set ', what, call. = FALSE);
-        data[[what_string]] %>% filter(!!! dots)
-    }
-}
 
 #' @export
 layout.tbl_genome <- function(x){

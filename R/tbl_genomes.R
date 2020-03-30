@@ -15,10 +15,10 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
             params = list())
   x %<>% set_class("gggenomes_layout", "prepend")
 
-  if(!is.null(features) & !is.list(features))
-    features <- list(.feature_id = features)
-  if(!is.null(links) & !is.list(links))
-    links <- list(.link_id = features)
+  if(!is.null(features) & is.data.frame(features))
+    features <- set_names(list(features), .feature_id)
+  if(!is.null(links) & is.data.frame(links))
+    links <- set_names(list(links), .link_id)
 
   if(is.null(seqs)){
     if(is.null(features) & is.null(links))
@@ -33,8 +33,9 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
       seqs <- infer_seqs_from_links(links)
   }
 
+  print(features)
   x %<>% add_seqs(seqs, ...) # layout seqs
-  #if(!is.null(features)) x <- do.call(add_features, features)
+  if(!is.null(features)) x <- exec(add_features, x, !!!features)
   #if(!is.null(links)) x <- do.call(add_links, links)
   x
 }
@@ -64,3 +65,30 @@ infer_seqs_from_links <- function(links){
     summarize(length = max(end))
 }
 
+#' Use a specific track table inside a `geom_*` call.
+#'
+#' Use this function inside `geom_*` calls to set the track table of the
+#' gggenomes layout you want to use, e.g. seqs, genes or links. Also allows you
+#' to pass on filter arguments to subset the data.
+#' 
+#' @inheritParams expose
+#' @param ... filter arguments passed through to [dplyr::filter].
+#' @export
+use <- function(track=seqs, ...) {
+  dots <- quos(...)
+    function(x, ...){
+      track_names <- c("seqs", names(x$features), names(x$links))
+      attr(track_names, "type") <- c("track", "tracks") # make error informative
+      track_name <- tidyselect::vars_pull(track_names, {{track}})
+      # stop('use: Unknown track ', what, call. = FALSE);
+
+      if(track_name == "seqs"){
+        filter(x[[track_name]], !!! dots)
+      }else{
+        track_types <- c("seqs", rep("features", length(x$features)),
+                         rep("links", length(x$links)))
+        track_type <- track_types[track_name == track_names]
+        filter(x[[track_type]][[track_name]], !!! dots)
+      }
+    }
+}

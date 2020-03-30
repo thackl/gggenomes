@@ -35,15 +35,15 @@ add_features.gggenomes <- function(x, ...){
 add_features.gggenomes_layout <- function(x, ..., .auto_prefix="features"){
   tracks <- list(...)
   # track ids need to be unique
-  if(any(names(tracks) %in% names(x$data$features)))
-    stop(paste("track_id already in use:", names(tracks)[names(tracks) %in% names(x$data$features)]))
+  if(any(names(tracks) %in% names(x$features)))
+    stop(paste("track_id already in use:", names(tracks)[names(tracks) %in% names(x$features)]))
 
   # convert to feature layouts
-  x$data$features <- c(x$data$features, map(tracks, as_features(x$seqs)))
+  x$features <- c(x$features, map(tracks, as_features, x$seqs))
 
   # make sure every track has an id
-  no_names <- which(names(x$data$features) == "")
-  names(x$data$features)[no_names] <- paste0(.auto_prefix, no_names)
+  no_names <- which(names(x$features) == "")
+  names(x$features)[no_names] <- paste0(.auto_prefix, no_names)
 
   x
 }

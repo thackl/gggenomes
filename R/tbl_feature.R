@@ -5,24 +5,20 @@
 #' @param ... passed on to `layout()`
 #' @param everything keep non-required columns
 #' @export
-as_features <- function(x, contigs, ..., everything=TRUE){
+as_features <- function(x, seqs, ..., everything=TRUE){
   UseMethod("as_features")
 }
 
 #' @export
-as_features.default <- function(x, contigs, ..., everything=TRUE) {
+as_features.default <- function(x, seqs, ..., everything=TRUE) {
   # try to coerce into tbl
   as_features(as_tibble(x), ...)
 }
 
 #' @export
-as_features.tbl_df <- function(x, contigs, ..., everything=TRUE){
-  if(!inherits(contigs, "tbl_contig")) stop("expecting contigs as tbl_contig")
-
-  vars <- c("contig_id","start","end")
-  require_genome_id <- attr(contigs, "require_genome_id")
-  if(!is.null(require_genome_id) && require_genome_id)
-    vars <- c("genome_id", vars)
+as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
+  print(x)
+  vars <- c("seq_id","start","end")
   require_vars(x, vars)
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
@@ -34,13 +30,7 @@ as_features.tbl_df <- function(x, contigs, ..., everything=TRUE){
   }else{
     x$feature_strand <- as_numeric_strand(x$strand)
   }
-  layout_features(x, contigs, ...)
-}
-
-#' @export
-as_tibble.tbl_feature <- function(x, ...){
-  drop_layout(x)
-  strip_class(x, "tbl_feature")
+  layout_features(x, seqs, ...)
 }
 
 #' Layout tbl_feature
@@ -54,24 +44,20 @@ layout.tbl_feature <- function(x, contigs, ...){
     layout_features(contigs, ...)
 }
 
-layout_features <- function(x, contigs, ...){
-  join_by <- c("contig_id")
-  if(has_name(x, "genome_id")) join_by <- c("genome_id", "contig_id")
-  x <- contigs %>% ungroup() %>%
-    select(genome_id, contig_id, y, .length=length, .strand=strand,
-           .offset) %>%
+layout_features <- function(x, seqs, ...){
+  join_by <- c("seq_id")
+  if(has_name(x, "bin_id")) join_by <- c("seq_id", "bin_id")
+  x <- seqs %>% ungroup() %>%
+    transmute(seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
+           .seq_offset = pmin(x,xend)) %>%
     inner_join(x, ., by=join_by) %>%
     mutate(
-      x = x(start, end, feature_strand, .strand, .offset, .length),
-      xend = xend(start, end, feature_strand, .strand, .offset, .length),
-      strand = feature_strand * .strand
-      #x =    ifelse(feature_strand < 0, .offset+end, .offset+start),
-      #xend = ifelse(feature_strand < 0, .offset+start, .offset+end)
+      x = x(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
+      xend = xend(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
+      strand = feature_strand * .seq_strand
     ) %>%
-    select(y, x, xend, strand, genome_id, everything(),
-           -.strand, -.offset, -.length)
-
-  add_class(x, "tbl_feature")
+    select(y, x, xend, strand, bin_id, everything(),
+           -.seq_strand, -.seq_offset, -.seq_length)
 }
 
 #' @export

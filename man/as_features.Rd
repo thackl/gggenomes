@@ -4,16 +4,16 @@
 \alias{as_features}
 \title{Coerce data into a feature tibble}
 \usage{
-as_features(x, contigs, ..., everything = TRUE)
+as_features(x, seqs, ..., everything = TRUE)
 }
 \arguments{
 \item{x}{an object coercible to a `tbl_feature`}
 
-\item{contigs}{a tbl_contig the features are associated with}
-
 \item{...}{passed on to `layout()`}
 
 \item{everything}{keep non-required columns}
+
+\item{contigs}{a tbl_contig the features are associated with}
 }
 \description{
 Coerce data into a feature tibble
