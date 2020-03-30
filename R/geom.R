@@ -1,11 +1,11 @@
-#' draw contigs
+#' draw seqs
 #'
-#' @param data contig_layout
+#' @param data seq_layout
 #' @param arrow set to non-NULL to generate default arrows
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
-geom_contig <- function(mapping = NULL, data = use(contigs),
+geom_seq <- function(mapping = NULL, data = use(seqs),
     arrow = NULL, ...){
 
   default_aes <- aes(x, y, xend=xend, yend=y)
@@ -77,10 +77,10 @@ geom_link <- function(mapping = NULL, data = use(links), nudge_frac=.1, ...){
 #' draw feature labels
 #'
 #' @export
-geom_contig_label <- function(mapping = NULL, data = use(contigs),
+geom_seq_label <- function(mapping = NULL, data = use(seqs),
     hjust = 0, nudge_y = -0.1, size = 6, ...){
 
-  default_aes <- aes_(y=~y,x=~x, label=~contig_id)
+  default_aes <- aes_(y=~y,x=~x, label=~seq_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   geom_text(mapping = mapping, data = data, hjust = hjust,

@@ -2,11 +2,11 @@
 % Please edit documentation in R/gggenomes.R
 \name{ggplot.gggenomes_layout}
 \alias{ggplot.gggenomes_layout}
-\title{ggplot.default tries to `fortify(data)` and we don't want that}
+\title{ggplot.default tries to `fortify(data)` and we don't want that here}
 \usage{
 \method{ggplot}{gggenomes_layout}(data, mapping = aes(), ...,
   environment = parent.frame())
 }
 \description{
-ggplot.default tries to `fortify(data)` and we don't want that
+ggplot.default tries to `fortify(data)` and we don't want that here
 }

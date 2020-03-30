@@ -39,6 +39,11 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
   x
 }
 
+#' `ggplot2::facet_null` checks data with `empty(df)` using `dim`. This causes
+#' and error because dim(gggenome_layout) is undefined. Return dim of primary
+#' table instead
+#' @export
+dim.gggenomes_layout <- function(x) dim(x$seqs)
 
 
 infer_seqs_from_features <- function(features){
