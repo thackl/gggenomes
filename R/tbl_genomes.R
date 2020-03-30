@@ -78,10 +78,11 @@ use <- function(track=seqs, ...) {
   dots <- quos(...)
     function(x, ...){
       track_names <- c("seqs", names(x$features), names(x$links))
-      attr(track_names, "type") <- c("track", "tracks") # make error informative
-      track_name <- tidyselect::vars_pull(track_names, {{track}})
       # stop('use: Unknown track ', what, call. = FALSE);
-
+      track_name <- tryCatch(
+        tidyselect::vars_pull(track_names, {{track}}),
+        error = function(err){rlang::abort(message = paste("unknown track id in use():\n", err))})
+      
       if(track_name == "seqs"){
         filter(x[[track_name]], !!! dots)
       }else{
