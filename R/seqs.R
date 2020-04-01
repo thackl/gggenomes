@@ -39,7 +39,7 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
     x$strand <- 1L
   }
   if(!has_name(x, "bin_offset")) x$bin_offset <- 0
-  
+
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- select(x, vars, other_vars())
   layout_seqs(x, ...)
@@ -66,7 +66,7 @@ layout_seqs <- function(x, rubber=0.05,
   # Probably obsolete - simply use y
   x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
     group_by(bin_id)
-  
+
   # infer rubber length from bin lengths
   if(rubber < 1){
     len <- x %>% summarize(length=sum(length))

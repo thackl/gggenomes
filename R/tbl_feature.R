@@ -1,3 +1,24 @@
+#' Compute a layout for feature data
+#'
+#' Read feature data such as genes into a tidy dataframe and augment it with
+#' layout information based on a sequence layout.
+#'
+#' Obligatory columns are `seq_id`, `bin_id` and `length`.
+#'
+#' @param x an object convertible to a sequence layout
+#' @param seqs a sequence layout table.
+#' @param everything set to FALSE to drop optional columns
+#' @param ... passed on to `layout_seqs()`
+#' @return a tbl_df with plot coordinates
+#' @examples
+#' chr <- tibble(
+#'   seq_id = c("a1", "b1", "b2"),
+#'   bin_id = c(rep("A", 1), rep("B",2)),
+#'   length = c(5000,3000,1400))
+#'
+#' as_seqs(chr)
+#' @export
+
 #' Coerce data into a feature tibble
 #'
 #' @param x an object coercible to a `tbl_feature`
@@ -17,7 +38,6 @@ as_features.default <- function(x, seqs, ..., everything=TRUE) {
 
 #' @export
 as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
-  print(x)
   vars <- c("seq_id","start","end")
   require_vars(x, vars)
   other_vars <- if(everything) tidyselect::everything else function() NULL;

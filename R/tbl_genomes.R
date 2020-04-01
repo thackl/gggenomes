@@ -28,12 +28,11 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
 
     # generate dummy contigs
     if(!is.null(features))
-      seqs <- infer_seqs_from_features(features) 
+      seqs <- infer_seqs_from_features(features)
     else if(!is.null(links))
       seqs <- infer_seqs_from_links(links)
   }
 
-  print(features)
   x %<>% add_seqs(seqs, ...) # layout seqs
   if(!is.null(features)) x <- exec(add_features, x, !!!features)
   #if(!is.null(links)) x <- do.call(add_links, links)
@@ -52,7 +51,7 @@ infer_seqs_from_features <- function(features){
     mutate(genome_id = str_replace(contig_id, "_?\\w?\\d+$", "")) %>%
     group_by(genome_id, contig_id) %>%
     summarize(length = max(end))
-  
+
 }
 
 infer_seqs_from_links <- function(links){
@@ -70,7 +69,7 @@ infer_seqs_from_links <- function(links){
 #' Use this function inside `geom_*` calls to set the track table of the
 #' gggenomes layout you want to use, e.g. seqs, genes or links. Also allows you
 #' to pass on filter arguments to subset the data.
-#' 
+#'
 #' @inheritParams expose
 #' @param ... filter arguments passed through to [dplyr::filter].
 #' @export
@@ -78,11 +77,12 @@ use <- function(track=seqs, ...) {
   dots <- quos(...)
     function(x, ...){
       track_names <- c("seqs", names(x$features), names(x$links))
-      # stop('use: Unknown track ', what, call. = FALSE);
+      # more useful error
       track_name <- tryCatch(
         tidyselect::vars_pull(track_names, {{track}}),
-        error = function(err){rlang::abort(message = paste("unknown track id in use():\n", err))})
-      
+        error = function(err){
+          rlang::abort(paste("in use()", err$message))})
+
       if(track_name == "seqs"){
         filter(x[[track_name]], !!! dots)
       }else{
@@ -93,3 +93,4 @@ use <- function(track=seqs, ...) {
       }
     }
 }
+
