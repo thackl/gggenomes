@@ -54,13 +54,14 @@ read_gffs <- function(gff_files, genome_ids = NULL){
 #' read a .paf file (minimap/minimap2). Only the first 12 canonical
 #' columns. Ignores tagged extra fields.
 #'
-#' @inheritParams readr::read_tsv
+#' @inheritParams thacklr::read_paf
 #' @importFrom readr read_tsv
+#' @importFrom thacklr::read_paf
 #' @export
 #' @return tibble
-read_paf <- function(paf_file){
-  cols <- c("query_contig_id", "query_length", "query_start", "query_end", "strand",
-            "target_contig_id", "target_length", "target_start", "target_end",
-            "align_matches", "align_length", "align_qual")
-  read_tsv(pipe(paste("cut -f1-12", paf_file)), col_names=cols)
+read_paf <- function(file, max_tags=20){
+  thacklr::read_paf(file, max_tags) %>%
+    rename(from_id=query_name, to_id=target_name) %>%
+    rename_at(vars(starts_with("query")), ~str_replace(.,"query", "from")) %>%
+    rename_at(vars(starts_with("target")), ~str_replace(.,"target", "to"))
 }
