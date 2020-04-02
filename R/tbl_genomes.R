@@ -7,9 +7,11 @@
 #' bin_id, start, end)
 #' @param links a table with link data (from, to, from_start, from_end,
 #' to_start, to_end)
+#' @param infer_bin without seqs infer bin_ids from features/links
+#' @param infer_bin without seqs infer seq length from features/links
 #' @param ... layout parameters passed on to `layout_seqs()`
 #' @export
-layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "genes", .link_id = "links", ...){
+layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "genes", .link_id = "links", infer_bin = seq_id, infer_length = max(end), ...){
 
   x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),
             params = list())
@@ -23,14 +25,15 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
   if(is.null(seqs)){
     if(is.null(features) & is.null(links))
       stop("Need at least one of: contigs, genes or links")
-    else
-      write("No seqs provided, inferring seqs from features/links", stderr())
 
-    # generate dummy contigs
-    if(!is.null(features))
-      seqs <- infer_seqs_from_features(features)
-    else if(!is.null(links))
-      seqs <- infer_seqs_from_links(links)
+    # infer dummy seqs
+    if(!is.null(features)){
+      write("No seqs provided, inferring seqs from features", stderr())
+      seqs <- infer_seqs_from_features(features[[1]], {{infer_bin}}, {{infer_length}})
+    }else if(!is.null(links)){
+      write("No seqs or features provided, inferring seqs from links", stderr())
+      seqs <- infer_seqs_from_links(links[[1]], infer_bin={{infer_bin}}, {{infer_length}})
+    }
   }
 
   x %<>% add_seqs(seqs, ...) # layout seqs
@@ -46,22 +49,24 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
 dim.gggenomes_layout <- function(x) dim(x$seqs)
 
 
-infer_seqs_from_features <- function(features){
-  contigs <- genes %>%
-    mutate(genome_id = str_replace(contig_id, "_?\\w?\\d+$", "")) %>%
-    group_by(genome_id, contig_id) %>%
-    summarize(length = max(end))
+infer_seqs_from_features <- function(features, infer_bin = seq_id, infer_length = max(end)){
+  if(!has_name(features, "bin_id"))
+    features <- mutate(features, bin_id = {{ infer_bin }})
 
+  seqs <- features %>%
+    group_by(bin_id, seq_id) %>%
+    summarize(length = {{ infer_length }})
 }
 
-infer_seqs_from_links <- function(links){
-  contigs <- bind_rows(
-    select_at(links, vars(starts_with("query")), str_replace, "query_", ""),
-    select_at(links, vars(starts_with("target")), str_replace, "target_", "")
+infer_seqs_from_links <- function(links, infer_bin = seq_id, infer_length = max(end)){
+  seqs <- bind_rows(
+    select_at(links, vars(starts_with("from_")), str_replace, "from_", ""),
+    select_at(links, vars(starts_with("to_")), str_replace, "to_", "")
   ) %>%
-    mutate(genome_id = str_replace(contig_id, "_?\\w?\\d+$", "")) %>%
-    group_by(genome_id, contig_id) %>%
-    summarize(length = max(end))
+    rename(seq_id = id) %>%
+    mutate(bin_id = {{ infer_bin }}) %>%
+    group_by(bin_id, seq_id) %>%
+    summarize(length = {{ infer_length }})
 }
 
 #' Use a specific track table inside a `geom_*` call.

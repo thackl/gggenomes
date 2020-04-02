@@ -5,7 +5,8 @@
 \title{Compute a genomes layout from sequences, features and links}
 \usage{
 layout_genomes(seqs = NULL, features = NULL, links = NULL,
-  .feature_id = "genes", .link_id = "links", ...)
+  .feature_id = "genes", .link_id = "links", infer_bin = seq_id,
+  infer_length = max(end), ...)
 }
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}
@@ -16,7 +17,11 @@ bin_id, start, end)}
 \item{links}{a table with link data (from, to, from_start, from_end,
 to_start, to_end)}
 
+\item{infer_bin}{without seqs infer bin_ids from features/links}
+
 \item{...}{layout parameters passed on to `layout_seqs()`}
+
+\item{infer_bin}{without seqs infer seq length from features/links}
 }
 \description{
 See `gggenomes::gggenomes()` for more info.
