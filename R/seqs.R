@@ -45,37 +45,35 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
   layout_seqs(x, ...)
 }
 
-#' Layout tbl_contig
+#' Layout sequences
 #'
-#' Augment tbl_feature with all data necessary for plotting
+#' Augment sequences with all data necessary for plotting
 #'
-#' @inheritParams as_features
+#' @inheritParams as_seqs
+#' @param gap between sequences in bases (>1) or relative to longest bin (<1)
 #' @param ... not used
 #' @export
-layout.tbl_contig <- function(x, ...){
-  drop_layout(x) %>%
-    layout_seqs(...)
-}
+layout_seqs <- function(x, gap=0.05,
+    gap_style = c("regular", "center", "spread")){
 
-#' @export
-layout_seqs <- function(x, rubber=0.05,
-    rubber_style = c("regular", "center", "spread")){
-  rubber_style <- match.arg(rubber_style)
-  if(! rubber_style == "regular") stop("Not yet implement")
+  gap_style <- match.arg(gap_style)
+  if(! gap_style == "regular") stop("Not yet implement")
 
-  # Probably obsolete - simply use y
+  x <- drop_seq_layout(x)
+
+  # Index bins by order
   x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
     group_by(bin_id)
 
-  # infer rubber length from bin lengths
-  if(rubber < 1){
+  # infer gap length from bin lengths
+  if(gap < 1){
     len <- x %>% summarize(length=sum(length))
-    rubber <- ceiling(max(len$length) * rubber)
+    gap <- ceiling(max(len$length) * gap)
   }
 
   # compute contig offsets and compose layout
   x %<>% mutate(
-    x = bin_offset + lag(cumsum(length + rubber), default=0),
+    x = bin_offset + lag(cumsum(length + gap), default=0),
     xend = dplyr::if_else(strand == -1, x, x+length),
     x = dplyr::if_else(strand == -1, x+length, x)
   ) %>%
@@ -83,7 +81,7 @@ layout_seqs <- function(x, rubber=0.05,
 }
 
 #' @export
-drop_layout.tbl_contig <- function(x, keep="strand"){
+drop_seq_layout <- function(x, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
   discard(x, names(x) %in% drop)

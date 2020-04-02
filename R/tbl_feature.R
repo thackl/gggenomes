@@ -45,18 +45,18 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
 #'
 #' @inheritParams as_features
 #' @param ... not used
-layout.tbl_feature <- function(x, contigs, ...){
-  drop_layout(x) %>%
-    layout_features(contigs, ...)
-}
+layout_features <- function(x, seqs, keep="feature_strand", ...){
+  # get rid of old layout
+  x <- drop_feature_layout(x)
 
-layout_features <- function(x, seqs, ...){
-  join_by <- c("seq_id")
-  if(has_name(x, "bin_id")) join_by <- c("seq_id", "bin_id")
-  x <- seqs %>% ungroup() %>%
+  # get new layout vars from seqs
+  layout <- seqs %>% ungroup() %>%
     transmute(seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
-           .seq_offset = pmin(x,xend)) %>%
-    inner_join(x, ., by=join_by) %>%
+              .seq_offset = pmin(x,xend))
+
+  # project features onto new layout
+  join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
+  x <- inner_join(x, layout, by=join_by) %>%
     mutate(
       x = x(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
       xend = xend(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
@@ -67,7 +67,7 @@ layout_features <- function(x, seqs, ...){
 }
 
 #' @export
-drop_layout.tbl_feature <- function(x, keep="feature_strand"){
+drop_feature_layout <- function(x, seqs, keep="feature_strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
   discard(x, names(x) %in% drop)

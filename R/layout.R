@@ -1,6 +1,27 @@
+#' Re-layout a genome layout
+#'
+#' Re-layout the tracks and update the scales after seqs have been modified
 #' @export
-layout <- function(data, ...){
+layout <- function(x, ...){
     UseMethod("layout")
+}
+
+#' @export
+layout.gggenomes <- function(x){
+  x$data <- layout(x$data)
+  scale_name <- x$data[["ggargs_"]]$scale_name
+  scale_args <- x$data[["ggargs_"]]$scale_args
+  scale_args$data <- x$data
+  x <- x + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
+  x
+}
+
+#' @export
+layout.gggenomes_layout <- function(x){
+  rlang::inform("")
+  x$features %<>% map(layout_features, x$seqs)
+  x$links <- map(x$orig_links, as_links, x$seqs)
+  x
 }
 
 #' @export
