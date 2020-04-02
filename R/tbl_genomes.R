@@ -22,7 +22,10 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
   if(!is.null(links) & is.data.frame(links))
     links <- set_names(list(links), .link_id)
 
-  if(is.null(seqs)){
+  if(!is.null(seqs)){
+    if(!has_name(seqs, "bin_id"))
+      seqs <- mutate(seqs, bin_id = {{ infer_bin }})
+  }else{
     if(is.null(features) & is.null(links))
       stop("Need at least one of: contigs, genes or links")
 
