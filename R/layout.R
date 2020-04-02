@@ -7,7 +7,7 @@ layout <- function(x, ...){
 }
 
 #' @export
-layout.gggenomes <- function(x){
+layout.gggenomes <- function(x, ignore_seqs=FALSE){
   x$data <- layout(x$data)
   scale_name <- x$data[["ggargs_"]]$scale_name
   scale_args <- x$data[["ggargs_"]]$scale_args
@@ -17,8 +17,8 @@ layout.gggenomes <- function(x){
 }
 
 #' @export
-layout.gggenomes_layout <- function(x){
-  rlang::inform("")
+layout.gggenomes_layout <- function(x, ignore_seqs=FALSE){
+  if(!ignore_seqs) x$seqs %<>% layout_seqs()
   x$features %<>% map(layout_features, x$seqs)
   x$links <- map(x$orig_links, as_links, x$seqs)
   x
