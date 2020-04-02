@@ -29,6 +29,38 @@ drop_layout <- function(data, ...){
     UseMethod("drop_layout")
 }
 
+#' @export
+seqs <- function(x){
+  UseMethod("seqs")
+}
+
+#' @export
+`seqs<-` <- function(x, value){
+  UseMethod("seqs<-")
+}
+
+#' @export
+seqs.gggenomes <- function(x){
+  seqs(x$data)
+}
+
+#' @export
+seqs.gggenomes_layout <- function(x){
+  x$seqs
+}
+
+#' @export
+`seqs<-.gggenomes` <- function(x, value) {
+  seqs(x$data) <- value
+  x
+}
+
+#' @export
+`seqs<-.gggenomes_layout` <- function(x, value) {
+  x$seqs <- value
+  x
+}
+
 #' Select sets (genomes) by name or position
 #'
 #' Choose which genomes to show and in which order. Uses dyplr::select syntax,
