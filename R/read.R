@@ -56,7 +56,7 @@ read_gffs <- function(gff_files, genome_ids = NULL){
 #'
 #' @inheritParams thacklr::read_paf
 #' @importFrom readr read_tsv
-#' @importFrom thacklr::read_paf
+#' @importFrom thacklr  read_paf
 #' @export
 #' @return tibble
 read_paf <- function(file, max_tags=20){

@@ -9,7 +9,7 @@
 \method{layout}{tbl_contig}(x, ...)
 }
 \arguments{
-\item{x}{an object coercible to a `tbl_feature`}
+\item{x}{feature data convertible to a feature layout}
 
 \item{...}{not used}
 

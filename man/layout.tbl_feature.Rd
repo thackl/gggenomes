@@ -2,17 +2,15 @@
 % Please edit documentation in R/tbl_feature.R
 \name{layout.tbl_feature}
 \alias{layout.tbl_feature}
-\title{Layout tbl_feature}
+\title{Layout features}
 \usage{
 \method{layout}{tbl_feature}(x, contigs, ...)
 }
 \arguments{
-\item{x}{an object coercible to a `tbl_feature`}
-
-\item{contigs}{a tbl_contig the features are associated with}
+\item{x}{feature data convertible to a feature layout}
 
 \item{...}{not used}
 }
 \description{
-Augment tbl_feature with all data necessary for plotting
+Augment features with all data necessary for plotting
 }

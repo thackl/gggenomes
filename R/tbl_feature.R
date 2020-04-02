@@ -3,28 +3,14 @@
 #' Read feature data such as genes into a tidy dataframe and augment it with
 #' layout information based on a sequence layout.
 #'
-#' Obligatory columns are `seq_id`, `bin_id` and `length`.
+#' Obligatory columns are `seq_id`, `start` and `end`. Also recognized are
+#' `strand` and `bin_id`.
 #'
-#' @param x an object convertible to a sequence layout
-#' @param seqs a sequence layout table.
+#' @param x feature data convertible to a feature layout
+#' @param seqs the sequence layout the feature map onto.
 #' @param everything set to FALSE to drop optional columns
 #' @param ... passed on to `layout_seqs()`
 #' @return a tbl_df with plot coordinates
-#' @examples
-#' chr <- tibble(
-#'   seq_id = c("a1", "b1", "b2"),
-#'   bin_id = c(rep("A", 1), rep("B",2)),
-#'   length = c(5000,3000,1400))
-#'
-#' as_seqs(chr)
-#' @export
-
-#' Coerce data into a feature tibble
-#'
-#' @param x an object coercible to a `tbl_feature`
-#' @param contigs a tbl_contig the features are associated with
-#' @param ... passed on to `layout()`
-#' @param everything keep non-required columns
 #' @export
 as_features <- function(x, seqs, ..., everything=TRUE){
   UseMethod("as_features")
@@ -53,9 +39,9 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
   layout_features(x, seqs, ...)
 }
 
-#' Layout tbl_feature
+#' Layout features
 #'
-#' Augment tbl_feature with all data necessary for plotting
+#' Augment features with all data necessary for plotting
 #'
 #' @inheritParams as_features
 #' @param ... not used

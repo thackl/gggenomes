@@ -2,19 +2,25 @@
 % Please edit documentation in R/tbl_link.R
 \name{as_links}
 \alias{as_links}
-\title{Coerce data into a link tibble}
+\title{Compute a layout for link data}
 \usage{
-as_links(x, contigs, ..., everything = TRUE)
+as_links(x, seqs, ..., everything = TRUE)
 }
 \arguments{
-\item{x}{an object coercible to a `tbl_feature`}
+\item{x}{link data convertible to a link layout}
 
-\item{contigs}{a tbl_contig the features are associated with}
+\item{seqs}{the sequence layout the feature map onto.}
 
-\item{...}{passed on to `layout()`}
+\item{...}{passed on to `layout_seqs()`}
 
-\item{everything}{keep non-required columns}
+\item{everything}{set to FALSE to drop optional columns}
 }
 \description{
-Coerce data into a link tibble
+Read link data of pairwise sequence or feature comparisons, such as
+similarity searches into a tidy dataframe and augment it with layout
+information based on a sequence layout.
+}
+\details{
+Obligatory columns are `from_id`, `to_id`. Also recognized are `from_start`,
+`from_end`,`to_start`,`to_end`,`strand` and `bin_id`.
 }

@@ -4,11 +4,9 @@
 \alias{use}
 \title{Use a specific track table inside a `geom_*` call.}
 \usage{
-use(what = seqs, ...)
+use(track = seqs, ...)
 }
 \arguments{
-\item{what}{data set to expose from tbl_genome_layout}
-
 \item{...}{filter arguments passed through to [dplyr::filter].}
 }
 \description{

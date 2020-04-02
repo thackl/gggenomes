@@ -2,19 +2,27 @@
 % Please edit documentation in R/tbl_feature.R
 \name{as_features}
 \alias{as_features}
-\title{Coerce data into a feature tibble}
+\title{Compute a layout for feature data}
 \usage{
 as_features(x, seqs, ..., everything = TRUE)
 }
 \arguments{
-\item{x}{an object coercible to a `tbl_feature`}
+\item{x}{feature data convertible to a feature layout}
 
-\item{...}{passed on to `layout()`}
+\item{seqs}{the sequence layout the feature map onto.}
 
-\item{everything}{keep non-required columns}
+\item{...}{passed on to `layout_seqs()`}
 
-\item{contigs}{a tbl_contig the features are associated with}
+\item{everything}{set to FALSE to drop optional columns}
+}
+\value{
+a tbl_df with plot coordinates
 }
 \description{
-Coerce data into a feature tibble
+Read feature data such as genes into a tidy dataframe and augment it with
+layout information based on a sequence layout.
+}
+\details{
+Obligatory columns are `seq_id`, `start` and `end`. Also recognized are
+`strand` and `bin_id`.
 }

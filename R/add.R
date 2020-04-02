@@ -34,17 +34,10 @@ add_features.gggenomes <- function(x, ...){
 #' @export
 add_features.gggenomes_layout <- function(x, ..., .auto_prefix="features"){
   tracks <- list(...)
-  # track ids need to be unique
-  if(any(names(tracks) %in% names(x$features)))
-    stop(paste("track_id already in use:", names(tracks)[names(tracks) %in% names(x$features)]))
-
+  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "features",
+                                      .auto_prefix)
   # convert to feature layouts
   x$features <- c(x$features, map(tracks, as_features, x$seqs))
-
-  # make sure every track has an id
-  no_names <- which(names(x$features) == "")
-  names(x$features)[no_names] <- paste0(.auto_prefix, no_names)
-
   x
 }
 
@@ -63,18 +56,43 @@ add_links.gggenomes <- function(x, ...){
 #' @export
 add_links.gggenomes_layout <- function(x, ..., .auto_prefix="links"){
   tracks <- list(...)
-  # track ids need to be unique
-  if(any(names(tracks) %in% names(x$data$links)))
-    stop(paste("track_id already in use:", names(tracks)[names(tracks) %in% names(x$data$links)]))
-
-  # convert to feature layouts
-  x$data$links <- c(x$data$links, map(tracks, as_links(x$seqs))) # this is lossy, so
-  x$data$orig_links <- c(x$data$links, tracks) # also store orig links for re-layout
-
-  # make sure every track has an id
-  no_names <- which(names(x$data$links) == "")
-  names(x$data$links)[no_names] <- paste0(.auto_prefix, no_names)
-  names(x$data$orig_links)[no_names] <- paste0(.auto_prefix, no_names)
-
+  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "links",
+                                      .auto_prefix)
+  # convert to layouts
+  x$links <- c(x$links, map(tracks, as_links, x$seqs)) # this is lossy, so
+  x$orig_links <- c(x$orig_links, tracks) # also store orig links for re-layout
   x
 }
+
+
+#' @export
+track_ids <- function(x, ...){
+  UseMethod("track_ids")
+}
+
+#' @export
+track_ids.gggenomes <- function(x, ...){
+  track_ids(x$data)
+}
+
+#' @export
+track_ids.gggenomes_layout <- function(x, ...){
+  track_ids <- c("seqs", names(x$features), names(x$links))
+  names(track_ids) <- c("seqs", rep("features", length(x$features)),
+                        rep("links", length(x$links)))
+  track_ids
+ }
+
+check_track_ids <- function(new_track_ids, old_track_ids, type, prefix){
+  all_track_ids <- c(new_track_ids[new_track_ids != ""], old_track_ids)
+  # track ids need to be unique
+  if(any(duplicated(all_track_ids))){
+    dups <- all_track_ids[duplicated(all_track_ids)]
+    stop(paste("track ids need to be unique: ", dups))
+  }
+
+  no_names <- which(new_track_ids  == "")
+  new_track_ids[no_names] <- paste0(prefix, no_names + sum(names(old_track_ids) == type))
+  new_track_ids
+}
+

@@ -35,7 +35,7 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
 
   x %<>% add_seqs(seqs, ...) # layout seqs
   if(!is.null(features)) x <- exec(add_features, x, !!!features)
-  #if(!is.null(links)) x <- do.call(add_links, links)
+  if(!is.null(links)) x <- exec(add_links, x, !!!links)
   x
 }
 
