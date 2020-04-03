@@ -14,37 +14,39 @@
 #' `pick_at` keeps bins that are not picked from, as they are.
 #'
 #' `pick_bins` works on entire bins.
-#' 
+#'
 #' @param ... seqs to pick, select-like expression
 #' @param bins to pick from, expression, enclose multiple args in c()
 #' @export
 pick <- function(x, ..., bins=everything()){
+  if(!has_dots()) return(x)
   pick_impl(x, ..., bins = {{ bins }}, .keep=FALSE)
 }
 
 #' @rdname pick
 #' @export
 pick_at <- function(x, ..., bins=everything()){
+  if(!has_dots()) return(x)
   pick_impl(x, ..., bins = {{ bins }}, .keep=TRUE)
 }
 
 #' @rdname pick
 #' @export
 pick_bins <- function(x, ...){
+  if(!has_dots()) return(x)
   pick_impl(x, bins=c(...))
 }
 
 pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){
-  s <- seqs(x)
-  ### if(!missing(bins)){ # missing does not eval, is.null etc would
   # split by bin_id and select bins
+  s <- seqs(x)
   l <- s %>% thacklr::split_by(bin_id)
   i <- tidyselect::eval_select(expr({{ bins }}), l)
+  if(length(i) == 0) rlang::abort("no bins selected")
   s <- bind_rows(l[i])
-  
-  
+
   # pick seqs from bins
-  if(length(ellipsis:::dots()) > 0){
+  if(has_dots()){
     seq_ids <- s$seq_id %>% set_names(.)
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j,]
@@ -54,7 +56,7 @@ pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){
       s <- bind_rows(l)
     }
   }
-  
+
   seqs(x) <- s
   layout(x)
 }
