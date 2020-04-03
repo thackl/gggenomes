@@ -9,10 +9,10 @@ layout <- function(x, ...){
 #' @export
 layout.gggenomes <- function(x, ignore_seqs=FALSE){
   x$data <- layout(x$data)
-  scale_name <- x$data[["ggargs_"]]$scale_name
-  scale_args <- x$data[["ggargs_"]]$scale_args
-  scale_args$data <- x$data
-  x <- x + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
+  ## scale_name <- x$data[["ggargs_"]]$scale_name
+  ## scale_args <- x$data[["ggargs_"]]$scale_args
+  ## scale_args$data <- x$data
+  ## x <- x + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
   x
 }
 

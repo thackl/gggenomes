@@ -16,7 +16,7 @@
 #' @export
 #' @return gggenomes-flavored ggplot object
 gggenomes <- function(seqs=NULL, features=NULL, links=NULL, ...,
-    scale = c("lab", "numlab", NULL), theme = c("clean", NULL),
+    theme = c("clean", NULL),
     mapping = aes(), environment = parent.frame()){
 
   # layout options need to be saved to also be applied on re-layout - temp solution
@@ -24,14 +24,8 @@ gggenomes <- function(seqs=NULL, features=NULL, links=NULL, ...,
   p <- ggplot(data = layout, mapping = mapping, environment = environment)
   class(p) <- c('gggenomes', class(p))
 
-  scale_name <- scale[[1]] %||% match.arg(scale[[1]], c("lab", "numlab"))
-  if(!is.null(scale_name)){ # add gggenomes scale
-    scale_args <- if(is.list(scale) && length(scale) >1) scale[-1] else list()
-    p$data[["ggargs_"]]$scale_args <- scale_args # store for recomputation on re-layout
-    p$data[["ggargs_"]]$scale_name <- scale_name
-    scale_args$data <- layout
-    p <- p + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
-  }
+  p <- p + scale_y_continuous("", expand = expand_scale(add=.5),
+      trans = scales::reverse_trans())
 
   theme_name <- theme[[1]] %||% match.arg(theme[[1]], c("clean"))
   if(!is.null(theme_name)){ # add theme
@@ -40,16 +34,6 @@ gggenomes <- function(seqs=NULL, features=NULL, links=NULL, ...,
   }
 
   p
-}
-
-#' @export
-layout.gggenomes <- function(x){
-  x$data <- layout(x$data)
-  scale_name <- x$data[["ggargs_"]]$scale_name
-  scale_args <- x$data[["ggargs_"]]$scale_args
-  scale_args$data <- x$data
-  x <- x + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
-  x
 }
 
 #' ggplot.default tries to `fortify(data)` and we don't want that here
@@ -205,33 +189,8 @@ theme_gggenomes_clean <- function(base_size = 24, base_family = "", base_line_si
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_rect(fill = "white"),
-    axis.ticks.x=element_blank(),
     axis.title.y=element_blank(),
-    axis.ticks.y=element_blank())
-}
-#' y scale with genome labels
-#'
-#' @name scale_gggenomes
-NULL
-
-#' @rdname scale_gggenomes
-#' @import ggplot2
-#' @export
-scale_gggenomes_lab <- function(data, limits = NULL, ...){
-  dd <- unique(select(data$seqs, y, bin_id))
-  breaks <- dd$y
-  labels <- dd$bin_id
-
-  limits <- limits %||% c(max(breaks) + .5, min(breaks) -.5)
-  scale_y_continuous("", limits = limits, breaks = breaks,
-    labels = labels, trans = scales::reverse_trans(), ...)
-}
-#' @rdname scale_gggenomes
-#' @export
-scale_gggenomes_numlab <- function(data, limits = NULL, ...){
-    breaks <- unique(data$y)
-    labels <- paste("[", breaks, "] ", unique(data$bin_id), sep="")
-    limits <- limits %||% c(max(breaks) + .5, min(breaks) -.5)
-    scale_y_continuous("", limits = limits, breaks = breaks,
-        labels = labels, trans = scales::reverse_trans(), ...)
+    axis.ticks.y=element_blank(),
+    axis.text.y=element_blank()
+  )
 }
