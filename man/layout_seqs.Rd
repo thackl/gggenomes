@@ -4,13 +4,13 @@
 \alias{layout_seqs}
 \title{Layout sequences}
 \usage{
-layout_seqs(x, gap = 0.05, gap_style = c("regular", "center",
+layout_seqs(x, spacing = 0.05, spacing_style = c("regular", "center",
   "spread"))
 }
 \arguments{
 \item{x}{an object convertible to a sequence layout}
 
-\item{gap}{between sequences in bases (>1) or relative to longest bin (<1)}
+\item{spacing}{between sequences in bases (>1) or relative to longest bin (<1)}
 
 \item{...}{not used}
 }

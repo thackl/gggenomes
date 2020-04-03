@@ -18,7 +18,7 @@ layout.gggenomes <- function(x, ignore_seqs=FALSE){
 
 #' @export
 layout.gggenomes_layout <- function(x, ignore_seqs=FALSE){
-  if(!ignore_seqs) x$seqs %<>% layout_seqs()
+  if(!ignore_seqs) x$seqs <- exec(layout_seqs, x$seqs, !!!x$seqs_params)
   x$features %<>% map(layout_features, x$seqs)
   x$links <- map(x$orig_links, as_links, x$seqs)
   x

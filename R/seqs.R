@@ -50,14 +50,14 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
 #' Augment sequences with all data necessary for plotting
 #'
 #' @inheritParams as_seqs
-#' @param gap between sequences in bases (>1) or relative to longest bin (<1)
+#' @param spacing between sequences in bases (>1) or relative to longest bin (<1)
 #' @param ... not used
 #' @export
-layout_seqs <- function(x, gap=0.05,
-    gap_style = c("regular", "center", "spread")){
+layout_seqs <- function(x, spacing=0.05,
+    spacing_style = c("regular", "center", "spread")){
 
-  gap_style <- match.arg(gap_style)
-  if(! gap_style == "regular") stop("Not yet implement")
+  spacing_style <- match.arg(spacing_style)
+  if(! spacing_style == "regular") stop("Not yet implement")
 
   x <- drop_seq_layout(x)
 
@@ -65,15 +65,15 @@ layout_seqs <- function(x, gap=0.05,
   x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
     group_by(bin_id)
 
-  # infer gap length from bin lengths
-  if(gap < 1){
+  # infer spacing length from bin lengths
+  if(spacing < 1){
     len <- x %>% summarize(length=sum(length))
-    gap <- ceiling(max(len$length) * gap)
+    spacing <- ceiling(max(len$length) * spacing)
   }
 
   # compute contig offsets and compose layout
   x %<>% mutate(
-    x = bin_offset + lag(cumsum(length + gap), default=0),
+    x = bin_offset + lag(cumsum(length + spacing), default=0),
     xend = dplyr::if_else(strand == -1, x, x+length),
     x = dplyr::if_else(strand == -1, x+length, x)
   ) %>%
