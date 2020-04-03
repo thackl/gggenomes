@@ -84,7 +84,7 @@ select_set <- function(x, ...){
   # would break connection to genes
 
   # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
+  x$data$contigs <- as_contigs(bind_rows(l), gap=x$data[["ggargs_"]]$gap)
   layout(x)
 }
 
@@ -107,7 +107,7 @@ select_seq <- function(x, set, ...){
   l[[n]] <- s
 
   # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
+  x$data$contigs <- as_contigs(bind_rows(l), gap=x$data[["ggargs_"]]$gap)
   layout(x)
 }
 
@@ -132,7 +132,7 @@ flip_set <- function(x, ...){
     l[[set]]$strand <- l[[set]]$strand *-1
   }
   # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
+  x$data$contigs <- as_contigs(bind_rows(l), gap=x$data[["ggargs_"]]$gap)
 
   layout(x)
 }
@@ -162,7 +162,7 @@ flip_seq <- function(x, set, ...){
   l[[n]] <- s
 
   # recompute layout
-  x$data$contigs <- as_contigs(bind_rows(l), rubber=x$data[["ggargs_"]]$rubber)
+  x$data$contigs <- as_contigs(bind_rows(l), gap=x$data[["ggargs_"]]$gap)
   layout(x)
 }
 
@@ -192,7 +192,7 @@ shift_set <- function(x, set, by){
     mutate(.goffset=.goffset+ifelse(is.na(by), 0, by),by=NULL) %>%
     add_class("tbl_contig") %>%
     drop_layout(keep = c("strand", ".goffset")) %>%
-    layout_contigs(rubber = x$data[["ggargs_"]]$rubber)
+    layout_contigs(gap = x$data[["ggargs_"]]$gap)
 
   layout(x)
 }
@@ -244,7 +244,7 @@ focus <- function(x, ..., track_id="genes", plus=2000, center=c("center", "left"
       mutate(.goffset=0-center, center=NULL) %>%
       add_class("tbl_contig") %>%
       drop_layout(keep = c("strand", ".goffset")) %>%
-      layout_contigs(rubber=x$data[["ggargs_"]]$rubber)
+      layout_contigs(gap=x$data[["ggargs_"]]$gap)
 
   layout(x)
 }
