@@ -7,19 +7,17 @@ layout <- function(x, ...){
 }
 
 #' @export
-layout.gggenomes <- function(x, ignore_seqs=FALSE){
-  x$data <- layout(x$data)
-  ## scale_name <- x$data[["ggargs_"]]$scale_name
-  ## scale_args <- x$data[["ggargs_"]]$scale_args
-  ## scale_args$data <- x$data
-  ## x <- x + do.call(paste0("scale_gggenomes_", scale_name), scale_args)
+layout.gggenomes <- function(x, ignore_seqs=FALSE, ...){
+  x$data <- layout(x$data, ...)
   x
 }
 
 #' @export
-layout.gggenomes_layout <- function(x, ignore_seqs=FALSE){
-  if(!ignore_seqs) x$seqs <- exec(layout_seqs, x$seqs, !!!x$seqs_params)
-  x$features %<>% map(layout_features, x$seqs)
+layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, seqs_keep = "strand",
+    features_keep = "feature_strand"){
+  if(!ignore_seqs)
+    x$seqs <- exec(layout_seqs, x$seqs, keep=seqs_keep, !!!x$seqs_params)
+  x$features %<>% map(layout_features, x$seqs, keep=features_keep)
   x$links <- map(x$orig_links, as_links, x$seqs)
   x
 }

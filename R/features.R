@@ -47,7 +47,7 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
 #' @param ... not used
 layout_features <- function(x, seqs, keep="feature_strand", ...){
   # get rid of old layout
-  x <- drop_feature_layout(x)
+  x <- drop_feature_layout(x, keep)
 
   # get new layout vars from seqs
   layout <- seqs %>% ungroup() %>%

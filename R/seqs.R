@@ -54,12 +54,12 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
 #' @param ... not used
 #' @export
 layout_seqs <- function(x, spacing=0.05,
-    spacing_style = c("regular", "center", "spread")){
+    spacing_style = c("regular", "center", "spread"), keep="strand"){
 
   spacing_style <- match.arg(spacing_style)
   if(! spacing_style == "regular") stop("Not yet implement")
 
-  x <- drop_seq_layout(x)
+  x <- drop_seq_layout(x, keep=keep)
 
   # Index bins by order
   x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
