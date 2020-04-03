@@ -87,6 +87,30 @@ geom_seq_label <- function(mapping = NULL, data = use(seqs),
             nudge_y = nudge_y, size = size, ...)
 }
 
+#' Draw bin labels
+#'
+#' Put bin labels left of the sequences. `nudge_left` adds space relative to the
+#' total bin width between the label and the seqs, by default 5%. `expand_left`
+#' expands the plot to the left by 20% to make labels visible.
+#'
+#' @inheritParams ggplot2::geom_text
+#' @param nudge_left by this much relative to the widest bin
+#' @param expand_left by this much relative to the widest bin
+#' @export
+geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, ...){
+
+  default_aes <- aes_(y=~y,x=~x - max(xend) * nudge_left, label=~bin_id)
+  mapping1 <- aes_intersect(mapping, default_aes)
+  r <- list(geom_text(mapping = mapping1, data = data,
+              hjust = hjust, size = size, ...))
+
+  if(!is.na(expand_left)){
+    default_aes2 <- aes_(y=~y,x=~x - max(xend) * expand_left)
+    mapping2 <- aes_intersect(mapping, default_aes2)
+    r[[2]] <- geom_blank(mapping = mapping2, data = data)
+  }
+  r
+}
 #' draw feature labels
 #'
 #' @export
