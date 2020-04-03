@@ -91,7 +91,7 @@ layout_links <- function(x, seqs, features=NULL, adjacent_only=TRUE, ...){
     arrange(.lix) %>%
     inner_join(transmute(seqs, seq_id, y, .seq_length=length, # bin_id included
        .seq_strand=strand, .seq_offset=pmin(x,xend))) %>%     # b/c group var
-    mutate(x=.seq_offset+ifelse(.seq_strand >= 0, x, (x-.length)*-1)) %>%
+    mutate(x=.seq_offset+ifelse(.seq_strand >= 0, x, (x-.seq_length)*-1)) %>%
     group_by(.lix) %>%
     mutate(.x_center = mean(x), .y_center = mean(y)) %>% ungroup %>%
     arrange(.lix, y)
