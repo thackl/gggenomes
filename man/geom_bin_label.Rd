@@ -5,7 +5,8 @@
 \title{Draw bin labels}
 \usage{
 geom_bin_label(mapping = NULL, data = use_bins(), hjust = 1,
-  size = 6, nudge_left = 0.05, expand_left = 0.2, ...)
+  size = 6, nudge_left = 0.05, expand_left = 0.2, expand_x = NULL,
+  expand_aes = NULL, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,6 +33,10 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{expand_left}{by this much relative to the widest bin}
 
+\item{expand_x}{expand the plot to include this absolute x value}
+
+\item{expand_aes}{provide custom aes mappings for the expansion (advanced)}
+
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
@@ -41,4 +46,8 @@ to the paired geom/stat.}
 Put bin labels left of the sequences. `nudge_left` adds space relative to the
 total bin width between the label and the seqs, by default 5%. `expand_left`
 expands the plot to the left by 20% to make labels visible.
+}
+\details{
+Set `x` and `expand_x` to an absolute position to align all labels at a
+specific location
 }

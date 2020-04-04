@@ -93,21 +93,29 @@ geom_seq_label <- function(mapping = NULL, data = use(seqs),
 #' total bin width between the label and the seqs, by default 5%. `expand_left`
 #' expands the plot to the left by 20% to make labels visible.
 #'
+#' Set `x` and `expand_x` to an absolute position to align all labels at a
+#' specific location
+#'
 #' @inheritParams ggplot2::geom_text
 #' @param nudge_left by this much relative to the widest bin
 #' @param expand_left by this much relative to the widest bin
+#' @param expand_x expand the plot to include this absolute x value
+#' @param expand_aes provide custom aes mappings for the expansion (advanced)
 #' @export
-geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, ...){
+geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
 
-  default_aes <- aes_(y=~y,x=~x - max(xend) * nudge_left, label=~bin_id)
-  mapping1 <- aes_intersect(mapping, default_aes)
-  r <- list(geom_text(mapping = mapping1, data = data,
+  default_aes <- aes_(y=~y,x=~x - abs(min(x)-max(xend)) * nudge_left, label=~bin_id)
+  mapping <- aes_intersect(mapping, default_aes)
+  r <- list(geom_text(mapping = mapping, data = data,
               hjust = hjust, size = size, ...))
 
-  if(!is.na(expand_left)){
-    default_aes2 <- aes_(y=~y,x=~x - max(xend) * expand_left)
-    mapping2 <- aes_intersect(mapping, default_aes2)
-    r[[2]] <- geom_blank(mapping = mapping2, data = data)
+  if(!is.null(expand_x)){
+    r[[2]] <- expand_limits(x=expand_x)
+  }else if(!is.na(expand_left)){
+    expand_aes <- NULL
+    default_expand_aes <- aes_(y=~y,x=~x - abs(min(x)-max(xend)) * expand_left)
+    expand_aes <- aes_intersect(expand_aes, default_expand_aes)
+    r[[2]] <- geom_blank(mapping = expand_aes, data = data)
   }
   r
 }
