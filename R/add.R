@@ -96,3 +96,23 @@ check_track_ids <- function(new_track_ids, old_track_ids, type, prefix){
   new_track_ids
 }
 
+#' @export
+track <- function(x, ...){
+  UseMethod("track")
+}
+
+track.gggenomes <- function(x, track_id){
+  track(x$data, {{track_id}})
+}
+
+track.gggenomes_layout <- function(x, track_id){
+  track_ids <- track_ids(x)
+  track_id <-  tryCatch(
+    tidyselect::vars_pull(track_ids, {{track_id}}),
+    error = function(err){rlang::abort(paste("in get track()", err$message))})
+
+  track_type <- names(track_ids)[track_ids == track_id]
+  if(track_type == "seqs") track <- list(track_id)
+  else  track <- list(track_type, track_id)
+  pluck(x, !!! track)
+}

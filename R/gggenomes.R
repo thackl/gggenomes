@@ -145,25 +145,11 @@ infer_seqs_from_links <- function(links, infer_bin = seq_id, infer_length = max(
 #' @inheritParams expose
 #' @param ... filter arguments passed through to [dplyr::filter].
 #' @export
-use <- function(track=seqs, ...) {
+use <- function(track_id=seqs, ...) {
   dots <- quos(...)
-    function(x, ...){
-      track_names <- c("seqs", names(x$features), names(x$links))
-      # more useful error
-      track_name <- tryCatch(
-        tidyselect::vars_pull(track_names, {{track}}),
-        error = function(err){
-          rlang::abort(paste("in use()", err$message))})
-
-      if(track_name == "seqs"){
-        filter(x[[track_name]], !!! dots)
-      }else{
-        track_types <- c("seqs", rep("features", length(x$features)),
-                         rep("links", length(x$links)))
-        track_type <- track_types[track_name == track_names]
-        filter(x[[track_type]][[track_name]], !!! dots)
-      }
-    }
+  function(x, ...){
+    filter(track(x, {{track_id}}), !!! dots)
+  }
 }
 
 #' Collapse seq data to bin data for geom_bin_label()
