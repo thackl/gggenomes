@@ -7,7 +7,7 @@
 #' @param by shift each bin by this many bases. Single value or vector of the
 #' same length as bins.
 #' @export
-shift_bin <- function(x, bins, by){
+shift <- function(x, bins=everything(), by=0, center=FALSE){
   # split by bin_id and select bins
   s <- seqs(x)
   l <- s %>% thacklr::split_by(bin_id)
@@ -19,9 +19,14 @@ shift_bin <- function(x, bins, by){
     by <- rep(by, length(i))
   }
 
-  for(j in i)
-    l[[j]]$bin_offset <- l[[j]]$bin_offset + by[j]
+  for(k in seq_along(i)){
+    j <- i[k]
+    if(center)
+      l[[j]]$bin_offset <- l[[j]]$bin_offset - (max(l[[j]]$xend)/2)
+    if(by[k] != 0)
+      l[[j]]$bin_offset <- l[[j]]$bin_offset + by[k]
+  }
 
   seqs(x) <- bind_rows(l)
-  layout(x, seqs_keep = c("strand", "bin_offset"))
+  layout(x, args_seqs = list(keep = c("strand", "bin_offset")))
 }
