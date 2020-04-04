@@ -78,7 +78,7 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "genes", .link_id = "links", infer_bin = seq_id, infer_length = max(end), ...){
 
   x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),
-            seqs_params = list(...))
+            args_seqs = list(...))
   x %<>% set_class("gggenomes_layout", "prepend")
 
   if(!is.null(features) & is.data.frame(features))

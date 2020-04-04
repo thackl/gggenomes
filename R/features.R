@@ -44,24 +44,51 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
 #' Augment features with all data necessary for plotting
 #'
 #' @inheritParams as_features
+#' @param marginal how to handle features that stick out of sequences, for
+#' example after focusing in on a subregion. Choices are to "drop" them, "keep"
+#' them or "trim" them to the subregion boundaries.
 #' @param ... not used
-layout_features <- function(x, seqs, keep="feature_strand", ...){
+layout_features <- function(x, seqs, keep="feature_strand",
+  marginal=c("trim", "drop", "keep"), ...){
+  marginal <- match.arg(marginal)
+
   # get rid of old layout
   x <- drop_feature_layout(x, keep)
 
   # get new layout vars from seqs
   layout <- seqs %>% ungroup() %>%
     transmute(seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
-              .seq_offset = pmin(x,xend))
+              .seq_offset = pmin(x,xend)-if_else(.seq_strand < 0, end, start), .seq_start=start, .seq_end=end)
 
   # project features onto new layout
   join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
-  x <- inner_join(x, layout, by=join_by) %>%
-    mutate(
-      x = x(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
-      xend = xend(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
-      strand = feature_strand * .seq_strand
-    ) %>%
+  x <- inner_join(x, layout, by=join_by)
+
+  if(marginal == "drop"){
+    # get only all fully contained features
+    x %<>% filter(.seq_start <= start & end <= .seq_end)
+  }else{
+    x %<>% mutate(
+      .marginal = in_range_lt(.seq_start, start, end) |
+        in_range_lt(.seq_end, start, end))
+
+    if(marginal == "keep"){
+      # get all fully contained and jutting features
+      x %<>% filter(.seq_start <= start & end <= .seq_end | .marginal)
+    }else if(marginal == "trim"){
+      x %<>% mutate(
+          start = ifelse(.marginal & start < .seq_start, .seq_start, start),
+          end = ifelse(.marginal & end > .seq_end, .seq_end, end)) %>%
+        # marginals are now also fully contained
+        filter(.seq_start <= start & end <= .seq_end)
+    }
+  }
+
+  x %>%  mutate(
+    x = x(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
+    xend = xend(start, end, feature_strand, .seq_strand, .seq_offset, .seq_length),
+    strand = feature_strand * .seq_strand
+  ) %>%
     select(y, x, xend, strand, bin_id, everything(),
            -.seq_strand, -.seq_offset, -.seq_length)
 }
@@ -71,4 +98,12 @@ drop_feature_layout <- function(x, seqs, keep="feature_strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
   discard(x, names(x) %in% drop)
+}
+
+in_range_lt <- function(x, min, max){
+  map_lgl(seq_along(x),  ~min[.x] < x[.x] & x[.x] < max[.x])
+}
+
+in_range_le <- function(x, min, max){
+  map_lgl(seq_along(x),  ~min[.x] <= x[.x] & x[.x] <= max[.x])
 }

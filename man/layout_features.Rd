@@ -4,12 +4,17 @@
 \alias{layout_features}
 \title{Layout features}
 \usage{
-layout_features(x, seqs, keep = "feature_strand", ...)
+layout_features(x, seqs, keep = "feature_strand", marginal = c("trim",
+  "drop", "keep"), ...)
 }
 \arguments{
 \item{x}{feature data convertible to a feature layout}
 
 \item{seqs}{the sequence layout the feature map onto.}
+
+\item{marginal}{how to handle features that stick out of sequences, for
+example after focusing in on a subregion. Choices are to "drop" them, "keep"
+them or "trim" them to the subregion boundaries.}
 
 \item{...}{not used}
 }

@@ -13,12 +13,15 @@ layout.gggenomes <- function(x, ignore_seqs=FALSE, ...){
 }
 
 #' @export
-layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, seqs_keep = "strand",
-    features_keep = "feature_strand"){
+layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
+    args_features = list(), args_links = list()){
   if(!ignore_seqs)
-    x$seqs <- exec(layout_seqs, x$seqs, keep=seqs_keep, !!!x$seqs_params)
-  x$features %<>% map(layout_features, x$seqs, keep=features_keep)
-  x$links <- map(x$orig_links, as_links, x$seqs)
+    x$seqs <- exec(layout_seqs, x$seqs, !!!args_seqs, !!!x$args_seqs)
+  # note: tried this with map, but that somehow messes with !!!
+  for(i in seq_along(x$features))
+    x$features[[i]] %<>% exec(layout_features, ., x$seqs, !!!args_features)
+  for(i in seq_along(x$links))
+    x$links[[i]] <- exec(as_links, x$orig_links[[i]], x$seqs, !!!args_links)
   x
 }
 

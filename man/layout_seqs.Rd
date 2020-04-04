@@ -5,7 +5,7 @@
 \title{Layout sequences}
 \usage{
 layout_seqs(x, spacing = 0.05, spacing_style = c("regular", "center",
-  "spread"))
+  "spread"), keep = "strand")
 }
 \arguments{
 \item{x}{an object convertible to a sequence layout}

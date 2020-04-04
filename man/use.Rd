@@ -4,7 +4,7 @@
 \alias{use}
 \title{Use a specific track table inside a `geom_*` call.}
 \usage{
-use(track = seqs, ...)
+use(track_id = seqs, ...)
 }
 \arguments{
 \item{...}{filter arguments passed through to [dplyr::filter].}

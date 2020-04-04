@@ -32,13 +32,15 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
   vars <- c("seq_id","bin_id","length")
   require_vars(x, vars)
 
-  vars <- c(vars, "strand", "bin_offset")
+  vars <- c(vars, "strand", "bin_offset", "start", "end")
   if(has_name(x, "strand")){
     x$strand <- as_numeric_strand(x$strand)
   }else{
     x$strand <- 1L
   }
   if(!has_name(x, "bin_offset")) x$bin_offset <- 0
+  if(!has_name(x, "start")) x$start <- 0
+  if(!has_name(x, "end")) x$end <- x$length
 
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- select(x, vars, other_vars())
@@ -73,9 +75,9 @@ layout_seqs <- function(x, spacing=0.05,
 
   # compute contig offsets and compose layout
   x %<>% mutate(
-    x = bin_offset + lag(cumsum(length + spacing), default=0),
-    xend = dplyr::if_else(strand == -1, x, x+length),
-    x = dplyr::if_else(strand == -1, x+length, x)
+    x = bin_offset + lag(cumsum(end-start+1 + spacing), default=0),
+    xend = dplyr::if_else(strand == -1, x, x+end-start+1),
+    x = dplyr::if_else(strand == -1, x+end-start+1, x)
   ) %>%
     select(y, x, xend, strand, everything())
 }
