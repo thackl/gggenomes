@@ -5,23 +5,20 @@
 #' Feature data: `read_gff`
 #'
 #' Link data: `read_paf`
-#' @param seqs a table with sequence data (seq_id, bin_id, length) or a layout
-#' from `layout_genomes()`
-#' @param theme choose a gggenomes default theme, NULL to omit.
-#' @param scale choose a gggenomes dafault y-scale, NULL to omit.
-#' @inheritParams gggenomes::tbl_genome
+#' @inheritParams layout_genomes
 #' @inheritParams ggplot2::ggplot
 #' @param ... layout parameters passed on to `layout_genomes()`
+#' @param theme choose a gggenomes default theme, NULL to omit.
+#' @param .layout a pre-computed layout from `layout_genomes()` (advanced)
 #' @importFrom ggplot2 ggplot
 #' @export
 #' @return gggenomes-flavored ggplot object
 gggenomes <- function(seqs=NULL, features=NULL, links=NULL, ...,
-    theme = c("clean", NULL),
-    mapping = aes(), environment = parent.frame()){
+    theme = c("clean", NULL), .layout=NULL){
 
-  # layout options need to be saved to also be applied on re-layout - temp solution
-  layout <- layout_genomes(seqs=seqs, features=features, links=links, ...)
-  p <- ggplot(data = layout, mapping = mapping, environment = environment)
+  layout <- .layout %||% layout_genomes(seqs=seqs, features=features, links=links, ...)
+
+  p <- ggplot(data = layout)
   class(p) <- c('gggenomes', class(p))
 
   p <- p + scale_y_continuous("", expand = expand_scale(add=.5),
@@ -65,30 +62,39 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 #' Compute a genomes layout from sequences, features and links
 #'
 #' See `gggenomes::gggenomes()` for more info.
-#' @rdname as_genomes
+#'
 #' @param seqs a table with sequence data (seq_id, bin_id, length)
 #' @param features a table (or names list of tables) with feature data (seq_id,
 #' bin_id, start, end)
 #' @param links a table with link data (from, to, from_start, from_end,
 #' to_start, to_end)
-#' @param infer_bin without seqs infer bin_ids from features/links
-#' @param infer_bin without seqs infer seq length from features/links
+#' @param infer_bin_id,infer_start,infer_end,infer_length used to infer pseudo
+#' seqs if only features or links are provided. The expressions are evaluated in
+#' the context of the first feature track, or the first links track.
+#'
+#' By default subregions of sequences from the first to the last feature/link
+#' are generated. Set `infer_start` to 0 to show all sequences from their
+#' true beginning.
+#' @param features_track_id default ID for first features track
+#' @param links_track_id default ID for first links track
 #' @param ... layout parameters passed on to `layout_seqs()`
 #' @export
-layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "genes", .link_id = "links", infer_bin = seq_id, infer_length = max(end), ...){
+layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, features_track_id = "genes",
+    links_track_id = "links", infer_bin_id = seq_id, infer_start = min(start), infer_end = min(end),
+    infer_length = max(end), ...){
 
   x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),
             args_seqs = list(...))
   x %<>% set_class("gggenomes_layout", "prepend")
 
   if(!is.null(features) & is.data.frame(features))
-    features <- set_names(list(features), .feature_id)
+    features <- set_names(list(features), features_track_id)
   if(!is.null(links) & is.data.frame(links))
-    links <- set_names(list(links), .link_id)
+    links <- set_names(list(links), links_track_id)
 
   if(!is.null(seqs)){
     if(!has_name(seqs, "bin_id"))
-      seqs <- mutate(seqs, bin_id = {{ infer_bin }})
+      seqs <- mutate(seqs, bin_id = {{ infer_bin_id }})
   }else{
     if(is.null(features) & is.null(links))
       stop("Need at least one of: contigs, genes or links")
@@ -96,10 +102,12 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
     # infer dummy seqs
     if(!is.null(features)){
       write("No seqs provided, inferring seqs from features", stderr())
-      seqs <- infer_seqs_from_features(features[[1]], {{infer_bin}}, {{infer_length}})
+      seqs <- infer_seqs_from_features(features[[1]], {{infer_bin_id}}, {{infer_start}},
+                                     {{infer_end}}, {{infer_length}})
     }else if(!is.null(links)){
       write("No seqs or features provided, inferring seqs from links", stderr())
-      seqs <- infer_seqs_from_links(links[[1]], infer_bin={{infer_bin}}, {{infer_length}})
+      seqs <- infer_seqs_from_links(links[[1]],  {{infer_bin_id}}, {{infer_start}},
+                                     {{infer_end}}, {{infer_length}})
     }
   }
 
@@ -116,24 +124,38 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, .feature_id = "
 dim.gggenomes_layout <- function(x) dim(x$seqs)
 
 
-infer_seqs_from_features <- function(features, infer_bin = seq_id, infer_length = max(end)){
+infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_start = min(start),
+    infer_end = max(end), infer_length = max(end)){
   if(!has_name(features, "bin_id"))
-    features <- mutate(features, bin_id = {{ infer_bin }})
+    features <- mutate(features, bin_id = {{ infer_bin_id }})
 
   seqs <- features %>%
     group_by(bin_id, seq_id) %>%
-    summarize(length = {{ infer_length }})
+    summarize(
+      length = {{ infer_length }},
+      start = {{ infer_start }},
+      end = {{ infer_end }}
+    )
+
+  seqs
 }
 
-infer_seqs_from_links <- function(links, infer_bin = seq_id, infer_length = max(end)){
+infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = min(start),
+    infer_end = max(end), infer_length = max(end)){
   seqs <- bind_rows(
     select_at(links, vars(starts_with("from_")), str_replace, "from_", ""),
     select_at(links, vars(starts_with("to_")), str_replace, "to_", "")
-  ) %>%
-    rename(seq_id = id) %>%
-    mutate(bin_id = {{ infer_bin }}) %>%
-    group_by(bin_id, seq_id) %>%
-    summarize(length = {{ infer_length }})
+  )
+
+  seqs %<>% dplyr::rename(seq_id = id) %>%
+    mutate(bin_id = {{ infer_bin_id }}) %>%
+    group_by(seq_id, bin_id) %>%
+    summarize(
+      length = {{ infer_length }},
+      start = {{ infer_start }},
+      end = {{ infer_end }}
+    )
+  seqs
 }
 
 #' Use a specific track table inside a `geom_*` call.

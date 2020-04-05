@@ -5,23 +5,22 @@
 \title{Plot genomes, features and synteny maps}
 \usage{
 gggenomes(seqs = NULL, features = NULL, links = NULL, ...,
-  theme = c("clean", NULL), mapping = aes(),
-  environment = parent.frame())
+  theme = c("clean", NULL), .layout = NULL)
 }
 \arguments{
-\item{seqs}{a table with sequence data (seq_id, bin_id, length) or a layout
-from `layout_genomes()`}
+\item{seqs}{a table with sequence data (seq_id, bin_id, length)}
+
+\item{features}{a table (or names list of tables) with feature data (seq_id,
+bin_id, start, end)}
+
+\item{links}{a table with link data (from, to, from_start, from_end,
+to_start, to_end)}
 
 \item{...}{layout parameters passed on to `layout_genomes()`}
 
 \item{theme}{choose a gggenomes default theme, NULL to omit.}
 
-\item{mapping}{Default list of aesthetic mappings to use for plot.
-If not specified, must be supplied in each layer added to the plot.}
-
-\item{environment}{DEPRECATED. Used prior to tidy evaluation.}
-
-\item{scale}{choose a gggenomes dafault y-scale, NULL to omit.}
+\item{.layout}{a pre-computed layout from `layout_genomes()` (advanced)}
 }
 \value{
 gggenomes-flavored ggplot object

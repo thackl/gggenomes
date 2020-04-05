@@ -4,8 +4,8 @@
 \alias{layout_seqs}
 \title{Layout sequences}
 \usage{
-layout_seqs(x, spacing = 0.05, spacing_style = c("regular", "center",
-  "spread"), keep = "strand")
+layout_seqs(x, spacing = 0.05, wrap = NULL,
+  spacing_style = c("regular", "center", "spread"), keep = "strand")
 }
 \arguments{
 \item{x}{an object convertible to a sequence layout}
