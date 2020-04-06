@@ -25,4 +25,10 @@ layout information based on a sequence layout.
 \details{
 Obligatory columns are `seq_id`, `start` and `end`. Also recognized are
 `strand` and `bin_id`.
+
+Note `start` and `end` for every record will be coerced so that `start <
+end`. If no `strand` was provided, `strand` will added and set to "+" for
+records that initially had `start < end` and "-" for `end < start` inputs. If
+`strand` was provided, the `start` and `end` will be ordered without any
+additional effect.
 }

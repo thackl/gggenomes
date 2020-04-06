@@ -7,7 +7,7 @@ has_dots <- function(env = parent.frame()){
 }
 
 #' Do numeric values fall into specified ranges?
-#' 
+#'
 #' @param x a numeric vector of values
 #' @param left,right boundary values or vectors of same length as x
 #' @param closed wether to include (`TRUE`) or exclude (`FALSE`) the
@@ -49,4 +49,32 @@ in_range_impl <- function(x, min, max, closed = c(TRUE, TRUE)){
   else if(all(closed))  min <= x & x <= max
   else if(closed[1])    min <= x & x <  max
   else if(closed[2])    min <  x & x <= max
+}
+
+#' The width of a range
+#'
+#' Always returns a positive value, even if start > end. `width0` is a short
+#' handle for `width(..., base=0)`
+#'
+#' @param start,end start and end of the range
+#' @param base the base of the coordinate system, usually 1 or 0.
+#' @return a numeric vector
+width <- function(start, end, base=1){
+  abs(end-start)+base
+}
+
+#' @rdname width
+width0 <- function(start, end, base=0){
+  width(start=start, end=end, base=base)
+}
+
+swap <- function(x, condition, ...){
+  i <- tidyselect::eval_select(rlang::expr(c(...)), x)
+  if(length(i) != 2 || length(unique(i)) != 2)
+    rlang::abort("need to select exactly 2 different columns for swapping")
+  # eval condition in data context
+  j <- transmute(x, j = {{condition}})$j
+  # swap
+  x[j,rev(i)] <- x[j,i]
+  x
 }
