@@ -75,13 +75,6 @@ layout_links <- function(x, seqs, features=NULL, adjacent_only=TRUE, ...){
     return(tibble())
   }
 
-  x %<>% mutate_if(is.factor, as.character)
-  if(!has_name(x, "strand")){
-    x$strand <- 0L
-  }else{
-    x$strand <- as_numeric_strand(x$strand)
-  }
-
   x %<>% mutate(.lix=row_number()) %>%
     # polygon-id - order of points in polygon
     gather(".pid", "x", from_start, from_end, to_end, to_start) %>%

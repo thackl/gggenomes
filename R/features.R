@@ -69,8 +69,8 @@ layout_features <- function(x, seqs, keep="feature_strand",
     x %<>% filter(.seq_start <= start & end <= .seq_end)
   }else{
     x %<>% mutate(
-      .marginal = in_range_lt(.seq_start, start, end) |
-        in_range_lt(.seq_end, start, end))
+      .marginal = in_range(.seq_start, start, end, closed=FALSE) |
+        in_range(.seq_end, start, end, closed=FALSE))
 
     if(marginal == "keep"){
       # get all fully contained and jutting features
@@ -98,12 +98,4 @@ drop_feature_layout <- function(x, seqs, keep="feature_strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
   discard(x, names(x) %in% drop)
-}
-
-in_range_lt <- function(x, min, max){
-  map_lgl(seq_along(x),  ~min[.x] < x[.x] & x[.x] < max[.x])
-}
-
-in_range_le <- function(x, min, max){
-  map_lgl(seq_along(x),  ~min[.x] <= x[.x] & x[.x] <= max[.x])
 }
