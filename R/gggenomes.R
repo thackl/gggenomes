@@ -80,7 +80,7 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 #' @param ... layout parameters passed on to `layout_seqs()`
 #' @export
 layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, features_track_id = "genes",
-    links_track_id = "links", infer_bin_id = seq_id, infer_start = min(start), infer_end = min(end),
+    links_track_id = "links", infer_bin_id = seq_id, infer_start = min(start), infer_end = max(end),
     infer_length = max(end), ...){
 
   x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),

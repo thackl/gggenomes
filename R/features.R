@@ -68,7 +68,7 @@ layout_features <- function(x, seqs, keep="strand",
   layout <- seqs %>% ungroup() %>%
     transmute(
       seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
-      .seq_offset = pmin(x,xend)-if_else(.seq_strand < 0, end, start),
+      .seq_offset = pmin(x,xend)-ifelse(.seq_strand < 0, end, start),
       .seq_x=x, .seq_start=start, .seq_end=end)
 
   # project features onto new layout

@@ -36,8 +36,8 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
       left_join(select(seqs(x) , seq_id, bin_id, .seq_length = length),
                     by=c("seq_id", "bin_id")) %>%
       mutate( # make sure we don't expand outside the seq
-        start = if_else(start<0,0,start),
-        end = if_else(.seq_length < end, .seq_length, end),
+        start = ifelse(start<0,0,start),
+        end = ifelse(.seq_length < end, .seq_length, end),
         .seq_length = NULL,
         bin_id = NULL # for cleaner join
       )

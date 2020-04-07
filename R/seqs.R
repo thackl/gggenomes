@@ -82,8 +82,8 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 
   # fix strands
   x %<>% mutate(
-    xend = dplyr::if_else(strand == -1, x, x+end-start+1),
-    x = dplyr::if_else(strand == -1, x+end-start+1, x)
+    xend = ifelse(strand == -1, x, x+end-start+1),
+    x = ifelse(strand == -1, x+end-start+1, x)
   ) %>%
     select(y, x, xend, strand, everything())
 }
