@@ -39,25 +39,6 @@ geom_feature <- function(mapping = NULL, data = use(features),
   geom_segment(mapping = mapping, data = data, arrow = arrow, size = size, ...)
 }
 
-#' draw genes
-#'
-#' @param data feature_layout
-#' @inheritParams gggenes::geom_gene_arrow
-#' @importFrom gggenes geom_gene_arrow
-#' @export
-geom_gene <- function(mapping = NULL, data = use(genes),
-    nudge_by_strand = NULL, arrowhead_width = grid::unit(2, "mm"),
-    arrowhead_height = grid::unit(3, "mm"),
-    arrow_body_height = grid::unit(3, "mm"), ...){
-
-  default_aes <- aes(y=y,xmin=x,xmax=xend)
-  mapping <- aes_intersect(mapping, default_aes)
-  mapping <- aes_nudge_by_strand(mapping, nudge_by_strand, "y")
-
-  gggenes::geom_gene_arrow(mapping = mapping, data = data,
-    arrowhead_width=arrowhead_width, arrowhead_height=arrowhead_height,
-    arrow_body_height=arrow_body_height, ...)
-}
 
 #' draw links
 #'

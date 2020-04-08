@@ -174,6 +174,26 @@ use <- function(track_id=seqs, ...) {
   }
 }
 
+#' Use track as genes - magically augment with type/gene_id for geom_gene if
+#' missing
+use_genes <- function(..., track_id=genes) {
+  dots <- quos(...)
+  function(x, ...){
+    t <- track(x, {{track_id}})
+    # add dummy type and gene_id to feature tracks if missing for geom_gene()
+    if(is_likely_feature_track(t)){
+      if(!has_name(t, "type")) t[["type"]] <- "CDS"
+      if(!has_name(t, "gene_id")) t[["gene_id"]] <- paste0("__", seq_len(nrow((t))))
+    }
+    filter(t, !!! dots)
+  }
+}
+
+is_likely_feature_track <- function(x){
+  !any(has_name(x, c("bin_offset", "from_id")))
+}
+
+
 #' Collapse seq data to bin data for geom_bin_label()
 use_bins <- function(){
   function(x){

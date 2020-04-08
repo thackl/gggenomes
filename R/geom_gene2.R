@@ -6,9 +6,9 @@ geom_gene2 <- function(mapping = NULL, data = use_genes(), stat = "identity",
   # missing in the feature table
   default_aes <- aes(y=y,x=x,xend=xend,type=type,group=gene_id)
   mapping <- aes_intersect(mapping, default_aes)
-  
+
   layer(
-    geom = GeomGene2, mapping = mapping, data = data, stat = stat, 
+    geom = GeomGene2, mapping = mapping, data = data, stat = stat,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, height=height, cds_type=cds_type, gene_type=gene_type,
       seg_size=seg_size, seg_colour=seg_colour, seg_alpha=seg_alpha, seg_linetype=seg_linetype, ...)

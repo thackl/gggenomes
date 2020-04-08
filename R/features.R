@@ -42,6 +42,7 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
   }else{
     x$strand <- as_numeric_strand(x$strand)
   }
+  if(!has_name(x, "feature_id")) x$feature_id <- paste0("f", seq_len(nrow((x))))
 
   x %<>% swap(start > end, start, end)
 

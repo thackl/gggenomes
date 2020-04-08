@@ -51,15 +51,17 @@ anchor <- function(x, start, strand){
   x - (start-1) * as_numeric_strand(strand)
 }
 
+#' Project feature coordinates into layout space
+#'
 #' @param seq_anchor the virtual x-start of the full length sequence in plot
 #' space
 x <- function(start, end, strand, seq_x, seq_start, seq_strand){
   a <- anchor(seq_x, seq_start, seq_strand)
   b <- by_strand(strand, start-1, end)
-  print(tibble(a,start, end, strand, b,seq_strand))
   a + b * seq_strand
 }
 
+#' @rdname x
 xend <- function(start, end, strand, seq_x, seq_start, seq_strand){
   a <- anchor(seq_x, seq_start, seq_strand)
   b <- by_strand(strand, end, start-1)#, end + width(start,end))

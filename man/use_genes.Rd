@@ -5,7 +5,7 @@
 \title{Use track as genes - magically augment with type/gene_id for geom_gene if
 missing}
 \usage{
-use_genes(track_id = genes, ...)
+use_genes(..., track_id = genes)
 }
 \description{
 Use track as genes - magically augment with type/gene_id for geom_gene if
