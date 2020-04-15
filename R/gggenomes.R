@@ -10,7 +10,7 @@
 #' @param ... layout parameters passed on to `layout_genomes()`
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from `layout_genomes()` (advanced)
-#' @importFrom ggplot2 ggplot
+#' @import ggplot2 grid rlang
 #' @export
 #' @return gggenomes-flavored ggplot object
 gggenomes <- function(seqs=NULL, features=NULL, links=NULL, ...,

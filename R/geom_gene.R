@@ -1,232 +1,195 @@
 #' Draw genes
-#'
-#' Draw complex genes models. Supports prefiltering for coding regions (CDS) and
-#' intron-containg genes. `geom_gene()` actually adds two layers, and is a
-#' de-facto shorthand for `geom_cds() + geom_cds_hinge()`, which draw the coding
-#' region polygons and the intronic connection lines,
-#' respectively. `geom_gene_gggenes()` is a slightly reparameterized version of
-#' `geom_gene_arrow()` of the gggenes package.
-#'
-#' Befault only features of `type=="CDS" are drawn. If no `type` columns is
-#' provided in the feature table, all feature are considered "CDS". Change the
-#' `data=use_genes(type=="CDS")` parameter to modify this behaviour.
-#'
-#' Features with the same `feature_id` are considered to be parts of the same
-#' gene, but on different exons. They will be drawn with connecting lines,
-#' i.e. hinges in between them.
-#'
-#' `geom_gene_gggenes()` works conceptionally different form the other gene-ish
-#' geoms. It supports fixed-size height/widths, but does not support multi-exon
-#' genes, and only works with a linear coordinate system.
-#'
-#' @inheritParams ggplot2::geom_point
-#' @param height,arrow_height,arrow_width Dimensions of the arrow-shaped gene
-#' polygon.
-#'
-#' Note: In the gggenomes default layout, the distance between two genomes on
-#' the y-axis is 1. Height and arrow_height are specified in percent y-axis
-#' units. Width is expressed in absolute x-axis units, i.e. number of
-#' nucleotides. Due to this parameterization the behave different from common
-#' fixed-size units like size and linewidth, and change dynamically with the
-#' aspect-ratio.These are not fixed-size units like point size, and will change
-#' with the aspect-ratio.
-#' @param hinges Draw hinges (small lines) between the parts of the CDS present
-#' on different exons.
-geom_gene <- function(mapping = NULL, data = use_genes(type=="CDS"), stat = "identity",
-    position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, height = 5,
-                     arrow_width = 75, arrow_height = 5, hinges = TRUE, ...){
-  default_aes <- aes(y=y,x=x,xend=xend,group=feature_id)
-  mapping <- aes_intersect(mapping, default_aes)
+geom_gene <- function(mapping = NULL, data = use_genes(type == "CDS"), stat = "identity",
+    position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+    arrow_size = c(3,3,3), chevrons = NULL, ...){
 
-  layers <- list()
-  if(hinges){
-    layers <- list(layer(
-      geom = GeomCdsHinge, mapping = mapping, data = data, stat = stat,
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(na.rm = na.rm, height=height, ...)
-    ))
-  }
-
-  layers <- c(layers, layer(
-    geom = GeomCds, mapping = mapping, data = data, stat = stat,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, height=height, arrow_width=arrow_width, arrow_height=arrow_height, ...)
-  ))
-
-  layers
-}
-
-#' @rdname geom_gene
-#' @export
-geom_cds <- function(mapping = NULL, data = use_genes(type=="CDS"), stat = "identity",
-    position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, height = 5,
-                     arrow_width = 100, arrow_height = 5, ...){
-  default_aes <- aes(y=y,x=x,xend=xend,group=feature_id)
-  mapping <- aes_intersect(mapping, default_aes)
-
-
-  layer(
-    geom = GeomCds, mapping = mapping, data = data, stat = stat,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, height=height, arrow_width=arrow_width, arrow_height=arrow_height, ...)
-  )
-}
-
-#' @rdname geom_gene
-#' @export
-geom_cds_hinge <- function(mapping = NULL, data = use_genes(type=="CDS"), stat = "identity",
-    position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, height = 5, ...){
+  if(length(arrow_size) == 1) arrow_size <- arrow_size[c(1,1,1)]
+  if(length(arrow_size) == 2) arrow_size <- arrow_size[c(1,2,2)]
 
   default_aes <- aes(y=y,x=x,xend=xend,group=feature_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(
-    geom = GeomCdsHinge, mapping = mapping, data = data, stat = stat,
+    geom = GeomCdsArrow, mapping = mapping, data = data, stat = stat,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, height=height, ...)
+    params = list(na.rm = na.rm, height = arrow_size[1], arrow_height = arrow_size[2],
+    arrow_width = arrow_size[3], chevrons = chevrons, ...)
   )
 }
 
-#' @export
-GeomCds <-  ggproto(
-  "GeomCds", Geom,
-  extra_params = c("na.rm", "arrow_width", "arrow_height"),
-  default_aes = aes(colour = "black", fill = "grey35", size = 0.5, linetype = 1,
-    alpha = NA),
+
+#' GeomGeneArrow
+#' @noRd
+GeomCdsArrow <- ggplot2::ggproto("GeomCdsArrow", ggplot2::Geom,
   required_aes = c("x", "xend", "y"),
-  optional_aes = c("height"),
-  non_missing_aes = c("ymin", "ymax"),
-  setup_data = function(data, params) {
-    data$height <- (data$height %||% params$height) / 100
-    transform(data,
-      ymin = y - height / 2, ymax = y + height / 2, height = NULL
+  default_aes = ggplot2::aes(
+    alpha = 1,
+    colour = "black",
+    fill = "white",
+    linetype = 1,
+    size = 0.3
+  ),
+  draw_key = function(data, params, size) {
+    grid::rectGrob(
+      width = grid::unit(1, "npc") - grid::unit(1, "mm"),
+      height = grid::unit(1, "npc") - grid::unit(1, "mm"),
+      gp = grid::gpar(
+        col = data$colour,
+        fill = ggplot2::alpha(data$fill, data$alpha),
+        lty = data$linetype,
+        lwd = data$size * ggplot2::.pt
+      )
     )
   },
-  draw_group = function(self, data, panel_params, coord, linejoin = "mitre", arrow_width, arrow_height) {
-    aesthetics <- setdiff(names(data), c("x", "xend", "y", "ymin", "ymax", "height"))
+  draw_group = function(self, data, panel_params, coord, height=3, arrow_width=2, arrow_height=3,
+      chevrons=NULL){
+    if(!coord$is_linear()){
+      abort(paste("geom_gene() only works with Cartesian coordinates.",
+                  "Use geom_gene_seg() or geom_gene2() instead."))
+    }
+    chevron_pars <- chevrons
+    draw_chevrons <- TRUE
+    if(!is.list(chevron_pars)){
+      if(is.null(chevron_pars) | isTRUE(chevron_pars)) chevron_pars <- list()
+      else if(is.na(chevron_pars) | isFALSE(chevron_pars)) draw_chevrons <- FALSE
+      else abort("'chevrons' needs to be one of NULL,TRUE,NA,FALSE or a list of parameters")
+      chevron_pars <- list()
+    }
+    names(chevron_pars)[names(chevron_pars) == "color"] <- "colour"
+    for (aes in c("size","linetype","colour","alpha")){
+      if(is.null(chevron_pars[[aes]])) chevron_pars[[aes]] <- data[[aes]][1]
+    }
+    # sort to get
     if(data[1,"x"] < data[1,"xend"])
       data <- data[order(data$x),]
     else
       data <- data[order(-data$x),]
     #
-    n <- nrow(data)
-    cds_polys <- list()
-    if(n>1){
-      cds_polys <- lapply(split(data[1:(n-1),], seq_len(n-1)), function(row) {
-        poly <- cds2rect(row$x, row$xend, row$ymin, row$ymax)
-        aes <- ggplot2:::new_data_frame(row[aesthetics])[rep(1,nrow(poly)), ]
-        poly_aes <- cbind(poly, aes)
-        GeomPolygon$draw_panel(poly_aes, panel_params, coord)
-      })
-    }
-    #
-    row <- data[n,]
-    poly <- cds2arrow(row$x, row$xend, row$ymin, row$ymax, row$y, arrow_width, arrow_height)
-    aes <- ggplot2:::new_data_frame(row[aesthetics])[rep(1,nrow(poly)), ]
-    poly_aes <- cbind(poly, aes)
-    cds_polys[[n]] <- GeomPolygon$draw_panel(poly_aes, panel_params, coord)
-    #
-    ggplot2:::ggname("gene2", do.call("grobTree", cds_polys))
-  },
-  draw_key = draw_key_polygon
+    data <- coord$transform(data, panel_params)
+    gt <- grid::gTree(
+      data = data,
+      cl = "cdsarrowtree",
+      height = height,
+      arrow_width = arrow_width,
+      arrow_height = arrow_height,
+      draw_chevrons = draw_chevrons,
+      chevron_size = chevron_pars$size,
+      chevron_linetype = chevron_pars$linetype,
+      chevron_colour = chevron_pars$colour,
+      chevron_alpha = chevron_pars$alpha
+    )
+    gt$name <- grid::grobName(gt, "geom_cds_arrow")
+    gt
+  }
 )
 
+makeContent.cdsarrowtree <- function(x){
+  data <- x$data
+  n <- nrow(data)
+  height <- as.numeric(grid::convertHeight(grid::unit(x$height, "mm"), "native")) /2
+  arrow_height <- as.numeric(grid::convertHeight(grid::unit(x$arrow_height, "mm"), "native")) /2
+  arrow_width <- as.numeric(grid::convertWidth(grid::unit(x$arrow_width, "mm"), "native")) /2
 
-cds2rect <- function(x, xend, ymin, ymax) {
-  ggplot2:::new_data_frame(list(
-    y = c(ymin, ymax, ymax, ymin, ymin),
-    x = c(x, x, xend, xend, x)
-  ))
+  # last exon (arrow-poly)
+  exon <- data[n,]
+  arrow_coords <- cds2arrow(exon$x, exon$xend, exon$y, height, arrow_width, arrow_height)
+  arrow_coords$id <- rep(n,length(arrow_coords$x))
+  arrow_coords <- list(arrow_coords)
+
+  # other exons (rect-poly)
+  if(n>1){
+    rects_coords <- lapply(1:(n-1), function(i) {
+      exon <- data[i,]
+      rect_coord <- cds2rect(exon$x, exon$xend, exon$y, height)
+      rect_coord$id <- rep(i, each=4)
+      rect_coord
+    })
+    arrow_coords <- c(rects_coords, arrow_coords)
+  }
+
+  # one grob per exon for exon-wise aes
+  grobs <- lapply(1:length(arrow_coords), function(i){
+    exon <- arrow_coords[[i]]
+    grid::polygonGrob(
+      x = exon$x,
+      y = exon$y,
+      id = exon$id,
+      gp = grid::gpar(
+        fill = ggplot2::alpha(data$fill[i], data$alpha[i]),
+        col = ggplot2::alpha(data$colour[i], data$alpha[i]),
+        lty = data$linetype[i],
+        lwd = data$size[i] * ggplot2::.pt
+      )
+    )
+  })
+
+  if(x$draw_chevrons && n>1){
+    chev_coords <- cds2chevron(data$x, data$xend, data$y, height)
+    chevs <- grid::polylineGrob(
+      x = chev_coords$x,
+      y = chev_coords$y,
+      id = chev_coords$id,
+      # TODO: par not working
+      gp = grid::gpar(
+        col = ggplot2::alpha(x$chevron_colour, x$chevron_alpha),
+        lty = x$chevron_linetype,
+        lwd = x$chevron_size * ggplot2::.pt
+      )
+    )
+    grobs <- c(list(chevs), grobs)
+  }
+
+  class(grobs) <- "gList"
+  grid::setChildren(x, grobs)
 }
 
-cds2arrow <- function(x, xend, ymin, ymax, y, arrow_width, arrow_height) {
-  amin <- y - (arrow_height/200)
-  amax <- y + (arrow_height/200)
 
-  if(abs(x-xend) <= arrow_width){
-
-    ggplot2:::new_data_frame(list(
+cds2arrow <- function(x, xend,  y, height, arrow_width, arrow_height) {
+  ymin <- y - height
+  ymax <- y + height
+  amin <- y - arrow_height
+  amax <- y + arrow_height
+  #
+  coords <- if(abs(x-xend) <= arrow_width){
+    list(
       x = c(x,    x,    xend, x),
       y = c(amax, amin, y,    amax)
-    ))
+    )
   }else{
     xa <- if(x < xend) xend - arrow_width else xend + arrow_width
-    ggplot2:::new_data_frame(list(
+    list(
       x = c(x,    x,    xa,   xa,   xend, xa,   xa,   x),
       y = c(ymax, ymin, ymin, amin, y,    amax, ymax, ymax)
-    ))
+    )
   }
+  coords
 }
 
-#' @export
-GeomCdsHinge <-  ggproto(
-  "GeomCdsHinge", Geom,
-  extra_params = c("na.rm"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1,
-    alpha = NA),
-  required_aes = c("x", "xend", "y"),
-  optional_aes = c("height", "fill"), # when used with gene_gene
-  non_missing_aes = c("ymin", "ymax"),
-  setup_data = function(data, params) {
-    data$height <- (data$height %||% params$height) / 100
-    transform(data,
-      ymin = y - height / 2, ymax = y + height / 2, height = NULL
-    )
-  },
-  draw_group = function(self, data, panel_params, coord, linejoin = "mitre") {
-    if(nrow(data) <2){
-      paths <- zeroGrob()
-    }else{
-      aesthetics <- setdiff(names(data), c("x", "xend", "y", "ymin", "ymax", "height"))
-      paths <- cds2hinge(data,aesthetics)
-      paths <- lapply(paths, function(path) GeomPath$draw_panel(path, panel_params, coord))
-    }
-    ggplot2:::ggname("gene2", do.call("grobTree", paths))
-  },
-  draw_key = draw_key_polygon
-)
+cds2rect <- function(x, xend, y, height) {
+  ymin <- y - height
+  ymax <- y + height
+  list(
+    y = c(ymin, ymax, ymax, ymin),
+    x = c(x, x, xend, xend)
+  )
+}
 
-cds2hinge <- function(data,aesthetics){
-  data <- data[order(data$x),]
-  n <- nrow(data)
-  forward <- data[1,"x"] < data[1,"xend"]
+cds2chevron <- function(x, xend, y, height){
+  n <- length(x)
   a <- 2:n
   b <- a-1
-  if(forward){
-    x1 <- data$x[a]
-    y1 <- data$y[a]
-    x3 <- data$xend[b]
-    y3 <- data$y[b]
-  }else{
-    x1 <- data$x[b]
-    y1 <- data$y[b]
-    x3 <- data$xend[a]
-    y3 <- data$y[a]
-  }
+
+  x1 <- xend[b]
+  y1 <- y[b]
+  x3 <- x[a]
+  y3 <- y[a]
+
   x2 <- (x1+x3)/2
-  y2 <- (data$ymax[a] + data$ymax[b])/2
+  y2 <- (y[a]+height + y[b]+height)/2
 
-  lapply(b, function(i){
-    path <- ggplot2:::new_data_frame(c(
-      list(x=c(x1[i],x2[i],x3[i]), y=c(y1[i], y2[i], y3[i])),
-      data[i, aesthetics]))
-  })
-}
-
-#' @rdname geom_gene
-#' @importFrom gggenes geom_gene_arrow
-#' @inheritParams gggenes::geom_gene_arrow
-#' @export
-geom_gene_gggenes <- function(mapping = NULL, data = use(genes),
-    nudge_by_strand = NULL, arrowhead_width = grid::unit(2, "mm"),
-    arrowhead_height = grid::unit(3, "mm"),
-    arrow_body_height = grid::unit(3, "mm"), ...){
-
-  default_aes <- aes(y=y,xmin=x,xmax=xend)
-  mapping <- aes_intersect(mapping, default_aes)
-  mapping <- aes_nudge_by_strand(mapping, nudge_by_strand, "y")
-
-  gggenes::geom_gene_arrow(mapping = mapping, data = data,
-    arrowhead_width=arrowhead_width, arrowhead_height=arrowhead_height,
-    arrow_body_height=arrow_body_height, ...)
+  list(
+    x=c(rbind(x1,x2,x3)),
+    y=c(rbind(y1,y2,y3)),
+    id=rep(1:(n-1), each=3)
+  )
 }
