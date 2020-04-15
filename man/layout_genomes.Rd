@@ -6,8 +6,8 @@
 \usage{
 layout_genomes(seqs = NULL, features = NULL, links = NULL,
   features_track_id = "genes", links_track_id = "links",
-  infer_bin_id = seq_id, infer_start = min(start),
-  infer_end = max(end), infer_length = max(end), ...)
+  infer_bin_id = seq_id, infer_start = min(start, end),
+  infer_end = max(start, end), infer_length = max(start, end), ...)
 }
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}

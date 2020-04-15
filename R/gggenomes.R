@@ -80,8 +80,8 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 #' @param ... layout parameters passed on to `layout_seqs()`
 #' @export
 layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, features_track_id = "genes",
-    links_track_id = "links", infer_bin_id = seq_id, infer_start = min(start), infer_end = max(end),
-    infer_length = max(end), ...){
+    links_track_id = "links", infer_bin_id = seq_id, infer_start = min(start,end), infer_end = max(start,end),
+    infer_length = max(start,end), ...){
 
   x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),
             args_seqs = list(...))
@@ -124,8 +124,8 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, features_track_
 dim.gggenomes_layout <- function(x) dim(x$seqs)
 
 
-infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_start = min(start),
-    infer_end = max(end), infer_length = max(end)){
+infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_start = min(start,end),
+    infer_end = max(start,end), infer_length = max(start,end)){
   if(!has_name(features, "bin_id"))
     features <- mutate(features, bin_id = {{ infer_bin_id }})
 
@@ -133,15 +133,17 @@ infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_star
     group_by(bin_id, seq_id) %>%
     summarize(
       length = {{ infer_length }},
-      start = {{ infer_start }},
-      end = {{ infer_end }}
-    )
+      .start = {{ infer_start }},
+      .end = {{ infer_end }}
+    ) %>%
+    dplyr::rename(start=.start, end=.end) # this is necessary, so {{ infer_end }} does
+                                 # not already use the "start" from {{ infer_start }}
 
   seqs
 }
 
-infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = min(start),
-    infer_end = max(end), infer_length = max(end)){
+infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = min(start,end),
+    infer_end = max(start,end), infer_length = max(start,end)){
   seqs <- bind_rows(
     select_at(links, vars(starts_with("from_")), str_replace, "from_", ""),
     select_at(links, vars(starts_with("to_")), str_replace, "to_", "")
@@ -152,9 +154,10 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
     group_by(seq_id, bin_id) %>%
     summarize(
       length = {{ infer_length }},
-      start = {{ infer_start }},
-      end = {{ infer_end }}
-    )
+      .start = {{ infer_start }},
+      .end = {{ infer_end }}
+    ) %>%
+    dplyr::rename(start=.start, end=.end)
   seqs
 }
 
