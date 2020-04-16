@@ -29,6 +29,6 @@ Obligatory columns are `seq_id`, `start` and `end`. Also recognized are
 Note `start` and `end` for every record will be coerced so that `start <
 end`. If no `strand` was provided, `strand` will added and set to "+" for
 records that initially had `start < end` and "-" for `end < start` inputs. If
-`strand` was provided, the `start` and `end` will be ordered without any
+`strand` was provided, `start` and `end` will be ordered without any
 additional effect.
 }

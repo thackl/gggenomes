@@ -25,10 +25,10 @@ flip_impl <- function(x, ..., bins=everything()){
   if(length(ellipsis:::dots()) > 0){
     seq_ids <- s$seq_id %>% set_names(.)
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
-    s$strand[j] <- s$strand[j] * -1
+    s$strand[j] <- flip_strand(s$strand[j])
   # flip entire bins
   }else{
-    s %<>% mutate(strand = strand *-1) %>%
+    s %<>% mutate(strand = flip_strand(strand)) %>%
       arrange(-row_number())
   }
 

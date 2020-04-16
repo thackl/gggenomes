@@ -34,9 +34,9 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
 
   vars <- c(vars, "strand", "bin_offset", "start", "end")
   if(has_name(x, "strand")){
-    x$strand <- as_numeric_strand(x$strand)
+    x$strand <- strand_chr(x$strand)
   }else{
-    x$strand <- 1L
+    x$strand <- "+"
   }
   if(!has_name(x, "bin_offset")) x$bin_offset <- 0
   if(!has_name(x, "start")) x$start <- 1
@@ -82,8 +82,8 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 
   # fix strands
   x %<>% mutate(
-    xend = ifelse(strand == -1, x, x+end-start+1),
-    x = ifelse(strand == -1, x+end-start+1, x)
+    xend = ifelse(is_reverse(strand), x, x+end-start+1),
+    x = ifelse(is_reverse(strand), x+end-start+1, x)
   ) %>%
     select(y, x, xend, strand, everything())
 }

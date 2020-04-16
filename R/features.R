@@ -9,7 +9,7 @@
 #' Note `start` and `end` for every record will be coerced so that `start <
 #' end`. If no `strand` was provided, `strand` will added and set to "+" for
 #' records that initially had `start < end` and "-" for `end < start` inputs. If
-#' `strand` was provided, the `start` and `end` will be ordered without any
+#' `strand` was provided, `start` and `end` will be ordered without any
 #' additional effect.
 #'
 #' @param x feature data convertible to a feature layout
@@ -38,9 +38,9 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
   if(!has_name(x, "strand")){
-    x$strand <- as_numeric_strand(x$start < x$end)
+    x$strand <- strand_chr(x$start < x$end)
   }else{
-    x$strand <- as_numeric_strand(x$strand)
+    x$strand <- strand_chr(x$strand)
   }
   if(!has_name(x, "feature_id")) x$feature_id <- paste0("f", seq_len(nrow((x))))
 
@@ -69,7 +69,7 @@ layout_features <- function(x, seqs, keep="strand",
   layout <- seqs %>% ungroup() %>%
     transmute(
       seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
-      .seq_offset = pmin(x,xend)-ifelse(.seq_strand < 0, end, start),
+      .seq_offset = pmin(x,xend)-ifelse(is_reverse(.seq_strand), end, start),
       .seq_x=x, .seq_start=start, .seq_end=end)
 
   # project features onto new layout
@@ -98,10 +98,9 @@ layout_features <- function(x, seqs, keep="strand",
 
   x %>%  mutate(
     x = x(start, end, strand, .seq_x, .seq_start, .seq_strand),
-    xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand),
-    display_strand = strand * .seq_strand # this is mostly for convenience to map aes to strand as seen
+    xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand)
   ) %>%
-    select(y, x, xend, display_strand, bin_id, everything(),
+    select(y, x, xend, bin_id, everything(),
            -.seq_strand, -.seq_offset, -.seq_length)
 }
 

@@ -30,9 +30,9 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
   if(!has_vars(x, "strand")){
-    x$strand <- 0L
+    x$strand <- "+"
   }else{
-    x$strand <- as_numeric_strand(x$strand)
+    x$strand <- strand_chr(x$strand)
   }
 
   layout_links(x, seqs, ...)
@@ -84,14 +84,14 @@ layout_links <- function(x, seqs, features=NULL, adjacent_only=TRUE, ...){
     arrange(.lix) %>%
     inner_join(transmute(seqs, seq_id, y, .seq_length=length, # bin_id included
        .seq_strand=strand, .seq_offset=pmin(x,xend))) %>%     # b/c group var
-    mutate(x=.seq_offset+ifelse(.seq_strand >= 0, x, (x-.seq_length)*-1)) %>%
+    mutate(x=.seq_offset+ifelse(!is_reverse(.seq_strand), x, (x-.seq_length)*-1)) %>%
     group_by(.lix) %>%
     mutate(.x_center = mean(x), .y_center = mean(y)) %>% ungroup %>%
     arrange(.lix, y)
 
   # index polygon points
   x$.pix <- rep(1:4, nrow(x)/4)
-  x$.pix[x$.pix==3 & x$strand < 0] <- 5
+  x$.pix[x$.pix==3 & is_reverse(strand)] <- 5
   x$.nudge_sign <- rep(c(1,1,-1,-1), nrow(x)/4)
   x %<>% arrange(.lix, y, .pix)
 }

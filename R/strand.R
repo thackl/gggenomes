@@ -125,6 +125,41 @@ strand_lgl.character <- function(strand, na=NA){
 }
 
 #' @export
-strand_rev <- function(strand, na=FALSE){
+is_reverse <- function(strand, na=FALSE){
   !strand_lgl(strand, na=na)
+}
+
+#' @export
+flip_strand <- function(strand, na=NA){
+  UseMethod("flip_strand")
+}
+
+#' @export
+flip_strand.logical <- function(strand, na=NA){
+  !strand_lgl(strand, na=as.logical(na))
+}
+
+#' @export
+flip_strand.numeric <- function(strand, na=NA){
+  strand_int(!strand_lgl(strand), na=as.integer(na))
+}
+
+#' @export
+flip_strand.character <- function(strand, na=NA){
+  strand_chr(!strand_lgl(strand), na=as.character(na))
+}
+
+#' @export
+combine_strands <- function(strand1, strand2){
+  if(is.character(strand1) || is.factor(strand))
+    return(strand_chr(strand_int(strand1) * strand_int(strand2)))
+  if(is.logical(strand1))
+    return(strand_lgl(strand_int(strand1) * strand_int(strand2)))
+  if(is.numeric(strand1))
+    strand1 * strand_int(strand2)
+}
+
+#' @export
+if_reverse <- function(strand, reverse, forward){
+  ifelse(is_reverse(strand), reverse, forward)
 }
