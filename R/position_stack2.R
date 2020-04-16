@@ -19,7 +19,8 @@ PositionStack2 <- ggproto("PositionStack2", Position,
   offset = 0.02,
   strand = FALSE,
   vjust = 0,
-  required_aes = c("y","x","xend"),
+  required_aes = c("x","xend","y"),
+  optional_aes = c("yend"),
   setup_params = function(self, data){
     list(offset = self$offset, strand = self$strand, vjust=self$vjust)
   },
@@ -33,8 +34,12 @@ PositionStack2 <- ggproto("PositionStack2", Position,
       mutate(yoff = params$offset * stack_pos(start,end,params$vjust) * ifelse(reverse, -1,1)) %>%
       ungroup
     #
-    left_join(data, select(foo, y, group, yoff)) %>%
-      mutate(y = y + yoff, reverse=NULL, yoff=NULL)
+    data <- left_join(data, select(foo, y, group, yoff))
+    if("yend" %in% names(data))
+      data <- mutate(data, y = y + yoff, yend = yend + yoff, reverse=NULL, yoff=NULL)
+    else
+      data <- mutate(data, y = y + yoff, reverse=NULL, yoff=NULL)
+    data
   }
 )
 
