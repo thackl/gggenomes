@@ -47,9 +47,22 @@ as_tibble.tbl_link <- function(x, ...){
 #'
 #' @inheritParams as_links
 #' @param ... not used
-layout_links <- function(x, seqs, features=NULL, adjacent_only=TRUE, ...){
-  seqs %<>% ungroup
+layout_links <- function(x, seqs, keep="strand",
+  marginal=c("trim", "drop", "keep"), ...){
+  marginal <- match.arg(marginal)
 
+
+  # get rid of old layout
+  x <- drop_feature_layout(x, keep)
+
+  # get new layout vars from seqs
+  layout <- seqs %>% ungroup() %>%
+    transmute(
+      seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
+      .seq_offset = pmin(x,xend)-ifelse(is_reverse(.seq_strand), end, start),
+      .seq_x=x, .seq_start=start, .seq_end=end)
+
+  
   if(!has_vars(x, c("from_start", "from_end", "to_start", "to_end"))){
     if(has_vars(x, c("from_start", "from_end", "to_start", "to_end"),
                 any=TRUE)){
@@ -94,4 +107,27 @@ layout_links <- function(x, seqs, features=NULL, adjacent_only=TRUE, ...){
   x$.pix[x$.pix==3 & is_reverse(strand)] <- 5
   x$.nudge_sign <- rep(c(1,1,-1,-1), nrow(x)/4)
   x %<>% arrange(.lix, y, .pix)
+}
+
+
+#' @export
+add_links <- function(x, ...){
+  UseMethod("add_links")
+}
+
+#' @export
+add_links.gggenomes <- function(x, ...){
+  x$data <- add_links(x$data, ...)
+  x
+}
+
+#' @export
+add_links.gggenomes_layout <- function(x, ..., .auto_prefix="links"){
+  tracks <- list(...)
+  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "links",
+                                      .auto_prefix)
+  # convert to layouts
+  x$links <- c(x$links, map(tracks, as_links, x$seqs)) # this is lossy, so
+  x$orig_links <- c(x$orig_links, tracks) # also store orig links for re-layout
+  x
 }

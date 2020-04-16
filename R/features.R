@@ -110,3 +110,30 @@ drop_feature_layout <- function(x, seqs, keep="strand"){
   drop <- drop[!drop %in% keep]
   discard(x, names(x) %in% drop)
 }
+
+#' Add features
+#' @param ... feature tables with names, i.e. genes=gene_df, snps=snp_df
+#' @export
+#'
+#' @examples
+#' gggenomes %>%
+#'   add_features(genes=gene_df, snps=snp_df)
+add_features <- function(x, ...){
+  UseMethod("add_features")
+}
+
+#' @export
+add_features.gggenomes <- function(x, ...){
+  x$data <- add_features(x$data, ...)
+  x
+}
+
+#' @export
+add_features.gggenomes_layout <- function(x, ..., .auto_prefix="features"){
+  tracks <- list(...)
+  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "features",
+                                      .auto_prefix)
+  # convert to feature layouts
+  x$features <- c(x$features, map(tracks, as_features, x$seqs))
+  x
+}

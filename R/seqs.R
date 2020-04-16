@@ -133,3 +133,18 @@ wrap_impl <- function(.data, xmax, xpad, ystart, xstart){
   .data$y <- y
   .data
 }
+
+#' @export
+add_seqs <- function(x, seqs, ...){
+  UseMethod("add_seqs")
+}
+#' @export
+add_seqs.gggenomes <- function(x, seqs, ...){
+  x$data <- add_seqs(x$data, seqs, ...)
+  x
+}
+#' @export
+add_seqs.gggenomes_layout <- function(x, seqs, ...){
+  x$seqs <- as_seqs(seqs, ...)
+  x
+}
