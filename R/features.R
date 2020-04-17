@@ -66,11 +66,8 @@ layout_features <- function(x, seqs, keep="strand",
   x <- drop_feature_layout(x, keep)
 
   # get new layout vars from seqs
-  layout <- seqs %>% ungroup() %>%
-    transmute(
-      seq_id, bin_id, y, .seq_length=length, .seq_strand=strand,
-      .seq_offset = pmin(x,xend)-ifelse(is_reverse(.seq_strand), end, start),
-      .seq_x=x, .seq_start=start, .seq_end=end)
+  layout <- seqs %>% ungroup() %>% select(
+    seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
 
   # project features onto new layout
   join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
@@ -101,7 +98,7 @@ layout_features <- function(x, seqs, keep="strand",
     xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand)
   ) %>%
     select(y, x, xend, bin_id, everything(),
-           -.seq_strand, -.seq_offset, -.seq_length)
+           -.seq_strand, -.seq_length)
 }
 
 #' @export
