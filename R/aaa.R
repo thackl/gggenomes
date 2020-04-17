@@ -1,74 +1,14 @@
-null_else <- function(a, b) {
-  if (is.null(a)) NULL else b
-}
-
-has_dots <- function(env = parent.frame()){
-  length(ellipsis:::dots(env)) > 0
-}
-
-#' Do numeric values fall into specified ranges?
+#' Swap values of two columns based on a condition
 #'
-#' @param x a numeric vector of values
-#' @param left,right boundary values or vectors of same length as x
-#' @param closed wether to include (`TRUE`) or exclude (`FALSE`) the
-#' endpoints. Provide 2 values for different behaviors for lower and upper
-#' boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.
-#' @return a logical vector of the same length as the input
+#' @param x a tibble
+#' @param condition an expression to be evaluated in data context returning a
+#' TRUE/FALSE vector
+#' @param ... the two columns bewteen which values are to be swapped in
+#' dplyr::select-like syntax
 #' @examples
-#' in_range(1:5, 2, 4)
-#' in_range(1:5, 2, 4, closed=c(FALSE, TRUE)) # left-open
-#' in_range(1:5, 6:2, 3) # vector of boundaries, single values recycle
-#'
-#' # plays nicely with dplyr
-#' mutate(
-#'   tibble(x=rep(4,5), left=1:5, right=3:7),
-#'   closed=in_range(x, left, right, TRUE),
-#'   open=in_range(x, left, right, FALSE)
-in_range <- function(x, left, right, closed = TRUE){
-  if(length(closed) == 1) closed <- rep(closed, 2)
-  n <- length(x)
-  if(length(left) == 1) left <- rep(left, n)
-  if(length(right) == 1) right <- rep(right, n)
-
-  if(length(right) != n || length(left) != n)
-    rlang::abort("left and right need to of length 1 or same length as x")
-
-  # left and right are not necessarily sorted
-  swap <- left > right
-  if(any(swap)){
-    left_tmp <- left
-    left[swap] <- right[swap]
-    right[swap] <- left_tmp[swap]
-  }
-
-  in_range_impl(x, min=left, max=right, closed=closed)
-}
-
-in_range_impl <- function(x, min, max, closed = c(TRUE, TRUE)){
-  if(!any(closed))      min <  x & x <  max
-  else if(all(closed))  min <= x & x <= max
-  else if(closed[1])    min <= x & x <  max
-  else if(closed[2])    min <  x & x <= max
-}
-
-#' The width of a range
-#'
-#' Always returns a positive value, even if start > end. `width0` is a short
-#' handle for `width(..., base=0)`
-#'
-#' @param start,end start and end of the range
-#' @param base the base of the coordinate system, usually 1 or 0.
-#' @return a numeric vector
-width <- function(start, end, base=1){
-  abs(end-start)+base
-}
-
-#' @rdname width
-width0 <- function(start, end, base=0){
-  width(start=start, end=end, base=base)
-}
-
-swap <- function(x, condition, ...){
+#' x <- tibble(start = c(10,100), end=c(30, 50))
+#' swap_if(start > end, start, end) # ensure start of a range is always smaller than the end
+swap_if <- function(x, condition, ...){
   i <- tidyselect::eval_select(rlang::expr(c(...)), x)
   if(length(i) != 2 || length(unique(i)) != 2)
     rlang::abort("need to select exactly 2 different columns for swapping")
@@ -77,4 +17,9 @@ swap <- function(x, condition, ...){
   # swap
   x[j,rev(i)] <- x[j,i]
   x
+}
+
+# are there any arguments in ...
+has_dots <- function(env = parent.frame()){
+  length(ellipsis:::dots(env)) > 0
 }

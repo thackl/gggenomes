@@ -44,7 +44,7 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
   }
   if(!has_name(x, "feature_id")) x$feature_id <- paste0("f", seq_len(nrow((x))))
 
-  x %<>% swap(start > end, start, end)
+  x %<>% swap_if(start > end, start, end)
 
   layout_features(x, seqs, ...)
 }
