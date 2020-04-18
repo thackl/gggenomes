@@ -85,7 +85,7 @@ geom_seq_label <- function(mapping = NULL, data = use(seqs),
 #' @export
 geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
 
-  default_aes <- aes_(y=~y,x=~x - abs(min(x)-max(xend)) * nudge_left, label=~bin_id)
+  default_aes <- aes_(y=~y,x=~x - max_width(x,xend) * nudge_left, label=~bin_id)
   mapping <- aes_intersect(mapping, default_aes)
   r <- list(geom_text(mapping = mapping, data = data,
               hjust = hjust, size = size, ...))

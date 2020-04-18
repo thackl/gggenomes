@@ -201,7 +201,7 @@ is_likely_feature_track <- function(x){
 use_bins <- function(){
   function(x){
     seqs(x) %>% group_by(bin_id, y) %>%
-      summarize(x = min(x), xend = max(xend)) %>%
+      summarize(x = min(x,xend), xend = max(x,xend)) %>%
       ungroup()
   }
 }

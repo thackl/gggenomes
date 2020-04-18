@@ -60,6 +60,11 @@ width0 <- function(start, end, base=0){
   width(start=start, end=end, base=base)
 }
 
+max_width <- function(..., base=1){
+  diff(range(...))+base
+
+}
+
 #' @export
 as_tibble.GRanges <- function(data){
   select(as_tibble(as.data.frame(data)), seq_id=seqnames, start, end, strand, everything())
