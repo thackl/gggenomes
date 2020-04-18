@@ -61,7 +61,10 @@ read_gffs <- function(gff_files, genome_ids = NULL){
 #' @return tibble
 read_paf <- function(file, max_tags=20){
   thacklr::read_paf(file, max_tags) %>%
-    rename(from_id=query_name, to_id=target_name) %>%
-    rename_at(vars(starts_with("query")), ~str_replace(.,"query", "from")) %>%
-    rename_at(vars(starts_with("target")), ~str_replace(.,"target", "to"))
+    rename(
+      seq_id1=query_name, seq_id2=target_name,
+      start1=query_start, start2=target_start,
+      end1=query_end, end2=target_end,
+      length1=query_length, length2=target_length
+    )
 }

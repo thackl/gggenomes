@@ -144,12 +144,16 @@ infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_star
 
 infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = min(start,end),
     infer_end = max(start,end), infer_length = max(start,end)){
+
   seqs <- bind_rows(
-    select_at(links, vars(starts_with("from_")), str_replace, "from_", ""),
-    select_at(links, vars(starts_with("to_")), str_replace, "to_", "")
+    select_at(links, vars(ends_with("1")), str_replace, "1", ""),
+    select_at(links, vars(ends_with("2")), str_replace, "2", "")
   )
 
-  seqs %<>% dplyr::rename(seq_id = id) %>%
+  if(!has_name(seqs, "bin_id"))
+    seqs <- mutate(seqs, bin_id = {{ infer_bin_id }})
+
+  seqs %<>%
     mutate(bin_id = {{ infer_bin_id }}) %>%
     group_by(seq_id, bin_id) %>%
     summarize(
@@ -157,7 +161,8 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-    dplyr::rename(start=.start, end=.end)
+      dplyr::rename(start=.start, end=.end)
+
   seqs
 }
 

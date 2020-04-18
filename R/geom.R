@@ -39,22 +39,6 @@ geom_feature <- function(mapping = NULL, data = use(features),
   geom_segment(mapping = mapping, data = data, arrow = arrow, size = size, ...)
 }
 
-
-#' draw links
-#'
-#' @param data link_layout
-#' @param array set to non-NULL to generate default arrows
-#' @inheritParams ggplot2::geom_polygon
-#' @importFrom ggplot2 geom_polygon
-#' @export
-geom_link <- function(mapping = NULL, data = use(links), nudge_frac=.1, ...){
-
-  default_aes <- aes(x=x, y=y + .nudge_sign * {{nudge_frac}}, group=.lix)
-  mapping <- aes_intersect(mapping, default_aes)
-
-  geom_polygon(mapping = mapping, data=data, ...)
-}
-
 #' draw feature labels
 #'
 #' @export
