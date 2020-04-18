@@ -121,28 +121,27 @@ add_feature_layout_scaffold <- function(x, seqs){
 
 trim_features_to_subseqs <- function(x, marginal){
   if(marginal == "drop"){
-    # get only all fully contained features
-    x %<>% filter(.seq_start <= start & end <= .seq_end)
+    x <- mutate(x, .marginal = FALSE)
   }else{
-    x %<>% mutate(
-      .marginal = in_range(.seq_start, start, end, closed=FALSE) |
-        in_range(.seq_end, start, end, closed=FALSE))
-
-    if(marginal == "keep"){
-      # get all fully contained and jutting features
-      x %<>% filter(.seq_start <= start & end <= .seq_end | .marginal)
-    }else if(marginal == "trim"){
-      x %<>% mutate(
-          start = ifelse(.marginal & start < .seq_start, .seq_start, start),
-          end = ifelse(.marginal & end > .seq_end, .seq_end, end)) %>%
-        # marginals are now also fully contained
-        filter(.seq_start <= start & end <= .seq_end)
-    }
+    x <- mutate(x, .marginal = is_marginal(start, end, .seq_start, .seq_end))
   }
+
+  if(marginal == "trim"){
+    x %<>% mutate(
+      start = ifelse(.marginal & start < .seq_start, .seq_start, start),
+      end = ifelse(.marginal & end > .seq_end, .seq_end, end))
+  }  # marginals are now also fully contained
+
+  filter(x, .seq_start <= start & end <= .seq_end | .marginal)
 }
 
 project_features <- function(x){
   mutate(x,
     x = x(start, end, strand, .seq_x, .seq_start, .seq_strand),
     xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand))
+}
+
+is_marginal <- function(start, end, seq_start, seq_end, closed=FALSE){
+  in_range(seq_start, start, end, closed=FALSE) |
+    in_range(seq_end, start, end, closed=FALSE)
 }
