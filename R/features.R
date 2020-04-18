@@ -65,40 +65,16 @@ layout_features <- function(x, seqs, keep="strand",
   # get rid of old layout
   x <- drop_feature_layout(x, keep)
 
-  # get new layout vars from seqs
-  layout <- seqs %>% ungroup() %>% select(
-    seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
+  # get layout vars necessary for projecting features from seqs
+  x <- add_feature_layout_scaffold(x, seqs)
 
-  # project features onto new layout
-  join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
-  x <- inner_join(x, layout, by=join_by)
+  # ignore features outside subseqs
+  x <- trim_features_to_subseqs(x, marginal)
 
-  if(marginal == "drop"){
-    # get only all fully contained features
-    x %<>% filter(.seq_start <= start & end <= .seq_end)
-  }else{
-    x %<>% mutate(
-      .marginal = in_range(.seq_start, start, end, closed=FALSE) |
-        in_range(.seq_end, start, end, closed=FALSE))
-
-    if(marginal == "keep"){
-      # get all fully contained and jutting features
-      x %<>% filter(.seq_start <= start & end <= .seq_end | .marginal)
-    }else if(marginal == "trim"){
-      x %<>% mutate(
-          start = ifelse(.marginal & start < .seq_start, .seq_start, start),
-          end = ifelse(.marginal & end > .seq_end, .seq_end, end)) %>%
-        # marginals are now also fully contained
-        filter(.seq_start <= start & end <= .seq_end)
-    }
-  }
-
-  x %>%  mutate(
-    x = x(start, end, strand, .seq_x, .seq_start, .seq_strand),
-    xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand)
-  ) %>%
-    select(y, x, xend, bin_id, everything(),
-           -.seq_strand, -.seq_length)
+  # project features onto new layout and clean up aux vars (.seq)
+  x <- project_features(x) %>%
+    select(y, x, xend, bin_id, everything(), -starts_with(".seq"))
+  x
 }
 
 #' @export
@@ -133,4 +109,40 @@ add_features.gggenomes_layout <- function(x, ..., .auto_prefix="features"){
   # convert to feature layouts
   x$features <- c(x$features, map(tracks, as_features, x$seqs))
   x
+}
+
+add_feature_layout_scaffold <- function(x, seqs){
+  scaffold <- seqs %>% ungroup() %>% select(
+    seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
+
+  join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
+  inner_join(x, scaffold, by=join_by)
+}
+
+trim_features_to_subseqs <- function(x, marginal){
+  if(marginal == "drop"){
+    # get only all fully contained features
+    x %<>% filter(.seq_start <= start & end <= .seq_end)
+  }else{
+    x %<>% mutate(
+      .marginal = in_range(.seq_start, start, end, closed=FALSE) |
+        in_range(.seq_end, start, end, closed=FALSE))
+
+    if(marginal == "keep"){
+      # get all fully contained and jutting features
+      x %<>% filter(.seq_start <= start & end <= .seq_end | .marginal)
+    }else if(marginal == "trim"){
+      x %<>% mutate(
+          start = ifelse(.marginal & start < .seq_start, .seq_start, start),
+          end = ifelse(.marginal & end > .seq_end, .seq_end, end)) %>%
+        # marginals are now also fully contained
+        filter(.seq_start <= start & end <= .seq_end)
+    }
+  }
+}
+
+project_features <- function(x){
+  mutate(x,
+    x = x(start, end, strand, .seq_x, .seq_start, .seq_strand),
+    xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand))
 }
