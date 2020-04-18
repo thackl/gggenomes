@@ -1,0 +1,28 @@
+** gggenomes
+Tracks
+
+Genomics data is not tidy - the tidiest I could come up with
+
+Make ggplot work with untidy data
+
+*** seqs
+*** features
+*** links
+** geoms
+*** geom_seq()
+*** geom_feature()
+*** geom_gene()
+*** geom_link()
+*** geom_*_label() seq,bin,feature,gene,link
+
+*** Overlapping features - position_stack2/3
+** Manipulating the layout
+*** pick()
+*** flip(), flip_bin()
+*** shift(), shift_bin()
+*** focus()
+
+** Reading data from common file types
+*** read_fai()
+*** read_gff()
+*** read_paf()
