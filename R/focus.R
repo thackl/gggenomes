@@ -33,17 +33,27 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
       summarize(
         start = min(start) - plus[1],
         end = max(end) + plus[2]) %>%
-      left_join(select(seqs(x) , seq_id, bin_id, .seq_length = length),
-                    by=c("seq_id", "bin_id")) %>%
-      mutate( # make sure we don't expand outside the seq
-        start = ifelse(start<0,0,start),
-        end = ifelse(.seq_length < end, .seq_length, end),
-        .seq_length = NULL,
-        bin_id = NULL # for cleaner join
-      )
+          select(-bin_id)
+  }else{
+    # coerce IDs to chars, so we don't get errors in join by mismatched types
+    subseqs <- mutate_at(subseqs, vars(seq_id), as.character)
   }
 
   s <- inner_join(s, subseqs, by="seq_id")
+  s <- mutate(s,
+    start = ifelse(start < 1, 1, start),
+    end = ifelse(length < end, length, end))
+
+  if(any(duplicated(s$seq_id))){
+    # NOTE: currently, this would create a clone of the sequence - duplicating
+    # sequence and feature_ids in the plot. This breaks access by ids functions
+    # (pick, ...) and feature_id-based geom_gene - thinks genes on clones are
+    # exons. Not sure, how to best fix that
+    warn(paste("focussing in on two or more regions of the same sequence is",
+               "currently not supported. Will return only the first region"))
+    s <- s[!duplicated(s$seq_id),]
+  }
+
   seqs(x) <- s
   layout(x, args_features = list(marginal = marginal))
 }

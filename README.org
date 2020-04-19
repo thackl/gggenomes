@@ -5,21 +5,28 @@ Genomics data is not tidy - the tidiest I could come up with
 
 Make ggplot work with untidy data
 
-*** seqs
-*** features
+*** seqs & bins (contigs, genomes)
+*** features (genes, ...)
 *** links
+*** INPG subseqs (regions)
+add_subseqs or so
+*** TODO subfeatures
+*** TODO feature links
 ** geoms
 *** geom_seq()
 *** geom_feature()
 *** geom_gene()
 *** geom_link()
 *** geom_*_label() seq,bin,feature,gene,link
-
+*** TODO geom_read / long_read
 *** Overlapping features - position_stack2/3
+*** TODO position_frame
+*** quantitative data - GC content, etc.
+
 ** Manipulating the layout
 *** pick()
-*** flip(), flip_bin()
-*** shift(), shift_bin()
+*** flip(), flip_bins()
+*** shift(), shift_bins()
 *** focus()
 
 ** Reading data from common file types

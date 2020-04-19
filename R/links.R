@@ -34,6 +34,9 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   vars <- c("seq_id1", "seq_id2")
   require_vars(x, vars)
 
+  # coerce IDs to chars, so we don't get errors in join by mismatched types
+  x <- mutate_at(x, vars(seq_id1, seq_id2), as.character)
+
   if(!has_vars(x, c("start1", "end1", "start2", "end2"))){
     if(has_vars(x, c("start1", "end1", "start2", "end2"),any=TRUE)){
       abort("Need either all of start1,fend1,start2,end2 or none!")

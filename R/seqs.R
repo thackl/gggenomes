@@ -32,6 +32,9 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
   vars <- c("seq_id","bin_id","length")
   require_vars(x, vars)
 
+  # coerce IDs to chars, so we don't get errors in join by mismatched types
+  x <- mutate_at(x, vars(seq_id, bin_id), as.character)
+
   vars <- c(vars, "strand", "bin_offset", "start", "end")
   if(has_name(x, "strand")){
     x$strand <- strand_chr(x$strand)

@@ -32,6 +32,10 @@ as_features.default <- function(x, seqs, ..., everything=TRUE) {
 as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
   vars <- c("seq_id","start","end")
   require_vars(x, vars)
+
+  # coerce IDs to chars, so we don't get errors in join by mismatched types
+  x <- mutate_at(x, vars(seq_id), as.character)
+
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
 

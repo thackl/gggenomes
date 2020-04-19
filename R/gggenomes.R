@@ -139,7 +139,7 @@ infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_star
     dplyr::rename(start=.start, end=.end) # this is necessary, so {{ infer_end }} does
                                  # not already use the "start" from {{ infer_start }}
 
-  seqs
+  ungroup(seqs)
 }
 
 infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = min(start,end),
@@ -163,7 +163,7 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
     ) %>%
       dplyr::rename(start=.start, end=.end)
 
-  seqs
+  ungroup(seqs)
 }
 
 #' Use a specific track table inside a `geom_*` call.
