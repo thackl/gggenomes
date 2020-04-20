@@ -19,19 +19,21 @@
 #' @param forward_below By default forward features are stacked above, reverse
 #' features depending on strandwise also above or below the genome. Set TRUE to
 #' stack the other way around.
+#' @param grouped stack features in same aestetics group as if they are one
+#' feature. Useful for stacking multi-exon genes as a single unit
 #' @export
 position_stack1 <- function(offset = 0.02, strandwise = FALSE, vjust = as.numeric(strandwise), padding=1,
-  forward_below = FALSE) {
+  forward_below = FALSE, grouped = FALSE) {
   ggproto(NULL, PositionStack2, offset = offset, strandwise = strandwise, vjust = vjust, padding = padding,
-    forward_below = forward_below)
+    forward_below = forward_below, grouped = grouped)
 }
 
 #' @rdname position_stack1
 #' @export
 position_stack2 <- function(offset = 0.02, strandwise = TRUE, vjust = as.numeric(strandwise), padding=1,
-  forward_below = FALSE){
+  forward_below = FALSE, grouped = FALSE){
   ggproto(NULL, PositionStack2, offset = offset, strandwise = strandwise, vjust = vjust, padding = padding,
-    forward_below = forward_below)
+    forward_below = forward_below, grouped = grouped)
 }
 
 #' @rdname ggplot2-ggproto
@@ -44,28 +46,43 @@ PositionStack2 <- ggproto("PositionStack2", Position,
   vjust = 0,
   padding = 0,
   forward_below = FALSE,
+  grouped = FALSE,
   required_aes = c("x","xend","y"),
   optional_aes = c("yend"),
   setup_params = function(self, data){
-    list(offset = self$offset, strandwise = self$strandwise, vjust=self$vjust, padding=self$padding,
-         forward_below = self$forward_below)
+    list(offset = self$offset, strandwise = self$strandwise, vjust=self$vjust,
+         padding=self$padding, forward_below = self$forward_below,
+         grouped = self$grouped)
   },
   compute_panel = function(data, params, scales) {
     if(!params$strandwise && is.na(params$padding)){
       return(data) # nothing to do
     }
+
     # not pretty, but works for now
-    foo <- data %>%
-      group_by(y,group) %>%
-      summarize(
-        start=min(x,xend)+1, end=max(x,xend),
-        is_reverse=ifelse(params$strandwise, xor(min(x)>max(xend), params$forward_below), params$forward_below)) %>%
-      group_by(y,is_reverse) %>%
-      mutate(yoff = params$offset * stack_pos(start,end,params$vjust,params$padding) *
-               ifelse(is_reverse, -1,1)) %>%
-      ungroup
-    #
-    data <- left_join(data, select(foo, y, group, yoff))
+    if(params$grouped){ # i.e. multi-exon as one unit
+      data_grouped <- data %>%
+        group_by(y,group) %>%
+        summarize(
+          start=min(x,xend)+1, end=max(x,xend), is_reverse=ifelse(params$strandwise,
+              xor(min(x)>max(xend), params$forward_below), params$forward_below))
+
+      data_grouped <- data_grouped %>% group_by(y,is_reverse) %>%
+        mutate(yoff = params$offset * stack_pos(start,end,params$vjust,params$padding) *
+                 ifelse(is_reverse, -1,1)) %>% ungroup
+
+      data <- left_join(data, select(data_grouped, y, group, yoff), by=c("y", "group"))
+
+    }else{
+      data <- data %>%
+        mutate(
+          start=pmin(x,xend)+1, end=pmax(x,xend),
+          is_reverse=if(params$strandwise) xor(x>xend, params$forward_below) else params$forward_below) %>%
+        group_by(y,is_reverse) %>%
+        mutate(yoff = params$offset * stack_pos(start,end,params$vjust,params$padding) *
+                 ifelse(is_reverse, -1,1)) %>% ungroup
+    }
+
     if("yend" %in% names(data))
       data <- mutate(data, y = y + yoff, yend = yend + yoff, is_reverse=NULL, yoff=NULL)
     else

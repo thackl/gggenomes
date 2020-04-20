@@ -14,7 +14,7 @@ track_ids.gggenomes_layout <- function(x, ...){
   names(track_ids) <- c("seqs", rep("features", length(x$features)),
                         rep("links", length(x$links)))
   track_ids
- }
+}
 
 check_track_ids <- function(new_track_ids, old_track_ids, type, prefix){
   all_track_ids <- c(new_track_ids[new_track_ids != ""], old_track_ids)
