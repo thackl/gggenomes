@@ -94,6 +94,13 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 }
 
 
+#' Add links
+#' @param ... link tables, possibly named, i.e. blast=blast_df, domains=domain_df
+#' @inheritParams as_links
+#' @param .dots superceed dots with a list of arguments.
+#' @examples
+#' gggenomes %>%
+#'   add_links(links_df)
 #' @export
 add_links <- function(x, ...){
   UseMethod("add_links")

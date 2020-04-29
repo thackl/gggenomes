@@ -21,6 +21,9 @@
 #' @param features the parent features the subfeatures map onto.
 #' @param everything set to FALSE to drop optional columns
 #' @param ... passed on to `layout_seqs()`
+#' @param transform use if features and subfeatures are in different coordinate
+#' spaces, i.e. if matching nucleotide-level annotations to protein level
+#' annotations, e.g. genes and protein blast results.
 #' @return a tbl_df with plot coordinates
 #' @export
 as_subfeatures <- function(x, seqs, features, ..., everything=TRUE){
@@ -34,9 +37,19 @@ as_subfeatures.default <- function(x, seqs, features, ..., everything=TRUE) {
 }
 
 #' @export
-as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE){
+as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
+    transform = c("none", "aa2nuc", "nuc2aa")){
+  transform <- match.arg(transform)
+  # TODO - bad transform, not none,aa2nuc,nuc2aa
+
   vars <- c("feature_id","start","end")
   require_vars(x, vars)
+  if(has_name(x, "seq_id")){
+    join_by = c("feature_id", "seq_id")
+  }else{
+    join_by = c("feature_id")
+  }
+  # TODO - bad transform, not none,aa2nuc,nuc2aa
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
   x <- mutate_at(x, vars(feature_id), as.character)
@@ -53,8 +66,15 @@ as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE){
   }
 
   x <- x %>% swap_if(start > end, start, end)
-  x <- x %>% left_join(select(features, feature_id, .feat_start=start)) %>%
-    mutate(start = .feat_start +start, end = .feat_start + end, .feat_start=NULL)
+  if(transform == "aa2nuc") x <- mutate(x, start = 3*start-2, end = 3*end-2)
+  if(transform == "nuc2aa") x <- mutate(x, start = (start+2)/3, end = (end+2)/3)
+
+  x <- x %>% left_join(select(features, feature_id, seq_id, .feat_start=start,
+      .feat_end = end, .feat_strand = strand), by = join_by) %>%
+    mutate(
+      start = ifelse(is_reverse(.feat_strand), .feat_end-start, .feat_start+start),
+      end = ifelse(is_reverse(.feat_strand), .feat_end-end, .feat_start+end),
+      .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
 
   print(x)
 
@@ -65,31 +85,36 @@ as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE){
 #' Add subfeatures
 #' @param parent_track_id
 #' @param ... subfeature tables with names, i.e. blast=blast_df, domains=domain_df
+#' @inheritParams as_subfeatures
+#' @param .dots superceed dots with a list of arguments.
 #' @export
 #'
 #' @examples
 #' gggenomes %>%
-#'   add_features(genes=gene_df, snps=snp_df)
-add_subfeatures <- function(x, parent_track_id, ...){
+#'   add_subfeatures(genes, blastp_hits, transform="aa2nuc")
+add_subfeatures <- function(x, parent_track_id, ..., transform = "none", .dots=NULL){
   UseMethod("add_subfeatures")
 }
 
 #' @export
-add_subfeatures.gggenomes <- function(x, parent_track_id, ...){
+add_subfeatures.gggenomes <- function(x, parent_track_id, ..., transform = "none", .dots=NULL){
   x$data <- add_subfeatures(x$data, parent_track_id = {{ parent_track_id }}, ...)
   x
 }
 
 #' @export
 add_subfeatures.gggenomes_layout <- function(x, parent_track_id, ...,
-    .auto_prefix="subfeatures"){
-  tracks <- list(...)
-  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "features",
-    .auto_prefix)
+  transform = "none"){
 
+  if(!has_dots()) return(x)
+  dot_exprs <- enexprs(...) # defuse before list(...)
+  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
+  add_subfeature_tracks(x, {{parent_track_id}}, tracks, transform)
+}
+
+add_subfeature_tracks <- function(x, parent_track_id, tracks, transform){
   features <- track(x, {{parent_track_id}})
-
-  # convert to feature layouts
-  x$features <- c(x$features, map(tracks, as_subfeatures, x$seqs, features))
+  x$features <- c(x$features, map(
+    tracks, as_subfeatures, x$seqs, features, transform = transform))
   x
 }

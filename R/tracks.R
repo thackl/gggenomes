@@ -16,17 +16,39 @@ track_ids.gggenomes_layout <- function(x, ...){
   track_ids
 }
 
-check_track_ids <- function(new_track_ids, old_track_ids, type, prefix){
-  all_track_ids <- c(new_track_ids[new_track_ids != ""], old_track_ids)
-  # track ids need to be unique
-  if(any(duplicated(all_track_ids))){
-    dups <- all_track_ids[duplicated(all_track_ids)]
-    stop(paste("track ids need to be unique: ", dups))
+as_tracks <- function(tracks, tracks_exprs, reserved_ids=NULL){
+  # capture for df naming before first eval of tracks
+  track_name <- as_label(enexpr(tracks))
+
+  if(is.null(tracks)){
+    return(tracks)
+  }else if(is.data.frame(tracks)){
+    tracks <- list(tracks)
+    names(tracks) <- track_name
+  }else if(is.list(tracks)){
+    names(tracks) <- name_unnamed_from_values(tracks_exprs)
+    for(n in names(tracks)){
+      if(!is.data.frame(tracks[[n]]))
+        abort(paste0("track '", n, "' needs to be a data frame"))
+    }
+  }else{
+    abort(paste0("track '", track_name, "' needs to be a data frame or a list of data frames"))
   }
 
-  no_names <- which(new_track_ids  == "")
-  new_track_ids[no_names] <- paste0(prefix, no_names + sum(names(old_track_ids) == type))
-  new_track_ids
+  # track ids need to be unique
+  all_track_ids <- c(names(tracks), reserved_ids)
+  if(any(duplicated(all_track_ids))){
+    dups <- all_track_ids[duplicated(all_track_ids)]
+    abort(paste("track ids need to be unique: ", dups))
+  }
+
+  tracks
+}
+
+name_unnamed_from_values <- function(x){
+  unnamed <- !have_name(x)
+  names(x)[unnamed] <- x[unnamed]
+  names(x)
 }
 
 #' @export

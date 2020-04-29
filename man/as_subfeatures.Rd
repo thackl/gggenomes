@@ -16,6 +16,10 @@ as_subfeatures(x, seqs, features, ..., everything = TRUE)
 \item{...}{passed on to `layout_seqs()`}
 
 \item{everything}{set to FALSE to drop optional columns}
+
+\item{transform}{use if features and subfeatures are in different coordinate
+spaces, i.e. if matching nucleotide-level annotations to protein level
+annotations, e.g. genes and protein blast results.}
 }
 \value{
 a tbl_df with plot coordinates

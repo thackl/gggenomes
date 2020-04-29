@@ -4,23 +4,26 @@
 \alias{layout_genomes}
 \title{Compute a genomes layout from sequences, features and links}
 \usage{
-layout_genomes(seqs = NULL, features = NULL, links = NULL,
-  features_track_id = "genes", links_track_id = "links",
-  infer_bin_id = seq_id, infer_start = min(start, end),
+layout_genomes(seqs = NULL, genes = NULL, features = NULL,
+  links = NULL, infer_bin_id = seq_id, infer_start = min(start, end),
   infer_end = max(start, end), infer_length = max(start, end), ...)
 }
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}
 
-\item{features}{a table (or names list of tables) with feature data (seq_id,
-bin_id, start, end)}
+\item{genes}{a table or a list of table with gene data to be added as feature
+tracks. Required columns: seq_id, bin_id, start, end.
 
-\item{links}{a table with link data (from, to, from_start, from_end,
-to_start, to_end)}
+For a single table, adds the track_id will be "genes". For a list, track_ids
+are parsed from the list names, or if names are missing from the name of the
+variable containing each table.}
 
-\item{features_track_id}{default ID for first features track}
+\item{features}{same as genes, but the single table track_id will default to
+"features".}
 
-\item{links_track_id}{default ID for first links track}
+\item{links}{a table or a list of tables with link data to be added as link
+tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
+naming scheme as for features.}
 
 \item{infer_bin_id, infer_start, infer_end, infer_length}{used to infer pseudo
 seqs if only features or links are provided. The expressions are evaluated in
@@ -31,6 +34,10 @@ are generated. Set `infer_start` to 0 to show all sequences from their
 true beginning.}
 
 \item{...}{layout parameters passed on to `layout_seqs()`}
+
+\item{features_track_id}{default ID for first features track}
+
+\item{links_track_id}{default ID for first links track}
 }
 \description{
 See `gggenomes::gggenomes()` for more info.

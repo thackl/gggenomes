@@ -4,15 +4,24 @@
 \alias{add_subfeatures}
 \title{Add subfeatures}
 \usage{
-add_subfeatures(x, parent_track_id, ...)
+add_subfeatures(x, parent_track_id, ..., transform = "none",
+  .dots = NULL)
 }
 \arguments{
+\item{x}{subfeature data convertible to a feature layout}
+
 \item{...}{subfeature tables with names, i.e. blast=blast_df, domains=domain_df}
+
+\item{transform}{use if features and subfeatures are in different coordinate
+spaces, i.e. if matching nucleotide-level annotations to protein level
+annotations, e.g. genes and protein blast results.}
+
+\item{.dots}{superceed dots with a list of arguments.}
 }
 \description{
 Add subfeatures
 }
 \examples{
 gggenomes \%>\%
-  add_features(genes=gene_df, snps=snp_df)
+  add_subfeatures(genes, blastp_hits, transform="aa2nuc")
 }

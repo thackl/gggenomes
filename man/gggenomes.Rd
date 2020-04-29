@@ -4,17 +4,25 @@
 \alias{gggenomes}
 \title{Plot genomes, features and synteny maps}
 \usage{
-gggenomes(seqs = NULL, features = NULL, links = NULL, ...,
-  theme = c("clean", NULL), .layout = NULL)
+gggenomes(seqs = NULL, genes = NULL, features = NULL, links = NULL,
+  ..., theme = c("clean", NULL), .layout = NULL)
 }
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}
 
-\item{features}{a table (or names list of tables) with feature data (seq_id,
-bin_id, start, end)}
+\item{genes}{a table or a list of table with gene data to be added as feature
+tracks. Required columns: seq_id, bin_id, start, end.
 
-\item{links}{a table with link data (from, to, from_start, from_end,
-to_start, to_end)}
+For a single table, adds the track_id will be "genes". For a list, track_ids
+are parsed from the list names, or if names are missing from the name of the
+variable containing each table.}
+
+\item{features}{same as genes, but the single table track_id will default to
+"features".}
+
+\item{links}{a table or a list of tables with link data to be added as link
+tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
+naming scheme as for features.}
 
 \item{...}{layout parameters passed on to `layout_genomes()`}
 

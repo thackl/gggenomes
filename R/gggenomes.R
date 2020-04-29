@@ -13,10 +13,20 @@
 #' @import ggplot2 grid rlang
 #' @export
 #' @return gggenomes-flavored ggplot object
-gggenomes <- function(seqs=NULL, features=NULL, links=NULL, ...,
+gggenomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL, ...,
     theme = c("clean", NULL), .layout=NULL){
 
-  layout <- .layout %||% layout_genomes(seqs=seqs, features=features, links=links, ...)
+  # parse track_args to tracks - some magic for a convenient api
+  genes_exprs <- as.list(enexpr(genes))[-1L]
+  genes <- as_tracks(genes, genes_exprs, "seqs")
+  features_exprs <- as.list(enexpr(features))[-1L]
+  features <- as_tracks(features, features_exprs, c("seqs", names2(genes)))
+  features <- c(genes, features) # genes are just features
+  links_exprs <- as.list(enexpr(links))[-1L]
+  links <- as_tracks(links, links_exprs, c("seqs", names2(features)))
+
+  layout <- .layout %||% layout_genomes(seqs=seqs, genes=genes, features=features,
+                                        links=links, ...)
 
   p <- ggplot(data = layout)
   class(p) <- c('gggenomes', class(p))
@@ -64,10 +74,17 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 #' See `gggenomes::gggenomes()` for more info.
 #'
 #' @param seqs a table with sequence data (seq_id, bin_id, length)
-#' @param features a table (or names list of tables) with feature data (seq_id,
-#' bin_id, start, end)
-#' @param links a table with link data (from, to, from_start, from_end,
-#' to_start, to_end)
+#' @param genes a table or a list of table with gene data to be added as feature
+#' tracks. Required columns: seq_id, bin_id, start, end.
+#'
+#' For a single table, adds the track_id will be "genes". For a list, track_ids
+#' are parsed from the list names, or if names are missing from the name of the
+#' variable containing each table.
+#' @param features same as genes, but the single table track_id will default to
+#' "features".
+#' @param links a table or a list of tables with link data to be added as link
+#' tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
+#' naming scheme as for features.
 #' @param infer_bin_id,infer_start,infer_end,infer_length used to infer pseudo
 #' seqs if only features or links are provided. The expressions are evaluated in
 #' the context of the first feature track, or the first links track.
@@ -79,25 +96,17 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 #' @param links_track_id default ID for first links track
 #' @param ... layout parameters passed on to `layout_seqs()`
 #' @export
-layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, features_track_id = "genes",
-    links_track_id = "links", infer_bin_id = seq_id, infer_start = min(start,end), infer_end = max(start,end),
+layout_genomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL,
+    infer_bin_id = seq_id, infer_start = min(start,end), infer_end = max(start,end),
     infer_length = max(start,end), ...){
 
-  x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),
-            args_seqs = list(...))
-  x %<>% set_class("gggenomes_layout", "prepend")
-
-  if(!is.null(features) & is.data.frame(features))
-    features <- set_names(list(features), features_track_id)
-  if(!is.null(links) & is.data.frame(links))
-    links <- set_names(list(links), links_track_id)
-
+  # check seqs / infer seqs if not provided
   if(!is.null(seqs)){
     if(!has_name(seqs, "bin_id"))
       seqs <- mutate(seqs, bin_id = {{ infer_bin_id }})
   }else{
     if(is.null(features) & is.null(links))
-      stop("Need at least one of: contigs, genes or links")
+      stop("Need at least one of: seqs, genes, features or links")
 
     # infer dummy seqs
     if(!is.null(features)){
@@ -111,9 +120,15 @@ layout_genomes <- function(seqs=NULL, features=NULL, links=NULL, features_track_
     }
   }
 
+  # init the gggenomes_layout object
+  x <- list(seqs = NULL, features = list(), links = list(), orig_links = list(),
+            args_seqs = list(...))
+  x %<>% set_class("gggenomes_layout", "prepend")
+
+  # add track data to layout
   x %<>% add_seqs(seqs, ...) # layout seqs
-  if(!is.null(features)) x <- exec(add_features, x, !!!features)
-  if(!is.null(links)) x <- exec(add_links, x, !!!links)
+  if(!is.null(features)) x <- add_feature_tracks(x, features)
+  if(!is.null(links)) x <- add_link_tracks(x, links)
   x
 }
 

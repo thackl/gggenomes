@@ -106,11 +106,14 @@ add_features.gggenomes <- function(x, ...){
 }
 
 #' @export
-add_features.gggenomes_layout <- function(x, ..., .auto_prefix="features"){
-  tracks <- list(...)
-  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "features",
-                                      .auto_prefix)
-  # convert to feature layouts
+add_features.gggenomes_layout <- function(x, ...){
+  if(!has_dots()) return(x)
+  dot_exprs <- enexprs(...) # defuse before list(...)
+  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
+  add_feature_tracks(x, tracks)
+}
+
+add_feature_tracks <- function(x, tracks){
   x$features <- c(x$features, map(tracks, as_features, x$seqs))
   x
 }
@@ -120,6 +123,7 @@ add_feature_layout_scaffold <- function(x, seqs){
     seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
 
   join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
+
   inner_join(x, scaffold, by=join_by)
 }
 
