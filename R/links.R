@@ -27,8 +27,6 @@ as_links.default <- function(x, seqs, ..., everything=TRUE){
     as_links(as_tibble(x), seqs, ..., everything=everything)
 }
 
-
-
 #' @export
 as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   vars <- c("seq_id1", "seq_id2")
@@ -42,8 +40,9 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
       abort("Need either all of start1,fend1,start2,end2 or none!")
     }
 
-    x <- left_join(select(seqs, seq_id1=seq_id, start1=start, end1 = end)) %>%
-      left_join(select(seqs, seq_id2=seq_id, start2=start, end2 = end))
+    x <- x %>%
+      left_join(select(ungroup(seqs), seq_id1=seq_id, start1=start, end1 = end), by="seq_id1") %>%
+      left_join(select(ungroup(seqs), seq_id2=seq_id, start2=start, end2 = end), by="seq_id2")
   }
   vars <- c("seq_id1", "start1", "end1", "seq_id2", "start2", "end2")
 
@@ -59,11 +58,6 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   }
 
   layout_links(x, seqs, ...)
-}
-
-#' @export
-as_tibble.tbl_link <- function(x, ...){
-  stop("laying out links is a lossy process and cannot be reversed!")
 }
 
 #' Layout tbl_link
@@ -112,16 +106,19 @@ add_links.gggenomes <- function(x, ...){
 }
 
 #' @export
-add_links.gggenomes_layout <- function(x, ..., .auto_prefix="links"){
-  tracks <- list(...)
-  names(tracks) <- check_track_ids(names(tracks), track_ids(x), "links",
-                                      .auto_prefix)
+add_links.gggenomes_layout <- function(x, ...){
+  if(!has_dots()) return(x)
+  dot_exprs <- enexprs(...) # defuse before list(...)
+  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
   # convert to layouts
+  add_link_tracks(x, tracks)
+}
+
+add_link_tracks <- function(x, tracks){
   x$links <- c(x$links, map(tracks, as_links, x$seqs)) # this is lossy, so
   x$orig_links <- c(x$orig_links, tracks) # also store orig links for re-layout
   x
 }
-
 
 #' @export
 drop_link_layout <- function(x, seqs, keep="strand"){
