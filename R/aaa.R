@@ -23,3 +23,8 @@ swap_if <- function(x, condition, ...){
 has_dots <- function(env = parent.frame()){
   length(ellipsis:::dots(env)) > 0
 }
+
+shared_names <- function(x, ...){
+  names <- c(...)
+  names[names %in% names2(x)]
+}

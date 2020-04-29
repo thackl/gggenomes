@@ -5,7 +5,7 @@
 #' track. The subfeature track itself is internally converted into a new,
 #' regular feature track by mapping the `start` and `end` coordinates provided
 #' relative to their parent feature into coordinates relative to the sequences
-#' underlying the parent features .
+#' underlying the parent features.
 #'
 #' Obligatory columns are `feature_id`, `start` and `end`. Also recognized are
 #' `strand` and `bin_id`.
@@ -44,12 +44,6 @@ as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
 
   vars <- c("feature_id","start","end")
   require_vars(x, vars)
-  if(has_name(x, "seq_id")){
-    join_by = c("feature_id", "seq_id")
-  }else{
-    join_by = c("feature_id")
-  }
-  # TODO - bad transform, not none,aa2nuc,nuc2aa
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
   x <- mutate_at(x, vars(feature_id), as.character)
@@ -70,13 +64,11 @@ as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
   if(transform == "nuc2aa") x <- mutate(x, start = (start+2)/3, end = (end+2)/3)
 
   x <- x %>% left_join(select(features, feature_id, seq_id, .feat_start=start,
-      .feat_end = end, .feat_strand = strand), by = join_by) %>%
+      .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "bin_id", "feature_id")) %>%
     mutate(
       start = ifelse(is_reverse(.feat_strand), .feat_end-start, .feat_start+start),
       end = ifelse(is_reverse(.feat_strand), .feat_end-end, .feat_start+end),
       .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
-
-  print(x)
 
   layout_features(x, seqs, ...)
 }

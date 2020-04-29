@@ -142,10 +142,9 @@ add_link_layout_scaffold <- function(x, seqs){
     seq_id2=seq_id, bin_id2=bin_id, yend=y, .seq_strand2=strand, .seq_x2=x,
     .seq_start2=start, .seq_end2=end)
 
-  join_by <- if(has_name(x, "bin_id1")){c("seq_id1", "bin_id1")}else{"seq_id1"}
-  x <- inner_join(x, scaffold1, by=join_by)
-  join_by <- if(has_name(x, "bin_id2")){c("seq_id2", "bin_id2")}else{"seq_id2"}
-  inner_join(x, scaffold2, by=join_by)
+  x <- inner_join(x, scaffold1, by=shared_names(x, "seq_id1", "bin_id1"))
+  x <- inner_join(x, scaffold2, by=shared_names(x, "seq_id2", "bin_id2"))
+  x
 }
 
 trim_links_to_subseqs <- function(x, marginal){

@@ -122,9 +122,7 @@ add_feature_layout_scaffold <- function(x, seqs){
   scaffold <- seqs %>% ungroup() %>% select(
     seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
 
-  join_by <- if(has_name(x, "bin_id")){c("seq_id", "bin_id")}else{"seq_id"}
-
-  inner_join(x, scaffold, by=join_by)
+  inner_join(x, scaffold, by=shared_names(x, "seq_id", "bin_id"))
 }
 
 trim_features_to_subseqs <- function(x, marginal){
