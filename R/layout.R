@@ -29,35 +29,3 @@ layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
 drop_layout <- function(data, ...){
     UseMethod("drop_layout")
 }
-
-#' @export
-seqs <- function(x){
-  UseMethod("seqs")
-}
-
-#' @export
-`seqs<-` <- function(x, value){
-  UseMethod("seqs<-")
-}
-
-#' @export
-seqs.gggenomes <- function(x){
-  seqs(x$data)
-}
-
-#' @export
-seqs.gggenomes_layout <- function(x){
-  x$seqs
-}
-
-#' @export
-`seqs<-.gggenomes` <- function(x, value) {
-  seqs(x$data) <- value
-  x
-}
-
-#' @export
-`seqs<-.gggenomes_layout` <- function(x, value) {
-  x$seqs <- value
-  x
-}

@@ -151,3 +151,34 @@ add_seqs.gggenomes_layout <- function(x, seqs, ...){
   x$seqs <- as_seqs(seqs, ...)
   x
 }
+
+#' Get/set the seqs track
+#'
+#' @param x a gggenomes or gggenomes_layout objekt
+#' @return a gggenomes_layout track tibble
+#' @export
+seqs <- function(x){
+  UseMethod("seqs")
+}
+#' @export
+seqs.gggenomes <- function(x){
+  seqs(x$data)
+}
+#' @export
+seqs.gggenomes_layout <- function(x){
+  x$seqs
+}
+#' @export
+`seqs<-` <- function(x, value){
+  UseMethod("seqs<-")
+}
+#' @export
+`seqs<-.gggenomes` <- function(x, value) {
+  seqs(x$data) <- value
+  x
+}
+#' @export
+`seqs<-.gggenomes_layout` <- function(x, value) {
+  x$seqs <- value
+  x
+}
