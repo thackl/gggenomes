@@ -17,13 +17,15 @@ gggenomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL, ...,
     theme = c("clean", NULL), .layout=NULL){
 
   # parse track_args to tracks - some magic for a convenient api
-  genes_exprs <- as.list(enexpr(genes))[-1L]
+  genes_exprs <- enexpr(genes)
+  features_exprs <- enexpr(features)
+  links_exprs <- enexpr(links)
+
   genes <- as_tracks(genes, genes_exprs, "seqs")
-  features_exprs <- as.list(enexpr(features))[-1L]
   features <- as_tracks(features, features_exprs, c("seqs", names2(genes)))
   features <- c(genes, features) # genes are just features
-  links_exprs <- as.list(enexpr(links))[-1L]
   links <- as_tracks(links, links_exprs, c("seqs", names2(features)))
+
 
   layout <- .layout %||% layout_genomes(seqs=seqs, genes=genes, features=features,
                                         links=links, ...)

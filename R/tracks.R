@@ -26,7 +26,13 @@ as_tracks <- function(tracks, tracks_exprs, reserved_ids=NULL){
     tracks <- list(tracks)
     names(tracks) <- track_name
   }else if(is.list(tracks)){
-    names(tracks) <- name_unnamed_from_values(tracks_exprs)
+    if(!is.list(tracks_exprs)) # make sure tracks_exprs is a list
+      tracks_exprs <- as.list(tracks_exprs)[-1L]
+    if(length(tracks_exprs) != length(tracks)){
+      names(tracks) <- name_unnamed_from_template(tracks, prefix="track", offset=length(reserved_ids))
+    }else{
+      names(tracks) <- name_unnamed_from_values(tracks_exprs)
+    }
     for(n in names(tracks)){
       if(!is.data.frame(tracks[[n]]))
         abort(paste0("track '", n, "' needs to be a data frame"))
@@ -43,6 +49,12 @@ as_tracks <- function(tracks, tracks_exprs, reserved_ids=NULL){
   }
 
   tracks
+}
+
+name_unnamed_from_template <- function(x, prefix, offset=0){
+  unnamed <- !have_name(x)
+  names(x)[unnamed] <- paste0(prefix, which(unnamed) + offset -1)
+  names(x)
 }
 
 name_unnamed_from_values <- function(x){
