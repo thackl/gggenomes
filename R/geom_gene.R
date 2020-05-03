@@ -1,5 +1,5 @@
 #' Draw genes
-geom_gene <- function(mapping = NULL, data = use_genes(type == "CDS"), stat = "identity",
+geom_gene <- function(mapping = NULL, data = use_genes(1, type == "CDS"), stat = "identity",
     position = position_stack1(grouped=TRUE), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     arrow_size = c(3,3,3), chevrons = NULL, ...){
 

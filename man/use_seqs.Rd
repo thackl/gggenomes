@@ -10,7 +10,7 @@
 \usage{
 use_seqs(...)
 
-use_features(.track_id = 1, ...)
+use_features(.track_id = -1, ...)
 
 use_links(.track_id = 1, ...)
 

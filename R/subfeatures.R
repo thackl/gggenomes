@@ -84,19 +84,20 @@ as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
 #' @examples
 #' gggenomes %>%
 #'   add_subfeatures(genes, blastp_hits, transform="aa2nuc")
-add_subfeatures <- function(x, parent_track_id, ..., transform = "none", .dots=NULL){
+add_subfeatures <- function(x, parent_track_id, ..., transform = "none"){
   UseMethod("add_subfeatures")
 }
 
 #' @export
-add_subfeatures.gggenomes <- function(x, parent_track_id, ..., transform = "none", .dots=NULL){
-  x$data <- add_subfeatures(x$data, parent_track_id = {{ parent_track_id }}, ...)
+add_subfeatures.gggenomes <- function(x, parent_track_id, ..., transform = "none"){
+  x$data <- add_subfeatures(x$data, parent_track_id = {{ parent_track_id }}, ...,
+      transform = transform)
   x
 }
 
 #' @export
 add_subfeatures.gggenomes_layout <- function(x, parent_track_id, ...,
-  transform = "none"){
+    transform = "none"){
 
   if(!has_dots()) return(x)
   dot_exprs <- enexprs(...) # defuse before list(...)

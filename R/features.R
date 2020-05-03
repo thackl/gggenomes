@@ -25,7 +25,7 @@ as_features <- function(x, seqs, ..., everything=TRUE){
 #' @export
 as_features.default <- function(x, seqs, ..., everything=TRUE) {
   # try to coerce into tbl
-  as_features(as_tibble(x), ...)
+  as_features(as_tibble(x), seqs, ..., everything=everything)
 }
 
 #' @export
@@ -38,7 +38,6 @@ as_features.tbl_df <- function(x, seqs, ..., everything=TRUE){
 
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
-
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
   if(!has_name(x, "strand")){

@@ -4,7 +4,7 @@
 \alias{geom_link}
 \title{Draw links}
 \usage{
-geom_link(mapping = NULL, data = use(links, abs(y - yend) == 1),
+geom_link(mapping = NULL, data = use_links(1, abs(y - yend) == 1),
   stat = "identity", position = "identity", na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, offset = 0.03, ...)
 }

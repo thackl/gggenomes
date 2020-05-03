@@ -30,7 +30,7 @@ dataframe. Subfeatures need to be associated with an already added feature
 track. The subfeature track itself is internally converted into a new,
 regular feature track by mapping the `start` and `end` coordinates provided
 relative to their parent feature into coordinates relative to the sequences
-underlying the parent features .
+underlying the parent features.
 }
 \details{
 Obligatory columns are `feature_id`, `start` and `end`. Also recognized are

@@ -5,7 +5,7 @@
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
-geom_seq <- function(mapping = NULL, data = use(seqs),
+geom_seq <- function(mapping = NULL, data = use_seqs(),
     arrow = NULL, ...){
 
   default_aes <- aes(x, y, xend=xend, yend=y)
@@ -22,7 +22,7 @@ geom_seq <- function(mapping = NULL, data = use(seqs),
 #'
 #' @param data feature_layout
 #' @export
-geom_feature <- function(mapping = NULL, data = use(features),
+geom_feature <- function(mapping = NULL, data = use_features(),
     arrow = NULL, nudge_by_strand = NULL, size = 3, ...){
 
   default_aes <- aes(x, y, xend=xend, yend=y)
@@ -42,7 +42,7 @@ geom_feature <- function(mapping = NULL, data = use(features),
 #' draw feature labels
 #'
 #' @export
-geom_seq_label <- function(mapping = NULL, data = use(seqs),
+geom_seq_label <- function(mapping = NULL, data = use_seqs(),
     hjust = 0, nudge_y = -0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~x, label=~seq_id)
@@ -87,7 +87,7 @@ geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6,
 #' draw feature labels
 #'
 #' @export
-geom_gene_label <- function(mapping = NULL, data = use(genes),
+geom_gene_label <- function(mapping = NULL, data = use_genes(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)
@@ -97,7 +97,7 @@ geom_gene_label <- function(mapping = NULL, data = use(genes),
             nudge_y = nudge_y, size = size, ...)
 }
 #' @export
-geom_feature_label <- function(mapping = NULL, data = use(features),
+geom_feature_label <- function(mapping = NULL, data = use_features(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)
@@ -110,7 +110,7 @@ geom_feature_label <- function(mapping = NULL, data = use(features),
 #' draw link labels
 #'
 #' @export
-geom_link_label <- function(mapping = NULL, data = use(links, .pix==1),
+geom_link_label <- function(mapping = NULL, data = use_links(),
     angle = 0,hjust = 0.5, vjust = 0.5, size = 4, repel=FALSE, ...){
 
   default_aes <- aes_(y=~.y_center,x=~.x_center)

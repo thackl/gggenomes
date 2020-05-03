@@ -4,8 +4,7 @@
 \alias{add_subfeatures}
 \title{Add subfeatures}
 \usage{
-add_subfeatures(x, parent_track_id, ..., transform = "none",
-  .dots = NULL)
+add_subfeatures(x, parent_track_id, ..., transform = "none")
 }
 \arguments{
 \item{x}{subfeature data convertible to a feature layout}

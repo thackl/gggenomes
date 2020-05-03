@@ -16,7 +16,7 @@ use_seqs <- function(...){
 }
 #' @rdname use_seqs
 #' @export
-use_features <- function(.track_id=1, ...){
+use_features <- function(.track_id=-1, ...){
   dots <- quos(...)
   function(.x, ...){
     pull_features(.x, {{.track_id}}, !!! dots)
@@ -51,7 +51,7 @@ is_likely_feature_track <- function(x){
 use_bins <- function(...){
   dots <- quos(...)
   function(.x, ...){
-    seqs(x) %>% filter(!!! dots) %>% group_by(bin_id, y) %>%
+    seqs(.x) %>% filter(!!! dots) %>% group_by(bin_id, y) %>%
       summarize(x = min(x,xend), xend = max(x,xend)) %>%
       ungroup()
   }

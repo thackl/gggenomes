@@ -4,7 +4,7 @@
 \alias{geom_seq_label}
 \title{draw feature labels}
 \usage{
-geom_seq_label(mapping = NULL, data = use(seqs), hjust = 0,
+geom_seq_label(mapping = NULL, data = use_seqs(), hjust = 0,
   nudge_y = -0.1, size = 6, ...)
 }
 \description{

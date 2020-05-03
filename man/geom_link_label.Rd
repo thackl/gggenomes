@@ -4,9 +4,8 @@
 \alias{geom_link_label}
 \title{draw link labels}
 \usage{
-geom_link_label(mapping = NULL, data = use(links, .pix == 1),
-  angle = 0, hjust = 0.5, vjust = 0.5, size = 4, repel = FALSE,
-  ...)
+geom_link_label(mapping = NULL, data = use_links(), angle = 0,
+  hjust = 0.5, vjust = 0.5, size = 4, repel = FALSE, ...)
 }
 \description{
 draw link labels

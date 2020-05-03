@@ -131,6 +131,7 @@ layout_genomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL,
   x %<>% add_seqs(seqs, ...) # layout seqs
   if(!is.null(features)) x <- add_feature_tracks(x, features)
   if(!is.null(links)) x <- add_link_tracks(x, links)
+
   x
 }
 
@@ -181,51 +182,6 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
       dplyr::rename(start=.start, end=.end)
 
   ungroup(seqs)
-}
-
-#' Use a specific track table inside a `geom_*` call.
-#'
-#' Use this function inside `geom_*` calls to set the track table of the
-#' gggenomes layout you want to use, e.g. seqs, genes or links. Also allows you
-#' to pass on filter arguments to subset the data.
-#'
-#' @inheritParams expose
-#' @param ... filter arguments passed through to [dplyr::filter].
-#' @export
-use <- function(track_id=seqs, ...) {
-  dots <- quos(...)
-  function(x, ...){
-    filter(track(x, {{track_id}}), !!! dots)
-  }
-}
-
-#' Use track as genes - magically augment with type/gene_id for geom_gene if
-#' missing
-use_genes <- function(..., track_id=genes) {
-  dots <- quos(...)
-  function(x, ...){
-    t <- track(x, {{track_id}})
-    # add dummy type and gene_id to feature tracks if missing for geom_gene()
-    if(is_likely_feature_track(t)){
-      if(!has_name(t, "type")) t[["type"]] <- "CDS"
-      if(!has_name(t, "gene_id")) t[["gene_id"]] <- paste0("__", seq_len(nrow((t))))
-    }
-    filter(t, !!! dots)
-  }
-}
-
-is_likely_feature_track <- function(x){
-  !any(has_name(x, c("bin_offset", "from_id")))
-}
-
-
-#' Collapse seq data to bin data for geom_bin_label()
-use_bins <- function(){
-  function(x){
-    seqs(x) %>% group_by(bin_id, y) %>%
-      summarize(x = min(x,xend), xend = max(x,xend)) %>%
-      ungroup()
-  }
 }
 
 #' gggenomes default theme

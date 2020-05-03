@@ -2,7 +2,7 @@
 #'
 #' use(links, abs(y-yend)==1) - this is somewhat redundant with
 #' layout_links(adjacent_only =TRUE), which currently is always set to TRUE
-geom_link <- function(mapping = NULL, data = use(links, abs(y-yend)==1), stat = "identity",
+geom_link <- function(mapping = NULL, data = use_links(1, abs(y-yend)==1), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     offset = 0.03, ...) {
 

@@ -4,13 +4,16 @@
 \alias{pull_seqs}
 \alias{pull_features}
 \alias{pull_links}
+\alias{pull_track}
 \title{Pull out a specific track, possibly filtered}
 \usage{
 pull_seqs(.x, ...)
 
-pull_features(.x, .track_id = 1, ...)
+pull_features(.x, .track_id = -1, ...)
 
 pull_links(.x, .track_id = 1, ...)
+
+pull_track(.x, .track_id = 1, ...)
 }
 \arguments{
 \item{.x}{A gggenomes or gggenomes_layout object}
@@ -23,4 +26,8 @@ as a positive/negative integer giving the position from the left/right.}
 \description{
 Uses semantics similar to [dplyr::pull] to access tracks by unquoted ids or
 positional arguments. Also supports filtering of the data.
+}
+\details{
+`pull_track()` works on all tracks at once, in the order seqs, features,
+links.
 }

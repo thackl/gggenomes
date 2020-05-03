@@ -74,7 +74,7 @@ as_sublinks.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
     vars <- c("feature_id1", "start1", "end1", "feature_id2", "start2", "end2")
     other_vars <- if(everything) tidyselect::everything else function() NULL;
     x <- as_tibble(select(x, vars, other_vars()))
-    
+
     x %<>% mutate_if(is.factor, as.character)
     if(!has_name(x, "strand")){
       x$strand <- strand_chr((x$start1 < x$end1) == (x$start2 < x$end2))
@@ -107,7 +107,7 @@ as_sublinks.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
         end2 = ifelse(is_reverse(.feat_strand), .feat_end-end2, .feat_start+end2),
         .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
   }
-  
+
   layout_links(x, seqs, ...)
 }
 

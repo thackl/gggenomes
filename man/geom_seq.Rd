@@ -4,7 +4,7 @@
 \alias{geom_seq}
 \title{draw seqs}
 \usage{
-geom_seq(mapping = NULL, data = use(seqs), arrow = NULL, ...)
+geom_seq(mapping = NULL, data = use_seqs(), arrow = NULL, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
