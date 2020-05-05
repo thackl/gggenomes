@@ -144,8 +144,9 @@ add_sublinks.gggenomes_layout <- function(x, parent_track_id, ...,
 
 add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
   features <- track(x, {{parent_track_id}})
-  x$links <- c(x$links, map(
-    tracks, as_sublinks, x$seqs, features, transform = transform))
+  links <- map(tracks, as_sublinks, x$seqs, features, transform = transform)
+  x$links <- c(x$links, links)
+  x$orig_links <- c(x$orig_links, links)
   x
 }
 
