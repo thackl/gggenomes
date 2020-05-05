@@ -1,6 +1,6 @@
 #' Draw genes
 geom_gene <- function(mapping = NULL, data = use_genes(1, type == "CDS"), stat = "identity",
-    position = position_stack1(grouped=TRUE), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+    position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     arrow_size = c(3,3,3), chevrons = NULL, ...){
 
   if(length(arrow_size) == 1) arrow_size <- arrow_size[c(1,1,1)]
