@@ -9,6 +9,8 @@ add_subfeatures(x, parent_track_id, ..., transform = "none")
 \arguments{
 \item{x}{subfeature data convertible to a feature layout}
 
+\item{parent_track_id}{track_id of the features the subfeatures map onto.}
+
 \item{...}{subfeature tables with names, i.e. blast=blast_df, domains=domain_df}
 
 \item{transform}{use if features and subfeatures are in different coordinate

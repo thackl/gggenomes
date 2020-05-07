@@ -75,12 +75,14 @@ as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
 
 
 #' Add subfeatures
-#' @param parent_track_id
+#'
+#' Add subfeatures
+#'
+#' @param parent_track_id track_id of the features the subfeatures map onto.
 #' @param ... subfeature tables with names, i.e. blast=blast_df, domains=domain_df
 #' @inheritParams as_subfeatures
 #' @param .dots superceed dots with a list of arguments.
 #' @export
-#'
 #' @examples
 #' gggenomes %>%
 #'   add_subfeatures(genes, blastp_hits, transform="aa2nuc")

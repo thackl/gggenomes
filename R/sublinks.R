@@ -113,12 +113,14 @@ as_sublinks.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
 
 
 #' Add sublinks
-#' @param parent_track_id
+#'
+#' Add sublinks
+#'
+#' @param parent_track_id track_id of the features the sublinks map onto.
 #' @param ... sublink tables with names, i.e. blast=blast_df, domains=domain_df
 #' @inheritParams as_sublinks
 #' @param .dots superceed dots with a list of arguments.
 #' @export
-#'
 #' @examples
 #' gggenomes %>%
 #'   add_sublinks(genes, blastp_hits, transform="aa2nuc")

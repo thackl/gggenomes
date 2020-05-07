@@ -9,6 +9,8 @@ add_sublinks(x, parent_track_id, ..., transform = "none")
 \arguments{
 \item{x}{sublink data convertible to a link layout}
 
+\item{parent_track_id}{track_id of the features the sublinks map onto.}
+
 \item{...}{sublink tables with names, i.e. blast=blast_df, domains=domain_df}
 
 \item{transform}{use if features and sublinks are in different coordinate
