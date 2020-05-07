@@ -164,20 +164,20 @@ add_clusters.gggenomes <- function(x, parent_track_id, ...){
 #' @export
 add_clusters.gggenomes_layout <- function(x, parent_track_id, ...){
   if(!has_dots()) return(x)
+  pid <- tidyselect::vars_pull(track_ids(x), {{parent_track_id}})
   dot_exprs <- enexprs(...) # defuse before list(...)
   tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
-  sublinks <- map(tracks, cluster2sublinks)
+  sublinks <- map(tracks, cluster2sublinks, x$features[[pid]])
   x <- add_sublink_tracks(x, {{parent_track_id}}, sublinks, "none")
 
   # this is just q&d - only adds the ids of the first cluster track. Not sure,
   # how to handle adding multiple ones
-  pid <- tidyselect::vars_pull(track_ids(x), {{parent_track_id}})
-  print(pid)
   x$features[[pid]] <- left_join(x$features[[pid]], tracks[[1]])
   x
 }
 
-cluster2sublinks <- function(x){
+cluster2sublinks <- function(x, parent_track){
+  x <- filter(x, feature_id %in% parent_track$feature_id)
   x %>% split_by(cluster_id) %>%
     keep(~nrow(.) > 1) %>%
     map_df(.id = "cluster_id", function(g){
