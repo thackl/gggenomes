@@ -47,13 +47,16 @@ is_likely_feature_track <- function(x){
   !any(has_name(x, c("bin_offset", "from_id")))
 }
 #' @rdname use_seqs
+#' @param .group_vars what variables to use in grouping of bins from seqs. Use
+#' this to get additional shared variables from the seqs table into the bins
+#' table.
 #' @export
-use_bins <- function(...){
+use_bins <- function(..., .group_vars = c(bin_id, y)){
   dots <- quos(...)
+  group_exprs <- as.list(enexpr(.group_vars))[-1]
   function(.x, ...){
-    seqs(.x) %>% filter(!!! dots) %>% group_by(bin_id, y) %>%
+    seqs(.x) %>% filter(!!! dots) %>% group_by(!!!group_exprs) %>%
       summarize(x = min(x,xend), xend = max(x,xend)) %>%
       ungroup()
   }
 }
-
