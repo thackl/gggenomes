@@ -1,0 +1,27 @@
+reference:
+- title: "Basics"
+- contents:
+    - gggenomes
+    - starts_with("add_")
+- title: "Geoms"
+- contents:
+    - starts_with("geom_")
+    - starts_with("position_")
+- title: "Manipulation the layout"
+- contents:
+    - pick
+    - flip
+    - shift
+    - focus
+- title: "Read in data"
+  desc: >
+    Read common bioinformatics file types
+- contents:
+    - starts_with("read_")
+- title: "Under the hood"
+  desc: >
+    Functions that power gggenomes under the hood. Useful for developers and power-users.
+- contents: 
+  - starts_with("as_")
+  - starts_with("layout_")
+
