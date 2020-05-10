@@ -2,9 +2,13 @@
 #'
 #' use(links, abs(y-yend)==1) - this is somewhat redundant with
 #' layout_links(adjacent_only =TRUE), which currently is always set to TRUE
+#' @param offset distance between seq center and link start. Use two values
+#' `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 geom_link <- function(mapping = NULL, data = use_links(1, abs(y-yend)==1), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-    offset = 0.03, ...) {
+    offset = 0.1, ...) {
+
+  if(length(offset) == 1) offset <- offset[c(1,1)]
 
   default_aes <- aes(y=y,x=x,xend=xend,yend=yend,xmin=xmin,xmax=xmax)
   mapping <- aes_intersect(mapping, default_aes)
@@ -23,7 +27,7 @@ GeomLink <- ggproto(
 
   required_aes = c("x", "xend", "y", "xmin", "xmax", "yend"),
 
-  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", offset = 0.03) {
+  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", offset = c(0.1, 0.1)) {
     if (TRUE){#!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "xend", "y", "xmin", "xmax", "yend")
@@ -42,11 +46,11 @@ GeomLink <- ggproto(
 
 link_to_poly <- function(x, xend, y, xmin, xmax, yend, offset) {
   if(y > yend){
-    y <- y - offset
-    yend <- yend + offset
+    y <- y - offset[2]
+    yend <- yend + offset[1]
   }else{
-    y <- y + offset
-    yend <- yend - offset
+    y <- y + offset[2]
+    yend <- yend - offset[1]
   }
 
   ggplot2:::new_data_frame(list(
