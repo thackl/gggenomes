@@ -1,35 +1,31 @@
-** gggenomes
-Tracks
+* gggenomes
 
-Genomics data is not tidy - the tidiest I could come up with
+** A grammer of graphics for comparative genomics
 
-Make ggplot work with untidy data
+[[EMALEs.png]]
 
-*** seqs & bins (contigs, genomes)
-*** features (genes, ...)
-*** links
-*** INPG subseqs (regions)
-add_subseqs or so
-*** TODO subfeatures
-*** TODO feature links
-** geoms
-*** geom_seq()
-*** geom_feature()
-*** geom_gene()
-*** geom_link()
-*** geom_*_label() seq,bin,feature,gene,link
-*** TODO geom_read / long_read
-*** Overlapping features - position_stack2/3
-*** TODO position_frame
-*** quantitative data - GC content, etc.
+Genomics data is not tidy - the tidiest I could come up with. Heavily borrowed
+from [[https://www.data-imaginist.com/about][Thomas Lin Pedersen]] and his great [[https://github.com/thomasp85/ggraph][ggraph]] package.
 
-** Manipulating the layout
-*** pick()
-*** flip(), flip_bins()
-*** shift(), shift_bins()
-*** focus()
+Make ggplot work with /untidy/ data. Use layouts and tracks.
 
-** Reading data from common file types
-*** read_fai()
-*** read_gff()
-*** read_paf()
+#+BEGIN_SRC R
+p <- gggenomes(emale_seqs[1:6,], emale_genes, emale_tirs, emale_links) %>%
+  add_features(emale_transposons, emale_gc) %>%
+  add_subfeatures(genes, emale_blast, transform="aa2nuc") %>%
+  add_clusters(genes, emale_cogs) %>%
+  flip_bins(3:5) +
+  geom_seq() +
+  geom_bin_label() +
+  geom_link(offset = c(0.3, 0.2), color="white", alpha=.3) +
+  geom_feature(aes(color="terminal inverted repeat"), size=4, data=use_features(2)) +
+  geom_feature(aes(color="integrated transposon"), size=7, data=use_features(emale_transposons)) +
+  geom_gene(aes(fill=cluster_label)) +
+  geom_feature(aes(color=blast_desc), data=use_features(emale_blast), size=2, position="pile") +
+  geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score), group=seq_id, linetype="GC-content"), use_features(emale_gc), fill="blue", alpha=.5) +
+  scale_fill_brewer("Conserved genes", palette="Set3") +
+  scale_color_viridis_d("Blast hits & Features", direction = -1) +
+  scale_linetype("Graphs") +
+  ggtitle(expression(paste("Endogenous mavirus-like elements of ", italic("C. burkhardae"))))
+p
+#+END_SRC

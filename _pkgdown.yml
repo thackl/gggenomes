@@ -21,7 +21,7 @@ reference:
 - title: "Under the hood"
   desc: >
     Functions that power gggenomes under the hood. Useful for developers and power-users.
-- contents: 
+- contents:
   - starts_with("as_")
   - starts_with("layout_")
 
