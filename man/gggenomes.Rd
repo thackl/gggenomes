@@ -2,10 +2,17 @@
 % Please edit documentation in R/gggenomes.R
 \name{gggenomes}
 \alias{gggenomes}
+\alias{layout_genomes}
 \title{Plot genomes, features and synteny maps}
 \usage{
 gggenomes(seqs = NULL, genes = NULL, features = NULL, links = NULL,
-  ..., theme = c("clean", NULL), .layout = NULL)
+  ..., infer_bin_id = seq_id, infer_start = min(start, end),
+  infer_end = max(start, end), infer_length = max(start, end),
+  theme = c("clean", NULL), .layout = NULL)
+
+layout_genomes(seqs = NULL, genes = NULL, features = NULL,
+  links = NULL, infer_bin_id = seq_id, infer_start = min(start, end),
+  infer_end = max(start, end), infer_length = max(start, end), ...)
 }
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}
@@ -24,14 +31,26 @@ variable containing each table.}
 tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
 naming scheme as for features.}
 
-\item{...}{layout parameters passed on to `layout_genomes()`}
+\item{...}{layout parameters passed on to [layout_seqs()]}
+
+\item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
+seqs if only features or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feature
+or link track.
+
+By default subregions of sequences from the first to the last feature/link
+are generated. Set `infer_start` to 0 to show all sequences from their
+true beginning.}
 
 \item{theme}{choose a gggenomes default theme, NULL to omit.}
 
-\item{.layout}{a pre-computed layout from `layout_genomes()` (advanced)}
+\item{.layout}{a pre-computed layout from [layout_genomes()]. Useful for
+developmental purposes.}
 }
 \value{
 gggenomes-flavored ggplot object
+
+gggenomes_layout object
 }
 \description{
 Sequence data: `read_fai`
@@ -40,4 +59,11 @@ Sequence data: `read_fai`
 Feature data: `read_gff`
 
 Link data: `read_paf`
+}
+\examples{
+seq_df <- tribble(
+  bin_id = c("A", "A", "B"),
+  seq_id = c("a1", "a2", "b1"),
+  length = c(1000, 2000, 2500))
+gggenomes()
 }

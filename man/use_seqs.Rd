@@ -16,13 +16,17 @@ use_links(.track_id = 1, ...)
 
 use_genes(.track_id = 1, ...)
 
-use_bins(...)
+use_bins(..., .group_vars = c(bin_id, y))
 }
 \arguments{
 \item{...}{Logical predicates passed on to [dplyr::filter].}
 
 \item{.track_id}{The track to pull out, either as a literal variable name or
 as a positive/negative integer giving the position from the left/right.}
+
+\item{.group_vars}{what variables to use in grouping of bins from seqs. Use
+this to get additional shared variables from the seqs table into the bins
+table.}
 }
 \description{
 Use these function inside `geom_*` calls to set the track table of the
