@@ -46,8 +46,8 @@ GeomLink <- ggproto(
 
 link_to_poly <- function(x, xend, y, xmin, xmax, yend, offset) {
   if(y > yend){
-    y <- y - offset[2]
-    yend <- yend + offset[1]
+    y <- y - offset[1]
+    yend <- yend + offset[2]
   }else{
     y <- y + offset[2]
     yend <- yend - offset[1]
