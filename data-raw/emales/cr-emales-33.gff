@@ -1,0 +1,873 @@
+##gff-version 3
+##sequence-region BVI_001A 1 18957
+##sequence-region BVI_002 1 20583
+##sequence-region BVI_005 1 13185
+##sequence-region BVI_008A 1 26820
+##sequence-region BVI_023A 1 19600
+##sequence-region BVI_029 1 26000
+##sequence-region BVI_055A 1 23989
+##sequence-region BVI_055B 1 19849
+##sequence-region BVI_056 1 19815
+##sequence-region BVI_058 1 18948
+##sequence-region BVI_069 1 26808
+##sequence-region BVI_096B 1 26330
+##sequence-region BVI_101 1 19432
+##sequence-region Cflag_017A 1 21485
+##sequence-region Cflag_017B 1 21311
+##sequence-region Cflag_017C 1 19426
+##sequence-region Cflag_040 1 26766
+##sequence-region Cflag_131 1 32544
+##sequence-region Cflag_151 1 25176
+##sequence-region Cflag_215 1 12202
+##sequence-region E4-10_001 1 32732
+##sequence-region E4-10_008 1 18276
+##sequence-region E4-10_023 1 19652
+##sequence-region E4-10_053 1 19840
+##sequence-region E4-10_086 1 20642
+##sequence-region E4-10_112 1 26856
+##sequence-region E4-10_133 1 20015
+##sequence-region RCC970_016A 1 19438
+##sequence-region RCC970_016B 1 20152
+##sequence-region RCC970_025 1 20006
+##sequence-region RCC970_029 1 20253
+##sequence-region RCC970_095 1 19352
+##sequence-region RCC970_122 1 5473
+BVI_001A	MFG	repeat_region	1	832	.	+	.	ID=BVI_001A_r01;color=NA;gene=5BVI_c001 5'TIR;note=NA
+BVI_001A	MFG	CDS	892	1500	.	+	.	ID=BVI_001A_g01;color=NA;gene=5BVI_c001_17 DUF3223;note=none
+BVI_001A	MFG	CDS	1502	2662	.	-	.	ID=BVI_001A_g02;color=6;gene=5BVI_c001_16 HASI rve-INT;note=none
+BVI_001A	MFG	CDS	2851	4674	.	-	.	ID=BVI_001A_g03;color=4;gene=5BVI_c001_15 MCP;note=none
+BVI_001A	MFG	CDS	4813	5814	.	-	.	ID=BVI_001A_g04;color=9;gene=5BVI_c001_14 penton;note=none
+BVI_001A	MFG	CDS	5726	6301	.	-	.	ID=BVI_001A_g05;color=3;gene=5BVI_c001_13 PRO;note=none
+BVI_001A	MFG	CDS	6304	7194	.	-	.	ID=BVI_001A_g06;color=8;gene=5BVI_c001_12 ATPase;note=none
+BVI_001A	MFG	CDS	7250	8068	.	-	.	ID=BVI_001A_g07;color=11;gene=5BVI_c001_11 MV14;note=none
+BVI_001A	MFG	CDS	8122	9093	.	+	.	ID=BVI_001A_g08;color=NA;gene=5BVI_c001_10;note=none
+BVI_001A	MFG	CDS	9117	9725	.	+	.	ID=BVI_001A_g09;color=NA;gene=5BVI_c001_09;note=none
+BVI_001A	MFG	CDS	9758	9922	.	+	.	ID=BVI_001A_g10;color=NA;gene=5BVI_c001_08;note=NA
+BVI_001A	MFG	CDS	9938	11263	.	+	.	ID=BVI_001A_g11;color=7;gene=5BVI_c001_07 MV19;note=none
+BVI_001A	MFG	CDS	11446	12213	.	+	.	ID=BVI_001A_g12;color=NA;gene=5BVI_c001_06 YSLV7_19;note=none
+BVI_001A	MFG	CDS	12272	12688	.	-	.	ID=BVI_001A_g13;color=NA;gene=5BVI_c001_05;note=none
+BVI_001A	MFG	CDS	12788	13642	.	+	.	ID=BVI_001A_g14;color=NA;gene=5BVI_c001_04 Tyr rec?;note=none
+BVI_001A	MFG	CDS	13912	14100	.	+	.	ID=BVI_001A_g15;color=NA;gene=5BVI_c001_03;note=NA
+BVI_001A	MFG	CDS	14161	17382	.	+	.	ID=BVI_001A_g16;color=10;gene=5BVI_c001_02 primase-helicase;note=none
+BVI_001A	MFG	CDS	17388	18125	.	-	.	ID=BVI_001A_g17;color=NA;gene=5BVI_c001_01;note=none
+BVI_001A	MFG	repeat_region	18125	18957	.	-	.	ID=BVI_001A_r02;color=NA;gene=5BVI_c001 3'TIR;note=NA
+BVI_002	MFG	repeat_region	1	620	.	+	.	ID=BVI_002_r01;color=NA;gene=4BVI_c002_5'TIR;note=NA
+BVI_002	MFG	CDS	623	1309	.	+	.	ID=BVI_002_g01;color=0;gene=4BVI_c002_01 IP22;note=none
+BVI_002	MFG	CDS	1368	2192	.	+	.	ID=BVI_002_g02;color=0;gene=4BVI_c002_02 IP22;note=none
+BVI_002	MFG	CDS	2227	3990	.	-	.	ID=BVI_002_g03;color=7;gene=4BVI_c002_03 MV19;note=none
+BVI_002	MFG	CDS	4057	5823	.	-	.	ID=BVI_002_g04;color=4;gene=4BVI_c002_04 MCP;note=none
+BVI_002	MFG	CDS	5892	6809	.	-	.	ID=BVI_002_g05;color=9;gene=4BVI_c002_05 penton;note=none
+BVI_002	MFG	CDS	6834	7391	.	-	.	ID=BVI_002_g06;color=3;gene=4BVI_c002_06 PRO;note=none
+BVI_002	MFG	CDS	7417	8346	.	-	.	ID=BVI_002_g07;color=8;gene=4BVI_c002_07 ATPase;note=none
+BVI_002	MFG	CDS	8459	9268	.	-	.	ID=BVI_002_g08;color=11;gene=4BVI_c002_08 MV14;note=none
+BVI_002	MFG	CDS	9331	10449	.	+	.	ID=BVI_002_g09;color=12;gene=4BVI_c002_09 MV13;note=none
+BVI_002	MFG	CDS	10419	11108	.	+	.	ID=BVI_002_g10;color=12;gene=4BVI_c002_10 MV13;note=none
+BVI_002	MFG	CDS	11160	11780	.	+	.	ID=BVI_002_g11;color=14;gene=4BVI_c002_11 MV12;note=none
+BVI_002	MFG	CDS	11814	12035	.	+	.	ID=BVI_002_g12;color=NA;gene=4BVI_c002_12;note=NA
+BVI_002	MFG	CDS	12060	12386	.	+	.	ID=BVI_002_g13;color=1;gene=4BVI_c002_13 MV10;note=none
+BVI_002	MFG	CDS	12426	13001	.	+	.	ID=BVI_002_g14;color=1;gene=4BVI_c002_14 MV09;note=none
+BVI_002	MFG	CDS	13058	13627	.	+	.	ID=BVI_002_g15;color=1;gene=4BVI_c002_15 MV08;note=none
+BVI_002	MFG	CDS	13668	14144	.	-	.	ID=BVI_002_g16;color=13;gene=4BVI_c002_16 MV06;note=none
+BVI_002	MFG	CDS	14203	14487	.	-	.	ID=BVI_002_g17;color=1;gene=4BVI_c002_17 MV05;note=NA
+BVI_002	MFG	CDS	14542	14880	.	-	.	ID=BVI_002_g18;color=1;gene=4BVI_c002_18 MV04;note=none
+BVI_002	MFG	CDS	14927	16774	.	-	.	ID=BVI_002_g19;color=2;gene=4BVI_c002_19 pPol;note=none
+BVI_002	MFG	CDS	16884	17963	.	+	.	ID=BVI_002_g20;color=6;gene=4BVI_c002_20 rve-INT;note=none
+BVI_002	MFG	CDS	18010	19965	.	-	.	ID=BVI_002_g21;color=10;gene=4BVI_c002_21 SF3 helicase;note=none
+BVI_002	MFG	repeat_region	19966	20583	.	-	.	ID=BVI_002_r02;color=NA;gene=4BVI_c002_3'TIR;note=NA
+BVI_005	MFG	repeat_region	1	211	.	+	.	ID=BVI_005_r01;color=NA;gene=8BVI_c005 5'TIR;note=NA
+BVI_005	MFG	CDS	202	2901	.	-	.	ID=BVI_005_g01;color=7;gene=8BVI_c005_09 MV19;note=NA
+BVI_005	MFG	CDS	2898	6773	.	-	.	ID=BVI_005_g02;color=7;gene=8BVI_c005_08 MV19;note=NA
+BVI_005	MFG	CDS	6580	7161	.	+	.	ID=BVI_005_g03;color=NA;gene=8BVI_c005_07;note=NA
+BVI_005	MFG	CDS	7095	7709	.	+	.	ID=BVI_005_g04;color=NA;gene=8BVI_c005_06;note=NA
+BVI_005	MFG	CDS	7772	8599	.	+	.	ID=BVI_005_g05;color=NA;gene=8BVI_c005_05;note=NA
+BVI_005	MFG	CDS	8689	9054	.	+	.	ID=BVI_005_g06;color=NA;gene=8BVI_c005_04;note=NA
+BVI_005	MFG	CDS	9020	9406	.	-	.	ID=BVI_005_g07;color=NA;gene=8BVI_c005_03;note=NA
+BVI_005	MFG	CDS	9473	9910	.	+	.	ID=BVI_005_g08;color=NA;gene=8BVI_c005_02;note=NA
+BVI_005	MFG	CDS	9974	12982	.	+	.	ID=BVI_005_g09;color=10;gene=8BVI_c005_01 helicase-primase;note=NA
+BVI_005	MFG	repeat_region	12973	13185	.	-	.	ID=BVI_005_r02;color=NA;gene=8BVI_c005 3'TIR;note=NA
+BVI_008A	MFG	repeat_region	1	473	.	+	.	ID=BVI_008A_r01;color=NA;gene=1BVI_c008A_5'TIR;note=NA
+BVI_008A	MFG	CDS	568	822	.	+	.	ID=BVI_008A_g01;color=NA;gene=1BVI_c008A_01;note=NA
+BVI_008A	MFG	CDS	1040	2668	.	-	.	ID=BVI_008A_g02;color=7;gene=1BVI_c008A_02 MV19;note=none
+BVI_008A	MFG	CDS	2768	3028	.	-	.	ID=BVI_008A_g03;color=NA;gene=1BVI_c008A_03;note=NA
+BVI_008A	MFG	CDS	3139	4776	.	-	.	ID=BVI_008A_g04;color=NA;gene=1BVI_c008A_04;note=none
+BVI_008A	MFG	CDS	4810	5370	.	-	.	ID=BVI_008A_g05;color=3;gene=1BVI_c008A_05 PRO;note=none
+BVI_008A	MFG	CDS	5397	6065	.	-	.	ID=BVI_008A_g06;color=12;gene=1BVI_c008A_06 MV13;note=none
+BVI_008A	MFG	CDS	6075	6683	.	-	.	ID=BVI_008A_g07;color=NA;gene=1BVI_c008A_07;note=none
+BVI_008A	MFG	CDS	6541	6867	.	-	.	ID=BVI_008A_g08;color=NA;gene=1BVI_c008A_08;note=none
+BVI_008A	MFG	CDS	6955	7788	.	+	.	ID=BVI_008A_g09;color=11;gene=1BVI_c008A_09 MV14;note=none
+BVI_008A	MFG	CDS	7998	9026	.	+	.	ID=BVI_008A_g10;color=8;gene=1BVI_c008A_10 ATPase;note=none
+BVI_008A	MFG	CDS	9096	10937	.	-	.	ID=BVI_008A_g11;color=4;gene=1BVI_c008A_11 MCP;note=none
+BVI_008A	MFG	mobile_element	11043	17065	.	+	.	ID=CbBV_c008_Ngaro2;color=NA;gene=CaroNGARO2_CrBV_c008;note=NA
+BVI_008A	MFG	CDS	11324	13138	.	+	.	ID=BVI_008A_g12;color=2;gene=Ngaro2_BVI_c008A_ORF1;note=none
+BVI_008A	MFG	CDS	13357	15738	.	+	.	ID=BVI_008A_g13;color=2;gene=Ngaro2_BVI_c008A_ORF2;note=none
+BVI_008A	MFG	CDS	15647	16852	.	+	.	ID=BVI_008A_g14;color=2;gene=Ngaro2_BVI_c008A_ORF3;note=none
+BVI_008A	MFG	CDS	17148	18020	.	-	.	ID=BVI_008A_g15;color=NA;gene=1BVI_c008A_12;note=none
+BVI_008A	MFG	CDS	18121	18741	.	-	.	ID=BVI_008A_g16;color=14;gene=1BVI_c008A_13 MV12;note=none
+BVI_008A	MFG	CDS	18832	19893	.	+	.	ID=BVI_008A_g17;color=6;gene=1BVI_c008A_14 rve-INT;note=none
+BVI_008A	MFG	CDS	19895	21115	.	-	.	ID=BVI_008A_g18;color=2;gene=1BVI_c008A_15 pPolB;note=none
+BVI_008A	MFG	CDS	21176	21535	.	-	.	ID=BVI_008A_g19;color=NA;gene=1BVI_c008A_16;note=none
+BVI_008A	MFG	CDS	21587	22408	.	-	.	ID=BVI_008A_g20;color=NA;gene=1BVI_c008A_17;note=none
+BVI_008A	MFG	CDS	22395	23975	.	-	.	ID=BVI_008A_g21;color=10;gene=1BVI_c008A_18 helicase-primase;note=none
+BVI_008A	MFG	CDS	24079	24288	.	-	.	ID=BVI_008A_g22;color=NA;gene=1BVI_c008A_19;note=NA
+BVI_008A	MFG	CDS	24342	24965	.	-	.	ID=BVI_008A_g23;color=NA;gene=1BVI_c008A_20;note=NA
+BVI_008A	MFG	CDS	24997	25248	.	-	.	ID=BVI_008A_g24;color=NA;gene=1BVI_c008A_21;note=NA
+BVI_008A	MFG	CDS	25274	25609	.	-	.	ID=BVI_008A_g25;color=1;gene=1BVI_c008A_22 Tlr6Fp;note=NA
+BVI_008A	MFG	CDS	25654	25803	.	-	.	ID=BVI_008A_g26;color=NA;gene=1BVI_c008A_23;note=NA
+BVI_008A	MFG	CDS	25910	26308	.	-	.	ID=BVI_008A_g27;color=NA;gene=1BVI_c008A_24;note=NA
+BVI_008A	MFG	repeat_region	26348	26820	.	-	.	ID=BVI_008A_r02;color=NA;gene=1BVI_c008A_3'TIR;note=NA
+BVI_023A	MFG	repeat_region	1	1087	.	+	.	ID=BVI_023A_r01;color=NA;gene=5BVI_c023A_5'TIR;note=NA
+BVI_023A	MFG	CDS	824	1162	.	-	.	ID=BVI_023A_g01;color=NA;gene=5BVI_c023A_01c;note=none
+BVI_023A	MFG	CDS	1130	1726	.	+	.	ID=BVI_023A_g02;color=NA;gene=5BVI_c023A_02 ank rep;note=none
+BVI_023A	MFG	CDS	1768	2376	.	+	.	ID=BVI_023A_g03;color=NA;gene=5BVI_c023A_03 DUF3223;note=none
+BVI_023A	MFG	CDS	2378	3256	.	-	.	ID=BVI_023A_g04;color=6;gene=5BVI_c023A_04c HASI rve-INT;note=none
+BVI_023A	MFG	CDS	3707	5533	.	-	.	ID=BVI_023A_g05;color=4;gene=5BVI_c023A_05c MCP;note=none
+BVI_023A	MFG	CDS	5664	6566	.	-	.	ID=BVI_023A_g06;color=9;gene=5BVI_c023A_06c penton;note=none
+BVI_023A	MFG	CDS	6579	7154	.	-	.	ID=BVI_023A_g07;color=3;gene=5BVI_c023A_07c PRO;note=none
+BVI_023A	MFG	CDS	7157	8047	.	-	.	ID=BVI_023A_g08;color=8;gene=5BVI_c023A_08c ATPase;note=none
+BVI_023A	MFG	CDS	8074	8874	.	-	.	ID=BVI_023A_g09;color=11;gene=5BVI_c023A_09c MV14;note=none
+BVI_023A	MFG	CDS	8900	9877	.	+	.	ID=BVI_023A_g10;color=NA;gene=5BVI_c023A_10 unknown;note=none
+BVI_023A	MFG	CDS	9908	10516	.	+	.	ID=BVI_023A_g11;color=NA;gene=5BVI_c023A_11 unknown;note=none
+BVI_023A	MFG	CDS	10739	12064	.	+	.	ID=BVI_023A_g12;color=7;gene=5BVI_c023A_12 MV19;note=none
+BVI_023A	MFG	CDS	12253	13050	.	+	.	ID=BVI_023A_g13;color=NA;gene=5BVI_c023A_13 YSLV7_19;note=none
+BVI_023A	MFG	CDS	13178	13498	.	-	.	ID=BVI_023A_g14;color=NA;gene=5BVI_c023A_14c;note=NA
+BVI_023A	MFG	CDS	13382	14188	.	+	.	ID=BVI_023A_g15;color=NA;gene=5BVI_c023A_15 unknown;note=none
+BVI_023A	MFG	CDS	14199	14459	.	+	.	ID=BVI_023A_g16;color=NA;gene=5BVI_c023A_16 Tyr rec?;note=none
+BVI_023A	MFG	CDS	14603	15118	.	-	.	ID=BVI_023A_g17;color=NA;gene=5BVI_c023A_17c KNV4_72;note=none
+BVI_023A	MFG	CDS	15285	15473	.	+	.	ID=BVI_023A_g18;color=NA;gene=5BVI_c023A_18 KNV HNH;note=NA
+BVI_023A	MFG	CDS	15534	16841	.	+	.	ID=BVI_023A_g19;color=10;gene=5BVI_c023A_19 helicase-primase;note=none
+BVI_023A	MFG	CDS	16838	18595	.	+	.	ID=BVI_023A_g20;color=10;gene=5BVI_c023A_20 helicase-primase;note=none
+BVI_023A	MFG	repeat_region	18605	19600	.	-	.	ID=BVI_023A_r02;color=NA;gene=5BVI_c023A_3'TIR;note=NA
+BVI_029	MFG	repeat_region	1	1105	.	+	.	ID=BVI_029_r01;color=NA;gene=6BVI_c029 5'TIR;note=NA
+BVI_029	MFG	CDS	1113	3368	.	-	.	ID=BVI_029_g01;color=10;gene=6BVI_c029_01 S3H;note=none
+BVI_029	MFG	CDS	3394	4308	.	-	.	ID=BVI_029_g02;color=10;gene=6BVI_c029_02 helicase-primase;note=none
+BVI_029	MFG	CDS	4910	5851	.	-	.	ID=BVI_029_g03;color=NA;gene=6BVI_c029_03 unknown;note=none
+BVI_029	MFG	CDS	6235	7086	.	-	.	ID=BVI_029_g04;color=NA;gene=6BVI_c029_05 YSLV5_13;note=none
+BVI_029	MFG	CDS	7458	8159	.	-	.	ID=BVI_029_g05;color=7;gene=6BVI_c029_07 MV19;note=none
+BVI_029	MFG	mobile_element	8160	14545	.	-	.	ID=CbBV_c029_Ngaro1;color=NA;gene=CaroNGARO1_CrCf_c029;note=NA
+BVI_029	MFG	CDS	8904	10109	.	-	.	ID=BVI_029_g06;color=2;gene=BVI_c029 Tyr rec;note=none
+BVI_029	MFG	CDS	9973	12009	.	-	.	ID=BVI_029_g07;color=2;gene=BVI_c029 POL RT RNaseH;note=none
+BVI_029	MFG	CDS	12321	14228	.	-	.	ID=BVI_029_g08;color=2;gene=BVI_c029_12;note=none
+BVI_029	MFG	CDS	14547	15598	.	-	.	ID=BVI_029_g09;color=7;gene=6BVI_c029_08 MV19;note=none
+BVI_029	MFG	CDS	15690	15878	.	+	.	ID=BVI_029_g10;color=NA;gene=6BVI_c029_09;note=NA
+BVI_029	MFG	CDS	15875	16534	.	-	.	ID=BVI_029_g11;color=14;gene=6BVI_c029_10 MV12;note=none
+BVI_029	MFG	CDS	16693	17475	.	-	.	ID=BVI_029_g12;color=NA;gene=6BVI_c029_11;note=none
+BVI_029	MFG	CDS	17634	18383	.	+	.	ID=BVI_029_g13;color=11;gene=6BVI_c029_12 MV14;note=none
+BVI_029	MFG	CDS	18493	19401	.	+	.	ID=BVI_029_g14;color=8;gene=6BVI_c029_13 ATPase;note=none
+BVI_029	MFG	CDS	19407	19973	.	+	.	ID=BVI_029_g15;color=3;gene=6BVI_c029_14 PRO;note=none
+BVI_029	MFG	CDS	20159	21052	.	+	.	ID=BVI_029_g16;color=9;gene=6BVI_c029_15;note=none
+BVI_029	MFG	CDS	21083	22924	.	+	.	ID=BVI_029_g17;color=4;gene=6BVI_c029_16 MCP;note=none
+BVI_029	MFG	CDS	23079	24233	.	+	.	ID=BVI_029_g18;color=6;gene=6BVI_c029_17 HASI rve-INT;note=none
+BVI_029	MFG	CDS	24235	24843	.	-	.	ID=BVI_029_g19;color=NA;gene=6BVI_c029_18 DUF3223;note=none
+BVI_029	MFG	repeat_region	24888	26000	.	-	.	ID=BVI_029_r02;color=NA;gene=6BVI_c029 3'TIR;note=NA
+BVI_029	MFG	CDS	24911	25087	.	+	.	ID=BVI_029_g20;color=NA;gene=6BVI_c029_19;note=NA
+BVI_055A	MFG	repeat_region	1	466	.	+	.	ID=BVI_055A_r01;color=NA;gene=2BVI_c055A_5'TIR;note=NA
+BVI_055A	MFG	CDS	732	899	.	-	.	ID=BVI_055A_g01;color=NA;gene=2BVI_c055A_01;note=NA
+BVI_055A	MFG	CDS	896	1570	.	-	.	ID=BVI_055A_g02;color=NA;gene=2BVI_c055A_02;note=none
+BVI_055A	MFG	CDS	1560	2387	.	-	.	ID=BVI_055A_g03;color=NA;gene=2BVI_c055A_03;note=none
+BVI_055A	MFG	CDS	2412	2762	.	+	.	ID=BVI_055A_g04;color=NA;gene=2BVI_c055A_04;note=none
+BVI_055A	MFG	CDS	2768	3019	.	+	.	ID=BVI_055A_g05;color=NA;gene=2BVI_c055A_05;note=NA
+BVI_055A	MFG	CDS	3077	3742	.	+	.	ID=BVI_055A_g06;color=NA;gene=2BVI_c055A_06;note=none
+BVI_055A	MFG	CDS	3773	4711	.	+	.	ID=BVI_055A_g07;color=NA;gene=2BVI_c055A_07;note=none
+BVI_055A	MFG	CDS	4708	6576	.	+	.	ID=BVI_055A_g08;color=NA;gene=2BVI_c055A_08;note=none
+BVI_055A	MFG	CDS	6641	8242	.	+	.	ID=BVI_055A_g09;color=NA;gene=2BVI_c055A_09;note=none
+BVI_055A	MFG	mobile_element	8261	14645	.	+	.	ID=CbBV_c055A_Ngaro1;color=NA;gene=CaroNGARO1_CrBV_c055A;note=NA
+BVI_055A	MFG	CDS	8578	10485	.	+	.	ID=BVI_055A_g10;color=2;gene=NA;note=none
+BVI_055A	MFG	CDS	10797	12833	.	+	.	ID=BVI_055A_g11;color=2;gene=NA;note=none
+BVI_055A	MFG	CDS	12697	13902	.	+	.	ID=BVI_055A_g12;color=2;gene=NA;note=none
+BVI_055A	MFG	CDS	14691	15476	.	+	.	ID=BVI_055A_g13;color=8;gene=2BVI_c055A_10 ATPase;note=none
+BVI_055A	MFG	CDS	15502	15927	.	+	.	ID=BVI_055A_g14;color=NA;gene=2BVI_c055A_11;note=none
+BVI_055A	MFG	CDS	15970	17370	.	+	.	ID=BVI_055A_g15;color=NA;gene=2BVI_c055A_12;note=none
+BVI_055A	MFG	CDS	17526	18584	.	+	.	ID=BVI_055A_g16;color=6;gene=2BVI_c055A_13 rve-INT;note=none
+BVI_055A	MFG	CDS	18586	19803	.	-	.	ID=BVI_055A_g17;color=2;gene=2BVI_c055A_14 pPolB;note=none
+BVI_055A	MFG	CDS	19860	20213	.	-	.	ID=BVI_055A_g18;color=NA;gene=2BVI_c055A_15;note=none
+BVI_055A	MFG	CDS	20265	21782	.	-	.	ID=BVI_055A_g19;color=10;gene=2BVI_c055A_16 helicase-primase;note=none
+BVI_055A	MFG	CDS	21725	22600	.	-	.	ID=BVI_055A_g20;color=10;gene=2BVI_c055A_17 helicase-primase;note=none
+BVI_055A	MFG	CDS	22704	22913	.	-	.	ID=BVI_055A_g21;color=NA;gene=2BVI_c055A_18;note=NA
+BVI_055A	MFG	CDS	22957	23292	.	-	.	ID=BVI_055A_g22;color=NA;gene=2BVI_c055A_19 Tlr_6Fp;note=none
+BVI_055A	MFG	CDS	23379	23564	.	+	.	ID=BVI_055A_g23;color=NA;gene=2BVI_c055A_20;note=NA
+BVI_055A	MFG	repeat_region	23524	23989	.	-	.	ID=BVI_055A_r02;color=NA;gene=2BVI_c055A 3'TIR;note=NA
+BVI_055B	MFG	repeat_region	1	623	.	+	.	ID=BVI_055B_r01;color=NA;gene=4BVI_c055B_5'TIR;note=NA
+BVI_055B	MFG	CDS	686	2434	.	-	.	ID=BVI_055B_g01;color=7;gene=4BVI_c055B_23 MV19;note=none
+BVI_055B	MFG	CDS	2494	4299	.	-	.	ID=BVI_055B_g02;color=4;gene=4BVI_c055B_22 MCP;note=none
+BVI_055B	MFG	CDS	4413	5081	.	-	.	ID=BVI_055B_g03;color=9;gene=4BVI_c055B_21 penton;note=none
+BVI_055B	MFG	CDS	5129	5323	.	-	.	ID=BVI_055B_g04;color=9;gene=4BVI_c055B_20 penton;note=NA
+BVI_055B	MFG	CDS	5365	5934	.	-	.	ID=BVI_055B_g05;color=3;gene=4BVI_c055B_19 PRO;note=none
+BVI_055B	MFG	CDS	5968	6156	.	-	.	ID=BVI_055B_g06;color=8;gene=4BVI_c055B_18 ATPase;note=NA
+BVI_055B	MFG	CDS	6312	6902	.	-	.	ID=BVI_055B_g07;color=8;gene=4BVI_c055B_17 ATPase;note=none
+BVI_055B	MFG	CDS	7098	7808	.	-	.	ID=BVI_055B_g08;color=11;gene=4BVI_c055B_16 MV14;note=none
+BVI_055B	MFG	CDS	7883	8842	.	+	.	ID=BVI_055B_g09;color=12;gene=4BVI_c055B_15 MV13;note=none
+BVI_055B	MFG	CDS	8905	9092	.	+	.	ID=BVI_055B_g10;color=NA;gene=4BVI_c055B_14;note=NA
+BVI_055B	MFG	CDS	9115	9822	.	+	.	ID=BVI_055B_g11;color=12;gene=4BVI_c055B_13 MV13;note=none
+BVI_055B	MFG	CDS	10010	10660	.	+	.	ID=BVI_055B_g12;color=NA;gene=4BVI_c055B_12 methyltransferase;note=none
+BVI_055B	MFG	CDS	10702	11337	.	+	.	ID=BVI_055B_g13;color=14;gene=4BVI_c055B_11 MV12;note=none
+BVI_055B	MFG	CDS	11365	11541	.	+	.	ID=BVI_055B_g14;color=NA;gene=4BVI_c055B_10 MV11;note=NA
+BVI_055B	MFG	CDS	11569	11856	.	+	.	ID=BVI_055B_g15;color=NA;gene=4BVI_c055B_09 MV10;note=none
+BVI_055B	MFG	CDS	11902	12474	.	+	.	ID=BVI_055B_g16;color=NA;gene=4BVI_c055B_08 MV09;note=none
+BVI_055B	MFG	CDS	12522	12896	.	+	.	ID=BVI_055B_g17;color=NA;gene=4BVI_c055B_07 MV08;note=none
+BVI_055B	MFG	CDS	12939	13436	.	-	.	ID=BVI_055B_g18;color=NA;gene=4BVI_c055B_06 MV06;note=none
+BVI_055B	MFG	CDS	13497	13781	.	-	.	ID=BVI_055B_g19;color=NA;gene=4BVI_c055B_05 MV05;note=NA
+BVI_055B	MFG	CDS	13838	14176	.	-	.	ID=BVI_055B_g20;color=NA;gene=4BVI_c055B_04 MV04;note=none
+BVI_055B	MFG	CDS	14228	16075	.	-	.	ID=BVI_055B_g21;color=2;gene=4BVI_c055B_03 pPolB MV03;note=none
+BVI_055B	MFG	CDS	16185	17258	.	+	.	ID=BVI_055B_g22;color=6;gene=4BVI_c055B_02 rve-INT MV02;note=none
+BVI_055B	MFG	CDS	17310	19223	.	-	.	ID=BVI_055B_g23;color=10;gene=4BVI_c055B_01 S3H MV01;note=none
+BVI_055B	MFG	repeat_region	19226	19849	.	-	.	ID=BVI_055B_r02;color=NA;gene=4BVI_c055B 3'TIR;note=NA
+BVI_056	MFG	repeat_region	1	938	.	+	.	ID=BVI_056_r01;color=NA;gene=3BVI_c056_5'TIR;note=NA
+BVI_056	MFG	CDS	936	1268	.	+	.	ID=BVI_056_g01;color=NA;gene=3BVI_c056_01;note=none
+BVI_056	MFG	CDS	1319	1510	.	-	.	ID=BVI_056_g02;color=NA;gene=3BVI_c056_02;note=NA
+BVI_056	MFG	CDS	1617	3449	.	+	.	ID=BVI_056_g03;color=10;gene=3BVI_c056_03 S3H;note=none
+BVI_056	MFG	CDS	3465	4472	.	-	.	ID=BVI_056_g04;color=6;gene=3BVI_c056_04 rve-INT;note=none
+BVI_056	MFG	CDS	4561	6273	.	+	.	ID=BVI_056_g05;color=2;gene=3BVI_c056_05 pPolB;note=none
+BVI_056	MFG	CDS	6319	6606	.	+	.	ID=BVI_056_g06;color=NA;gene=3BVI_c056_06;note=none
+BVI_056	MFG	CDS	6668	6955	.	+	.	ID=BVI_056_g07;color=NA;gene=3BVI_c056_07;note=NA
+BVI_056	MFG	CDS	7017	7442	.	+	.	ID=BVI_056_g08;color=NA;gene=3BVI_c056_08;note=none
+BVI_056	MFG	CDS	7443	7712	.	-	.	ID=BVI_056_g09;color=NA;gene=3BVI_c056_09;note=NA
+BVI_056	MFG	CDS	7735	8298	.	-	.	ID=BVI_056_g10;color=3;gene=3BVI_c056_10 PRO;note=none
+BVI_056	MFG	CDS	8310	9362	.	-	.	ID=BVI_056_g11;color=8;gene=3BVI_c056_11 ATPase;note=none
+BVI_056	MFG	CDS	9512	10345	.	-	.	ID=BVI_056_g12;color=11;gene=3BVI_c056_12 MV14;note=none
+BVI_056	MFG	CDS	10388	12115	.	+	.	ID=BVI_056_g13;color=NA;gene=3BVI_c056_13;note=none
+BVI_056	MFG	CDS	12135	12506	.	+	.	ID=BVI_056_g14;color=NA;gene=3BVI_c056_14 MV08;note=none
+BVI_056	MFG	CDS	12908	13360	.	-	.	ID=BVI_056_g15;color=NA;gene=3BVI_c056_15;note=none
+BVI_056	MFG	CDS	13596	14498	.	+	.	ID=BVI_056_g16;color=9;gene=3BVI_c056_16 penton;note=none
+BVI_056	MFG	CDS	14549	16321	.	+	.	ID=BVI_056_g17;color=4;gene=3BVI_c056_17 MCP MV18;note=none
+BVI_056	MFG	CDS	16373	18019	.	+	.	ID=BVI_056_g18;color=7;gene=3BVI_c056_18 MV19;note=none
+BVI_056	MFG	CDS	18177	18626	.	-	.	ID=BVI_056_g19;color=NA;gene=3BVI_c056_19 KNV2_263;note=none
+BVI_056	MFG	CDS	18644	18880	.	-	.	ID=BVI_056_g20;color=NA;gene=3BVI_c056_20;note=NA
+BVI_056	MFG	repeat_region	18878	19815	.	-	.	ID=BVI_056_r02;color=NA;gene=3BVI_c056_3'TIR;note=NA
+BVI_058	MFG	repeat_region	1	1047	.	+	.	ID=BVI_058_r01;color=NA;gene=6BVI_c058_5'TIR;note=NA
+BVI_058	MFG	CDS	67	354	.	-	.	ID=BVI_058_g01;color=NA;gene=6BVI_c058_01;note=NA
+BVI_058	MFG	CDS	1046	4093	.	-	.	ID=BVI_058_g02;color=10;gene=6BVI_c058_02 helicase-primase;note=none
+BVI_058	MFG	CDS	4154	4342	.	-	.	ID=BVI_058_g03;color=NA;gene=6BVI_c058_03;note=NA
+BVI_058	MFG	CDS	4457	4717	.	+	.	ID=BVI_058_g04;color=NA;gene=6BVI_c058_04;note=none
+BVI_058	MFG	CDS	4695	5549	.	-	.	ID=BVI_058_g05;color=NA;gene=6BVI_c058_05 Tyr rec?;note=none
+BVI_058	MFG	CDS	5654	6055	.	+	.	ID=BVI_058_g06;color=NA;gene=6BVI_c058_06;note=none
+BVI_058	MFG	CDS	6030	6857	.	-	.	ID=BVI_058_g07;color=NA;gene=6BVI_c058_07 YSLV5_13;note=none
+BVI_058	MFG	CDS	7009	8769	.	-	.	ID=BVI_058_g08;color=7;gene=6BVI_c058_08 MV19;note=none
+BVI_058	MFG	CDS	9120	9779	.	-	.	ID=BVI_058_g09;color=14;gene=6BVI_c058_09 MV12;note=none
+BVI_058	MFG	CDS	9908	10828	.	-	.	ID=BVI_058_g10;color=NA;gene=6BVI_c058_10;note=none
+BVI_058	MFG	CDS	10857	11606	.	+	.	ID=BVI_058_g11;color=11;gene=6BVI_c058_11 MV14;note=none
+BVI_058	MFG	CDS	11698	12606	.	+	.	ID=BVI_058_g12;color=8;gene=6BVI_c058_12 ATPase;note=none
+BVI_058	MFG	CDS	12612	13181	.	+	.	ID=BVI_058_g13;color=3;gene=6BVI_c058_13 PRO;note=none
+BVI_058	MFG	CDS	13207	14100	.	+	.	ID=BVI_058_g14;color=NA;gene=6BVI_c058_14;note=none
+BVI_058	MFG	CDS	14131	15984	.	+	.	ID=BVI_058_g15;color=4;gene=6BVI_c058_15 MCP;note=none
+BVI_058	MFG	CDS	15965	17293	.	+	.	ID=BVI_058_g16;color=6;gene=6BVI_c058_16 HASI rve-INT;note=none
+BVI_058	MFG	CDS	17295	17903	.	-	.	ID=BVI_058_g17;color=NA;gene=6BVI_c058_17 DUF3223;note=none
+BVI_058	MFG	repeat_region	17948	18948	.	-	.	ID=BVI_058_r02;color=NA;gene=6BVI_c058_3'TIR;note=NA
+BVI_058	MFG	CDS	18640	18948	.	+	.	ID=BVI_058_g18;color=NA;gene=6BVI_c058_18;note=NA
+BVI_069	MFG	repeat_region	1	488	.	+	.	ID=BVI_069_r01;color=NA;gene=1BVI_c069_5'TIR;note=NA
+BVI_069	MFG	CDS	545	799	.	+	.	ID=BVI_069_g01;color=NA;gene=1BVI_c069_01;note=NA
+BVI_069	MFG	CDS	1014	2642	.	-	.	ID=BVI_069_g02;color=7;gene=1BVI_c069_02 MV19;note=none
+BVI_069	MFG	CDS	2741	3001	.	-	.	ID=BVI_069_g03;color=NA;gene=1BVI_c069_03;note=none
+BVI_069	MFG	CDS	3113	4750	.	-	.	ID=BVI_069_g04;color=NA;gene=1BVI_c069_04;note=none
+BVI_069	MFG	CDS	4784	5344	.	-	.	ID=BVI_069_g05;color=3;gene=1BVI_c069_05 PRO;note=none
+BVI_069	MFG	CDS	5371	6039	.	-	.	ID=BVI_069_g06;color=12;gene=1BVI_c069_06 MV13;note=none
+BVI_069	MFG	CDS	6049	6840	.	-	.	ID=BVI_069_g07;color=NA;gene=1BVI_c069_07;note=none
+BVI_069	MFG	CDS	6928	7821	.	+	.	ID=BVI_069_g08;color=11;gene=1BVI_c069_08 MV14;note=none
+BVI_069	MFG	repeat_region	7894	8204	.	+	.	ID=BVI_069_r02;color=NA;gene=A repeat;note=NA
+BVI_069	MFG	mobile_element	7894	14280	.	+	.	ID=CbBV_c069_Ngaro1;color=NA;gene=CaroNGARO1_CrBV_c069;note=NA
+BVI_069	MFG	CDS	8211	10118	.	+	.	ID=BVI_069_g09;color=2;gene=gag;note=NA
+BVI_069	MFG	CDS	9947	12466	.	+	.	ID=BVI_069_g10;color=2;gene=c69 pol;note=NA
+BVI_069	MFG	CDS	12330	13535	.	+	.	ID=BVI_069_g11;color=2;gene=Tyr rec;note=NA
+BVI_069	MFG	repeat_region	13638	13793	.	+	.	ID=BVI_069_r03;color=NA;gene=B repeat;note=NA
+BVI_069	MFG	repeat_region	13794	14105	.	+	.	ID=BVI_069_r04;color=NA;gene=A repeat;note=NA
+BVI_069	MFG	repeat_region	14125	14280	.	+	.	ID=BVI_069_r05;color=NA;gene=B repeat;note=NA
+BVI_069	MFG	CDS	14355	15122	.	+	.	ID=BVI_069_g12;color=8;gene=1BVI_c069_09 ATPase;note=none
+BVI_069	MFG	CDS	15043	15384	.	+	.	ID=BVI_069_g13;color=NA;gene=1BVI_c069_10;note=none
+BVI_069	MFG	CDS	15454	17274	.	-	.	ID=BVI_069_g14;color=4;gene=1BVI_c069_11 MCP;note=none
+BVI_069	MFG	CDS	17444	17887	.	-	.	ID=BVI_069_g15;color=9;gene=1BVI_c069_12 penton;note=none
+BVI_069	MFG	CDS	17987	18229	.	-	.	ID=BVI_069_g16;color=NA;gene=1BVI_c069_13;note=NA
+BVI_069	MFG	CDS	18331	18684	.	-	.	ID=BVI_069_g17;color=14;gene=1BVI_c069_14 MV12;note=none
+BVI_069	MFG	CDS	18539	18949	.	-	.	ID=BVI_069_g18;color=14;gene=1BVI_c069_15 MV12;note=none
+BVI_069	MFG	CDS	19076	19231	.	+	.	ID=BVI_069_g19;color=NA;gene=1BVI_c069_16;note=NA
+BVI_069	MFG	CDS	19240	19518	.	+	.	ID=BVI_069_g20;color=NA;gene=1BVI_c069_17;note=none
+BVI_069	MFG	CDS	19554	20234	.	-	.	ID=BVI_069_g21;color=NA;gene=1BVI_c069_18 KNV2_232;note=none
+BVI_069	MFG	CDS	20376	21437	.	+	.	ID=BVI_069_g22;color=6;gene=1BVI_c069_19 rve-INT;note=none
+BVI_069	MFG	CDS	21439	22659	.	-	.	ID=BVI_069_g23;color=2;gene=1BVI_c069_20 pPolB;note=none
+BVI_069	MFG	CDS	22720	23079	.	-	.	ID=BVI_069_g24;color=NA;gene=1BVI_c069_21;note=none
+BVI_069	MFG	CDS	23129	25123	.	-	.	ID=BVI_069_g25;color=10;gene=1BVI_c069_22 helicase-primase;note=none
+BVI_069	MFG	CDS	25229	25438	.	-	.	ID=BVI_069_g26;color=NA;gene=1BVI_c069_23;note=NA
+BVI_069	MFG	CDS	25472	25777	.	-	.	ID=BVI_069_g27;color=NA;gene=1BVI_c069_24;note=NA
+BVI_069	MFG	CDS	25771	26115	.	-	.	ID=BVI_069_g28;color=NA;gene=1BVI_c069_25 transposase?;note=none
+BVI_069	MFG	CDS	26203	26391	.	+	.	ID=BVI_069_g29;color=NA;gene=1BVI_c069_26;note=NA
+BVI_069	MFG	repeat_region	26321	26808	.	-	.	ID=BVI_069_r06;color=NA;gene=1BVI_c069_3'TIR;note=NA
+BVI_096B	MFG	repeat_region	1	610	.	+	.	ID=BVI_096B_r01;color=NA;gene=5'TIR;note=NA
+BVI_096B	MFG	mobile_element	615	6517	.	+	.	ID=CbBV_c096_Ngaro1;color=NA;gene=CaroNGARO_CrBV_c096;note=NA
+BVI_096B	MFG	CDS	988	2571	.	+	.	ID=BVI_096B_g01;color=2;gene=NA;note=NA
+BVI_096B	MFG	repeat_region	2164	7164	.	-	.	ID=BVI_096B_r02;color=NA;gene=qd 000S;note=NA
+BVI_096B	MFG	CDS	2711	5131	.	+	.	ID=BVI_096B_g02;color=2;gene=c96 pol;note=NA
+BVI_096B	MFG	CDS	5452	6258	.	+	.	ID=BVI_096B_g03;color=2;gene=NA;note=NA
+BVI_096B	MFG	CDS	7239	8825	.	-	.	ID=BVI_096B_g04;color=7;gene=4BVI_c096_23;note=NA
+BVI_096B	MFG	CDS	8884	10704	.	-	.	ID=BVI_096B_g05;color=4;gene=4BVI_c096_22 MCP;note=NA
+BVI_096B	MFG	CDS	10819	11730	.	-	.	ID=BVI_096B_g06;color=9;gene=4BVI_c096_21 penton;note=NA
+BVI_096B	MFG	CDS	11775	12086	.	-	.	ID=BVI_096B_g07;color=3;gene=4BVI_c096_20 PRO;note=NA
+BVI_096B	MFG	CDS	12089	12343	.	-	.	ID=BVI_096B_g08;color=3;gene=4BVI_c096_19 PRO;note=NA
+BVI_096B	MFG	CDS	12377	13309	.	-	.	ID=BVI_096B_g09;color=8;gene=4BVI_c096_18 ATPase;note=NA
+BVI_096B	MFG	CDS	13507	14325	.	-	.	ID=BVI_096B_g10;color=11;gene=4BVI_c096_17 MV14;note=NA
+BVI_096B	MFG	CDS	14400	15254	.	+	.	ID=BVI_096B_g11;color=12;gene=4BVI_c096_16 MV13;note=NA
+BVI_096B	MFG	CDS	15130	15639	.	-	.	ID=BVI_096B_g12;color=NA;gene=4BVI_c096_15;note=NA
+BVI_096B	MFG	CDS	15814	16296	.	+	.	ID=BVI_096B_g13;color=12;gene=4BVI_c096_14;note=NA
+BVI_096B	MFG	CDS	16344	17138	.	+	.	ID=BVI_096B_g14;color=NA;gene=4BVI_c096_13 DNA adenine methylase;note=NA
+BVI_096B	MFG	CDS	17180	17815	.	+	.	ID=BVI_096B_g15;color=14;gene=4BVI_c096_12 MV12;note=NA
+BVI_096B	MFG	CDS	17843	18019	.	+	.	ID=BVI_096B_g16;color=NA;gene=4BVI_c096_11 MV11;note=NA
+BVI_096B	MFG	CDS	18048	18209	.	+	.	ID=BVI_096B_g17;color=NA;gene=4BVI_c096_10 MV10;note=NA
+BVI_096B	MFG	CDS	18382	18954	.	+	.	ID=BVI_096B_g18;color=NA;gene=4BVI_c096_09 MV09;note=NA
+BVI_096B	MFG	CDS	19003	19374	.	+	.	ID=BVI_096B_g19;color=16;gene=4BVI_c096_08 MV08;note=NA
+BVI_096B	MFG	CDS	19417	19914	.	-	.	ID=BVI_096B_g20;color=13;gene=4BVI_c096_07 MV06;note=NA
+BVI_096B	MFG	CDS	20318	20656	.	-	.	ID=BVI_096B_g21;color=NA;gene=4BVI_c096_06 MV04;note=NA
+BVI_096B	MFG	CDS	20841	21137	.	-	.	ID=BVI_096B_g22;color=2;gene=4BVI_c096_05 pPolB;note=NA
+BVI_096B	MFG	CDS	21068	21879	.	-	.	ID=BVI_096B_g23;color=2;gene=4BVI_c096_04 pPolB;note=NA
+BVI_096B	MFG	CDS	21881	22558	.	-	.	ID=BVI_096B_g24;color=2;gene=4BVI_c096_03 pPolB;note=NA
+BVI_096B	MFG	CDS	22669	23744	.	+	.	ID=BVI_096B_g25;color=6;gene=4BVI_c096_02 rve-INT;note=NA
+BVI_096B	MFG	CDS	23798	25705	.	-	.	ID=BVI_096B_g26;color=10;gene=4BVI_c096_01 primase;note=NA
+BVI_096B	MFG	repeat_region	25721	26330	.	-	.	ID=BVI_096B_r03;color=NA;gene=3' TIR;note=NA
+BVI_101	MFG	repeat_region	1	909	.	+	.	ID=BVI_101_r01;color=NA;gene=3BVI_c101 5'TIR;note=NA
+BVI_101	MFG	CDS	520	831	.	+	.	ID=BVI_101_g01;color=NA;gene=3BVI_c101_01 KNV2_232;note=none
+BVI_101	MFG	CDS	906	1238	.	+	.	ID=BVI_101_g02;color=NA;gene=3BVI_c101_02;note=none
+BVI_101	MFG	CDS	1289	1480	.	-	.	ID=BVI_101_g03;color=NA;gene=3BVI_c101_03;note=NA
+BVI_101	MFG	CDS	1524	3356	.	-	.	ID=BVI_101_g04;color=2;gene=3BVI_c101_04 pPolB;note=none
+BVI_101	MFG	CDS	3452	5425	.	+	.	ID=BVI_101_g05;color=10;gene=3BVI_c101_05 primase;note=none
+BVI_101	MFG	CDS	5500	6513	.	-	.	ID=BVI_101_g06;color=6;gene=3BVI_c101_06 rve-INT;note=none
+BVI_101	MFG	CDS	6591	6785	.	+	.	ID=BVI_101_g07;color=NA;gene=3BVI_c101_07 KNV4_107;note=NA
+BVI_101	MFG	CDS	6981	7436	.	+	.	ID=BVI_101_g08;color=NA;gene=3BVI_c101_08 circovirus replicase?;note=none
+BVI_101	MFG	CDS	7525	7944	.	+	.	ID=BVI_101_g09;color=NA;gene=3BVI_c101_09;note=none
+BVI_101	MFG	CDS	7945	8214	.	-	.	ID=BVI_101_g10;color=NA;gene=3BVI_c101_10;note=NA
+BVI_101	MFG	CDS	8237	8800	.	-	.	ID=BVI_101_g11;color=3;gene=3BVI_c101_11 PRO;note=none
+BVI_101	MFG	CDS	8812	9864	.	-	.	ID=BVI_101_g12;color=8;gene=3BVI_c101_12 ATPase;note=none
+BVI_101	MFG	CDS	10014	10847	.	-	.	ID=BVI_101_g13;color=11;gene=3BVI_c101_13 MV14;note=none
+BVI_101	MFG	CDS	10889	12541	.	+	.	ID=BVI_101_g14;color=NA;gene=3BVI_c101_14;note=none
+BVI_101	MFG	CDS	12561	12932	.	+	.	ID=BVI_101_g15;color=NA;gene=3BVI_c101_15 MV08;note=none
+BVI_101	MFG	CDS	12929	13087	.	+	.	ID=BVI_101_g16;color=NA;gene=3BVI_c101_16;note=NA
+BVI_101	MFG	CDS	13094	13966	.	+	.	ID=BVI_101_g17;color=9;gene=3BVI_c101_17 penton;note=none
+BVI_101	MFG	CDS	14049	15821	.	+	.	ID=BVI_101_g18;color=4;gene=3BVI_c101_18 MCP;note=none
+BVI_101	MFG	CDS	16083	17024	.	+	.	ID=BVI_101_g19;color=7;gene=3BVI_c101_19 MV19;note=none
+BVI_101	MFG	CDS	16993	17520	.	+	.	ID=BVI_101_g20;color=7;gene=3BVI_c101_20 MV19;note=none
+BVI_101	MFG	CDS	17678	18103	.	-	.	ID=BVI_101_g21;color=NA;gene=3BVI_c101_21 c7_L685;note=none
+BVI_101	MFG	CDS	18217	18525	.	-	.	ID=BVI_101_g22;color=NA;gene=3BVI_c101_22;note=none
+BVI_101	MFG	repeat_region	18522	19432	.	-	.	ID=BVI_101_r02;color=NA;gene=3BVI_c101 3'TIR;note=NA
+BVI_101	MFG	CDS	18600	18911	.	-	.	ID=BVI_101_g23;color=NA;gene=3BVI_c101_23 KNV2_232;note=none
+Cflag_017A	MFG	repeat_region	1	2307	.	+	.	ID=Cflag_017A_r01;color=NA;gene=5Cflag_c017A_5'TIR;note=NA
+Cflag_017A	MFG	CDS	600	1121	.	-	.	ID=Cflag_017A_g01;color=NA;gene=5Cflag_c017A_01;note=none
+Cflag_017A	MFG	CDS	1540	1914	.	+	.	ID=Cflag_017A_g02;color=NA;gene=5Cflag_c017A_02;note=none
+Cflag_017A	MFG	CDS	2575	3273	.	+	.	ID=Cflag_017A_g03;color=NA;gene=5Cflag_c017A_03;note=none
+Cflag_017A	MFG	CDS	3395	3733	.	-	.	ID=Cflag_017A_g04;color=NA;gene=5Cflag_c017A_04;note=none
+Cflag_017A	MFG	CDS	3782	4012	.	-	.	ID=Cflag_017A_g05;color=NA;gene=5Cflag_c017A_05;note=NA
+Cflag_017A	MFG	CDS	4073	4294	.	-	.	ID=Cflag_017A_g06;color=NA;gene=5Cflag_c017A_06;note=NA
+Cflag_017A	MFG	CDS	4335	4562	.	-	.	ID=Cflag_017A_g07;color=NA;gene=5Cflag_c017A_07;note=none
+Cflag_017A	MFG	CDS	4474	5373	.	-	.	ID=Cflag_017A_g08;color=NA;gene=5Cflag_c017A_08 Tyr recombinase?;note=site-specific integrase?
+Cflag_017A	MFG	CDS	5478	5864	.	+	.	ID=Cflag_017A_g09;color=NA;gene=5Cflag_c017A_09;note=none
+Cflag_017A	MFG	CDS	6005	6748	.	-	.	ID=Cflag_017A_g10;color=NA;gene=5Cflag_c017A_10 YSLV7_19;note=YSLV7_19
+Cflag_017A	MFG	CDS	6953	8263	.	-	.	ID=Cflag_017A_g11;color=7;gene=5Cflag_c017A_11 MV19;note=MV19
+Cflag_017A	MFG	CDS	8490	9137	.	-	.	ID=Cflag_017A_g12;color=NA;gene=5Cflag_c017A_12;note=none
+Cflag_017A	MFG	CDS	9204	10181	.	-	.	ID=Cflag_017A_g13;color=NA;gene=5Cflag_c017A_13;note=none
+Cflag_017A	MFG	CDS	10207	10986	.	+	.	ID=Cflag_017A_g14;color=11;gene=5Cflag_c017A_14 MV14;note=NA
+Cflag_017A	MFG	CDS	11053	11634	.	+	.	ID=Cflag_017A_g15;color=8;gene=5Cflag_c017A_15 ATPase;note=ATPase
+Cflag_017A	MFG	CDS	11947	12522	.	+	.	ID=Cflag_017A_g16;color=3;gene=5Cflag_c017A_16 PRO;note=PRO
+Cflag_017A	MFG	CDS	12434	13432	.	+	.	ID=Cflag_017A_g17;color=9;gene=5Cflag_c017A_17 penton;note=penton
+Cflag_017A	MFG	CDS	13563	15389	.	+	.	ID=Cflag_017A_g18;color=4;gene=5Cflag_c017A_18 MCP;note=MCP
+Cflag_017A	MFG	CDS	15547	16707	.	+	.	ID=Cflag_017A_g19;color=6;gene=5Cflag_c017A_19 HASI rve-INT;note=HASI rve-INT
+Cflag_017A	MFG	CDS	16691	17020	.	+	.	ID=Cflag_017A_g20;color=NA;gene=5Cflag_c017A_20;note=none
+Cflag_017A	MFG	CDS	16934	17317	.	-	.	ID=Cflag_017A_g21;color=NA;gene=5Cflag_c017A_21;note=none
+Cflag_017A	MFG	CDS	17350	17982	.	-	.	ID=Cflag_017A_g22;color=NA;gene=5Cflag_c017A_22;note=none
+Cflag_017A	MFG	CDS	18026	18613	.	-	.	ID=Cflag_017A_g23;color=NA;gene=5Cflag_c017A_23 ank rep;note=ankyrin repeat
+Cflag_017A	MFG	CDS	18670	19143	.	-	.	ID=Cflag_017A_g24;color=NA;gene=5Cflag_c017A_24;note=none
+Cflag_017A	MFG	repeat_region	19181	21485	.	-	.	ID=Cflag_017A_r02;color=NA;gene=5Cflag_c017A_3'TIR;note=NA
+Cflag_017A	MFG	CDS	19435	19947	.	-	.	ID=Cflag_017A_g25;color=NA;gene=5Cflag_c017A_25;note=none
+Cflag_017A	MFG	CDS	20366	20887	.	+	.	ID=Cflag_017A_g26;color=NA;gene=5Cflag_c017A_26;note=none
+Cflag_017B	MFG	repeat_region	1	1081	.	+	.	ID=Cflag_017B_r01;color=NA;gene=1Cflag_c017B_3'TIR;note=NA
+Cflag_017B	MFG	CDS	538	867	.	+	.	ID=Cflag_017B_g01;color=NA;gene=1Cflag_c017B_22;note=none
+Cflag_017B	MFG	CDS	1215	1634	.	+	.	ID=Cflag_017B_g02;color=NA;gene=1Cflag_c017B_21;note=none
+Cflag_017B	MFG	CDS	2129	3667	.	-	.	ID=Cflag_017B_g03;color=7;gene=1Cflag_c017B_20 MV19;note=MV19
+Cflag_017B	MFG	CDS	3766	4026	.	-	.	ID=Cflag_017B_g04;color=NA;gene=1Cflag_c017B_19;note=NA
+Cflag_017B	MFG	CDS	4137	5774	.	-	.	ID=Cflag_017B_g05;color=NA;gene=1Cflag_c017B_18;note=none
+Cflag_017B	MFG	CDS	5808	6368	.	-	.	ID=Cflag_017B_g06;color=3;gene=1Cflag_c017B_17 PRO;note=PRO
+Cflag_017B	MFG	CDS	6395	7063	.	-	.	ID=Cflag_017B_g07;color=12;gene=1Cflag_c017B_16 MV13;note=MV13
+Cflag_017B	MFG	CDS	7073	7864	.	-	.	ID=Cflag_017B_g08;color=NA;gene=1Cflag_c017B_15;note=none
+Cflag_017B	MFG	CDS	7952	8845	.	+	.	ID=Cflag_017B_g09;color=11;gene=1Cflag_c017B_14 MV14;note=MV14
+Cflag_017B	MFG	CDS	8992	10020	.	+	.	ID=Cflag_017B_g10;color=8;gene=1Cflag_c017B_13 ATPase;note=ATPase
+Cflag_017B	MFG	CDS	10090	11955	.	-	.	ID=Cflag_017B_g11;color=4;gene=1Cflag_c017B_12 MCP;note=MCP
+Cflag_017B	MFG	CDS	12103	12975	.	-	.	ID=Cflag_017B_g12;color=9;gene=1Cflag_c017B_11 penton;note=penton
+Cflag_017B	MFG	CDS	13076	13693	.	-	.	ID=Cflag_017B_g13;color=NA;gene=1Cflag_c017B_10;note=none
+Cflag_017B	MFG	CDS	13815	14429	.	-	.	ID=Cflag_017B_g14;color=NA;gene=1Cflag_c017B_09;note=none
+Cflag_017B	MFG	CDS	14795	15856	.	+	.	ID=Cflag_017B_g15;color=6;gene=1Cflag_c017B_08 rve-INT;note=rve-INT
+Cflag_017B	MFG	CDS	15858	17078	.	-	.	ID=Cflag_017B_g16;color=2;gene=1Cflag_c017B_07 pPolB;note=pPolB
+Cflag_017B	MFG	CDS	17139	17498	.	-	.	ID=Cflag_017B_g17;color=NA;gene=1Cflag_c017B_06;note=none
+Cflag_017B	MFG	CDS	17549	19495	.	-	.	ID=Cflag_017B_g18;color=10;gene=1Cflag_c017B_05 primase-helicase;note=helicase-primase
+Cflag_017B	MFG	CDS	19606	19815	.	-	.	ID=Cflag_017B_g19;color=NA;gene=1Cflag_c017B_04;note=NA
+Cflag_017B	MFG	CDS	19860	20195	.	-	.	ID=Cflag_017B_g20;color=NA;gene=1Cflag_c017B_03 Tlr6Fp;note=Tlr_6Fp
+Cflag_017B	MFG	repeat_region	20231	21311	.	-	.	ID=Cflag_017B_r02;color=NA;gene=1Cflag_c017B_5'TIR;note=NA
+Cflag_017B	MFG	CDS	20282	20578	.	+	.	ID=Cflag_017B_g21;color=NA;gene=1Cflag_c017B_02 DUF2339;note=DUF2339
+Cflag_017B	MFG	CDS	20445	20774	.	-	.	ID=Cflag_017B_g22;color=NA;gene=1Cflag_c017B_01;note=none
+Cflag_017C	MFG	repeat_region	1	909	.	+	.	ID=Cflag_017C_r01;color=NA;gene=3Cflag_c017C_5'TIR;note=NA
+Cflag_017C	MFG	CDS	520	831	.	+	.	ID=Cflag_017C_g01;color=NA;gene=3Cflag_c017C_01 KNV2_232;note=NA
+Cflag_017C	MFG	CDS	906	1238	.	+	.	ID=Cflag_017C_g02;color=NA;gene=3Cflag_c017C_02;note=none
+Cflag_017C	MFG	CDS	1289	1480	.	-	.	ID=Cflag_017C_g03;color=NA;gene=3Cflag_c017C_03;note=NA
+Cflag_017C	MFG	CDS	1524	3356	.	-	.	ID=Cflag_017C_g04;color=2;gene=3Cflag_c017C_04 pPolB;note=none
+Cflag_017C	MFG	CDS	3452	5425	.	+	.	ID=Cflag_017C_g05;color=10;gene=3Cflag_c017C_05 primase;note=none
+Cflag_017C	MFG	CDS	5500	6513	.	-	.	ID=Cflag_017C_g06;color=6;gene=3Cflag_c017C_06 rve-INT;note=none
+Cflag_017C	MFG	CDS	6591	6899	.	+	.	ID=Cflag_017C_g07;color=NA;gene=3Cflag_c017C_07 KNV4_107;note=none
+Cflag_017C	MFG	CDS	6980	7435	.	+	.	ID=Cflag_017C_g08;color=NA;gene=3Cflag_c017C_08 circovirus replicase?;note=none
+Cflag_017C	MFG	CDS	7524	7943	.	+	.	ID=Cflag_017C_g09;color=NA;gene=3Cflag_c017C_09;note=none
+Cflag_017C	MFG	CDS	7944	8213	.	-	.	ID=Cflag_017C_g10;color=NA;gene=3Cflag_c017C_10;note=NA
+Cflag_017C	MFG	CDS	8236	8799	.	-	.	ID=Cflag_017C_g11;color=3;gene=3Cflag_c017C_11 PRO;note=none
+Cflag_017C	MFG	CDS	8811	9863	.	-	.	ID=Cflag_017C_g12;color=8;gene=3Cflag_c017C_12 ATPase;note=none
+Cflag_017C	MFG	CDS	10013	10846	.	-	.	ID=Cflag_017C_g13;color=11;gene=3Cflag_c017C_13 MV14;note=none
+Cflag_017C	MFG	CDS	10888	12540	.	+	.	ID=Cflag_017C_g14;color=NA;gene=3Cflag_c017C_14;note=none
+Cflag_017C	MFG	CDS	12560	12931	.	+	.	ID=Cflag_017C_g15;color=NA;gene=3Cflag_c017C_15 MV08;note=none
+Cflag_017C	MFG	CDS	13093	13995	.	+	.	ID=Cflag_017C_g16;color=9;gene=3Cflag_c017C_16 penton;note=none
+Cflag_017C	MFG	CDS	14046	15818	.	+	.	ID=Cflag_017C_g17;color=4;gene=3Cflag_c017C_17 MCP;note=none
+Cflag_017C	MFG	CDS	15870	17516	.	+	.	ID=Cflag_017C_g18;color=7;gene=3Cflag_c017C_18 MV19;note=none
+Cflag_017C	MFG	CDS	17674	18099	.	-	.	ID=Cflag_017C_g19;color=NA;gene=3Cflag_c017C_19;note=none
+Cflag_017C	MFG	CDS	18213	18521	.	-	.	ID=Cflag_017C_g20;color=NA;gene=3Cflag_c017C_20;note=none
+Cflag_017C	MFG	repeat_region	18518	19426	.	-	.	ID=Cflag_017C_r02;color=NA;gene=3Cflag_c017C_3'TIR;note=NA
+Cflag_017C	MFG	CDS	18596	18907	.	-	.	ID=Cflag_017C_g21;color=NA;gene=3Cflag_c017C_21 KNV2_232;note=none
+Cflag_040	MFG	repeat_region	1	2573	.	+	.	ID=Cflag_040_r01;color=NA;gene=5Cflag_040_5'TIR;note=NA
+Cflag_040	MFG	CDS	1359	1880	.	-	.	ID=Cflag_040_g01;color=NA;gene=5Cflag_c040_01;note=none
+Cflag_040	MFG	CDS	2035	2280	.	-	.	ID=Cflag_040_g02;color=NA;gene=5Cflag_c040_02;note=NA
+Cflag_040	MFG	CDS	2330	3514	.	-	.	ID=Cflag_040_g03;color=10;gene=5Cflag_c040_03 primase/helicase;note=none
+Cflag_040	MFG	CDS	3510	4904	.	-	.	ID=Cflag_040_g04;color=10;gene=5Cflag_c040_04 helicase?;note=none
+Cflag_040	MFG	CDS	5547	6608	.	-	.	ID=Cflag_040_g05;color=NA;gene=5Cflag_c040_05;note=none
+Cflag_040	MFG	CDS	6925	7707	.	-	.	ID=Cflag_040_g06;color=NA;gene=5Cflag_c040_06;note=none
+Cflag_040	MFG	CDS	7937	9247	.	-	.	ID=Cflag_040_g07;color=7;gene=5Cflag_c040_07 MV19;note=none
+Cflag_040	MFG	CDS	9508	10116	.	-	.	ID=Cflag_040_g08;color=NA;gene=5Cflag_c040_08;note=none
+Cflag_040	MFG	CDS	10139	11107	.	-	.	ID=Cflag_040_g09;color=NA;gene=5Cflag_c040_09;note=none
+Cflag_040	MFG	repeat_region	11115	11425	.	+	.	ID=Cflag_040_r02;color=NA;gene=Ngaro1_Cflag_c040_A1;note=NA
+Cflag_040	MFG	mobile_element	11115	17522	.	+	.	ID=CbCf_c040_Ngaro1;color=NA;gene=CaroNGARO1_CrCf_c040;note=NA
+Cflag_040	MFG	CDS	11453	13360	.	+	.	ID=Cflag_040_g10;color=NA;gene=Ngaro1_Cflag_c040_ORF1;note=none
+Cflag_040	MFG	CDS	13000	15708	.	+	.	ID=Cflag_040_g11;color=2;gene=Ngaro1_Cflag_c040_ORF2;note=none
+Cflag_040	MFG	CDS	15572	16777	.	+	.	ID=Cflag_040_g12;color=2;gene=Ngaro1_Cflag_c040_ORF3;note=none
+Cflag_040	MFG	repeat_region	16879	17035	.	+	.	ID=Cflag_040_r03;color=NA;gene=NGaro1_Cflag_c040_B1;note=NA
+Cflag_040	MFG	repeat_region	17036	17346	.	+	.	ID=Cflag_040_r04;color=NA;gene=Ngaro1_Cflag_c040_A2;note=NA
+Cflag_040	MFG	repeat_region	17366	17522	.	+	.	ID=Cflag_040_r05;color=NA;gene=Ngaro1_Cflag_c040_B2;note=NA
+Cflag_040	MFG	CDS	17541	18341	.	+	.	ID=Cflag_040_g13;color=11;gene=5Cflag_c040_10 MV14;note=none
+Cflag_040	MFG	CDS	18443	19333	.	+	.	ID=Cflag_040_g14;color=8;gene=5Cflag_c040_11 ATPase;note=none
+Cflag_040	MFG	CDS	19336	19911	.	+	.	ID=Cflag_040_g15;color=3;gene=5Cflag_c040_12 PRO;note=none
+Cflag_040	MFG	CDS	19823	20689	.	+	.	ID=Cflag_040_g16;color=9;gene=5Cflag_c040_13 penton;note=none
+Cflag_040	MFG	CDS	20951	21457	.	+	.	ID=Cflag_040_g17;color=4;gene=5Cflag_c040_14 MCP;note=NA
+Cflag_040	MFG	CDS	21456	21515	.	+	.	ID=Cflag_040_g18;color=4;gene=5Cflag_c040_15 MCP;note=NA
+Cflag_040	MFG	CDS	21515	21910	.	+	.	ID=Cflag_040_g19;color=4;gene=5Cflag_c040_16 MCP;note=NA
+Cflag_040	MFG	CDS	21910	22119	.	+	.	ID=Cflag_040_g20;color=4;gene=5Cflag_c040_17 MCP;note=NA
+Cflag_040	MFG	CDS	22119	22772	.	+	.	ID=Cflag_040_g21;color=4;gene=5Cflag_c040_18 MCP;note=NA
+Cflag_040	MFG	CDS	22995	23291	.	+	.	ID=Cflag_040_g22;color=6;gene=5Cflag_c040_19 rve-INT;note=NA
+Cflag_040	MFG	CDS	23291	23695	.	+	.	ID=Cflag_040_g23;color=6;gene=5Cflag_c040_20 rve-INT;note=none
+Cflag_040	MFG	CDS	23695	23970	.	+	.	ID=Cflag_040_g24;color=6;gene=5Cflag_c040_21 rve-INT;note=NA
+Cflag_040	MFG	CDS	23972	24154	.	+	.	ID=Cflag_040_g25;color=6;gene=5Cflag_c040_22 rve-INT;note=NA
+Cflag_040	MFG	repeat_region	24187	26766	.	-	.	ID=Cflag_040_r06;color=NA;gene=5Cflag_040_3'TIR;note=NA
+Cflag_040	MFG	CDS	25548	26126	.	+	.	ID=Cflag_040_g26;color=NA;gene=5Cflag_c040_23;note=none
+Cflag_131	MFG	repeat_region	1	1013	.	+	.	ID=Cflag_131_r01;color=NA;gene=3Cflag_c131_5'TIR;note=NA
+Cflag_131	MFG	CDS	1011	1247	.	+	.	ID=Cflag_131_g01;color=NA;gene=3Cflag_c131_01;note=NA
+Cflag_131	MFG	CDS	1265	1690	.	+	.	ID=Cflag_131_g02;color=NA;gene=3Cflag_c131_02;note=none
+Cflag_131	MFG	CDS	1848	2357	.	-	.	ID=Cflag_131_g03;color=7;gene=3Cflag_c131_03 MV19;note=none
+Cflag_131	MFG	CDS	2394	3497	.	-	.	ID=Cflag_131_g04;color=7;gene=3Cflag_c131_04 MV19;note=none
+Cflag_131	MFG	CDS	3652	5325	.	-	.	ID=Cflag_131_g05;color=4;gene=3Cflag_c131_05 MCP;note=NA
+Cflag_131	MFG	CDS	3652	5325	.	-	.	ID=Cflag_131_g06;color=4;gene=Cflag_c131_05 MCP;note=none
+Cflag_131	MFG	CDS	5376	6278	.	-	.	ID=Cflag_131_g07;color=9;gene=3Cflag_c131_06 penton;note=none
+Cflag_131	MFG	CDS	6513	6965	.	+	.	ID=Cflag_131_g08;color=NA;gene=3Cflag_c131_07;note=none
+Cflag_131	MFG	CDS	7367	7741	.	-	.	ID=Cflag_131_g09;color=NA;gene=3Cflag_c131_08;note=MV08
+Cflag_131	MFG	CDS	7761	9395	.	-	.	ID=Cflag_131_g10;color=NA;gene=3Cflag_c131_09;note=none
+Cflag_131	MFG	CDS	9437	9616	.	-	.	ID=Cflag_131_g11;color=NA;gene=3Cflag_c131_10;note=NA
+Cflag_131	MFG	CDS	9658	10491	.	+	.	ID=Cflag_131_g12;color=11;gene=3Cflag_c131_11 MV14;note=none
+Cflag_131	MFG	CDS	10641	11693	.	+	.	ID=Cflag_131_g13;color=8;gene=3Cflag_c131_12 ATPase;note=none
+Cflag_131	MFG	CDS	11705	12268	.	+	.	ID=Cflag_131_g14;color=3;gene=3Cflag_c131_13 PRO;note=none
+Cflag_131	MFG	CDS	12561	12986	.	-	.	ID=Cflag_131_g15;color=NA;gene=3Cflag_c131_14;note=none
+Cflag_131	MFG	CDS	13048	13335	.	-	.	ID=Cflag_131_g16;color=NA;gene=3Cflag_c131_15;note=NA
+Cflag_131	MFG	CDS	13397	13684	.	-	.	ID=Cflag_131_g17;color=NA;gene=3Cflag_c131_16;note=YSLV6_05
+Cflag_131	MFG	CDS	13730	15442	.	-	.	ID=Cflag_131_g18;color=2;gene=3Cflag_c131_17 pPolB;note=none
+Cflag_131	MFG	CDS	15532	16494	.	+	.	ID=Cflag_131_g19;color=6;gene=3Cflag_c131_18 rve-INT;note=none
+Cflag_131	MFG	repeat_region	16508	16647	.	-	.	ID=Cflag_131_r02;color=NA;gene=Ngaro1_Cflag_c131A_B2;note=NA
+Cflag_131	MFG	mobile_element	16508	22880	.	-	.	ID=CbCf_c131A_Ngaro1;color=NA;gene=CaroNGARO1_CrCf_c131A;note=NA
+Cflag_131	MFG	repeat_region	16667	16978	.	-	.	ID=Cflag_131_r03;color=NA;gene=Ngaro1_Cflag_c131A_A2;note=NA
+Cflag_131	MFG	repeat_region	16997	17136	.	-	.	ID=Cflag_131_r04;color=NA;gene=Ngaro1_Cflag_c131A_B1;note=NA
+Cflag_131	MFG	CDS	17199	18044	.	-	.	ID=Cflag_131_g20;color=NA;gene=Ngaro1_Cflag_c131A_ORF5;note=NA
+Cflag_131	MFG	CDS	17673	18784	.	-	.	ID=Cflag_131_g21;color=NA;gene=Ngaro1_Cflag_c131A_ORF4;note=NA
+Cflag_131	MFG	CDS	18957	19784	.	-	.	ID=Cflag_131_g22;color=NA;gene=Ngaro1_Cflag_c131A_ORF3;note=NA
+Cflag_131	MFG	CDS	19849	20511	.	-	.	ID=Cflag_131_g23;color=NA;gene=Ngaro1_Cflag_c131A_ORF2;note=NA
+Cflag_131	MFG	CDS	20656	22563	.	-	.	ID=Cflag_131_g24;color=NA;gene=Ngaro1_Cflag_c131A_ORF1;note=NA
+Cflag_131	MFG	repeat_region	22570	22880	.	-	.	ID=Cflag_131_r05;color=NA;gene=Ngaro1_Cflag_c131A_A1;note=NA
+Cflag_131	MFG	repeat_region	22894	23204	.	+	.	ID=Cflag_131_r06;color=NA;gene=Ngaro1_Cflag_c131B_A1;note=NA
+Cflag_131	MFG	mobile_element	22894	29264	.	+	.	ID=CbCf_c131B_Ngaro1;color=NA;gene=CaroNGARO1_CrCf_c131B;note=NA
+Cflag_131	MFG	CDS	23211	24713	.	+	.	ID=Cflag_131_g25;color=NA;gene=Ngaro1_Cflag_c131B_ORF1;note=NA
+Cflag_131	MFG	CDS	25992	27467	.	+	.	ID=Cflag_131_g26;color=2;gene=Ngaro1_Cflag_c131B_ORF2;note=NA
+Cflag_131	MFG	CDS	27331	28536	.	+	.	ID=Cflag_131_g27;color=2;gene=Ngaro1_Cflag_c131B_ORF3;note=NA
+Cflag_131	MFG	repeat_region	28639	28778	.	+	.	ID=Cflag_131_r07;color=NA;gene=Ngaro1_Cflag_c131B_B1;note=NA
+Cflag_131	MFG	repeat_region	28795	29105	.	+	.	ID=Cflag_131_r08;color=NA;gene=Ngaro1_Cflag_c131B_A2;note=NA
+Cflag_131	MFG	repeat_region	29125	29264	.	+	.	ID=Cflag_131_r09;color=NA;gene=Ngaro1_Cflag_c131B_B2;note=NA
+Cflag_131	MFG	CDS	29331	31220	.	-	.	ID=Cflag_131_g28;color=10;gene=3Cflag_c131_19 primase;note=none
+Cflag_131	MFG	repeat_region	31533	32544	.	-	.	ID=Cflag_131_r10;color=NA;gene=3Cflag_c131_3'TIR;note=NA
+Cflag_151	MFG	repeat_region	1	1165	.	+	.	ID=Cflag_151_r01;color=NA;gene=6Cflag_c151_5'TIR;note=NA
+Cflag_151	MFG	CDS	889	1185	.	-	.	ID=Cflag_151_g01;color=NA;gene=6Cflag_c151_01;note=none
+Cflag_151	MFG	CDS	1218	2018	.	+	.	ID=Cflag_151_g02;color=NA;gene=6Cflag_c151_02;note=none
+Cflag_151	MFG	CDS	2003	3169	.	-	.	ID=Cflag_151_g03;color=6;gene=6Cflag_c151_03 HASI rve-INT;note=none
+Cflag_151	MFG	CDS	3324	5180	.	-	.	ID=Cflag_151_g04;color=4;gene=6Cflag_c151_04;note=NA
+Cflag_151	MFG	CDS	5211	6104	.	-	.	ID=Cflag_151_g05;color=NA;gene=6Cflag_c151_05;note=none
+Cflag_151	MFG	CDS	6290	6853	.	-	.	ID=Cflag_151_g06;color=3;gene=6Cflag_c151_06 PRO;note=none
+Cflag_151	MFG	CDS	6859	7107	.	-	.	ID=Cflag_151_g07;color=NA;gene=6Cflag_c151_07;note=none
+Cflag_151	MFG	CDS	7157	7768	.	-	.	ID=Cflag_151_g08;color=8;gene=6Cflag_c151_08 ATPase;note=none
+Cflag_151	MFG	CDS	7878	8624	.	-	.	ID=Cflag_151_g09;color=11;gene=6Cflag_c151_09 MV14;note=none
+Cflag_151	MFG	CDS	8653	9573	.	+	.	ID=Cflag_151_g10;color=NA;gene=6Cflag_c151_10;note=none
+Cflag_151	MFG	CDS	9732	10391	.	+	.	ID=Cflag_151_g11;color=14;gene=6Cflag_c151_11 MV12;note=none
+Cflag_151	MFG	CDS	10704	11558	.	+	.	ID=Cflag_151_g12;color=7;gene=6Cflag_c151_12 MV19;note=none
+Cflag_151	MFG	repeat_region	11321	11732	.	+	.	ID=Cflag_151_r02;color=NA;gene=Ngaro3_Cflag_c151_A1;note=NA
+Cflag_151	MFG	mobile_element	11321	17488	.	+	.	ID=CbCf_c151_Ngaro3;color=NA;gene=CaroNGARO3_CrCf_c151;note=NA
+Cflag_151	MFG	CDS	13740	16838	.	+	.	ID=Cflag_151_g13;color=2;gene=Ngaro3_Cflag_c151_ORF1;note=NA
+Cflag_151	MFG	repeat_region	16862	16962	.	+	.	ID=Cflag_151_r03;color=NA;gene=Ngaro3_Cflag_c151_B1;note=NA
+Cflag_151	MFG	repeat_region	16963	17372	.	+	.	ID=Cflag_151_r04;color=NA;gene=Ngaro3_Cflag_c151_A2;note=NA
+Cflag_151	MFG	repeat_region	17388	17488	.	+	.	ID=Cflag_151_r05;color=NA;gene=Ngaro3_Cflag_c151_B2;note=NA
+Cflag_151	MFG	CDS	17496	18626	.	+	.	ID=Cflag_151_g14;color=7;gene=6Cflag_c151_13 MV19;note=none
+Cflag_151	MFG	CDS	18837	19664	.	+	.	ID=Cflag_151_g15;color=NA;gene=6Cflag_c151_14 YSLV5_13;note=YSLV5_13
+Cflag_151	MFG	CDS	19639	20037	.	-	.	ID=Cflag_151_g16;color=NA;gene=6Cflag_c151_15;note=none
+Cflag_151	MFG	CDS	20374	22950	.	-	.	ID=Cflag_151_g17;color=10;gene=6Cflag_c151_16 primase-helicase;note=NA
+Cflag_151	MFG	CDS	22907	23239	.	+	.	ID=Cflag_151_g18;color=NA;gene=6Cflag_c151_17;note=none
+Cflag_151	MFG	CDS	23200	23556	.	+	.	ID=Cflag_151_g19;color=NA;gene=6Cflag_c151_18;note=none
+Cflag_151	MFG	CDS	23682	23957	.	-	.	ID=Cflag_151_g20;color=NA;gene=6Cflag_c151_19;note=NA
+Cflag_151	MFG	CDS	23966	24313	.	+	.	ID=Cflag_151_g21;color=NA;gene=6Cflag_c151_20;note=none
+Cflag_151	MFG	repeat_region	24012	25176	.	-	.	ID=Cflag_151_r06;color=NA;gene=6Cflag_c151_3'TIR;note=NA
+Cflag_215	MFG	repeat_region	1	573	.	+	.	ID=Cflag_215_r01;color=NA;gene=4Cflag_c215_5'TIR;note=NA
+Cflag_215	MFG	CDS	582	1100	.	+	.	ID=Cflag_215_g01;color=NA;gene=4Cflag_c215_01 MV06 GIY-YIG;note=NA
+Cflag_215	MFG	CDS	1160	2674	.	-	.	ID=Cflag_215_g02;color=7;gene=4Cflag_c215_02 MV19;note=NA
+Cflag_215	MFG	CDS	2737	4548	.	-	.	ID=Cflag_215_g03;color=4;gene=4Cflag_c215_03 MCP;note=NA
+Cflag_215	MFG	CDS	4653	4853	.	-	.	ID=Cflag_215_g04;color=9;gene=4Cflag_c215_04 penton;note=NA
+Cflag_215	MFG	CDS	4900	5571	.	-	.	ID=Cflag_215_g05;color=9;gene=4Cflag_c215_05 penton;note=NA
+Cflag_215	MFG	CDS	5619	6182	.	-	.	ID=Cflag_215_g06;color=3;gene=4Cflag_c215_06 PRO;note=NA
+Cflag_215	MFG	CDS	6222	6848	.	-	.	ID=Cflag_215_g07;color=8;gene=4Cflag_c215_07 ATPase;note=NA
+Cflag_215	MFG	CDS	6820	7152	.	-	.	ID=Cflag_215_g08;color=8;gene=4Cflag_c215_08 ATPase;note=NA
+Cflag_215	MFG	CDS	7410	7985	.	-	.	ID=Cflag_215_g09;color=2;gene=4Cflag_c215_09 pPolB;note=NA
+Cflag_215	MFG	CDS	8096	8933	.	+	.	ID=Cflag_215_g10;color=6;gene=4Cflag_c215_10 rve-INT;note=NA
+Cflag_215	MFG	CDS	8929	9168	.	+	.	ID=Cflag_215_g11;color=6;gene=4Cflag_c215_11 rve-INT;note=NA
+Cflag_215	MFG	CDS	9223	9804	.	-	.	ID=Cflag_215_g12;color=NA;gene=4Cflag_c215_12 prim-hel?;note=NA
+Cflag_215	MFG	CDS	9776	11035	.	-	.	ID=Cflag_215_g13;color=10;gene=4Cflag_c215_13 helicase-primase;note=NA
+Cflag_215	MFG	mobile_element	10630	11066	.	-	.	ID=CbCf_c215_Ngaro2;color=NA;gene=CaroNGARO2_Cflag_c215_truncated;note=NA
+Cflag_215	MFG	CDS	11039	11578	.	-	.	ID=Cflag_215_g14;color=10;gene=4Cflag_c215_14 helicase-primase;note=NA
+Cflag_215	MFG	repeat_region	11629	12202	.	-	.	ID=Cflag_215_r02;color=NA;gene=4Cflag_c215_3'TIR;note=NA
+E4-10_001	MFG	repeat_region	1	119	.	+	.	ID=E4-10_001_r01;color=NA;gene=7E4-10_c001_3'TIR;note=NA
+E4-10_001	MFG	repeat_region	120	389	.	+	.	ID=E4-10_001_r02;color=NA;gene=A repeat;note=NA
+E4-10_001	MFG	mobile_element	120	6570	.	+	.	ID=CbEa_c001A_Ngaro2;color=NA;gene=CaroNGARO2_CrEa_c001A;note=NA
+E4-10_001	MFG	CDS	2431	5925	.	+	.	ID=E4-10_001_g01;color=2;gene=Ngaro2_E-10_c001A_ORF1;note=NA
+E4-10_001	MFG	repeat_region	5992	6138	.	+	.	ID=E4-10_001_r03;color=NA;gene=B repeat;note=NA
+E4-10_001	MFG	repeat_region	6137	6406	.	+	.	ID=E4-10_001_r04;color=NA;gene=A repeat;note=NA
+E4-10_001	MFG	repeat_region	6424	6570	.	+	.	ID=E4-10_001_r05;color=NA;gene=B repeat;note=NA
+E4-10_001	MFG	repeat_region	6569	7996	.	+	.	ID=E4-10_001_r06;color=NA;gene=7E4-10_c001_3'TIR;note=NA
+E4-10_001	MFG	CDS	6682	7197	.	-	.	ID=E4-10_001_g02;color=NA;gene=7E4-10_c001_18 KNV4_72;note=none
+E4-10_001	MFG	CDS	8070	8576	.	+	.	ID=E4-10_001_g03;color=NA;gene=7E4-10_c001_17;note=none
+E4-10_001	MFG	CDS	8618	9073	.	+	.	ID=E4-10_001_g04;color=NA;gene=7E4-10_c001_16;note=none
+E4-10_001	MFG	CDS	9101	9931	.	+	.	ID=E4-10_001_g05;color=NA;gene=7E4-10_c001_15 DNA methylase;note=none
+E4-10_001	MFG	CDS	10165	11280	.	-	.	ID=E4-10_001_g06;color=6;gene=7E4-10_c001_14 HASI rve-INT;note=none
+E4-10_001	MFG	CDS	11315	13141	.	-	.	ID=E4-10_001_g07;color=4;gene=7E4-10_c001_13 MCP;note=none
+E4-10_001	MFG	CDS	13183	14064	.	-	.	ID=E4-10_001_g08;color=9;gene=7E4-10_c001_12 penton;note=none
+E4-10_001	MFG	CDS	14065	14697	.	-	.	ID=E4-10_001_g09;color=3;gene=7E4-10_c001_11 PRO;note=none
+E4-10_001	MFG	CDS	14703	15617	.	-	.	ID=E4-10_001_g10;color=8;gene=7E4-10_c001_10 ATPase;note=none
+E4-10_001	MFG	CDS	15610	16350	.	-	.	ID=E4-10_001_g11;color=11;gene=7E4-10_c001_09 MV14;note=none
+E4-10_001	MFG	CDS	16383	17057	.	+	.	ID=E4-10_001_g12;color=NA;gene=7E4-10_c001_08;note=none
+E4-10_001	MFG	CDS	17106	17738	.	+	.	ID=E4-10_001_g13;color=14;gene=7E4-10_c001_07 MV12;note=none
+E4-10_001	MFG	CDS	17771	18409	.	+	.	ID=E4-10_001_g14;color=NA;gene=7E4-10_c001_06 MV08;note=none
+E4-10_001	MFG	CDS	18683	19651	.	-	.	ID=E4-10_001_g15;color=NA;gene=7E4-10_c001_05 RNR SSU;note=none
+E4-10_001	MFG	CDS	19723	21030	.	+	.	ID=E4-10_001_g16;color=7;gene=7E4-10_c001_04 MV19;note=none
+E4-10_001	MFG	CDS	21133	22083	.	+	.	ID=E4-10_001_g17;color=NA;gene=7E4-10_c001_03;note=none
+E4-10_001	MFG	repeat_region	22385	22531	.	-	.	ID=E4-10_001_r07;color=NA;gene=B repeat;note=NA
+E4-10_001	MFG	mobile_element	22385	28835	.	-	.	ID=CbEa_c001B_Ngaro2;color=NA;gene=CaroNGARO2_CrEa_c001B;note=NA
+E4-10_001	MFG	repeat_region	22549	22818	.	-	.	ID=E4-10_001_r08;color=NA;gene=A repeat;note=NA
+E4-10_001	MFG	repeat_region	22817	22963	.	-	.	ID=E4-10_001_r09;color=NA;gene=B repeat;note=NA
+E4-10_001	MFG	CDS	24414	26522	.	-	.	ID=E4-10_001_g18;color=2;gene=Ngaro2_E-10_c001B_ORF1;note=NA
+E4-10_001	MFG	repeat_region	28566	28835	.	-	.	ID=E4-10_001_r10;color=NA;gene=A repeat;note=NA
+E4-10_001	MFG	CDS	28840	31413	.	+	.	ID=E4-10_001_g19;color=10;gene=7E4-10_c001_02 helicase-primase;note=NA
+E4-10_001	MFG	repeat_region	31148	32732	.	-	.	ID=E4-10_001_r11;color=NA;gene=7E4-10_c001_5'TIR;note=NA
+E4-10_001	MFG	CDS	31946	32461	.	+	.	ID=E4-10_001_g20;color=NA;gene=7E4-10_c001_01;note=NA
+E4-10_008	MFG	repeat_region	1	296	.	+	.	ID=E4-10_008_r01;color=NA;gene=2E4-10_c008_5'TIR;note=NA
+E4-10_008	MFG	CDS	360	545	.	+	.	ID=E4-10_008_g01;color=NA;gene=2E4-10_c008_01;note=NA
+E4-10_008	MFG	CDS	545	943	.	+	.	ID=E4-10_008_g02;color=NA;gene=2E4-10_c008_02;note=none
+E4-10_008	MFG	CDS	1244	1579	.	+	.	ID=E4-10_008_g03;color=1;gene=2E4-10_c008_03 Tlr6_Fp;note=none
+E4-10_008	MFG	CDS	1622	2242	.	+	.	ID=E4-10_008_g04;color=NA;gene=2E4-10_c008_04;note=none
+E4-10_008	MFG	CDS	2285	2494	.	+	.	ID=E4-10_008_g05;color=NA;gene=2E4-10_c008_05;note=NA
+E4-10_008	MFG	CDS	2598	4538	.	+	.	ID=E4-10_008_g06;color=10;gene=2E4-10_c008_06 helicase-primase;note=none
+E4-10_008	MFG	CDS	4590	4943	.	+	.	ID=E4-10_008_g07;color=NA;gene=2E4-10_c008_07;note=none
+E4-10_008	MFG	CDS	5000	6217	.	+	.	ID=E4-10_008_g08;color=2;gene=2E4-10_c008_08 pPolB;note=none
+E4-10_008	MFG	CDS	6219	7277	.	-	.	ID=E4-10_008_g09;color=6;gene=2E4-10_c008_09 rve-INT;note=none
+E4-10_008	MFG	CDS	7434	8834	.	-	.	ID=E4-10_008_g10;color=NA;gene=2E4-10_c008_10;note=none
+E4-10_008	MFG	CDS	8877	9302	.	-	.	ID=E4-10_008_g11;color=NA;gene=2E4-10_c008_11;note=none
+E4-10_008	MFG	CDS	9328	10113	.	-	.	ID=E4-10_008_g12;color=8;gene=2E4-10_c008_12 polintovirus ATPase;note=none
+E4-10_008	MFG	CDS	10176	11777	.	-	.	ID=E4-10_008_g13;color=NA;gene=2E4-10_c008_13;note=none
+E4-10_008	MFG	CDS	11842	13710	.	-	.	ID=E4-10_008_g14;color=NA;gene=2E4-10_c008_14;note=none
+E4-10_008	MFG	CDS	13707	14645	.	-	.	ID=E4-10_008_g15;color=NA;gene=2E4-10_c008_15;note=none
+E4-10_008	MFG	CDS	14676	15341	.	-	.	ID=E4-10_008_g16;color=NA;gene=2E4-10_c008_16;note=none
+E4-10_008	MFG	CDS	15506	15838	.	+	.	ID=E4-10_008_g17;color=NA;gene=2E4-10_c008_17;note=none
+E4-10_008	MFG	CDS	16031	16858	.	+	.	ID=E4-10_008_g18;color=NA;gene=2E4-10_c008_18;note=none
+E4-10_008	MFG	CDS	16848	17522	.	+	.	ID=E4-10_008_g19;color=NA;gene=2E4-10_c008_19;note=none
+E4-10_008	MFG	CDS	17519	17686	.	+	.	ID=E4-10_008_g20;color=NA;gene=2E4-10_c008_20;note=NA
+E4-10_008	MFG	repeat_region	17981	18276	.	-	.	ID=E4-10_008_r02;color=NA;gene=2E4-10_c008_3'TIR;note=NA
+E4-10_023	MFG	repeat_region	1	883	.	+	.	ID=E4-10_023_r01;color=NA;gene=6E4-10_c023_5'TIR;note=NA
+E4-10_023	MFG	CDS	927	1568	.	+	.	ID=E4-10_023_g01;color=NA;gene=6E4-10_c023_01;note=none
+E4-10_023	MFG	CDS	1574	4615	.	-	.	ID=E4-10_023_g02;color=10;gene=6E4-10_c023_02 primase-helicase;note=none
+E4-10_023	MFG	CDS	4658	4846	.	-	.	ID=E4-10_023_g03;color=NA;gene=6E4-10_c023_03 KNV endonuclease?;note=NA
+E4-10_023	MFG	CDS	5013	5528	.	+	.	ID=E4-10_023_g04;color=NA;gene=6E4-10_c023_04 KNV4_72;note=none
+E4-10_023	MFG	CDS	5672	6598	.	-	.	ID=E4-10_023_g05;color=NA;gene=6E4-10_c023_05;note=none
+E4-10_023	MFG	CDS	6624	7073	.	+	.	ID=E4-10_023_g06;color=NA;gene=6E4-10_c023_06;note=none
+E4-10_023	MFG	CDS	7084	8085	.	-	.	ID=E4-10_023_g07;color=NA;gene=6E4-10_c023_07;note=none
+E4-10_023	MFG	CDS	8149	8997	.	-	.	ID=E4-10_023_g08;color=7;gene=6E4-10_c023_08 MV19;note=none
+E4-10_023	MFG	CDS	8998	9901	.	-	.	ID=E4-10_023_g09;color=7;gene=6E4-10_c023_09 MV19;note=none
+E4-10_023	MFG	CDS	10236	10895	.	-	.	ID=E4-10_023_g10;color=14;gene=6E4-10_c023_10 MV12;note=none
+E4-10_023	MFG	CDS	10951	11742	.	-	.	ID=E4-10_023_g11;color=NA;gene=6E4-10_c023_11;note=none
+E4-10_023	MFG	CDS	11773	12528	.	+	.	ID=E4-10_023_g12;color=11;gene=6E4-10_c023_12 MV14;note=none
+E4-10_023	MFG	CDS	12536	13456	.	+	.	ID=E4-10_023_g13;color=8;gene=6E4-10_c023_13 ATPase;note=none
+E4-10_023	MFG	CDS	13462	14040	.	+	.	ID=E4-10_023_g14;color=3;gene=6E4-10_c023_14 PRO;note=none
+E4-10_023	MFG	CDS	14080	15018	.	+	.	ID=E4-10_023_g15;color=NA;gene=6E4-10_c023_15 penton?;note=none
+E4-10_023	MFG	CDS	15050	16822	.	+	.	ID=E4-10_023_g16;color=NA;gene=6E4-10_c023_16 MCP?;note=none
+E4-10_023	MFG	CDS	16953	18107	.	+	.	ID=E4-10_023_g17;color=6;gene=6E4-10_c023_17 HASI rve-INT;note=none
+E4-10_023	MFG	CDS	18109	18717	.	-	.	ID=E4-10_023_g18;color=NA;gene=6E4-10_c023_18 DUF3223;note=none
+E4-10_023	MFG	repeat_region	18770	19652	.	-	.	ID=E4-10_023_r02;color=NA;gene=6E4-10_c023_3'TIR;note=NA
+E4-10_053	MFG	repeat_region	1	1613	.	+	.	ID=E4-10_053_r01;color=NA;gene=5E4-10_c053_3'TIR;note=NA
+E4-10_053	MFG	CDS	1378	1605	.	+	.	ID=E4-10_053_g01;color=NA;gene=5E4-10_c053_24;note=none
+E4-10_053	MFG	CDS	1762	2265	.	+	.	ID=E4-10_053_g02;color=NA;gene=5E4-10_c053_23 DUF3223;note=none
+E4-10_053	MFG	CDS	2267	3364	.	-	.	ID=E4-10_053_g03;color=6;gene=5E4-10_c053_22 HASI rve-INT;note=none
+E4-10_053	MFG	CDS	3364	3426	.	-	.	ID=E4-10_053_g04;color=6;gene=5E4-10_c053_21 HASI rve-INT;note=NA
+E4-10_053	MFG	CDS	3650	3895	.	-	.	ID=E4-10_053_g05;color=4;gene=5E4-10_c053_20;note=NA
+E4-10_053	MFG	CDS	3897	4232	.	-	.	ID=E4-10_053_g06;color=4;gene=5E4-10_c053_19;note=NA
+E4-10_053	MFG	CDS	4234	5478	.	-	.	ID=E4-10_053_g07;color=4;gene=5E4-10_c053_18 MCP;note=none
+E4-10_053	MFG	CDS	5531	6628	.	-	.	ID=E4-10_053_g08;color=9;gene=5E4-10_c053_17 penton;note=none
+E4-10_053	MFG	CDS	6540	7115	.	-	.	ID=E4-10_053_g09;color=3;gene=5E4-10_c053_16 PRO;note=none
+E4-10_053	MFG	CDS	7118	8008	.	-	.	ID=E4-10_053_g10;color=8;gene=5E4-10_c053_15 ATPase;note=none
+E4-10_053	MFG	CDS	8162	8602	.	-	.	ID=E4-10_053_g11;color=11;gene=5E4-10_c053_14 MV14;note=none
+E4-10_053	MFG	CDS	8604	8963	.	-	.	ID=E4-10_053_g12;color=11;gene=5E4-10_c053_13 MV14;note=none
+E4-10_053	MFG	CDS	8989	9966	.	+	.	ID=E4-10_053_g13;color=NA;gene=5E4-10_c053_12;note=none
+E4-10_053	MFG	CDS	10084	10692	.	+	.	ID=E4-10_053_g14;color=NA;gene=5E4-10_c053_11;note=none
+E4-10_053	MFG	CDS	10725	10946	.	+	.	ID=E4-10_053_g15;color=NA;gene=5E4-10_c053_10;note=none
+E4-10_053	MFG	CDS	10955	12265	.	+	.	ID=E4-10_053_g16;color=7;gene=5E4-10_c053_09 MV19;note=none
+E4-10_053	MFG	CDS	12440	13204	.	+	.	ID=E4-10_053_g17;color=NA;gene=5E4-10_c053_08 YSLV7_19;note=none
+E4-10_053	MFG	CDS	13263	13679	.	-	.	ID=E4-10_053_g18;color=NA;gene=5E4-10_c053_07;note=none
+E4-10_053	MFG	CDS	13563	14270	.	+	.	ID=E4-10_053_g19;color=NA;gene=5E4-10_c053_06;note=none
+E4-10_053	MFG	CDS	14239	14772	.	+	.	ID=E4-10_053_g20;color=NA;gene=5E4-10_c053_05;note=none
+E4-10_053	MFG	CDS	14843	15124	.	+	.	ID=E4-10_053_g21;color=NA;gene=5E4-10_c053_04;note=none
+E4-10_053	MFG	CDS	15090	16286	.	+	.	ID=E4-10_053_g22;color=10;gene=5E4-10_c053_03 herpesvirus primase-polymerase;note=none
+E4-10_053	MFG	CDS	16292	18229	.	+	.	ID=E4-10_053_g23;color=10;gene=5E4-10_c053_03 helicase-primase;note=none
+E4-10_053	MFG	repeat_region	18228	19840	.	-	.	ID=E4-10_053_r02;color=NA;gene=5E4-10_c053_5'TIR;note=NA
+E4-10_053	MFG	CDS	18239	18463	.	-	.	ID=E4-10_053_g24;color=NA;gene=5E4-10_c053_02;note=NA
+E4-10_053	MFG	CDS	18721	19242	.	+	.	ID=E4-10_053_g25;color=NA;gene=5E4-10_c053_01;note=none
+E4-10_086	MFG	repeat_region	1	319	.	+	.	ID=E4-10_086_r01;color=NA;gene=1E4-10_c086_5'TIR;note=NA
+E4-10_086	MFG	CDS	543	941	.	+	.	ID=E4-10_086_g01;color=NA;gene=1E4-10_c086_01;note=none
+E4-10_086	MFG	CDS	1242	1577	.	+	.	ID=E4-10_086_g02;color=1;gene=1E4-10_c086_02 Tlr6Fp;note=none
+E4-10_086	MFG	CDS	1622	1831	.	+	.	ID=E4-10_086_g03;color=NA;gene=1E4-10_c086_03;note=NA
+E4-10_086	MFG	CDS	1942	3933	.	+	.	ID=E4-10_086_g04;color=10;gene=1E4-10_c086_04 helicase-primase;note=none
+E4-10_086	MFG	CDS	3985	4344	.	+	.	ID=E4-10_086_g05;color=NA;gene=1E4-10_c086_05;note=none
+E4-10_086	MFG	CDS	4405	5625	.	+	.	ID=E4-10_086_g06;color=2;gene=1E4-10_c086_06 pPolB;note=none
+E4-10_086	MFG	CDS	5627	6688	.	-	.	ID=E4-10_086_g07;color=6;gene=1E4-10_c086_07 rve-INT;note=none
+E4-10_086	MFG	CDS	7054	7668	.	+	.	ID=E4-10_086_g08;color=NA;gene=1E4-10_c086_08;note=none
+E4-10_086	MFG	CDS	7789	8406	.	+	.	ID=E4-10_086_g09;color=14;gene=1E4-10_c086_09 MV12;note=none
+E4-10_086	MFG	CDS	8507	9379	.	+	.	ID=E4-10_086_g10;color=9;gene=1E4-10_c086_10 penton;note=none
+E4-10_086	MFG	CDS	9527	11392	.	+	.	ID=E4-10_086_g11;color=4;gene=1E4-10_c086_11 MCP;note=none
+E4-10_086	MFG	CDS	11462	12490	.	-	.	ID=E4-10_086_g12;color=8;gene=1E4-10_c086_12 ATPase;note=none
+E4-10_086	MFG	CDS	12637	13530	.	-	.	ID=E4-10_086_g13;color=11;gene=1E4-10_c086_13 MV14;note=none
+E4-10_086	MFG	CDS	13618	14409	.	+	.	ID=E4-10_086_g14;color=NA;gene=1E4-10_c086_14;note=none
+E4-10_086	MFG	CDS	14419	15087	.	+	.	ID=E4-10_086_g15;color=12;gene=1E4-10_c086_15 MV13;note=none
+E4-10_086	MFG	CDS	15114	15674	.	+	.	ID=E4-10_086_g16;color=3;gene=1E4-10_c086_16 PRO;note=none
+E4-10_086	MFG	CDS	15708	17345	.	+	.	ID=E4-10_086_g17;color=NA;gene=1E4-10_c086_17;note=none
+E4-10_086	MFG	CDS	17456	17716	.	+	.	ID=E4-10_086_g18;color=NA;gene=1E4-10_c086_18;note=NA
+E4-10_086	MFG	CDS	17815	18294	.	+	.	ID=E4-10_086_g19;color=7;gene=1E4-10_c086_19 MV19;note=none
+E4-10_086	MFG	CDS	18221	19444	.	+	.	ID=E4-10_086_g20;color=7;gene=1E4-10_c086_20 MV19;note=none
+E4-10_086	MFG	CDS	19658	19912	.	-	.	ID=E4-10_086_g21;color=NA;gene=1E4-10_c086_21;note=NA
+E4-10_086	MFG	repeat_region	20324	20642	.	-	.	ID=E4-10_086_r02;color=NA;gene=1E4-10_c086_3'TIR;note=NA
+E4-10_112	MFG	repeat_region	1	458	.	+	.	ID=E4-10_112_r01;color=NA;gene=1E4-10_c112_5'TIR;note=NA
+E4-10_112	MFG	CDS	535	1158	.	+	.	ID=E4-10_112_g01;color=NA;gene=1E4-10_c112_01;note=none
+E4-10_112	MFG	CDS	1212	1421	.	+	.	ID=E4-10_112_g02;color=NA;gene=1E4-10_c112_02;note=NA
+E4-10_112	MFG	CDS	1525	2853	.	+	.	ID=E4-10_112_g03;color=10;gene=1E4-10_c112_03 primase;note=none
+E4-10_112	MFG	repeat_region	2854	3112	.	+	.	ID=E4-10_112_r02;color=NA;gene=A repeat;note=NA
+E4-10_112	MFG	mobile_element	2854	9283	.	+	.	ID=CbEa_c112_Ngaro2;color=NA;gene=CaroNGARO2_CrEa_c112;note=NA
+E4-10_112	MFG	CDS	3123	4781	.	+	.	ID=E4-10_112_g04;color=NA;gene=Ngaro2_E4-10_c112_ORF1;note=none
+E4-10_112	MFG	CDS	5155	7536	.	+	.	ID=E4-10_112_g05;color=NA;gene=Ngaro2_E4-10_c112_ORF2;note=none
+E4-10_112	MFG	CDS	7445	8650	.	+	.	ID=E4-10_112_g06;color=2;gene=Ngaro2_E4-10_c112_ORF3;note=none
+E4-10_112	MFG	repeat_region	8717	8862	.	+	.	ID=E4-10_112_r03;color=NA;gene=B repeat;note=NA
+E4-10_112	MFG	repeat_region	8862	9120	.	+	.	ID=E4-10_112_r04;color=NA;gene=A repeat;note=NA
+E4-10_112	MFG	repeat_region	9138	9283	.	+	.	ID=E4-10_112_r05;color=NA;gene=B repeat;note=NA
+E4-10_112	MFG	CDS	9511	10332	.	+	.	ID=E4-10_112_g07;color=NA;gene=1E4-10_c112_04;note=NA
+E4-10_112	MFG	CDS	10382	10741	.	+	.	ID=E4-10_112_g08;color=NA;gene=1E4-10_c112_05;note=none
+E4-10_112	MFG	CDS	10802	12022	.	+	.	ID=E4-10_112_g09;color=2;gene=1E4-10_c112_06 pPolB;note=none
+E4-10_112	MFG	CDS	12024	13085	.	-	.	ID=E4-10_112_g10;color=6;gene=1E4-10_c112_07 rve-INT;note=none
+E4-10_112	MFG	CDS	13451	14026	.	+	.	ID=E4-10_112_g11;color=NA;gene=1E4-10_c112_08;note=none
+E4-10_112	MFG	CDS	14187	14804	.	+	.	ID=E4-10_112_g12;color=14;gene=1E4-10_c112_09 MV12;note=none
+E4-10_112	MFG	CDS	14905	15777	.	+	.	ID=E4-10_112_g13;color=9;gene=1E4-10_c112_10 penton;note=none
+E4-10_112	MFG	CDS	15925	17766	.	+	.	ID=E4-10_112_g14;color=4;gene=1E4-10_c112_11 MCP;note=none
+E4-10_112	MFG	CDS	17836	18477	.	-	.	ID=E4-10_112_g15;color=8;gene=1E4-10_c112_12;note=none
+E4-10_112	MFG	CDS	18479	18865	.	-	.	ID=E4-10_112_g16;color=8;gene=1E4-10_c112_13;note=none
+E4-10_112	MFG	CDS	19013	19906	.	-	.	ID=E4-10_112_g17;color=11;gene=1E4-10_c112_14 MV14;note=none
+E4-10_112	MFG	CDS	19994	20359	.	+	.	ID=E4-10_112_g18;color=NA;gene=1E4-10_c112_15;note=none
+E4-10_112	MFG	CDS	20301	20786	.	+	.	ID=E4-10_112_g19;color=NA;gene=1E4-10_c112_16;note=none
+E4-10_112	MFG	CDS	20796	21275	.	+	.	ID=E4-10_112_g20;color=12;gene=1E4-10_c112_17 MV13;note=none
+E4-10_112	MFG	CDS	21136	21465	.	+	.	ID=E4-10_112_g21;color=12;gene=1E4-10_c112_18 MV13;note=none
+E4-10_112	MFG	CDS	21492	22052	.	+	.	ID=E4-10_112_g22;color=3;gene=1E4-10_c112_19 PRO;note=none
+E4-10_112	MFG	CDS	22086	23723	.	+	.	ID=E4-10_112_g23;color=NA;gene=1E4-10_c112_20;note=none
+E4-10_112	MFG	CDS	23834	24094	.	+	.	ID=E4-10_112_g24;color=NA;gene=1E4-10_c112_21;note=NA
+E4-10_112	MFG	CDS	24193	25821	.	+	.	ID=E4-10_112_g25;color=7;gene=1E4-10_c112_22 MV19;note=none
+E4-10_112	MFG	CDS	26036	26290	.	-	.	ID=E4-10_112_g26;color=NA;gene=1E4-10_c112_23;note=NA
+E4-10_112	MFG	repeat_region	26399	26856	.	-	.	ID=E4-10_112_r06;color=NA;gene=1E4-10_c112_3'TIR;note=NA
+E4-10_133	MFG	repeat_region	1	1367	.	+	.	ID=E4-10_133_r01;color=NA;gene=5E4-10_c133_5'TIR;note=NA
+E4-10_133	MFG	CDS	802	1122	.	-	.	ID=E4-10_133_g01;color=NA;gene=5E4-10_c133_01;note=none
+E4-10_133	MFG	CDS	1141	1398	.	-	.	ID=E4-10_133_g02;color=NA;gene=5E4-10_c133_02;note=NA
+E4-10_133	MFG	CDS	1544	4378	.	-	.	ID=E4-10_133_g03;color=10;gene=5E4-10_c133_03 primase-helicase;note=none
+E4-10_133	MFG	CDS	4381	4628	.	-	.	ID=E4-10_133_g04;color=10;gene=5E4-10_c133_04 primase-helicase;note=NA
+E4-10_133	MFG	CDS	5073	5966	.	-	.	ID=E4-10_133_g05;color=NA;gene=5E4-10_c133_05;note=none
+E4-10_133	MFG	CDS	6176	6463	.	-	.	ID=E4-10_133_g06;color=NA;gene=5E4-10_c133_06;note=NA
+E4-10_133	MFG	CDS	6512	6910	.	-	.	ID=E4-10_133_g07;color=NA;gene=5E4-10_c133_07 YSLV7_19;note=YSLV7_19
+E4-10_133	MFG	CDS	6911	7258	.	-	.	ID=E4-10_133_g08;color=NA;gene=5E4-10_c133_08;note=none
+E4-10_133	MFG	CDS	7487	8875	.	-	.	ID=E4-10_133_g09;color=7;gene=5E4-10_c133_09 MV19;note=none
+E4-10_133	MFG	CDS	9031	9639	.	-	.	ID=E4-10_133_g10;color=NA;gene=5E4-10_c133_10;note=none
+E4-10_133	MFG	CDS	9662	10642	.	-	.	ID=E4-10_133_g11;color=NA;gene=5E4-10_c133_11;note=none
+E4-10_133	MFG	CDS	10668	11468	.	+	.	ID=E4-10_133_g12;color=11;gene=5E4-10_c133_12 MV14;note=none
+E4-10_133	MFG	CDS	11495	12385	.	+	.	ID=E4-10_133_g13;color=8;gene=5E4-10_c133_13 ATPase;note=none
+E4-10_133	MFG	CDS	12388	12963	.	+	.	ID=E4-10_133_g14;color=3;gene=5E4-10_c133_14 PRO;note=none
+E4-10_133	MFG	CDS	12875	13180	.	+	.	ID=E4-10_133_g15;color=9;gene=5E4-10_c133_15 penton;note=none
+E4-10_133	MFG	CDS	13182	13877	.	+	.	ID=E4-10_133_g16;color=9;gene=5E4-10_c133_16 penton;note=none
+E4-10_133	MFG	CDS	14016	15167	.	+	.	ID=E4-10_133_g17;color=4;gene=MCP;note=NA
+E4-10_133	MFG	CDS	14016	15167	.	+	.	ID=E4-10_133_g18;color=4;gene=5E4-10_c133_17 MCP;note=none
+E4-10_133	MFG	CDS	15163	15843	.	+	.	ID=E4-10_133_g19;color=4;gene=5E4-10_c133_18;note=NA
+E4-10_133	MFG	CDS	15927	17087	.	+	.	ID=E4-10_133_g20;color=6;gene=5E4-10_c133_19 HASI rve-INT;note=none
+E4-10_133	MFG	CDS	17089	17697	.	-	.	ID=E4-10_133_g21;color=NA;gene=5E4-10_c133_20 DUF3223;note=DUF3223
+E4-10_133	MFG	CDS	17730	18338	.	-	.	ID=E4-10_133_g22;color=NA;gene=5E4-10_c133_21;note=none
+E4-10_133	MFG	repeat_region	18648	20015	.	-	.	ID=E4-10_133_r02;color=NA;gene=5E4-10_c133_3'TIR;note=NA
+E4-10_133	MFG	CDS	18893	19414	.	+	.	ID=E4-10_133_g23;color=NA;gene=5E4-10_c133_22;note=none
+RCC970_016A	MFG	repeat_region	1	921	.	+	.	ID=RCC970_016A_r01;color=NA;gene=5'TIR c16A;note=NA
+RCC970_016A	MFG	CDS	918	1226	.	+	.	ID=RCC970_016A_g01;color=NA;gene=3CbRC_c016A_01 unknown;note=none
+RCC970_016A	MFG	CDS	1340	1765	.	+	.	ID=RCC970_016A_g02;color=NA;gene=3CbRC_c016A_02 Courdo7_L685;note=none
+RCC970_016A	MFG	CDS	1923	3569	.	-	.	ID=RCC970_016A_g03;color=7;gene=3CbRC_c016A_03 MV19;note=none
+RCC970_016A	MFG	CDS	3621	5393	.	-	.	ID=RCC970_016A_g04;color=4;gene=3CbRC_c016A_04 MCP;note=NA
+RCC970_016A	MFG	CDS	5444	6346	.	-	.	ID=RCC970_016A_g05;color=9;gene=3CbRC_c016A_05 penton;note=none
+RCC970_016A	MFG	CDS	6508	6879	.	-	.	ID=RCC970_016A_g06;color=NA;gene=3CbRC_c016A_06 MV08;note=none
+RCC970_016A	MFG	CDS	6899	8551	.	-	.	ID=RCC970_016A_g07;color=NA;gene=3CbRC_c016A_07 unknown;note=none
+RCC970_016A	MFG	CDS	8593	9426	.	+	.	ID=RCC970_016A_g08;color=11;gene=3CbRC_c016A_08 MV14;note=none
+RCC970_016A	MFG	CDS	9576	10628	.	+	.	ID=RCC970_016A_g09;color=8;gene=3CbRC_c016A_09 ATPase;note=none
+RCC970_016A	MFG	CDS	10640	11203	.	+	.	ID=RCC970_016A_g10;color=3;gene=3CbRC_c016A_10 PRO;note=none
+RCC970_016A	MFG	CDS	11226	11495	.	+	.	ID=RCC970_016A_g11;color=NA;gene=3CbRC_c016A_11 unknown;note=NA
+RCC970_016A	MFG	CDS	11496	11915	.	-	.	ID=RCC970_016A_g12;color=NA;gene=3CbRC_c016A_12 unknown;note=none
+RCC970_016A	MFG	CDS	12004	12459	.	-	.	ID=RCC970_016A_g13;color=NA;gene=3CbRC_c016A_13 ssDNA virus rep protein;note=none
+RCC970_016A	MFG	CDS	12540	12848	.	-	.	ID=RCC970_016A_g14;color=NA;gene=3CbRC_c016A_14 KNV1;note=none
+RCC970_016A	MFG	CDS	12926	13939	.	+	.	ID=RCC970_016A_g15;color=6;gene=3CbRC_c016A_15 rve-INT;note=none
+RCC970_016A	MFG	CDS	14014	15987	.	-	.	ID=RCC970_016A_g16;color=10;gene=3CbRC_c016A_16 primase;note=none
+RCC970_016A	MFG	CDS	16083	17915	.	+	.	ID=RCC970_016A_g17;color=2;gene=3CbRC_c016A_17 pPolB;note=none
+RCC970_016A	MFG	CDS	18201	18533	.	-	.	ID=RCC970_016A_g18;color=NA;gene=3CbRC_c016A_18 unknown;note=none
+RCC970_016A	MFG	repeat_region	18530	19438	.	-	.	ID=RCC970_016A_r02;color=NA;gene=3'TIR c16;note=NA
+RCC970_016A	MFG	CDS	18608	18919	.	-	.	ID=RCC970_016A_g19;color=NA;gene=3CbRC_c016A_19 KNV1_2_232;note=none
+RCC970_016B	MFG	repeat_region	1	454	.	+	.	ID=RCC970_016B_r01;color=NA;gene=5'TIR c16B;note=NA
+RCC970_016B	MFG	CDS	538	867	.	+	.	ID=RCC970_016B_g01;color=NA;gene=1CbRC_c016B_01;note=none
+RCC970_016B	MFG	CDS	923	1072	.	+	.	ID=RCC970_016B_g02;color=NA;gene=1CbRC_c016B_02;note=NA
+RCC970_016B	MFG	CDS	1117	1452	.	+	.	ID=RCC970_016B_g03;color=1;gene=1CbRC_c016B_03 Tlr_6Fp;note=none
+RCC970_016B	MFG	CDS	1497	1706	.	+	.	ID=RCC970_016B_g04;color=NA;gene=1CbRC_c016B_04;note=NA
+RCC970_016B	MFG	CDS	1817	2323	.	+	.	ID=RCC970_016B_g05;color=10;gene=1CbRC_c016B_05 helicase?;note=none
+RCC970_016B	MFG	CDS	2324	3763	.	+	.	ID=RCC970_016B_g06;color=10;gene=1CbRC_c016B_06 primase-helicase;note=none
+RCC970_016B	MFG	CDS	3814	4173	.	+	.	ID=RCC970_016B_g07;color=NA;gene=1CbRC_c016B_07;note=none
+RCC970_016B	MFG	CDS	4234	5454	.	+	.	ID=RCC970_016B_g08;color=2;gene=1CbRC_c016B_08 pPolB;note=none
+RCC970_016B	MFG	CDS	5456	6517	.	-	.	ID=RCC970_016B_g09;color=6;gene=1CbRC_c016B_09 rve-INT;note=none
+RCC970_016B	MFG	CDS	6883	7497	.	+	.	ID=RCC970_016B_g10;color=NA;gene=1CbRC_c016B_10;note=none
+RCC970_016B	MFG	CDS	7619	8236	.	+	.	ID=RCC970_016B_g11;color=14;gene=1CbRC_c016B_11 EMALE03_11 MV12;note=NA
+RCC970_016B	MFG	CDS	8337	9209	.	+	.	ID=RCC970_016B_g12;color=9;gene=1CbRC_c016B_12 penton;note=none
+RCC970_016B	MFG	CDS	9357	9953	.	+	.	ID=RCC970_016B_g13;color=4;gene=1CbRC_c016B_13 MCP;note=NA
+RCC970_016B	MFG	CDS	9953	10270	.	+	.	ID=RCC970_016B_g14;color=4;gene=1CbRC_c016B_14 MCP;note=NA
+RCC970_016B	MFG	CDS	10270	11223	.	+	.	ID=RCC970_016B_g15;color=4;gene=1CbRC_c016B_15 MCP;note=NA
+RCC970_016B	MFG	CDS	11293	11838	.	-	.	ID=RCC970_016B_g16;color=8;gene=1CbRC_c016B_16 ATPase;note=none
+RCC970_016B	MFG	CDS	11878	12324	.	-	.	ID=RCC970_016B_g17;color=8;gene=1CbRC_c016B_17 ATPase;note=none
+RCC970_016B	MFG	CDS	12471	13364	.	-	.	ID=RCC970_016B_g18;color=11;gene=1CbRC_c016B_18 MV14;note=none
+RCC970_016B	MFG	CDS	13452	14165	.	+	.	ID=RCC970_016B_g19;color=NA;gene=1CbRC_c016B_19 EMALE03_06;note=NA
+RCC970_016B	MFG	CDS	14203	14433	.	-	.	ID=RCC970_016B_g20;color=NA;gene=1CbRC_c016B_20;note=none
+RCC970_016B	MFG	CDS	14460	14879	.	+	.	ID=RCC970_016B_g21;color=12;gene=1CbRC_c016B_21 MV13;note=none
+RCC970_016B	MFG	CDS	14999	15244	.	+	.	ID=RCC970_016B_g22;color=NA;gene=1CbRC_c016B_22;note=none
+RCC970_016B	MFG	CDS	15540	15992	.	+	.	ID=RCC970_016B_g23;color=NA;gene=1CbRC_c016B_23;note=none
+RCC970_016B	MFG	CDS	17287	17547	.	+	.	ID=RCC970_016B_g24;color=NA;gene=1CbRC_c016B_24;note=none
+RCC970_016B	MFG	CDS	17646	18032	.	+	.	ID=RCC970_016B_g25;color=7;gene=1CbRC_c016B_25 MV19;note=none
+RCC970_016B	MFG	CDS	17884	18804	.	+	.	ID=RCC970_016B_g26;color=7;gene=1CbRC_c016B_26 MV19;note=none
+RCC970_016B	MFG	CDS	18767	19273	.	+	.	ID=RCC970_016B_g27;color=7;gene=1CbRC_c016B_27 MV19;note=none
+RCC970_016B	MFG	repeat_region	19699	20152	.	-	.	ID=RCC970_016B_r02;color=NA;gene=3'TIR c16B;note=NA
+RCC970_025	MFG	repeat_region	1	594	.	+	.	ID=RCC970_025_r01;color=NA;gene=5'TIR c25;note=NA
+RCC970_025	MFG	CDS	594	1238	.	-	.	ID=RCC970_025_g01;color=NA;gene=5CbRC_c025_01;note=none
+RCC970_025	MFG	CDS	1255	1452	.	-	.	ID=RCC970_025_g02;color=NA;gene=5CbRC_c025_02;note=NA
+RCC970_025	MFG	CDS	1789	2061	.	+	.	ID=RCC970_025_g03;color=NA;gene=5CbRC_c025_03;note=none
+RCC970_025	MFG	CDS	2495	3193	.	+	.	ID=RCC970_025_g04;color=NA;gene=5CbRC_c025_04;note=none
+RCC970_025	MFG	CDS	3336	3656	.	+	.	ID=RCC970_025_g05;color=NA;gene=5CbRC_c025_05;note=none
+RCC970_025	MFG	CDS	3667	3909	.	-	.	ID=RCC970_025_g06;color=NA;gene=5CbRC_c025_06;note=NA
+RCC970_025	MFG	CDS	4037	4231	.	-	.	ID=RCC970_025_g07;color=NA;gene=5CbRC_c025_07;note=NA
+RCC970_025	MFG	CDS	4396	5466	.	-	.	ID=RCC970_025_g08;color=NA;gene=hom to EMALE03_02;note=NA
+RCC970_025	MFG	CDS	4396	5466	.	-	.	ID=RCC970_025_g09;color=NA;gene=5CbRC_c025_08 Tyr recombinase?;note=none
+RCC970_025	MFG	CDS	5350	5667	.	+	.	ID=RCC970_025_g10;color=NA;gene=5CbRC_c025_09;note=NA
+RCC970_025	MFG	CDS	5905	6810	.	-	.	ID=RCC970_025_g11;color=NA;gene=5CbRC_c025_10 EMALE03_6 YSLV7_19;note=NA
+RCC970_025	MFG	CDS	6841	8166	.	-	.	ID=RCC970_025_g12;color=7;gene=5CbRC_c025_11 MV19;note=none
+RCC970_025	MFG	CDS	8299	8907	.	-	.	ID=RCC970_025_g13;color=NA;gene=5CbRC_c025_12;note=none
+RCC970_025	MFG	CDS	8978	9901	.	-	.	ID=RCC970_025_g14;color=NA;gene=5CbRC_c025_13;note=none
+RCC970_025	MFG	CDS	9927	10745	.	+	.	ID=RCC970_025_g15;color=11;gene=5CbRC_c025_14 MV14;note=none
+RCC970_025	MFG	CDS	9927	10790	.	+	.	ID=RCC970_025_g16;color=NA;gene=MV14;note=NA
+RCC970_025	MFG	CDS	10795	11685	.	+	.	ID=RCC970_025_g17;color=8;gene=5CbRC_c025_15 ATPase;note=none
+RCC970_025	MFG	CDS	11688	12263	.	+	.	ID=RCC970_025_g18;color=3;gene=5CbRC_c025_16 PRO;note=none
+RCC970_025	MFG	CDS	12175	13176	.	+	.	ID=RCC970_025_g19;color=9;gene=5CbRC_c025_17 penton;note=none
+RCC970_025	MFG	CDS	13308	14270	.	+	.	ID=RCC970_025_g20;color=4;gene=5CbRC_c025_18 MCP;note=NA
+RCC970_025	MFG	CDS	14102	15136	.	+	.	ID=RCC970_025_g21;color=4;gene=5CbRC_c025_19 MCP;note=NA
+RCC970_025	MFG	CDS	15302	16462	.	+	.	ID=RCC970_025_g22;color=6;gene=5CbRC_c025_20 HASI rve-INT;note=none
+RCC970_025	MFG	CDS	16701	17021	.	-	.	ID=RCC970_025_g23;color=NA;gene=5CbRC_c025_21;note=none
+RCC970_025	MFG	CDS	16925	17287	.	-	.	ID=RCC970_025_g24;color=NA;gene=5CbRC_c025_22;note=none
+RCC970_025	MFG	CDS	18007	18381	.	-	.	ID=RCC970_025_g25;color=NA;gene=5CbRC_c025_23;note=none
+RCC970_025	MFG	CDS	18888	19409	.	+	.	ID=RCC970_025_g26;color=NA;gene=5CbRC_c025_24;note=none
+RCC970_025	MFG	repeat_region	19409	20006	.	-	.	ID=RCC970_025_r02;color=NA;gene=3'TIR c25;note=NA
+RCC970_029	MFG	repeat_region	1	254	.	+	.	ID=RCC970_029_r01;color=NA;gene=5'TIR c29;note=NA
+RCC970_029	MFG	CDS	182	553	.	+	.	ID=RCC970_029_g01;color=NA;gene=5CbRC_c029_01;note=none
+RCC970_029	MFG	CDS	558	968	.	+	.	ID=RCC970_029_g02;color=NA;gene=5CbRC_c029_02;note=none
+RCC970_029	MFG	CDS	768	1217	.	-	.	ID=RCC970_029_g03;color=NA;gene=5CbRC_c029_03;note=none
+RCC970_029	MFG	CDS	1364	1885	.	-	.	ID=RCC970_029_g04;color=NA;gene=5CbRC_c029_04;note=none
+RCC970_029	MFG	CDS	1996	2286	.	+	.	ID=RCC970_029_g05;color=NA;gene=5CbRC_c029_05;note=none
+RCC970_029	MFG	CDS	2567	2860	.	-	.	ID=RCC970_029_g06;color=NA;gene=5CbRC_c029_06;note=NA
+RCC970_029	MFG	CDS	2844	4004	.	-	.	ID=RCC970_029_g07;color=6;gene=5CbRC_c029_07 HASI rve-INT;note=none
+RCC970_029	MFG	CDS	4212	4502	.	-	.	ID=RCC970_029_g08;color=4;gene=MCP 5CbRC_c029_08;note=none
+RCC970_029	MFG	CDS	4547	4843	.	-	.	ID=RCC970_029_g09;color=4;gene=NA;note=NA
+RCC970_029	MFG	CDS	4845	6038	.	-	.	ID=RCC970_029_g10;color=4;gene=5CbRC_c029_09 MCP;note=none
+RCC970_029	MFG	CDS	6173	6484	.	-	.	ID=RCC970_029_g11;color=NA;gene=NA;note=NA
+RCC970_029	MFG	CDS	6486	7169	.	-	.	ID=RCC970_029_g12;color=9;gene=5CbRC_c029_10 penton;note=none
+RCC970_029	MFG	CDS	7084	7401	.	-	.	ID=RCC970_029_g13;color=3;gene=5CbRC_c029_11 PRO;note=NA
+RCC970_029	MFG	CDS	7403	7585	.	-	.	ID=RCC970_029_g14;color=NA;gene=NA;note=NA
+RCC970_029	MFG	CDS	7747	8319	.	-	.	ID=RCC970_029_g15;color=8;gene=5CbRC_c029_12 ATPase;note=none
+RCC970_029	MFG	CDS	8346	9140	.	-	.	ID=RCC970_029_g16;color=11;gene=MV14 5CbRC_c029_13;note=NA
+RCC970_029	MFG	CDS	9066	9596	.	+	.	ID=RCC970_029_g17;color=NA;gene=5CbRC_c029_14;note=none
+RCC970_029	MFG	CDS	9388	10392	.	+	.	ID=RCC970_029_g18;color=NA;gene=5CbRC_c029_15;note=none
+RCC970_029	MFG	CDS	10289	10897	.	+	.	ID=RCC970_029_g19;color=NA;gene=5CbRC_c029_16;note=none
+RCC970_029	MFG	CDS	11124	12401	.	+	.	ID=RCC970_029_g20;color=7;gene=5CbRC_c029_17 MV19;note=none
+RCC970_029	MFG	CDS	12631	13377	.	+	.	ID=RCC970_029_g21;color=NA;gene=5CbRC_c029_18 YSLV7_19;note=none
+RCC970_029	MFG	CDS	13504	13884	.	-	.	ID=RCC970_029_g22;color=NA;gene=5CbRC_c029_19;note=none
+RCC970_029	MFG	CDS	13768	14160	.	+	.	ID=RCC970_029_g23;color=NA;gene=5CbRC_c029_20;note=none
+RCC970_029	MFG	CDS	13995	14471	.	+	.	ID=RCC970_029_g24;color=NA;gene=5CbRC_c029_21;note=none
+RCC970_029	MFG	CDS	14372	14845	.	+	.	ID=RCC970_029_g25;color=NA;gene=5CbRC_c029_22 Tyr rec?;note=none
+RCC970_029	MFG	CDS	15473	15775	.	-	.	ID=RCC970_029_g26;color=NA;gene=5CbRC_c029_23;note=NA
+RCC970_029	MFG	CDS	15766	16143	.	+	.	ID=RCC970_029_g27;color=NA;gene=5CbRC_c029_24;note=none
+RCC970_029	MFG	CDS	16291	16614	.	+	.	ID=RCC970_029_g28;color=NA;gene=5CbRC_c029_25;note=none
+RCC970_029	MFG	CDS	16538	16768	.	+	.	ID=RCC970_029_g29;color=NA;gene=5CbRC_c029_26;note=none
+RCC970_029	MFG	CDS	16964	17251	.	+	.	ID=RCC970_029_g30;color=NA;gene=5CbRC_c029_27;note=none
+RCC970_029	MFG	CDS	17155	17472	.	+	.	ID=RCC970_029_g31;color=NA;gene=5CbRC_c029_28;note=none
+RCC970_029	MFG	CDS	17262	17516	.	+	.	ID=RCC970_029_g32;color=NA;gene=5CbRC_c029_29;note=none
+RCC970_029	MFG	CDS	17649	17960	.	+	.	ID=RCC970_029_g33;color=NA;gene=5CbRC_c029_30;note=none
+RCC970_029	MFG	repeat_region	20002	20253	.	-	.	ID=RCC970_029_r02;color=NA;gene=3'TIR c29;note=NA
+RCC970_095	MFG	repeat_region	1	1027	.	+	.	ID=RCC970_095_r01;color=NA;gene=RCC970_c095 5'TIR (AT only);note=NA
+RCC970_095	MFG	CDS	827	1003	.	-	.	ID=RCC970_095_g01;color=NA;gene=6CbRC_c095_19;note=NA
+RCC970_095	MFG	CDS	1071	1679	.	+	.	ID=RCC970_095_g02;color=NA;gene=6CbRC_c095_18 DUF3223;note=none
+RCC970_095	MFG	CDS	1681	2835	.	-	.	ID=RCC970_095_g03;color=6;gene=6CbRC_c095_17 HASI rve_INT;note=none
+RCC970_095	MFG	CDS	2990	4579	.	-	.	ID=RCC970_095_g04;color=4;gene=6CbRC_c095_16_MCP;note=NA
+RCC970_095	MFG	CDS	2990	4579	.	-	.	ID=RCC970_095_g05;color=4;gene=6CbRC_c095_04 MCP;note=none
+RCC970_095	MFG	CDS	4720	5592	.	-	.	ID=RCC970_095_g06;color=NA;gene=6CbRC_c095_15;note=none
+RCC970_095	MFG	CDS	5778	6341	.	-	.	ID=RCC970_095_g07;color=3;gene=6CbRC_c095_14 PRO;note=none
+RCC970_095	MFG	CDS	6347	7255	.	-	.	ID=RCC970_095_g08;color=8;gene=6CbRC_c095_13 ATPase;note=none
+RCC970_095	MFG	CDS	7365	8111	.	-	.	ID=RCC970_095_g09;color=11;gene=6CbRC_c095_12 MV14;note=none
+RCC970_095	MFG	CDS	8140	9075	.	+	.	ID=RCC970_095_g10;color=NA;gene=6CbRC_c095_11;note=NA
+RCC970_095	MFG	CDS	8140	9075	.	+	.	ID=RCC970_095_g11;color=NA;gene=6CbRC_c095_09;note=none
+RCC970_095	MFG	CDS	9234	9893	.	+	.	ID=RCC970_095_g12;color=NA;gene=EMALE03_07;note=NA
+RCC970_095	MFG	CDS	9234	9893	.	+	.	ID=RCC970_095_g13;color=14;gene=6CbRC_c095_10 MV12;note=none
+RCC970_095	MFG	CDS	10198	11952	.	+	.	ID=RCC970_095_g14;color=7;gene=6CbRC_c095_09 MV19;note=none
+RCC970_095	MFG	CDS	11949	12266	.	-	.	ID=RCC970_095_g15;color=NA;gene=6CbRC_c095_08;note=none
+RCC970_095	MFG	CDS	12309	13148	.	-	.	ID=RCC970_095_g16;color=NA;gene=6CbRC_c095_07;note=none
+RCC970_095	MFG	CDS	13148	13546	.	-	.	ID=RCC970_095_g17;color=NA;gene=6CbRC_c095_06;note=none
+RCC970_095	MFG	CDS	13615	14499	.	+	.	ID=RCC970_095_g18;color=NA;gene=6CbRC_c095_05;note=none
+RCC970_095	MFG	CDS	14872	15060	.	+	.	ID=RCC970_095_g19;color=NA;gene=6CbRC_c095_04;note=NA
+RCC970_095	MFG	CDS	15121	17391	.	+	.	ID=RCC970_095_g20;color=10;gene=6CbRC_c095_03 primase-helicase;note=none
+RCC970_095	MFG	CDS	16814	16837	.	+	.	ID=RCC970_095_g21;color=NA;gene=helicase;note=NA
+RCC970_095	MFG	CDS	16839	16907	.	+	.	ID=RCC970_095_g22;color=NA;gene=helicase;note=NA
+RCC970_095	MFG	CDS	16982	16996	.	+	.	ID=RCC970_095_g23;color=NA;gene=helicase;note=NA
+RCC970_095	MFG	CDS	16998	17042	.	+	.	ID=RCC970_095_g24;color=NA;gene=helicase;note=NA
+RCC970_095	MFG	CDS	17096	17125	.	+	.	ID=RCC970_095_g25;color=NA;gene=helicase;note=NA
+RCC970_095	MFG	CDS	17127	17216	.	+	.	ID=RCC970_095_g26;color=NA;gene=helicase;note=NA
+RCC970_095	MFG	CDS	17393	18298	.	+	.	ID=RCC970_095_g27;color=10;gene=6CbRC_c095_02 helicase;note=none
+RCC970_095	MFG	repeat_region	18322	19352	.	-	.	ID=RCC970_095_r02;color=NA;gene=RCC970-c_95 3'TIR AT only;note=NA
+RCC970_095	MFG	repeat_region	18322	22024	.	-	.	ID=RCC970_095_r03;color=NA;gene=RCC970_c095 3'TIR GC extended;note=NA
+RCC970_095	MFG	CDS	19035	19343	.	+	.	ID=RCC970_095_g28;color=NA;gene=6CbRC_c095_01;note=none
+RCC970_122	MFG	repeat_region	1	197	.	+	.	ID=RCC970_122_r01;color=NA;gene=RC970_c122 5'TIR;note=NA
+RCC970_122	MFG	CDS	582	1082	.	+	.	ID=RCC970_122_g01;color=15;gene=4CbRC_c122_05 MV06 GIY-YIG;note=NA
+RCC970_122	MFG	CDS	1159	2673	.	-	.	ID=RCC970_122_g02;color=7;gene=4CbRC_c122_04 MV19;note=NA
+RCC970_122	MFG	CDS	2736	4535	.	-	.	ID=RCC970_122_g03;color=4;gene=4CbRC_c122_03 MCP;note=NA
+RCC970_122	MFG	CDS	4653	4853	.	-	.	ID=RCC970_122_g04;color=9;gene=4CbRC_c122_02 penton;note=NA
+RCC970_122	MFG	CDS	4853	5278	.	-	.	ID=RCC970_122_g05;color=9;gene=4CbRC_c122_01 penton;note=NA
+RCC970_122	MFG	repeat_region	5277	5473	.	-	.	ID=RCC970_122_r02;color=NA;gene=4CbRC_c122 3'TIR;note=NA
