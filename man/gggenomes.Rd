@@ -6,9 +6,7 @@
 \title{Plot genomes, features and synteny maps}
 \usage{
 gggenomes(seqs = NULL, genes = NULL, features = NULL, links = NULL,
-  ..., infer_bin_id = seq_id, infer_start = min(start, end),
-  infer_end = max(start, end), infer_length = max(start, end),
-  theme = c("clean", NULL), .layout = NULL)
+  ..., theme = c("clean", NULL), .layout = NULL)
 
 layout_genomes(seqs = NULL, genes = NULL, features = NULL,
   links = NULL, infer_bin_id = seq_id, infer_start = min(start, end),
@@ -33,6 +31,11 @@ naming scheme as for features.}
 
 \item{...}{layout parameters passed on to [layout_seqs()]}
 
+\item{theme}{choose a gggenomes default theme, NULL to omit.}
+
+\item{.layout}{a pre-computed layout from [layout_genomes()]. Useful for
+developmental purposes.}
+
 \item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
 seqs if only features or links are provided, or if no bin_id column was
 provided. The expressions are evaluated in the context of the first feature
@@ -41,11 +44,6 @@ or link track.
 By default subregions of sequences from the first to the last feature/link
 are generated. Set `infer_start` to 0 to show all sequences from their
 true beginning.}
-
-\item{theme}{choose a gggenomes default theme, NULL to omit.}
-
-\item{.layout}{a pre-computed layout from [layout_genomes()]. Useful for
-developmental purposes.}
 }
 \value{
 gggenomes-flavored ggplot object

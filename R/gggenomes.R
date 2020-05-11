@@ -17,15 +17,7 @@
 #' @param links a table or a list of tables with link data to be added as link
 #' tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
 #' naming scheme as for features.
-#' @param infer_length,infer_start,infer_end,infer_bin_id used to infer pseudo
-#' seqs if only features or links are provided, or if no bin_id column was
-#' provided. The expressions are evaluated in the context of the first feature
-#' or link track.
-#'
-#' By default subregions of sequences from the first to the last feature/link
-#' are generated. Set `infer_start` to 0 to show all sequences from their
-#' true beginning.
-#' @param ... layout parameters passed on to [layout_seqs()]
+#' @param ... layout parameters passed on to [layout_genomes()] / [layout_seqs()]
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
 #' developmental purposes.
@@ -41,8 +33,7 @@
 #'   geom_gene(aes(fill=strand), position="strand") + # genes
 #'   geom_link(offset = 0.15)                         # synteny-blocks
 gggenomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL, ...,
-    infer_bin_id = seq_id, infer_start = min(start,end), infer_end = max(start,end),
-    infer_length = max(start,end), theme = c("clean", NULL), .layout=NULL){
+  theme = c("clean", NULL), .layout=NULL){
 
   # parse track_args to tracks - some magic for a convenient api
   genes_exprs <- enexpr(genes)
@@ -102,6 +93,14 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 }
 #' @rdname gggenomes
 #' @inheritParams gggenomes
+#' @param infer_length,infer_start,infer_end,infer_bin_id used to infer pseudo
+#' seqs if only features or links are provided, or if no bin_id column was
+#' provided. The expressions are evaluated in the context of the first feature
+#' or link track.
+#'
+#' By default subregions of sequences from the first to the last feature/link
+#' are generated. Set `infer_start` to 0 to show all sequences from their
+#' true beginning.
 #' @return gggenomes_layout object
 #' @export
 layout_genomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL,
