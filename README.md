@@ -21,7 +21,7 @@ tidy-ish structure.
 # pick use case data bundled with ggggenomes
 data(package="gggenomes")
 # Data sets in package ‘gggenomes’:
-# 
+#
 # emale_blast
 # emale_cogs
 # emale_gc

@@ -50,13 +50,10 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
   layout_seqs(x, ...)
 }
 
-#' Layout sequences
-#'
-#' Augment sequences with all data necessary for plotting
-#'
-#' @inheritParams as_seqs
+#' @rdname gggenomes
 #' @param spacing between sequences in bases (>1) or relative to longest bin (<1)
-#' @param ... not used
+#' @param wrap wrap bins into multiple lines with at most this many nucleotides
+#' per lin.
 #' @export
 layout_seqs <- function(x, spacing=0.05, wrap=NULL,
     spacing_style = c("regular", "center", "spread"), keep="strand"){

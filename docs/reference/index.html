@@ -96,7 +96,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/thackl/gggenomes/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -124,8 +129,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-basics" class="hasAnchor"><a href="#section-basics" class="anchor"></a>Basics</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-plot-construction" class="hasAnchor"><a href="#section-plot-construction" class="anchor"></a>Plot construction</h2>
+          <p class="section-desc"><p>Construct a plot combining multiple tracks</p></p>
         </th>
       </tr>
       
@@ -136,7 +141,7 @@
       <tr>
         
         <td>
-          <p><code><a href="gggenomes.html">gggenomes()</a></code> <code><a href="gggenomes.html">layout_genomes()</a></code> </p>
+          <p><code><a href="gggenomes.html">gggenomes()</a></code> <code><a href="gggenomes.html">layout_genomes()</a></code> <code><a href="gggenomes.html">layout_seqs()</a></code> </p>
         </td>
         <td><p>Plot genomes, features and synteny maps</p></td>
       </tr><tr>
@@ -173,7 +178,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-geoms" class="hasAnchor"><a href="#section-geoms" class="anchor"></a>Geoms</h2>
+          <h2 id="section-geoms-positions" class="hasAnchor"><a href="#section-geoms-positions" class="anchor"></a>Geoms &amp; positions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -236,6 +241,12 @@
           <p><code><a href="position_strand.html">position_strand()</a></code> <code><a href="position_strand.html">position_pile()</a></code> <code><a href="position_strand.html">position_strandpile()</a></code> <code><a href="position_strand.html">position_sixframe()</a></code> </p>
         </td>
         <td><p>Stack features</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="use_seqs.html">use_seqs()</a></code> <code><a href="use_seqs.html">use_features()</a></code> <code><a href="use_seqs.html">use_links()</a></code> <code><a href="use_seqs.html">use_genes()</a></code> <code><a href="use_seqs.html">use_bins()</a></code> </p>
+        </td>
+        <td><p>Use a specific track table inside a `geom_*` call.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -250,6 +261,12 @@
       
       
       <tr>
+        
+        <td>
+          <p><code><a href="pull_seqs.html">pull_seqs()</a></code> <code><a href="pull_seqs.html">pull_features()</a></code> <code><a href="pull_seqs.html">pull_links()</a></code> <code><a href="pull_seqs.html">pull_track()</a></code> </p>
+        </td>
+        <td><p>Pull out a specific track, possibly filtered</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="pick.html">pick()</a></code> <code><a href="pick.html">pick_at()</a></code> <code><a href="pick.html">pick_bins()</a></code> </p>
@@ -351,7 +368,13 @@ columns. Ignores tagged extra fields.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="gggenomes.html">gggenomes()</a></code> <code><a href="gggenomes.html">layout_genomes()</a></code> </p>
+          <p><code><a href="layout.html">layout()</a></code> </p>
+        </td>
+        <td><p>Re-layout a genome layout</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gggenomes.html">gggenomes()</a></code> <code><a href="gggenomes.html">layout_genomes()</a></code> <code><a href="gggenomes.html">layout_seqs()</a></code> </p>
         </td>
         <td><p>Plot genomes, features and synteny maps</p></td>
       </tr><tr>
@@ -369,9 +392,33 @@ columns. Ignores tagged extra fields.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="layout_seqs.html">layout_seqs()</a></code> </p>
+          <p><code><a href="swap_if.html">swap_if()</a></code> </p>
         </td>
-        <td><p>Layout sequences</p></td>
+        <td><p>Swap values of two columns based on a condition</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="in_range.html">in_range()</a></code> </p>
+        </td>
+        <td><p>Do numeric values fall into specified ranges?</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="anchor.html">anchor()</a></code> </p>
+        </td>
+        <td><p>The virtual x-start of the full length seq in the plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="width.html">width()</a></code> <code><a href="width.html">width0()</a></code> </p>
+        </td>
+        <td><p>The width of a range</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="x.html">x()</a></code> <code><a href="x.html">xend()</a></code> </p>
+        </td>
+        <td><p>Project feature coordinates into layout space</p></td>
       </tr>
     </tbody>
     </table>
@@ -387,7 +434,7 @@ columns. Ignores tagged extra fields.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Thomas Hackl.</p>
+  <p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
 </div>
 
 <div class="pkgdown">

@@ -97,7 +97,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/thackl/gggenomes/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -112,7 +117,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot genomes, features and synteny maps</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/gggenomes.R'><code>R/gggenomes.R</code></a>, <a href='https://github.com/thackl/gggenomes/blob/master/R/seqs.R'><code>R/seqs.R</code></a></small>
     <div class="hidden name"><code>gggenomes.Rd</code></div>
     </div>
 
@@ -125,7 +130,10 @@
 
 <span class='fu'>layout_genomes</span>(<span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>infer_bin_id</span> <span class='kw'>=</span> <span class='no'>seq_id</span>, <span class='kw'>infer_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='kw'>infer_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='kw'>infer_length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='no'>...</span>)</pre>
+  <span class='kw'>infer_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='kw'>infer_length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='no'>...</span>)
+
+<span class='fu'>layout_seqs</span>(<span class='no'>x</span>, <span class='kw'>spacing</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>wrap</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>spacing_style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span>), <span class='kw'>keep</span> <span class='kw'>=</span> <span class='st'>"strand"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,6 +184,15 @@ or link track.</p>
 are generated. Set `infer_start` to 0 to show all sequences from their
 true beginning.</p></td>
     </tr>
+    <tr>
+      <th>spacing</th>
+      <td><p>between sequences in bases (&gt;1) or relative to longest bin (&lt;1)</p></td>
+    </tr>
+    <tr>
+      <th>wrap</th>
+      <td><p>wrap bins into multiple lines with at most this many nucleotides
+per lin.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -206,7 +223,7 @@ true beginning.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Thomas Hackl.</p>
+  <p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
 </div>
 
 <div class="pkgdown">
