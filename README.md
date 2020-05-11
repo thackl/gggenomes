@@ -15,7 +15,7 @@ tidy-ish structure.
 
 ## A typical use case comparing some viral genomes
 
-![](../EMALEs.png)
+![](EMALEs.png)
 
 ```R
 # pick use case data bundled with ggggenomes
