@@ -4,15 +4,21 @@ reference:
     Construct a plot combining multiple tracks
 - contents:
     - gggenomes
+- title: "Tracks & layouts"
+- contents:
+    - gggenomes
     - starts_with("add_")
+    - pull_seqs
+    - layout
+    - layout_features
+    - layout_links
 - title: "Geoms & positions"
 - contents:
     - starts_with("geom_")
     - starts_with("position_")
     - starts_with("use_")
-- title: "Manipulation the layout"
+- title: "Layout manipulation"
 - contents:
-    - pull_seqs
     - pick
     - flip
     - shift
@@ -27,9 +33,6 @@ reference:
     Functions that power gggenomes under the hood. Useful for developers and power-users.
 - contents:
   - starts_with("as_")
-  - layout
-  - layout_features
-  - layout_links
   - swap_if
   - in_range
   - anchor
