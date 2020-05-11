@@ -26,9 +26,10 @@ in_range(1:5, 2, 4)
 in_range(1:5, 2, 4, closed=c(FALSE, TRUE)) # left-open
 in_range(1:5, 6:2, 3) # vector of boundaries, single values recycle
 
+
 # plays nicely with dplyr
-mutate(
-  tibble(x=rep(4,5), left=1:5, right=3:7),
+df <- tibble(x=rep(4,5), left=1:5, right=3:7)
+mutate(df,
   closed=in_range(x, left, right, TRUE),
-  open=in_range(x, left, right, FALSE)
+  open=in_range(x, left, right, FALSE))
 }

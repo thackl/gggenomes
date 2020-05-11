@@ -8,6 +8,13 @@
 
 <title>Do numeric values fall into specified ranges? — in_range • gggenomes</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Do numeric values fall into specified ranges? — in_range" />
 <meta property="og:description" content="Do numeric values fall into specified ranges?" />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -138,7 +146,13 @@ boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.</p></td>
     <p>a logical vector of the same length as the input</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 2, 4): could not find function "in_range"</span></div><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='kw'>closed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>)) <span class='co'># left-open</span></div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 2, 4, closed = c(FALSE, TRUE)): could not find function "in_range"</span></div><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>6</span>:<span class='fl'>2</span>, <span class='fl'>3</span>) <span class='co'># vector of boundaries, single values recycle</span></div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 6:2, 3): could not find function "in_range"</span></div><div class='input'>
+
+<span class='co'># plays nicely with dplyr</span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>), <span class='kw'>left</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>right</span><span class='kw'>=</span><span class='fl'>3</span>:<span class='fl'>7</span>)
+<span class='fu'>mutate</span>(<span class='no'>df</span>,
+  <span class='kw'>closed</span><span class='kw'>=</span><span class='fu'>in_range</span>(<span class='no'>x</span>, <span class='no'>left</span>, <span class='no'>right</span>, <span class='fl'>TRUE</span>),
+  <span class='kw'>open</span><span class='kw'>=</span><span class='fu'>in_range</span>(<span class='no'>x</span>, <span class='no'>left</span>, <span class='no'>right</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; <span class='error'>Error in in_range(x, left, right, TRUE): could not find function "in_range"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

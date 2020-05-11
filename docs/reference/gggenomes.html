@@ -8,6 +8,13 @@
 
 <title>Plot genomes, features and synteny maps — gggenomes • gggenomes</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Plot genomes, features and synteny maps — gggenomes" />
 <meta property="og:description" content="Sequence data: `read_fai`" />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -113,9 +121,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>gggenomes</span>(<span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>, <span class='kw'>infer_bin_id</span> <span class='kw'>=</span> <span class='no'>seq_id</span>, <span class='kw'>infer_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='kw'>infer_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='kw'>infer_length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>), <span class='kw'>.layout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+  <span class='no'>...</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>), <span class='kw'>.layout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>layout_genomes</span>(<span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>infer_bin_id</span> <span class='kw'>=</span> <span class='no'>seq_id</span>, <span class='kw'>infer_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
@@ -149,7 +155,16 @@ naming scheme as for features.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>layout parameters passed on to [layout_seqs()]</p></td>
+      <td><p>layout parameters passed on to [layout_genomes()] / [layout_seqs()]</p></td>
+    </tr>
+    <tr>
+      <th>theme</th>
+      <td><p>choose a gggenomes default theme, NULL to omit.</p></td>
+    </tr>
+    <tr>
+      <th>.layout</th>
+      <td><p>a pre-computed layout from [layout_genomes()]. Useful for
+developmental purposes.</p></td>
     </tr>
     <tr>
       <th>infer_length, infer_start, infer_end, infer_bin_id</th>
@@ -160,15 +175,6 @@ or link track.</p>
 <p>By default subregions of sequences from the first to the last feature/link
 are generated. Set `infer_start` to 0 to show all sequences from their
 true beginning.</p></td>
-    </tr>
-    <tr>
-      <th>theme</th>
-      <td><p>choose a gggenomes default theme, NULL to omit.</p></td>
-    </tr>
-    <tr>
-      <th>.layout</th>
-      <td><p>a pre-computed layout from [layout_genomes()]. Useful for
-developmental purposes.</p></td>
     </tr>
     </table>
 

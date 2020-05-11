@@ -29,7 +29,7 @@ variable containing each table.}
 tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
 naming scheme as for features.}
 
-\item{...}{layout parameters passed on to [layout_seqs()]}
+\item{...}{layout parameters passed on to [layout_genomes()] / [layout_seqs()]}
 
 \item{theme}{choose a gggenomes default theme, NULL to omit.}
 
