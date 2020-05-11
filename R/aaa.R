@@ -28,3 +28,11 @@ shared_names <- function(x, ...){
   names <- c(...)
   names[names %in% names2(x)]
 }
+
+#' @export
+#' @importFrom magrittr %>%
+magrittr::`%>%`
+
+#' @export
+#' @importFrom magrittr %<>%
+magrittr::`%<>%`

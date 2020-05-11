@@ -24,4 +24,7 @@ reference:
 - contents:
   - starts_with("as_")
   - starts_with("layout_")
-
+figures:
+  fig.width: 12
+  dev.args:
+    type: "cairo"

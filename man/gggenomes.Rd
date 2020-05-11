@@ -61,9 +61,11 @@ Feature data: `read_gff`
 Link data: `read_paf`
 }
 \examples{
-seq_df <- tribble(
-  bin_id = c("A", "A", "B"),
-  seq_id = c("a1", "a2", "b1"),
-  length = c(1000, 2000, 2500))
-gggenomes()
+# Compare the genomic organization of three viral elements
+# EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
+gggenomes(emale_seqs[c(1:2,6),], emale_genes, emale_tirs, emale_links) +
+  geom_seq() + geom_bin_label() +                  # chromosomes and labels
+  geom_feature(size=8) +                           # terminal inverted repeats
+  geom_gene(aes(fill=strand), position="strand") + # genes
+  geom_link(offset = 0.15)                         # synteny-blocks
 }

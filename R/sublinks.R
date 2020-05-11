@@ -152,7 +152,8 @@ add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
   x
 }
 
-
+#' Add gene clusters
+#' @export
 add_clusters <- function(x, parent_track_id, ...){
   UseMethod("add_clusters")
 }

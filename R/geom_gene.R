@@ -1,4 +1,6 @@
 #' Draw genes
+#'
+#' @export
 geom_gene <- function(mapping = NULL, data = use_genes(1, type == "CDS"), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     arrow_size = c(3,3,3), chevrons = NULL, ...){
@@ -66,6 +68,7 @@ GeomCdsArrow <- ggplot2::ggproto("GeomCdsArrow", ggplot2::Geom,
       data <- data[order(-data$x),]
     #
     data <- coord$transform(data, panel_params)
+
     gt <- grid::gTree(
       data = data,
       cl = "cdsarrowtree",
@@ -83,6 +86,7 @@ GeomCdsArrow <- ggplot2::ggproto("GeomCdsArrow", ggplot2::Geom,
   }
 )
 
+#' @export
 makeContent.cdsarrowtree <- function(x){
   data <- x$data
   n <- nrow(data)

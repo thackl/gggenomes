@@ -2,11 +2,11 @@ Package: gggenomes
 Title: A Grammar of Graphics for Comparative Genomics
 Version: 0.0.0.9000
 Authors@R: person("Thomas", "Hackl", email = "thackl@lim4.de", role = c("aut", "cre"))
-Description: gggenomes is an extension of ggplot2 to create complex genomic maps.
- It builds on the power of ggplot2 and tidyverse adding new ggplot-style geoms
- & positions and dplyr-style verbs to manipulate the underlying data. It borrows
- the layout concept from ggrpah and introduces tracks to bring tidyness to the
- mess that is genomics data.
+Description: gggenomes is an extension of ggplot2 for creating complex genomic
+ maps. It builds on the power of ggplot2 and tidyverse adding new ggplot-style
+ geoms & positions and dplyr-style verbs to manipulate the underlying data. It
+ implements a layout concept similar inspired by ggraph and introduces tracks
+ to bring tidyness to the mess that is genomics data.
 License: MIT
 Encoding: UTF-8
 LazyData: true
