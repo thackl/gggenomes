@@ -1,6 +1,8 @@
 pandoc: 1.19.2.1
 pkgdown: 1.5.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2020-05-11T20:47Z
+articles:
+  emales: emales.html
+  vignette: vignette.html
+last_built: 2020-05-12T12:55Z
 
