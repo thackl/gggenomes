@@ -12,7 +12,7 @@ function fixAuthData( jQuery ) {
     }else{
         return
     }
-
+    
     var both = document.createElement('small');
     both.innerHTML = inner;
     auth.parentNode.replaceChild(both, auth);
@@ -27,7 +27,7 @@ function addLang( jQuery ) {
         $(this).prepend('<div class="codetag ' + lang + '">' + Lang + ' code</div>' +
                         '<div class="codetagspace"></div>')
     })
-
+    
     // document.getElementsByClassName("bash")[0]
     // tag = document.createElement('small');
     // tag.innerHTML = "bash"

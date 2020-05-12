@@ -3,6 +3,5 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   emales: emales.html
-  vignette: vignette.html
-last_built: 2020-05-12T12:55Z
+last_built: 2020-05-12T23:51Z
 
