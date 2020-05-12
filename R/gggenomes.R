@@ -52,7 +52,7 @@ gggenomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL, ...,
   p <- ggplot(data = layout)
   class(p) <- c('gggenomes', class(p))
 
-  p <- p + scale_y_continuous("", expand = expand_scale(add=.5),
+  p <- p + scale_y_continuous("", expand = expansion(add=.5),
       trans = scales::reverse_trans())
 
   p <- p + xlab("Nucleotide position")
