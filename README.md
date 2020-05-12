@@ -1,9 +1,9 @@
 # gggenomes <img src="man/figures/logo-smaller.png" align="right" />
 
-## A grammer of graphics for comparative genomics
+## A grammar of graphics for comparative genomics
 
 gggenomes is an extension of [ggplot2](https://ggplot2.tidyverse.org/) allowing
-you to creating informative genomic maps from biological sequence data with
+you to create informative genomic maps from biological sequence data with
 ease. It builds on the power of and ggplot2 and
 [tidyverse](https://www.tidyverse.org/) adding dedicated geoms, position
 adjustments, and dplyr-style verbs to construct your perfect plot. Because
@@ -13,7 +13,7 @@ Pedersen](https://www.data-imaginist.com/about)'s awesome
 [ggraph](https://github.com/thomasp85/ggraph) package to wrap everything in a
 tidy-ish structure.
 
-## A typical use case comparing some viral genomes
+## A typical use case comparing a few viral genomes
 
 ![](EMALEs.png)
 
@@ -73,5 +73,5 @@ p
 
 ```R
 # install.packages("devtools")
-devtools::install_github("tidyverse/gggenomes")
+devtools::install_github("thackl/gggenomes")
 ```
