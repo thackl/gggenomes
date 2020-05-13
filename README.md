@@ -2,37 +2,27 @@
 
 ## A grammar of graphics for comparative genomics
 
-gggenomes is an extension of [ggplot2](https://ggplot2.tidyverse.org/) allowing
-you to create informative genomic maps from biological sequence data with
-ease. It builds on the power of and ggplot2 and
-[tidyverse](https://www.tidyverse.org/) adding dedicated geoms, position
-adjustments, and dplyr-style verbs to construct your perfect plot. Because
-biological data are inherently messy, it introduces tracks to manage the
-different data sources and implements a layout concept inspired by [Thomas Lin
-Pedersen](https://www.data-imaginist.com/about)'s awesome
-[ggraph](https://github.com/thomasp85/ggraph) package to wrap everything in a
-tidy-ish structure.
+gggenomes is a versatile graphics package for creating comparative genomic maps,
+extending the popular R visualization package
+[ggplot2](https://ggplot2.tidyverse.org/). It adds dedicated plot functions
+(geoms, positions) for common sequence and alignment features, such as gene
+models and syntenic regions, as we well as verbs to further manipulate the plot
+and the underlying data, for example, to quickly zoom in into gene
+neighborhoods.
 
-## A typical use case comparing a few viral genomes
+## A realistic use case comparing six viral genomes
+
+For a reproducible recipe describing the full *evolution* of this plot starting
+from a mere set of contigs, and including the bioinformatics analysis workflow,
+have a look at [From a few sequences to a complex map in
+minutes](https://thackl.github.io/gggenomes/articles/emales.html). For a compact
+version to of the code see below.
 
 ![](EMALEs.png)
 
 ```R
-# pick use case data bundled with ggggenomes
-data(package="gggenomes")
-# Data sets in package ‘gggenomes’:
-#
-# emale_blast
-# emale_cogs
-# emale_gc
-# emale_genes
-# emale_links
-# emale_seqs
-# emale_tirs
-# emale_transposons
 # EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)
-
-# set up plot with data tracks
+# a use case data bundled with ggggenomes
 seqs <- emale_seqs[1:6,]                # first 6 genomes only
 p <- gggenomes(seqs, emale_genes, emale_tirs, emale_links) %>%
                                         # standard tracks
@@ -69,9 +59,46 @@ p <- p %>% flip_bins(3:5)
 p
 ```
 
+## Motivation & concept
+
+Visualization is a corner stone of both exploratory analysis and science
+communication. Bioinformatics workflows, unfortunately, tend to generate a
+plethora of data products often in adventurous formats making it quite difficult
+to integrate and co-visualize the results. Instead of trying to cater to the all
+these different formats explicitly, gggenomes embraces the simple
+tidyverse-inspired credo:
+
+- Any data set can be transformed into one (or a few) tidy data tables
+- Any data set in a tidy data table can be easily and elegantly visualized
+
+As a result gggenomes helps bridge the gap between data generation, visual
+exploration, interpretation and communication, thereby accelerating
+biological research.
+
+Under the hood gggenomes uses a light-weight track system to accommodate a mix
+of related data sets, essentially implementing ggplot2 with multiple tidy tables
+instead of just one. The data in the different tables are tied together through
+a global genome layout that is automatically computed from the input and defines
+the positions of genomic sequences (chromosome/contigs) and their associated
+features in the plot.
+
+## Inspiration
+
+gggenomes stands on the shoulder of giants. It was born out of admiration of
+[David Wilkins'](https://wilkox.org/)
+[gggenes](https://github.com/wilkox/gggenes) package, draws from other ggplot2
+extensions such as Guangchuang Yu's
+[ggtree](https://guangchuangyu.github.io/software/ggtree/), and is fundamentally
+inspired by [Thomas Lin Pedersen's](https://www.data-imaginist.com/about)
+incredibly rich [ggraph](https://github.com/thomasp85/ggraph) package.
+
 ## Installation
+
+gggenomes is at this point still in an alpha release state, and therefoe only
+available as developmental package.
 
 ```R
 # install.packages("devtools")
 devtools::install_github("thackl/gggenomes")
 ```
+

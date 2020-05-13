@@ -97,27 +97,15 @@
 <div id="a-grammar-of-graphics-for-comparative-genomics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-grammar-of-graphics-for-comparative-genomics" class="anchor"></a>A grammar of graphics for comparative genomics</h2>
-<p>gggenomes is an extension of <a href="https://ggplot2.tidyverse.org/">ggplot2</a> allowing you to create informative genomic maps from biological sequence data with ease. It builds on the power of and ggplot2 and <a href="https://www.tidyverse.org/">tidyverse</a> adding dedicated geoms, position adjustments, and dplyr-style verbs to construct your perfect plot. Because biological data are inherently messy, it introduces tracks to manage the different data sources and implements a layout concept inspired by <a href="https://www.data-imaginist.com/about">Thomas Lin Pedersen</a>’s awesome <a href="https://github.com/thomasp85/ggraph">ggraph</a> package to wrap everything in a tidy-ish structure.</p>
+<p>gggenomes is a versatile graphics package for creating comparative genomic maps, extending the popular R visualization package <a href="https://ggplot2.tidyverse.org/">ggplot2</a>. It adds dedicated plot functions (geoms, positions) for common sequence and alignment features, such as gene models and syntenic regions, as we well as verbs to further manipulate the plot and the underlying data, for example, to quickly zoom in into gene neighborhoods.</p>
 </div>
-<div id="a-typical-use-case-comparing-a-few-viral-genomes" class="section level2">
+<div id="a-realistic-use-case-comparing-six-viral-genomes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#a-typical-use-case-comparing-a-few-viral-genomes" class="anchor"></a>A typical use case comparing a few viral genomes</h2>
+<a href="#a-realistic-use-case-comparing-six-viral-genomes" class="anchor"></a>A realistic use case comparing six viral genomes</h2>
+<p>For a reproducible recipe describing the full <em>evolution</em> of this plot starting from a mere set of contigs, and including the bioinformatics analysis workflow, have a look at <a href="https://thackl.github.io/gggenomes/articles/emales.html">From a few sequences to a complex map in minutes</a>. For a compact version to of the code see below.</p>
 <p><img src="EMALEs.png"></p>
-<div class="sourceCode"><pre class="r"><span class="co"># pick use case data bundled with ggggenomes</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">package</span><span class="kw">=</span><span class="st">"gggenomes"</span>)
-<span class="co"># Data sets in package ‘gggenomes’:</span>
-<span class="co">#</span>
-<span class="co"># emale_blast</span>
-<span class="co"># emale_cogs</span>
-<span class="co"># emale_gc</span>
-<span class="co"># emale_genes</span>
-<span class="co"># emale_links</span>
-<span class="co"># emale_seqs</span>
-<span class="co"># emale_tirs</span>
-<span class="co"># emale_transposons</span>
-<span class="co"># EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)</span>
-
-<span class="co"># set up plot with data tracks</span>
+<div class="sourceCode"><pre class="r"><span class="co"># EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)</span>
+<span class="co"># a use case data bundled with ggggenomes</span>
 <span class="no">seqs</span> <span class="kw">&lt;-</span> <span class="no">emale_seqs</span>[<span class="fl">1</span>:<span class="fl">6</span>,]                <span class="co"># first 6 genomes only</span>
 <span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gggenomes.html">gggenomes</a></span>(<span class="no">seqs</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) <span class="kw">%&gt;%</span>
                                         <span class="co"># standard tracks</span>
@@ -153,9 +141,26 @@
 <span class="no">p</span> <span class="kw">&lt;-</span> <span class="no">p</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="reference/flip.html">flip_bins</a></span>(<span class="fl">3</span>:<span class="fl">5</span>)
 <span class="no">p</span></pre></div>
 </div>
+<div id="motivation-concept" class="section level2">
+<h2 class="hasAnchor">
+<a href="#motivation-concept" class="anchor"></a>Motivation &amp; concept</h2>
+<p>Visualization is a corner stone of both exploratory analysis and science communication. Bioinformatics workflows, unfortunately, tend to generate a plethora of data products often in adventurous formats making it quite difficult to integrate and co-visualize the results. Instead of trying to cater to the all these different formats explicitly, gggenomes embraces the simple tidyverse-inspired credo:</p>
+<ul>
+<li>Any data set can be transformed into one (or a few) tidy data tables</li>
+<li>Any data set in a tidy data table can be easily and elegantly visualized</li>
+</ul>
+<p>As a result gggenomes helps bridge the gap between data generation, visual exploration, interpretation and communication, thereby accelerating biological research.</p>
+<p>Under the hood gggenomes uses a light-weight track system to accommodate a mix of related data sets, essentially implementing ggplot2 with multiple tidy tables instead of just one. The data in the different tables are tied together through a global genome layout that is automatically computed from the input and defines the positions of genomic sequences (chromosome/contigs) and their associated features in the plot.</p>
+</div>
+<div id="inspiration" class="section level2">
+<h2 class="hasAnchor">
+<a href="#inspiration" class="anchor"></a>Inspiration</h2>
+<p>gggenomes stands on the shoulder of giants. It was born out of admiration of <a href="https://wilkox.org/">David Wilkins’</a> <a href="https://github.com/wilkox/gggenes">gggenes</a> package, draws from other ggplot2 extensions such as Guangchuang Yu’s <a href="https://guangchuangyu.github.io/software/ggtree/">ggtree</a>, and is fundamentally inspired by <a href="https://www.data-imaginist.com/about">Thomas Lin Pedersen’s</a> incredibly rich <a href="https://github.com/thomasp85/ggraph">ggraph</a> package.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
+<p>gggenomes is at this point still in an alpha release state, and therefoe only available as developmental package.</p>
 <div class="sourceCode"><pre class="r"><span class="co"># install.packages("devtools")</span>
 <span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"thackl/gggenomes"</span>)</pre></div>
 </div>
