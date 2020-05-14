@@ -42,3 +42,6 @@ figures:
   fig.width: 12
   dev.args:
     type: "cairo"
+template:
+  params:
+    bootswatch: cosmo
