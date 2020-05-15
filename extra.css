@@ -1,0 +1,16 @@
+.bash {
+    background-color: #f8f8f8;
+}
+.codetag {
+    border: 1px solid #eee;
+    background-color: #eee;
+    z-index: 100;
+    position: absolute;
+    font-size: 60%;
+    font-weight: bold;
+    padding: 2px;
+    display: inline-block;
+}
+.codetagspace {
+    height: 8px;
+}
