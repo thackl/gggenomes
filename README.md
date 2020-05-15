@@ -18,7 +18,7 @@ have a look at [From a few sequences to a complex map in
 minutes](https://thackl.github.io/gggenomes/articles/emales.html). For a compact
 version to of the code see below.
 
-![](EMALEs.png)
+![](man/figures/EMALEs.png)
 
 ```R
 # EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)
