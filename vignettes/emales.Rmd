@@ -2,6 +2,14 @@
 title: "From a few sequences to a complex map in minutes"
 author: Thomas Hackl
 date: "`r format(Sys.Date())`"
+resource_files:
+  - emales/emales-p1.png
+  - emales/emales-p2.png
+  - emales/emales-p3.png
+  - emales/emales-p4.png
+  - emales/emales-p5.png
+  - emales/emales-p6.png
+  - emales/emales-p7.png
 ---
 
 This is a real-life example demonstrating the use of `gggenomes` to explore
