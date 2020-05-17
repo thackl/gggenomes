@@ -98,7 +98,14 @@ gggenomes is at this point still in an alpha release state, and therefoe only
 available as developmental package.
 
 ```R
+# install ggtree
+# https://bioconductor.org/packages/release/bioc/html/ggtree.html
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ggtree")
+
 # install.packages("devtools")
+devtools::install_github("thackl/thacklr")
 devtools::install_github("thackl/gggenomes")
 ```
 
