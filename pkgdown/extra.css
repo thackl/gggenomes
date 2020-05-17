@@ -1,8 +1,5 @@
-.bash {
-    background-color: #f8f8f8;
-}
-.codetag {
-    border: 1px solid #eee;
+.codelabel {
+    border: 2px solid white;
     background-color: #eee;
     z-index: 100;
     position: absolute;
@@ -11,6 +8,6 @@
     padding: 2px;
     display: inline-block;
 }
-.codetagspace {
-    height: 8px;
+.codelabelspacer {
+    height: 12px;
 }
