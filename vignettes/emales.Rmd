@@ -1,6 +1,6 @@
 ---
 title: "From a few sequences to a complex map in minutes"
-author: Thomas Hackl
+author: "Thomas Hackl"
 date: "`r format(Sys.Date())`"
 resource_files:
   - emales/emales-p1.png
