@@ -64,6 +64,9 @@
 <li>
       <a href="../articles/emales.html">From a few sequences to a complex map in minutes</a>
     </li>
+    <li>
+      <a href="../articles/foo.html">Add a Language label to code chunks in pgkdown articles</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -90,7 +93,7 @@
       <h1 data-toc-skip>From a few sequences to a complex map in minutes</h1>
                         <h4 class="author">Thomas Hackl</h4>
             
-            <h4 class="date">2020-05-14</h4>
+            <h4 class="date">2020-05-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd"><code>vignettes/emales.Rmd</code></a></small>
       <div class="hidden name"><code>emales.Rmd</code></div>
@@ -104,14 +107,12 @@
 <p>This example is bundled <code><a href="https://rdrr.io/r/utils/data.html">data(package="gggenomes")</a></code> To rerun the this example including the bioinformatics analyzes download the <a href="https://github.com/thackl/gggenomes/tree/master/data-raw/emales">raw data</a> from github.</p>
 <p>TODO Teaser (plot preview)</p>
 <p>TODO Which tools I used</p>
-<div class="figure">
-<img src="emales/emales-p7.png">
-</div>
+<p><img src="emales/emales-p7.png"></p>
 <div id="read-in-the-genomes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#read-in-the-genomes" class="anchor"></a>Read in the genomes</h3>
 <p>We start with a fasta file of 33 viral genomes. We read sequence length and some metadata from the header lines using `read<sub>fai</sub>`…</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gggenomes</span>)
 
 <span class="co"># parse sequence length and some metadata from fasta file</span>
@@ -125,21 +126,19 @@
 <span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>) +
  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>()
 <span class="no">p1</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p1.png">
-</div>
+<p><img src="emales/emales-p1.png"></p>
 </div>
 <div id="annotate-genes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#annotate-genes" class="anchor"></a>Annotate genes</h3>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># https://github.com/thackl/seq-scripts</span>
-<span class="ex">seq-join</span> -n emales-concat <span class="op">&lt;</span> emales.fna <span class="op">&gt;</span> emales-concat.fna                       
-<span class="co"># Annotate genes | https://github.com/hyattpd/Prodigal</span>
-<span class="ex">prodigal</span> -n -t emales-prodigal.train -i emales-concat.fna                                 
-<span class="ex">prodigal</span> -t emales-prodigal.train -i emales.fna -o emales-prodigal.gff -f gff
-<span class="co"># A little help to clean up the prodigal gff | https://github.com/thackl/seq-scripts</span>
-<span class="ex">gff-clean</span> emales-prodigal.gff <span class="op">&gt;</span> emales.gff</code></pre></div>
-<div class="sourceCode"><html><body><pre class="r"><span class="no">emale_genes</span> <span class="kw">&lt;-</span> <span class="fu">read_gff</span>(<span class="st">"emales.gff"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># https://github.com/thackl/seq-scripts</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="ex">seq-join</span> -n emales-concat <span class="op">&lt;</span> emales.fna <span class="op">&gt;</span> emales-concat.fna                       </a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co"># Annotate genes | https://github.com/hyattpd/Prodigal</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="ex">prodigal</span> -n -t emales-prodigal.train -i emales-concat.fna                                 </a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="ex">prodigal</span> -t emales-prodigal.train -i emales.fna -o emales-prodigal.gff -f gff</a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co"># A little help to clean up the prodigal gff | https://github.com/thackl/seq-scripts</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="ex">gff-clean</span> emales-prodigal.gff <span class="op">&gt;</span> emales.gff</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">emale_genes</span> <span class="kw">&lt;-</span> <span class="fu">read_gff</span>(<span class="st">"emales.gff"</span>) <span class="kw">%&gt;%</span>
   <span class="fu">rename</span>(<span class="kw">feature_id</span><span class="kw">=</span><span class="no">ID</span>) <span class="kw">%&gt;%</span>                       <span class="co"># we'll need this later</span>
   <span class="fu">mutate</span>(<span class="kw">gc_cont</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">gc_cont</span>))             <span class="co"># per gene GC-content</span>
 
@@ -148,22 +147,20 @@
   <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">gc_cont</span>)) +
   <span class="fu">scale_fill_distiller</span>(<span class="kw">palette</span><span class="kw">=</span><span class="st">"Spectral"</span>)
 <span class="no">p2</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p2.png">
-</div>
+<p><img src="emales/emales-p2.png"></p>
 </div>
 <div id="find-terminal-inverted-repeats" class="section level3">
 <h3 class="hasAnchor">
 <a href="#find-terminal-inverted-repeats" class="anchor"></a>Find terminal inverted repeats</h3>
 <p>It is known that these type of viruses often have linear genomes with terminal inverted repeats (TIRs). So let’s look for those next.</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># split into one genome per file | https://bioinf.shenwei.me/seqkit/</span>
-<span class="ex">seqkit</span> split -i emales.fna  
-<span class="co"># self-align opposite strands                        </span>
-<span class="kw">for</span> <span class="ex">fna</span> in <span class="kw">`</span><span class="fu">ls</span> emales.fna.split/*.fna<span class="kw">`;</span> <span class="kw">do</span>
-  <span class="ex">minimap2</span> -c -B5 -O6 -E3 --rev-only <span class="va">$fna</span> <span class="va">$fna</span> <span class="op">&gt;</span> <span class="va">$fna</span>.paf<span class="kw">;</span>
-<span class="kw">done</span>;
-<span class="fu">cat</span> emales.fna.split/*.paf <span class="op">&gt;</span> emales-tirs.paf</code></pre></div>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># prefilter hits by minimum length and maximum divergence</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># split into one genome per file | https://bioinf.shenwei.me/seqkit/</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="ex">seqkit</span> split -i emales.fna  </a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co"># self-align opposite strands                        </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">for</span> <span class="ex">fna</span> in <span class="kw">`</span><span class="fu">ls</span> emales.fna.split/*.fna<span class="kw">`;</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="ex">minimap2</span> -c -B5 -O6 -E3 --rev-only <span class="va">$fna</span> <span class="va">$fna</span> <span class="op">&gt;</span> <span class="va">$fna</span>.paf<span class="kw">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw">done</span>;</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="fu">cat</span> emales.fna.split/*.paf <span class="op">&gt;</span> emales-tirs.paf</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># prefilter hits by minimum length and maximum divergence</span>
 <span class="no">emale_tirs_paf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales-tirs.paf"</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">seq_id1</span> <span class="kw">==</span> <span class="no">seq_id2</span> <span class="kw">&amp;</span> <span class="no">start1</span> <span class="kw">&lt;</span> <span class="no">start2</span> <span class="kw">&amp;</span> <span class="no">map_length</span> <span class="kw">&gt;</span> <span class="fl">99</span> <span class="kw">&amp;</span> <span class="no">de</span> <span class="kw">&lt;</span> <span class="fl">0.1</span>)
 <span class="no">emale_tirs</span> <span class="kw">&lt;-</span> <span class="fu">bind_rows</span>(
@@ -176,16 +173,14 @@
   <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">gc_cont</span>)) +
   <span class="fu">scale_fill_distiller</span>(<span class="kw">palette</span><span class="kw">=</span><span class="st">"Spectral"</span>)
 <span class="no">p3</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p3.png">
-</div>
+<p><img src="emales/emales-p3.png"></p>
 </div>
 <div id="compare-genome-synteny" class="section level3">
 <h3 class="hasAnchor">
 <a href="#compare-genome-synteny" class="anchor"></a>Compare genome synteny</h3>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># All-vs-all alignment | https://github.com/lh3/minimap2</span>
-<span class="ex">minimap2</span> -X -N 50 -p 0.1 -c emales.fna emales.fna <span class="op">&gt;</span> emales.paf</code></pre></div>
-<div class="sourceCode"><html><body><pre class="r"><span class="no">emale_links</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales.paf"</span>)
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># All-vs-all alignment | https://github.com/lh3/minimap2</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="ex">minimap2</span> -X -N 50 -p 0.1 -c emales.fna emales.fna <span class="op">&gt;</span> emales.paf</a></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">emale_links</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales.paf"</span>)
 
 <span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) +
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
@@ -196,16 +191,14 @@
 
 <span class="no">p4</span> <span class="kw">&lt;-</span> <span class="no">p4</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/flip.html">flip_bins</a></span>(<span class="fl">3</span>:<span class="fl">5</span>)
 <span class="no">p4</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p4.png">
-</div>
+<p><img src="emales/emales-p4.png"></p>
 </div>
 <div id="gc-content" class="section level3">
 <h3 class="hasAnchor">
 <a href="#gc-content" class="anchor"></a>GC-content</h3>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># https://github.com/thackl/seq-scripts (bedtools &amp; samtools)</span>
-<span class="ex">seq-gc</span> -Nbw 50 emales.fna <span class="op">&gt;</span> emales-gc.tsv</code></pre></div>
-<div class="sourceCode"><html><body><pre class="r"><span class="no">emale_gc</span> <span class="kw">&lt;-</span> <span class="kw pkg">thacklr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_bed.html">read_bed</a></span>(<span class="st">"emales-gc.tsv"</span>) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># https://github.com/thackl/seq-scripts (bedtools &amp; samtools)</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="ex">seq-gc</span> -Nbw 50 emales.fna <span class="op">&gt;</span> emales-gc.tsv</a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">emale_gc</span> <span class="kw">&lt;-</span> <span class="kw pkg">thacklr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_bed.html">read_bed</a></span>(<span class="st">"emales-gc.tsv"</span>) <span class="kw">%&gt;%</span>
   <span class="fu">rename</span>(<span class="kw">seq_id</span><span class="kw">=</span><span class="no">contig_id</span>)
 
 <span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p4</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_gc</span>)
@@ -213,17 +206,15 @@
     <span class="kw">group</span><span class="kw">=</span><span class="no">seq_id</span>, <span class="kw">linetype</span><span class="kw">=</span><span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_gc</span>),
                        <span class="kw">fill</span><span class="kw">=</span><span class="st">"blue"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.5</span>)
 <span class="no">p5</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p5.png">
-</div>
+<p><img src="emales/emales-p5.png"></p>
 </div>
 <div id="cluster-protein-sequences-into-orthogroups" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cluster-protein-sequences-into-orthogroups" class="anchor"></a>cluster protein sequences into orthogroups</h3>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">gff2cds</span> --aa --type CDS --source Prodigal_v2.6.3 --fna emales.fna emales.gff <span class="op">&gt;</span> emales.faa
-<span class="ex">mmseqs</span> easy-cluster emales.faa emales-mmseqs /tmp -e 1e-5 -c 0.7<span class="kw">;</span>
-<span class="ex">cluster-ids</span> -t <span class="st">"cog%03d"</span> <span class="op">&lt;</span> emales-mmseqs_cluster.tsv <span class="op">&gt;</span> emales-cogs.tsv</code></pre></div>
-<div class="sourceCode"><html><body><pre class="r"><span class="no">emale_cogs</span> <span class="kw">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"emales-cogs.tsv"</span>, <span class="kw">col_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"feature_id"</span>, <span class="st">"cluster_id"</span>, <span class="st">"cluster_n"</span>))
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="ex">gff2cds</span> --aa --type CDS --source Prodigal_v2.6.3 --fna emales.fna emales.gff <span class="op">&gt;</span> emales.faa</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="ex">mmseqs</span> easy-cluster emales.faa emales-mmseqs /tmp -e 1e-5 -c 0.7<span class="kw">;</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="ex">cluster-ids</span> -t <span class="st">"cog%03d"</span> <span class="op">&lt;</span> emales-mmseqs_cluster.tsv <span class="op">&gt;</span> emales-cogs.tsv</a></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">emale_cogs</span> <span class="kw">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"emales-cogs.tsv"</span>, <span class="kw">col_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"feature_id"</span>, <span class="st">"cluster_id"</span>, <span class="st">"cluster_n"</span>))
 <span class="no">emale_cogs</span> <span class="kw">%&lt;&gt;%</span> <span class="fu">mutate</span>(
   <span class="kw">cluster_label</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">cluster_id</span>, <span class="st">" ("</span>, <span class="no">cluster_n</span>, <span class="st">")"</span>),
   <span class="kw">cluster_label</span> <span class="kw">=</span> <span class="fu">fct_lump_min</span>(<span class="no">cluster_label</span>, <span class="fl">5</span>, <span class="kw">other_level</span> <span class="kw">=</span> <span class="st">"rare"</span>),
@@ -246,18 +237,16 @@
   <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, <span class="kw">palette</span><span class="kw">=</span><span class="st">"Set3"</span>)
 
 <span class="no">p6</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p6.png">
-</div>
+<p><img src="emales/emales-p6.png"></p>
 </div>
 <div id="blast-hits-and-integrated-transposons" class="section level3">
 <h3 class="hasAnchor">
 <a href="#blast-hits-and-integrated-transposons" class="anchor"></a>Blast hits and integrated transposons</h3>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># mavirus.faa - published</span>
-<span class="ex">blastp</span> -query emales.faa -subject mavirus.faa -outfmt 7 <span class="op">&gt;</span> emales_mavirus-blastp.tsv
-<span class="fu">perl</span> -ne <span class="st">'if(/&gt;(\S+) gene=(\S+) product=(.+)/){print join("\t", $1, $2, $3), "\n"}'</span> \
-  mavirus.faa <span class="op">&gt;</span> mavirus.tsv</code></pre></div>
-<div class="sourceCode"><html><body><pre class="r"><span class="no">emale_blast</span> <span class="kw">&lt;-</span> <span class="fu">read_blast</span>(<span class="st">"emales_mavirus-blastp.tsv"</span>)
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># mavirus.faa - published</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="ex">blastp</span> -query emales.faa -subject mavirus.faa -outfmt 7 <span class="op">&gt;</span> emales_mavirus-blastp.tsv</a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="fu">perl</span> -ne <span class="st">'if(/&gt;(\S+) gene=(\S+) product=(.+)/){print join("\t", $1, $2, $3), "\n"}'</span> \</a>
+<a class="sourceLine" id="cb12-4" title="4">  mavirus.faa <span class="op">&gt;</span> mavirus.tsv</a></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">emale_blast</span> <span class="kw">&lt;-</span> <span class="fu">read_blast</span>(<span class="st">"emales_mavirus-blastp.tsv"</span>)
 <span class="no">emale_blast</span> <span class="kw">%&lt;&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">evalue</span> <span class="kw">&lt;</span> <span class="fl">1e-3</span>) <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(<span class="kw">feature_id</span><span class="kw">=</span><span class="no">qaccver</span>, <span class="kw">start</span><span class="kw">=</span><span class="no">qstart</span>, <span class="kw">end</span><span class="kw">=</span><span class="no">qend</span>, <span class="no">saccver</span>) <span class="kw">%&gt;%</span>
@@ -292,9 +281,7 @@
   <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html">italic</a></span>(<span class="st">"C. burkhardae"</span>))))
 
 <span class="no">p7</span></pre></body></html></div>
-<div class="figure">
-<img src="emales/emales-p7.png">
-</div>
+<p><img src="emales/emales-p7.png"></p>
 </div>
   </div>
 
