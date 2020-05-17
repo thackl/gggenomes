@@ -24,8 +24,8 @@ function addLang( jQuery ) {
     $("div.sourceCode").each(function(i, v){
         var lang = $(this).children("pre").attr("class").split(' ').pop()
         var Lang = lang[0].toUpperCase() + lang.slice(1)
-        $(this).prepend('<div class="codetag ' + lang + '">' + Lang + ' code</div>' +
-                        '<div class="codetagspace"></div>')
+        $(this).before('<div class="codelabel ' + lang + '">' + Lang + ' code</div>' +
+                        '<div class="codelabelspacer"></div>')
     })
     
     // document.getElementsByClassName("bash")[0]
