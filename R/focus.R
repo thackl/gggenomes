@@ -28,7 +28,7 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
   if(has_name(s, "end")) s <- select(s, -end)
 
   if(is.null(subseqs)){
-    subseqs <- filter(track(x, {{track_id}}), ...) %>%
+      subseqs <- pull_track(x, {{track_id}}, ...) %>%
       group_by(seq_id, bin_id) %>%
       summarize(
         start = min(start) - plus[1],
