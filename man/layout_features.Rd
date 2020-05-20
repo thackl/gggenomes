@@ -4,8 +4,13 @@
 \alias{layout_features}
 \title{Layout features}
 \usage{
-layout_features(x, seqs, keep = "strand", marginal = c("trim", "drop",
-  "keep"), ...)
+layout_features(
+  x,
+  seqs,
+  keep = "strand",
+  marginal = c("trim", "drop", "keep"),
+  ...
+)
 }
 \arguments{
 \item{x}{feature data convertible to a feature layout}

@@ -6,15 +6,35 @@
 \alias{layout_seqs}
 \title{Plot genomes, features and synteny maps}
 \usage{
-gggenomes(seqs = NULL, genes = NULL, features = NULL, links = NULL,
-  ..., theme = c("clean", NULL), .layout = NULL)
+gggenomes(
+  seqs = NULL,
+  genes = NULL,
+  features = NULL,
+  links = NULL,
+  ...,
+  theme = c("clean", NULL),
+  .layout = NULL
+)
 
-layout_genomes(seqs = NULL, genes = NULL, features = NULL,
-  links = NULL, infer_bin_id = seq_id, infer_start = min(start, end),
-  infer_end = max(start, end), infer_length = max(start, end), ...)
+layout_genomes(
+  seqs = NULL,
+  genes = NULL,
+  features = NULL,
+  links = NULL,
+  infer_bin_id = seq_id,
+  infer_start = min(start, end),
+  infer_end = max(start, end),
+  infer_length = max(start, end),
+  ...
+)
 
-layout_seqs(x, spacing = 0.05, wrap = NULL,
-  spacing_style = c("regular", "center", "spread"), keep = "strand")
+layout_seqs(
+  x,
+  spacing = 0.05,
+  wrap = NULL,
+  spacing_style = c("regular", "center", "spread"),
+  keep = "strand"
+)
 }
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}

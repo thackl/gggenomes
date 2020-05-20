@@ -4,10 +4,18 @@
 \alias{geom_gene}
 \title{Draw genes}
 \usage{
-geom_gene(mapping = NULL, data = use_genes(1, type == "CDS"),
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, arrow_size = c(3, 3, 3),
-  chevrons = NULL, ...)
+geom_gene(
+  mapping = NULL,
+  data = use_genes(1, type == "CDS"),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  arrow_size = c(3, 3, 3),
+  chevrons = NULL,
+  ...
+)
 }
 \description{
 Draw genes

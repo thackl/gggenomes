@@ -4,8 +4,14 @@
 \alias{focus}
 \title{Focus on features and regions of interest}
 \usage{
-focus(x, ..., track_id = genes, plus = 2000, marginal = c("trim",
-  "drop", "keep"), subseqs = NULL)
+focus(
+  x,
+  ...,
+  track_id = genes,
+  plus = 2000,
+  marginal = c("trim", "drop", "keep"),
+  subseqs = NULL
+)
 }
 \arguments{
 \item{x}{a gggenomes object}

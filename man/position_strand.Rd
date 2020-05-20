@@ -12,17 +12,25 @@
 \alias{PositionSixframe}
 \title{Stack features}
 \usage{
-position_strand(offset = 0.1, flip = FALSE, grouped = FALSE,
-  base = offset/2)
+position_strand(offset = 0.1, flip = FALSE, grouped = FALSE, base = offset/2)
 
-position_pile(offset = 0.1, gap = 1, flip = FALSE, grouped = FALSE,
-  base = offset)
+position_pile(
+  offset = 0.1,
+  gap = 1,
+  flip = FALSE,
+  grouped = FALSE,
+  base = offset
+)
 
-position_strandpile(offset = 0.1, gap = 1, flip = FALSE,
-  grouped = FALSE, base = offset * 1.5)
+position_strandpile(
+  offset = 0.1,
+  gap = 1,
+  flip = FALSE,
+  grouped = FALSE,
+  base = offset * 1.5
+)
 
-position_sixframe(offset = 0.1, flip = FALSE, grouped = FALSE,
-  base = offset/2)
+position_sixframe(offset = 0.1, flip = FALSE, grouped = FALSE, base = offset/2)
 }
 \arguments{
 \item{offset}{Shift overlapping features up/down this much on the y-axis. The

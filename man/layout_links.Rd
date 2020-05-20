@@ -4,8 +4,14 @@
 \alias{layout_links}
 \title{Layout tbl_link}
 \usage{
-layout_links(x, seqs, keep = "strand", adjacent_only = TRUE,
-  marginal = c("trim", "drop", "keep"), ...)
+layout_links(
+  x,
+  seqs,
+  keep = "strand",
+  adjacent_only = TRUE,
+  marginal = c("trim", "drop", "keep"),
+  ...
+)
 }
 \arguments{
 \item{x}{link data convertible to a link layout}

@@ -4,9 +4,17 @@
 \alias{geom_link}
 \title{Draw links}
 \usage{
-geom_link(mapping = NULL, data = use_links(1, abs(y - yend) == 1),
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, offset = 0.1, ...)
+geom_link(
+  mapping = NULL,
+  data = use_links(1, abs(y - yend) == 1),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  offset = 0.1,
+  ...
+)
 }
 \arguments{
 \item{offset}{distance between seq center and link start. Use two values
