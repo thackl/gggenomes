@@ -166,7 +166,9 @@ add_clusters.gggenomes <- function(x, parent_track_id, ...){
 
 #' @export
 add_clusters.gggenomes_layout <- function(x, parent_track_id, ...){
-  if(!has_dots()) return(x)
+  if(!has_dots())
+    rlang::abort("no clusters data provided - did you forget parent_track_id as first argument")
+
   pid <- tidyselect::vars_pull(track_ids(x), {{parent_track_id}})
   dot_exprs <- enexprs(...) # defuse before list(...)
   tracks <- as_tracks(list(...), dot_exprs, track_ids(x))

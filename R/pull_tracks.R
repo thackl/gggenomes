@@ -47,16 +47,19 @@ pull_links.gggenomes <- function(.x, .track_id=1, ...){
 }
 #' @export
 pull_links.gggenomes_layout <- function(.x, .track_id=1, ...){
-  filter(.x$links[[.track_id]], ...)
+  track_id <- tidyselect::vars_pull(names(.x$links), {{.track_id}})
+  filter(.x$links[[track_id]], ...)
 }
 #' @rdname pull_seqs
 #' @export
 pull_track <- function(.x, .track_id=1, ...){
   UseMethod("pull_track")
 }
+#' @export
 pull_track.gggenomes <- function(.x, .track_id=1, ...){
   pull_track(.x$data, {{.track_id}}, ...)
 }
+#' @export
 pull_track.gggenomes_layout <- function(.x, .track_id=1, ...){
   track_ids <- track_ids(.x)
   track_id <- tidyselect::vars_pull(track_ids, {{.track_id}})
