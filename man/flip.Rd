@@ -2,13 +2,35 @@
 % Please edit documentation in R/flip.R
 \name{flip}
 \alias{flip}
-\alias{flip_bins}
-\title{Flip sequences or entire bins}
+\alias{flip_seq}
+\alias{flip_nicely}
+\title{Flip bins and sequences}
 \usage{
-flip(x, ..., bins = everything())
+flip(x, ...)
 
-flip_bins(x, ...)
+flip_seq(x, ..., .bins = everything())
+
+flip_nicely(x, link_track = 1, min_coverage = 0.2)
+}
+\arguments{
+\item{x}{a gggenomes object}
+
+\item{...}{bins or sequences to flip in dplyr::select like syntax (numeric
+position or unquoted expressions)}
+
+\item{.bins}{preselection of bins with sequences to flip. Useful if selecting
+by numeric position. It sets the context for selection, for example the
+11th sequences of the total set might more easily described as the 2nd
+sequences of the 3rd bin: \code{flip_seq(2, bins=3)}}
+
+\item{link_track}{the link track to use for flipping bins nicely}
+
+\item{min_coverage}{at least this much of the shorter bin must be covered by
+links supporting a flip to actually carry it out.}
 }
 \description{
-Flip sequences or entire bins
+\code{flip} and \code{flip_seq} reverse-complement specified bins or
+individual sequences and their features. \code{flip_nicely} automatically
+flips bins using a heuristic that maximizes the amount of forward strand
+links between neighboring bins.
 }
