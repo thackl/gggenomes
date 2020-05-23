@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Flip sequences or entire bins — flip • gggenomes</title>
+<title>Flip bins and sequences — flip • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,11 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Flip sequences or entire bins — flip" />
-<meta property="og:description" content="Flip sequences or entire bins" />
+<meta property="og:title" content="Flip bins and sequences — flip" />
+<meta property="og:description" content="flip and flip_seq reverse-complement specified bins or
+individual sequences and their features. flip_nicely automatically
+flips bins using a heuristic that maximizes the amount of forward strand
+links between neighboring bins." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -130,21 +133,72 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Flip sequences or entire bins</h1>
+    <h1>Flip bins and sequences</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/flip.R'><code>R/flip.R</code></a></small>
     <div class="hidden name"><code>flip.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Flip sequences or entire bins</p>
+    <p><code>flip</code> and <code>flip_seq</code> reverse-complement specified bins or
+individual sequences and their features. <code>flip_nicely</code> automatically
+flips bins using a heuristic that maximizes the amount of forward strand
+links between neighboring bins.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flip</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fu'>everything</span>())
+    <pre class="usage"><span class='fu'>flip</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>flip_bins</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>flip_seq</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>.bins</span> <span class='kw'>=</span> <span class='fu'>everything</span>())
+
+<span class='fu'>flip_nicely</span>(<span class='no'>x</span>, <span class='kw'>link_track</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>min_coverage</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>a gggenomes object</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>bins or sequences to flip in dplyr::select like syntax (numeric
+position or unquoted expressions)</p></td>
+    </tr>
+    <tr>
+      <th>.bins</th>
+      <td><p>preselection of bins with sequences to flip. Useful if selecting
+by numeric position. It sets the context for selection, for example the
+11th sequences of the total set might more easily described as the 2nd
+sequences of the 3rd bin: <code>flip_seq(2, bins=3)</code></p></td>
+    </tr>
+    <tr>
+      <th>link_track</th>
+      <td><p>the link track to use for flipping bins nicely</p></td>
+    </tr>
+    <tr>
+      <th>min_coverage</th>
+      <td><p>at least this much of the shorter bin must be covered by
+links supporting a flip to actually carry it out.</p></td>
+    </tr>
+    </table>
 
 
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span>(<span class='no'>emale_seqs</span>[<span class='fl'>1</span>:<span class='fl'>7</span>,], <span class='kw'>links</span><span class='kw'>=</span><span class='no'>emale_links</span>) +
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span>(<span class='fu'>aes</span>(<span class='kw'>color</span><span class='kw'>=</span><span class='no'>strand</span>), <span class='kw'>arrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>) + <span class='fu'><a href='geom_link.html'>geom_link</a></span>() +
+  <span class='fu'>scale_color_manual</span>(<span class='kw'>values</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"+"</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='st'>"-"</span><span class='kw'>=</span><span class='st'>"red"</span>))
+<span class='co'># some bins would align nicer if reverse-complemented</span>
+<span class='no'>p</span></div><div class='img'><img src='flip-1.png' alt='' width='1152' height='712' /></div><div class='input'>
+<span class='co'># flip bins 3, 4 and 5</span>
+<span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>flip</span>(<span class='fl'>3</span>:<span class='fl'>5</span>)</div><div class='img'><img src='flip-2.png' alt='' width='1152' height='712' /></div><div class='input'>
+<span class='co'># flip automatically based on links</span>
+<span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>flip_nicely</span>()</div><div class='img'><img src='flip-3.png' alt='' width='1152' height='712' /></div><div class='input'>
+<span class='co'># also works with links from clusters</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span>(<span class='no'>emale_seqs</span>[<span class='fl'>1</span>:<span class='fl'>7</span>,], <span class='no'>emale_genes</span>) +
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span>(<span class='fu'>aes</span>(<span class='kw'>color</span><span class='kw'>=</span><span class='no'>strand</span>), <span class='kw'>arrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>) + <span class='fu'><a href='geom_link.html'>geom_link</a></span>() +
+  <span class='fu'>scale_color_manual</span>(<span class='kw'>values</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"+"</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='st'>"-"</span><span class='kw'>=</span><span class='st'>"red"</span>))
+<span class='no'>p</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_clusters.html'>add_clusters</a></span>(<span class='no'>genes</span>, <span class='no'>emale_cogs</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>flip_nicely</span>(<span class='no'>emale_cogs</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = "feature_id"</span></div><div class='img'><img src='flip-4.png' alt='' width='1152' height='712' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

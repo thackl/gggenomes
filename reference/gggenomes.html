@@ -139,15 +139,35 @@
     <p>Sequence data: `read_fai`</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gggenomes</span>(<span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>, <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>), <span class='kw'>.layout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>gggenomes</span>(
+  <span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>),
+  <span class='kw'>.layout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>layout_genomes</span>(<span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>infer_bin_id</span> <span class='kw'>=</span> <span class='no'>seq_id</span>, <span class='kw'>infer_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='kw'>infer_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='kw'>infer_length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>), <span class='no'>...</span>)
+<span class='fu'>layout_genomes</span>(
+  <span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>infer_bin_id</span> <span class='kw'>=</span> <span class='no'>seq_id</span>,
+  <span class='kw'>infer_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
+  <span class='kw'>infer_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
+  <span class='kw'>infer_length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
+  <span class='no'>...</span>
+)
 
-<span class='fu'>layout_seqs</span>(<span class='no'>x</span>, <span class='kw'>spacing</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>wrap</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spacing_style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span>), <span class='kw'>keep</span> <span class='kw'>=</span> <span class='st'>"strand"</span>)</pre>
+<span class='fu'>layout_seqs</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>spacing</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>wrap</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>spacing_style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span>),
+  <span class='kw'>keep</span> <span class='kw'>=</span> <span class='st'>"strand"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

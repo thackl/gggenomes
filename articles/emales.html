@@ -90,7 +90,7 @@
       <h1 data-toc-skip>From a few sequences to a complex map in minutes</h1>
                         <h4 class="author">Thomas Hackl</h4>
             
-            <h4 class="date">2020-05-17</h4>
+            <h4 class="date">2020-05-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd"><code>vignettes/emales.Rmd</code></a></small>
       <div class="hidden name"><code>emales.Rmd</code></div>
@@ -186,7 +186,7 @@
   <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>() +
   <span class="fu">scale_fill_distiller</span>(<span class="kw">palette</span><span class="kw">=</span><span class="st">"Spectral"</span>)
 
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="no">p4</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/flip.html">flip_bins</a></span>(<span class="fl">3</span>:<span class="fl">5</span>)
+<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="no">p4</span> <span class="kw">%&gt;%</span> <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>)
 <span class="no">p4</span></pre></body></html></div>
 <p><img src="emales/emales-p4.png"></p>
 </div>
@@ -223,7 +223,7 @@
 <span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_gc</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_clusters.html">add_clusters</a></span>(<span class="no">genes</span>, <span class="no">emale_cogs</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/flip.html">flip_bins</a></span>(<span class="fl">3</span>:<span class="fl">5</span>) +
+  <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>) +
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
   <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">features</span>)) +
   <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">cluster_label</span>)) +
@@ -258,7 +258,7 @@
   <span class="fu"><a href="../reference/add_clusters.html">add_clusters</a></span>(<span class="no">genes</span>, <span class="no">emale_cogs</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_transposons</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/add_subfeatures.html">add_subfeatures</a></span>(<span class="no">genes</span>, <span class="no">emale_blast</span>, <span class="kw">transform</span><span class="kw">=</span><span class="st">"aa2nuc"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/flip.html">flip_bins</a></span>(<span class="fl">3</span>:<span class="fl">5</span>) +
+  <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>) +
   <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="st">"integrated transposon"</span>),
     <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_transposons</span>), <span class="kw">size</span><span class="kw">=</span><span class="fl">7</span>) +
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +

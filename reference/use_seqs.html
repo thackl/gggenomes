@@ -157,7 +157,7 @@ allow you to pass on filter arguments to subset the data.</p>
 
 <span class='fu'>use_genes</span>(<span class='kw'>.track_id</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)
 
-<span class='fu'>use_bins</span>(<span class='no'>...</span>, <span class='kw'>.group_vars</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>bin_id</span>, <span class='no'>y</span>))</pre>
+<span class='fu'>use_bins</span>(<span class='no'>...</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>vars</span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,10 +172,10 @@ allow you to pass on filter arguments to subset the data.</p>
 as a positive/negative integer giving the position from the left/right.</p></td>
     </tr>
     <tr>
-      <th>.group_vars</th>
-      <td><p>what variables to use in grouping of bins from seqs. Use
-this to get additional shared variables from the seqs table into the bins
-table.</p></td>
+      <th>group</th>
+      <td><p>what variables to use in grouping of bins from seqs in addition
+to `y` and `bin_id`. Use this to get additional shared variables from the
+seqs table into the bins table.</p></td>
     </tr>
     </table>
 
