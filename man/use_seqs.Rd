@@ -10,7 +10,7 @@
 \usage{
 use_seqs(...)
 
-use_features(.track_id = -1, ...)
+use_features(.track_id = 1, ..., .ignore = "genes")
 
 use_links(.track_id = 1, ...)
 
@@ -23,6 +23,8 @@ use_bins(..., group = vars())
 
 \item{.track_id}{The track to pull out, either as a literal variable name or
 as a positive/negative integer giving the position from the left/right.}
+
+\item{.ignore}{a regular string vector listing track ids to ignore.}
 
 \item{group}{what variables to use in grouping of bins from seqs in addition
 to `y` and `bin_id`. Use this to get additional shared variables from the

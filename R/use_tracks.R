@@ -16,10 +16,10 @@ use_seqs <- function(...){
 }
 #' @rdname use_seqs
 #' @export
-use_features <- function(.track_id=-1, ...){
+use_features <- function(.track_id=1, ..., .ignore="genes"){
   dots <- quos(...)
   function(.x, ...){
-    pull_features(.x, {{.track_id}}, !!! dots)
+    pull_features(.x, {{.track_id}}, !!! dots, .ignore=.ignore)
   }
 }
 #' @rdname use_seqs

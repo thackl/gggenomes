@@ -9,6 +9,7 @@
 #' @param .x A gggenomes or gggenomes_layout object
 #' @param .track_id The track to pull out, either as a literal variable name or
 #' as a positive/negative integer giving the position from the left/right.
+#' @param .ignore a regular string vector listing track ids to ignore.
 #' @param ... Logical predicates passed on to [dplyr::filter].
 #' @export
 pull_seqs <- function(.x, ...){
@@ -24,16 +25,17 @@ pull_seqs.gggenomes_layout <- function(.x, ...){
 }
 #' @rdname pull_seqs
 #' @export
-pull_features <- function(.x, .track_id=-1, ...){
+pull_features <- function(.x, .track_id=1, ..., .ignore="genes"){
   UseMethod("pull_features")
 }
 #' @export
-pull_features.gggenomes <- function(.x, .track_id=-1, ...){
-  pull_features(.x$data, {{.track_id}}, ...)
+pull_features.gggenomes <- function(.x, .track_id=1, ..., .ignore="genes"){
+  pull_features(.x$data, {{.track_id}}, ..., .ignore=.ignore)
 }
 #' @export
-pull_features.gggenomes_layout <- function(.x, .track_id=-1, ...){
-  track_id <- tidyselect::vars_pull(names(.x$features), {{.track_id}})
+pull_features.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore="genes"){
+  track_ids <- setdiff(names(.x$features), .ignore)
+  track_id <- tidyselect::vars_pull(track_ids, {{.track_id}})
   filter(.x$features[[track_id]], ...)
 }
 #' @rdname pull_seqs

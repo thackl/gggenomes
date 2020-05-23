@@ -9,7 +9,7 @@
 \usage{
 pull_seqs(.x, ...)
 
-pull_features(.x, .track_id = -1, ...)
+pull_features(.x, .track_id = 1, ..., .ignore = "genes")
 
 pull_links(.x, .track_id = 1, ...)
 
@@ -22,6 +22,8 @@ pull_track(.x, .track_id = 1, ...)
 
 \item{.track_id}{The track to pull out, either as a literal variable name or
 as a positive/negative integer giving the position from the left/right.}
+
+\item{.ignore}{a regular string vector listing track ids to ignore.}
 }
 \description{
 Uses semantics similar to [dplyr::pull] to access tracks by unquoted ids or
