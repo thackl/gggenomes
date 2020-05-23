@@ -150,7 +150,12 @@ flip_strand.character <- function(strand, na=NA){
 }
 
 #' @export
-combine_strands <- function(strand1, strand2){
+combine_strands <- function(strand1, strand2, ...){
+    strands <- c(list(strand1, strand2), list(...))
+    reduce(strands, combine_two_strands)
+}
+
+combine_two_strands <- function(strand1, strand2){
   if(is.character(strand1) || is.factor(strand))
     return(strand_chr(strand_int(strand1) * strand_int(strand2)))
   if(is.logical(strand1))
