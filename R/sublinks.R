@@ -55,15 +55,13 @@ as_sublinks.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
       left_join(select(features, feature_id1=feature_id, seq_id1=seq_id, .feat_start=start,
         .feat_end = end, .feat_strand1 = strand), by = shared_names(x, "seq_id1", "feature_id1")) %>%
       mutate(
-        start1 = ifelse(is_reverse(.feat_strand1), .feat_end, .feat_start),
-        end1 = ifelse(is_reverse(.feat_strand1), .feat_start, .feat_end),
+        start1 = .feat_start, end1 = .feat_end,
         .feat_start=NULL, .feat_end=NULL) %>%
       left_join(select(features, feature_id2=feature_id, seq_id2=seq_id, .feat_start=start,
         .feat_end = end, .feat_strand2 = strand), by = shared_names(x, "seq_id2", "feature_id2")) %>%
       mutate(
-        start2 = ifelse(is_reverse(.feat_strand2), .feat_end, .feat_start),
-        end2 = ifelse(is_reverse(.feat_strand2), .feat_start, .feat_end),
-        strand = .feat_strand1 == .feat_strand2,
+        start2 = .feat_start, end2 = .feat_end,
+        strand = strand_chr(.feat_strand1 == .feat_strand2),
         .feat_start=NULL, .feat_end=NULL, .feat_strand1=NULL, .feat_strand2=NULL)
 
     vars <- c("feature_id1", "start1", "end1", "feature_id2", "start2", "end2")
