@@ -34,3 +34,24 @@ individual sequences and their features. \code{flip_nicely} automatically
 flips bins using a heuristic that maximizes the amount of forward strand
 links between neighboring bins.
 }
+\examples{
+p <- gggenomes(emale_seqs[1:7,], links=emale_links) +
+  geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
+  scale_color_manual(values=c("+"="blue", "-"="red"))
+# some bins would align nicer if reverse-complemented
+p
+
+# flip bins 3, 4 and 5
+p \%>\% flip(3:5)
+
+# flip automatically based on links
+p \%>\% flip_nicely()
+
+# also works with links from clusters
+p <- gggenomes(emale_seqs[1:7,], emale_genes) +
+  geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
+  scale_color_manual(values=c("+"="blue", "-"="red"))
+p \%>\%
+  add_clusters(genes, emale_cogs) \%>\%
+  flip_nicely(emale_cogs)
+}
