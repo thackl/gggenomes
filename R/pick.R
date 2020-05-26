@@ -15,6 +15,8 @@
 #'
 #' `pick_bins` works on entire bins.
 #'
+#' `pick_by_tree` picks sequences to align with a given phylogenetic tree.
+#'
 #' @param ... seqs to pick, select-like expression
 #' @param bins to pick from, expression, enclose multiple args in c()
 #' @export
@@ -35,6 +37,17 @@ pick_at <- function(x, ..., bins=everything()){
 pick_bins <- function(x, ...){
   if(!has_dots()) return(x)
   pick_impl(x, bins=c(...))
+}
+#' @rdname pick
+#' @param tree a phylogenetic tree in ggtree or phylo format.
+#' @param infer_seq_id an expression to extract seq_ids from the tree data.
+#' @export
+pick_by_tree <- function(x, tree, infer_seq_id = label){
+  if(inherits(tree, "phylo")) tree <- ggtree(tree)
+  seq_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
+    transmute(seq_id = {{ infer_seq_id }}) %>% pull(seq_id)
+  tree_only <- setdiff(seq_ids, x$data$seqs)
+  pick(x, all_of(seq_ids))
 }
 
 pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){

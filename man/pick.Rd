@@ -4,6 +4,7 @@
 \alias{pick}
 \alias{pick_at}
 \alias{pick_bins}
+\alias{pick_by_tree}
 \title{Pick seqs and bins by name or position}
 \usage{
 pick(x, ..., bins = everything())
@@ -11,11 +12,17 @@ pick(x, ..., bins = everything())
 pick_at(x, ..., bins = everything())
 
 pick_bins(x, ...)
+
+pick_by_tree(x, tree, infer_seq_id = label)
 }
 \arguments{
 \item{...}{seqs to pick, select-like expression}
 
 \item{bins}{to pick from, expression, enclose multiple args in c()}
+
+\item{tree}{a phylogenetic tree in ggtree or phylo format.}
+
+\item{infer_seq_id}{an expression to extract seq_ids from the tree data.}
 }
 \description{
 Pick which sequences and bins to show and in what order. Uses
@@ -33,4 +40,6 @@ the third bin.
 `pick_at` keeps bins that are not picked from, as they are.
 
 `pick_bins` works on entire bins.
+
+`pick_by_tree` picks sequences to align with a given phylogenetic tree.
 }
