@@ -32,10 +32,10 @@ use_links <- function(.track_id=1, ...){
 }
 #' @rdname use_seqs
 #' @export
-use_genes <- function(.track_id=1, ...){
+use_genes <- function(.track_id=1, ..., .ignore=NA){
   dots <- quos(...)
   function(.x, ...){
-    t <- pull_features(.x, {{.track_id}})
+    t <- pull_features(.x, {{.track_id}}, .ignore=.ignore)
     if(is_likely_feature_track(t)){
       if(!has_name(t, "type")) t[["type"]] <- "CDS"
       if(!has_name(t, "gene_id")) t[["gene_id"]] <- paste0("__", seq_len(nrow((t))))
