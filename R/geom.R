@@ -23,20 +23,32 @@ geom_seq <- function(mapping = NULL, data = use_seqs(),
 #' @param data feature_layout
 #' @export
 geom_feature <- function(mapping = NULL, data = use_features(),
-    arrow = NULL, nudge_by_strand = NULL, size = 3, ...){
+    arrow = NULL, nudge_by_strand = NULL, size = 3, color="grey40", ...){
 
   default_aes <- aes(x, y, xend=xend, yend=y)
   mapping <- aes_intersect(mapping, default_aes)
   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)
 
-  # default arrow
-  if (!rlang::is_null(arrow) & !inherits(arrow, "arrow"))
-    arrow <- grid::arrow(length = unit(3, "pt"))
-
   # would be cleaner with GeomFeature ggproto...
   if (has_name(mapping, "size")) size <- NULL
+  r <- list(geom_segment(mapping = mapping, data = data, size = size, color=color, ...))
 
-  geom_segment(mapping = mapping, data = data, arrow = arrow, size = size, ...)
+  if (!rlang::is_null(arrow)){
+    if(!inherits(arrow, "arrow")) arrow <- grid::arrow(length = unit(2, "mm"))
+    r <- c(r, list(
+      geom_segment(aes(x=ifelse(x<xend, xend-1, xend+1), y, xend=xend, yend=y), data=data,
+                   arrow=arrow, size=0.5, color="grey85")))
+  }
+  r
+}
+#' Draw genes fast but not so pretty
+#'
+#' @param data feature_layout
+#' @export
+geom_gene_fast <- function(mapping = NULL, data = use_genes(),
+    arrow = TRUE, nudge_by_strand = NULL, size = 4, color = "cornflowerblue", ...){
+  geom_feature(mapping=mapping, data=data, arrow=arrow,
+               nudge_by_strand=nudge_by_strand, size=size, color = color, ...)
 }
 
 #' draw feature labels
