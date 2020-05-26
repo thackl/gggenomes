@@ -37,7 +37,7 @@ as_sublinks.default <- function(x, seqs, features, ..., everything=TRUE) {
 
 #' @export
 as_sublinks.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
-    transform = c("none", "aa2nuc", "nuc2aa")){
+    transform = c("none", "aa2nuc", "nuc2aa"), compute_layout=TRUE){
   transform <- match.arg(transform)
   # TODO - bad transform, not none,aa2nuc,nuc2aa
 
@@ -106,7 +106,10 @@ as_sublinks.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
         .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
   }
 
-  layout_links(x, seqs, ...)
+  if(compute_layout)
+      layout_links(x, seqs, ...)
+  else
+      x
 }
 
 
@@ -139,13 +142,14 @@ add_sublinks.gggenomes_layout <- function(x, parent_track_id, ...,
   if(!has_dots()) return(x)
   dot_exprs <- enexprs(...) # defuse before list(...)
   tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
-  add_sublink_tracks(x, {{parent_track_id}}, tracks, transform)
+    add_sublink_tracks(x, {{parent_track_id}}, tracks, transform)
 }
 
 add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
   features <- pull_track(x, {{parent_track_id}})
-  links <- map(tracks, as_sublinks, x$seqs, features, transform = transform)
-  x$links <- c(x$links, links)
+  links <- map(tracks, as_sublinks, x$seqs, features, transform = transform,
+               compute_layout=FALSE) # layout only keeps adjacent
+  x$links <- c(x$links, map(links, layout_links, x$seqs))
   x$orig_links <- c(x$orig_links, links)
   x
 }
