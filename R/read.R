@@ -68,3 +68,55 @@ read_paf <- function(file, max_tags=20){
       length1=query_length, length2=target_length
     )
 }
+
+#' Read AliTV .json file
+#'
+#' this file contains sequences, links and (optionally) genes
+#'
+#' @importFrom tidyr unnest_wider
+#' @importFrom tidyr unnest
+#' @importFrom jsonlite fromJSON
+#' @param file path to json
+#' @export
+#' @return list with seqs, genes, and links
+#' @examples
+#' ali <- read_alitv("https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json")
+#' gggenomes(ali$seqs, ali$genes, links=ali$links) +
+#'   geom_seq() +
+#'   geom_bin_label() +
+#'   geom_gene(aes(fill=class)) +
+#'   geom_link()
+#' p <- gggenomes(ali$seqs, ali$genes, links=ali$links) +
+#'   geom_seq() +
+#'   geom_bin_label() +
+#'   geom_gene(aes(color=class)) +
+#'   geom_link(aes(fill=identity)) +
+#'   scale_fill_distiller(palette="RdYlGn", direction = 1)
+#' p %>% flip_seq("Same_gi") %>% pick(1,3,2,4,5,6,7,8)
+read_alitv <- function(file){
+  ali <- jsonlite::fromJSON(file, simplifyDataFrame=TRUE)
+  seqs <- tibble(seq = ali$data$karyo$chromosome) %>%
+    mutate(seq_id = names(seq)) %>%
+    unnest_wider(seq) %>%
+    rename(bin_id = genome_id)
+  genes <- tibble(feature = ali$data$feature) %>%
+    mutate(class = names(feature)) %>%
+    filter(class != "link") %>%
+    unnest(feature) %>%
+    rename(seq_id=karyo)
+  links <- tibble(links=ali$data$links) %>% unnest(links) %>% unnest(links) %>% unnest_wider(links)
+  link_pos <- tibble(link=ali$data$features$link) %>% mutate(id=names(link)) %>% unnest_wider(link)
+  links <- links %>%
+    left_join(link_pos, by=c("source"="id")) %>%
+    left_join(link_pos, by=c("target"="id")) %>%
+    transmute(
+        seq_id1=karyo.x,
+        start1=start.x,
+        end1=end.x,
+        seq_id2=karyo.y,
+        start2=start.y,
+        end2=end.y,
+        identity=identity
+    )
+  return(list(seqs=seqs,genes=genes,links=links))
+}

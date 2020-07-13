@@ -6,7 +6,7 @@ name: pkgdown
 
 jobs:
   pkgdown:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -17,6 +17,10 @@ jobs:
           r-version: 4.0.0
 
       - uses: r-lib/actions/setup-pandoc@master
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get install libcurl4-openssl-dev
       
       - name: Install XQuartz
         if: runner.os == 'macOS'
@@ -32,8 +36,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.0-0-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.0-0-
+          key: ubuntu-r-4.0-0-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ubuntu-r-4.0-0-
 
       - name: Install dependencies
         run: |
@@ -44,6 +48,11 @@ jobs:
 
       - name: Install package
         run: R CMD INSTALL .
+
+      - name: Configure git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Deploy package
         run: pkgdown::deploy_to_branch(new_process = FALSE)
