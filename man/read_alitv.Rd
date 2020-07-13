@@ -2,15 +2,31 @@
 % Please edit documentation in R/read.R
 \name{read_alitv}
 \alias{read_alitv}
-\title{read an AliTV .json file
-this usually contains sequences, links and (optionally) genes}
+\title{Read AliTV .json file}
 \usage{
 read_alitv(file)
 }
+\arguments{
+\item{file}{path to json}
+}
 \value{
-list
+list with seqs, genes, and links
 }
 \description{
-read an AliTV .json file
-this usually contains sequences, links and (optionally) genes
+this file contains sequences, links and (optionally) genes
+}
+\examples{
+ali <- read_alitv("https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json")
+gggenomes(ali$seqs, ali$genes, links=ali$links) +
+  geom_seq() +
+  geom_bin_label() +
+  geom_gene(aes(fill=class)) +
+  geom_link()
+p <- gggenomes(ali$seqs, ali$genes, links=ali$links) +
+  geom_seq() +
+  geom_bin_label() +
+  geom_gene(aes(color=class)) +
+  geom_link(aes(fill=identity)) +
+  scale_fill_distiller(palette="RdYlGn", direction = 1)
+p \%>\% flip_seq("Same_gi") \%>\% pick(1,3,2,4,5,6,7,8)
 }

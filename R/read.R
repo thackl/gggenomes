@@ -69,22 +69,23 @@ read_paf <- function(file, max_tags=20){
     )
 }
 
-#' read an AliTV .json file
-#' this usually contains sequences, links and (optionally) genes
+#' Read AliTV .json file
+#'
+#' this file contains sequences, links and (optionally) genes
 #'
 #' @importFrom tidyr unnest_wider
+#' @importFrom tidyr unnest
 #' @importFrom jsonlite fromJSON
+#' @param file path to json
 #' @export
 #' @return list with seqs, genes, and links
 #' @examples
 #' ali <- read_alitv("https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json")
-#'
 #' gggenomes(ali$seqs, ali$genes, links=ali$links) +
 #'   geom_seq() +
 #'   geom_bin_label() +
 #'   geom_gene(aes(fill=class)) +
 #'   geom_link()
-#'
 #' p <- gggenomes(ali$seqs, ali$genes, links=ali$links) +
 #'   geom_seq() +
 #'   geom_bin_label() +
