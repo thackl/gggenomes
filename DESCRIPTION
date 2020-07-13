@@ -26,7 +26,8 @@ Depends:
     readr,
     stringr,
     thacklr,
-    tibble
+    tibble,
+    jsonlite
 Suggests:
     testthat,
     rtracklayer
