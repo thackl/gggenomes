@@ -144,7 +144,7 @@ columns. Ignores tagged extra fields.</h1>
 columns. Ignores tagged extra fields.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_paf</span>(<span class='no'>file</span>, <span class='kw'>max_tags</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
+    <pre class="usage"><span class='fu'>read_paf</span>(<span class='kw'>file</span>, max_tags = <span class='fl'>20</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,7 +161,7 @@ decompressed.</p>
 <p>Literal data is most useful for examples and tests. It must contain at
 least one new line to be recognised as data (instead of a path) or be a
 vector of greater than length 1.</p>
-<p>Using a value of <code><a href='https://rdrr.io/r/base/connections.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
+<p>Using a value of <code><a href='https://rdrr.io/r/utils/clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
       <th>max_tags</th>

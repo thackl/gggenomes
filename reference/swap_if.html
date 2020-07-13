@@ -139,7 +139,7 @@
     <p>Swap values of two columns based on a condition</p>
     </div>
 
-    <pre class="usage"><span class='fu'>swap_if</span>(<span class='no'>x</span>, <span class='no'>condition</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>swap_if</span>(<span class='kw'>x</span>, <span class='kw'>condition</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,8 +162,8 @@ dplyr::select-like syntax</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>100</span>), <span class='kw'>end</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>50</span>))
-<span class='fu'>swap_if</span>(<span class='no'>start</span> <span class='kw'>&gt;</span> <span class='no'>end</span>, <span class='no'>start</span>, <span class='no'>end</span>) <span class='co'># ensure start of a range is always smaller than the end</span></div><div class='output co'>#&gt; <span class='error'>Error in swap_if(start &gt; end, start, end): could not find function "swap_if"</span></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span>(start = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>100</span>), end=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>30</span>, <span class='fl'>50</span>))
+<span class='fu'>swap_if</span>(<span class='kw'>start</span> <span class='op'>&gt;</span> <span class='kw'>end</span>, <span class='kw'>start</span>, <span class='kw'>end</span>) <span class='co'># ensure start of a range is always smaller than the end</span></div><div class='output co'>#&gt; <span class='error'>Error in swap_if(start &gt; end, start, end): could not find function "swap_if"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

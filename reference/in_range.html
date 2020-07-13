@@ -139,7 +139,7 @@
     <p>Do numeric values fall into specified ranges?</p>
     </div>
 
-    <pre class="usage"><span class='fu'>in_range</span>(<span class='no'>x</span>, <span class='no'>left</span>, <span class='no'>right</span>, <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>in_range</span>(<span class='kw'>x</span>, <span class='kw'>left</span>, <span class='kw'>right</span>, closed = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,13 +165,15 @@ boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.</p></td>
     <p>a logical vector of the same length as the input</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 2, 4): could not find function "in_range"</span></div><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, <span class='kw'>closed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>)) <span class='co'># left-open</span></div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 2, 4, closed = c(FALSE, TRUE)): could not find function "in_range"</span></div><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>6</span>:<span class='fl'>2</span>, <span class='fl'>3</span>) <span class='co'># vector of boundaries, single values recycle</span></div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 6:2, 3): could not find function "in_range"</span></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 2, 4): could not find function "in_range"</span></div><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, closed=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>)) <span class='co'># left-open</span></div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 2, 4, closed = c(FALSE, TRUE)): could not find function "in_range"</span></div><div class='input'><span class='fu'>in_range</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span>) <span class='co'># vector of boundaries, single values recycle</span></div><div class='output co'>#&gt; <span class='error'>Error in in_range(1:5, 6:2, 3): could not find function "in_range"</span></div><div class='input'>
 
 <span class='co'># plays nicely with dplyr</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>tibble</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>), <span class='kw'>left</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>right</span><span class='kw'>=</span><span class='fl'>3</span>:<span class='fl'>7</span>)
-<span class='fu'>mutate</span>(<span class='no'>df</span>,
-  <span class='kw'>closed</span><span class='kw'>=</span><span class='fu'>in_range</span>(<span class='no'>x</span>, <span class='no'>left</span>, <span class='no'>right</span>, <span class='fl'>TRUE</span>),
-  <span class='kw'>open</span><span class='kw'>=</span><span class='fu'>in_range</span>(<span class='no'>x</span>, <span class='no'>left</span>, <span class='no'>right</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; <span class='error'>Error in in_range(x, left, right, TRUE): could not find function "in_range"</span></div></pre>
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span>(x=<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>4</span>,<span class='fl'>5</span>), left=<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, right=<span class='fl'>3</span><span class='op'>:</span><span class='fl'>7</span>)
+<span class='fu'>mutate</span>(<span class='kw'>df</span>,
+  closed=<span class='fu'>in_range</span>(<span class='kw'>x</span>, <span class='kw'>left</span>, <span class='kw'>right</span>, <span class='fl'>TRUE</span>),
+  open=<span class='fu'>in_range</span>(<span class='kw'>x</span>, <span class='kw'>left</span>, <span class='kw'>right</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; <span class='error'>Error: Problem with `mutate()` input `closed`.</span>
+#&gt; <span class='error'><span style='color: #BB0000;'>✖</span><span> could not find function "in_range"</span>
+#&gt; <span class='error'></span><span style='color: #0000BB;'>ℹ</span><span> Input `closed` is `in_range(x, left, right, TRUE)`.</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

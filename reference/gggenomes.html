@@ -140,33 +140,33 @@
     </div>
 
     <pre class="usage"><span class='fu'>gggenomes</span>(
-  <span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>theme</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>),
-  <span class='kw'>.layout</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  seqs = <span class='kw'>NULL</span>,
+  genes = <span class='kw'>NULL</span>,
+  features = <span class='kw'>NULL</span>,
+  links = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>,
+  theme = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>),
+  .layout = <span class='kw'>NULL</span>
 )
 
 <span class='fu'>layout_genomes</span>(
-  <span class='kw'>seqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>genes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>infer_bin_id</span> <span class='kw'>=</span> <span class='no'>seq_id</span>,
-  <span class='kw'>infer_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='kw'>infer_end</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='kw'>infer_length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>start</span>, <span class='no'>end</span>),
-  <span class='no'>...</span>
+  seqs = <span class='kw'>NULL</span>,
+  genes = <span class='kw'>NULL</span>,
+  features = <span class='kw'>NULL</span>,
+  links = <span class='kw'>NULL</span>,
+  infer_bin_id = <span class='kw'>seq_id</span>,
+  infer_start = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>start</span>, <span class='kw'>end</span>),
+  infer_end = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>start</span>, <span class='kw'>end</span>),
+  infer_length = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>start</span>, <span class='kw'>end</span>),
+  <span class='kw'>...</span>
 )
 
 <span class='fu'>layout_seqs</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>spacing</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>wrap</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>spacing_style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span>),
-  <span class='kw'>keep</span> <span class='kw'>=</span> <span class='st'>"strand"</span>
+  <span class='kw'>x</span>,
+  spacing = <span class='fl'>0.05</span>,
+  wrap = <span class='kw'>NULL</span>,
+  spacing_style = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span>),
+  keep = <span class='st'>"strand"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -241,11 +241,11 @@ per lin.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Compare the genomic organization of three viral elements</span>
 <span class='co'># EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)</span>
-<span class='fu'>gggenomes</span>(<span class='no'>emale_seqs</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>,<span class='fl'>6</span>),], <span class='no'>emale_genes</span>, <span class='no'>emale_tirs</span>, <span class='no'>emale_links</span>) +
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span>() + <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span>() +                  <span class='co'># chromosomes and labels</span>
-  <span class='fu'><a href='geom_feature.html'>geom_feature</a></span>(<span class='kw'>size</span><span class='kw'>=</span><span class='fl'>8</span>) +                           <span class='co'># terminal inverted repeats</span>
-  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span>(<span class='fu'>aes</span>(<span class='kw'>fill</span><span class='kw'>=</span><span class='no'>strand</span>), <span class='kw'>position</span><span class='kw'>=</span><span class='st'>"strand"</span>) + <span class='co'># genes</span>
-  <span class='fu'><a href='geom_link.html'>geom_link</a></span>(<span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0.15</span>)                         <span class='co'># synteny-blocks</span></div><div class='img'><img src='gggenomes-1.png' alt='' width='1152' height='712' /></div></pre>
+<span class='fu'>gggenomes</span>(<span class='kw'>emale_seqs</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='fl'>6</span>),], <span class='kw'>emale_genes</span>, <span class='kw'>emale_tirs</span>, <span class='kw'>emale_links</span>) <span class='op'>+</span>
+  <span class='fu'>geom_seq</span>() <span class='op'>+</span> <span class='fu'>geom_bin_label</span>() <span class='op'>+</span>                  <span class='co'># chromosomes and labels</span>
+  <span class='fu'>geom_feature</span>(size=<span class='fl'>8</span>) <span class='op'>+</span>                           <span class='co'># terminal inverted repeats</span>
+  <span class='fu'>geom_gene</span>(<span class='fu'>aes</span>(fill=<span class='kw'>strand</span>), position=<span class='st'>"strand"</span>) <span class='op'>+</span> <span class='co'># genes</span>
+  <span class='fu'>geom_link</span>(offset = <span class='fl'>0.15</span>)                         <span class='co'># synteny-blocks</span></div><div class='img'><img src='gggenomes-1.png' alt='' width='1152' height='712' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

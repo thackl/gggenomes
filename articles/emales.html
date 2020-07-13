@@ -84,13 +84,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="emales_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>From a few sequences to a complex map in minutes</h1>
                         <h4 class="author">Thomas Hackl</h4>
             
-            <h4 class="date">2020-05-23</h4>
+            <h4 class="date">2020-07-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd"><code>vignettes/emales.Rmd</code></a></small>
       <div class="hidden name"><code>emales.Rmd</code></div>
@@ -109,20 +109,22 @@
 <h3 class="hasAnchor">
 <a href="#read-in-the-genomes" class="anchor"></a>Read in the genomes</h3>
 <p>We start with a fasta file of 33 viral genomes. We read sequence length and some metadata from the header lines using `read<sub>fai</sub>`…</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gggenomes</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/thackl/gggenomes">gggenomes</a></span>)
 
 <span class="co"># parse sequence length and some metadata from fasta file</span>
-<span class="no">emale_seqs</span> <span class="kw">&lt;-</span> <span class="fu">read_fai</span>(<span class="st">"emales.fna"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">extract</span>(<span class="no">seq_desc</span>, <span class="kw">into</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"emale_type"</span>, <span class="st">"is_typespecies"</span>), <span class="st">"=(\\S+) \\S+=(\\S+)"</span>,
-    <span class="kw">remove</span><span class="kw">=</span><span class="no">F</span>, <span class="kw">convert</span><span class="kw">=</span><span class="no">T</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">arrange</span>(<span class="no">emale_type</span>, <span class="no">length</span>)
+<span class="kw">emale_seqs</span> <span class="op">&lt;-</span> <span class="fu">read_fai</span>(<span class="st">"emales.fna"</span>) <span class="op">%&gt;%</span>
+  <span class="fu">extract</span>(<span class="kw">seq_desc</span>, into = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"emale_type"</span>, <span class="st">"is_typespecies"</span>), <span class="st">"=(\\S+) \\S+=(\\S+)"</span>,
+    remove=<span class="kw">F</span>, convert=<span class="kw">T</span>) <span class="op">%&gt;%</span>
+  <span class="fu">arrange</span>(<span class="kw">emale_type</span>, <span class="kw">length</span>)
 
 <span class="co"># plot the genomes - first six only to keep it simple for this example</span>
-<span class="no">emale_seqs_6</span> <span class="kw">&lt;-</span> <span class="no">emale_seqs</span>[<span class="fl">1</span>:<span class="fl">6</span>,]
-<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>) +
- <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>()
-<span class="no">p1</span></pre></body></html></div>
+<span class="kw">emale_seqs_6</span> <span class="op">&lt;-</span> <span class="kw">emale_seqs</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,]
+<span class="kw">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="kw">emale_seqs_6</span>) <span class="op">+</span>
+ <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>()
+<span class="kw">p1</span>
+</pre></div>
 <p><img src="emales/emales-p1.png"></p>
 </div>
 <div id="annotate-genes" class="section level3">
@@ -135,15 +137,17 @@
 <span id="cb2-5"><a href="#cb2-5"></a><span class="ex">prodigal</span> -t emales-prodigal.train -i emales.fna -o emales-prodigal.gff -f gff</span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co"># A little help to clean up the prodigal gff | https://github.com/thackl/seq-scripts</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="ex">gff-clean</span> emales-prodigal.gff <span class="op">&gt;</span> emales.gff</span></code></pre></div>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">emale_genes</span> <span class="kw">&lt;-</span> <span class="fu">read_gff</span>(<span class="st">"emales.gff"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">rename</span>(<span class="kw">feature_id</span><span class="kw">=</span><span class="no">ID</span>) <span class="kw">%&gt;%</span>                       <span class="co"># we'll need this later</span>
-  <span class="fu">mutate</span>(<span class="kw">gc_cont</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">gc_cont</span>))             <span class="co"># per gene GC-content</span>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">emale_genes</span> <span class="op">&lt;-</span> <span class="fu">read_gff</span>(<span class="st">"emales.gff"</span>) <span class="op">%&gt;%</span>
+  <span class="fu">rename</span>(feature_id=<span class="kw">ID</span>) <span class="op">%&gt;%</span>                       <span class="co"># we'll need this later</span>
+  <span class="fu">mutate</span>(gc_cont=<span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="kw">gc_cont</span>))             <span class="co"># per gene GC-content</span>
 
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>) +
-  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">gc_cont</span>)) +
-  <span class="fu">scale_fill_distiller</span>(<span class="kw">palette</span><span class="kw">=</span><span class="st">"Spectral"</span>)
-<span class="no">p2</span></pre></body></html></div>
+<span class="kw">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="kw">emale_seqs_6</span>, <span class="kw">emale_genes</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(fill=<span class="kw">gc_cont</span>)) <span class="op">+</span>
+  <span class="fu">scale_fill_distiller</span>(palette=<span class="st">"Spectral"</span>)
+<span class="kw">p2</span>
+</pre></div>
 <p><img src="emales/emales-p2.png"></p>
 </div>
 <div id="find-terminal-inverted-repeats" class="section level3">
@@ -157,19 +161,21 @@
 <span id="cb4-5"><a href="#cb4-5"></a>  <span class="ex">minimap2</span> -c -B5 -O6 -E3 --rev-only <span class="va">$fna</span> <span class="va">$fna</span> <span class="op">&gt;</span> <span class="va">$fna</span>.paf<span class="kw">;</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="kw">done</span>;</span>
 <span id="cb4-7"><a href="#cb4-7"></a><span class="fu">cat</span> emales.fna.split/*.paf <span class="op">&gt;</span> emales-tirs.paf</span></code></pre></div>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># prefilter hits by minimum length and maximum divergence</span>
-<span class="no">emale_tirs_paf</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales-tirs.paf"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">seq_id1</span> <span class="kw">==</span> <span class="no">seq_id2</span> <span class="kw">&amp;</span> <span class="no">start1</span> <span class="kw">&lt;</span> <span class="no">start2</span> <span class="kw">&amp;</span> <span class="no">map_length</span> <span class="kw">&gt;</span> <span class="fl">99</span> <span class="kw">&amp;</span> <span class="no">de</span> <span class="kw">&lt;</span> <span class="fl">0.1</span>)
-<span class="no">emale_tirs</span> <span class="kw">&lt;-</span> <span class="fu">bind_rows</span>(
-  <span class="fu">select</span>(<span class="no">emale_tirs_paf</span>, <span class="kw">seq_id</span><span class="kw">=</span><span class="no">seq_id1</span>, <span class="kw">start</span><span class="kw">=</span><span class="no">start1</span>, <span class="kw">end</span><span class="kw">=</span><span class="no">end1</span>, <span class="no">de</span>),
-  <span class="fu">select</span>(<span class="no">emale_tirs_paf</span>, <span class="kw">seq_id</span><span class="kw">=</span><span class="no">seq_id2</span>, <span class="kw">start</span><span class="kw">=</span><span class="no">start2</span>, <span class="kw">end</span><span class="kw">=</span><span class="no">end2</span>, <span class="no">de</span>))
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co"># prefilter hits by minimum length and maximum divergence</span>
+<span class="kw">emale_tirs_paf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales-tirs.paf"</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">seq_id1</span> <span class="op">==</span> <span class="kw">seq_id2</span> <span class="op">&amp;</span> <span class="kw">start1</span> <span class="op">&lt;</span> <span class="kw">start2</span> <span class="op">&amp;</span> <span class="kw">map_length</span> <span class="op">&gt;</span> <span class="fl">99</span> <span class="op">&amp;</span> <span class="kw">de</span> <span class="op">&lt;</span> <span class="fl">0.1</span>)
+<span class="kw">emale_tirs</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span>(
+  <span class="fu">select</span>(<span class="kw">emale_tirs_paf</span>, seq_id=<span class="kw">seq_id1</span>, start=<span class="kw">start1</span>, end=<span class="kw">end1</span>, <span class="kw">de</span>),
+  <span class="fu">select</span>(<span class="kw">emale_tirs_paf</span>, seq_id=<span class="kw">seq_id2</span>, start=<span class="kw">start2</span>, end=<span class="kw">end2</span>, <span class="kw">de</span>))
 
-<span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>) +
-  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
-  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">5</span>) +
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">gc_cont</span>)) +
-  <span class="fu">scale_fill_distiller</span>(<span class="kw">palette</span><span class="kw">=</span><span class="st">"Spectral"</span>)
-<span class="no">p3</span></pre></body></html></div>
+<span class="kw">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="kw">emale_seqs_6</span>, <span class="kw">emale_genes</span>, <span class="kw">emale_tirs</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(size=<span class="fl">5</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(fill=<span class="kw">gc_cont</span>)) <span class="op">+</span>
+  <span class="fu">scale_fill_distiller</span>(palette=<span class="st">"Spectral"</span>)
+<span class="kw">p3</span>
+</pre></div>
 <p><img src="emales/emales-p3.png"></p>
 </div>
 <div id="compare-genome-synteny" class="section level3">
@@ -177,17 +183,19 @@
 <a href="#compare-genome-synteny" class="anchor"></a>Compare genome synteny</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># All-vs-all alignment | https://github.com/lh3/minimap2</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="ex">minimap2</span> -X -N 50 -p 0.1 -c emales.fna emales.fna <span class="op">&gt;</span> emales.paf</span></code></pre></div>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">emale_links</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales.paf"</span>)
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">emale_links</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span>(<span class="st">"emales.paf"</span>)
 
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) +
-  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
-  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">features</span>)) +
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">gc_cont</span>)) +
-  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>() +
-  <span class="fu">scale_fill_distiller</span>(<span class="kw">palette</span><span class="kw">=</span><span class="st">"Spectral"</span>)
+<span class="kw">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="kw">emale_seqs_6</span>, <span class="kw">emale_genes</span>, <span class="kw">emale_tirs</span>, <span class="kw">emale_links</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(size=<span class="fl">5</span>, data=<span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">features</span>)) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(fill=<span class="kw">gc_cont</span>)) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>() <span class="op">+</span>
+  <span class="fu">scale_fill_distiller</span>(palette=<span class="st">"Spectral"</span>)
 
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="no">p4</span> <span class="kw">%&gt;%</span> <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>)
-<span class="no">p4</span></pre></body></html></div>
+<span class="kw">p4</span> <span class="op">&lt;-</span> <span class="kw">p4</span> <span class="op">%&gt;%</span> <span class="fu">flip_bins</span>(<span class="fl">3</span><span class="op">:</span><span class="fl">5</span>)
+<span class="kw">p4</span>
+</pre></div>
 <p><img src="emales/emales-p4.png"></p>
 </div>
 <div id="gc-content" class="section level3">
@@ -195,14 +203,16 @@
 <a href="#gc-content" class="anchor"></a>GC-content</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># https://github.com/thackl/seq-scripts (bedtools &amp; samtools)</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="ex">seq-gc</span> -Nbw 50 emales.fna <span class="op">&gt;</span> emales-gc.tsv</span></code></pre></div>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">emale_gc</span> <span class="kw">&lt;-</span> <span class="kw pkg">thacklr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_bed.html">read_bed</a></span>(<span class="st">"emales-gc.tsv"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">rename</span>(<span class="kw">seq_id</span><span class="kw">=</span><span class="no">contig_id</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">emale_gc</span> <span class="op">&lt;-</span> <span class="kw">thacklr</span>::<span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_bed.html">read_bed</a></span>(<span class="st">"emales-gc.tsv"</span>) <span class="op">%&gt;%</span>
+  <span class="fu">rename</span>(seq_id=<span class="kw">contig_id</span>)
 
-<span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p4</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_gc</span>)
-<span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p5</span> + <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="kw">x</span><span class="kw">=</span>(<span class="no">x</span>+<span class="no">xend</span>)/<span class="fl">2</span>, <span class="kw">ymax</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.24</span>, <span class="kw">ymin</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.38</span>-(<span class="fl">.4</span>*<span class="no">score</span>),
-    <span class="kw">group</span><span class="kw">=</span><span class="no">seq_id</span>, <span class="kw">linetype</span><span class="kw">=</span><span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_gc</span>),
-                       <span class="kw">fill</span><span class="kw">=</span><span class="st">"blue"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.5</span>)
-<span class="no">p5</span></pre></body></html></div>
+<span class="kw">p5</span> <span class="op">&lt;-</span> <span class="kw">p4</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="kw">emale_gc</span>)
+<span class="kw">p5</span> <span class="op">&lt;-</span> <span class="kw">p5</span> <span class="op">+</span> <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(x=(<span class="kw">x</span><span class="op">+</span><span class="kw">xend</span>)<span class="op">/</span><span class="fl">2</span>, ymax=<span class="kw">y</span><span class="op">+</span><span class="fl">.24</span>, ymin=<span class="kw">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span>(<span class="fl">.4</span><span class="op">*</span><span class="kw">score</span>),
+    group=<span class="kw">seq_id</span>, linetype=<span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_gc</span>),
+                       fill=<span class="st">"blue"</span>, alpha=<span class="fl">.5</span>)
+<span class="kw">p5</span>
+</pre></div>
 <p><img src="emales/emales-p5.png"></p>
 </div>
 <div id="cluster-protein-sequences-into-orthogroups" class="section level3">
@@ -211,29 +221,31 @@
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">gff2cds</span> --aa --type CDS --source Prodigal_v2.6.3 --fna emales.fna emales.gff <span class="op">&gt;</span> emales.faa</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="ex">mmseqs</span> easy-cluster emales.faa emales-mmseqs /tmp -e 1e-5 -c 0.7<span class="kw">;</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="ex">cluster-ids</span> -t <span class="st">"cog%03d"</span> <span class="op">&lt;</span> emales-mmseqs_cluster.tsv <span class="op">&gt;</span> emales-cogs.tsv</span></code></pre></div>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">emale_cogs</span> <span class="kw">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"emales-cogs.tsv"</span>, <span class="kw">col_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"feature_id"</span>, <span class="st">"cluster_id"</span>, <span class="st">"cluster_n"</span>))
-<span class="no">emale_cogs</span> <span class="kw">%&lt;&gt;%</span> <span class="fu">mutate</span>(
-  <span class="kw">cluster_label</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">cluster_id</span>, <span class="st">" ("</span>, <span class="no">cluster_n</span>, <span class="st">")"</span>),
-  <span class="kw">cluster_label</span> <span class="kw">=</span> <span class="fu">fct_lump_min</span>(<span class="no">cluster_label</span>, <span class="fl">5</span>, <span class="kw">other_level</span> <span class="kw">=</span> <span class="st">"rare"</span>),
-  <span class="kw">cluster_label</span> <span class="kw">=</span> <span class="fu">fct_lump_min</span>(<span class="no">cluster_label</span>, <span class="fl">15</span>, <span class="kw">other_level</span> <span class="kw">=</span> <span class="st">"medium"</span>),
-  <span class="kw">cluster_label</span> <span class="kw">=</span> <span class="fu">fct_relevel</span>(<span class="no">cluster_label</span>, <span class="st">"rare"</span>, <span class="kw">after</span><span class="kw">=</span><span class="fl">Inf</span>))
-<span class="no">emale_cogs</span>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="kw">emale_cogs</span> <span class="op">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"emales-cogs.tsv"</span>, col_names = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"feature_id"</span>, <span class="st">"cluster_id"</span>, <span class="st">"cluster_n"</span>))
+<span class="kw">emale_cogs</span> <span class="op">%&lt;&gt;%</span> <span class="fu">mutate</span>(
+  cluster_label = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">cluster_id</span>, <span class="st">" ("</span>, <span class="kw">cluster_n</span>, <span class="st">")"</span>),
+  cluster_label = <span class="fu">fct_lump_min</span>(<span class="kw">cluster_label</span>, <span class="fl">5</span>, other_level = <span class="st">"rare"</span>),
+  cluster_label = <span class="fu">fct_lump_min</span>(<span class="kw">cluster_label</span>, <span class="fl">15</span>, other_level = <span class="st">"medium"</span>),
+  cluster_label = <span class="fu">fct_relevel</span>(<span class="kw">cluster_label</span>, <span class="st">"rare"</span>, after=<span class="fl">Inf</span>))
+<span class="kw">emale_cogs</span>
 
 
-<span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_gc</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_clusters.html">add_clusters</a></span>(<span class="no">genes</span>, <span class="no">emale_cogs</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>) +
-  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
-  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="kw">size</span><span class="kw">=</span><span class="fl">5</span>, <span class="kw">data</span><span class="kw">=</span><span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">features</span>)) +
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">cluster_label</span>)) +
-  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>() +
-  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="kw">x</span><span class="kw">=</span>(<span class="no">x</span>+<span class="no">xend</span>)/<span class="fl">2</span>, <span class="kw">ymax</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.24</span>, <span class="kw">ymin</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.38</span>-(<span class="fl">.4</span>*<span class="no">score</span>),
-    <span class="kw">group</span><span class="kw">=</span><span class="no">seq_id</span>, <span class="kw">linetype</span><span class="kw">=</span><span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_gc</span>),
-                       <span class="kw">fill</span><span class="kw">=</span><span class="st">"blue"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.5</span>) +
-  <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, <span class="kw">palette</span><span class="kw">=</span><span class="st">"Set3"</span>)
+<span class="kw">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="kw">emale_seqs_6</span>, <span class="kw">emale_genes</span>, <span class="kw">emale_tirs</span>, <span class="kw">emale_links</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="kw">emale_gc</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_clusters.html">add_clusters</a></span>(<span class="kw">genes</span>, <span class="kw">emale_cogs</span>) <span class="op">%&gt;%</span>
+  <span class="fu">flip_bins</span>(<span class="fl">3</span><span class="op">:</span><span class="fl">5</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(size=<span class="fl">5</span>, data=<span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">features</span>)) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(fill=<span class="kw">cluster_label</span>)) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>() <span class="op">+</span>
+  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(x=(<span class="kw">x</span><span class="op">+</span><span class="kw">xend</span>)<span class="op">/</span><span class="fl">2</span>, ymax=<span class="kw">y</span><span class="op">+</span><span class="fl">.24</span>, ymin=<span class="kw">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span>(<span class="fl">.4</span><span class="op">*</span><span class="kw">score</span>),
+    group=<span class="kw">seq_id</span>, linetype=<span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_gc</span>),
+                       fill=<span class="st">"blue"</span>, alpha=<span class="fl">.5</span>) <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, palette=<span class="st">"Set3"</span>)
 
-<span class="no">p6</span></pre></body></html></div>
+<span class="kw">p6</span>
+</pre></div>
 <p><img src="emales/emales-p6.png"></p>
 </div>
 <div id="blast-hits-and-integrated-transposons" class="section level3">
@@ -243,41 +255,43 @@
 <span id="cb12-2"><a href="#cb12-2"></a><span class="ex">blastp</span> -query emales.faa -subject mavirus.faa -outfmt 7 <span class="op">&gt;</span> emales_mavirus-blastp.tsv</span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="fu">perl</span> -ne <span class="st">'if(/&gt;(\S+) gene=(\S+) product=(.+)/){print join("\t", $1, $2, $3), "\n"}'</span> \</span>
 <span id="cb12-4"><a href="#cb12-4"></a>  mavirus.faa <span class="op">&gt;</span> mavirus.tsv</span></code></pre></div>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">emale_blast</span> <span class="kw">&lt;-</span> <span class="fu">read_blast</span>(<span class="st">"emales_mavirus-blastp.tsv"</span>)
-<span class="no">emale_blast</span> <span class="kw">%&lt;&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">evalue</span> <span class="kw">&lt;</span> <span class="fl">1e-3</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">select</span>(<span class="kw">feature_id</span><span class="kw">=</span><span class="no">qaccver</span>, <span class="kw">start</span><span class="kw">=</span><span class="no">qstart</span>, <span class="kw">end</span><span class="kw">=</span><span class="no">qend</span>, <span class="no">saccver</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">left_join</span>(<span class="fu">read_tsv</span>(<span class="st">"mavirus.tsv"</span>, <span class="kw">col_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"saccver"</span>, <span class="st">"blast_hit"</span>, <span class="st">"blast_desc"</span>)))
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="kw">emale_blast</span> <span class="op">&lt;-</span> <span class="fu">read_blast</span>(<span class="st">"emales_mavirus-blastp.tsv"</span>)
+<span class="kw">emale_blast</span> <span class="op">%&lt;&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="kw">evalue</span> <span class="op">&lt;</span> <span class="fl">1e-3</span>) <span class="op">%&gt;%</span>
+  <span class="fu">select</span>(feature_id=<span class="kw">qaccver</span>, start=<span class="kw">qstart</span>, end=<span class="kw">qend</span>, <span class="kw">saccver</span>) <span class="op">%&gt;%</span>
+  <span class="fu">left_join</span>(<span class="fu">read_tsv</span>(<span class="st">"mavirus.tsv"</span>, col_names = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"saccver"</span>, <span class="st">"blast_hit"</span>, <span class="st">"blast_desc"</span>)))
 
 <span class="co"># manual annotations by MFG</span>
-<span class="no">emale_transposons</span> <span class="kw">&lt;-</span> <span class="fu">read_gff</span>(<span class="st">"emales-manual.gff"</span>, <span class="kw">types</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mobile_element"</span>))
+<span class="kw">emale_transposons</span> <span class="op">&lt;-</span> <span class="fu">read_gff</span>(<span class="st">"emales-manual.gff"</span>, types = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"mobile_element"</span>))
 
 
-<span class="no">p7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="no">emale_seqs_6</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_gc</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_clusters.html">add_clusters</a></span>(<span class="no">genes</span>, <span class="no">emale_cogs</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="no">emale_transposons</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_subfeatures.html">add_subfeatures</a></span>(<span class="no">genes</span>, <span class="no">emale_blast</span>, <span class="kw">transform</span><span class="kw">=</span><span class="st">"aa2nuc"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>) +
-  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="st">"integrated transposon"</span>),
-    <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_transposons</span>), <span class="kw">size</span><span class="kw">=</span><span class="fl">7</span>) +
-  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() +
-  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>(<span class="kw">offset</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>), <span class="kw">color</span><span class="kw">=</span><span class="st">"white"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.3</span>) +
-  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="st">"terminal inverted repeat"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">features</span>),
-    <span class="kw">size</span><span class="kw">=</span><span class="fl">4</span>) +
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">cluster_label</span>)) +
-  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="no">blast_desc</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_blast</span>), <span class="kw">size</span><span class="kw">=</span><span class="fl">2</span>,
-    <span class="kw">position</span><span class="kw">=</span><span class="st">"pile"</span>) +
-  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="kw">x</span><span class="kw">=</span>(<span class="no">x</span>+<span class="no">xend</span>)/<span class="fl">2</span>, <span class="kw">ymax</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.24</span>, <span class="kw">ymin</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.38</span>-(<span class="fl">.4</span>*<span class="no">score</span>),
-    <span class="kw">group</span><span class="kw">=</span><span class="no">seq_id</span>, <span class="kw">linetype</span><span class="kw">=</span><span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="no">emale_gc</span>),
-                       <span class="kw">fill</span><span class="kw">=</span><span class="st">"blue"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.5</span>) +
-  <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, <span class="kw">palette</span><span class="kw">=</span><span class="st">"Set3"</span>) +
-  <span class="fu">scale_color_viridis_d</span>(<span class="st">"Blast hits &amp; Features"</span>, <span class="kw">direction</span> <span class="kw">=</span> -<span class="fl">1</span>) +
-  <span class="fu">scale_linetype</span>(<span class="st">"Graphs"</span>) +
+<span class="kw">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span>(<span class="kw">emale_seqs_6</span>, <span class="kw">emale_genes</span>, <span class="kw">emale_tirs</span>, <span class="kw">emale_links</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="kw">emale_gc</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_clusters.html">add_clusters</a></span>(<span class="kw">genes</span>, <span class="kw">emale_cogs</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_features.html">add_features</a></span>(<span class="kw">emale_transposons</span>) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_subfeatures.html">add_subfeatures</a></span>(<span class="kw">genes</span>, <span class="kw">emale_blast</span>, transform=<span class="st">"aa2nuc"</span>) <span class="op">%&gt;%</span>
+  <span class="fu">flip_bins</span>(<span class="fl">3</span><span class="op">:</span><span class="fl">5</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(color=<span class="st">"integrated transposon"</span>),
+    <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_transposons</span>), size=<span class="fl">7</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span>() <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span>(offset = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>), color=<span class="st">"white"</span>, alpha=<span class="fl">.3</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(color=<span class="st">"terminal inverted repeat"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">features</span>),
+    size=<span class="fl">4</span>) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(fill=<span class="kw">cluster_label</span>)) <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(color=<span class="kw">blast_desc</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_blast</span>), size=<span class="fl">2</span>,
+    position=<span class="st">"pile"</span>) <span class="op">+</span> 
+  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(x=(<span class="kw">x</span><span class="op">+</span><span class="kw">xend</span>)<span class="op">/</span><span class="fl">2</span>, ymax=<span class="kw">y</span><span class="op">+</span><span class="fl">.24</span>, ymin=<span class="kw">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span>(<span class="fl">.4</span><span class="op">*</span><span class="kw">score</span>),
+    group=<span class="kw">seq_id</span>, linetype=<span class="st">"GC-content"</span>), <span class="fu"><a href="../reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_gc</span>),
+                       fill=<span class="st">"blue"</span>, alpha=<span class="fl">.5</span>) <span class="op">+</span>
+  <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, palette=<span class="st">"Set3"</span>) <span class="op">+</span>
+  <span class="fu">scale_color_viridis_d</span>(<span class="st">"Blast hits &amp; Features"</span>, direction = <span class="op">-</span><span class="fl">1</span>) <span class="op">+</span>
+  <span class="fu">scale_linetype</span>(<span class="st">"Graphs"</span>) <span class="op">+</span>
   <span class="fu">ggtitle</span>(<span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Endogenous mavirus-like elements of "</span>,
   <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html">italic</a></span>(<span class="st">"C. burkhardae"</span>))))
 
-<span class="no">p7</span></pre></body></html></div>
+<span class="kw">p7</span>
+</pre></div>
 <p><img src="emales/emales-p7.png"></p>
 </div>
   </div>

@@ -104,42 +104,44 @@
 <a href="#a-realistic-use-case-comparing-six-viral-genomes" class="anchor"></a>A realistic use case comparing six viral genomes</h2>
 <p>For a reproducible recipe describing the full <em>evolution</em> of this plot starting from a mere set of contigs, and including the bioinformatics analysis workflow, have a look at <a href="https://thackl.github.io/gggenomes/articles/emales.html">From a few sequences to a complex map in minutes</a>. For a compact version to of the code see below.</p>
 <p><img src="reference/figures/EMALEs.png"></p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)</span>
 <span class="co"># a use case data bundled with ggggenomes</span>
-<span class="no">seqs</span> <span class="kw">&lt;-</span> <span class="no">emale_seqs</span>[<span class="fl">1</span>:<span class="fl">6</span>,]                <span class="co"># first 6 genomes only</span>
-<span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gggenomes.html">gggenomes</a></span>(<span class="no">seqs</span>, <span class="no">emale_genes</span>, <span class="no">emale_tirs</span>, <span class="no">emale_links</span>) <span class="kw">%&gt;%</span>
+<span class="kw">seqs</span> <span class="op">&lt;-</span> <span class="kw">emale_seqs</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,]                <span class="co"># first 6 genomes only</span>
+<span class="kw">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gggenomes.html">gggenomes</a></span>(<span class="kw">seqs</span>, <span class="kw">emale_genes</span>, <span class="kw">emale_tirs</span>, <span class="kw">emale_links</span>) <span class="op">%&gt;%</span>
                                         <span class="co"># standard tracks</span>
-  <span class="fu"><a href="reference/add_features.html">add_features</a></span>(<span class="no">emale_transposons</span>, <span class="no">emale_gc</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/add_features.html">add_features</a></span>(<span class="kw">emale_transposons</span>, <span class="kw">emale_gc</span>) <span class="op">%&gt;%</span>
                                         <span class="co"># more features</span>
-  <span class="fu"><a href="reference/add_subfeatures.html">add_subfeatures</a></span>(<span class="no">genes</span>, <span class="no">emale_blast</span>, <span class="kw">transform</span><span class="kw">=</span><span class="st">"aa2nuc"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="reference/add_subfeatures.html">add_subfeatures</a></span>(<span class="kw">genes</span>, <span class="kw">emale_blast</span>, transform=<span class="st">"aa2nuc"</span>) <span class="op">%&gt;%</span>
                                         <span class="co"># features that map onto features</span>
-  <span class="fu"><a href="reference/add_clusters.html">add_clusters</a></span>(<span class="no">genes</span>, <span class="no">emale_cogs</span>)       <span class="co"># and some gene cluster info</span>
+  <span class="fu"><a href="reference/add_clusters.html">add_clusters</a></span>(<span class="kw">genes</span>, <span class="kw">emale_cogs</span>)       <span class="co"># and some gene cluster info</span>
 
 <span class="co"># add geoms and customize the plot</span>
-<span class="no">p</span> <span class="kw">&lt;-</span> <span class="no">p</span> +
-  <span class="fu"><a href="reference/geom_seq.html">geom_seq</a></span>() + <span class="fu"><a href="reference/geom_bin_label.html">geom_bin_label</a></span>() +       <span class="co"># chromosomes and labels</span>
-  <span class="fu"><a href="reference/geom_link.html">geom_link</a></span>(<span class="kw">offset</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>), <span class="kw">color</span><span class="kw">=</span><span class="st">"white"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.3</span>) +
+<span class="kw">p</span> <span class="op">&lt;-</span> <span class="kw">p</span> <span class="op">+</span>
+  <span class="fu"><a href="reference/geom_seq.html">geom_seq</a></span>() <span class="op">+</span> <span class="fu"><a href="reference/geom_bin_label.html">geom_bin_label</a></span>() <span class="op">+</span>       <span class="co"># chromosomes and labels</span>
+  <span class="fu"><a href="reference/geom_link.html">geom_link</a></span>(offset = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>), color=<span class="st">"white"</span>, alpha=<span class="fl">.3</span>) <span class="op">+</span>
                                         <span class="co"># synthenic regions</span>
-  <span class="fu"><a href="reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="st">"terminal inverted repeat"</span>), <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="fl">2</span>),
-    <span class="kw">size</span><span class="kw">=</span><span class="fl">4</span>) +                           <span class="co"># repeats</span>
-  <span class="fu"><a href="reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="st">"integrated transposon"</span>),
-    <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="no">emale_transposons</span>), <span class="kw">size</span><span class="kw">=</span><span class="fl">7</span>) +
+  <span class="fu"><a href="reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(color=<span class="st">"terminal inverted repeat"</span>), <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="fl">2</span>),
+    size=<span class="fl">4</span>) <span class="op">+</span>                           <span class="co"># repeats</span>
+  <span class="fu"><a href="reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(color=<span class="st">"integrated transposon"</span>),
+    <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_transposons</span>), size=<span class="fl">7</span>) <span class="op">+</span>
                                         <span class="co"># transposons</span>
-  <span class="fu"><a href="reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span><span class="kw">=</span><span class="no">cluster_label</span>)) +  <span class="co"># colored genes</span>
-  <span class="fu"><a href="reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span><span class="no">blast_desc</span>), <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="no">emale_blast</span>),
-    <span class="kw">size</span><span class="kw">=</span><span class="fl">2</span>, <span class="kw">position</span><span class="kw">=</span><span class="st">"pile"</span>) +          <span class="co"># some blast hits</span>
-  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="kw">x</span><span class="kw">=</span>(<span class="no">x</span>+<span class="no">xend</span>)/<span class="fl">2</span>, <span class="kw">ymax</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.24</span>, <span class="kw">ymin</span><span class="kw">=</span><span class="no">y</span>+<span class="fl">.38</span>-(<span class="fl">.4</span>*<span class="no">score</span>),
-    <span class="kw">group</span><span class="kw">=</span><span class="no">seq_id</span>, <span class="kw">linetype</span><span class="kw">=</span><span class="st">"GC-content"</span>), <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="no">emale_gc</span>),
-    <span class="kw">fill</span><span class="kw">=</span><span class="st">"blue"</span>, <span class="kw">alpha</span><span class="kw">=</span><span class="fl">.5</span>) +            <span class="co"># combine with ggplot2 geoms</span>
-  <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, <span class="kw">palette</span><span class="kw">=</span><span class="st">"Set3"</span>) +
-  <span class="fu">scale_color_viridis_d</span>(<span class="st">"Blast hits &amp; Features"</span>, <span class="kw">direction</span> <span class="kw">=</span> -<span class="fl">1</span>) +
-  <span class="fu">scale_linetype</span>(<span class="st">"Graphs"</span>) +
+  <span class="fu"><a href="reference/geom_gene.html">geom_gene</a></span>(<span class="fu">aes</span>(fill=<span class="kw">cluster_label</span>)) <span class="op">+</span>  <span class="co"># colored genes</span>
+  <span class="fu"><a href="reference/geom_feature.html">geom_feature</a></span>(<span class="fu">aes</span>(color=<span class="kw">blast_desc</span>), <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_blast</span>),
+    size=<span class="fl">2</span>, position=<span class="st">"pile"</span>) <span class="op">+</span>          <span class="co"># some blast hits</span>
+  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(x=(<span class="kw">x</span><span class="op">+</span><span class="kw">xend</span>)<span class="op">/</span><span class="fl">2</span>, ymax=<span class="kw">y</span><span class="op">+</span><span class="fl">.24</span>, ymin=<span class="kw">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span>(<span class="fl">.4</span><span class="op">*</span><span class="kw">score</span>),
+    group=<span class="kw">seq_id</span>, linetype=<span class="st">"GC-content"</span>), <span class="fu"><a href="reference/use_seqs.html">use_features</a></span>(<span class="kw">emale_gc</span>),
+    fill=<span class="st">"blue"</span>, alpha=<span class="fl">.5</span>) <span class="op">+</span>            <span class="co"># combine with ggplot2 geoms</span>
+  <span class="fu">scale_fill_brewer</span>(<span class="st">"Conserved genes"</span>, palette=<span class="st">"Set3"</span>) <span class="op">+</span>
+  <span class="fu">scale_color_viridis_d</span>(<span class="st">"Blast hits &amp; Features"</span>, direction = <span class="op">-</span><span class="fl">1</span>) <span class="op">+</span>
+  <span class="fu">scale_linetype</span>(<span class="st">"Graphs"</span>) <span class="op">+</span>
   <span class="fu">ggtitle</span>(<span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Endogenous mavirus-like elements of "</span>,
   <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html">italic</a></span>(<span class="st">"C. burkhardae"</span>))))
 
 <span class="co"># reverse-complement 3 genomes for better alignment</span>
-<span class="no">p</span> <span class="kw">&lt;-</span> <span class="no">p</span> <span class="kw">%&gt;%</span> <span class="fu">flip_bins</span>(<span class="fl">3</span>:<span class="fl">5</span>)
-<span class="no">p</span></pre></div>
+<span class="kw">p</span> <span class="op">&lt;-</span> <span class="kw">p</span> <span class="op">%&gt;%</span> <span class="fu">flip_bins</span>(<span class="fl">3</span><span class="op">:</span><span class="fl">5</span>)
+<span class="kw">p</span>
+</pre></div>
 </div>
 <div id="motivation--concept" class="section level2">
 <h2 class="hasAnchor">
@@ -161,15 +163,17 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>gggenomes is at this point still in an alpha release state, and therefoe only available as developmental package.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install ggtree</span>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install ggtree</span>
 <span class="co"># https://bioconductor.org/packages/release/bioc/html/ggtree.html</span>
-<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="kw">quietly</span> <span class="kw">=</span> <span class="fl">TRUE</span>))
+<span class="co">if</span> (<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, quietly = <span class="fl">TRUE</span>))
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)
-<span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"ggtree"</span>)
+<span class="kw">BiocManager</span>::<span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"ggtree"</span>)
 
 <span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"thackl/thacklr"</span>)
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"thackl/gggenomes"</span>)</pre></div>
+<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"thackl/thacklr"</span>)
+<span class="kw">devtools</span>::<span class="fu">install_github</span>(<span class="st">"thackl/gggenomes"</span>)
+</pre></div>
 </div>
 </div>
   </div>
