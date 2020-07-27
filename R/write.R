@@ -57,7 +57,8 @@ write_gff3 <- function(features, file, seqs=NULL, type=NULL, source=".", score="
   if(!is.null(id_tag) || length(attr)){
     # convert attributes tags to title case, gff convention
     attr_predef <- attr[na.omit(match(gff3_attr, str_to_title(attr)))]
-    names(features)[names(features) %in% attr_predef] <- str_to_title(attr_predef)
+    attr_predef_ii <- names(features) %in% attr_predef
+    names(features)[attr_predef_ii] <- str_to_title(names(features)[attr_predef_ii])
     attr_custom <- setdiff(attr, attr_predef)
     attr <- c(id_tag, str_to_title(attr_predef), attr_custom)
     
