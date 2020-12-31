@@ -18,29 +18,6 @@ geom_seq <- function(mapping = NULL, data = use_seqs(),
   geom_segment(mapping = mapping, data = data, arrow = arrow, ...)
 }
 
-#' draw features
-#'
-#' @param data feature_layout
-#' @export
-geom_feature <- function(mapping = NULL, data = use_features(),
-    arrow = NULL, nudge_by_strand = NULL, size = 3, color="grey40", ...){
-
-  default_aes <- aes(x, y, xend=xend, yend=y)
-  mapping <- aes_intersect(mapping, default_aes)
-  mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)
-
-  # would be cleaner with GeomFeature ggproto...
-  if (has_name(mapping, "size")) size <- NULL
-  r <- list(geom_segment(mapping = mapping, data = data, size = size, color=color, ...))
-
-  if (!rlang::is_null(arrow)){
-    if(!inherits(arrow, "arrow")) arrow <- grid::arrow(length = unit(2, "mm"))
-    r <- c(r, list(
-      geom_segment(aes(x=ifelse(x<xend, xend-1, xend+1), y, xend=xend, yend=y), data=data,
-                   arrow=arrow, size=0.5, color="grey85")))
-  }
-  r
-}
 #' Draw genes fast but not so pretty
 #'
 #' @param data feature_layout
