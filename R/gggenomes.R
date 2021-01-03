@@ -144,8 +144,10 @@ layout_genomes <- function(seqs=NULL, genes=NULL, features=NULL, links=NULL,
 #' and error because dim(gggenome_layout) is undefined. Return dim of primary
 #' table instead
 #' @export
-dim.gggenomes_layout <- function(x) dim(x$seqs)
+dim.gggenomes_layout <- function(x) dim(seqs(x))
 
+#' @export
+print.gggenomes_layout <- function(x) track_info(x)
 
 infer_seqs_from_features <- function(features, infer_bin_id = seq_id, infer_start = min(start,end),
     infer_end = max(start,end), infer_length = max(start,end)){

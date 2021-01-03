@@ -46,7 +46,7 @@ pick_by_tree <- function(x, tree, infer_seq_id = label){
   if(inherits(tree, "phylo")) tree <- ggtree(tree)
   seq_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
     transmute(seq_id = {{ infer_seq_id }}) %>% pull(seq_id)
-  tree_only <- setdiff(seq_ids, x$data$seqs)
+  tree_only <- setdiff(seq_ids, seqs(x))
   pick(x, all_of(seq_ids))
 }
 

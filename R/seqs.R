@@ -145,7 +145,7 @@ add_seqs.gggenomes <- function(x, seqs, ...){
 }
 #' @export
 add_seqs.gggenomes_layout <- function(x, seqs, ...){
-  x$seqs <- as_seqs(seqs, ...)
+  seqs(x) <- as_seqs(seqs, ...)
   x
 }
 
@@ -163,7 +163,7 @@ seqs.gggenomes <- function(x){
 }
 #' @export
 seqs.gggenomes_layout <- function(x){
-  x$seqs
+  x$seqs[["seqs"]]
 }
 #' @export
 `seqs<-` <- function(x, value){
@@ -176,6 +176,6 @@ seqs.gggenomes_layout <- function(x){
 }
 #' @export
 `seqs<-.gggenomes_layout` <- function(x, value) {
-  x$seqs <- value
+  x$seqs[["seqs"]] <- value
   x
 }

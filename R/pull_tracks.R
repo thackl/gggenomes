@@ -21,7 +21,7 @@ pull_seqs.gggenomes <- function(.x, ...){
 }
 #' @export
 pull_seqs.gggenomes_layout <- function(.x, ...){
-  filter(.x$seqs, ...)
+  filter(seqs(.x), ...)
 }
 #' @rdname pull_seqs
 #' @export
@@ -66,7 +66,7 @@ pull_track.gggenomes_layout <- function(.x, .track_id=1, ...){
   track_ids <- track_ids(.x)
   track_id <- tidyselect::vars_pull(track_ids, {{.track_id}})
   if(track_id == "seqs"){
-    filter(.x$seqs, ...)
+    filter(seqs(.x), ...)
   }else{
     track_type <- names(track_ids)[track_ids == track_id]
     filter(.x[[track_type]][[track_id]], ...)

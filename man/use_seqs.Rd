@@ -16,6 +16,8 @@ use_links(.track_id = 1, ...)
 
 use_genes(.track_id = 1, ..., .ignore = NA)
 
+use(.track_id = 1, ..., .ignore = NA)
+
 use_bins(..., group = vars())
 }
 \arguments{

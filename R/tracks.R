@@ -1,3 +1,6 @@
+#' Named vector of track ids and types
+#' @param x A gggenomes or gggenomes_layout object
+#' @param types restrict to any combination of "seqs", "features" and "links".
 #' @export
 track_ids <- function(x, ...){
   UseMethod("track_ids")
@@ -5,17 +8,82 @@ track_ids <- function(x, ...){
 
 #' @export
 track_ids.gggenomes <- function(x, ...){
-  track_ids(x$data)
+  track_ids(x$data, ...)
 }
 
 #' @export
-track_ids.gggenomes_layout <- function(x, ...){
-  track_ids <- c("seqs", names(x$features), names(x$links))
-  names(track_ids) <- c("seqs", rep("features", length(x$features)),
-                        rep("links", length(x$links)))
-  track_ids
+track_ids.gggenomes_layout <- function(x, types=c("seqs", "features", "links")){
+  types <- match.arg(types, several.ok = TRUE)
+  ids <- flatten_chr(unname(map(types, ~names(x[[.x]]))))
+  names(ids) <- track_types(x, types)
+  ids
 }
 
+#' Basic info on tracks in a gggenomes object
+#'
+#' Call on a gggenomes or gggenomes_layout object to get a short tibble
+#' with ids, types, index and size of loaded tracks.
+#' @export
+#' @inheritParams track_ids
+track_info <- function(x, ...){
+  UseMethod("track_info")
+}
+
+#' @export
+track_info.gggenomes <- function(x, ...){
+  track_info(x$data, ...)
+}
+
+#' @export
+track_info.gggenomes_layout <- function(x, types = c("seqs", "features", "links")){
+  types <- match.arg(types, several.ok = TRUE)
+  y <- tibble(
+    id = track_ids(x, types),
+    type = track_types(x, types),
+    n = track_nrows(x, types)
+  ) %>% group_by(type) %>%
+  mutate(
+    .after = type,
+    i = row_number()
+  )
+  filter(y, type %in% types)
+}
+
+#' All types of all tracks
+#' @inheritParams track_ids
+#' @return a vector of all types of all selected tracks
+track_types <- function(x, types = c("seqs", "features", "links")){
+  flatten_chr(unname(map(types, ~rep(.x, length(x[[.x]])))))
+}
+
+#' Number of rows of all tracks tables
+#' @inheritParams track_ids
+#' @return a vector of number of rows all selected tracks tables
+track_nrows <- function(x, types = c("seqs", "features", "links")){
+  flatten_int(unname(map(types, ~map_int(x[[.x]], nrow))))
+}
+
+#' Track type by track id
+#' @inheritParams track_ids
+#' @return a character string with the track type
+track_type <- function(x, track_id){
+  track_ids <- track_ids(x)
+  names(track_ids)[track_ids == track_id]
+}
+
+## questionable
+tracks <- function(x, ...){
+  UseMethod("tracks")
+}
+tracks.gggenomes <- function(x, ...){
+  tracks(x$data)
+}
+tracks.gggenomes_layout <- function(x, types = c("seqs", "features", "links")){
+  c(x$seqs, x$features, x$links)
+}
+
+
+#' Convert a list of tibbles into tracks with magic
 as_tracks <- function(tracks, tracks_exprs, reserved_ids=NULL){
   # capture for df naming before first eval of tracks
   track_name <- as_label(enexpr(tracks))
@@ -61,25 +129,4 @@ name_unnamed_from_values <- function(x){
   unnamed <- !have_name(x)
   names(x)[unnamed] <- x[unnamed]
   names(x)
-}
-
-#' @export
-track <- function(x, ...){
-  UseMethod("track")
-}
-
-track.gggenomes <- function(x, track_id){
-  track(x$data, {{track_id}})
-}
-
-track.gggenomes_layout <- function(x, track_id){
-  track_ids <- track_ids(x)
-  track_id <-  tryCatch(
-    tidyselect::vars_pull(track_ids, {{track_id}}),
-    error = function(err){rlang::abort(paste("in get track()", err$message))})
-
-  track_type <- names(track_ids)[track_ids == track_id]
-  if(track_type == "seqs") track <- list(track_id)
-  else  track <- list(track_type, track_id)
-  pluck(x, !!! track)
 }

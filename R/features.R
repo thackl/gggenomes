@@ -113,7 +113,7 @@ add_features.gggenomes_layout <- function(x, ...){
 }
 
 add_feature_tracks <- function(x, tracks){
-  x$features <- c(x$features, map(tracks, as_features, x$seqs))
+  x$features <- c(x$features, map(tracks, as_features, seqs(x)))
   x
 }
 

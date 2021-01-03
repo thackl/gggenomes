@@ -122,7 +122,7 @@ add_links.gggenomes_layout <- function(x, ...){
 }
 
 add_link_tracks <- function(x, tracks){
-  x$links <- c(x$links, map(tracks, as_links, x$seqs)) # this is lossy, so
+  x$links <- c(x$links, map(tracks, as_links, seqs(x))) # this is lossy, so
   x$orig_links <- c(x$orig_links, tracks) # also store orig links for re-layout
   x
 }
