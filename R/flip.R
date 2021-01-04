@@ -139,7 +139,7 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
   seq_lst[names(flip_lst)] <- flip_lst
   seq_tbl <- bind_rows(seq_lst)
 
-  seqs(x) <- seq_tbl
+  x <- set_seqs(x, seq_tbl)
   layout(x)
 }
 

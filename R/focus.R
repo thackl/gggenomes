@@ -23,7 +23,7 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
   if(length(plus==1)) plus <- c(plus,plus)
   marginal <- match.arg(marginal)
 
-  s <- seqs(x)
+  s <- get_seqs(x)
   if(has_name(s, "start")) s <- select(s, -start)
   if(has_name(s, "end")) s <- select(s, -end)
 
@@ -54,6 +54,6 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
     s <- s[!duplicated(s$seq_id),]
   }
 
-  seqs(x) <- s
+  x <- set_seqs(x, s)
   layout(x, args_features = list(marginal = marginal))
 }

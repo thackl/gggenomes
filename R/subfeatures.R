@@ -110,6 +110,6 @@ add_subfeatures.gggenomes_layout <- function(x, parent_track_id, ...,
 add_subfeature_tracks <- function(x, parent_track_id, tracks, transform){
   features <- pull_track(x, {{parent_track_id}})
   x$features <- c(x$features, map(
-    tracks, as_subfeatures, seqs(x), features, transform = transform))
+    tracks, as_subfeatures, get_seqs(x), features, transform = transform))
   x
 }

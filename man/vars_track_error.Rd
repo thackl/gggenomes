@@ -4,7 +4,7 @@
 \alias{vars_track_error}
 \title{Error messages for `vars_track``}
 \usage{
-vars_track_error(bad_value, track_ids)
+vars_track_error(bad_value, track_ids, ignore)
 }
 \description{
 Error messages for `vars_track``

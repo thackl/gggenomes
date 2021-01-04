@@ -39,7 +39,7 @@ pull_seqs.gggenomes <- function(.x, ...){
 }
 #' @export
 pull_seqs.gggenomes_layout <- function(.x, ...){
-  filter(seqs(.x), ...)
+  filter(get_seqs(.x), ...)
 }
 #' @rdname pull_track
 #' @export

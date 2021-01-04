@@ -46,13 +46,13 @@ pick_by_tree <- function(x, tree, infer_seq_id = label){
   if(inherits(tree, "phylo")) tree <- ggtree(tree)
   seq_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
     transmute(seq_id = {{ infer_seq_id }}) %>% pull(seq_id)
-  tree_only <- setdiff(seq_ids, seqs(x))
+  tree_only <- setdiff(seq_ids, get_seqs(x))
   pick(x, all_of(seq_ids))
 }
 
 pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){
   # split by bin_id and select bins
-  s <- seqs(x)
+  s <- get_seqs(x)
   l <- s %>% thacklr::split_by(bin_id)
   i <- tidyselect::eval_select(expr({{ bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
@@ -70,6 +70,6 @@ pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){
     }
   }
 
-  seqs(x) <- s
+  x <- set_seqs(x, s)
   layout(x)
 }

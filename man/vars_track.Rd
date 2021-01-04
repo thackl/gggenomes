@@ -4,7 +4,7 @@
 \alias{vars_track}
 \title{Tidyselect track variables}
 \usage{
-vars_track(x, track_id, types = c("seqs", "features", "links"))
+vars_track(x, track_id, types = c("seqs", "features", "links"), ignore = NA)
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
