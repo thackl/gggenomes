@@ -5,6 +5,7 @@
 \alias{use_features}
 \alias{use_links}
 \alias{use_genes}
+\alias{use}
 \alias{use_bins}
 \title{Use a specific track table inside a `geom_*` call.}
 \usage{
