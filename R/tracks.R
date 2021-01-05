@@ -1,6 +1,6 @@
 #' Named vector of track ids and types
 #' @param x A gggenomes or gggenomes_layout object
-#' @param types restrict to any combination of "seqs", "features" and "links".
+#' @param track_type restrict to any combination of "seqs", "features" and "links".
 #' @export
 track_ids <- function(x, ...){
   UseMethod("track_ids")
@@ -12,10 +12,10 @@ track_ids.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_ids.gggenomes_layout <- function(x, types=c("seqs", "features", "links")){
-  types <- match.arg(types, several.ok = TRUE)
-  ids <- flatten_chr(unname(map(types, ~names(x[[.x]]))))
-  names(ids) <- track_types(x, types)
+track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "features", "links")){
+  track_type <- match.arg(track_type, several.ok = TRUE)
+  ids <- flatten_chr(unname(map(track_type, ~names(x[[.x]]))))
+  names(ids) <- track_types(x, track_type)
   ids
 }
 
@@ -35,32 +35,32 @@ track_info.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_info.gggenomes_layout <- function(x, types = c("seqs", "features", "links")){
-  types <- match.arg(types, several.ok = TRUE)
+track_info.gggenomes_layout <- function(x, track_type = c("seqs", "features", "links")){
+  track_type <- match.arg(track_type, several.ok = TRUE)
   y <- tibble(
-    id = track_ids(x, types),
-    type = track_types(x, types),
-    n = track_nrows(x, types)
+    id = track_ids(x, track_type),
+    type = track_types(x, track_type),
+    n = track_nrows(x, track_type)
   ) %>% group_by(type) %>%
   mutate(
     .after = type,
     i = row_number()
   )
-  filter(y, type %in% types)
+  filter(y, type %in% track_type)
 }
 
 #' All types of all tracks
 #' @inheritParams track_ids
 #' @return a vector of all types of all selected tracks
-track_types <- function(x, types = c("seqs", "features", "links")){
-  flatten_chr(unname(map(types, ~rep(.x, length(x[[.x]])))))
+track_types <- function(x, track_type = c("seqs", "features", "links")){
+  flatten_chr(unname(map(track_type, ~rep(.x, length(x[[.x]])))))
 }
 
 #' Number of rows of all tracks tables
 #' @inheritParams track_ids
 #' @return a vector of number of rows all selected tracks tables
-track_nrows <- function(x, types = c("seqs", "features", "links")){
-  flatten_int(unname(map(types, ~map_int(x[[.x]], nrow))))
+track_nrows <- function(x, track_type = c("seqs", "features", "links")){
+  flatten_int(unname(map(track_type, ~map_int(x[[.x]], nrow))))
 }
 
 #' Track type by track id
@@ -78,7 +78,7 @@ tracks <- function(x, ...){
 tracks.gggenomes <- function(x, ...){
   tracks(x$data)
 }
-tracks.gggenomes_layout <- function(x, types = c("seqs", "features", "links")){
+tracks.gggenomes_layout <- function(x, track_type = c("seqs", "features", "links")){
   c(x$seqs, x$features, x$links)
 }
 

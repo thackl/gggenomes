@@ -11,7 +11,7 @@ as_features(x, seqs, ..., everything = TRUE)
 
 \item{seqs}{the sequence layout the feature map onto.}
 
-\item{...}{passed on to `layout_seqs()`}
+\item{...}{passed on to \code{layout_seqs()}}
 
 \item{everything}{set to FALSE to drop optional columns}
 }
@@ -23,12 +23,11 @@ Read feature data such as genes into a tidy dataframe and augment it with
 layout information based on a sequence layout.
 }
 \details{
-Obligatory columns are `seq_id`, `start` and `end`. Also recognized are
-`strand` and `bin_id`.
+Obligatory columns are \code{seq_id}, \code{start} and \code{end}. Also recognized are
+\code{strand} and \code{bin_id}.
 
-Note `start` and `end` for every record will be coerced so that `start <
-end`. If no `strand` was provided, `strand` will added and set to "+" for
-records that initially had `start < end` and "-" for `end < start` inputs. If
-`strand` was provided, `start` and `end` will be ordered without any
+Note \code{start} and \code{end} for every record will be coerced so that \code{start < end}. If no \code{strand} was provided, \code{strand} will added and set to "+" for
+records that initially had \code{start < end} and "-" for \code{end < start} inputs. If
+\code{strand} was provided, \code{start} and \code{end} will be ordered without any
 additional effect.
 }

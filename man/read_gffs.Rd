@@ -16,6 +16,6 @@ among different genomes.}
 tibble
 }
 \description{
-Uses `rtracklayer::import`. Assume contig IDs are unique amongst files if
+Uses \code{rtracklayer::import}. Assume contig IDs are unique amongst files if
 genome_ids are not provided
 }

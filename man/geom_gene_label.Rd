@@ -6,7 +6,7 @@
 \usage{
 geom_gene_label(
   mapping = NULL,
-  data = use_genes(),
+  data = genes(),
   angle = 45,
   hjust = 0,
   nudge_y = 0.1,

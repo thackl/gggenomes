@@ -50,10 +50,10 @@ half offset above/below the sequence line.}
 stacked. Can be negative to allow small overlaps. NA disables stacking.}
 }
 \description{
-`position_strand()` offsets forward features upward and reverse features
-downward. `position_pile()` stacks overlapping features upward.
-`position_strandpile()` stacks overlapping features up-/downward based on
-their strand. `position_sixframe()` offsets the features based on their
+\code{position_strand()} offsets forward features upward and reverse features
+downward. \code{position_pile()} stacks overlapping features upward.
+\code{position_strandpile()} stacks overlapping features up-/downward based on
+their strand. \code{position_sixframe()} offsets the features based on their
 strand and reading frame.
 }
 \keyword{datasets}

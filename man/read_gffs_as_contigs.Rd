@@ -7,12 +7,12 @@
 read_gffs_as_contigs(gff_files, genome_ids = NULL)
 }
 \arguments{
-\item{genome_ids}{to use with each file. If `NULL` infer from file name.}
+\item{genome_ids}{to use with each file. If \code{NULL} infer from file name.}
 }
 \value{
 A tibble with columns: genome_id, contig_id, length.
 }
 \description{
-Parses `##sequence-region` annotation using `grep`. `rtracklayer` ignores
+Parses \verb{##sequence-region} annotation using \code{grep}. \code{rtracklayer} ignores
 those lines.
 }

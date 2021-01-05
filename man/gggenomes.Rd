@@ -53,11 +53,11 @@ variable containing each table.}
 tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
 naming scheme as for features.}
 
-\item{...}{layout parameters passed on to [layout_genomes()] / [layout_seqs()]}
+\item{...}{layout parameters passed on to \code{\link[=layout_genomes]{layout_genomes()}} / \code{\link[=layout_seqs]{layout_seqs()}}}
 
 \item{theme}{choose a gggenomes default theme, NULL to omit.}
 
-\item{.layout}{a pre-computed layout from [layout_genomes()]. Useful for
+\item{.layout}{a pre-computed layout from \code{\link[=layout_genomes]{layout_genomes()}}. Useful for
 developmental purposes.}
 
 \item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
@@ -66,7 +66,7 @@ provided. The expressions are evaluated in the context of the first feature
 or link track.
 
 By default subregions of sequences from the first to the last feature/link
-are generated. Set `infer_start` to 0 to show all sequences from their
+are generated. Set \code{infer_start} to 0 to show all sequences from their
 true beginning.}
 
 \item{spacing}{between sequences in bases (>1) or relative to longest bin (<1)}
@@ -80,12 +80,12 @@ gggenomes-flavored ggplot object
 gggenomes_layout object
 }
 \description{
-Sequence data: `read_fai`
+Sequence data: \code{read_fai}
 }
 \details{
-Feature data: `read_gff`
+Feature data: \code{read_gff}
 
-Link data: `read_paf`
+Link data: \code{read_paf}
 }
 \examples{
 # Compare the genomic organization of three viral elements

@@ -6,7 +6,7 @@
 \usage{
 geom_bin_label(
   mapping = NULL,
-  data = use_bins(),
+  data = bins(),
   hjust = 1,
   size = 6,
   nudge_left = 0.05,
@@ -51,11 +51,11 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-Put bin labels left of the sequences. `nudge_left` adds space relative to the
-total bin width between the label and the seqs, by default 5%. `expand_left`
-expands the plot to the left by 20% to make labels visible.
+Put bin labels left of the sequences. \code{nudge_left} adds space relative to the
+total bin width between the label and the seqs, by default 5\%. \code{expand_left}
+expands the plot to the left by 20\% to make labels visible.
 }
 \details{
-Set `x` and `expand_x` to an absolute position to align all labels at a
+Set \code{x} and \code{expand_x} to an absolute position to align all labels at a
 specific location
 }

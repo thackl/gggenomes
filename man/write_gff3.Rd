@@ -22,7 +22,7 @@ write_gff3(
 
 \item{file}{name of output file}
 
-\item{seqs}{a tidy sequence table to generate optional `##sequence-region`
+\item{seqs}{a tidy sequence table to generate optional \verb{##sequence-region}
 directives in the header}
 
 \item{type}{if no type column exists, use this as the default type}
@@ -33,7 +33,7 @@ directives in the header}
 
 \item{phase}{if no phase column exists, use this as the default phase}
 
-\item{id_var}{the name of the column to use as the GFF3 `ID` tag}
+\item{id_var}{the name of the column to use as the GFF3 \code{ID} tag}
 
 \item{head}{additional information to add to the header section}
 }

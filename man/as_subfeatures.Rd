@@ -13,7 +13,7 @@ as_subfeatures(x, seqs, features, ..., everything = TRUE)
 
 \item{features}{the parent features the subfeatures map onto.}
 
-\item{...}{passed on to `layout_seqs()`}
+\item{...}{passed on to \code{layout_seqs()}}
 
 \item{everything}{set to FALSE to drop optional columns}
 
@@ -28,17 +28,16 @@ a tbl_df with plot coordinates
 Read subfeature data such as domains or blast hits on genes into a tidy
 dataframe. Subfeatures need to be associated with an already added feature
 track. The subfeature track itself is internally converted into a new,
-regular feature track by mapping the `start` and `end` coordinates provided
+regular feature track by mapping the \code{start} and \code{end} coordinates provided
 relative to their parent feature into coordinates relative to the sequences
 underlying the parent features.
 }
 \details{
-Obligatory columns are `feature_id`, `start` and `end`. Also recognized are
-`strand` and `bin_id`.
+Obligatory columns are \code{feature_id}, \code{start} and \code{end}. Also recognized are
+\code{strand} and \code{bin_id}.
 
-Note `start` and `end` for every record will be coerced so that `start <
-end`. If no `strand` was provided, `strand` will be added and set to "+" for
-records that initially had `start < end` and "-" for `end < start` inputs. If
-`strand` was provided, `start` and `end` will be reorganized to conform with
-`start < end` without any additional effect.
+Note \code{start} and \code{end} for every record will be coerced so that \code{start < end}. If no \code{strand} was provided, \code{strand} will be added and set to "+" for
+records that initially had \code{start < end} and "-" for \code{end < start} inputs. If
+\code{strand} was provided, \code{start} and \code{end} will be reorganized to conform with
+\code{start < end} without any additional effect.
 }

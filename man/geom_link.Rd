@@ -6,7 +6,7 @@
 \usage{
 geom_link(
   mapping = NULL,
-  data = use_links(1, abs(y - yend) == 1),
+  data = links(),
   stat = "identity",
   position = "identity",
   na.rm = FALSE,
@@ -18,9 +18,9 @@ geom_link(
 }
 \arguments{
 \item{offset}{distance between seq center and link start. Use two values
-`c(<offset_top>, <offset_bottom>)` for different top and bottom offsets}
+\verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
 }
 \description{
-use(links, abs(y-yend)==1) - this is somewhat redundant with
+Note \code{.adjacent_only=TRUE} is somewhat redundant with
 layout_links(adjacent_only =TRUE), which currently is always set to TRUE
 }

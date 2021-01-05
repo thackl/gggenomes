@@ -34,7 +34,7 @@ example after focusing in on a subregion. Choices are to "drop" them, "keep"
 them or "trim" them to the subregion boundaries.}
 
 \item{subseqs}{a dataframe specifying sequence regions (subseqs) of interest
-directly. Required columns are 'seq_id, start, end'. Superceeds `...`.}
+directly. Required columns are 'seq_id, start, end'. Superceeds \code{...}.}
 }
 \description{
 Only show subsequences from the complete data set containing features of

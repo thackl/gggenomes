@@ -6,7 +6,7 @@
 \usage{
 geom_seq_label(
   mapping = NULL,
-  data = use_seqs(),
+  data = seqs(),
   hjust = 0,
   nudge_y = -0.1,
   size = 6,

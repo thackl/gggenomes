@@ -13,7 +13,7 @@ as_sublinks(x, seqs, features, ..., everything = TRUE)
 
 \item{features}{the features the sublinks map onto.}
 
-\item{...}{passed on to `layout_seqs()`}
+\item{...}{passed on to \code{layout_seqs()}}
 
 \item{everything}{set to FALSE to drop optional columns}
 
@@ -28,16 +28,15 @@ a tbl_df with plot coordinates
 Reads sublinks connecting features such as all-vs-all protein blasts into a
 tidy dataframe. sublinks need to be associated with an already added feature
 track. The sublinks are internally converted into a regular link track by
-mapping the feature-based `start` and `end` coordinates to coordinates
+mapping the feature-based \code{start} and \code{end} coordinates to coordinates
 relative to the sequences underlying the linked features.
 }
 \details{
-The only obligatory columns are `feature_id1` & `feature_id2`. Also
-recognized are `start1/end1`, `start2/end2` and `strand`.
+The only obligatory columns are \code{feature_id1} & \code{feature_id2}. Also
+recognized are \code{start1/end1}, \code{start2/end2} and \code{strand}.
 
-Note `start` and `end` for every record will be coerced so that `start <
-end`. If no `strand` was provided, `strand` will be added and set to "+" for
-records that initially had `start1 < end1 == start2 < end2` and "-"
-otherwise. If `strand` was provided, `start` and `end` will be reorganized to
-conform with `start < end` without any additional effect.
+Note \code{start} and \code{end} for every record will be coerced so that \code{start < end}. If no \code{strand} was provided, \code{strand} will be added and set to "+" for
+records that initially had \verb{start1 < end1 == start2 < end2} and "-"
+otherwise. If \code{strand} was provided, \code{start} and \code{end} will be reorganized to
+conform with \code{start < end} without any additional effect.
 }

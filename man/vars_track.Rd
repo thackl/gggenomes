@@ -4,21 +4,26 @@
 \alias{vars_track}
 \title{Tidyselect track variables}
 \usage{
-vars_track(x, track_id, types = c("seqs", "features", "links"), ignore = NA)
+vars_track(
+  x,
+  track_id,
+  track_type = c("seqs", "features", "links"),
+  ignore = NULL
+)
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
 
-\item{track_id}{as quoted or unquoted name or as positive/negative integer
+\item{track_id}{a quoted or unquoted name or as positive/negative integer
 giving the position from the left/right.}
 
-\item{types}{restrict to these types of tracks - affects position-based
+\item{track_type}{restrict to these types of tracks - affects position-based
 selection}
 }
 \value{
 The selected track_id as an unnamed string
 }
 \description{
-Based on `tidyselect::vars_pull`. Powers track selection in `pull_*/use*`.
+Based on \code{tidyselect::vars_pull}. Powers track selection in \code{pull_track()}.
 Catches and modifies errors from vars_pull to track-relevant info.
 }

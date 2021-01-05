@@ -2,7 +2,7 @@
 #' 
 #' @param data feature_layout
 #' @export
-geom_feature <- function(mapping = NULL, data = use_features(1), stat="identity",
+geom_feature <- function(mapping = NULL, data = feats(), stat="identity",
     position = "pile", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     ...) {
   # TODO: arrow tip
@@ -17,7 +17,7 @@ geom_feature <- function(mapping = NULL, data = use_features(1), stat="identity"
 }
 
 ## deprecatedx
-## geom_feature <- function(mapping = NULL, data = use_features(),
+## geom_feature <- function(mapping = NULL, data = feats(),
 ##     arrow = NULL, nudge_by_strand = NULL, ...){
 
 ##   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)

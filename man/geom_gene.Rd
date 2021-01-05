@@ -6,7 +6,7 @@
 \usage{
 geom_gene(
   mapping = NULL,
-  data = use_genes(1, type == "CDS"),
+  data = genes(),
   stat = "identity",
   position = "identity",
   na.rm = FALSE,

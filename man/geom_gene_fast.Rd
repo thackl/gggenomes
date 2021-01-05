@@ -6,7 +6,7 @@
 \usage{
 geom_gene_fast(
   mapping = NULL,
-  data = use_genes(),
+  data = genes(),
   arrow = TRUE,
   nudge_by_strand = NULL,
   size = 4,

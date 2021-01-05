@@ -18,6 +18,6 @@ width0(start, end, base = 0)
 a numeric vector
 }
 \description{
-Always returns a positive value, even if start > end. `width0` is a short
-handle for `width(..., base=0)`
+Always returns a positive value, even if start > end. \code{width0} is a short
+handle for \code{width(..., base=0)}
 }

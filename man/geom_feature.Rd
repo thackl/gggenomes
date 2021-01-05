@@ -6,7 +6,7 @@
 \usage{
 geom_feature(
   mapping = NULL,
-  data = use_features(1),
+  data = feats(),
   stat = "identity",
   position = "pile",
   na.rm = FALSE,

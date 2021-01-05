@@ -5,7 +5,7 @@
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
-geom_seq <- function(mapping = NULL, data = use_seqs(),
+geom_seq <- function(mapping = NULL, data = seqs(),
     arrow = NULL, ...){
 
   default_aes <- aes(x, y, xend=xend, yend=y)
@@ -22,7 +22,7 @@ geom_seq <- function(mapping = NULL, data = use_seqs(),
 #'
 #' @param data feature_layout
 #' @export
-geom_gene_fast <- function(mapping = NULL, data = use_genes(),
+geom_gene_fast <- function(mapping = NULL, data = genes(),
     arrow = TRUE, nudge_by_strand = NULL, size = 4, color = "cornflowerblue", ...){
   geom_feature(mapping=mapping, data=data, arrow=arrow,
                nudge_by_strand=nudge_by_strand, size=size, color = color, ...)
@@ -31,7 +31,7 @@ geom_gene_fast <- function(mapping = NULL, data = use_genes(),
 #' draw feature labels
 #'
 #' @export
-geom_seq_label <- function(mapping = NULL, data = use_seqs(),
+geom_seq_label <- function(mapping = NULL, data = seqs(),
     hjust = 0, nudge_y = -0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~x, label=~seq_id)
@@ -56,7 +56,7 @@ geom_seq_label <- function(mapping = NULL, data = use_seqs(),
 #' @param expand_x expand the plot to include this absolute x value
 #' @param expand_aes provide custom aes mappings for the expansion (advanced)
 #' @export
-geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
+geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
 
   default_aes <- aes_(y=~y,x=~pmin(x,xend) - max_width(x,xend) * nudge_left, label=~bin_id)
   mapping <- aes_intersect(mapping, default_aes)
@@ -76,7 +76,7 @@ geom_bin_label <- function(mapping = NULL, data=use_bins(), hjust = 1, size = 6,
 #' draw feature labels
 #'
 #' @export
-geom_gene_label <- function(mapping = NULL, data = use_genes(),
+geom_gene_label <- function(mapping = NULL, data = genes(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)
@@ -86,7 +86,7 @@ geom_gene_label <- function(mapping = NULL, data = use_genes(),
             nudge_y = nudge_y, size = size, ...)
 }
 #' @export
-geom_feature_label <- function(mapping = NULL, data = use_features(),
+geom_feature_label <- function(mapping = NULL, data = feats(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)
@@ -99,7 +99,7 @@ geom_feature_label <- function(mapping = NULL, data = use_features(),
 #' draw link labels
 #'
 #' @export
-geom_link_label <- function(mapping = NULL, data = use_links(),
+geom_link_label <- function(mapping = NULL, data = links(),
     angle = 0,hjust = 0.5, vjust = 0.5, size = 4, repel=FALSE, ...){
 
   default_aes <- aes_(y=~.y_center,x=~.x_center)

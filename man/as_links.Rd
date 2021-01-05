@@ -11,7 +11,7 @@ as_links(x, seqs, ..., everything = TRUE)
 
 \item{seqs}{the sequence layout the feature map onto.}
 
-\item{...}{passed on to `layout_seqs()`}
+\item{...}{passed on to \code{layout_seqs()}}
 
 \item{everything}{set to FALSE to drop optional columns}
 }
@@ -21,8 +21,8 @@ similarity searches into a tidy dataframe and augment it with layout
 information based on a sequence layout.
 }
 \details{
-Obligatory columns are `seq_id1` and `seq_id2`. Also recognized are
-`start1`, `end1`,`start2`,`end2`,`strand`, bin_id1` and `bin_id2.
+Obligatory columns are \code{seq_id1} and \code{seq_id2}. Also recognized are
+\code{start1}, \code{end1},\code{start2},\code{end2},\code{strand}, bin_id1\code{and}bin_id2.
 
 During layouting, seq_id1,start1,end1 will be projected to x,xend,y, while
 seq_id2,start2,end2 will be projected to xmin,xmax,yend. gggenomes uses these

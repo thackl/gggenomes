@@ -7,7 +7,7 @@
 example_files(set = NULL, patt = "*", ...)
 }
 \arguments{
-\item{set}{data set, see `example_sets` for a list}
+\item{set}{data set, see \code{example_sets} for a list}
 
 \item{patt}{wildcard pattern to filter files}
 }

@@ -1,7 +1,7 @@
 #' Draw genes
 #'
 #' @export
-geom_gene <- function(mapping = NULL, data = use_genes(1, type == "CDS"), stat = "identity",
+geom_gene <- function(mapping = NULL, data = genes(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     arrow_size = c(3,3,3), chevrons = NULL, ...){
 

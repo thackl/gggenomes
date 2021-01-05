@@ -11,9 +11,9 @@ in_range(x, left, right, closed = TRUE)
 
 \item{left, right}{boundary values or vectors of same length as x}
 
-\item{closed}{wether to include (`TRUE`) or exclude (`FALSE`) the
+\item{closed}{wether to include (\code{TRUE}) or exclude (\code{FALSE}) the
 endpoints. Provide 2 values for different behaviors for lower and upper
-boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.}
+boundary, e.g. \code{c(TRUE, FALSE)} to include only the lower boundary.}
 }
 \value{
 a logical vector of the same length as the input

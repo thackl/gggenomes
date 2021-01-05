@@ -1,4 +1,4 @@
-geom_gene2 <- function(mapping = NULL, data = use_genes(), stat = "identity",
+geom_gene2 <- function(mapping = NULL, data = genes(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, height = 2,
     cds_type = "CDS", gene_type = "gene", seg_size=3, seg_colour="black", seg_alpha=NA,
     seg_linetype=1, ...) {
