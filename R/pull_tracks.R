@@ -178,15 +178,15 @@ pull_bins.gggenomes_layout <- function(.x, ..., .group=vars()){
 
 #' @rdname pull_track
 #' @export
-pull_track <- function(.x, .track_id=1, ..., .track_type, .ignore=NULL){
+pull_track <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
   UseMethod("pull_track")
 }
 #' @export
-pull_track.gggenomes <- function(.x, .track_id=1, ..., .track_type, .ignore=NULL){
+pull_track.gggenomes <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
   pull_track(.x$data, {{.track_id}}, ..., .track_type=.track_type, .ignore=.ignore)
 }
 #' @export
-pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type, .ignore=NULL){
+pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
   track_id <- vars_track(.x, {{.track_id}}, track_type=.track_type, ignore=.ignore)
   filter(.x[[track_type(.x, track_id)]][[track_id]], ...)
 }

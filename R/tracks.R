@@ -13,7 +13,7 @@ track_ids.gggenomes <- function(x, ...){
 
 #' @export
 track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "features", "links")){
-  track_type <- match.arg(track_type, several.ok = TRUE)
+  track_type <- match_arg(track_type, several.ok = TRUE)
   ids <- flatten_chr(unname(map(track_type, ~names(x[[.x]]))))
   names(ids) <- track_types(x, track_type)
   ids

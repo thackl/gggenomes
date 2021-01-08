@@ -39,7 +39,7 @@ as_subfeatures.default <- function(x, seqs, features, ..., everything=TRUE) {
 #' @export
 as_subfeatures.tbl_df <- function(x, seqs, features, ..., everything=TRUE,
     transform = c("none", "aa2nuc", "nuc2aa")){
-  transform <- match.arg(transform)
+  transform <- match_arg(transform)
   # TODO - bad transform, not none,aa2nuc,nuc2aa
 
   vars <- c("feature_id","start","end")
