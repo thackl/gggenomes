@@ -16,7 +16,7 @@ layout.gggenomes <- function(x, ignore_seqs=FALSE, ...){
 layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
     args_feats = list(), args_links = list()){
   if(!ignore_seqs)
-    x <- seq_seqs(x, exec(layout_seqs, get_seqs(x), !!!args_seqs,
+    x <- set_seqs(x, exec(layout_seqs, get_seqs(x), !!!args_seqs,
                             !!!x$args_seqs))
    # note: tried this with map, but that somehow messes with !!!
    for(i in seq_along(x$feats))
