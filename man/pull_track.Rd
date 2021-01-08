@@ -7,7 +7,7 @@
 \alias{seqs}
 \alias{bins}
 \alias{track}
-\alias{pull_features}
+\alias{pull_feats}
 \alias{pull_genes}
 \alias{pull_links}
 \alias{pull_seqs}
@@ -28,7 +28,7 @@ bins(..., .group = vars())
 
 track(.track_id = 1, ..., .track_type = NULL, .ignore = NULL)
 
-pull_features(.x, .track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
+pull_feats(.x, .track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 
 pull_genes(.x, ..., .cds_only = TRUE)
 
@@ -40,21 +40,21 @@ pull_bins(.x, ..., .group = vars())
 
 \method{pull_bins}{gggenomes_layout}(.x, ..., .group = vars())
 
-pull_track(.x, .track_id = 1, ..., .track_type, .ignore = NULL)
+pull_track(.x, .track_id = 1, ..., .track_type = NULL, .ignore = NULL)
 }
 \arguments{
 \item{.track_id}{The track to pull out, either as a literal variable name or
 as a positive/negative integer giving the position from the left/right.}
 
 \item{...}{Logical predicates passed on to \link[dplyr:filter]{dplyr::filter}.
-"seqs", "features", "links". Affects position-based selection.}
+"seqs", "feats", "links". Affects position-based selection.}
 
 \item{.ignore}{a regular string vector with track_ids to ignore.}
 
 \item{.geneify}{add dummy gene_id and type column to play nicely with geoms
-supporting multi-exon features.}
+supporting multi-exon feats.}
 
-\item{.cds_only}{filter for features tagged as coding sequence in the type column (\code{type=="CDS"})}
+\item{.cds_only}{filter for feats tagged as coding sequence in the type column (\code{type=="CDS"})}
 
 \item{.adjacent_only}{filter for links connecting direct neighbors (\verb{abs(y-yend)==1)})}
 
@@ -62,7 +62,7 @@ supporting multi-exon features.}
 to \code{y} and \code{bin_id}. Use this to get additional shared variables from the
 seqs table into the bins table.}
 
-\item{.track_type}{restrict to these types of tracks - any combination of "seqs", "features", "links".}
+\item{.track_type}{restrict to these types of tracks - any combination of "seqs", "feats", "links".}
 
 \item{.x}{A gggenomes or gggenomes_layout object.}
 }
@@ -74,9 +74,9 @@ object. Unprefixed variants work inside \verb{geom_*} calls.
 }
 \section{Functions}{
 \itemize{
-\item \code{feats}: by default pulls out the first feature track not named "genes".
+\item \code{feats}: by default pulls out the first feat track not named "genes".
 
-\item \code{genes}: pulls out the first feature track (genes), filtering
+\item \code{genes}: pulls out the first feat track (genes), filtering
 for records with \code{type=="CDS"}, and adding a dummy \code{gene_id} column if missing
 to play nice with multi-exon \code{geom}s.
 
@@ -98,7 +98,7 @@ gg \%>\% track_info()            # info about track ids, positions and types
 
 # get first feat track that isn't "genes" (all equivalent)
 gg \%>\% pull_feats()            # easiest
-gg \%>\% pull_feats(features)    # by id
+gg \%>\% pull_feats(feats)    # by id
 gg \%>\% pull_feats(1)           # by position
 gg \%>\% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
 
@@ -107,8 +107,8 @@ gg \%>\% pull_seqs()
 
 # plot integrated transposons and GC content for some viral genomes
 gg <- gggenomes(emale_seqs[1:8,],
-  features=list(emale_transposons, GC=emale_gc))
+  feats=list(emale_transposons, GC=emale_gc))
 gg + geom_seq() +
-  geom_feature(color="skyblue") + # defaults to data=feats()
+  geom_feat(color="skyblue") + # defaults to data=feats()
   geom_line(aes(x, y+score-.6, group=y), data=feats(GC), color="gray60")
 }

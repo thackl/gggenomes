@@ -15,7 +15,7 @@ geom_gene_fast(
 )
 }
 \arguments{
-\item{data}{feature_layout}
+\item{data}{feat_layout}
 }
 \description{
 Draw genes fast but not so pretty

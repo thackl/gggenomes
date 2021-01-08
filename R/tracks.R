@@ -1,6 +1,6 @@
 #' Named vector of track ids and types
 #' @param x A gggenomes or gggenomes_layout object
-#' @param track_type restrict to any combination of "seqs", "features" and "links".
+#' @param track_type restrict to any combination of "seqs", "feats" and "links".
 #' @export
 track_ids <- function(x, ...){
   UseMethod("track_ids")
@@ -12,7 +12,7 @@ track_ids.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "features", "links")){
+track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links")){
   track_type <- match_arg(track_type, several.ok = TRUE)
   ids <- flatten_chr(unname(map(track_type, ~names(x[[.x]]))))
   names(ids) <- track_types(x, track_type)
@@ -35,7 +35,7 @@ track_info.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_info.gggenomes_layout <- function(x, track_type = c("seqs", "features", "links")){
+track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
   track_type <- match.arg(track_type, several.ok = TRUE)
   y <- tibble(
     id = track_ids(x, track_type),
@@ -52,14 +52,14 @@ track_info.gggenomes_layout <- function(x, track_type = c("seqs", "features", "l
 #' All types of all tracks
 #' @inheritParams track_ids
 #' @return a vector of all types of all selected tracks
-track_types <- function(x, track_type = c("seqs", "features", "links")){
+track_types <- function(x, track_type = c("seqs", "feats", "links")){
   flatten_chr(unname(map(track_type, ~rep(.x, length(x[[.x]])))))
 }
 
 #' Number of rows of all tracks tables
 #' @inheritParams track_ids
 #' @return a vector of number of rows all selected tracks tables
-track_nrows <- function(x, track_type = c("seqs", "features", "links")){
+track_nrows <- function(x, track_type = c("seqs", "feats", "links")){
   flatten_int(unname(map(track_type, ~map_int(x[[.x]], nrow))))
 }
 
@@ -78,8 +78,8 @@ tracks <- function(x, ...){
 tracks.gggenomes <- function(x, ...){
   tracks(x$data)
 }
-tracks.gggenomes_layout <- function(x, track_type = c("seqs", "features", "links")){
-  c(x$seqs, x$features, x$links)
+tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
+  c(x$seqs, x$feats, x$links)
 }
 
 

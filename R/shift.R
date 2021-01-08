@@ -1,7 +1,7 @@
 #' Shift bins left/right
 #'
 #' Shift bins along the x-axis, i.e. left or right in the default plot
-#' layout. This is useful to align features of interest in different bins.
+#' layout. This is useful to align feats of interest in different bins.
 #'
 #' @param bins to shift left/right, select-like expression
 #' @param by shift each bin by this many bases. Single value or vector of the

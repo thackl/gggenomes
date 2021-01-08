@@ -1,6 +1,6 @@
 #' Compute a layout for link data
 #'
-#' Read link data of pairwise sequence or feature comparisons, such as
+#' Read link data of pairwise sequence or feat comparisons, such as
 #' similarity searches into a tidy dataframe and augment it with layout
 #' information based on a sequence layout.
 #'
@@ -15,7 +15,7 @@
 #' used above.
 #'
 #' @param x link data convertible to a link layout
-#' @inheritParams as_features
+#' @inheritParams as_feats
 #' @export
 as_links <- function(x, seqs, ..., everything=TRUE){
     UseMethod("as_links")
@@ -70,7 +70,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
   # get rid of old layout
   x <- drop_link_layout(x, keep)
 
-  # get layout vars necessary for projecting features from seqs
+  # get layout vars necessary for projecting feats from seqs
   x <- add_link_layout_scaffold(x, seqs)
 
   # TODO: adjacent_only can currently not overwritten by add_links() this is
@@ -84,10 +84,10 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
     }
   }
 
-  # ignore features outside subseqs
+  # ignore feats outside subseqs
   x <- trim_links_to_subseqs(x, marginal)
 
-  # project features onto new layout and clean up aux vars (.seq)
+  # project feats onto new layout and clean up aux vars (.seq)
   x <- project_links(x) %>%
     select(y, x, xend, yend, xmin, xmax, everything(), -starts_with(".seq"))
   x

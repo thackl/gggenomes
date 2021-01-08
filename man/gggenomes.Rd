@@ -9,7 +9,7 @@
 gggenomes(
   seqs = NULL,
   genes = NULL,
-  features = NULL,
+  feats = NULL,
   links = NULL,
   ...,
   theme = c("clean", NULL),
@@ -19,7 +19,7 @@ gggenomes(
 layout_genomes(
   seqs = NULL,
   genes = NULL,
-  features = NULL,
+  feats = NULL,
   links = NULL,
   infer_bin_id = seq_id,
   infer_start = min(start, end),
@@ -39,19 +39,19 @@ layout_seqs(
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}
 
-\item{genes}{a table or a list of table with gene data to be added as feature
+\item{genes}{a table or a list of table with gene data to be added as feat
 tracks. Required columns: seq_id, bin_id, start, end.
 
 For a single table, adds the track_id will be "genes". For a list, track_ids
 are parsed from the list names, or if names are missing from the name of the
 variable containing each table.}
 
-\item{features}{same as genes, but the single table track_id will default to
-"features".}
+\item{feats}{same as genes, but the single table track_id will default to
+"feats".}
 
 \item{links}{a table or a list of tables with link data to be added as link
 tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
-naming scheme as for features.}
+naming scheme as for feats.}
 
 \item{...}{layout parameters passed on to \code{\link[=layout_genomes]{layout_genomes()}} / \code{\link[=layout_seqs]{layout_seqs()}}}
 
@@ -61,11 +61,11 @@ naming scheme as for features.}
 developmental purposes.}
 
 \item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
-seqs if only features or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feature
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
 or link track.
 
-By default subregions of sequences from the first to the last feature/link
+By default subregions of sequences from the first to the last feat/link
 are generated. Set \code{infer_start} to 0 to show all sequences from their
 true beginning.}
 
@@ -83,7 +83,7 @@ gggenomes_layout object
 Sequence data: \code{read_fai}
 }
 \details{
-Feature data: \code{read_gff}
+Feat data: \code{read_gff}
 
 Link data: \code{read_paf}
 }
@@ -92,7 +92,7 @@ Link data: \code{read_paf}
 # EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
 gggenomes(emale_seqs[c(1:2,6),], emale_genes, emale_tirs, emale_links) +
   geom_seq() + geom_bin_label() +                  # chromosomes and labels
-  geom_feature(size=8) +                           # terminal inverted repeats
+  geom_feat(size=8) +                           # terminal inverted repeats
   geom_gene(aes(fill=strand), position="strand") + # genes
   geom_link(offset = 0.15)                         # synteny-blocks
 }

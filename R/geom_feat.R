@@ -1,8 +1,8 @@
-#' Draw features
+#' Draw feats
 #' 
-#' @param data feature_layout
+#' @param data feat_layout
 #' @export
-geom_feature <- function(mapping = NULL, data = feats(), stat="identity",
+geom_feat <- function(mapping = NULL, data = feats(), stat="identity",
     position = "pile", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     ...) {
   # TODO: arrow tip
@@ -10,19 +10,19 @@ geom_feature <- function(mapping = NULL, data = feats(), stat="identity",
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(
-    geom = GeomFeature, mapping = mapping, data = data, stat = stat,
+    geom = GeomFeat, mapping = mapping, data = data, stat = stat,
     position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     params = list(na.rm = na.rm, ...)
   )
 }
 
 ## deprecatedx
-## geom_feature <- function(mapping = NULL, data = feats(),
+## geom_feat <- function(mapping = NULL, data = feats(),
 ##     arrow = NULL, nudge_by_strand = NULL, ...){
 
 ##   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)
 
-##   # TODO: would be cleaner with GeomFeature ggproto...
+##   # TODO: would be cleaner with GeomFeat ggproto...
 ##   if (has_name(mapping, "size")) aes_intersect(mapping, aes(size = 3))
 ##   if (any(has_name(mapping, c("color", "colour")))) aes_intersect(mapping, aes(color = "grey40"))
 ##   r <- list(geom_segment(mapping = mapping, data = data, ...))
@@ -36,7 +36,7 @@ geom_feature <- function(mapping = NULL, data = feats(), stat="identity",
 ##   r
 ## }
 
-GeomFeature <- ggproto(
-  "GeomFeature", GeomSegment,
+GeomFeat <- ggproto(
+  "GeomFeat", GeomSegment,
   default_aes = aes(colour = "grey40", size = 3, linetype = 1, alpha = NA)
 )

@@ -8,16 +8,16 @@
 #' @param .track_id The track to pull out, either as a literal variable name or
 #'   as a positive/negative integer giving the position from the left/right.
 #' @param ... Logical predicates passed on to [dplyr::filter].
-#'   "seqs", "features", "links". Affects position-based selection.
+#'   "seqs", "feats", "links". Affects position-based selection.
 #' @param .ignore a regular string vector with track_ids to ignore.
 #' @param .geneify add dummy gene_id and type column to play nicely with geoms
-#'   supporting multi-exon features.
-#' @param .cds_only filter for features tagged as coding sequence in the type column (`type=="CDS"`)
+#'   supporting multi-exon feats.
+#' @param .cds_only filter for feats tagged as coding sequence in the type column (`type=="CDS"`)
 #' @param .adjacent_only filter for links connecting direct neighbors (`abs(y-yend)==1)`)
 #' @param .group what variables to use in grouping of bins from seqs in addition
 #' to `y` and `bin_id`. Use this to get additional shared variables from the
 #' seqs table into the bins table.
-#' @param .track_type restrict to these types of tracks - any combination of "seqs", "features", "links".
+#' @param .track_type restrict to these types of tracks - any combination of "seqs", "feats", "links".
 #' @examples
 #'
 #' gg <- gggenomes(emale_seqs, emale_genes, emale_tirs, emale_links)
@@ -25,7 +25,7 @@
 #'
 #' # get first feat track that isn't "genes" (all equivalent)
 #' gg %>% pull_feats()            # easiest
-#' gg %>% pull_feats(features)    # by id
+#' gg %>% pull_feats(feats)    # by id
 #' gg %>% pull_feats(1)           # by position
 #' gg %>% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
 #'
@@ -34,19 +34,19 @@
 #'
 #' # plot integrated transposons and GC content for some viral genomes
 #' gg <- gggenomes(emale_seqs[1:8,],
-#'   features=list(emale_transposons, GC=emale_gc))
+#'   feats=list(emale_transposons, GC=emale_gc))
 #' gg + geom_seq() +
-#'   geom_feature(color="skyblue") + # defaults to data=feats()
+#'   geom_feat(color="skyblue") + # defaults to data=feats()
 #'   geom_line(aes(x, y+score-.6, group=y), data=feats(GC), color="gray60")
-#' @describeIn pull_track by default pulls out the first feature track not named "genes".
+#' @describeIn pull_track by default pulls out the first feat track not named "genes".
 #' @export
 feats <- function(.track_id=1, ..., .ignore="genes", .geneify=FALSE){
   dots <- quos(...)
   function(.x, ...){
-    pull_features(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .geneify=.geneify)
+    pull_feats(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .geneify=.geneify)
   }
 }
-#' @describeIn pull_track pulls out the first feature track (genes), filtering
+#' @describeIn pull_track pulls out the first feat track (genes), filtering
 #' for records with `type=="CDS"`, and adding a dummy `gene_id` column if missing
 #' to play nice with multi-exon `geom`s.
 #' @export
@@ -93,17 +93,17 @@ track <- function(.track_id=1, ..., .track_type=NULL, .ignore=NULL){
 
 #' @rdname pull_track
 #' @export
-pull_features <- function(.x, .track_id=1, ..., .ignore="genes", .geneify=FALSE){
-  UseMethod("pull_features")
+pull_feats <- function(.x, .track_id=1, ..., .ignore="genes", .geneify=FALSE){
+  UseMethod("pull_feats")
 }
 #' @export
-pull_features.gggenomes <- function(.x, .track_id=1, ..., .ignore="genes", .geneify=FALSE){
-  pull_features(.x$data, {{.track_id}}, ..., .ignore=.ignore, .geneify=.geneify)
+pull_feats.gggenomes <- function(.x, .track_id=1, ..., .ignore="genes", .geneify=FALSE){
+  pull_feats(.x$data, {{.track_id}}, ..., .ignore=.ignore, .geneify=.geneify)
 }
 #' @export
-pull_features.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore="genes",
+pull_feats.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore="genes",
     .geneify=FALSE){
-  track <- pull_track(.x, {{.track_id}}, ..., .track_type="features", .ignore=.ignore)
+  track <- pull_track(.x, {{.track_id}}, ..., .track_type="feats", .ignore=.ignore)
   if(.geneify){
     if(!has_name(track, "type")) track[["type"]] <- "CDS"
     if(!has_name(track, "gene_id"))
@@ -123,7 +123,7 @@ pull_genes.gggenomes <- function(.x, ..., .cds_only=TRUE){
 }
 #' @export
 pull_genes.gggenomes_layout <- function(.x, ..., .cds_only=TRUE){
-  track <- pull_features(.x, 1, ..., .ignore=NULL, .geneify=TRUE)
+  track <- pull_feats(.x, 1, ..., .ignore=NULL, .geneify=TRUE)
   if(.cds_only) track <- filter(track, type=="CDS")
   track
 }
@@ -201,7 +201,7 @@ pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, 
 #' @param track_type restrict to these types of tracks - affects position-based
 #'   selection
 #' @return The selected track_id as an unnamed string
-vars_track <- function(x, track_id, track_type = c("seqs", "features", "links"),
+vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
     ignore = NULL){
   track_type <- match_arg(track_type, several.ok = T)
   track_ids <- track_ids(x, track_type)

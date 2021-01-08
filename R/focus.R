@@ -1,6 +1,6 @@
-#' Focus on features and regions of interest
+#' Focus on feats and regions of interest
 #'
-#' Only show subsequences from the complete data set containing features of
+#' Only show subsequences from the complete data set containing feats of
 #' interest.
 #'
 #' @param x a gggenomes object
@@ -13,8 +13,8 @@
 #' ‘vignette("programming")’ for an introduction to these concepts.
 #' @param track_id the track to filter from
 #' @param plus the amount to nucleotides to extend the focus around the target
-#' features. Give two values for different up- and downstream extensions.
-#' @inheritParams layout_features
+#' feats. Give two values for different up- and downstream extensions.
+#' @inheritParams layout_feats
 #' @param subseqs a dataframe specifying sequence regions (subseqs) of interest
 #' directly. Required columns are 'seq_id, start, end'. Superceeds `...`.
 #' @export
@@ -46,8 +46,8 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
 
   if(any(duplicated(s$seq_id))){
     # NOTE: currently, this would create a clone of the sequence - duplicating
-    # sequence and feature_ids in the plot. This breaks access by ids functions
-    # (pick, ...) and feature_id-based geom_gene - thinks genes on clones are
+    # sequence and feat_ids in the plot. This breaks access by ids functions
+    # (pick, ...) and feat_id-based geom_gene - thinks genes on clones are
     # exons. Not sure, how to best fix that
     warn(paste("focussing in on two or more regions of the same sequence is",
                "currently not supported. Will return only the first region"))
@@ -55,5 +55,5 @@ focus <- function(x, ..., track_id=genes, plus=2000, marginal=c("trim", "drop",
   }
 
   x <- set_seqs(x, s)
-  layout(x, args_features = list(marginal = marginal))
+  layout(x, args_feats = list(marginal = marginal))
 }

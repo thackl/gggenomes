@@ -10,7 +10,7 @@
 \alias{PositionPile}
 \alias{PositionStrand}
 \alias{PositionSixframe}
-\title{Stack features}
+\title{Stack feats}
 \usage{
 position_strand(offset = 0.1, flip = FALSE, grouped = FALSE, base = offset/2)
 
@@ -33,27 +33,27 @@ position_strandpile(
 position_sixframe(offset = 0.1, flip = FALSE, grouped = FALSE, base = offset/2)
 }
 \arguments{
-\item{offset}{Shift overlapping features up/down this much on the y-axis. The
+\item{offset}{Shift overlapping feats up/down this much on the y-axis. The
 y-axis distance between two sequences is 1, so this is usually a small
 fraction, such as 0.1.}
 
 \item{flip}{stack downward, and for stranded versions reverse upward.}
 
-\item{grouped}{set TRUE to stack features in same aestetics group as if they
-are one feature. Useful for stacking multi-exon genes as a single unit.}
+\item{grouped}{set TRUE to stack feats in same aestetics group as if they
+are one feat. Useful for stacking multi-exon genes as a single unit.}
 
 \item{base}{How to align the stack relative to the sequence. 0 to center the
 lowest stack level on the sequence, 1 to put forward/reverse sequence one
 half offset above/below the sequence line.}
 
-\item{gap}{If two features are closer together than this, they will be
+\item{gap}{If two feats are closer together than this, they will be
 stacked. Can be negative to allow small overlaps. NA disables stacking.}
 }
 \description{
-\code{position_strand()} offsets forward features upward and reverse features
-downward. \code{position_pile()} stacks overlapping features upward.
-\code{position_strandpile()} stacks overlapping features up-/downward based on
-their strand. \code{position_sixframe()} offsets the features based on their
+\code{position_strand()} offsets forward feats upward and reverse feats
+downward. \code{position_pile()} stacks overlapping feats upward.
+\code{position_strandpile()} stacks overlapping feats up-/downward based on
+their strand. \code{position_sixframe()} offsets the feats based on their
 strand and reading frame.
 }
 \keyword{datasets}

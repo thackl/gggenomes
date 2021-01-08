@@ -8,7 +8,7 @@ geom_gene <- function(mapping = NULL, data = genes(), stat = "identity",
   if(length(arrow_size) == 1) arrow_size <- arrow_size[c(1,1,1)]
   if(length(arrow_size) == 2) arrow_size <- arrow_size[c(1,2,2)]
 
-  default_aes <- aes(y=y,x=x,xend=xend,group=feature_id)
+  default_aes <- aes(y=y,x=x,xend=xend,group=feat_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(

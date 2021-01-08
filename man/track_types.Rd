@@ -4,12 +4,12 @@
 \alias{track_types}
 \title{All types of all tracks}
 \usage{
-track_types(x, track_type = c("seqs", "features", "links"))
+track_types(x, track_type = c("seqs", "feats", "links"))
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
 
-\item{track_type}{restrict to any combination of "seqs", "features" and "links".}
+\item{track_type}{restrict to any combination of "seqs", "feats" and "links".}
 }
 \value{
 a vector of all types of all selected tracks

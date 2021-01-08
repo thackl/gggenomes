@@ -9,11 +9,11 @@ add_sublinks(x, parent_track_id, ..., transform = "none")
 \arguments{
 \item{x}{sublink data convertible to a link layout}
 
-\item{parent_track_id}{track_id of the features the sublinks map onto.}
+\item{parent_track_id}{track_id of the feats the sublinks map onto.}
 
 \item{...}{sublink tables with names, i.e. blast=blast_df, domains=domain_df}
 
-\item{transform}{use if features and sublinks are in different coordinate
+\item{transform}{use if feats and sublinks are in different coordinate
 spaces, i.e. if matching nucleotide-level annotations to protein level
 annotations, e.g. genes and protein blast results.}
 

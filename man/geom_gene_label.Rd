@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom.R
 \name{geom_gene_label}
 \alias{geom_gene_label}
-\title{draw feature labels}
+\title{draw feat labels}
 \usage{
 geom_gene_label(
   mapping = NULL,
@@ -15,5 +15,5 @@ geom_gene_label(
 )
 }
 \description{
-draw feature labels
+draw feat labels
 }

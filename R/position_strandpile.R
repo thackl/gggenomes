@@ -1,19 +1,19 @@
-#' Stack features
+#' Stack feats
 #'
-#' `position_strand()` offsets forward features upward and reverse features
-#' downward. `position_pile()` stacks overlapping features upward.
-#' `position_strandpile()` stacks overlapping features up-/downward based on
-#' their strand. `position_sixframe()` offsets the features based on their
+#' `position_strand()` offsets forward feats upward and reverse feats
+#' downward. `position_pile()` stacks overlapping feats upward.
+#' `position_strandpile()` stacks overlapping feats up-/downward based on
+#' their strand. `position_sixframe()` offsets the feats based on their
 #' strand and reading frame.
 #'
-#' @param offset Shift overlapping features up/down this much on the y-axis. The
+#' @param offset Shift overlapping feats up/down this much on the y-axis. The
 #' y-axis distance between two sequences is 1, so this is usually a small
 #' fraction, such as 0.1.
-#' @param gap If two features are closer together than this, they will be
+#' @param gap If two feats are closer together than this, they will be
 #' stacked. Can be negative to allow small overlaps. NA disables stacking.
 #' @param flip stack downward, and for stranded versions reverse upward.
-#' @param grouped set TRUE to stack features in same aestetics group as if they
-#' are one feature. Useful for stacking multi-exon genes as a single unit.
+#' @param grouped set TRUE to stack feats in same aestetics group as if they
+#' are one feat. Useful for stacking multi-exon genes as a single unit.
 #' @param base How to align the stack relative to the sequence. 0 to center the
 #' lowest stack level on the sequence, 1 to put forward/reverse sequence one
 #' half offset above/below the sequence line.
@@ -132,7 +132,7 @@ PositionSixframe <- ggproto("PositionSixframe", PositionStrand, framewise = TRUE
 stack_pos <- function(start,end,gap=0){
   if(!is.na(gap)){
     end <- end+gap
-    i <- end< start  # set negtive width features to zero width
+    i <- end< start  # set negtive width feats to zero width
     start[i] <- (start[i] + end[i])/2
     end[i] <- start[i]
     y <- IRanges::disjointBins(IRanges::IRanges(start=start, end=end)) -1

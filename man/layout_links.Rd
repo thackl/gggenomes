@@ -16,7 +16,7 @@ layout_links(
 \arguments{
 \item{x}{link data convertible to a link layout}
 
-\item{seqs}{the sequence layout the feature map onto.}
+\item{seqs}{the sequence layout the feat map onto.}
 
 \item{...}{not used}
 }

@@ -7,7 +7,7 @@
 vars_track(
   x,
   track_id,
-  track_type = c("seqs", "features", "links"),
+  track_type = c("seqs", "feats", "links"),
   ignore = NULL
 )
 }

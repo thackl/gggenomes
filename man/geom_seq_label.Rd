@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom.R
 \name{geom_seq_label}
 \alias{geom_seq_label}
-\title{draw feature labels}
+\title{draw feat labels}
 \usage{
 geom_seq_label(
   mapping = NULL,
@@ -14,5 +14,5 @@ geom_seq_label(
 )
 }
 \description{
-draw feature labels
+draw feat labels
 }

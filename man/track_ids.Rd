@@ -9,7 +9,7 @@ track_ids(x, ...)
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
 
-\item{track_type}{restrict to any combination of "seqs", "features" and "links".}
+\item{track_type}{restrict to any combination of "seqs", "feats" and "links".}
 }
 \description{
 Named vector of track ids and types

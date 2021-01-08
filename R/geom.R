@@ -20,15 +20,15 @@ geom_seq <- function(mapping = NULL, data = seqs(),
 
 #' Draw genes fast but not so pretty
 #'
-#' @param data feature_layout
+#' @param data feat_layout
 #' @export
 geom_gene_fast <- function(mapping = NULL, data = genes(),
     arrow = TRUE, nudge_by_strand = NULL, size = 4, color = "cornflowerblue", ...){
-  geom_feature(mapping=mapping, data=data, arrow=arrow,
+  geom_feat(mapping=mapping, data=data, arrow=arrow,
                nudge_by_strand=nudge_by_strand, size=size, color = color, ...)
 }
 
-#' draw feature labels
+#' draw feat labels
 #'
 #' @export
 geom_seq_label <- function(mapping = NULL, data = seqs(),
@@ -73,7 +73,7 @@ geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 6, nud
   }
   r
 }
-#' draw feature labels
+#' draw feat labels
 #'
 #' @export
 geom_gene_label <- function(mapping = NULL, data = genes(),
@@ -86,7 +86,7 @@ geom_gene_label <- function(mapping = NULL, data = genes(),
             nudge_y = nudge_y, size = size, ...)
 }
 #' @export
-geom_feature_label <- function(mapping = NULL, data = feats(),
+geom_feat_label <- function(mapping = NULL, data = feats(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
   default_aes <- aes_(y=~y,x=~(x+xend)/2)

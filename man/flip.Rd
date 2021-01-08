@@ -34,7 +34,7 @@ links supporting a flip to actually carry it out.}
 }
 \description{
 \code{flip} and \code{flip_seqs} reverse-complement specified bins or
-individual sequences and their features. \code{flip_nicely} automatically
+individual sequences and their feats. \code{flip_nicely} automatically
 flips bins using a heuristic that maximizes the amount of forward strand
 links between neighboring bins.
 }

@@ -9,14 +9,14 @@ as_links(x, seqs, ..., everything = TRUE)
 \arguments{
 \item{x}{link data convertible to a link layout}
 
-\item{seqs}{the sequence layout the feature map onto.}
+\item{seqs}{the sequence layout the feat map onto.}
 
 \item{...}{passed on to \code{layout_seqs()}}
 
 \item{everything}{set to FALSE to drop optional columns}
 }
 \description{
-Read link data of pairwise sequence or feature comparisons, such as
+Read link data of pairwise sequence or feat comparisons, such as
 similarity searches into a tidy dataframe and augment it with layout
 information based on a sequence layout.
 }

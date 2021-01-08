@@ -5,7 +5,7 @@
 \title{Write a gff3 file from a tidy table}
 \usage{
 write_gff3(
-  features,
+  feats,
   file,
   seqs = NULL,
   type = NULL,
@@ -18,7 +18,7 @@ write_gff3(
 )
 }
 \arguments{
-\item{features}{tidy feature table}
+\item{feats}{tidy feat table}
 
 \item{file}{name of output file}
 
@@ -42,6 +42,6 @@ Write a gff3 file from a tidy table
 }
 \examples{
 \dontrun{
-write_gff3(emale_genes, "emales.gff", emale_seqs, id_var="feature_id")
+write_gff3(emale_genes, "emales.gff", emale_seqs, id_var="feat_id")
 }
 }
