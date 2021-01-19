@@ -1,3 +1,23 @@
+#' Introduce non-existing columns
+#'
+#' Works like [dplyr::mutate()] but without changing existing columns, but only
+#' adding new ones. Useful to add possibly missing columns with default values.
+#' @inheritParams dplyr::mutate
+#' @export
+#' @examples
+#' # ensure columns "y" and "z" exist
+#' tibble(x=1:3) %>%
+#'  introduce(y="a", z=paste0(y, row_number()))
+#' # ensure columns "y" and "z" exist, but do not overwrite "y"
+#' tibble(x=1:3, y=c("c", "d", "e")) %>%
+#'  introduce(y="a", z=paste0(y, row_number()))
+introduce <- function(.data, ...){
+  dots <- quos(...)
+  # ignore .data columns
+  dots <- dots[setdiff(names(dots), names(.data))]
+  mutate(.data, !!!dots)
+}
+
 #' Require variables in an object
 #'
 #' @param x object
