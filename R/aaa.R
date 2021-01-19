@@ -19,6 +19,14 @@ swap_if <- function(x, condition, ...){
   x
 }
 
+#' Collapse a string with commas
+#'
+#' @param x vector (coerced to character)
+#' @param collapse character string to separate elements.
+comma <- function(x, collapse = ","){
+    paste(x, collapse=collapse)
+}
+
 # are there any arguments in ...
 has_dots <- function(env = parent.frame()){
   length(ellipsis:::dots(env)) > 0
