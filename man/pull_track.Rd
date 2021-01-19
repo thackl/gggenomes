@@ -18,7 +18,7 @@
 \usage{
 feats(.track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 
-genes(..., .cds_only = TRUE)
+genes(..., .feat_type = c("CDS", "mRNA", "tRNA"))
 
 links(.track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
 
@@ -30,7 +30,7 @@ track(.track_id = 1, ..., .track_type = NULL, .ignore = NULL)
 
 pull_feats(.x, .track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 
-pull_genes(.x, ..., .cds_only = TRUE)
+pull_genes(.x, ..., .feat_type = c("CDS", "mRNA", "tRNA"))
 
 pull_links(.x, .track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
 
@@ -46,35 +46,39 @@ pull_track(.x, .track_id = 1, ..., .track_type = NULL, .ignore = NULL)
 \item{.track_id}{The track to pull out, either as a literal variable name or
 as a positive/negative integer giving the position from the left/right.}
 
-\item{...}{Logical predicates passed on to \link[dplyr:filter]{dplyr::filter}.
-"seqs", "feats", "links". Affects position-based selection.}
+\item{...}{Logical predicates passed on to \link[dplyr:filter]{dplyr::filter}. "seqs", "feats",
+"links". Affects position-based selection.}
 
 \item{.ignore}{a regular string vector with track_ids to ignore.}
 
-\item{.geneify}{add dummy gene_id and type column to play nicely with geoms
-supporting multi-exon feats.}
+\item{.geneify}{add dummy type, introns and geom_id column to play nicely
+with geoms supporting multi-level and multi-span gene models.}
 
-\item{.cds_only}{filter for feats tagged as coding sequence in the type column (\code{type=="CDS"})}
+\item{.feat_type}{filter for feats tagged as coding sequence in the type
+column (\code{type \%in\% .feat_type})}
 
-\item{.adjacent_only}{filter for links connecting direct neighbors (\verb{abs(y-yend)==1)})}
+\item{.adjacent_only}{filter for links connecting direct neighbors
+(\verb{abs(y-yend)==1)})}
 
 \item{.group}{what variables to use in grouping of bins from seqs in addition
 to \code{y} and \code{bin_id}. Use this to get additional shared variables from the
 seqs table into the bins table.}
 
-\item{.track_type}{restrict to these types of tracks - any combination of "seqs", "feats", "links".}
+\item{.track_type}{restrict to these types of tracks - any combination of
+"seqs", "feats", "links".}
 
 \item{.x}{A gggenomes or gggenomes_layout object.}
 }
 \description{
 Track selection works like \code{\link[dplyr:pull]{dplyr::pull()}} and supports unquoted ids and
-positional arguments. \code{...} can be used to subset the data in \code{\link[dplyr:filter]{dplyr::filter()}}
-fashion. \code{pull}-prefixed variants return the specified track from a gggenome
-object. Unprefixed variants work inside \verb{geom_*} calls.
+positional arguments. \code{...} can be used to subset the data in
+\code{\link[dplyr:filter]{dplyr::filter()}} fashion. \code{pull}-prefixed variants return the specified
+track from a gggenome object. Unprefixed variants work inside \verb{geom_*} calls.
 }
 \section{Functions}{
 \itemize{
-\item \code{feats}: by default pulls out the first feat track not named "genes".
+\item \code{feats}: by default pulls out the first feat track not named
+"genes".
 
 \item \code{genes}: pulls out the first feat track (genes), filtering
 for records with \code{type=="CDS"}, and adding a dummy \code{gene_id} column if missing

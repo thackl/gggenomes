@@ -1,24 +1,25 @@
-#' Stack feats
+#' Stack features
 #'
-#' `position_strand()` offsets forward feats upward and reverse feats
-#' downward. `position_pile()` stacks overlapping feats upward.
-#' `position_strandpile()` stacks overlapping feats up-/downward based on
-#' their strand. `position_sixframe()` offsets the feats based on their
-#' strand and reading frame.
+#' `position_strand()` offsets forward feats upward and reverse feats downward.
+#' `position_pile()` stacks overlapping feats upward. `position_strandpile()`
+#' stacks overlapping feats up-/downward based on their strand.
+#' `position_sixframe()` offsets the feats based on their strand and reading
+#' frame.
 #'
 #' @param offset Shift overlapping feats up/down this much on the y-axis. The
-#' y-axis distance between two sequences is 1, so this is usually a small
-#' fraction, such as 0.1.
-#' @param gap If two feats are closer together than this, they will be
-#' stacked. Can be negative to allow small overlaps. NA disables stacking.
+#'   y-axis distance between two sequences is 1, so this is usually a small
+#'   fraction, such as 0.1.
+#' @param gap If two feats are closer together than this, they will be stacked.
+#'   Can be negative to allow small overlaps. NA disables stacking.
 #' @param flip stack downward, and for stranded versions reverse upward.
-#' @param grouped set TRUE to stack feats in same aestetics group as if they
-#' are one feat. Useful for stacking multi-exon genes as a single unit.
+#' @param grouped if TRUE feats in the same group are stacked as a single
+#'   feature. Useful to move CDS and mRNA as one unit. If NULL (default) set to
+#'   TRUE if data appears to contain gene-ish features.
 #' @param base How to align the stack relative to the sequence. 0 to center the
-#' lowest stack level on the sequence, 1 to put forward/reverse sequence one
-#' half offset above/below the sequence line.
+#'   lowest stack level on the sequence, 1 to put forward/reverse sequence one
+#'   half offset above/below the sequence line.
 #' @export
-position_strand <- function(offset = 0.1, flip = FALSE, grouped = FALSE,
+position_strand <- function(offset = 0.1, flip = FALSE, grouped = NULL,
                             base = offset/2){
   ggproto(NULL, PositionStrand, offset = offset, flip = flip,
           grouped = grouped, base = base)
@@ -26,20 +27,20 @@ position_strand <- function(offset = 0.1, flip = FALSE, grouped = FALSE,
 #' @rdname position_strand
 #' @export
 position_pile <- function(offset = 0.1, gap=1, flip = FALSE,
-    grouped = FALSE, base = offset){
+    grouped = NULL, base = offset){
   ggproto(NULL, PositionPile, offset = offset, gap = gap,
           flip = flip, grouped = grouped, base = base)
 }
 #' @rdname position_strand
 #' @export
 position_strandpile <- function(offset = 0.1, gap=1, flip = FALSE,
-    grouped = FALSE, base = offset*1.5){
+    grouped = NULL, base = offset*1.5){
   ggproto(NULL, PositionStrandpile, offset = offset, gap = gap,
           flip = flip, grouped = grouped, base = base)
 }
 #' @rdname position_strand
 #' @export
-position_sixframe <- function(offset = 0.1, flip = FALSE, grouped = FALSE,
+position_sixframe <- function(offset = 0.1, flip = FALSE, grouped = NULL,
     base = offset/2){
   ggproto(NULL, PositionSixframe, offset = offset, flip = flip,
           grouped = grouped, base = base, framewise=TRUE)
@@ -54,11 +55,14 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
   base = 0.15,
   gap = 0,
   flip = FALSE,
-  grouped = FALSE,
+  grouped = NULL,
   framewise = FALSE,
   required_aes = c("x","xend","y"),
   optional_aes = c("yend"),
   setup_params = function(self, data){
+    if(is.null(self$grouped)) # assume grouped for geneish geoms
+      self$grouped <- has_vars(data, c("type", "introns"))
+
     list(offset = self$offset, strandwise = self$strandwise, base=self$base,
          gap=self$gap, flip = self$flip,
          grouped = self$grouped, framewise = self$framewise)
