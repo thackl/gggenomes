@@ -8,7 +8,6 @@
 #' @param file toread
 #' @param sources only return features from these sources
 #' @param types only return features of these types, e.g. gene, CDS, ...
-#' @param max_tags maximum number of optional fields to include
 #' @export
 #' @return tibble
 read_gff3 <- function(file, sources=NULL, types=NULL){
