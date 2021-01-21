@@ -7,7 +7,7 @@
 read_gff3(file, sources = NULL, types = NULL)
 }
 \arguments{
-\item{file}{to read}
+\item{file}{toread}
 
 \item{sources}{only return features from these sources}
 
@@ -19,5 +19,7 @@ read_gff3(file, sources = NULL, types = NULL)
 tibble
 }
 \description{
-Read features from GFF3 files
+Files with \verb{##FASTA} section work but result in parsing problems for all
+lines of the fasta section. Just ignore those warnings, or strip the fasta
+section ahead of time from the file.
 }

@@ -1,7 +1,11 @@
 #' Read features from GFF3 files
 #'
+#' Files with `##FASTA` section work but result in parsing problems for all
+#' lines of the fasta section. Just ignore those warnings, or strip the fasta
+#' section ahead of time from the file.
+#'
 #' @importFrom readr read_tsv
-#' @param file to read
+#' @param file toread
 #' @param sources only return features from these sources
 #' @param types only return features of these types, e.g. gene, CDS, ...
 #' @param max_tags maximum number of optional fields to include
@@ -11,6 +15,13 @@ read_gff3 <- function(file, sources=NULL, types=NULL){
   col_names <- c("seq_id", "source", "type", "start", "end", "score", "strand", "phase", "attributes" )
   col_types <- "ccciiccic"
   x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".", comment="#")
+
+  # ignore FASTA block - dirty fix because all seqs are read into x first and
+  # also create parsing warnings
+  i <- which(x[[1]] == "##FASTA")
+  if(length(i) > 0)
+    x <- slice_head(i-1)
+
   reserved_names <- c(col_names[1:8], c("name", "feat_id", "parent_ids", "introns"))
   x_attrs <- tidy_attributes(x[["attributes"]], reserved_names)
 
