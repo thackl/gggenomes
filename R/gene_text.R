@@ -29,7 +29,7 @@ geom_gene_text <- function(mapping = NULL, data = genes(), stat="identity", posi
 #' @export
 GeomFeatText <- ggproto("GeomFeatText", Geom,
   required_aes = c("x", "xend", "y", "label"),
-  optional_as = c("type"),
+  optional_aes = c("type"),
   default_aes = aes(
     colour = "black", size = 3.88, angle = 0, hjust = 0.5,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2,
