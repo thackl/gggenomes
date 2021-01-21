@@ -61,7 +61,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
   optional_aes = c("yend"),
   setup_params = function(self, data){
     if(is.null(self$grouped)) # assume grouped for geneish geoms
-      self$grouped <- has_vars(data, c("type", "introns"))
+      self$grouped <- has_vars(data, c("type"))
 
     list(offset = self$offset, strandwise = self$strandwise, base=self$base,
          gap=self$gap, flip = self$flip,
