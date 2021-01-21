@@ -1,19 +1,21 @@
 #' Flip bins and sequences
 #'
-#' \code{flip} and \code{flip_seqs} reverse-complement specified bins or
-#' individual sequences and their feats. \code{flip_nicely} automatically
-#' flips bins using a heuristic that maximizes the amount of forward strand
-#' links between neighboring bins.
+#' `flip` and `flip_seqs` reverse-complement specified bins or individual
+#' sequences and their features. `flip_nicely` automatically flips bins using a
+#' heuristic that maximizes the amount of forward strand links between
+#' neighboring bins.
+#'
 #' @param x a gggenomes object
 #' @param ... bins or sequences to flip in dplyr::select like syntax (numeric
-#'     position or unquoted expressions)
+#'   position or unquoted expressions)
 #' @param .bins preselection of bins with sequences to flip. Useful if selecting
-#'     by numeric position. It sets the context for selection, for example the
-#'     11th sequences of the total set might more easily described as the 2nd
-#'     sequences of the 3rd bin: \code{flip_seqs(2, .bins=3)}
+#'   by numeric position. It sets the context for selection, for example the
+#'   11th sequences of the total set might more easily described as the 2nd
+#'   sequences of the 3rd bin: `flip_seqs(2, .bins=3)`.
 #' @param .bin_track,.seq_track when using a function as selector such as
-#'     \link{\code{tidyselect::where}}, this specifies the track in which
-#'     context the function is evaluated.
+#'   [tidyselect::where()], this specifies the track in which context the
+#'   function is evaluated.
+#'
 #' @examples
 #' p <- gggenomes(emale_seqs[1:7,], links=emale_links) +
 #'   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
@@ -119,7 +121,7 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
   if(length(bin_i) == 0) rlang::abort("no bins selected")
   # select bins to operate on
   flip_tbl <- bind_rows(seq_lst[names(bin_i)])
-    
+
   # flip seqs in bins
   seqs <- enquo(seqs)
   if(!quo_is_null(seqs)){

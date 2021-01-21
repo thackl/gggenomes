@@ -153,6 +153,8 @@ infer_seqs_from_feats <- function(feats, infer_bin_id = seq_id, infer_start = mi
     infer_end = max(start,end), infer_length = max(start,end)){
   if(!has_name(feats, "bin_id"))
     feats <- mutate(feats, bin_id = {{ infer_bin_id }})
+  else
+    warn("bin_id found in feats, won't overwrite")
 
   seqs <- feats %>%
     group_by(bin_id, seq_id) %>%
