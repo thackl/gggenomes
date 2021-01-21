@@ -133,9 +133,9 @@ makeContent.genetree <- function(x){
 
   if(nrow(data) > 0){
     rna_introns <- data %>% group_by(group) %>%
-      # remove CDS if group has mRNA or tRNA
-      filter(type != (if(any(type %in% c("mRNA", "tRNA"))) "CDS" else "!bogus")) %>%
-      group_by(id) %>% summarize(
+      # remove CDS if group has mRNA
+      filter(type != (if("mRNA" %in% type) "CDS" else "!bogus")) %>%
+      group_by(id) %>% filter(n() > 1) %>% summarize(
         across(c(-x, -xend, -y), first),
         introns = list(intron_polys(x, xend, y, height)))
 
@@ -213,6 +213,7 @@ span2arrow <- function(x, xend, y, height, arrow_width, arrow_height) {
 
 intron_polys <- function(x, xend, y, height){
   n <- length(x)
+  if (n<2) return(NULL)
   a <- 2:n
   b <- a-1
 
