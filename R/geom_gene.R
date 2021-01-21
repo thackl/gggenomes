@@ -8,7 +8,7 @@ geom_gene <- function(mapping = NULL, data = genes(), stat = "identity",
   if(length(arrow_size) == 1) arrow_size <- arrow_size[c(1,1,1)]
   if(length(arrow_size) == 2) arrow_size <- arrow_size[c(1,2,2)]
 
-  default_aes <- aes(y=y,x=x,xend=xend,group=feat_id)
+  default_aes <- aes(y=y,x=x,xend=xend)
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(
@@ -24,12 +24,14 @@ geom_gene <- function(mapping = NULL, data = genes(), stat = "identity",
 #' @noRd
 GeomCdsArrow <- ggplot2::ggproto("GeomCdsArrow", ggplot2::Geom,
   required_aes = c("x", "xend", "y"),
+  optional_aes = c("type"),
   default_aes = ggplot2::aes(
     alpha = 1,
     colour = "black",
     fill = "white",
     linetype = 1,
-    size = 0.3
+    size = 0.3,
+    type = "CDS"
   ),
   draw_key = function(data, params, size) {
     grid::rectGrob(
@@ -45,6 +47,7 @@ GeomCdsArrow <- ggplot2::ggproto("GeomCdsArrow", ggplot2::Geom,
   },
   draw_group = function(self, data, panel_params, coord, height=3, arrow_width=2, arrow_height=3,
       chevrons=NULL){
+    print(data)
     if(!coord$is_linear()){
       abort(paste("geom_gene() only works with Cartesian coordinates.",
                   "Use geom_gene_seg() or geom_gene2() instead."))
