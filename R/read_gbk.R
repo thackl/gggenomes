@@ -9,8 +9,9 @@
 #' @inheritParams read_gff3
 #' @export
 #' @return tibble
-read_gbk <- function(file, sources=NULL, types=NULL){
+read_gbk <- function(file, sources=NULL, types=NULL, infer_cds_parents=TRUE){
   inform("Converting to GFF3")
   gb2gff <- base::system.file("exec/gb2gff", package="gggenomes")
-  read_gff3(pipe(str_glue("{gb2gff} -S {file}")), sources=sources, types=types)
+  read_gff3(pipe(str_glue("{gb2gff} -S {file}")), sources=sources, types=types,
+    infer_cds_parents=infer_cds_parents)
 }

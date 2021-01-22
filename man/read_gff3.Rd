@@ -4,7 +4,7 @@
 \alias{read_gff3}
 \title{Read features from GFF3 files}
 \usage{
-read_gff3(file, sources = NULL, types = NULL)
+read_gff3(file, sources = NULL, types = NULL, infer_cds_parents = FALSE)
 }
 \arguments{
 \item{file}{toread}
@@ -13,7 +13,12 @@ read_gff3(file, sources = NULL, types = NULL)
 
 \item{types}{only return features of these types, e.g. gene, CDS, ...}
 
-\item{max_tags}{maximum number of optional fields to include}
+\item{infer_cds_parents}{infer the mRNA parent for CDS features based on
+overlapping coordinates. In most GFFs this is properly set, but sometimes
+this information is missing. Generally, this is not a problem, however,
+geom_gene calls parse the parent information to determine which CDS and
+mRNAs are part of the same gene model. Without the parent info, mRNA and
+CDS are plotted as individual features.}
 }
 \value{
 tibble

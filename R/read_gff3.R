@@ -8,9 +8,15 @@
 #' @param file toread
 #' @param sources only return features from these sources
 #' @param types only return features of these types, e.g. gene, CDS, ...
+#' @param infer_cds_parents infer the mRNA parent for CDS features based on
+#'   overlapping coordinates. In most GFFs this is properly set, but sometimes
+#'   this information is missing. Generally, this is not a problem, however,
+#'   geom_gene calls parse the parent information to determine which CDS and
+#'   mRNAs are part of the same gene model. Without the parent info, mRNA and
+#'   CDS are plotted as individual features.
 #' @export
 #' @return tibble
-read_gff3 <- function(file, sources=NULL, types=NULL){
+read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE){
   col_names <- c("seq_id", "source", "type", "start", "end", "score", "strand", "phase", "attributes" )
   col_types <- "ccciiccic"
   x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".", comment="#")
@@ -33,6 +39,10 @@ read_gff3 <- function(file, sources=NULL, types=NULL){
     parent_ids = list(first(parent_ids)), # special treat for lst_col
     across(c(-start, -end, -introns, -parent_ids), first)
   ) %>% ungroup
+
+
+  if(infer_cds_parents)
+    x <- infer_cds_parent(x)
 
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, type=="exon") %>%
@@ -78,6 +88,18 @@ read_gff3 <- function(file, sources=NULL, types=NULL){
   x
 }
 
+infer_cds_parent <- function(x){
+  i <- which(x$type == "CDS" & is.na(x$parent_ids))
+  j <- which(x$type == "mRNA")
+
+  o <- IRanges::findOverlaps(type="within",
+      IRanges::IRanges(x$start[i], x$end[i]),
+      IRanges::IRanges(x$start[j], x$end[j]))
+
+  # matched orphans <- parents ID
+  x$parent_ids[i[o@from]] <- x$feat_id[j[o@to]]
+  x
+}
 
 tidy_attributes <- function(x, reserved_names){
   d <- map_df(str_split(x, ";"), function(r){
