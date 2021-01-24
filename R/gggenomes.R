@@ -55,7 +55,7 @@ gggenomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL, ...,
   p <- p + scale_y_continuous("", expand = expansion(add=.5),
       trans = scales::reverse_trans())
 
-  p <- p + xlab("Nucleotide position")
+  #p <- p + scale_x_continuous("", labels=scales::label_bytes())
 
   theme_name <- theme[[1]] %||% match.arg(theme[[1]], c("clean"))
   if(!is.null(theme_name)){ # add theme
@@ -198,7 +198,7 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
 #' @importFrom ggplot2 theme
 #' @inheritParams ggplot2::theme_bw
 #' @export
-theme_gggenomes_clean <- function(base_size = 16, base_family = "", base_line_size = base_size/22, base_rect_size = base_size/22){
+theme_gggenomes_clean <- function(base_size = 12, base_family = "", base_line_size = base_size/30, base_rect_size = base_size/30){
   theme_bw(
     base_size = base_size, base_family = base_family,
     base_line_size = base_line_size, base_rect_size = base_rect_size
@@ -207,8 +207,35 @@ theme_gggenomes_clean <- function(base_size = 16, base_family = "", base_line_si
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.background = element_rect(fill = "white"),
+    # x-axis
+    axis.line.x = element_line(color = "black", size=.4),
+    axis.title.x = element_blank(),
+    axis.text.x= element_text(color = "black", size=7),
+    axis.ticks.length.x = unit(.7, "mm"),
+    # y-axis
     axis.title.y=element_blank(),
     axis.ticks.y=element_blank(),
     axis.text.y=element_blank()
   )
+}
+
+#' @inheritParams ggplot2::scale_x_continuous
+#' @export
+scale_x_continuous <- function(...){
+  ggplot2::scale_x_continuous(labels = label_bp(), ...)
+}
+
+label_bp <- function (accuracy = 1, unit = "", sep = "", ...) {
+  scales:::force_all(accuracy, ...)
+  function(x) {
+    breaks <- c(0, 10^c(k = 3, M = 6, G = 9))
+    n_suffix <- cut(abs(x), breaks = c(unname(breaks), Inf),
+                    labels = c(names(breaks)), right = FALSE)
+    n_suffix[is.na(n_suffix)] <- ""
+    suffix <- paste0(sep, n_suffix, unit)
+    scale <- 1/breaks[n_suffix]
+    scale[which(scale %in% c(Inf, NA))] <- 1
+    scales::number(x, accuracy = accuracy, scale = unname(scale),
+           suffix = suffix, ...)
+  }
 }
