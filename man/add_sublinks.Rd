@@ -22,7 +22,3 @@ annotations, e.g. genes and protein blast results.}
 \description{
 Add sublinks
 }
-\examples{
-gggenomes \%>\%
-  add_sublinks(genes, blastp_hits, transform="aa2nuc")
-}

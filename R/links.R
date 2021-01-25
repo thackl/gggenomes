@@ -99,8 +99,9 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #' @inheritParams as_links
 #' @param .dots superceed dots with a list of arguments.
 #' @examples
-#' gggenomes %>%
-#'   add_links(links_df)
+#' gggenomes(emale_seqs[1:4,]) %>%
+#'   add_links(links=emale_links) +
+#'   geom_seq() + geom_link()
 #' @export
 add_links <- function(x, ...){
   UseMethod("add_links")

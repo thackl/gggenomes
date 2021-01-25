@@ -13,6 +13,7 @@ add_feats(x, ...)
 Add feats
 }
 \examples{
-gggenomes \%>\%
-  add_feats(genes=gene_df, snps=snp_df)
+gggenomes(emale_seqs) \%>\%
+  add_feats(repeats=emale_tirs) +
+  geom_seq() + geom_feat()
 }

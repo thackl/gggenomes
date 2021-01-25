@@ -122,9 +122,6 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
 #' @inheritParams as_sublinks
 #' @param .dots superceed dots with a list of arguments.
 #' @export
-#' @examples
-#' gggenomes %>%
-#'   add_sublinks(genes, blastp_hits, transform="aa2nuc")
 add_sublinks <- function(x, parent_track_id, ..., transform = "none"){
   UseMethod("add_sublinks")
 }

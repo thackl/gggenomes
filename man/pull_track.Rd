@@ -102,7 +102,7 @@ gg \%>\% track_info()            # info about track ids, positions and types
 
 # get first feat track that isn't "genes" (all equivalent)
 gg \%>\% pull_feats()            # easiest
-gg \%>\% pull_feats(feats)    # by id
+gg \%>\% pull_feats(feats)       # by id
 gg \%>\% pull_feats(1)           # by position
 gg \%>\% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
 

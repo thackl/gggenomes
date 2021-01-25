@@ -92,8 +92,9 @@ drop_feat_layout <- function(x, seqs, keep="strand"){
 #' @export
 #'
 #' @examples
-#' gggenomes %>%
-#'   add_feats(genes=gene_df, snps=snp_df)
+#' gggenomes(emale_seqs) %>%
+#'   add_feats(repeats=emale_tirs) +
+#'   geom_seq() + geom_feat()
 add_feats <- function(x, ...){
   UseMethod("add_feats")
 }

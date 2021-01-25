@@ -17,6 +17,7 @@ add_links(x, ...)
 Add links
 }
 \examples{
-gggenomes \%>\%
-  add_links(links_df)
+gggenomes(emale_seqs[1:4,]) \%>\%
+  add_links(links=emale_links) +
+  geom_seq() + geom_link()
 }

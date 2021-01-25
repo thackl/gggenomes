@@ -198,6 +198,7 @@ makeContent.genetree <- function(x){
   grobs <- list()
 
   # CDS
+  cds_exons <- tibble()
   cds_data <- data %>% filter(type == "CDS")
   if(nrow(cds_data) > 0){
     cds_exons <- cds_data %>% group_by(id) %>% summarize(
@@ -206,6 +207,7 @@ makeContent.genetree <- function(x){
   }
 
   # RNA (mRNA, tRNA)
+  rna_exons <- tibble()
   rna_data <- data %>% filter(type != "CDS")
   if(nrow(rna_data) > 0){
       rna_exons <- rna_data %>% group_by(id) %>% summarize(

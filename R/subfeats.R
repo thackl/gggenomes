@@ -84,8 +84,10 @@ as_subfeats.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
 #' @param .dots superceed dots with a list of arguments.
 #' @export
 #' @examples
-#' gggenomes %>%
-#'   add_subfeats(genes, blastp_hits, transform="aa2nuc")
+#' genes <- tibble(seq_id="A", start=100, end=200, feat_id="gene1")
+#' domains <- tibble(feat_id = "gene1", start=40, end=80)
+#' gggenomes(genes=genes) %>% add_subfeats(genes, domains) +
+#'   geom_gene() + geom_feat()
 add_subfeats <- function(x, parent_track_id, ..., transform = "none"){
   UseMethod("add_subfeats")
 }
