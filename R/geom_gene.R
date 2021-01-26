@@ -247,7 +247,7 @@ makeContent.genetree <- function(x){
           lty = linetype,
           lwd = stroke,
           lineend = "butt",
-          linejoin = "mitre"
+          linejoin = "round"
         ))
     }), grobs)
   }

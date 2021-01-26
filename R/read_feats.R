@@ -3,8 +3,17 @@
 #' Read features from GFF3, Genbank, BED, BLAST tabular output or PAF files.
 #'
 #' @return tibble
-
-read_feats <- function(files, format=NULL, ...){
+#' @examples
+#' # read a file
+#' read_feats("data-raw/eden-utr.gff")
+#' # read all gffs from a directory
+#' read_feats(list.files("some/where", "*.gff$", full.names=TRUE))
+#' # read remote files
+#' gbk_phages <- c(
+#' PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
+#' PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
+#' read_feats(gbk_phages)
+read_feats <- function(files, format=NULL, bin_formats=c("gff3", "gbk"), ...){
   # infer file format from suffix
   format <- (format %||% file_format_unique(files, "feats"))
 
@@ -17,9 +26,11 @@ read_feats <- function(files, format=NULL, ...){
             inform(str_glue("* {.y} [{.x}]"))
             read_feats_fun(format)(.x, ...)})
 
+  if(!format %in% bin_formats)
+    feats <- select(feats, -bin_id)
   # if blast - infer mode: query or subject
 
-
+  feats
 }
 
 read_feats_fun <- function(format){

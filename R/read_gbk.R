@@ -24,6 +24,8 @@ read_gbk <- function(file, sources=NULL, types=NULL, infer_cds_parents=TRUE){
     if(suf != "gz")
       abort(str_glue("Decompressing for genbank only works with gzipped files, not `{suf}`"))
     file <- pipe(str_glue("gzip -cd {file} | {gb2gff} -S"))
+  }else{
+    file <- pipe(str_glue("{gb2gff} -S {file}"))
   }
 
   read_gff3(file, sources=sources, types=types,
