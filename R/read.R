@@ -1,3 +1,31 @@
+#' Swap query and subject
+#'
+#' Swap query and subject columns in a table read with [read_feats()] or
+#' [read_links()], for example, from blast searches. Swaps columns with
+#' name/name2, such as 'seq_id/seq_id2', 'start/start2', ...
+#'
+#' @param x tibble with query and subject columns
+#' @export
+#' @return tibble with swapped query/subject columns
+#' @examples
+#' feats <- tribble(
+#'  ~seq_id, ~seq_id2, ~start, ~end, ~strand, ~start2, ~end2, ~evalue,
+#'  "A", "B", 100, 200, "+", 10000, 10200, 1e-5
+#' )
+#' # make B the query
+#' swap_query(feat)
+swap_query <- function(x){
+  # for every pair seq_id/seq_id2, name/name2 > name2/name
+  n <- names(x)
+  m <- str_subset(n, "\\D2") %>% str_remove("2$") %>% intersect(n)
+  m2 <- paste0(m, "2")
+  i <- which(n %in% m)
+  i2 <- which(n %in% m2)
+  inform(c("swapping", comma(m, collapse=' '), comma(m2, collapse='  ')))
+  x[c(i, i2)] <- x[c(i2, i)]
+  x
+}
+
 #' Defined file formats and extensions
 #'
 #' For seamless reading of different file formats, gggenomes uses a mapping of
