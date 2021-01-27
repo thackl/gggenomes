@@ -21,10 +21,10 @@ similarity searches into a tidy dataframe and augment it with layout
 information based on a sequence layout.
 }
 \details{
-Obligatory columns are \code{seq_id1} and \code{seq_id2}. Also recognized are
-\code{start1}, \code{end1},\code{start2},\code{end2},\code{strand}, bin_id1\code{and}bin_id2.
+Obligatory columns are \code{seq_id} and \code{seq_id2}. Also recognized are
+\code{start}, \code{end},\code{start2},\code{end2},\code{strand}, bin_id\code{and}bin_id2.
 
-During layouting, seq_id1,start1,end1 will be projected to x,xend,y, while
+During layouting, seq_id,start,end will be projected to x,xend,y, while
 seq_id2,start2,end2 will be projected to xmin,xmax,yend. gggenomes uses these
 maybe a bit odd names for the variables here, is so that they play nice with
 ggplots native transformation functions for position aesthetics. Those only

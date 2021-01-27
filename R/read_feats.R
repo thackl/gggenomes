@@ -24,8 +24,8 @@ read_feats <- function(files, format=NULL, file_id="bin_id", bin_formats=c("gff3
   inform(str_glue("Reading as {format}:"))
   feats <- map2_df(files, names(files), read_feat_impl, .id=file_id, format, ...)
 
-  if(!format %in% bin_formats)
-    feats <- select(feats, -bin_id)
+  #if(!format %in% bin_formats)
+  #  feats <- select(feats, -bin_id)
   # if blast - infer mode: query or subject
 
   feats
@@ -43,10 +43,10 @@ read_subfeats <- function(files, format=NULL, ...){
 
 read_links <- function(files, format=NULL, ...){
   feats <- read_feats(files=files, format=format)
-  rename(feats, seq_id1=seq_id, start1=start, end1=end)
+  rename(feats, seq_id=seq_id, start=start, end=end)
 }
 
 read_sublinks <- function(files, format=NULL, ...){
   feats <- read_feats(files=files, format=format)
-  rename(feats, feat_id1=seq_id, start1=start, end1=end, feat_id2=seq_id2)
+  rename(feats, feat_id=seq_id, start=start, end=end, feat_id2=seq_id2)
 }

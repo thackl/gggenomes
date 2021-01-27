@@ -18,8 +18,8 @@ known formats to associated file extensions and contexts in which the
 different formats can be read. The notion of context allows one to read
 different information from the same format/extension. For example, a gbk file
 holds both feature and sequence information. If read in "feats" context
-(\code{read_feats(".gbk")}) it will return a feature table, if read in "seqs"
-context (\code{read_seqs(".gbk")}), a sequence index.
+\code{read_feats("*.gbk")} it will return a feature table, if read in "seqs"
+context \code{read_seqs("*.gbk")}, a sequence index.
 }
 \section{Defined Contexts, Formats and Extensions}{
 

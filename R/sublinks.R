@@ -6,12 +6,12 @@
 #' mapping the feat-based `start` and `end` coordinates to coordinates
 #' relative to the sequences underlying the linked feats.
 #'
-#' The only obligatory columns are `feat_id1` & `feat_id2`. Also
-#' recognized are `start1/end1`, `start2/end2` and `strand`.
+#' The only obligatory columns are `feat_id` & `feat_id2`. Also
+#' recognized are `start/end`, `start2/end2` and `strand`.
 #'
 #' Note `start` and `end` for every record will be coerced so that `start <
 #' end`. If no `strand` was provided, `strand` will be added and set to "+" for
-#' records that initially had `start1 < end1 == start2 < end2` and "-"
+#' records that initially had `start < end == start2 < end2` and "-"
 #' otherwise. If `strand` was provided, `start` and `end` will be reorganized to
 #' conform with `start < end` without any additional effect.
 #'
@@ -41,62 +41,62 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
   transform <- match.arg(transform)
   # TODO - bad transform, not none,aa2nuc,nuc2aa
 
-  vars <- c("feat_id1","feat_id2")
+  vars <- c("feat_id","feat_id2")
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(feat_id1, feat_id2), as.character)
-  if(!has_vars(x, c("start1", "end1", "start2", "end2"))){
-    if(has_vars(x, c("start1", "end1", "start2", "end2"),any=TRUE)){
-      abort("Need either all of start1,fend1,start2,end2 or none!")
+  x <- mutate_at(x, vars(feat_id, feat_id2), as.character)
+  if(!has_vars(x, c("start", "end", "start2", "end2"))){
+    if(has_vars(x, c("start", "end", "start2", "end2"),any=TRUE)){
+      abort("Need either all of start,fend1,start2,end2 or none!")
     }
 
     x <- x %>%
-      left_join(select(feats, feat_id1=feat_id, seq_id1=seq_id, .feat_start=start,
-        .feat_end = end, .feat_strand1 = strand), by = shared_names(x, "seq_id1", "feat_id1")) %>%
+      left_join(select(feats, feat_id=feat_id, seq_id=seq_id, .feat_start=start,
+        .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "feat_id")) %>%
       mutate(
-        start1 = .feat_start, end1 = .feat_end,
+        start = .feat_start, end = .feat_end,
         .feat_start=NULL, .feat_end=NULL) %>%
       left_join(select(feats, feat_id2=feat_id, seq_id2=seq_id, .feat_start=start,
         .feat_end = end, .feat_strand2 = strand), by = shared_names(x, "seq_id2", "feat_id2")) %>%
       mutate(
         start2 = .feat_start, end2 = .feat_end,
-        strand = strand_chr(.feat_strand1 == .feat_strand2),
-        .feat_start=NULL, .feat_end=NULL, .feat_strand1=NULL, .feat_strand2=NULL)
+        strand = strand_chr(.feat_strand == .feat_strand2),
+        .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL, .feat_strand2=NULL)
 
-    vars <- c("feat_id1", "start1", "end1", "feat_id2", "start2", "end2")
+    vars <- c("feat_id", "start", "end", "feat_id2", "start2", "end2")
     other_vars <- if(everything) tidyselect::everything else function() NULL;
     x <- as_tibble(select(x, vars, other_vars()))
 
   }else{
-    vars <- c("feat_id1", "start1", "end1", "feat_id2", "start2", "end2")
+    vars <- c("feat_id", "start", "end", "feat_id2", "start2", "end2")
     other_vars <- if(everything) tidyselect::everything else function() NULL;
     x <- as_tibble(select(x, vars, other_vars()))
 
     x %<>% mutate_if(is.factor, as.character)
     if(!has_name(x, "strand")){
-      x$strand <- strand_chr((x$start1 < x$end1) == (x$start2 < x$end2))
+      x$strand <- strand_chr((x$start < x$end) == (x$start2 < x$end2))
     }else{
       x$strand <- strand_chr(x$strand)
     }
 
-    x <- x %>% swap_if(start1 > end1, start1, end1)
+    x <- x %>% swap_if(start > end, start, end)
     x <- x %>% swap_if(start2 > end2, start2, end2)
 
     if(transform == "aa2nuc"){
-      x <- mutate(x, start1 = 3*start1-2, end1 = 3*end1-2) %>%
+      x <- mutate(x, start = 3*start-2, end = 3*end-2) %>%
         mutate(start2 = 3*start2-2, end2 = 3*end2-2)
     }else if(transform == "nuc2aa"){
-      x <- mutate(x, start1 = (start1+2)/3, end1 = (end1+2)/3) %>%
+      x <- mutate(x, start = (start+2)/3, end = (end+2)/3) %>%
         mutate(start2 = (start2+2)/3, end2 = (end2+2)/3)
     }
 
     x <- x %>%
-      left_join(select(feats, feat_id1=feat_id, seq_id, .feat_start=start,
+      left_join(select(feats, feat_id=feat_id, seq_id, .feat_start=start,
         .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
       mutate(
-        start1 = ifelse(is_reverse(.feat_strand), .feat_end-start1, .feat_start+start1),
-        end1 = ifelse(is_reverse(.feat_strand), .feat_end-end1, .feat_start+end1),
+        start = ifelse(is_reverse(.feat_strand), .feat_end-start, .feat_start+start),
+        end = ifelse(is_reverse(.feat_strand), .feat_end-end, .feat_start+end),
         .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL) %>%
       left_join(select(feats, feat_id2=feat_id, seq_id, .feat_start=start,
         .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
@@ -186,6 +186,6 @@ cluster2sublinks <- function(x, parent_track){
     keep(~nrow(.) > 1) %>%
     map_df(.id = "cluster_id", function(g){
       mat <- combn(g$feat_id, 2, simplify=TRUE)
-      tibble(feat_id1 = mat[1,], feat_id2 = mat[2,])
+      tibble(feat_id = mat[1,], feat_id2 = mat[2,])
     })
 }

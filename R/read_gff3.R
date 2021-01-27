@@ -134,6 +134,6 @@ coords2introns <- function(starts, ends){
   if(n < 2)
     return(NULL)
   i <- 2:n
-  # introns: start1, end1, start2, end2, ...
+  # introns: start, end, start2, end2, ...
   c(rbind(ends[i-1], starts[i])) - starts[1]
 }

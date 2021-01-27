@@ -86,27 +86,33 @@ flip_nicely.gggenomes_layout <- function(x, link_track=1, min_coverage=.2){
   l0 <- pull_links(x, {{link_track}})
   s0 <- ungroup(pull_seqs(x))
 
-  l1 <- l0 %>% group_by(seq_id1, seq_id2, strand) %>%
-    summarize(mapped=min(c(sum(width(start1,end1)), sum(width(start2, end2)))))
-  l1
+  l1 <- l0 %>% group_by(seq_id, seq_id2, strand) %>%
+    summarize(mapped=min(c(sum(width(start,end)), sum(width(start2, end2)))))
 
   l2 <- l1 %>%
-    left_join(by="seq_id1", transmute(
-      s0, y1=y, seq_id1=seq_id, seq_width1 = width(start, end), seq_strand1=strand)) %>%
+    left_join(by="seq_id", transmute(
+      s0, y=y, seq_id=seq_id, seq_width = width(start, end), seq_strand=strand)) %>%
     left_join(by="seq_id2", transmute(
       s0, y2=y, seq_id2=seq_id, seq_width2 = width(start, end), seq_strand2=strand)) %>%
-    mutate(coverage = mapped/pmin(seq_width1, seq_width2)) %>% group_by(seq_id1, seq_id2) %>%
+    mutate(coverage = mapped/pmin(seq_width, seq_width2)) %>% group_by(seq_id, seq_id2) %>%
     arrange(-coverage, .by_group = TRUE) %>% summarize_all(first) %>%
-    ungroup() %>% select(-seq_width1, -seq_width2) %>%
-    swap_if(y1 > y2, seq_id1, seq_id2) %>%
-    swap_if(y1 > y2, y1, y2) %>% arrange(y1)
+    ungroup() %>% select(-seq_width, -seq_width2) %>%
+    swap_if(y > y2, seq_id, seq_id2) %>%
+    swap_if(y > y2, y, y2) %>% arrange(y)
 
   l3 <- l2 %>%
     filter(coverage > min_coverage) %>%
     group_by(group=y2 - row_number()) %>%
-    mutate(flip=cumprod(strand_int(combine_strands(seq_strand1, seq_strand2, strand))))
+    mutate(flip=cumprod(strand_int(combine_strands(seq_strand, seq_strand2, strand))))
 
   y_flip <- l3 %>% filter(flip < 0) %>% pull(y2)
+
+  if(!length(y_flip)){
+    inform("All bins appear to be flipped nicely. Maybe change `min_coverage` or flip manually")
+    return(x)
+  }else{
+    inform(paste("Flipping:", comma(y_flip)))
+  }
 
   x %>% flip(all_of(y_flip))
 }

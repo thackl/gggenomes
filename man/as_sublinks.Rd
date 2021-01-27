@@ -32,11 +32,11 @@ mapping the feat-based \code{start} and \code{end} coordinates to coordinates
 relative to the sequences underlying the linked feats.
 }
 \details{
-The only obligatory columns are \code{feat_id1} & \code{feat_id2}. Also
-recognized are \code{start1/end1}, \code{start2/end2} and \code{strand}.
+The only obligatory columns are \code{feat_id} & \code{feat_id2}. Also
+recognized are \code{start/end}, \code{start2/end2} and \code{strand}.
 
 Note \code{start} and \code{end} for every record will be coerced so that \code{start < end}. If no \code{strand} was provided, \code{strand} will be added and set to "+" for
-records that initially had \verb{start1 < end1 == start2 < end2} and "-"
+records that initially had \verb{start < end == start2 < end2} and "-"
 otherwise. If \code{strand} was provided, \code{start} and \code{end} will be reorganized to
 conform with \code{start < end} without any additional effect.
 }
