@@ -32,13 +32,13 @@ geom_gene_fast <- function(mapping = NULL, data = genes(),
 #'
 #' @export
 geom_seq_label <- function(mapping = NULL, data = seqs(),
-    hjust = 0, nudge_y = -0.1, size = 6, ...){
+    hjust = 0, vjust = 1, nudge_y = -0.1, size = 3, ...){
 
   default_aes <- aes_(y=~y,x=~x, label=~seq_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   geom_text(mapping = mapping, data = data, hjust = hjust,
-            nudge_y = nudge_y, size = size, ...)
+            vjust = vjust, nudge_y = nudge_y, size = size, ...)
 }
 
 #' Draw bin labels
@@ -56,7 +56,7 @@ geom_seq_label <- function(mapping = NULL, data = seqs(),
 #' @param expand_x expand the plot to include this absolute x value
 #' @param expand_aes provide custom aes mappings for the expansion (advanced)
 #' @export
-geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 6, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
+geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 4, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
 
   default_aes <- aes_(y=~y,x=~pmin(x,xend) - max_width(x,xend) * nudge_left, label=~bin_id)
   mapping <- aes_intersect(mapping, default_aes)
