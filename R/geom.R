@@ -34,7 +34,7 @@ geom_gene_fast <- function(mapping = NULL, data = genes(),
 geom_seq_label <- function(mapping = NULL, data = seqs(),
     hjust = 0, vjust = 1, nudge_y = -0.1, size = 3, ...){
 
-  default_aes <- aes_(y=~y,x=~x, label=~seq_id)
+  default_aes <- aes(y=y,x=pmin(x,xend), label=seq_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   geom_text(mapping = mapping, data = data, hjust = hjust,
