@@ -8,8 +8,9 @@ geom_seq_label(
   mapping = NULL,
   data = seqs(),
   hjust = 0,
+  vjust = 1,
   nudge_y = -0.1,
-  size = 6,
+  size = 3,
   ...
 )
 }

@@ -8,7 +8,7 @@ geom_bin_label(
   mapping = NULL,
   data = bins(),
   hjust = 1,
-  size = 6,
+  size = 4,
   nudge_left = 0.05,
   expand_left = 0.2,
   expand_x = NULL,

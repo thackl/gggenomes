@@ -2,20 +2,44 @@
 % Please edit documentation in R/read.R
 \name{file_formats}
 \alias{file_formats}
-\title{Defined file formats and recognized suffixes}
+\title{Defined file formats and extensions}
 \usage{
-file_formats(family)
+file_formats(context)
 }
 \arguments{
-\item{family}{a file format family defined in \code{gggenomes_global$file_formats}}
+\item{context}{a file format context defined in \code{gggenomes_global$file_formats}}
 }
 \value{
-dictionarish vector of file formats with recognized suffixes as names
+dictionarish vector of file formats with recognized extensions as names
 }
 \description{
-Defined file formats and recognized suffixes
+For seamless reading of different file formats, gggenomes uses a mapping of
+known formats to associated file extensions and contexts in which the
+different formats can be read. The notion of context allows one to read
+different information from the same format/extension. For example, a gbk file
+holds both feature and sequence information. If read in "feats" context
+(\code{read_feats(".gbk")}) it will return a feature table, if read in "seqs"
+context (\code{read_seqs(".gbk")}), a sequence index.
 }
+\section{Defined Contexts, Formats and Extensions}{
+
+\preformatted{
+feats    bed      [bed]
+         blast    [bl6,txt,tsv]
+         fasta    [fa,fas,fasta,ffn,fna,faa]
+         gbk      [gbk,gb,gbff]
+         gff3     [gff,gff3]
+         paf      [paf]
+seqs     fai      [fai]
+         fasta    [fa,fas,fasta,ffn,fna,faa]
+zips     bz2      [bz,bz2]
+         gz       [gz]
+         xz       [xz]
+         zip      [zip]
+}
+}
+
 \examples{
-# vector of defined zip formats and recognized suffixes as names
+# vector of defined zip formats and recognized extensions as names
 file_formats("zips")
 }

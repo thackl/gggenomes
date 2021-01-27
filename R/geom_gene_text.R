@@ -1,7 +1,7 @@
 #' Text
 #'
 #'
-#' @inheritParams ggplot::geom_text
+#' @inheritParams ggplot2::geom_text
 #' @export
 geom_feat_text <- function(mapping = NULL, data = feats(), stat="identity", position="identity",
                            ..., parse = FALSE, check_overlap = FALSE, na.rm = FALSE,

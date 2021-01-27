@@ -1,125 +1,63 @@
-#' Read .gff files
+#' Defined file formats and extensions
 #'
-#' Uses `rtracklayer::import`. Assume contig IDs are unique amongst files if
-#' genome_ids are not provided
+#' For seamless reading of different file formats, gggenomes uses a mapping of
+#' known formats to associated file extensions and contexts in which the
+#' different formats can be read. The notion of context allows one to read
+#' different information from the same format/extension. For example, a gbk file
+#' holds both feature and sequence information. If read in "feats" context
+#' (`read_feats(".gbk")`) it will return a feature table, if read in "seqs"
+#' context (`read_seqs(".gbk")`), a sequence index.
 #'
-#' @param gff_files to read
-#' @param genome_ids for each file. Only necessary of contig_ids are not unique
-#' among different genomes.
-#' @export
-#' @return tibble
-read_gffs <- function(gff_files, genome_ids = NULL){
-  if (!requireNamespace("rtracklayer", quietly = TRUE)) {
-    stop("Reading .gffs requires package 'rtracklayer' to be installed.",
-         call. = FALSE)
-  }
-  if(!is.null(genome_ids)) names(gff_files) <- genome_ids
-
-  TODO("list types, suggest filter")
-  map_df(gff_files, function(gff){
-    as_tibble(rtracklayer::import(gff)) %>%
-      mutate_if(is.factor, as.character)
-  })
-}
-
-#' Read genome_ids, contig_ids and contig lengths from .gff files.
 #'
-#' Parses `##sequence-region` annotation using `grep`. `rtracklayer` ignores
-#' those lines.
-#'
-#' @param genome_ids to use with each file. If `NULL` infer from file name.
-#' @export
-#' @return A tibble with columns: genome_id, contig_id, length.
- read_gffs_as_contigs <- function(gff_files, genome_ids = NULL){
-    data <- map(gff_files, function(gff){
-        data <- read_table(pipe(paste('grep ^##sequence-region ', gff)), col_names = c("contig_id", "from", "to"), col_types = "-cnn") %>%
-        mutate(length = to - from + 1) %>%
-            select(-from, -to)
-    })
-
-    # genome ids
-    if(is.null(genome_ids)){
-        genome_ids <- sapply(gff_files, basename) %>%
-            stringr::str_replace(".gff", "")
-        if(any(duplicated(genome_ids))) stop("Filenames gave non-unique genome IDs, use `genome_id=` to specify manually")
-    }
-    names(data) <- genome_ids
-
-    TODO("print summary info: read X genomes with y contigs, ...")
-
-    # bind
-    bind_rows(data, .id="genome_id") %>% as_tibble
-}
-
-#' read a .paf file (minimap/minimap2). Only the first 12 canonical
-#' columns. Ignores tagged extra fields.
-#'
-#' @inheritParams thacklr::read_paf
-#' @importFrom readr read_tsv
-#' @importFrom thacklr  read_paf
-#' @export
-#' @return tibble
-read_paf <- function(file, max_tags=20){
-  thacklr::read_paf(file, max_tags) %>%
-    rename(
-      seq_id1=query_name, seq_id2=target_name,
-      start1=query_start, start2=target_start,
-      end1=query_end, end2=target_end,
-      length1=query_length, length2=target_length
-    )
-}
-
-
-#' Defined file formats and recognized suffixes
-#'
-#' @param family a file format family defined in `gggenomes_global$file_formats`
-#' @return dictionarish vector of file formats with recognized suffixes as names
+#' @param context a file format context defined in `gggenomes_global$file_formats`
+#' @return dictionarish vector of file formats with recognized extensions as names
 #' @examples
-#' # vector of defined zip formats and recognized suffixes as names
+#' # vector of defined zip formats and recognized extensions as names
 #' file_formats("zips")
-file_formats <- function(family){
+#' @eval file_formats_rd()
+file_formats <- function(context){
   ff <- gggenomes_global$file_formats
-  if(!family %in% names(ff)){
+  if(!context %in% names(ff)){
     abort(c(
-      str_glue("Unknown file format family '{family}'.\nDefined families are:"),
+      str_glue("Unknown file format context '{context}'.\nDefined families are:"),
       names(ff)
     ))
   }
-  ff[[family]]
+  ff[[context]]
 }
 
-#' Defined file suffixes and associated formats
+#' Defined file extensions and associated formats
 #'
 #' @inheritParams file_formats
-#' @return vector of file suffixes with formats as names
+#' @return vector of file extensions with formats as names
 #' @examples
-#' # vector of zip-family file suffixes and format names
-#' file_suffixes("zips")
-file_suffixes <- function(family){
-  f <- file_formats(family)
+#' # vector of zip-context file extensions and format names
+#' file_exts("zips")
+file_exts <- function(context){
+  f <- file_formats(context)
   set_names(names(f), f)
 }
 
 #' File format from suffix
-#' @param x a vector of file suffixes
-#' @param family a file format family defined in [file_formats()]
-#' @return a vector of formats with suffixes as names
+#' @param x a vector of file extensions
+#' @param context a file format context defined in [file_formats()]
+#' @return a vector of formats with extensions as names
 #' @examples
-#' suffix_to_format(c("gff", "txt", "FASTA"), "feats")
-suffix_to_format <- function(x, family){
+#' ext_to_format(c("gff", "txt", "FASTA"), "feats")
+ext_to_format <- function(x, context){
   x <- str_to_lower(x)
-  if(is_dictionaryish(family))
-    family[x]
+  if(is_dictionaryish(context))
+    context[x]
   else
-    file_formats(family)[x]
+    file_formats(context)[x]
 }
 
-file_strip_zip <- function(file, suffix = names(file_formats("zips"))){
-  suffix <- paste0("\\.", suffix, "$", collapse="|")
-  str_remove(file, suffix)
+file_strip_zip <- function(file, ext = names(file_formats("zips"))){
+  ext <- paste0("\\.", ext, "$", collapse="|")
+  str_remove(file, ext)
 }
 
-file_suffix <- function(file, pattern = "(?<=\\.)[^.]+$", ignore_zip = TRUE){
+file_ext <- function(file, pattern = "(?<=\\.)[^.]+$", ignore_zip = TRUE){
   if(ignore_zip)
     file <- file_strip_zip(file)
   str_extract(file, pattern)
@@ -131,17 +69,17 @@ file_name <- function(file, pattern = "\\.[^.]+$", ignore_zip = TRUE){
   str_remove(basename(file), pattern)
 }
 
-file_format <- function(file, family, allow_na = FALSE){
-  suffix <- file_suffix(file)
-  format <- suffix_to_format(suffix, family)
+file_format <- function(file, context, allow_na = FALSE){
+  ext <- file_ext(file)
+  format <- ext_to_format(ext, context)
   if(!allow_na && any(is.na(format))){
     bad <- file[is.na(format)]
     names(bad) <- rep("x", length(bad))
     good <- file_formats("feats") %>%
-      enframe(name = "suffix", value = "format") %>%
-      chop(suffix) %>% mutate(suffix = map_chr(suffix, comma)) %>% format()
-    abort(c(str_glue('Bad suffix for file format family "{family}"'), bad,
-      i="Recognized formats/suffixes:", good[-(1:3)]))
+      enframe(name = "ext", value = "format") %>%
+      chop(ext) %>% mutate(ext = map_chr(ext, comma)) %>% format()
+    abort(c(str_glue('Bad extention for file format context "{context}"'), bad,
+      i="Recognized formats/extensions:", good[-(1:3)]))
   }
   set_names(format, file)
 }
@@ -150,8 +88,8 @@ file_id <- function(file){
   vctrs::vec_as_names(file_name(file), repair="unique")
 }
 
-file_format_unique <- function(files, family, allow_duplicates = FALSE){
-  fmt <- unique(file_format(files, family))
+file_format_unique <- function(files, context, allow_duplicates = FALSE){
+  fmt <- unique(file_format(files, context))
   if(!allow_duplicates && length(fmt) > 1)
     abort(c("All files need the same format.", i="Got mix of:", unname(fmt)))
   fmt
@@ -168,11 +106,31 @@ file_label <- function(file){
 }
 
 
-file_is_zip <- function(file, suffix = names(file_formats("zips"))){
-  pattern <- paste0("\\.", suffix, "$", collapse="|")
+file_is_zip <- function(file, ext = names(file_formats("zips"))){
+  pattern <- paste0("\\.", ext, "$", collapse="|")
   str_detect(file, pattern)
 }
 
 file_is_url <- function(file){
   str_detect(file, "^((http|ftp)s?|sftp)://")
+}
+
+file_formats_rd <- function(){
+  ff <- gggenomes_global$file_formats %>%
+    map_df(.id="context", function(x){
+      enframe(x, "extension", "format") %>% group_by(format) %>%
+        summarize(extension = comma(extension), .groups="drop")
+    })
+  ff <- mutate(ff, context = ifelse(duplicated(context), "", context))
+
+  ff <- str_c(sep = "\n",
+      "@section Defined Contexts, Formats and Extensions:",
+      "\\preformatted{",
+      #sprintf("%-8s %-7s  %s", "Context", "Format", "Extensions"),
+      str_c(collapse = "\n",
+            str_glue_data(ff, '{sprintf("%-8s", context)} ',
+                    '{sprintf("%-7s", format)}  [{extension}]')),
+      "}"
+      )
+  ff
 }

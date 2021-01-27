@@ -3,14 +3,15 @@
 # manipulated by other packages.
 gggenomes_global  <- new.env(parent = emptyenv())
 
-# list of families of dictionaryish vectors mapping suffixes to file formats
+# list of contexts of dictionaryish vectors mapping suffixes to file formats
 gggenomes_global$file_formats <- map(list(
   feats = list(
     gff3 = qc(gff, gff3),
     gbk = qc(gbk, gb, gbff),
     bed = qc(bed),
     fasta = qc(fa, fas, fasta, ffn, fna, faa),
-    blast = qc(bl6, txt, tsv)),
+    blast = qc(bl6, txt, tsv),
+    paf = qc(paf)),
   seqs = list(
     fasta = qc(fa, fas, fasta, ffn, fna, faa),
     fai = qc(fai)),

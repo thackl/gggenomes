@@ -4,11 +4,28 @@
 \alias{read_feats}
 \title{Read features from common file formats}
 \usage{
-read_feats(files, format = NULL, ...)
+read_feats(
+  files,
+  format = NULL,
+  file_id = "bin_id",
+  bin_formats = c("gff3", "gbk"),
+  ...
+)
 }
 \value{
 tibble
 }
 \description{
 Read features from GFF3, Genbank, BED, BLAST tabular output or PAF files.
+}
+\examples{
+# read a file
+read_feats("data-raw/eden-utr.gff")
+# read all gffs from a directory
+read_feats(list.files("some/where", "*.gff$", full.names=TRUE))
+# read remote files
+gbk_phages <- c(
+PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
+PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
+read_feats(gbk_phages)
 }
