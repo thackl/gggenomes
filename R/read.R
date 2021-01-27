@@ -5,8 +5,8 @@
 #' different formats can be read. The notion of context allows one to read
 #' different information from the same format/extension. For example, a gbk file
 #' holds both feature and sequence information. If read in "feats" context
-#' (`read_feats(".gbk")`) it will return a feature table, if read in "seqs"
-#' context (`read_seqs(".gbk")`), a sequence index.
+#' `read_feats("*.gbk")` it will return a feature table, if read in "seqs"
+#' context `read_seqs("*.gbk")`, a sequence index.
 #'
 #'
 #' @param context a file format context defined in `gggenomes_global$file_formats`
