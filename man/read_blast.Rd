@@ -27,6 +27,9 @@ columns present in default blast tabular output (\verb{--outfmt 6/7} in blast++
 and \code{-m8} in blast-legacy). It is also expanded when used with other
 columns, so that you can easily add extra columns to the default names,
 i.e. \code{col_names = c("o6", "more", "things")}.}
+
+\item{comment}{A string used to identify comments. Any text after the
+comment characters will be silently ignored.}
 }
 \description{
 Read BLAST tab-separated output

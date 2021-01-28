@@ -2,6 +2,15 @@
 #'
 #' Read features from GFF3, Genbank, BED, BLAST tabular output or PAF files.
 #'
+#' @param files files to reads. Should all be of same format.
+#' @param format If NULL, will be guessed from file extension. Else, any known
+#'   format such as "gff3", "gbk", ... See [file_formats()] for a complete list
+#'   of currently supported formats.
+#' @param .id When binding output from several files, how to name the column
+#'   with the name of the file each record came from. Defaults to "file_id". Set
+#'   to "bin_id" if every file represents a different bin.
+#' @param ...
+#'
 #' @return tibble
 #' @examples
 #' # read a file
@@ -13,7 +22,7 @@
 #' PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
 #' PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 #' read_feats(gbk_phages)
-read_feats <- function(files, format=NULL, .id="bin_id", bin_formats=c("gff3", "gbk"), ...){
+read_feats <- function(files, format=NULL, .id="file_id", ...){
   # infer file format from suffix
   format <- (format %||% file_format_unique(files, "feats"))
 
@@ -23,10 +32,6 @@ read_feats <- function(files, format=NULL, .id="bin_id", bin_formats=c("gff3", "
   # map_df .id = bin_id
   inform(str_glue("Reading as {format}:"))
   feats <- map2_df(files, names(files), read_feat_impl, .id=.id, format, ...)
-
-  #if(!format %in% bin_formats)
-  #  feats <- select(feats, -bin_id)
-  # if blast - infer mode: query or subject
 
   feats
 }
