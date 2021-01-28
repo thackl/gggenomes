@@ -3,15 +3,17 @@
 #' Read features from GFF3, Genbank, BED, BLAST tabular output or PAF files.
 #'
 #' @param files files to reads. Should all be of same format.
-#' @param format If NULL, will be guessed from file extension. Else, any known
-#'   format such as "gff3", "gbk", ... See [file_formats()] for a complete list
-#'   of currently supported formats.
+#' @param format If NULL, will be guessed from file extension. Else, any format
+#'   known to gggenomes ("gff3", "gbk", ... see [file_formats()] for full list)
+#'   or any suffix that maps to a known `read_<suffix>` function to be called,
+#'   such as [readr::read_tsv()], for example.
 #' @param .id When binding output from several files, how to name the column
 #'   with the name of the file each record came from. Defaults to "file_id". Set
 #'   to "bin_id" if every file represents a different bin.
-#' @param ...
+#' @param ... additional arguments passed on to the specific read function for
+#'   the given format.
 #'
-#' @return tibble
+#' @return a gggenomes compatible feature tibble
 #' @examples
 #' # read a file
 #' read_feats("data-raw/eden-utr.gff")
@@ -25,6 +27,11 @@
 read_feats <- function(files, format=NULL, .id="file_id", ...){
   # infer file format from suffix
   format <- (format %||% file_format_unique(files, "feats"))
+
+  if(format == 'ambigious'){
+    abort(str_glue('Ambigious file extension(s): "', comma(unique(file_ext(files))),
+                   '".\nPlease specify `format` explicitly'))
+  }
 
   # for unnamed files, infer name from filename (used as file_id/bin_id)
   files <- file_label(files)

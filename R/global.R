@@ -10,11 +10,15 @@ gggenomes_global$file_formats <- map(list(
     gbk = qc(gbk, gb, gbff),
     bed = qc(bed),
     fasta = qc(fa, fas, fasta, ffn, fna, faa),
-    blast = qc(bl6, txt, tsv),
-    paf = qc(paf)),
+    blast = qc(m8, o6, o7),
+    paf = qc(paf),
+    ambigious = qc(txt, tsv, csv)
+  ),
   seqs = list(
     fasta = qc(fa, fas, fasta, ffn, fna, faa),
-    fai = qc(fai)),
+    fai = qc(fai),
+    ambigious = qc(txt, tsv, csv)
+  ),
   zips = list(
     bz2 = qc(bz, bz2),
     gz = qc(gz),

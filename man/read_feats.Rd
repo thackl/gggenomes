@@ -4,16 +4,25 @@
 \alias{read_feats}
 \title{Read features from common file formats}
 \usage{
-read_feats(
-  files,
-  format = NULL,
-  file_id = "bin_id",
-  bin_formats = c("gff3", "gbk"),
-  ...
-)
+read_feats(files, format = NULL, .id = "file_id", ...)
+}
+\arguments{
+\item{files}{files to reads. Should all be of same format.}
+
+\item{format}{If NULL, will be guessed from file extension. Else, any format
+known to gggenomes ("gff3", "gbk", ... see \code{\link[=file_formats]{file_formats()}} for full list)
+or any suffix that maps to a known \verb{read_<suffix>} function to be called,
+such as \code{\link[readr:read_tsv]{readr::read_tsv()}}, for example.}
+
+\item{.id}{When binding output from several files, how to name the column
+with the name of the file each record came from. Defaults to "file_id". Set
+to "bin_id" if every file represents a different bin.}
+
+\item{...}{additional arguments passed on to the specific read function for
+the given format.}
 }
 \value{
-tibble
+a gggenomes compatible feature tibble
 }
 \description{
 Read features from GFF3, Genbank, BED, BLAST tabular output or PAF files.

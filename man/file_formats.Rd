@@ -24,13 +24,15 @@ context \code{read_seqs("*.gbk")}, a sequence index.
 \section{Defined Contexts, Formats and Extensions}{
 
 \preformatted{
-feats    bed      [bed]
-         blast    [bl6,txt,tsv]
+feats    ambigious  [txt,tsv,csv]
+         bed      [bed]
+         blast    [m8,o6,o7]
          fasta    [fa,fas,fasta,ffn,fna,faa]
          gbk      [gbk,gb,gbff]
          gff3     [gff,gff3]
          paf      [paf]
-seqs     fai      [fai]
+seqs     ambigious  [txt,tsv,csv]
+         fai      [fai]
          fasta    [fa,fas,fasta,ffn,fna,faa]
 zips     bz2      [bz,bz2]
          gz       [gz]

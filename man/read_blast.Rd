@@ -4,7 +4,7 @@
 \alias{read_blast}
 \title{Read BLAST tab-separated output}
 \usage{
-read_blast(file, col_names = "o6")
+read_blast(file, col_names = "o6", comment = "# ", swap_query = FALSE, ...)
 }
 \arguments{
 \item{file}{Either a path to a file, a connection, or literal data
@@ -30,6 +30,9 @@ i.e. \code{col_names = c("o6", "more", "things")}.}
 
 \item{comment}{A string used to identify comments. Any text after the
 comment characters will be silently ignored.}
+
+\item{swap_query}{if TRUE swap query and subject columns using \code{\link[=swap_query]{swap_query()}}
+on import.}
 }
 \description{
 Read BLAST tab-separated output

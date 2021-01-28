@@ -18,10 +18,14 @@ swap_query <- function(x){
   # for every pair seq_id/seq_id2, name/name2 > name2/name
   n <- names(x)
   m <- str_subset(n, "\\D2") %>% str_remove("2$") %>% intersect(n)
+  if(!length(m))
+    return(x)
+
   m2 <- paste0(m, "2")
   i <- which(n %in% m)
   i2 <- which(n %in% m2)
-  inform(c("swapping", comma(m, collapse='  '), comma(m2, collapse=' ')))
+  inform(c("Swapping query/subject-associated columns",
+           comma(m, collapse='  '), comma(m2, collapse=' ')))
   x[c(i, i2)] <- x[c(i2, i)]
   x
 }
