@@ -10,8 +10,6 @@ add_links(x, ...)
 \item{x}{link data convertible to a link layout}
 
 \item{...}{link tables, possibly named, i.e. blast=blast_df, domains=domain_df}
-
-\item{.dots}{superceed dots with a list of arguments.}
 }
 \description{
 Add links

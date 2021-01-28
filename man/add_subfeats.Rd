@@ -4,20 +4,14 @@
 \alias{add_subfeats}
 \title{Add subfeats}
 \usage{
-add_subfeats(x, parent_track_id, ..., transform = "none")
+add_subfeats(x, ..., .track_id = "genes", .transform = "aa2nuc")
 }
 \arguments{
-\item{x}{subfeat data convertible to a feat layout}
-
-\item{parent_track_id}{track_id of the feats the subfeats map onto.}
-
 \item{...}{subfeat tables with names, i.e. blast=blast_df, domains=domain_df}
 
-\item{transform}{use if feats and subfeats are in different coordinate
-spaces, i.e. if matching nucleotide-level annotations to protein level
-annotations, e.g. genes and protein blast results.}
+\item{.track_id}{track_id of the feats the sublinks map onto.}
 
-\item{.dots}{superceed dots with a list of arguments.}
+\item{.transform}{one of "aa2nuc", "none", "nuc2aa"}
 }
 \description{
 Add subfeats

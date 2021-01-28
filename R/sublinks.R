@@ -1,3 +1,47 @@
+#' Add sublinks
+#'
+#' Add sublinks
+#'
+#' @param ... sublink tables with names, i.e. blast=blast_df, domains=domain_df
+#' @param .track_id track_id of the feats the sublinks map onto.
+#' @param .transform one of "aa2nuc", "none", "nuc2aa"
+#' @export
+add_sublinks <- function(x, ..., .track_id = "genes", .transform = "aa2nuc"){
+  UseMethod("add_sublinks")
+}
+
+#' @export
+add_sublinks.gggenomes <- function(x, ..., .track_id = "genes",
+    .transform = "aa2nuc"){
+  x$data <- add_sublinks(x$data, ..., .track_id = {{ .track_id }},
+                         .transform = .transform)
+  x
+}
+
+#' @export
+add_sublinks.gggenomes_layout <- function(x, ..., .track_id = "genes",
+    .transform = c("aa2nuc", "none","nuc2aa")){
+  if(!has_dots()) return(x)
+  dot_exprs <- enexprs(...) # defuse before list(...)
+  .transform <- match_arg(.transform)
+
+  if(.transform != "none")
+    inform(str_glue('Transforming sublinks with "{.transform}".',
+                    ' Disable with `.transform = "none"`'))
+
+  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
+  add_sublink_tracks(x, {{.track_id}}, tracks, .transform)
+}
+
+add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
+  feats <- pull_track(x, {{parent_track_id}})
+  links <- map(tracks, as_sublinks, get_seqs(x), feats, transform = transform,
+               compute_layout=FALSE) # layout only keeps adjacent
+  x$links <- c(x$links, map(links, layout_links, get_seqs(x)))
+  x$orig_links <- c(x$orig_links, links)
+  x
+}
+
 #' Compute a layout for links linking feats
 #'
 #' Reads sublinks connecting feats such as all-vs-all protein blasts into a
@@ -88,7 +132,7 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
       transform <-  switch(transform,
           aa2nuc = ~3*.x-2,
           nuc2aa = ~(.x+2)/3)
-      x <- mutate(across(c(start, end, start2, end2), transform))
+      x <- mutate(x, across(c(start, end, start2, end2), transform))
     }
 
     # map start/end from features to seqs
@@ -116,43 +160,6 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
 }
 
 
-#' Add sublinks
-#'
-#' Add sublinks
-#'
-#' @param parent_track_id track_id of the feats the sublinks map onto.
-#' @param ... sublink tables with names, i.e. blast=blast_df, domains=domain_df
-#' @inheritParams as_sublinks
-#' @param .dots superceed dots with a list of arguments.
-#' @export
-add_sublinks <- function(x, parent_track_id, ..., transform = "none"){
-  UseMethod("add_sublinks")
-}
-
-#' @export
-add_sublinks.gggenomes <- function(x, parent_track_id, ..., transform = "none"){
-  x$data <- add_sublinks(x$data, parent_track_id = {{ parent_track_id }}, ...)
-  x
-}
-
-#' @export
-add_sublinks.gggenomes_layout <- function(x, parent_track_id, ...,
-  transform = "none"){
-
-  if(!has_dots()) return(x)
-  dot_exprs <- enexprs(...) # defuse before list(...)
-  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
-    add_sublink_tracks(x, {{parent_track_id}}, tracks, transform)
-}
-
-add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
-  feats <- pull_track(x, {{parent_track_id}})
-  links <- map(tracks, as_sublinks, get_seqs(x), feats, transform = transform,
-               compute_layout=FALSE) # layout only keeps adjacent
-  x$links <- c(x$links, map(links, layout_links, get_seqs(x)))
-  x$orig_links <- c(x$orig_links, links)
-  x
-}
 
 #' Add gene clusters
 #' @export

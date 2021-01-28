@@ -1,3 +1,50 @@
+#' Add subfeats
+#'
+#' Add subfeats
+#'
+#' @param ... subfeat tables with names, i.e. blast=blast_df, domains=domain_df
+#' @param .track_id track_id of the feats the sublinks map onto.
+#' @param .transform one of "aa2nuc", "none", "nuc2aa"
+#' @export
+#' @examples
+#' genes <- tibble(seq_id="A", start=100, end=200, feat_id="gene1")
+#' domains <- tibble(feat_id = "gene1", start=40, end=80)
+#' gggenomes(genes=genes) %>% add_subfeats(genes, domains) +
+#'   geom_gene() + geom_feat()
+add_subfeats <- function(x, ..., .track_id = "genes", .transform = "aa2nuc"){
+  UseMethod("add_subfeats")
+}
+
+#' @export
+add_subfeats.gggenomes <- function(x, ..., .track_id = "genes",
+    .transform = "aa2nuc"){
+  x$data <- add_subfeats(x$data, ..., .track_id = {{ .track_id }},
+                         .transform = .transform)
+  x
+}
+
+#' @export
+add_subfeats.gggenomes_layout <- function(x, ..., .track_id = "genes",
+    .transform = "aa2nuc"){
+  if(!has_dots()) return(x)
+  dot_exprs <- enexprs(...) # defuse before list(...)
+  .transform <- match_arg(.transform)
+
+  if(.transform != "none")
+    inform(str_glue('Transforming subfeats with "{.transform}".',
+                    ' Disable with `.transform = "none"`'))
+
+  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
+  add_subfeat_tracks(x, {{.track_id}}, tracks, .transform)
+}
+
+add_subfeat_tracks <- function(x, parent_track_id, tracks, transform){
+  feats <- pull_track(x, {{parent_track_id}})
+  x$feats <- c(x$feats, map(
+    tracks, as_subfeats, get_seqs(x), feats, transform = transform))
+  x
+}
+
 #' Compute a layout for subfeat data
 #'
 #' Read subfeat data such as domains or blast hits on genes into a tidy
@@ -74,44 +121,3 @@ as_subfeats.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
 }
 
 
-#' Add subfeats
-#'
-#' Add subfeats
-#'
-#' @param parent_track_id track_id of the feats the subfeats map onto.
-#' @param ... subfeat tables with names, i.e. blast=blast_df, domains=domain_df
-#' @inheritParams as_subfeats
-#' @param .dots superceed dots with a list of arguments.
-#' @export
-#' @examples
-#' genes <- tibble(seq_id="A", start=100, end=200, feat_id="gene1")
-#' domains <- tibble(feat_id = "gene1", start=40, end=80)
-#' gggenomes(genes=genes) %>% add_subfeats(genes, domains) +
-#'   geom_gene() + geom_feat()
-add_subfeats <- function(x, parent_track_id, ..., transform = "none"){
-  UseMethod("add_subfeats")
-}
-
-#' @export
-add_subfeats.gggenomes <- function(x, parent_track_id, ..., transform = "none"){
-  x$data <- add_subfeats(x$data, parent_track_id = {{ parent_track_id }}, ...,
-      transform = transform)
-  x
-}
-
-#' @export
-add_subfeats.gggenomes_layout <- function(x, parent_track_id, ...,
-    transform = "none"){
-
-  if(!has_dots()) return(x)
-  dot_exprs <- enexprs(...) # defuse before list(...)
-  tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
-  add_subfeat_tracks(x, {{parent_track_id}}, tracks, transform)
-}
-
-add_subfeat_tracks <- function(x, parent_track_id, tracks, transform){
-  feats <- pull_track(x, {{parent_track_id}})
-  x$feats <- c(x$feats, map(
-    tracks, as_subfeats, get_seqs(x), feats, transform = transform))
-  x
-}
