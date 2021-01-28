@@ -13,7 +13,7 @@
 #' PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
 #' PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 #' read_feats(gbk_phages)
-read_feats <- function(files, format=NULL, file_id="bin_id", bin_formats=c("gff3", "gbk"), ...){
+read_feats <- function(files, format=NULL, .id="bin_id", bin_formats=c("gff3", "gbk"), ...){
   # infer file format from suffix
   format <- (format %||% file_format_unique(files, "feats"))
 
@@ -22,7 +22,7 @@ read_feats <- function(files, format=NULL, file_id="bin_id", bin_formats=c("gff3
 
   # map_df .id = bin_id
   inform(str_glue("Reading as {format}:"))
-  feats <- map2_df(files, names(files), read_feat_impl, .id=file_id, format, ...)
+  feats <- map2_df(files, names(files), read_feat_impl, .id=.id, format, ...)
 
   #if(!format %in% bin_formats)
   #  feats <- select(feats, -bin_id)
@@ -37,16 +37,16 @@ read_feat_impl <- function(file, name, format, ...){
 }
 
 read_subfeats <- function(files, format=NULL, ...){
-  feats <- read_feats(files=files, format=format)
+  feats <- read_feats(files=files, format=format, ...)
   rename(feats, feat_id=seq_id, feat_id2=seq_id2)
 }
 
 read_links <- function(files, format=NULL, ...){
-  feats <- read_feats(files=files, format=format)
+  feats <- read_feats(files=files, format=format, ...)
   rename(feats, seq_id=seq_id, start=start, end=end)
 }
 
 read_sublinks <- function(files, format=NULL, ...){
-  feats <- read_feats(files=files, format=format)
+  feats <- read_feats(files=files, format=format, ...)
   rename(feats, feat_id=seq_id, start=start, end=end, feat_id2=seq_id2)
 }

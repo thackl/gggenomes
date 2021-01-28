@@ -9,7 +9,7 @@
 #'   i.e. `col_names = c("o6", "more", "things")`.
 read_blast <- function (file, col_names = "o6"){
   o6 <- qc(seq_id, seq_id2, pident, length, mismatch, gapopen,
-               start, end, start2, send2, evalue, bitscore)
+               start, end, start2, end2, evalue, bitscore)
   # insert std at position
   i <- which("o6" == col_names)
   j <- seq_along(col_names)

@@ -21,7 +21,7 @@ swap_query <- function(x){
   m2 <- paste0(m, "2")
   i <- which(n %in% m)
   i2 <- which(n %in% m2)
-  inform(c("swapping", comma(m, collapse=' '), comma(m2, collapse='  ')))
+  inform(c("swapping", comma(m, collapse='  '), comma(m2, collapse=' ')))
   x[c(i, i2)] <- x[c(i2, i)]
   x
 }
