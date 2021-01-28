@@ -43,6 +43,7 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
 
   vars <- c("feat_id","feat_id2")
   require_vars(x, vars)
+  require_vars(feats, "feat_id")
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
   x <- mutate_at(x, vars(feat_id, feat_id2), as.character)
@@ -83,29 +84,31 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
     x <- x %>% swap_if(start > end, start, end)
     x <- x %>% swap_if(start2 > end2, start2, end2)
 
-    if(transform == "aa2nuc"){
-      x <- mutate(x, start = 3*start-2, end = 3*end-2) %>%
-        mutate(start2 = 3*start2-2, end2 = 3*end2-2)
-    }else if(transform == "nuc2aa"){
-      x <- mutate(x, start = (start+2)/3, end = (end+2)/3) %>%
-        mutate(start2 = (start2+2)/3, end2 = (end2+2)/3)
+    if(transform != "none"){
+      transform <-  switch(transform,
+          aa2nuc = ~3*.x-2,
+          nuc2aa = ~(.x+2)/3)
+      x <- mutate(across(c(start, end, start2, end2), transform))
     }
 
+    # map start/end from features to seqs
+    feats <- select(feats, feat_id, seq_id, bin_id,
+        .feat_start=start, .feat_end=end, .feat_strand=strand)
     x <- x %>%
-      left_join(select(feats, feat_id=feat_id, seq_id, .feat_start=start,
-        .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
+      inner_join(feats, by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
       mutate(
-        start = ifelse(is_reverse(.feat_strand), .feat_end-start, .feat_start+start),
-        end = ifelse(is_reverse(.feat_strand), .feat_end-end, .feat_start+end),
-        .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL) %>%
-      left_join(select(feats, feat_id2=feat_id, seq_id, .feat_start=start,
-        .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
-      mutate(
-        start2 = ifelse(is_reverse(.feat_strand), .feat_end-start2, .feat_start+start2),
-        end2 = ifelse(is_reverse(.feat_strand), .feat_end-end2, .feat_start+end2),
+        start = if_reverse(.feat_strand, .feat_end-start, .feat_start+start),
+        end = if_reverse(.feat_strand, .feat_end-end, .feat_start+end),
         .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
-  }
 
+    feats <- rename_with(feats, ~paste0(.x,"2"))
+    x <- x %>%
+      inner_join(feats, by = shared_names(x, "seq_id2", "bin_id2", "feat_id2")) %>%
+      mutate(
+        start2 = if_reverse(.feat_strand2, .feat_end2-start2, .feat_start2+start2),
+        end2 = if_reverse(.feat_strand2, .feat_end2-end2, .feat_start2+end2),
+        .feat_start2=NULL, .feat_end2=NULL, .feat_strand2=NULL)
+  }
   if(compute_layout)
       layout_links(x, seqs, ...)
   else
