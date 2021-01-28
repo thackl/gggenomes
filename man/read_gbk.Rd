@@ -7,8 +7,6 @@
 read_gbk(file, sources = NULL, types = NULL, infer_cds_parents = TRUE)
 }
 \arguments{
-\item{file}{toread}
-
 \item{sources}{only return features from these sources}
 
 \item{types}{only return features of these types, e.g. gene, CDS, ...}

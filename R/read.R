@@ -30,6 +30,34 @@ swap_query <- function(x){
   x
 }
 
+#' Default column types for defined formats
+#' @export
+#' @return a vector with default column names for the given format
+def_names <- function(format){
+  ff <- gggenomes_global$def_names
+  if(!format %in% names(ff)){
+    abort(c(
+      str_glue("No default col_names defined for format '{format}'.\nDefined formats are:"),
+      names(ff)
+    ))
+  }
+  ff[[format]]
+}
+
+#' Default column types for defined formats
+#' @export
+#' @return a vector with default column types for the given format
+def_types <- function(format){
+  ff <- gggenomes_global$def_types
+  if(!format %in% names(ff)){
+    abort(c(
+      str_glue("No default col_types defined for format '{format}'.\nDefined formats are:"),
+      names(ff)
+    ))
+  }
+  ff[[format]]
+}
+
 #' Defined file formats and extensions
 #'
 #' For seamless reading of different file formats, gggenomes uses a mapping of
@@ -166,3 +194,5 @@ file_formats_rd <- function(){
       )
   ff
 }
+
+is_connection <- function(x) inherits(x, "connection")

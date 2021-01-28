@@ -4,32 +4,20 @@
 \alias{read_blast}
 \title{Read BLAST tab-separated output}
 \usage{
-read_blast(file, col_names = "o6", comment = "# ", swap_query = FALSE, ...)
+read_blast(
+  file,
+  col_names = def_names("blast"),
+  col_types = def_types("blast"),
+  comment = "#",
+  swap_query = FALSE,
+  ...
+)
 }
 \arguments{
-\item{file}{Either a path to a file, a connection, or literal data
-(either a single string or a raw vector).
-
-Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \code{http://},
-\code{https://}, \code{ftp://}, or \code{ftps://} will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
-decompressed.
-
-Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.
-
-Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
-
-\item{col_names}{column names to use. "o6" is a special and expands to the 12
-columns present in default blast tabular output (\verb{--outfmt 6/7} in blast++
-and \code{-m8} in blast-legacy). It is also expanded when used with other
-columns, so that you can easily add extra columns to the default names,
-i.e. \code{col_names = c("o6", "more", "things")}.}
-
-\item{comment}{A string used to identify comments. Any text after the
-comment characters will be silently ignored.}
+\item{col_names}{column names to use. Defaults to \link{def_names("blast")}
+compatible with blast tabular output (\verb{--outfmt 6/7} in blast++ and \code{-m8}
+in blast-legacy). \link{def_names("blast")} can easily be combined with extra
+columns: \code{col_names = c(def_names("blast"), "more", "things")}.}
 
 \item{swap_query}{if TRUE swap query and subject columns using \code{\link[=swap_query]{swap_query()}}
 on import.}

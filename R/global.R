@@ -25,3 +25,21 @@ gggenomes_global$file_formats <- map(list(
     xz = qc(xz),
     zip = qc(zip))
 ), ~deframe(stack(.x) %>% mutate(ind=as.character(ind))))
+
+# Default column names for different formats
+gggenomes_global$def_names <- list(
+  gff3 = qc(seq_id, source, type, start, end, score, strand, phase, attributes),
+  paf =  qc(seq_id, length, start, end, strand, seq_id2, length2, start2, end2,
+      map_match, map_length, map_quality),
+  blast = qc(seq_id, seq_id2, pident, length, mismatch, gapopen, start, end,
+      start2, end2, evalue, bitscore),
+  bed = qc(seq_id, start, end, name, score, strand)
+)
+
+gggenomes_global$def_types <- list(
+  gff3 = "ccciiccic",
+  paf =  "ciiicciiiiid",
+  blast = "ccdiiiiiiidd",
+  bed = "ciicdc"
+)
+

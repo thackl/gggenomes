@@ -50,24 +50,20 @@
 #' type may be one of A (character), B (general array), f (real number),
 #' H (hexadecimal array), i (integer), or Z (string).
 #'
-#' @inheritParams readr::read_tsv
+#' @inheritParams read_gff3
 #' @importFrom readr read_tsv
 #' @param max_tags maximum number of optional fields to include
 #' @export
 #' @return tibble
-read_paf <- function (file, max_tags = 20){
-  col_names <- c("seq_id", "length", "start",
-                 "end", "strand", "seq_id2", "length2",
-                 "start2", "end2", "map_match", "map_length",
-                 "map_quality")
-  col_types <- "ciiicciiiiin"
+read_paf <- function (file, max_tags = 20, col_names = def_names("paf"),
+    col_types = def_types("paf"), ...){
 
   if(max_tags > 0){
     col_names <- c(col_names, paste0("tag_", seq_len(max_tags)))
     col_types <- paste0(col_types, paste(rep("?", max_tags), collapse=""))
   }
 
-  read_tsv(file, col_names = col_names, col_types = col_types) %>%
+  read_tsv(file, col_names = col_names, col_types = col_types, ...) %>%
     tidy_paf_tags
 }
 
@@ -104,10 +100,13 @@ tidy_paf_tags <- function(.data){
     mutate_at(names(tag_types)[tag_types == "f"], as.numeric)
 
   if(!seen_empty_tag_col)
-rlang::warn("Found tags in max_tags column, you should increase max_tags to ensure all tags for all entries got included")
+    rlang::warn("Found tags in max_tags column, you should increase max_tags to",
+                " ensure all tags for all entries got included")
 
-  rlang::inform(
-        str_glue("Read and tidied up a .paf file with {n_tags} optional tag fields:\n{s_tags}", s_tags = toString(names(tag_types)), n_tags = length(tag_types)))
+  rlang::inform(str_glue(
+    "Read and tidied up a .paf file with {n_tags} optional tag fields:\n{s_tags}",
+    s_tags = toString(names(tag_types)), n_tags = length(tag_types),
+    "\nNote: warnings about fewer than expected columns are expected for this format."))
 
   bind_cols(select(.data, -starts_with("tag_")), tag_df)
 }

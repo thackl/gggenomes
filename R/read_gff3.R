@@ -5,7 +5,7 @@
 #' section ahead of time from the file.
 #'
 #' @importFrom readr read_tsv
-#' @param file toread
+#' @inheritParams read_gff3
 #' @param sources only return features from these sources
 #' @param types only return features of these types, e.g. gene, CDS, ...
 #' @param infer_cds_parents infer the mRNA parent for CDS features based on
@@ -14,11 +14,14 @@
 #'   geom_gene calls parse the parent information to determine which CDS and
 #'   mRNAs are part of the same gene model. Without the parent info, mRNA and
 #'   CDS are plotted as individual features.
+#' @param col_names column names to use. Defaults to [def_names("blast")]
+#'   compatible with blast tabular output (`--outfmt 6/7` in blast++ and `-m8`
+#'   in blast-legacy). [def_names("blast")] can easily be combined with extra
+#'   columns: `col_names = c(def_names("blast"), "more", "things")`.
 #' @export
 #' @return tibble
-read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE){
-  col_names <- c("seq_id", "source", "type", "start", "end", "score", "strand", "phase", "attributes" )
-  col_types <- "ccciiccic"
+read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
+    col_names = def_names("gff3"), col_types = def_types("gff3")){
   x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".", comment="#")
 
   # ignore FASTA block - dirty fix because all seqs are read into x first and

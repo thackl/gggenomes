@@ -2,9 +2,18 @@
 % Please edit documentation in R/read_feats.R
 \name{read_feats}
 \alias{read_feats}
-\title{Read features from common file formats}
+\alias{read_subfeats}
+\alias{read_links}
+\alias{read_sublinks}
+\title{Read features and links from common file formats}
 \usage{
 read_feats(files, format = NULL, .id = "file_id", ...)
+
+read_subfeats(files, format = NULL, .id = "file_id", ...)
+
+read_links(files, format = NULL, .id = "file_id", ...)
+
+read_sublinks(files, format = NULL, .id = "file_id", ...)
 }
 \arguments{
 \item{files}{files to reads. Should all be of same format.}
@@ -22,10 +31,15 @@ to "bin_id" if every file represents a different bin.}
 the given format.}
 }
 \value{
-a gggenomes compatible feature tibble
+a gggenomes compatible feature or link tibble
 }
 \description{
-Read features from GFF3, Genbank, BED, BLAST tabular output or PAF files.
+Read features or links from common formats, such as GFF3, Genbank, BED, BLAST
+tabular output or PAF files. File formats and the format-specific \verb{read_*()}
+function are automatically determined based in file extensions, if possible.
+Can read multiple files in the same format into a single table: useful, for
+example, to read a folder of gff-files with each containing genes of a
+different genome.
 }
 \examples{
 # read a file
