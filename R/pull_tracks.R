@@ -218,10 +218,10 @@ vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
     ignore_pos = NULL){
   track_type <- match_arg(track_type, several.ok = T)
   track_ids <- track_ids(x, track_type)
-  track_id <- enquo(track_id)
 
   # only ignore in integer position context
-  if(!is.null(ignore_pos) && is_integerish(eval_tidy(track_id))){
+  if(!is.null(ignore_pos) && !quo_is_symbolic(enquo(track_id)) &&
+     is_integerish(track_id)){
     track_ids <- setdiff(track_ids, ignore_pos)
   }
 
