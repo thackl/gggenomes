@@ -111,7 +111,7 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
   default_aes = ggplot2::aes(
     alpha = 1,
     colour = "black",
-    fill = "cornflowerblue",
+    fill = "cornsilk3",
     stroke = .4,
     linetype = 1,
     type = "CDS",

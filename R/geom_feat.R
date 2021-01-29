@@ -1,5 +1,5 @@
 #' Draw feats
-#' 
+#'
 #' @param data feat_layout
 #' @export
 geom_feat <- function(mapping = NULL, data = feats(), stat="identity",
@@ -38,5 +38,5 @@ geom_feat <- function(mapping = NULL, data = feats(), stat="identity",
 
 GeomFeat <- ggproto(
   "GeomFeat", GeomSegment,
-  default_aes = aes(colour = "grey40", size = 3, linetype = 1, alpha = NA)
+  default_aes = aes(colour = "paleturquoise4", size = 2, linetype = 1, alpha = NA)
 )

@@ -5,6 +5,14 @@
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
+#' @examples
+#' p <- gggenomes(emale_seqs[1:6,], links = emale_links) + geom_seq()
+#' p + geom_link()
+#' # change offset from seqs
+#' p + geom_link(aes(fill=de, color=de), offset = 0.05) +
+#'   scale_fill_viridis_b() + scale_colour_viridis_b()
+#' # combine with flip
+#' p %>% flip(3,4,5) + geom_link()
 geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     offset = 0.1, ...) {
@@ -23,7 +31,7 @@ geom_link <- function(mapping = NULL, data = links(), stat = "identity",
 
 GeomLink <- ggproto(
   "GeomLink", Geom,
-  default_aes = aes(colour = "grey50", fill = "grey50", size = 0.5, linetype = 1,
+  default_aes = aes(colour = "honeydew3", fill = "honeydew3", size = 0.5, linetype = 1,
     alpha = 0.7),
 
   required_aes = c("x", "xend", "y", "xmin", "xmax", "yend"),

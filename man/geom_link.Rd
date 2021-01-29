@@ -24,3 +24,12 @@ geom_link(
 Note \code{.adjacent_only=TRUE} is somewhat redundant with
 layout_links(adjacent_only =TRUE), which currently is always set to TRUE
 }
+\examples{
+p <- gggenomes(emale_seqs[1:6,], links = emale_links) + geom_seq()
+p + geom_link()
+# change offset from seqs
+p + geom_link(aes(fill=de, color=de), offset = 0.05) +
+  scale_fill_viridis_b() + scale_colour_viridis_b()
+# combine with flip
+p \%>\% flip(3,4,5) + geom_link()
+}

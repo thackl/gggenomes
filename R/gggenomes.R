@@ -7,20 +7,21 @@
 #' Link data: `read_paf`
 #' @param seqs a table with sequence data (seq_id, bin_id, length)
 #' @param genes a table or a list of table with gene data to be added as feat
-#' tracks. Required columns: seq_id, bin_id, start, end.
+#'   tracks. Required columns: seq_id, bin_id, start, end.
 #'
-#' For a single table, adds the track_id will be "genes". For a list, track_ids
-#' are parsed from the list names, or if names are missing from the name of the
-#' variable containing each table.
+#'   For a single table, adds the track_id will be "genes". For a list,
+#'   track_ids are parsed from the list names, or if names are missing from the
+#'   name of the variable containing each table.
 #' @param feats same as genes, but the single table track_id will default to
-#' "feats".
+#'   "feats".
 #' @param links a table or a list of tables with link data to be added as link
-#' tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
-#' naming scheme as for feats.
-#' @param ... layout parameters passed on to [layout_genomes()] / [layout_seqs()]
+#'   tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
+#'   naming scheme as for feats.
+#' @param ... layout parameters passed on to [layout_genomes()] /
+#'   [layout_seqs()]
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
-#' developmental purposes.
+#'   developmental purposes.
 #' @import ggplot2 grid rlang
 #' @export
 #' @return gggenomes-flavored ggplot object
@@ -32,6 +33,27 @@
 #'   geom_feat(size=8) +                           # terminal inverted repeats
 #'   geom_gene(aes(fill=strand), position="strand") + # genes
 #'   geom_link(offset = 0.15)                         # synteny-blocks
+#'
+#' # with some more information
+#' gggenomes(emale_seqs[c(1:6),], emale_genes, emale_tirs, emale_links) %>%
+#'   add_feats(emale_transposons, emale_gc) %>%
+#'   add_clusters(genes, emale_cogs) %>%
+#'   flip_nicely() +
+#'   geom_link(offset = 0.15, color="white") +                        # synteny-blocks
+#'   geom_seq() + geom_bin_label() +                  # chromosomes and labels
+#'   # thistle4, salmon4, burlywood4
+#'   geom_feat(size=6, position="identity") +                              # terminal inverted repeats
+#'   geom_feat(data=feats(emale_transposons), color="turquoise4", alpha=.3,
+#'             position="strand", size=16) +
+#'   geom_feat_note(aes(label=type), data=feats(emale_transposons),
+#'                  position="strand", nudge_y = .3) +
+#'   geom_gene(aes(fill=cluster_label), position="strand") + # genes
+#'   scale_fill_brewer("Conserved genes", palette="Dark2", na.value = "cornsilk3") +
+#'   #scale_fill_viridis_b() +
+#'   geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
+#'                   group=seq_id, linetype="GC-content"), feats(emale_gc),
+#'               fill="lavenderblush4", position=position_nudge(y=-.1)) +
+#'   geom_gene_tag(aes(label=capsid), position="strand", xjust=.25, nudge_y = .1, angle=30)
 gggenomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL, ...,
   theme = c("clean", NULL), .layout=NULL){
 
