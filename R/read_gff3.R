@@ -47,6 +47,7 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
   if(infer_cds_parents)
     x <- infer_cds_parent(x)
 
+
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, type=="exon") %>%
     select(exon_id=feat_id, start, end, feat_id=parent_ids) %>%
@@ -63,7 +64,8 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
     left_join(mrna_cds_five_prime, by="feat_id") %>% replace_na(list(width=0)) %>%
     transmute(feat_id, introns = map2(introns, width, ~as.integer(.x+.y)))
 
-  mrna_introns <- bind_rows(mrna_exon_introns, mrna_cds_introns)
+  mrna_introns <- bind_rows(mrna_exon_introns, mrna_cds_introns) %>%
+    mutate(feat_id = as.character(feat_id))
 
   # unsert mRNA introns into data
   x <- left_join(x, rename(mrna_introns, mrna_introns..=introns), by="feat_id") %>%
@@ -113,7 +115,7 @@ tidy_attributes <- function(x, reserved_names){
   })
 
   # make sure these columns always exist in gff-based table
-  req <- tibble(ID=NA, Parent=NA, Name=NA)
+  req <- tibble(ID=NA_character_, Parent=NA_character_, Name=NA_character_)
   req_miss <- setdiff(names(req), names(d))
   if(length(req_miss > 0))
     d <- bind_cols(d, req[req_miss])
@@ -135,7 +137,7 @@ tidy_attributes <- function(x, reserved_names){
 coords2introns <- function(starts, ends){
   n <- length(starts)
   if(n < 2)
-    return(NULL)
+    return(character(0))
   i <- 2:n
   # introns: start, end, start2, end2, ...
   c(rbind(ends[i-1], starts[i])) - starts[1]
