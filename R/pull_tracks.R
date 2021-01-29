@@ -9,7 +9,8 @@
 #'   as a positive/negative integer giving the position from the left/right.
 #' @param ... Logical predicates passed on to [dplyr::filter]. "seqs", "feats",
 #'   "links". Affects position-based selection.
-#' @param .ignore a regular string vector with track_ids to ignore.
+#' @param .ignore_pos a regular string vector with track_ids to ignore when
+#'   using integer positions.
 #' @param .geneify add dummy type, introns and geom_id column to play nicely
 #'   with geoms supporting multi-level and multi-span gene models.
 #' @param .feat_type filter for feats tagged as coding sequence in the type
@@ -30,7 +31,7 @@
 #' gg %>% pull_feats()            # easiest
 #' gg %>% pull_feats(feats)       # by id
 #' gg %>% pull_feats(1)           # by position
-#' gg %>% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
+#' gg %>% pull_feats(2, .ignore_pos=NULL)  # default .ignore_pos="genes"
 #'
 #' # get "seqs" track (always track #1)
 #' gg %>% pull_seqs()
@@ -44,17 +45,17 @@
 #' @describeIn pull_track by default pulls out the first feat track not named
 #'   "genes".
 #' @export
-feats <- function(.track_id=1, ..., .ignore="genes", .geneify=FALSE){
+feats <- function(.track_id=1, ..., .ignore_pos="genes", .geneify=FALSE){
   dots <- quos(...)
   function(.x, ...){
-    pull_feats(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .geneify=.geneify)
+    pull_feats(.x, {{.track_id}}, !!! dots, .ignore_pos=.ignore_pos, .geneify=.geneify)
   }
 }
 #' @export
-feats0 <- function(.track_id=1, ..., .ignore=NA, .geneify=FALSE){
+feats0 <- function(.track_id=1, ..., .ignore_pos=NA, .geneify=FALSE){
   dots <- quos(...)
   function(.x, ...){
-    pull_feats(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .geneify=.geneify)
+    pull_feats(.x, {{.track_id}}, !!! dots, .ignore_pos=.ignore_pos, .geneify=.geneify)
   }
 }
 
@@ -70,10 +71,10 @@ genes <- function(..., .feat_type=c("CDS", "mRNA", "tRNA")){
 }
 #' @describeIn pull_track by default pulls out the first link track.
 #' @export
-links <- function(.track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
+links <- function(.track_id=1, ..., .ignore_pos=NULL, .adjacent_only=TRUE){
   dots <- quos(...)
   function(.x, ...){
-    pull_links(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .adjacent_only=.adjacent_only)
+    pull_links(.x, {{.track_id}}, !!! dots, .ignore_pos=.ignore_pos, .adjacent_only=.adjacent_only)
   }
 }
 #' @describeIn pull_track pulls out the seqs track (there is only one).
@@ -96,26 +97,26 @@ bins <- function(..., .group=vars()){
 }
 #' @describeIn pull_track pulls from all tracks in order seqs, feats, links.
 #' @export
-track <- function(.track_id=1, ..., .track_type=NULL, .ignore=NULL){
+track <- function(.track_id=1, ..., .track_type=NULL, .ignore_pos=NULL){
   dots <- quos(...)
   function(.x, ...){
-    pull_track(.x, {{.track_id}}, !!! dots, .track_type=.track_type, .ignore=.ignore)
+    pull_track(.x, {{.track_id}}, !!! dots, .track_type=.track_type, .ignore_pos=.ignore_pos)
   }
 }
 
 #' @rdname pull_track
 #' @export
-pull_feats <- function(.x, .track_id=1, ..., .ignore="genes", .geneify=FALSE){
+pull_feats <- function(.x, .track_id=1, ..., .ignore_pos="genes", .geneify=FALSE){
   UseMethod("pull_feats")
 }
 #' @export
-pull_feats.gggenomes <- function(.x, .track_id=1, ..., .ignore="genes", .geneify=FALSE){
-  pull_feats(.x$data, {{.track_id}}, ..., .ignore=.ignore, .geneify=.geneify)
+pull_feats.gggenomes <- function(.x, .track_id=1, ..., .ignore_pos="genes", .geneify=FALSE){
+  pull_feats(.x$data, {{.track_id}}, ..., .ignore_pos=.ignore_pos, .geneify=.geneify)
 }
 #' @export
-pull_feats.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore="genes",
+pull_feats.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore_pos="genes",
     .geneify=FALSE){
-  track <- pull_track(.x, {{.track_id}}, ..., .track_type="feats", .ignore=.ignore)
+  track <- pull_track(.x, {{.track_id}}, ..., .track_type="feats", .ignore_pos=.ignore_pos)
   if(.geneify){
     track <- introduce(track,
       type="CDS", introns = list(NULL),
@@ -135,23 +136,23 @@ pull_genes.gggenomes <- function(.x, ..., .feat_type=c("CDS", "mRNA", "tRNA")){
 }
 #' @export
 pull_genes.gggenomes_layout <- function(.x, ..., .feat_type=c("CDS", "mRNA", "tRNA")){
-  track <- pull_feats(.x, 1, ..., .ignore=NULL, .geneify=TRUE)
+  track <- pull_feats(.x, 1, ..., .ignore_pos=NULL, .geneify=TRUE)
   if(length(.feat_type) > 0) track <- filter(track, type %in% .feat_type)
   track
 }
 
 #' @rdname pull_track
 #' @export
-pull_links <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
+pull_links <- function(.x, .track_id=1, ..., .ignore_pos=NULL, .adjacent_only=TRUE){
   UseMethod("pull_links")
 }
 #' @export
-pull_links.gggenomes <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
-  pull_links(.x$data, {{.track_id}}, ..., .ignore=.ignore, .adjacent_only=.adjacent_only)
+pull_links.gggenomes <- function(.x, .track_id=1, ..., .ignore_pos=NULL, .adjacent_only=TRUE){
+  pull_links(.x$data, {{.track_id}}, ..., .ignore_pos=.ignore_pos, .adjacent_only=.adjacent_only)
 }
 #' @export
-pull_links.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
-  track <- pull_track(.x, {{.track_id}}, ..., .track_type="links", .ignore=.ignore)
+pull_links.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore_pos=NULL, .adjacent_only=TRUE){
+  track <- pull_track(.x, {{.track_id}}, ..., .track_type="links", .ignore_pos=.ignore_pos)
   if(.adjacent_only) track <- filter(track, abs(y-yend)==1)
   track
 }
@@ -190,16 +191,16 @@ pull_bins.gggenomes_layout <- function(.x, ..., .group=vars()){
 
 #' @rdname pull_track
 #' @export
-pull_track <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
+pull_track <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore_pos=NULL){
   UseMethod("pull_track")
 }
 #' @export
-pull_track.gggenomes <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
-  pull_track(.x$data, {{.track_id}}, ..., .track_type=.track_type, .ignore=.ignore)
+pull_track.gggenomes <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore_pos=NULL){
+  pull_track(.x$data, {{.track_id}}, ..., .track_type=.track_type, .ignore_pos=.ignore_pos)
 }
 #' @export
-pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
-  track_id <- vars_track(.x, {{.track_id}}, track_type=.track_type, ignore=.ignore)
+pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore_pos=NULL){
+  track_id <- vars_track(.x, {{.track_id}}, track_type=.track_type, ignore_pos=.ignore_pos)
   filter(.x[[track_type(.x, track_id)]][[track_id]], ...)
 }
 
@@ -214,13 +215,18 @@ pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, 
 #'   selection
 #' @return The selected track_id as an unnamed string
 vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
-    ignore = NULL){
+    ignore_pos = NULL){
   track_type <- match_arg(track_type, several.ok = T)
   track_ids <- track_ids(x, track_type)
-  track_ids <- setdiff(track_ids, ignore)
+  track_id <- enquo(track_id)
+
+  # only ignore in integer position context
+  if(!is.null(ignore_pos) && is_integerish(eval_tidy(track_id))){
+    track_ids <- setdiff(track_ids, ignore_pos)
+  }
 
   if(length(track_ids) < 1){
-    abort(c("Track not found", paste("Ignored tracks:", comma(ignore))))
+    abort(c("Track not found", paste("Tracks ignored by position:", comma(ignore_pos))))
   }
 
   tryCatch(tidyselect::vars_pull(track_ids, {{track_id}}),
@@ -229,11 +235,11 @@ vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
     error = function(cnd){
       if(inherits(cnd,"vctrs_error_subscript")){
         class(cnd) <- c("rlang_error", "error", "condition")
-        cnd$message <- vars_track_error(cnd$i, track_ids, ignore)
+        cnd$message <- vars_track_error(cnd$i, track_ids, ignore_pos)
       }else{
         m <- str_match(cnd$message, "object (.*) not found")
         if(!is.na(m[1,1])){
-          cnd$message <- vars_track_error(m[1,2], track_ids, ignore)
+          cnd$message <- vars_track_error(m[1,2], track_ids, ignore_pos)
         }
       }
       stop(cnd)
@@ -241,11 +247,11 @@ vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
 }
 
 #' Error messages for `vars_track``
-vars_track_error <- function(bad_value, track_ids, ignore){
+vars_track_error <- function(bad_value, track_ids, ignore_pos){
   if(is_function(bad_value)) bad_value <- "<function>"
   if(is.numeric(bad_value)) bad_value <- as.character(bad_value)
   c(
     paste("Track", as_name(bad_value), "not found"),
     paste0("Available tracks: ", comma(track_ids), " (", length(track_ids), ")"),
-    paste("Ignored tracks:", comma(ignore)))
+    paste("Tracks ignore by position:", comma(ignore_pos)))
 }
