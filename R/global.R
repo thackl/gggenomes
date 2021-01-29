@@ -15,8 +15,8 @@ gggenomes_global$file_formats <- map(list(
     ambigious = qc(txt, tsv, csv)
   ),
   seqs = list(
-    fasta = qc(fa, fas, fasta, ffn, fna, faa),
     fai = qc(fai),
+    seq_len = qc(fa, fas, fasta, ffn, fna, faa, gff, gbk),
     ambigious = qc(txt, tsv, csv)
   ),
   zips = list(
@@ -33,13 +33,17 @@ gggenomes_global$def_names <- list(
       map_match, map_length, map_quality),
   blast = qc(seq_id, seq_id2, pident, length, mismatch, gapopen, start, end,
       start2, end2, evalue, bitscore),
-  bed = qc(seq_id, start, end, name, score, strand)
+  bed = qc(seq_id, start, end, name, score, strand),
+  fai = qc(seq_id, seq_desc, length),
+  seq_len = qc(seq_id, seq_desc, length)
 )
 
 gggenomes_global$def_types <- list(
   gff3 = "ccciiccic",
   paf =  "ciiicciiiiid",
   blast = "ccdiiiiiiidd",
-  bed = "ciicdc"
+  bed = "ciicdc",
+  fai = "ci---",
+  seq_len = "cci"
 )
 

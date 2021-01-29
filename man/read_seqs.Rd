@@ -2,9 +2,20 @@
 % Please edit documentation in R/read_seqs.R
 \name{read_seqs}
 \alias{read_seqs}
+\alias{read_seq_len}
+\alias{read_fai}
 \title{Read a sequence index}
 \usage{
-read_seqs(file, col_names = c("seq_id", "seq_desc", "length"))
+read_seqs(files, format = NULL, .id = "file_id", ...)
+
+read_seq_len(
+  file,
+  col_names = def_names("seq_len"),
+  col_types = def_types("seq_len"),
+  ...
+)
+
+read_fai(file, col_names = def_names("fai"), col_types = def_types("fai"), ...)
 }
 \arguments{
 \item{file}{fasta or .fai/.seqkit.fai fasta index}

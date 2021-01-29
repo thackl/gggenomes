@@ -46,7 +46,7 @@ read_feats <- function(files, format=NULL, .id="file_id", ...){
 
   # map_df .id = bin_id
   inform(str_glue("Reading as {format}:"))
-  feats <- map2_df(files, names(files), read_feat_impl, .id=.id, format, ...)
+  feats <- map2_df(files, names(files), read_format, .id=.id, format, ...)
 
   feats
 }
@@ -72,7 +72,7 @@ read_sublinks <- function(files, format=NULL, .id="file_id", ...){
   rename(feats, feat_id=seq_id, start=start, end=end, feat_id2=seq_id2)
 }
 
-read_feat_impl <- function(file, name, format, ...){
+read_format <- function(file, name, format, ...){
   inform(str_glue("* {name} [{file}]"))
   exec(paste0("read_", format), file, ...)
 }
