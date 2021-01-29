@@ -7,7 +7,8 @@
 #' dplyr::select-like syntax
 #' @examples
 #' x <- tibble(start = c(10,100), end=c(30, 50))
-#' swap_if(start > end, start, end) # ensure start of a range is always smaller than the end
+#' # ensure start of a range is always smaller than the end
+#' gggenomes:::swap_if(x, start > end, start, end)
 swap_if <- function(x, condition, ...){
   i <- tidyselect::eval_select(rlang::expr(c(...)), x)
   if(length(i) != 2 || length(unique(i)) != 2)

@@ -1,20 +1,20 @@
 #' Read a sequence index
 #'
-#' Read ID, description and length for each sequence from a fasta file or from a
-#' samtools/seqkit fasta index file. Default columns are "seq_id", "seq_desc"
-#' and "length".
+#' Read ID, description and length for each sequence from common formats
+#' including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
+#' are "seq_id", "seq_desc" and "length".
 #'
 #' @importFrom readr read_tsv
 #' @param file fasta or .fai/.seqkit.fai fasta index
-#' @param col_names custom column names
 #' @export
-#' @return tibble
+#' @return gggenomes-compatible seqs tibble
 #' @examples
-#' read_seqs("foo.fa")
-#' read_seqs("foo.fa.fai")        # samtools style index, no description
-#' read_seqs("foo.fa.seqkit.fai") # seqkit style with description
-#' # custom col_names
-#' read_seqs("foo.fa.fai", col_names=c("contig_id", "contig_desc", "len"))
+#' # from a fasta file
+#' read_seqs("data-raw/emales/emales.fna")
+#' # from samtools/seqkit style index
+#' read_seqs("data-raw/emales/emales.fna.seqkit.fai")
+#' # from a gff file
+#' read_seqs("data-raw/emales/emales.gff")
 read_seqs <- function(files, format=NULL, .id="file_id", ...){
   if(any(map_lgl(files, is_connection))){
     warn("Using connections instead of paths to files can lead to unexpected behaviour")

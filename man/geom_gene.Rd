@@ -81,7 +81,7 @@ set to NA to completely ignore introns.}
 \item{cds_aes, rna_aes, intron_aes}{overwrite aesthetics for different model
 parts. Need to be wrapped in \code{\link[ggplot2:aes]{ggplot2::aes()}}. NOTE: These remappings are
 applied after the data has been transformed and mapped by the plot scales
-(see \code{\link[ggplot2:after_scale]{ggplot2::after_scale()}}). So you need to map between aesthetic names
+(see \code{\link[ggplot2:aes_eval]{ggplot2::after_scale()}}). So you need to map between aesthetic names
 (not data columns) and with standardized names, i.e. British English
 spelling. These mappings can be used to dynamically change parts of the
 gene model. For example, to change the color of introns from a hard-coded

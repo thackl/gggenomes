@@ -6,6 +6,7 @@
 #' endpoints. Provide 2 values for different behaviors for lower and upper
 #' boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.
 #' @return a logical vector of the same length as the input
+#' @export
 #' @examples
 #' in_range(1:5, 2, 4)
 #' in_range(1:5, 2, 4, closed=c(FALSE, TRUE)) # left-open

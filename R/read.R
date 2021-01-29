@@ -13,7 +13,7 @@
 #'  "A", "B", 100, 200, "+", 10000, 10200, 1e-5
 #' )
 #' # make B the query
-#' swap_query(feat)
+#' swap_query(feats)
 swap_query <- function(x){
   # for every pair seq_id/seq_id2, name/name2 > name2/name
   n <- names(x)
@@ -71,6 +71,7 @@ def_types <- function(format){
 #'
 #' @param context a file format context defined in `gggenomes_global$file_formats`
 #' @return dictionarish vector of file formats with recognized extensions as names
+#' @export
 #' @examples
 #' # vector of defined zip formats and recognized extensions as names
 #' file_formats("zips")
@@ -92,7 +93,7 @@ file_formats <- function(context){
 #' @return vector of file extensions with formats as names
 #' @examples
 #' # vector of zip-context file extensions and format names
-#' file_exts("zips")
+#' gggenomes:::file_exts("zips")
 file_exts <- function(context){
   f <- file_formats(context)
   set_names(names(f), f)
@@ -103,7 +104,7 @@ file_exts <- function(context){
 #' @param context a file format context defined in [file_formats()]
 #' @return a vector of formats with extensions as names
 #' @examples
-#' ext_to_format(c("gff", "txt", "FASTA"), "feats")
+#' gggenomes:::ext_to_format(c("gff", "txt", "FASTA"), "feats")
 ext_to_format <- function(x, context){
   x <- str_to_lower(x)
   if(is_dictionaryish(context))

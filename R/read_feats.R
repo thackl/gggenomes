@@ -19,16 +19,19 @@
 #'   the given format.
 #'
 #' @return a gggenomes compatible feature or link tibble
+#' @export
 #' @examples
 #' # read a file
 #' read_feats("data-raw/eden-utr.gff")
+#' \dontrun{
 #' # read all gffs from a directory
-#' read_feats(list.files("some/where", "*.gff$", full.names=TRUE))
+#' read_feats(list.files("path/to/directory", "*.gff$", full.names=TRUE))
 #' # read remote files
 #' gbk_phages <- c(
 #' PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
 #' PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 #' read_feats(gbk_phages)
+#' }
 read_feats <- function(files, format=NULL, .id="file_id", ...){
   if(is_connection(files))
     files <- list(files) # weird things happen to pipes in vectors

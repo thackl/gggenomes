@@ -23,5 +23,5 @@ feats <- tribble(
  "A", "B", 100, 200, "+", 10000, 10200, 1e-5
 )
 # make B the query
-swap_query(feat)
+swap_query(feats)
 }

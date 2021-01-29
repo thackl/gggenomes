@@ -17,5 +17,5 @@ Defined file extensions and associated formats
 }
 \examples{
 # vector of zip-context file extensions and format names
-file_exts("zips")
+gggenomes:::file_exts("zips")
 }

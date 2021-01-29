@@ -20,5 +20,6 @@ Swap values of two columns based on a condition
 }
 \examples{
 x <- tibble(start = c(10,100), end=c(30, 50))
-swap_if(start > end, start, end) # ensure start of a range is always smaller than the end
+# ensure start of a range is always smaller than the end
+gggenomes:::swap_if(x, start > end, start, end)
 }

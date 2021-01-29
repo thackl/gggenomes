@@ -18,5 +18,5 @@ a vector of formats with extensions as names
 File format from suffix
 }
 \examples{
-ext_to_format(c("gff", "txt", "FASTA"), "feats")
+gggenomes:::ext_to_format(c("gff", "txt", "FASTA"), "feats")
 }

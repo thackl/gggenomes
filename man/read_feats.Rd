@@ -21,7 +21,7 @@ read_sublinks(files, format = NULL, .id = "file_id", ...)
 \item{format}{If NULL, will be guessed from file extension. Else, any format
 known to gggenomes ("gff3", "gbk", ... see \code{\link[=file_formats]{file_formats()}} for full list)
 or any suffix that maps to a known \verb{read_<suffix>} function to be called,
-such as \code{\link[readr:read_tsv]{readr::read_tsv()}}, for example.}
+such as \code{\link[readr:read_delim]{readr::read_tsv()}}, for example.}
 
 \item{.id}{When binding output from several files, how to name the column
 with the name of the file each record came from. Defaults to "file_id". Set
@@ -44,11 +44,13 @@ different genome.
 \examples{
 # read a file
 read_feats("data-raw/eden-utr.gff")
+\dontrun{
 # read all gffs from a directory
-read_feats(list.files("some/where", "*.gff$", full.names=TRUE))
+read_feats(list.files("path/to/directory", "*.gff$", full.names=TRUE))
 # read remote files
 gbk_phages <- c(
 PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
 PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 read_feats(gbk_phages)
+}
 }

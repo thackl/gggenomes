@@ -19,6 +19,6 @@ Add subfeats
 \examples{
 genes <- tibble(seq_id="A", start=100, end=200, feat_id="gene1")
 domains <- tibble(feat_id = "gene1", start=40, end=80)
-gggenomes(genes=genes) \%>\% add_subfeats(genes, domains) +
+gggenomes(genes=genes) \%>\% add_subfeats(domains) +
   geom_gene() + geom_feat()
 }
