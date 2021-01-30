@@ -17,7 +17,7 @@
 #'   function is evaluated.
 #'
 #' @examples
-#' p <- gggenomes(emale_seqs[1:7,], links=emale_links) +
+#' p <- gggenomes(emale_seqs[1:7,], links=emale_ava) +
 #'   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
 #'   scale_color_manual(values=c("+"="blue", "-"="red"))
 #' # some bins would align nicer if reverse-complemented
@@ -30,11 +30,11 @@
 #' p %>% flip_nicely()
 #'
 #' # also works with links from clusters
-#' p <- gggenomes(emale_seqs[1:7,], emale_genes) +
+#' p <- gggenomes(emale_seqs, emale_genes) +
 #'   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
 #'   scale_color_manual(values=c("+"="blue", "-"="red"))
 #' p %>%
-#'   add_clusters(genes, emale_cogs) %>%
+#'   add_clusters(emale_cogs) %>%
 #'   flip_nicely(emale_cogs)
 #' @export
 flip <- function(x, ..., .bin_track=seqs){

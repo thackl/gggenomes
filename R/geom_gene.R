@@ -45,7 +45,7 @@
 #'
 #' @export
 #' @examples
-#' g0 <- read_gff3("data-raw/eden-utr.gff")
+#' g0 <- read_gff3(ex("eden-utr.gff"))
 #' gg <- gggenomes(genes=g0)
 #' gg + geom_gene(position="pile")
 #' gg + geom_gene(aes(fill=type), position="pile",

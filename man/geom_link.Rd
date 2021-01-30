@@ -25,7 +25,7 @@ Note \code{.adjacent_only=TRUE} is somewhat redundant with
 layout_links(adjacent_only =TRUE), which currently is always set to TRUE
 }
 \examples{
-p <- gggenomes(emale_seqs[1:6,], links = emale_links) + geom_seq()
+p <- gggenomes(emale_seqs[1:6,], links = emale_ava) + geom_seq()
 p + geom_link()
 # change offset from seqs
 p + geom_link(aes(fill=de, color=de), offset = 0.05) +

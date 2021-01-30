@@ -21,9 +21,10 @@ information to the feat table.
 \examples{
 gggenomes(emale_seqs, emale_genes) \%>\%
   add_clusters(emale_cogs) \%>\%
-  flip_nicely() +      # this works because clusters are turned into links
+  flip_nicely() +      # works because clusters become links
+  geom_link() +        # works because clusters become links
   geom_seq() +
-  geom_link() +        # this works because clusters are turned into links
+  # works because cluster info is joined to gene track
   geom_gene(aes(fill=ifelse(is.na(cluster_id), NA,
       str_glue("{cluster_id} [{cluster_size}]")))) +
   scale_fill_discrete("COGs")

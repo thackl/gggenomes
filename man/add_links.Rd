@@ -16,6 +16,6 @@ Add links
 }
 \examples{
 gggenomes(emale_seqs[1:4,]) \%>\%
-  add_links(links=emale_links) +
+  add_links(links=emale_ava) +
   geom_seq() + geom_link()
 }

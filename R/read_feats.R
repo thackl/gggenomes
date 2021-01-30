@@ -22,7 +22,7 @@
 #' @export
 #' @examples
 #' # read a file
-#' read_feats("data-raw/eden-utr.gff")
+#' read_feats(ex("eden-utr.gff"))
 #' \dontrun{
 #' # read all gffs from a directory
 #' read_feats(list.files("path/to/directory", "*.gff$", full.names=TRUE))

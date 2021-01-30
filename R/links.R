@@ -99,7 +99,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #' @inheritParams as_links
 #' @examples
 #' gggenomes(emale_seqs[1:4,]) %>%
-#'   add_links(links=emale_links) +
+#'   add_links(links=emale_ava) +
 #'   geom_seq() + geom_link()
 #' @export
 add_links <- function(x, ...){

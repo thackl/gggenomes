@@ -98,7 +98,7 @@ on-the-fly.
 
 \examples{
 
-gg <- gggenomes(emale_seqs, emale_genes, emale_tirs, emale_links)
+gg <- gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava)
 gg \%>\% track_info()            # info about track ids, positions and types
 
 # get first feat track that isn't "genes" (all equivalent)
@@ -112,7 +112,7 @@ gg \%>\% pull_seqs()
 
 # plot integrated transposons and GC content for some viral genomes
 gg <- gggenomes(emale_seqs[1:8,],
-  feats=list(emale_transposons, GC=emale_gc))
+  feats=list(emale_ngaros, GC=emale_gc))
 gg + geom_seq() +
   geom_feat(color="skyblue") + # defaults to data=feats()
   geom_line(aes(x, y+score-.6, group=y), data=feats(GC), color="gray60")

@@ -10,11 +10,11 @@
 #' @return gggenomes-compatible seqs tibble
 #' @examples
 #' # from a fasta file
-#' read_seqs("data-raw/emales/emales.fna")
+#' read_seqs(ex("emales/emales.fna"))
 #' # from samtools/seqkit style index
-#' read_seqs("data-raw/emales/emales.fna.seqkit.fai")
-#' # from a gff file
-#' read_seqs("data-raw/emales/emales.gff")
+#' read_seqs(ex("emales/emales.fna.seqkit.fai"))
+#' # from multiple gff file
+#' read_seqs(c(ex("emales/emales.gff"), ex("emales/emales-tirs.gff")))
 read_seqs <- function(files, format=NULL, .id="file_id", ...){
   if(any(map_lgl(files, is_connection))){
     warn("Using connections instead of paths to files can lead to unexpected behaviour")

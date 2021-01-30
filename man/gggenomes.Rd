@@ -91,30 +91,29 @@ Link data: \code{read_paf}
 \examples{
 # Compare the genomic organization of three viral elements
 # EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
-gggenomes(emale_seqs[c(1:2,6),], emale_genes, emale_tirs, emale_links) +
+gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) +
   geom_seq() + geom_bin_label() +                  # chromosomes and labels
-  geom_feat(size=8) +                           # terminal inverted repeats
+  geom_feat(size=8) +                              # terminal inverted repeats
   geom_gene(aes(fill=strand), position="strand") + # genes
   geom_link(offset = 0.15)                         # synteny-blocks
 
 # with some more information
-gggenomes(emale_seqs[c(1:6),], emale_genes, emale_tirs, emale_links) \%>\%
-  add_feats(emale_transposons, emale_gc) \%>\%
-  add_clusters(genes, emale_cogs) \%>\%
+gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) \%>\%
+  add_feats(emale_ngaros, emale_gc) \%>\%
+  add_clusters(emale_cogs) \%>\%
   flip_nicely() +
   geom_link(offset = 0.15, color="white") +                        # synteny-blocks
   geom_seq() + geom_bin_label() +                  # chromosomes and labels
   # thistle4, salmon4, burlywood4
   geom_feat(size=6, position="identity") +                              # terminal inverted repeats
-  geom_feat(data=feats(emale_transposons), color="turquoise4", alpha=.3,
+  geom_feat(data=feats(emale_ngaros), color="turquoise4", alpha=.3,
             position="strand", size=16) +
-  geom_feat_note(aes(label=type), data=feats(emale_transposons),
+  geom_feat_note(aes(label=type), data=feats(emale_ngaros),
                  position="strand", nudge_y = .3) +
-  geom_gene(aes(fill=cluster_label), position="strand") + # genes
+  geom_gene(aes(fill=cluster_id), position="strand") + # genes
   scale_fill_brewer("Conserved genes", palette="Dark2", na.value = "cornsilk3") +
   #scale_fill_viridis_b() +
   geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
                   group=seq_id, linetype="GC-content"), feats(emale_gc),
-              fill="lavenderblush4", position=position_nudge(y=-.1)) +
-  geom_gene_tag(aes(label=capsid), position="strand", xjust=.25, nudge_y = .1, angle=30)
+              fill="lavenderblush4", position=position_nudge(y=-.1))
 }
