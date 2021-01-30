@@ -28,6 +28,17 @@ comma <- function(x, collapse = ","){
     paste(x, collapse=collapse)
 }
 
+#' Get path to gggenomes example files
+#' @export
+#' @param file name of example file
+ex <- function(file = NULL) {
+  if (is.null(file)) {
+    dir(system.file("extdata", package = "gggenomes"))
+  } else {
+    system.file("extdata", file, package = "gggenomes", mustWork = TRUE)
+  }
+}
+
 # are there any arguments in ...
 has_dots <- function(env = parent.frame()){
   length(ellipsis:::dots(env)) > 0
