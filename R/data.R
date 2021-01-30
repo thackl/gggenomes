@@ -171,3 +171,17 @@
 #' @source
 #' * Derived & bundled data: `ex("emales/emales-prot-uniref50.tsv")`
 "emale_prot_uniref50"
+
+#' Clusters of orthologs of 6 EMALE proteomes
+#'
+#' One row per feature. Clusters are based on manual curation.
+#'
+#' @format A data frame with 48 rows and 3 columns
+#' \describe{
+#'   \item{cluster_id}{identifier of the cluster}
+#'   \item{feat_id}{identifer of the gene}
+#'   \item{cluster_size}{number of features in the cluster}
+#' }
+#' @source
+#' * Derived & bundled data: `ex("emales/emales-cogs.tsv")`
+"emale_cogs"

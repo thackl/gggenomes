@@ -2,10 +2,29 @@
 % Please edit documentation in R/clusters.R
 \name{add_clusters}
 \alias{add_clusters}
-\title{Add gene clusters}
+\title{Add gene (or feature) clusters}
 \usage{
 add_clusters(x, ..., .track_id = "genes")
 }
+\arguments{
+\item{...}{subfeat tables with names, i.e. blast=blast_df, domains=domain_df}
+
+\item{.track_id}{track_id of the feats the sublinks map onto.}
+}
 \description{
-Add gene clusters
+Converts a table with the two required columns \code{cluster_id} and \code{feat_id}
+into a link track connecting features belonging to the same cluster over
+their entire length. Additionally, the table is joined to the parent feature
+table, adding \code{cluster_id} and all additional columns with cluster
+information to the feat table.
+}
+\examples{
+gggenomes(emale_seqs, emale_genes) \%>\%
+  add_clusters(emale_cogs) \%>\%
+  flip_nicely() +      # this works because clusters are turned into links
+  geom_seq() +
+  geom_link() +        # this works because clusters are turned into links
+  geom_gene(aes(fill=ifelse(is.na(cluster_id), NA,
+      str_glue("{cluster_id} [{cluster_size}]")))) +
+  scale_fill_discrete("COGs")
 }
