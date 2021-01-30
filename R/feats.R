@@ -36,6 +36,11 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
   # coerce IDs to chars, so we don't get errors in join by mismatched types
   x <- mutate_at(x, vars(seq_id), as.character)
 
+  if(!any(seqs$seq_id %in% x$seq_id)){
+    warn(paste("No matching seq_ids between feats and seqs.",
+         "Maybe you are trying to add subfeats"))
+  }
+
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
   TODO("mutate_at - if at all")
