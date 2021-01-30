@@ -15,7 +15,7 @@
 #' p %>% flip(3,4,5) + geom_link()
 geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-    offset = 0.1, ...) {
+    offset = 0.15, ...) {
 
   if(length(offset) == 1) offset <- offset[c(1,1)]
 
@@ -36,7 +36,7 @@ GeomLink <- ggproto(
 
   required_aes = c("x", "xend", "y", "xmin", "xmax", "yend"),
 
-  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", offset = c(0.1, 0.1)) {
+  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", offset = c(0.15, 0.15)) {
     if (TRUE){#!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "xend", "y", "xmin", "xmax", "yend")
