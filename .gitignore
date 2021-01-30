@@ -5,3 +5,6 @@ docs/
 org/
 R-deprecated/
 data-raw/
+exec/
+tests/
+vignettes-manual-export/
