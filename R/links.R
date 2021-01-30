@@ -1,13 +1,13 @@
 #' Compute a layout for link data
 #'
-#' Read link data of pairwise sequence or feature comparisons, such as
+#' Read link data of pairwise sequence or feat comparisons, such as
 #' similarity searches into a tidy dataframe and augment it with layout
 #' information based on a sequence layout.
 #'
-#' Obligatory columns are `seq_id1` and `seq_id2`. Also recognized are
-#' `start1`, `end1`,`start2`,`end2`,`strand`, bin_id1` and `bin_id2.
+#' Obligatory columns are `seq_id` and `seq_id2`. Also recognized are
+#' `start`, `end`,`start2`,`end2`,`strand`, bin_id` and `bin_id2.
 #'
-#' During layouting, seq_id1,start1,end1 will be projected to x,xend,y, while
+#' During layouting, seq_id,start,end will be projected to x,xend,y, while
 #' seq_id2,start2,end2 will be projected to xmin,xmax,yend. gggenomes uses these
 #' maybe a bit odd names for the variables here, is so that they play nice with
 #' ggplots native transformation functions for position aesthetics. Those only
@@ -15,7 +15,7 @@
 #' used above.
 #'
 #' @param x link data convertible to a link layout
-#' @inheritParams as_features
+#' @inheritParams as_feats
 #' @export
 as_links <- function(x, seqs, ..., everything=TRUE){
     UseMethod("as_links")
@@ -29,22 +29,22 @@ as_links.default <- function(x, seqs, ..., everything=TRUE){
 
 #' @export
 as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
-  vars <- c("seq_id1", "seq_id2")
+  vars <- c("seq_id", "seq_id2")
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(seq_id1, seq_id2), as.character)
+  x <- mutate_at(x, vars(seq_id, seq_id2), as.character)
 
-  if(!has_vars(x, c("start1", "end1", "start2", "end2"))){
-    if(has_vars(x, c("start1", "end1", "start2", "end2"),any=TRUE)){
-      abort("Need either all of start1,fend1,start2,end2 or none!")
+  if(!has_vars(x, c("start", "end", "start2", "end2"))){
+    if(has_vars(x, c("start", "end", "start2", "end2"),any=TRUE)){
+      abort("Need either all of start,fend1,start2,end2 or none!")
     }
 
     x <- x %>%
-      left_join(select(ungroup(seqs), seq_id1=seq_id, start1=start, end1 = end), by="seq_id1") %>%
+      left_join(select(ungroup(seqs), seq_id=seq_id, start=start, end = end), by="seq_id") %>%
       left_join(select(ungroup(seqs), seq_id2=seq_id, start2=start, end2 = end), by="seq_id2")
   }
-  vars <- c("seq_id1", "start1", "end1", "seq_id2", "start2", "end2")
+  vars <- c("seq_id", "start", "end", "seq_id2", "start2", "end2")
 
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
@@ -70,7 +70,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
   # get rid of old layout
   x <- drop_link_layout(x, keep)
 
-  # get layout vars necessary for projecting features from seqs
+  # get layout vars necessary for projecting feats from seqs
   x <- add_link_layout_scaffold(x, seqs)
 
   # TODO: adjacent_only can currently not overwritten by add_links() this is
@@ -84,10 +84,10 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
     }
   }
 
-  # ignore features outside subseqs
+  # ignore feats outside subseqs
   x <- trim_links_to_subseqs(x, marginal)
 
-  # project features onto new layout and clean up aux vars (.seq)
+  # project feats onto new layout and clean up aux vars (.seq)
   x <- project_links(x) %>%
     select(y, x, xend, yend, xmin, xmax, everything(), -starts_with(".seq"))
   x
@@ -97,10 +97,10 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #' Add links
 #' @param ... link tables, possibly named, i.e. blast=blast_df, domains=domain_df
 #' @inheritParams as_links
-#' @param .dots superceed dots with a list of arguments.
 #' @examples
-#' gggenomes %>%
-#'   add_links(links_df)
+#' gggenomes(emale_seqs[1:4,]) %>%
+#'   add_links(links=emale_ava) +
+#'   geom_seq() + geom_link()
 #' @export
 add_links <- function(x, ...){
   UseMethod("add_links")
@@ -122,7 +122,7 @@ add_links.gggenomes_layout <- function(x, ...){
 }
 
 add_link_tracks <- function(x, tracks){
-  x$links <- c(x$links, map(tracks, as_links, x$seqs)) # this is lossy, so
+  x$links <- c(x$links, map(tracks, as_links, get_seqs(x))) # this is lossy, so
   x$orig_links <- c(x$orig_links, tracks) # also store orig links for re-layout
   x
 }
@@ -135,37 +135,37 @@ drop_link_layout <- function(x, seqs, keep="strand"){
 }
 
 add_link_layout_scaffold <- function(x, seqs){
-  scaffold1 <- seqs %>% ungroup() %>% select(
-    seq_id1=seq_id, bin_id1=bin_id, y=y, .seq_strand1=strand, .seq_x1=x,
-    .seq_start1=start, .seq_end1=end)
+  scaffold <- seqs %>% ungroup() %>% select(
+    seq_id=seq_id, bin_id=bin_id, y=y, .seq_strand=strand, .seq_x=x,
+    .seq_start=start, .seq_end=end)
   scaffold2 <- seqs %>% ungroup() %>% select(
     seq_id2=seq_id, bin_id2=bin_id, yend=y, .seq_strand2=strand, .seq_x2=x,
     .seq_start2=start, .seq_end2=end)
 
-  x <- inner_join(x, scaffold1, by=shared_names(x, "seq_id1", "bin_id1"))
+  x <- inner_join(x, scaffold, by=shared_names(x, "seq_id", "bin_id"))
   x <- inner_join(x, scaffold2, by=shared_names(x, "seq_id2", "bin_id2"))
   x
 }
 
 trim_links_to_subseqs <- function(x, marginal){
   if(marginal == "drop"){
-    x <- mutate(x, .marginal1 = FALSE, .marginal2 = FALSE)
+    x <- mutate(x, .marginal = FALSE, .marginal2 = FALSE)
   }else{
     x <- mutate(x,
-      .marginal1 = is_marginal(start1, end1, .seq_start1, .seq_end1),
+      .marginal = is_marginal(start, end, .seq_start, .seq_end),
       .marginal2 = is_marginal(start2, end2, .seq_start2, .seq_end2))
   }
 
   if(marginal == "trim"){
     x %<>% mutate(
-      start1 = ifelse(.marginal1 & start1 < .seq_start1, .seq_start1, start1),
-      end1 = ifelse(.marginal1 & end1 > .seq_end1, .seq_end1, end1),
+      start = ifelse(.marginal & start < .seq_start, .seq_start, start),
+      end = ifelse(.marginal & end > .seq_end, .seq_end, end),
       start2 = ifelse(.marginal2 & start2 < .seq_start2, .seq_start2, start2),
       end2 = ifelse(.marginal2 & end2 > .seq_end2, .seq_end2, end2))
   } # marginals are now also fully contained
 
   filter(x,
-    .seq_start1 <= start1 & end1 <= .seq_end1 | .marginal1,
+    .seq_start <= start & end <= .seq_end | .marginal,
     .seq_start2 <= start2 & end2 <= .seq_end2 | .marginal2,
   )
 }
@@ -173,8 +173,8 @@ trim_links_to_subseqs <- function(x, marginal){
 project_links <- function(x){
   dummy <- rep("+", nrow(x))
   mutate(x,
-    x =       x(start1, end1, dummy,  .seq_x1, .seq_start1, .seq_strand1),
-    xend = xend(start1, end1, dummy,  .seq_x1, .seq_start1, .seq_strand1),
+    x =       x(start, end, dummy,  .seq_x, .seq_start, .seq_strand),
+    xend = xend(start, end, dummy,  .seq_x, .seq_start, .seq_strand),
     xmin =    x(start2, end2, strand, .seq_x2, .seq_start2, .seq_strand2),
     xmax = xend(start2, end2, strand, .seq_x2, .seq_start2, .seq_strand2)
   )

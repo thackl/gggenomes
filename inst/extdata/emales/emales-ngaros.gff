@@ -1,0 +1,4 @@
+##gff-version 3
+BVI_008A	MFG	repeat_region	11043	17065	.	.	.	ID=nBVI_008
+BVI_069	MFG	repeat_region	7894	14280	.	.	.	ID=nBVI_069
+E4-10_112	MFG	repeat_region	2854	9283	.	.	.	ID=nE4-10_112

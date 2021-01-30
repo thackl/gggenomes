@@ -6,21 +6,30 @@
 \usage{
 geom_link(
   mapping = NULL,
-  data = use_links(1, abs(y - yend) == 1),
+  data = links(),
   stat = "identity",
   position = "identity",
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  offset = 0.1,
+  offset = 0.15,
   ...
 )
 }
 \arguments{
 \item{offset}{distance between seq center and link start. Use two values
-`c(<offset_top>, <offset_bottom>)` for different top and bottom offsets}
+\verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
 }
 \description{
-use(links, abs(y-yend)==1) - this is somewhat redundant with
+Note \code{.adjacent_only=TRUE} is somewhat redundant with
 layout_links(adjacent_only =TRUE), which currently is always set to TRUE
+}
+\examples{
+p <- gggenomes(emale_seqs[1:6,], links = emale_ava) + geom_seq()
+p + geom_link()
+# change offset from seqs
+p + geom_link(aes(fill=de, color=de), offset = 0.05) +
+  scale_fill_viridis_b() + scale_colour_viridis_b()
+# combine with flip
+p \%>\% flip(3,4,5) + geom_link()
 }

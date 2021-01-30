@@ -10,13 +10,12 @@ add_links(x, ...)
 \item{x}{link data convertible to a link layout}
 
 \item{...}{link tables, possibly named, i.e. blast=blast_df, domains=domain_df}
-
-\item{.dots}{superceed dots with a list of arguments.}
 }
 \description{
 Add links
 }
 \examples{
-gggenomes \%>\%
-  add_links(links_df)
+gggenomes(emale_seqs[1:4,]) \%>\%
+  add_links(links=emale_ava) +
+  geom_seq() + geom_link()
 }

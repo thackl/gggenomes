@@ -5,14 +5,14 @@
 \title{gggenomes default theme}
 \usage{
 theme_gggenomes_clean(
-  base_size = 16,
+  base_size = 12,
   base_family = "",
-  base_line_size = base_size/22,
-  base_rect_size = base_size/22
+  base_line_size = base_size/30,
+  base_rect_size = base_size/30
 )
 }
 \arguments{
-\item{base_size}{base font size}
+\item{base_size}{base font size, given in pts.}
 
 \item{base_family}{base font family}
 

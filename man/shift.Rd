@@ -14,5 +14,5 @@ same length as bins.}
 }
 \description{
 Shift bins along the x-axis, i.e. left or right in the default plot
-layout. This is useful to align features of interest in different bins.
+layout. This is useful to align feats of interest in different bins.
 }

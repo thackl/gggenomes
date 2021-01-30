@@ -9,7 +9,7 @@
 gggenomes(
   seqs = NULL,
   genes = NULL,
-  features = NULL,
+  feats = NULL,
   links = NULL,
   ...,
   theme = c("clean", NULL),
@@ -19,7 +19,7 @@ gggenomes(
 layout_genomes(
   seqs = NULL,
   genes = NULL,
-  features = NULL,
+  feats = NULL,
   links = NULL,
   infer_bin_id = seq_id,
   infer_start = min(start, end),
@@ -39,34 +39,35 @@ layout_seqs(
 \arguments{
 \item{seqs}{a table with sequence data (seq_id, bin_id, length)}
 
-\item{genes}{a table or a list of table with gene data to be added as feature
+\item{genes}{a table or a list of table with gene data to be added as feat
 tracks. Required columns: seq_id, bin_id, start, end.
 
-For a single table, adds the track_id will be "genes". For a list, track_ids
-are parsed from the list names, or if names are missing from the name of the
-variable containing each table.}
+For a single table, adds the track_id will be "genes". For a list,
+track_ids are parsed from the list names, or if names are missing from the
+name of the variable containing each table.}
 
-\item{features}{same as genes, but the single table track_id will default to
-"features".}
+\item{feats}{same as genes, but the single table track_id will default to
+"feats".}
 
 \item{links}{a table or a list of tables with link data to be added as link
 tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
-naming scheme as for features.}
+naming scheme as for feats.}
 
-\item{...}{layout parameters passed on to [layout_genomes()] / [layout_seqs()]}
+\item{...}{layout parameters passed on to \code{\link[=layout_genomes]{layout_genomes()}} /
+\code{\link[=layout_seqs]{layout_seqs()}}}
 
 \item{theme}{choose a gggenomes default theme, NULL to omit.}
 
-\item{.layout}{a pre-computed layout from [layout_genomes()]. Useful for
+\item{.layout}{a pre-computed layout from \code{\link[=layout_genomes]{layout_genomes()}}. Useful for
 developmental purposes.}
 
 \item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
-seqs if only features or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feature
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
 or link track.
 
-By default subregions of sequences from the first to the last feature/link
-are generated. Set `infer_start` to 0 to show all sequences from their
+By default subregions of sequences from the first to the last feat/link
+are generated. Set \code{infer_start} to 0 to show all sequences from their
 true beginning.}
 
 \item{spacing}{between sequences in bases (>1) or relative to longest bin (<1)}
@@ -80,19 +81,39 @@ gggenomes-flavored ggplot object
 gggenomes_layout object
 }
 \description{
-Sequence data: `read_fai`
+Sequence data: \code{read_fai}
 }
 \details{
-Feature data: `read_gff`
+Feat data: \code{read_gff}
 
-Link data: `read_paf`
+Link data: \code{read_paf}
 }
 \examples{
 # Compare the genomic organization of three viral elements
 # EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
-gggenomes(emale_seqs[c(1:2,6),], emale_genes, emale_tirs, emale_links) +
+gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) +
   geom_seq() + geom_bin_label() +                  # chromosomes and labels
-  geom_feature(size=8) +                           # terminal inverted repeats
+  geom_feat(size=8) +                              # terminal inverted repeats
   geom_gene(aes(fill=strand), position="strand") + # genes
   geom_link(offset = 0.15)                         # synteny-blocks
+
+# with some more information
+gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) \%>\%
+  add_feats(emale_ngaros, emale_gc) \%>\%
+  add_clusters(emale_cogs) \%>\%
+  flip_nicely() +
+  geom_link(offset = 0.15, color="white") +                        # synteny-blocks
+  geom_seq() + geom_bin_label() +                  # chromosomes and labels
+  # thistle4, salmon4, burlywood4
+  geom_feat(size=6, position="identity") +                              # terminal inverted repeats
+  geom_feat(data=feats(emale_ngaros), color="turquoise4", alpha=.3,
+            position="strand", size=16) +
+  geom_feat_note(aes(label=type), data=feats(emale_ngaros),
+                 position="strand", nudge_y = .3) +
+  geom_gene(aes(fill=cluster_id), position="strand") + # genes
+  scale_fill_brewer("Conserved genes", palette="Dark2", na.value = "cornsilk3") +
+  #scale_fill_viridis_b() +
+  geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
+                  group=seq_id, linetype="GC-content"), feats(emale_gc),
+              fill="lavenderblush4", position=position_nudge(y=-.1))
 }

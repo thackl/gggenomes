@@ -4,25 +4,15 @@
 \alias{add_sublinks}
 \title{Add sublinks}
 \usage{
-add_sublinks(x, parent_track_id, ..., transform = "none")
+add_sublinks(x, ..., .track_id = "genes", .transform = "aa2nuc")
 }
 \arguments{
-\item{x}{sublink data convertible to a link layout}
-
-\item{parent_track_id}{track_id of the features the sublinks map onto.}
-
 \item{...}{sublink tables with names, i.e. blast=blast_df, domains=domain_df}
 
-\item{transform}{use if features and sublinks are in different coordinate
-spaces, i.e. if matching nucleotide-level annotations to protein level
-annotations, e.g. genes and protein blast results.}
+\item{.track_id}{track_id of the feats the sublinks map onto.}
 
-\item{.dots}{superceed dots with a list of arguments.}
+\item{.transform}{one of "aa2nuc", "none", "nuc2aa"}
 }
 \description{
 Add sublinks
-}
-\examples{
-gggenomes \%>\%
-  add_sublinks(genes, blastp_hits, transform="aa2nuc")
 }

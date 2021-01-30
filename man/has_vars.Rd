@@ -17,6 +17,6 @@ has_vars(x, vars, any = FALSE)
 TRUE/FALSE
 }
 \description{
-Returns TRUE if all variables exists. If `any=TRUE` returns TRUE if at least
+Returns TRUE if all variables exists. If \code{any=TRUE} returns TRUE if at least
 one variable exists.
 }

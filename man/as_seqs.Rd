@@ -9,7 +9,7 @@ as_seqs(x, ...)
 \arguments{
 \item{x}{an object convertible to a sequence layout}
 
-\item{...}{pass through to `layout_seqs()`}
+\item{...}{pass through to \code{layout_seqs()}}
 
 \item{everything}{set to FALSE to drop optional columns}
 }
@@ -21,7 +21,7 @@ Read sequence data of multiple genomes (contigs, chromosomes, ...) into a
 tidy dataframe and augment it with layout information necessary for plotting.
 }
 \details{
-Obligatory columns are `seq_id`, `bin_id` and `length`.
+Obligatory columns are \code{seq_id}, \code{bin_id} and \code{length}.
 }
 \examples{
 chr <- tibble(

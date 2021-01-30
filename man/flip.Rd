@@ -2,13 +2,13 @@
 % Please edit documentation in R/flip.R
 \name{flip}
 \alias{flip}
-\alias{flip_seq}
+\alias{flip_seqs}
 \alias{flip_nicely}
 \title{Flip bins and sequences}
 \usage{
-flip(x, ...)
+flip(x, ..., .bin_track = seqs)
 
-flip_seq(x, ..., .bins = everything())
+flip_seqs(x, ..., .bins = everything(), .seq_track = seqs, .bin_track = seqs)
 
 flip_nicely(x, link_track = 1, min_coverage = 0.2)
 }
@@ -18,10 +18,14 @@ flip_nicely(x, link_track = 1, min_coverage = 0.2)
 \item{...}{bins or sequences to flip in dplyr::select like syntax (numeric
 position or unquoted expressions)}
 
+\item{.bin_track, .seq_track}{when using a function as selector such as
+\code{\link[tidyselect:where]{tidyselect::where()}}, this specifies the track in which context the
+function is evaluated.}
+
 \item{.bins}{preselection of bins with sequences to flip. Useful if selecting
 by numeric position. It sets the context for selection, for example the
 11th sequences of the total set might more easily described as the 2nd
-sequences of the 3rd bin: \code{flip_seq(2, bins=3)}}
+sequences of the 3rd bin: \code{flip_seqs(2, .bins=3)}.}
 
 \item{link_track}{the link track to use for flipping bins nicely}
 
@@ -29,13 +33,13 @@ sequences of the 3rd bin: \code{flip_seq(2, bins=3)}}
 links supporting a flip to actually carry it out.}
 }
 \description{
-\code{flip} and \code{flip_seq} reverse-complement specified bins or
-individual sequences and their features. \code{flip_nicely} automatically
-flips bins using a heuristic that maximizes the amount of forward strand
-links between neighboring bins.
+\code{flip} and \code{flip_seqs} reverse-complement specified bins or individual
+sequences and their features. \code{flip_nicely} automatically flips bins using a
+heuristic that maximizes the amount of forward strand links between
+neighboring bins.
 }
 \examples{
-p <- gggenomes(emale_seqs[1:7,], links=emale_links) +
+p <- gggenomes(emale_seqs[1:7,], links=emale_ava) +
   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
   scale_color_manual(values=c("+"="blue", "-"="red"))
 # some bins would align nicer if reverse-complemented
@@ -48,10 +52,10 @@ p \%>\% flip(3:5)
 p \%>\% flip_nicely()
 
 # also works with links from clusters
-p <- gggenomes(emale_seqs[1:7,], emale_genes) +
+p <- gggenomes(emale_seqs, emale_genes) +
   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
   scale_color_manual(values=c("+"="blue", "-"="red"))
 p \%>\%
-  add_clusters(genes, emale_cogs) \%>\%
+  add_clusters(emale_cogs) \%>\%
   flip_nicely(emale_cogs)
 }

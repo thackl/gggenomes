@@ -7,7 +7,8 @@
 #' dplyr::select-like syntax
 #' @examples
 #' x <- tibble(start = c(10,100), end=c(30, 50))
-#' swap_if(start > end, start, end) # ensure start of a range is always smaller than the end
+#' # ensure start of a range is always smaller than the end
+#' gggenomes:::swap_if(x, start > end, start, end)
 swap_if <- function(x, condition, ...){
   i <- tidyselect::eval_select(rlang::expr(c(...)), x)
   if(length(i) != 2 || length(unique(i)) != 2)
@@ -17,6 +18,25 @@ swap_if <- function(x, condition, ...){
   # swap
   x[j,rev(i)] <- x[j,i]
   x
+}
+
+#' Collapse a string with commas
+#'
+#' @param x vector (coerced to character)
+#' @param collapse character string to separate elements.
+comma <- function(x, collapse = ","){
+    paste(x, collapse=collapse)
+}
+
+#' Get path to gggenomes example files
+#' @export
+#' @param file name of example file
+ex <- function(file = NULL) {
+  if (is.null(file)) {
+    dir(system.file("extdata", package = "gggenomes"))
+  } else {
+    system.file("extdata", file, package = "gggenomes", mustWork = TRUE)
+  }
 }
 
 # are there any arguments in ...

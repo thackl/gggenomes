@@ -6,7 +6,7 @@
 \usage{
 geom_link_label(
   mapping = NULL,
-  data = use_links(),
+  data = links(),
   angle = 0,
   hjust = 0.5,
   vjust = 0.5,

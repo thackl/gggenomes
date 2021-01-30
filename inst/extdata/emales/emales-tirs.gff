@@ -1,0 +1,19 @@
+##gff-version 3
+##sequence-region BVI_008A 1 26820
+##sequence-region BVI_069 1 26808
+##sequence-region Cflag_017B 1 21311
+##sequence-region E4-10_086 1 20642
+##sequence-region E4-10_112 1 26856
+##sequence-region RCC970_016B 1 20152
+BVI_008A	MFG	repeat_region	1	473	.	+	.	ID=BVI_008A_r01;Name=BVI_008A_5pTIR;width=473
+BVI_008A	MFG	repeat_region	26348	26820	.	-	.	ID=BVI_008A_r02;Name=BVI_008A_3pTIR;width=473
+BVI_069	MFG	repeat_region	1	488	.	+	.	ID=BVI_069_r01;Name=BVI_069_5pTIR;width=488
+BVI_069	MFG	repeat_region	26321	26808	.	-	.	ID=BVI_069_r06;Name=BVI_069_3pTIR;width=488
+Cflag_017B	MFG	repeat_region	1	1081	.	+	.	ID=Cflag_017B_r01;Name=Cflag_017B_3pTIR;width=1081
+Cflag_017B	MFG	repeat_region	20231	21311	.	-	.	ID=Cflag_017B_r02;Name=Cflag_017B_5pTIR;width=1081
+E4-10_086	MFG	repeat_region	1	319	.	+	.	ID=E4-10_086_r01;Name=E4-10_086_5pTIR;width=319
+E4-10_086	MFG	repeat_region	20324	20642	.	-	.	ID=E4-10_086_r02;Name=E4-10_086_3pTIR;width=319
+E4-10_112	MFG	repeat_region	1	458	.	+	.	ID=E4-10_112_r01;Name=E4-10_112_5pTIR;width=458
+E4-10_112	MFG	repeat_region	26399	26856	.	-	.	ID=E4-10_112_r06;Name=E4-10_112_3pTIR;width=458
+RCC970_016B	MFG	repeat_region	1	454	.	+	.	ID=RCC970_016B_r01;Name=RCC970_016B_5pTIR;width=454
+RCC970_016B	MFG	repeat_region	19699	20152	.	-	.	ID=RCC970_016B_r02;Name=RCC970_016B_3pTIR;width=454

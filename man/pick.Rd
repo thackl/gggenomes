@@ -4,6 +4,7 @@
 \alias{pick}
 \alias{pick_at}
 \alias{pick_bins}
+\alias{pick_by_tree}
 \title{Pick seqs and bins by name or position}
 \usage{
 pick(x, ..., bins = everything())
@@ -11,26 +12,34 @@ pick(x, ..., bins = everything())
 pick_at(x, ..., bins = everything())
 
 pick_bins(x, ...)
+
+pick_by_tree(x, tree, infer_seq_id = label)
 }
 \arguments{
 \item{...}{seqs to pick, select-like expression}
 
 \item{bins}{to pick from, expression, enclose multiple args in c()}
+
+\item{tree}{a phylogenetic tree in ggtree or phylo format.}
+
+\item{infer_seq_id}{an expression to extract seq_ids from the tree data.}
 }
 \description{
 Pick which sequences and bins to show and in what order. Uses
 dyplr::select-like syntax, which means unquoted genome names, positional
-arguments and select helper functions, such as `starts_with()` are
+arguments and select helper functions, such as \code{starts_with()} are
 supported. Renaming is not supported because it would break associations with
 other tracks.
 }
 \details{
 Use the dots to select sequences, and the bins argument to set the scope for
-positional arguments. For example, `pick(1)` will pick the first sequence
-from the first bin, while `pick(1, bins=3)` will pick the first sequence from
+positional arguments. For example, \code{pick(1)} will pick the first sequence
+from the first bin, while \code{pick(1, bins=3)} will pick the first sequence from
 the third bin.
 
-`pick_at` keeps bins that are not picked from, as they are.
+\code{pick_at} keeps bins that are not picked from, as they are.
 
-`pick_bins` works on entire bins.
+\code{pick_bins} works on entire bins.
+
+\code{pick_by_tree} picks sequences to align with a given phylogenetic tree.
 }

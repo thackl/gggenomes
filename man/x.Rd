@@ -3,7 +3,7 @@
 \name{x}
 \alias{x}
 \alias{xend}
-\title{Project feature coordinates into layout space}
+\title{Project feat coordinates into layout space}
 \usage{
 x(start, end, strand, seq_x, seq_start, seq_strand)
 
@@ -14,5 +14,5 @@ xend(start, end, strand, seq_x, seq_start, seq_strand)
 space}
 }
 \description{
-Project feature coordinates into layout space
+Project feat coordinates into layout space
 }

@@ -1,13 +1,21 @@
 #' Draw links
 #'
-#' use(links, abs(y-yend)==1) - this is somewhat redundant with
+#' Note `.adjacent_only=TRUE` is somewhat redundant with
 #' layout_links(adjacent_only =TRUE), which currently is always set to TRUE
 #' @param offset distance between seq center and link start. Use two values
-#' `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
+#'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
-geom_link <- function(mapping = NULL, data = use_links(1, abs(y-yend)==1), stat = "identity",
+#' @examples
+#' p <- gggenomes(emale_seqs[1:6,], links = emale_ava) + geom_seq()
+#' p + geom_link()
+#' # change offset from seqs
+#' p + geom_link(aes(fill=de, color=de), offset = 0.05) +
+#'   scale_fill_viridis_b() + scale_colour_viridis_b()
+#' # combine with flip
+#' p %>% flip(3,4,5) + geom_link()
+geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-    offset = 0.1, ...) {
+    offset = 0.15, ...) {
 
   if(length(offset) == 1) offset <- offset[c(1,1)]
 
@@ -23,12 +31,12 @@ geom_link <- function(mapping = NULL, data = use_links(1, abs(y-yend)==1), stat 
 
 GeomLink <- ggproto(
   "GeomLink", Geom,
-  default_aes = aes(colour = "grey50", fill = "grey50", size = 0.5, linetype = 1,
+  default_aes = aes(colour = "honeydew3", fill = "honeydew3", size = 0.5, linetype = 1,
     alpha = 0.7),
 
   required_aes = c("x", "xend", "y", "xmin", "xmax", "yend"),
 
-  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", offset = c(0.1, 0.1)) {
+  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre", offset = c(0.15, 0.15)) {
     if (TRUE){#!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "xend", "y", "xmin", "xmax", "yend")

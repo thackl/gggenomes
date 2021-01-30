@@ -2,17 +2,18 @@
 % Please edit documentation in R/geom.R
 \name{geom_seq_label}
 \alias{geom_seq_label}
-\title{draw feature labels}
+\title{draw feat labels}
 \usage{
 geom_seq_label(
   mapping = NULL,
-  data = use_seqs(),
+  data = seqs(),
   hjust = 0,
-  nudge_y = -0.1,
-  size = 6,
+  vjust = 1,
+  nudge_y = -0.15,
+  size = 2.5,
   ...
 )
 }
 \description{
-draw feature labels
+draw feat labels
 }

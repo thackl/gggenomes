@@ -2,7 +2,7 @@
 % Please edit documentation in R/focus.R
 \name{focus}
 \alias{focus}
-\title{Focus on features and regions of interest}
+\title{Focus on feats and regions of interest}
 \usage{
 focus(
   x,
@@ -27,16 +27,16 @@ of the data frame. They support unquoting and splicing. See
 \item{track_id}{the track to filter from}
 
 \item{plus}{the amount to nucleotides to extend the focus around the target
-features. Give two values for different up- and downstream extensions.}
+feats. Give two values for different up- and downstream extensions.}
 
-\item{marginal}{how to handle features that stick out of sequences, for
+\item{marginal}{how to handle feats that stick out of sequences, for
 example after focusing in on a subregion. Choices are to "drop" them, "keep"
 them or "trim" them to the subregion boundaries.}
 
 \item{subseqs}{a dataframe specifying sequence regions (subseqs) of interest
-directly. Required columns are 'seq_id, start, end'. Superceeds `...`.}
+directly. Required columns are 'seq_id, start, end'. Superceeds \code{...}.}
 }
 \description{
-Only show subsequences from the complete data set containing features of
+Only show subsequences from the complete data set containing feats of
 interest.
 }
