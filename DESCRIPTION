@@ -28,7 +28,8 @@ Depends:
     stringr,
     tidyr,
     thacklr,
-    tibble
+    tibble,
+    jsonlite
 Suggests:
     testthat,
     rtracklayer
