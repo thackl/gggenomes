@@ -16,23 +16,23 @@
 \alias{pull_track}
 \title{Use a certain track, possibly filtered}
 \usage{
-feats(.track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
+feats(.track_id = 1, ..., .ignore_pos = "genes", .geneify = FALSE)
 
 genes(..., .feat_type = c("CDS", "mRNA", "tRNA"))
 
-links(.track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
+links(.track_id = 1, ..., .ignore_pos = NULL, .adjacent_only = TRUE)
 
 seqs(...)
 
 bins(..., .group = vars())
 
-track(.track_id = 1, ..., .track_type = NULL, .ignore = NULL)
+track(.track_id = 1, ..., .track_type = NULL, .ignore_pos = NULL)
 
-pull_feats(.x, .track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
+pull_feats(.x, .track_id = 1, ..., .ignore_pos = "genes", .geneify = FALSE)
 
 pull_genes(.x, ..., .feat_type = c("CDS", "mRNA", "tRNA"))
 
-pull_links(.x, .track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
+pull_links(.x, .track_id = 1, ..., .ignore_pos = NULL, .adjacent_only = TRUE)
 
 pull_seqs(.x, ...)
 
@@ -40,7 +40,7 @@ pull_bins(.x, ..., .group = vars())
 
 \method{pull_bins}{gggenomes_layout}(.x, ..., .group = vars())
 
-pull_track(.x, .track_id = 1, ..., .track_type = NULL, .ignore = NULL)
+pull_track(.x, .track_id = 1, ..., .track_type = NULL, .ignore_pos = NULL)
 }
 \arguments{
 \item{.track_id}{The track to pull out, either as a literal variable name or
@@ -49,7 +49,8 @@ as a positive/negative integer giving the position from the left/right.}
 \item{...}{Logical predicates passed on to \link[dplyr:filter]{dplyr::filter}. "seqs", "feats",
 "links". Affects position-based selection.}
 
-\item{.ignore}{a regular string vector with track_ids to ignore.}
+\item{.ignore_pos}{a regular string vector with track_ids to ignore when
+using integer positions.}
 
 \item{.geneify}{add dummy type, introns and geom_id column to play nicely
 with geoms supporting multi-level and multi-span gene models.}
@@ -104,7 +105,7 @@ gg \%>\% track_info()            # info about track ids, positions and types
 gg \%>\% pull_feats()            # easiest
 gg \%>\% pull_feats(feats)       # by id
 gg \%>\% pull_feats(1)           # by position
-gg \%>\% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
+gg \%>\% pull_feats(2, .ignore_pos=NULL)  # default .ignore_pos="genes"
 
 # get "seqs" track (always track #1)
 gg \%>\% pull_seqs()

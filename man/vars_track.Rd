@@ -8,7 +8,7 @@ vars_track(
   x,
   track_id,
   track_type = c("seqs", "feats", "links"),
-  ignore = NULL
+  ignore_pos = NULL
 )
 }
 \arguments{

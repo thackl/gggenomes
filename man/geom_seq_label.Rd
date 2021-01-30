@@ -9,8 +9,8 @@ geom_seq_label(
   data = seqs(),
   hjust = 0,
   vjust = 1,
-  nudge_y = -0.1,
-  size = 3,
+  nudge_y = -0.15,
+  size = 2.5,
   ...
 )
 }

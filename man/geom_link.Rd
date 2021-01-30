@@ -12,7 +12,7 @@ geom_link(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  offset = 0.1,
+  offset = 0.15,
   ...
 )
 }
