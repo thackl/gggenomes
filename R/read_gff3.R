@@ -137,7 +137,7 @@ tidy_attributes <- function(x, reserved_names){
 coords2introns <- function(starts, ends){
   n <- length(starts)
   if(n < 2)
-    return(character(0))
+    return(NULL)
   i <- 2:n
   # introns: start, end, start2, end2, ...
   c(rbind(ends[i-1], starts[i])) - starts[1]
