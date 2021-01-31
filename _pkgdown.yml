@@ -1,37 +1,41 @@
 reference:
-- title: "Plot construction"
+- title: "Set up a plot"
   desc: >
     Construct a plot combining multiple tracks
 - contents:
     - gggenomes
-- title: "Tracks & layouts"
+- title: "Add and use tracks"
 - contents:
-    - gggenomes
     - starts_with("add_")
     - pull_seqs
-    - layout
-    - layout_features
-    - layout_links
-- title: "Geoms & positions"
+- title: "Draw geoms & positions"
 - contents:
+    - geom_seq
+    - geom_gene
+    - geom_feat
+    - geom_link
     - starts_with("geom_")
     - starts_with("position_")
     - starts_with("use_")
-- title: "Layout manipulation"
+- title: "Manipulate plot & data"
 - contents:
     - pick
     - flip
     - shift
     - focus
-- title: "Read in data"
+- title: "Read data"
   desc: >
     Read common bioinformatics file types
 - contents:
+    - read_feats
     - starts_with("read_")
 - title: "Under the hood"
   desc: >
     Functions that power gggenomes under the hood. Useful for developers and power-users.
 - contents:
+  - layout
+  - layout_feats
+  - layout_links
   - starts_with("as_")
   - swap_if
   - in_range
@@ -39,7 +43,8 @@ reference:
   - width
   - x
 figures:
-  fig.width: 12
+  fig.width: 10
+  fig.height: 5
   dev.args:
     type: "cairo"
 template:
