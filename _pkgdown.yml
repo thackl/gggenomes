@@ -76,8 +76,8 @@ reference:
 figures:
   fig.width: 10
   fig.height: 5
-  dev.args:
-    type: "cairo"
+  #  dev.args:
+  #  type: "cairo"
 template:
   params:
     bootswatch: cosmo
