@@ -1,60 +1,158 @@
-#' Pick seqs and bins by name or position
+#' Pick bins and seqs by name or position
 #'
-#' Pick which sequences and bins to show and in what order. Uses
-#' dyplr::select-like syntax, which means unquoted genome names, positional
-#' arguments and select helper functions, such as `starts_with()` are
-#' supported. Renaming is not supported because it would break associations with
-#' other tracks.
+#' Pick which bins and seqs to show and in what order. Uses
+#' [dplyr::select()]-like syntax, which means unquoted genome names, positional
+#' arguments and [selection
+#' helpers](https://tidyselect.r-lib.org/reference/language.html), such as
+#' [tidyselect::starts_with()] are supported. Renaming is not supported.
 #'
-#' Use the dots to select sequences, and the bins argument to set the scope for
-#' positional arguments. For example, `pick(1)` will pick the first sequence
-#' from the first bin, while `pick(1, bins=3)` will pick the first sequence from
-#' the third bin.
+#' Use the dots to select bins or sequences (depending on function suffix), and
+#' the `.bins` argument to set the scope for positional arguments. For example,
+#' `pick_seqs(1)` will pick the first sequence from the first bin, while
+#' `pick_seqs(1, .bins=3)` will pick the first sequence from the third bin.
+#' @examples
+#' s0 <- tibble(
+#' bin_id = c("A", "B", "B", "B", "C", "C", "C"),
+#' seq_id = c("a1","b1","b2","b3","c1","c2","c3"),
+#' length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3))
 #'
-#' `pick_at` keeps bins that are not picked from, as they are.
+#' p <- gggenomes(s0) + geom_seq(aes(color=bin_id), size=3) +
+#'   geom_bin_label() + geom_seq_label() +
+#'   expand_limits(color=c("A","B","C"))
+#' p
 #'
-#' `pick_bins` works on entire bins.
+#' # remove
+#' p %>% pick(-B)
+#' # select and reorder, by ID and position
+#' p %>% pick(C, 1)
+#' # use helper function
+#' p %>% pick(starts_with("B"))
 #'
-#' `pick_by_tree` picks sequences to align with a given phylogenetic tree.
+#' # pick just some seqs
+#' p %>% pick_seqs(1, c3)
+#' # pick with .bin scope
+#' p %>% pick_seqs(3:1, .bins=C)
 #'
-#' @param ... seqs to pick, select-like expression
-#' @param bins to pick from, expression, enclose multiple args in c()
+#' # change seqs in some bins, but keep rest as is
+#' p %>% pick_surgical(3:1, .bins=B)
+#' # same w/o scope, unaffected bins remain as is
+#' p %>% pick_surgical(b3, b2, b1)
+#'
+#' Align sequences with and plot next to a phylogenetic tree
+#' library(patchwork)  # arrange multiple plots
+#' library(ggtree)     # plot phylogenetic trees
+#'
+#' # load and plot a phylogenetic tree
+#' emale_mcp_tree <- read.tree(ex("emales/emales-MCP.nwk"))
+#' t <- ggtree(emale_mcp_tree) + geom_tiplab(align=T, size=3) +
+#'   xlim(0,0.05) # make room for labels
+#'
+#' p <- gggenomes(seqs=emale_seqs, genes=emale_genes) +
+#'   geom_seq() + geom_seq() + geom_bin_label()
+#'
+#' # plot next to each other, but with
+#' # different order in tree and genomes
+#' t + p + plot_layout(widths = c(1,5))
+#'
+#' # reorder genomes to match tree order
+#' # with a warning caused by mismatch in y-scale expansions
+#' t + p %>% pick_by_tree(t) + plot_layout(widths = c(1,5))
+#'
+#' # extra genomes are dropped with a notification
+#' emale_seqs_more <- emale_seqs
+#' emale_seqs_more[7,] <- emale_seqs_more[6,]
+#' emale_seqs_more$seq_id[7] <- "One more genome"
+#' p <- gggenomes(seqs=emale_seqs_more, genes=emale_genes) +
+#'   geom_seq() + geom_seq() + geom_bin_label()
+#' t + p %>% pick_by_tree(t) + plot_layout(widths = c(1,5))
+#'
+#' \dontrun{
+#' # no shared ids will cause an error
+#'   p <- gggenomes(seqs=tibble(seq_id = "foo", length=1)) +
+#'     geom_seq() + geom_seq() + geom_bin_label()
+#'   t + p %>% pick_by_tree(t) + plot_layout(widths = c(1,5))
+#'
+#' # extra leafs in tree will cause an error
+#'   emale_seqs_fewer <- slice_head(emale_seqs, n=4)
+#'   p <- gggenomes(seqs=emale_seqs_fewer, genes=emale_genes) +
+#'     geom_seq() + geom_seq() + geom_bin_label()
+#'   t + p %>% pick_by_tree(t) + plot_layout(widths = c(1,5))
+#' }
+#'
+#' @describeIn pick pick bins with `bin_id`s and bin position (1 == top)
+#' @param ... bins/seqs to pick, select-like expression multiple args in c()
 #' @export
-pick <- function(x, ..., bins=everything()){
+pick <- function(x, ...){
   if(!has_dots()) return(x)
-  pick_impl(x, ..., bins = {{ bins }}, .keep=FALSE)
+  pick_impl(x, .bins=c(...))
 }
 
-#' @rdname pick
+#' @describeIn pick pick individual seqs with `seq_id`s and seq positions (1 ==
+#'   top-left)
+#' @param .bins scope for positional arguments, select-like expression, enclose
+#'   multiple arguments with `c()`!.
 #' @export
-pick_at <- function(x, ..., bins=everything()){
+pick_seqs <- function(x, ..., .bins=everything()){
   if(!has_dots()) return(x)
-  pick_impl(x, ..., bins = {{ bins }}, .keep=TRUE)
+  pick_impl(x, ..., .bins = {{ .bins }}, .surgical=FALSE)
 }
 
-#' @rdname pick
+#' @describeIn pick pick individual seqs but only modify bins containing target
+#'   seqs, keep rest as is.
+#' @param .bins scope for positional arguments, select-like expression, enclose
+#'   multiple arguments with `c()`!
 #' @export
-pick_bins <- function(x, ...){
+pick_surgical <- function(x, ..., .bins=everything()){
   if(!has_dots()) return(x)
-  pick_impl(x, bins=c(...))
+  pick_impl(x, ..., .bins = {{ .bins }}, .surgical=TRUE)
 }
-#' @rdname pick
+
+#' @describeIn pick align bins with a given phylogenetic tree.
 #' @param tree a phylogenetic tree in ggtree or phylo format.
-#' @param infer_seq_id an expression to extract seq_ids from the tree data.
+#' @param infer_bin_id an expression to extract bin_ids from the tree data.
 #' @export
-pick_by_tree <- function(x, tree, infer_seq_id = label){
+pick_by_tree <- function(x, tree, infer_bin_id = label){
   if(inherits(tree, "phylo")) tree <- ggtree(tree)
-  seq_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
-    transmute(seq_id = {{ infer_seq_id }}) %>% pull(seq_id)
-  tree_only <- setdiff(seq_ids, get_seqs(x))
-  pick(x, all_of(seq_ids))
+  tree_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
+    transmute(bin_id = {{ infer_bin_id }}) %>% pull(bin_id)
+
+  # check ID matches
+  bin_ids <- get_seqs(x)$bin_id
+  tree_in_bins <- tree_ids %in% bin_ids
+  bins_in_tree <- bin_ids %in% tree_ids
+  if(!any(tree_in_bins)){
+    abort("No shared bin_ids between tree and genomes. Check your IDs.")
+  }
+  if(!all(tree_in_bins)){
+    abort(c("Some bin_ids only exist in the tree. Please drop those first.",
+        str_glue("{tree_ids[!tree_in_bins]}")))
+  }
+  if(any(!bins_in_tree)){
+    inform(c("Some bin_ids are missing in the tree, will drop those from genomes.",
+           str_glue("{bin_ids[!bins_in_tree]}")))
+  }
+
+  # check if y scales have matching expansions
+  tree_exp <- tree$scales$scales[[1]]$expand %||% NA
+  bins_exp <- x$scales$scales[[1]]$expand %||% NA
+  if(!isTRUE(all(tree_exp == bins_exp))){
+    warn(c(str_glue(
+      "Tree and genomes have different y-scale expansions.",
+      " This can cause slight misalignments of leaves and sequences.",
+      "\nConsider adding `+ scale_y_continuous(expand=c({comma(bins_exp)}))`",
+      " to the tree as a fix"),
+      str_glue("tree: {comma(tree_exp)}"),
+      str_glue("bins: {comma(bins_exp)}")))
+  }
+
+  pick(x, all_of(tree_ids))
 }
 
-pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){
+pick_impl <- function(x, ..., .bins=everything(), .surgical=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
   l <- s %>% thacklr::split_by(bin_id)
-  i <- tidyselect::eval_select(expr({{ bins }}), l)
+  i <- tidyselect::eval_select(expr({{ .bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
   s <- bind_rows(l[i])
 
@@ -63,7 +161,7 @@ pick_impl <- function(x, ..., bins=everything(), .keep=FALSE){
     seq_ids <- s$seq_id %>% set_names(.)
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j,]
-    if(isTRUE(.keep)){ # splice modified bins into rest
+    if(isTRUE(.surgical)){ # splice modified bins into rest
       m <- s %>% thacklr::split_by(bin_id)
       l[names(m)] <- m
       s <- bind_rows(l)
