@@ -53,6 +53,18 @@ reference:
   - track_ids
   - track_types
   - vars_track
+  - activate
+  - comma
+  - dim.gggenomes_layout
+  - ggplot.gggenomes_layout
+  - has_vars
+  - introduce
+  - match_arg
+  - theme_gggenomes_clean
+  - track_nrows
+  - track_type
+  - vars_track_error
+  - write_gff3
 - title: "Handling files"
 - contents:
   - ext_to_format
@@ -64,8 +76,8 @@ reference:
 figures:
   fig.width: 10
   fig.height: 5
-  dev.args:
-    type: "cairo"
+  #  dev.args:
+  #  type: "cairo"
 template:
   params:
     bootswatch: cosmo

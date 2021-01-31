@@ -20,7 +20,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt-get install libcurl4-openssl-dev
+          sudo apt-get install libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
       
       - name: Install XQuartz
         if: runner.os == 'macOS'
@@ -43,7 +43,8 @@ jobs:
         run: |
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_dev("pkgdown")
+          install.packages('pkgdown')
+          #remotes::install_dev("pkgdown")
         shell: Rscript {0}
 
       - name: Install package
