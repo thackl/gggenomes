@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Focus on features and regions of interest — focus • gggenomes</title>
+<title>Focus on feats and regions of interest — focus • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Focus on features and regions of interest — focus" />
-<meta property="og:description" content="Only show subsequences from the complete data set containing features of
+<meta property="og:title" content="Focus on feats and regions of interest — focus" />
+<meta property="og:description" content="Only show subsequences from the complete data set containing feats of
 interest." />
 <meta property="og:image" content="/logo.svg" />
 
@@ -91,7 +91,7 @@ interest." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@ interest." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,24 +131,24 @@ interest." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Focus on features and regions of interest</h1>
+    <h1>Focus on feats and regions of interest</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/focus.R'><code>R/focus.R</code></a></small>
     <div class="hidden name"><code>focus.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Only show subsequences from the complete data set containing features of
+    <p>Only show subsequences from the complete data set containing feats of
 interest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>focus</span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>...</span>,
-  track_id = <span class='kw'>genes</span>,
-  plus = <span class='fl'>2000</span>,
-  marginal = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"trim"</span>, <span class='st'>"drop"</span>, <span class='st'>"keep"</span>),
-  subseqs = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>focus</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>...</span>,
+  track_id <span class='op'>=</span> <span class='va'>genes</span>,
+  plus <span class='op'>=</span> <span class='fl'>2000</span>,
+  marginal <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"trim"</span>, <span class='st'>"drop"</span>, <span class='st'>"keep"</span><span class='op'>)</span>,
+  subseqs <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,18 +173,18 @@ of the data frame. They support unquoting and splicing. See
     <tr>
       <th>plus</th>
       <td><p>the amount to nucleotides to extend the focus around the target
-features. Give two values for different up- and downstream extensions.</p></td>
+feats. Give two values for different up- and downstream extensions.</p></td>
     </tr>
     <tr>
       <th>marginal</th>
-      <td><p>how to handle features that stick out of sequences, for
+      <td><p>how to handle feats that stick out of sequences, for
 example after focusing in on a subregion. Choices are to "drop" them, "keep"
 them or "trim" them to the subregion boundaries.</p></td>
     </tr>
     <tr>
       <th>subseqs</th>
       <td><p>a dataframe specifying sequence regions (subseqs) of interest
-directly. Required columns are 'seq_id, start, end'. Superceeds `...`.</p></td>
+directly. Required columns are 'seq_id, start, end'. Superceeds <code>...</code>.</p></td>
     </tr>
     </table>
 
@@ -204,7 +204,7 @@ directly. Required columns are 'seq_id, start, end'. Superceeds `...`.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

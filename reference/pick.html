@@ -51,7 +51,7 @@
 <meta property="og:title" content="Pick seqs and bins by name or position — pick" />
 <meta property="og:description" content="Pick which sequences and bins to show and in what order. Uses
 dyplr::select-like syntax, which means unquoted genome names, positional
-arguments and select helper functions, such as `starts_with()` are
+arguments and select helper functions, such as starts_with() are
 supported. Renaming is not supported because it would break associations with
 other tracks." />
 <meta property="og:image" content="/logo.svg" />
@@ -94,7 +94,7 @@ other tracks." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,7 @@ other tracks." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -142,16 +142,18 @@ other tracks." />
     <div class="ref-description">
     <p>Pick which sequences and bins to show and in what order. Uses
 dyplr::select-like syntax, which means unquoted genome names, positional
-arguments and select helper functions, such as `starts_with()` are
+arguments and select helper functions, such as <code>starts_with()</code> are
 supported. Renaming is not supported because it would break associations with
 other tracks.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pick</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, bins = <span class='fu'>everything</span>())
+    <pre class="usage"><span class='fu'>pick</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pick_at</span>(<span class='kw'>x</span>, <span class='kw'>...</span>, bins = <span class='fu'>everything</span>())
+<span class='fu'>pick_at</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pick_bins</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>pick_bins</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tree</span>, infer_seq_id <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,16 +166,25 @@ other tracks.</p>
       <th>bins</th>
       <td><p>to pick from, expression, enclose multiple args in c()</p></td>
     </tr>
+    <tr>
+      <th>tree</th>
+      <td><p>a phylogenetic tree in ggtree or phylo format.</p></td>
+    </tr>
+    <tr>
+      <th>infer_seq_id</th>
+      <td><p>an expression to extract seq_ids from the tree data.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Use the dots to select sequences, and the bins argument to set the scope for
-positional arguments. For example, `pick(1)` will pick the first sequence
-from the first bin, while `pick(1, bins=3)` will pick the first sequence from
+positional arguments. For example, <code>pick(1)</code> will pick the first sequence
+from the first bin, while <code>pick(1, bins=3)</code> will pick the first sequence from
 the third bin.</p>
-<p>`pick_at` keeps bins that are not picked from, as they are.</p>
-<p>`pick_bins` works on entire bins.</p>
+<p><code>pick_at</code> keeps bins that are not picked from, as they are.</p>
+<p><code>pick_bins</code> works on entire bins.</p>
+<p><code>pick_by_tree</code> picks sequences to align with a given phylogenetic tree.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -190,7 +201,7 @@ the third bin.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

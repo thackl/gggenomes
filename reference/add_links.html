@@ -90,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -113,7 +113,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -139,7 +139,7 @@
     <p>Add links</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_links</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>add_links</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,16 +152,14 @@
       <th>...</th>
       <td><p>link tables, possibly named, i.e. blast=blast_df, domains=domain_df</p></td>
     </tr>
-    <tr>
-      <th>.dots</th>
-      <td><p>superceed dots with a list of arguments.</p></td>
-    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>gggenomes</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>add_links</span>(<span class='kw'>links_df</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("add_links"): no applicable method for 'add_links' applied to an object of class "function"</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_seqs</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,<span class='op'>]</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>add_links</span><span class='op'>(</span>links<span class='op'>=</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='add_links-1.png' alt='' width='960' height='480' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -177,7 +175,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

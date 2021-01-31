@@ -49,7 +49,7 @@
   <script src="../extra.js"></script>
 
 <meta property="og:title" content="Plot genomes, features and synteny maps — gggenomes" />
-<meta property="og:description" content="Sequence data: `read_fai`" />
+<meta property="og:description" content="Sequence data: read_fai" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -90,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -113,7 +113,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,38 +136,38 @@
     </div>
 
     <div class="ref-description">
-    <p>Sequence data: `read_fai`</p>
+    <p>Sequence data: <code>read_fai</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>gggenomes</span>(
-  seqs = <span class='kw'>NULL</span>,
-  genes = <span class='kw'>NULL</span>,
-  features = <span class='kw'>NULL</span>,
-  links = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>,
-  theme = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"clean"</span>, <span class='kw'>NULL</span>),
-  .layout = <span class='kw'>NULL</span>
-)
+    <pre class="usage"><span class='fu'>gggenomes</span><span class='op'>(</span>
+  seqs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  genes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  feats <span class='op'>=</span> <span class='cn'>NULL</span>,
+  links <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  theme <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"clean"</span>, <span class='cn'>NULL</span><span class='op'>)</span>,
+  .layout <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
-<span class='fu'>layout_genomes</span>(
-  seqs = <span class='kw'>NULL</span>,
-  genes = <span class='kw'>NULL</span>,
-  features = <span class='kw'>NULL</span>,
-  links = <span class='kw'>NULL</span>,
-  infer_bin_id = <span class='kw'>seq_id</span>,
-  infer_start = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>start</span>, <span class='kw'>end</span>),
-  infer_end = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>start</span>, <span class='kw'>end</span>),
-  infer_length = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>start</span>, <span class='kw'>end</span>),
-  <span class='kw'>...</span>
-)
+<span class='fu'>layout_genomes</span><span class='op'>(</span>
+  seqs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  genes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  feats <span class='op'>=</span> <span class='cn'>NULL</span>,
+  links <span class='op'>=</span> <span class='cn'>NULL</span>,
+  infer_bin_id <span class='op'>=</span> <span class='va'>seq_id</span>,
+  infer_start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>,
+  infer_end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>,
+  infer_length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>layout_seqs</span>(
-  <span class='kw'>x</span>,
-  spacing = <span class='fl'>0.05</span>,
-  wrap = <span class='kw'>NULL</span>,
-  spacing_style = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span>),
-  keep = <span class='st'>"strand"</span>
-)</pre>
+<span class='fu'>layout_seqs</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  spacing <span class='op'>=</span> <span class='fl'>0.05</span>,
+  wrap <span class='op'>=</span> <span class='cn'>NULL</span>,
+  spacing_style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span><span class='op'>)</span>,
+  keep <span class='op'>=</span> <span class='st'>"strand"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,26 +178,27 @@
     </tr>
     <tr>
       <th>genes</th>
-      <td><p>a table or a list of table with gene data to be added as feature
+      <td><p>a table or a list of table with gene data to be added as feat
 tracks. Required columns: seq_id, bin_id, start, end.</p>
-<p>For a single table, adds the track_id will be "genes". For a list, track_ids
-are parsed from the list names, or if names are missing from the name of the
-variable containing each table.</p></td>
+<p>For a single table, adds the track_id will be "genes". For a list,
+track_ids are parsed from the list names, or if names are missing from the
+name of the variable containing each table.</p></td>
     </tr>
     <tr>
-      <th>features</th>
+      <th>feats</th>
       <td><p>same as genes, but the single table track_id will default to
-"features".</p></td>
+"feats".</p></td>
     </tr>
     <tr>
       <th>links</th>
       <td><p>a table or a list of tables with link data to be added as link
 tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
-naming scheme as for features.</p></td>
+naming scheme as for feats.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>layout parameters passed on to [layout_genomes()] / [layout_seqs()]</p></td>
+      <td><p>layout parameters passed on to <code>layout_genomes()</code> /
+<code>layout_seqs()</code></p></td>
     </tr>
     <tr>
       <th>theme</th>
@@ -205,17 +206,17 @@ naming scheme as for features.</p></td>
     </tr>
     <tr>
       <th>.layout</th>
-      <td><p>a pre-computed layout from [layout_genomes()]. Useful for
+      <td><p>a pre-computed layout from <code>layout_genomes()</code>. Useful for
 developmental purposes.</p></td>
     </tr>
     <tr>
       <th>infer_length, infer_start, infer_end, infer_bin_id</th>
       <td><p>used to infer pseudo
-seqs if only features or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feature
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
 or link track.</p>
-<p>By default subregions of sequences from the first to the last feature/link
-are generated. Set `infer_start` to 0 to show all sequences from their
+<p>By default subregions of sequences from the first to the last feat/link
+are generated. Set <code>infer_start</code> to 0 to show all sequences from their
 true beginning.</p></td>
     </tr>
     <tr>
@@ -235,17 +236,38 @@ per lin.</p></td>
 <p>gggenomes_layout object</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Feature data: `read_gff`</p>
-<p>Link data: `read_paf`</p>
+    <p>Feat data: <code>read_gff</code></p>
+<p>Link data: <code>read_paf</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Compare the genomic organization of three viral elements</span>
 <span class='co'># EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)</span>
-<span class='fu'>gggenomes</span>(<span class='kw'>emale_seqs</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,<span class='fl'>6</span>),], <span class='kw'>emale_genes</span>, <span class='kw'>emale_tirs</span>, <span class='kw'>emale_links</span>) <span class='op'>+</span>
-  <span class='fu'>geom_seq</span>() <span class='op'>+</span> <span class='fu'>geom_bin_label</span>() <span class='op'>+</span>                  <span class='co'># chromosomes and labels</span>
-  <span class='fu'>geom_feature</span>(size=<span class='fl'>8</span>) <span class='op'>+</span>                           <span class='co'># terminal inverted repeats</span>
-  <span class='fu'>geom_gene</span>(<span class='fu'>aes</span>(fill=<span class='kw'>strand</span>), position=<span class='st'>"strand"</span>) <span class='op'>+</span> <span class='co'># genes</span>
-  <span class='fu'>geom_link</span>(offset = <span class='fl'>0.15</span>)                         <span class='co'># synteny-blocks</span></div><div class='img'><img src='gggenomes-1.png' alt='' width='1152' height='712' /></div></pre>
+<span class='fu'>gggenomes</span><span class='op'>(</span><span class='va'>emale_seqs</span>, <span class='va'>emale_genes</span>, <span class='va'>emale_tirs</span>, <span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>                  <span class='co'># chromosomes and labels</span>
+  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span> <span class='op'>+</span>                              <span class='co'># terminal inverted repeats</span>
+  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>strand</span><span class='op'>)</span>, position<span class='op'>=</span><span class='st'>"strand"</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'># genes</span>
+  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span>offset <span class='op'>=</span> <span class='fl'>0.15</span><span class='op'>)</span>                         <span class='co'># synteny-blocks</span>
+</div><div class='img'><img src='gggenomes-1.png' alt='' width='960' height='480' /></div><div class='input'>
+<span class='co'># with some more information</span>
+<span class='fu'>gggenomes</span><span class='op'>(</span><span class='va'>emale_seqs</span>, <span class='va'>emale_genes</span>, <span class='va'>emale_tirs</span>, <span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_feats.html'>add_feats</a></span><span class='op'>(</span><span class='va'>emale_ngaros</span>, <span class='va'>emale_gc</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_clusters.html'>add_clusters</a></span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='flip.html'>flip_nicely</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span>offset <span class='op'>=</span> <span class='fl'>0.15</span>, color<span class='op'>=</span><span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span>                        <span class='co'># synteny-blocks</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>                  <span class='co'># chromosomes and labels</span>
+  <span class='co'># thistle4, salmon4, burlywood4</span>
+  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>6</span>, position<span class='op'>=</span><span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span>                              <span class='co'># terminal inverted repeats</span>
+  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='va'>emale_ngaros</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"turquoise4"</span>, alpha<span class='op'>=</span><span class='fl'>.3</span>,
+            position<span class='op'>=</span><span class='st'>"strand"</span>, size<span class='op'>=</span><span class='fl'>16</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_feat_text.html'>geom_feat_note</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>label<span class='op'>=</span><span class='va'>type</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='va'>emale_ngaros</span><span class='op'>)</span>,
+                 position<span class='op'>=</span><span class='st'>"strand"</span>, nudge_y <span class='op'>=</span> <span class='fl'>.3</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>cluster_id</span><span class='op'>)</span>, position<span class='op'>=</span><span class='st'>"strand"</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'># genes</span>
+  <span class='fu'>scale_fill_brewer</span><span class='op'>(</span><span class='st'>"Conserved genes"</span>, palette<span class='op'>=</span><span class='st'>"Dark2"</span>, na.value <span class='op'>=</span> <span class='st'>"cornsilk3"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='co'>#scale_fill_viridis_b() +</span>
+  <span class='fu'>geom_ribbon</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span><span class='op'>(</span><span class='va'>x</span><span class='op'>+</span><span class='va'>xend</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>2</span>, ymax<span class='op'>=</span><span class='va'>y</span><span class='op'>+</span><span class='fl'>.24</span>, ymin<span class='op'>=</span><span class='va'>y</span><span class='op'>+</span><span class='fl'>.38</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>.4</span><span class='op'>*</span><span class='va'>score</span><span class='op'>)</span>,
+                  group<span class='op'>=</span><span class='va'>seq_id</span>, linetype<span class='op'>=</span><span class='st'>"GC-content"</span><span class='op'>)</span>, <span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='va'>emale_gc</span><span class='op'>)</span>,
+              fill<span class='op'>=</span><span class='st'>"lavenderblush4"</span>, position<span class='op'>=</span><span class='fu'>position_nudge</span><span class='op'>(</span>y<span class='op'>=</span><span class='op'>-</span><span class='fl'>.1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = "feat_id"</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 3,4,5</span></div><div class='img'><img src='gggenomes-2.png' alt='' width='960' height='480' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -261,7 +283,7 @@ per lin.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

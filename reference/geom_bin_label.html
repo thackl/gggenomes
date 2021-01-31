@@ -49,9 +49,9 @@
   <script src="../extra.js"></script>
 
 <meta property="og:title" content="Draw bin labels — geom_bin_label" />
-<meta property="og:description" content="Put bin labels left of the sequences. `nudge_left` adds space relative to the
-total bin width between the label and the seqs, by default 5
-expands the plot to the left by 20" />
+<meta property="og:description" content="Put bin labels left of the sequences. nudge_left adds space relative to the
+total bin width between the label and the seqs, by default 5%. expand_left
+expands the plot to the left by 20% to make labels visible." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -92,7 +92,7 @@ expands the plot to the left by 20" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@ expands the plot to the left by 20" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -138,22 +138,22 @@ expands the plot to the left by 20" />
     </div>
 
     <div class="ref-description">
-    <p>Put bin labels left of the sequences. `nudge_left` adds space relative to the
-total bin width between the label and the seqs, by default 5<!-- %. `expand_left` -->
-expands the plot to the left by 20<!-- % to make labels visible. --></p>
+    <p>Put bin labels left of the sequences. <code>nudge_left</code> adds space relative to the
+total bin width between the label and the seqs, by default 5%. <code>expand_left</code>
+expands the plot to the left by 20% to make labels visible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_bin_label</span>(
-  mapping = <span class='kw'>NULL</span>,
-  data = <span class='fu'>use_bins</span>(),
-  hjust = <span class='fl'>1</span>,
-  size = <span class='fl'>6</span>,
-  nudge_left = <span class='fl'>0.05</span>,
-  expand_left = <span class='fl'>0.2</span>,
-  expand_x = <span class='kw'>NULL</span>,
-  expand_aes = <span class='kw'>NULL</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>geom_bin_label</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='fu'><a href='feats.html'>bins</a></span><span class='op'>(</span><span class='op'>)</span>,
+  hjust <span class='op'>=</span> <span class='fl'>1</span>,
+  size <span class='op'>=</span> <span class='fl'>3</span>,
+  nudge_left <span class='op'>=</span> <span class='fl'>0.05</span>,
+  expand_left <span class='op'>=</span> <span class='fl'>0.2</span>,
+  expand_x <span class='op'>=</span> <span class='cn'>NULL</span>,
+  expand_aes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,7 +206,7 @@ to the paired geom/stat.</p></td>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Set `x` and `expand_x` to an absolute position to align all labels at a
+    <p>Set <code>x</code> and <code>expand_x</code> to an absolute position to align all labels at a
 specific location</p>
 
   </div>
@@ -224,7 +224,7 @@ specific location</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

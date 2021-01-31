@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>read a .paf file (minimap/minimap2). Only the first 12 canonical
-columns. Ignores tagged extra fields. — read_paf • gggenomes</title>
+<title>Read a .paf file (minimap/minimap2). — read_paf • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -49,10 +48,9 @@ columns. Ignores tagged extra fields. — read_paf • gggenomes</title>
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="read a .paf file (minimap/minimap2). Only the first 12 canonical
-columns. Ignores tagged extra fields. — read_paf" />
-<meta property="og:description" content="read a .paf file (minimap/minimap2). Only the first 12 canonical
-columns. Ignores tagged extra fields." />
+<meta property="og:title" content="Read a .paf file (minimap/minimap2). — read_paf" />
+<meta property="og:description" content="Read a minimap/minimap2 .paf file including optional tagged extra fields. The
+optional fields will be parsed into a tidy format, one column per tag." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -93,7 +91,7 @@ columns. Ignores tagged extra fields." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,7 +114,7 @@ columns. Ignores tagged extra fields." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,45 +131,87 @@ columns. Ignores tagged extra fields." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>read a .paf file (minimap/minimap2). Only the first 12 canonical
-columns. Ignores tagged extra fields.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read.R'><code>R/read.R</code></a></small>
+    <h1>Read a .paf file (minimap/minimap2).</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read_paf.R'><code>R/read_paf.R</code></a></small>
     <div class="hidden name"><code>read_paf.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>read a .paf file (minimap/minimap2). Only the first 12 canonical
-columns. Ignores tagged extra fields.</p>
+    <p>Read a minimap/minimap2 .paf file including optional tagged extra fields. The
+optional fields will be parsed into a tidy format, one column per tag.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_paf</span>(<span class='kw'>file</span>, max_tags = <span class='fl'>20</span>)</pre>
+    <pre class="usage"><span class='fu'>read_paf</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  max_tags <span class='op'>=</span> <span class='fl'>20</span>,
+  col_names <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_names</a></span><span class='op'>(</span><span class='st'>"paf"</span><span class='op'>)</span>,
+  col_types <span class='op'>=</span> <span class='fu'><a href='def_types.html'>def_types</a></span><span class='op'>(</span><span class='st'>"paf"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>Either a path to a file, a connection, or literal data
-(either a single string or a raw vector).</p>
-<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
-be automatically uncompressed. Files starting with <code>http://</code>,
-<code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
-decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
-<p>Using a value of <code><a href='https://rdrr.io/r/utils/clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
-    </tr>
-    <tr>
       <th>max_tags</th>
       <td><p>maximum number of optional fields to include</p></td>
+    </tr>
+    <tr>
+      <th>col_names</th>
+      <td><p>column names to use. Defaults to def_names("blast")
+compatible with blast tabular output (<code>--outfmt 6/7</code> in blast++ and <code>-m8</code>
+in blast-legacy). def_names("blast") can easily be combined with extra
+columns: <code>col_names = c(def_names("blast"), "more", "things")</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>tibble</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Because <code><a href='https://readr.tidyverse.org/reference/read_delim.html'>readr::read_tsv</a></code> expects a fixed number of columns, but in .paf the
+number of optional fields can differ among records, <code>read_paf</code> tries to read
+at least as many columns as the longest record has (<code>max_tags</code>). The
+resulting warnings for each record with fewer fields of the form "32 columns
+expected, only 22 seen" should thus be ignored.</p>
+<p>From the minimap2 manual</p>
+<p>+----+--------+---------------------------------------------------------+
+|Col |  Type  |                       Description                       |
++----+--------+---------------------------------------------------------+
+|  1 | string | Query sequence name                                     |
+|  2 |  int   | Query sequence length                                   |
+|  3 |  int   | Query start coordinate (0-based)                        |
+|  4 |  int   | Query end coordinate (0-based)                          |
+|  5 |  char  | ‘+’ if query/target on the same strand; ‘-’ if opposite |
+|  6 | string | Target sequence name                                    |
+|  7 |  int   | Target sequence length                                  |
+|  8 |  int   | Target start coordinate on the original strand          |
+|  9 |  int   | Target end coordinate on the original strand            |
+| 10 |  int   | Number of matching bases in the mapping                 |
+| 11 |  int   | Number bases, including gaps, in the mapping            |
+| 12 |  int   | Mapping quality (0-255 with 255 for missing)            |
++----+--------+---------------------------------------------------------+</p>
+<p>+----+------+-------------------------------------------------------+
+|Tag | Type |                      Description                      |
++----+------+-------------------------------------------------------+
+| tp |  A   | Type of aln: P/primary, S/secondary and I,i/inversion |
+| cm |  i   | Number of minimizers on the chain                     |
+| s1 |  i   | Chaining score                                        |
+| s2 |  i   | Chaining score of the best secondary chain            |
+| NM |  i   | Total number of mismatches and gaps in the alignment  |
+| MD |  Z   | To generate the ref sequence in the alignment         |
+| AS |  i   | DP alignment score                                    |
+| ms |  i   | DP score of the max scoring segment in the alignment  |
+| nn |  i   | Number of ambiguous bases in the alignment            |
+| ts |  A   | Transcript strand (splice mode only)                  |
+| cg |  Z   | CIGAR string (only in PAF)                            |
+| cs |  Z   | Difference string                                     |
+| dv |  f   | Approximate per-base sequence divergence              |
++----+------+-------------------------------------------------------+</p>
+<p>From https://samtools.github.io/hts-specs/SAMtags.pdf
+type may be one of A (character), B (general array), f (real number),
+H (hexadecimal array), i (integer), or Z (string).</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -188,7 +228,7 @@ vector of greater than length 1.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

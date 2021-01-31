@@ -90,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -113,7 +113,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -139,7 +139,7 @@
     <p>this file contains sequences, links and (optionally) genes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_alitv</span>(<span class='kw'>file</span>)</pre>
+    <pre class="usage"><span class='fu'>read_alitv</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,18 +155,20 @@
     <p>list with seqs, genes, and links</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>ali</span> <span class='op'>&lt;-</span> <span class='fu'>read_alitv</span>(<span class='st'>"https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json"</span>)
-<span class='fu'>gggenomes</span>(<span class='kw'>ali</span><span class='op'>$</span><span class='kw'>seqs</span>, <span class='kw'>ali</span><span class='op'>$</span><span class='kw'>genes</span>, links=<span class='kw'>ali</span><span class='op'>$</span><span class='kw'>links</span>) <span class='op'>+</span>
-  <span class='fu'>geom_seq</span>() <span class='op'>+</span>
-  <span class='fu'>geom_bin_label</span>() <span class='op'>+</span>
-  <span class='fu'>geom_gene</span>(<span class='fu'>aes</span>(fill=<span class='kw'>class</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_link</span>()</div><div class='img'><img src='read_alitv-1.png' alt='' width='1152' height='712' /></div><div class='input'><span class='kw'>p</span> <span class='op'>&lt;-</span> <span class='fu'>gggenomes</span>(<span class='kw'>ali</span><span class='op'>$</span><span class='kw'>seqs</span>, <span class='kw'>ali</span><span class='op'>$</span><span class='kw'>genes</span>, links=<span class='kw'>ali</span><span class='op'>$</span><span class='kw'>links</span>) <span class='op'>+</span>
-  <span class='fu'>geom_seq</span>() <span class='op'>+</span>
-  <span class='fu'>geom_bin_label</span>() <span class='op'>+</span>
-  <span class='fu'>geom_gene</span>(<span class='fu'>aes</span>(color=<span class='kw'>class</span>)) <span class='op'>+</span>
-  <span class='fu'>geom_link</span>(<span class='fu'>aes</span>(fill=<span class='kw'>identity</span>)) <span class='op'>+</span>
-  <span class='fu'>scale_fill_distiller</span>(palette=<span class='st'>"RdYlGn"</span>, direction = <span class='fl'>1</span>)
-<span class='kw'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>flip_seq</span>(<span class='st'>"Same_gi"</span>) <span class='op'>%&gt;%</span> <span class='fu'>pick</span>(<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>8</span>)</div><div class='img'><img src='read_alitv-2.png' alt='' width='1152' height='712' /></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>ali</span> <span class='op'>&lt;-</span> <span class='fu'>read_alitv</span><span class='op'>(</span><span class='st'>"https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json"</span><span class='op'>)</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>seqs</span>, <span class='va'>ali</span><span class='op'>$</span><span class='va'>genes</span>, links<span class='op'>=</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>links</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in require_vars(x, vars): Required column(s) missing: seq_id</span></div><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>seqs</span>, <span class='va'>ali</span><span class='op'>$</span><span class='va'>genes</span>, links<span class='op'>=</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>links</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>identity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_fill_distiller</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"RdYlGn"</span>, direction <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in require_vars(x, vars): Required column(s) missing: seq_id</span></div><div class='input'><span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>flip_seq</span><span class='op'>(</span><span class='st'>"Same_gi"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in flip_seq(., "Same_gi"): could not find function "flip_seq"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -182,7 +184,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

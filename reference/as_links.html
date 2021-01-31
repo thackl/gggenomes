@@ -49,7 +49,7 @@
   <script src="../extra.js"></script>
 
 <meta property="og:title" content="Compute a layout for link data — as_links" />
-<meta property="og:description" content="Read link data of pairwise sequence or feature comparisons, such as
+<meta property="og:description" content="Read link data of pairwise sequence or feat comparisons, such as
 similarity searches into a tidy dataframe and augment it with layout
 information based on a sequence layout." />
 <meta property="og:image" content="/logo.svg" />
@@ -92,7 +92,7 @@ information based on a sequence layout." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@ information based on a sequence layout." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -138,12 +138,12 @@ information based on a sequence layout." />
     </div>
 
     <div class="ref-description">
-    <p>Read link data of pairwise sequence or feature comparisons, such as
+    <p>Read link data of pairwise sequence or feat comparisons, such as
 similarity searches into a tidy dataframe and augment it with layout
 information based on a sequence layout.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_links</span>(<span class='kw'>x</span>, <span class='kw'>seqs</span>, <span class='kw'>...</span>, everything = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>as_links</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>seqs</span>, <span class='va'>...</span>, everything <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,11 +154,11 @@ information based on a sequence layout.</p>
     </tr>
     <tr>
       <th>seqs</th>
-      <td><p>the sequence layout the feature map onto.</p></td>
+      <td><p>the sequence layout the feat map onto.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed on to `layout_seqs()`</p></td>
+      <td><p>passed on to <code><a href='gggenomes.html'>layout_seqs()</a></code></p></td>
     </tr>
     <tr>
       <th>everything</th>
@@ -168,9 +168,9 @@ information based on a sequence layout.</p>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Obligatory columns are `seq_id1` and `seq_id2`. Also recognized are
-`start1`, `end1`,`start2`,`end2`,`strand`, bin_id1` and `bin_id2.</p>
-<p>During layouting, seq_id1,start1,end1 will be projected to x,xend,y, while
+    <p>Obligatory columns are <code>seq_id</code> and <code>seq_id2</code>. Also recognized are
+<code>start</code>, <code>end</code>,<code>start2</code>,<code>end2</code>,<code>strand</code>, bin_id<code>and</code>bin_id2.</p>
+<p>During layouting, seq_id,start,end will be projected to x,xend,y, while
 seq_id2,start2,end2 will be projected to xmin,xmax,yend. gggenomes uses these
 maybe a bit odd names for the variables here, is so that they play nice with
 ggplots native transformation functions for position aesthetics. Those only
@@ -192,7 +192,7 @@ used above.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

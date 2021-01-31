@@ -49,11 +49,11 @@
   <script src="../extra.js"></script>
 
 <meta property="og:title" content="Stack features — position_strand" />
-<meta property="og:description" content="`position_strand()` offsets forward features upward and reverse features
-downward. `position_pile()` stacks overlapping features upward.
-`position_strandpile()` stacks overlapping features up-/downward based on
-their strand. `position_sixframe()` offsets the features based on their
-strand and reading frame." />
+<meta property="og:description" content="position_strand() offsets forward feats upward and reverse feats downward.
+position_pile() stacks overlapping feats upward. position_strandpile()
+stacks overlapping feats up-/downward based on their strand.
+position_sixframe() offsets the feats based on their strand and reading
+frame." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -94,7 +94,7 @@ strand and reading frame." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,7 @@ strand and reading frame." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,39 +140,39 @@ strand and reading frame." />
     </div>
 
     <div class="ref-description">
-    <p>`position_strand()` offsets forward features upward and reverse features
-downward. `position_pile()` stacks overlapping features upward.
-`position_strandpile()` stacks overlapping features up-/downward based on
-their strand. `position_sixframe()` offsets the features based on their
-strand and reading frame.</p>
+    <p><code>position_strand()</code> offsets forward feats upward and reverse feats downward.
+<code>position_pile()</code> stacks overlapping feats upward. <code>position_strandpile()</code>
+stacks overlapping feats up-/downward based on their strand.
+<code>position_sixframe()</code> offsets the feats based on their strand and reading
+frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>position_strand</span>(offset = <span class='fl'>0.1</span>, flip = <span class='fl'>FALSE</span>, grouped = <span class='fl'>FALSE</span>, base = <span class='kw'>offset</span><span class='op'>/</span><span class='fl'>2</span>)
+    <pre class="usage"><span class='fu'>position_strand</span><span class='op'>(</span>offset <span class='op'>=</span> <span class='fl'>0.1</span>, flip <span class='op'>=</span> <span class='cn'>FALSE</span>, grouped <span class='op'>=</span> <span class='cn'>NULL</span>, base <span class='op'>=</span> <span class='va'>offset</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'>position_pile</span>(
-  offset = <span class='fl'>0.1</span>,
-  gap = <span class='fl'>1</span>,
-  flip = <span class='fl'>FALSE</span>,
-  grouped = <span class='fl'>FALSE</span>,
-  base = <span class='kw'>offset</span>
-)
+<span class='fu'>position_pile</span><span class='op'>(</span>
+  offset <span class='op'>=</span> <span class='fl'>0.1</span>,
+  gap <span class='op'>=</span> <span class='fl'>1</span>,
+  flip <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  grouped <span class='op'>=</span> <span class='cn'>NULL</span>,
+  base <span class='op'>=</span> <span class='va'>offset</span>
+<span class='op'>)</span>
 
-<span class='fu'>position_strandpile</span>(
-  offset = <span class='fl'>0.1</span>,
-  gap = <span class='fl'>1</span>,
-  flip = <span class='fl'>FALSE</span>,
-  grouped = <span class='fl'>FALSE</span>,
-  base = <span class='kw'>offset</span> <span class='op'>*</span> <span class='fl'>1.5</span>
-)
+<span class='fu'>position_strandpile</span><span class='op'>(</span>
+  offset <span class='op'>=</span> <span class='fl'>0.1</span>,
+  gap <span class='op'>=</span> <span class='fl'>1</span>,
+  flip <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  grouped <span class='op'>=</span> <span class='cn'>NULL</span>,
+  base <span class='op'>=</span> <span class='va'>offset</span> <span class='op'>*</span> <span class='fl'>1.5</span>
+<span class='op'>)</span>
 
-<span class='fu'>position_sixframe</span>(offset = <span class='fl'>0.1</span>, flip = <span class='fl'>FALSE</span>, grouped = <span class='fl'>FALSE</span>, base = <span class='kw'>offset</span><span class='op'>/</span><span class='fl'>2</span>)</pre>
+<span class='fu'>position_sixframe</span><span class='op'>(</span>offset <span class='op'>=</span> <span class='fl'>0.1</span>, flip <span class='op'>=</span> <span class='cn'>FALSE</span>, grouped <span class='op'>=</span> <span class='cn'>NULL</span>, base <span class='op'>=</span> <span class='va'>offset</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>offset</th>
-      <td><p>Shift overlapping features up/down this much on the y-axis. The
+      <td><p>Shift overlapping feats up/down this much on the y-axis. The
 y-axis distance between two sequences is 1, so this is usually a small
 fraction, such as 0.1.</p></td>
     </tr>
@@ -182,8 +182,9 @@ fraction, such as 0.1.</p></td>
     </tr>
     <tr>
       <th>grouped</th>
-      <td><p>set TRUE to stack features in same aestetics group as if they
-are one feature. Useful for stacking multi-exon genes as a single unit.</p></td>
+      <td><p>if TRUE feats in the same group are stacked as a single
+feature. Useful to move CDS and mRNA as one unit. If NULL (default) set to
+TRUE if data appears to contain gene-ish features.</p></td>
     </tr>
     <tr>
       <th>base</th>
@@ -193,8 +194,8 @@ half offset above/below the sequence line.</p></td>
     </tr>
     <tr>
       <th>gap</th>
-      <td><p>If two features are closer together than this, they will be
-stacked. Can be negative to allow small overlaps. NA disables stacking.</p></td>
+      <td><p>If two feats are closer together than this, they will be stacked.
+Can be negative to allow small overlaps. NA disables stacking.</p></td>
     </tr>
     </table>
 
@@ -214,7 +215,7 @@ stacked. Can be negative to allow small overlaps. NA disables stacking.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

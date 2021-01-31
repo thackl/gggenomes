@@ -89,7 +89,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/thackl/gggenomes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -143,7 +143,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-plot-construction" class="hasAnchor"><a href="#section-plot-construction" class="anchor"></a>Plot construction</h2>
+          <h2 id="section-set-up-a-plot" class="hasAnchor"><a href="#section-set-up-a-plot" class="anchor"></a>Set up a plot</h2>
           <p class="section-desc"><p>Construct a plot combining multiple tracks</p></p>
         </th>
       </tr>
@@ -162,7 +162,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-tracks-layouts" class="hasAnchor"><a href="#section-tracks-layouts" class="anchor"></a>Tracks &amp; layouts</h2>
+          <h2 id="section-add-and-use-tracks" class="hasAnchor"><a href="#section-add-and-use-tracks" class="anchor"></a>Add and use tracks</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -174,21 +174,21 @@
       <tr>
         
         <td>
-          <p><code><a href="gggenomes.html">gggenomes()</a></code> <code><a href="gggenomes.html">layout_genomes()</a></code> <code><a href="gggenomes.html">layout_seqs()</a></code> </p>
+          <p><code><a href="track_info.html">track_info()</a></code> </p>
         </td>
-        <td><p>Plot genomes, features and synteny maps</p></td>
+        <td><p>Basic info on tracks in a gggenomes object</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="add_clusters.html">add_clusters()</a></code> </p>
         </td>
-        <td><p>Add gene clusters</p></td>
+        <td><p>Add gene (or feature) clusters</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="add_features.html">add_features()</a></code> </p>
+          <p><code><a href="add_feats.html">add_feats()</a></code> </p>
         </td>
-        <td><p>Add features</p></td>
+        <td><p>Add feats</p></td>
       </tr><tr>
         
         <td>
@@ -198,9 +198,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="add_subfeatures.html">add_subfeatures()</a></code> </p>
+          <p><code><a href="add_subfeats.html">add_subfeats()</a></code> </p>
         </td>
-        <td><p>Add subfeatures</p></td>
+        <td><p>Add subfeats</p></td>
       </tr><tr>
         
         <td>
@@ -210,32 +210,14 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="pull_seqs.html">pull_seqs()</a></code> <code><a href="pull_seqs.html">pull_features()</a></code> <code><a href="pull_seqs.html">pull_links()</a></code> <code><a href="pull_seqs.html">pull_track()</a></code> </p>
+          <p><code><a href="pull_track.html">feats()</a></code> <code><a href="pull_track.html">genes()</a></code> <code><a href="pull_track.html">links()</a></code> <code><a href="pull_track.html">seqs()</a></code> <code><a href="pull_track.html">bins()</a></code> <code><a href="pull_track.html">track()</a></code> <code><a href="pull_track.html">pull_feats()</a></code> <code><a href="pull_track.html">pull_genes()</a></code> <code><a href="pull_track.html">pull_links()</a></code> <code><a href="pull_track.html">pull_seqs()</a></code> <code><a href="pull_track.html">pull_bins()</a></code> <code><a href="pull_track.html">pull_track()</a></code> </p>
         </td>
-        <td><p>Pull out a specific track, possibly filtered</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="layout.html">layout()</a></code> </p>
-        </td>
-        <td><p>Re-layout a genome layout</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="layout_features.html">layout_features()</a></code> </p>
-        </td>
-        <td><p>Layout features</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="layout_links.html">layout_links()</a></code> </p>
-        </td>
-        <td><p>Layout tbl_link</p></td>
+        <td><p>Use a certain track, possibly filtered</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-geoms-positions" class="hasAnchor"><a href="#section-geoms-positions" class="anchor"></a>Geoms &amp; positions</h2>
+          <h2 id="section-draw-geoms-positions" class="hasAnchor"><a href="#section-draw-geoms-positions" class="anchor"></a>Draw geoms &amp; positions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -247,27 +229,21 @@
       <tr>
         
         <td>
-          <p><code><a href="geom_bin_label.html">geom_bin_label()</a></code> </p>
+          <p><code><a href="geom_seq.html">geom_seq()</a></code> </p>
         </td>
-        <td><p>Draw bin labels</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="geom_feature.html">geom_feature()</a></code> </p>
-        </td>
-        <td><p>draw features</p></td>
+        <td><p>draw seqs</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="geom_gene.html">geom_gene()</a></code> </p>
         </td>
-        <td><p>Draw genes</p></td>
+        <td><p>Draw gene models</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="geom_gene_label.html">geom_gene_label()</a></code> </p>
+          <p><code><a href="geom_feat.html">geom_feat()</a></code> </p>
         </td>
-        <td><p>draw feature labels</p></td>
+        <td><p>Draw feats</p></td>
       </tr><tr>
         
         <td>
@@ -277,38 +253,50 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="geom_bin_label.html">geom_bin_label()</a></code> </p>
+        </td>
+        <td><p>Draw bin labels</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_feat_text.html">geom_feat_text()</a></code> <code><a href="geom_feat_text.html">geom_feat_tag()</a></code> <code><a href="geom_feat_text.html">geom_feat_note()</a></code> <code><a href="geom_feat_text.html">geom_gene_text()</a></code> <code><a href="geom_feat_text.html">geom_gene_tag()</a></code> <code><a href="geom_feat_text.html">geom_gene_note()</a></code> </p>
+        </td>
+        <td><p>Text</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_gene_fast.html">geom_gene_fast()</a></code> </p>
+        </td>
+        <td><p>Draw genes fast but not so pretty</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geom_gene_label.html">geom_gene_label()</a></code> </p>
+        </td>
+        <td><p>draw feat labels</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="geom_link_label.html">geom_link_label()</a></code> </p>
         </td>
         <td><p>draw link labels</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="geom_seq.html">geom_seq()</a></code> </p>
-        </td>
-        <td><p>draw seqs</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="geom_seq_label.html">geom_seq_label()</a></code> </p>
         </td>
-        <td><p>draw feature labels</p></td>
+        <td><p>draw feat labels</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="position_strand.html">position_strand()</a></code> <code><a href="position_strand.html">position_pile()</a></code> <code><a href="position_strand.html">position_strandpile()</a></code> <code><a href="position_strand.html">position_sixframe()</a></code> </p>
         </td>
         <td><p>Stack features</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="use_seqs.html">use_seqs()</a></code> <code><a href="use_seqs.html">use_features()</a></code> <code><a href="use_seqs.html">use_links()</a></code> <code><a href="use_seqs.html">use_genes()</a></code> <code><a href="use_seqs.html">use_bins()</a></code> </p>
-        </td>
-        <td><p>Use a specific track table inside a `geom_*` call.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-layout-manipulation" class="hasAnchor"><a href="#section-layout-manipulation" class="anchor"></a>Layout manipulation</h2>
+          <h2 id="section-manipulate-plot-data" class="hasAnchor"><a href="#section-manipulate-plot-data" class="anchor"></a>Manipulate plot &amp; data</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -320,13 +308,13 @@
       <tr>
         
         <td>
-          <p><code><a href="pick.html">pick()</a></code> <code><a href="pick.html">pick_at()</a></code> <code><a href="pick.html">pick_bins()</a></code> </p>
+          <p><code><a href="pick.html">pick()</a></code> <code><a href="pick.html">pick_at()</a></code> <code><a href="pick.html">pick_bins()</a></code> <code><a href="pick.html">pick_by_tree()</a></code> </p>
         </td>
         <td><p>Pick seqs and bins by name or position</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="flip.html">flip()</a></code> <code><a href="flip.html">flip_seq()</a></code> <code><a href="flip.html">flip_nicely()</a></code> </p>
+          <p><code><a href="flip.html">flip()</a></code> <code><a href="flip.html">flip_seqs()</a></code> <code><a href="flip.html">flip_nicely()</a></code> </p>
         </td>
         <td><p>Flip bins and sequences</p></td>
       </tr><tr>
@@ -340,12 +328,12 @@
         <td>
           <p><code><a href="focus.html">focus()</a></code> </p>
         </td>
-        <td><p>Focus on features and regions of interest</p></td>
+        <td><p>Focus on feats and regions of interest</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-read-in-data" class="hasAnchor"><a href="#section-read-in-data" class="anchor"></a>Read in data</h2>
+          <h2 id="section-read-data" class="hasAnchor"><a href="#section-read-data" class="anchor"></a>Read data</h2>
           <p class="section-desc"><p>Read common bioinformatics file types</p></p>
         </th>
       </tr>
@@ -357,28 +345,81 @@
       <tr>
         
         <td>
+          <p><code><a href="read_feats.html">read_feats()</a></code> <code><a href="read_feats.html">read_subfeats()</a></code> <code><a href="read_feats.html">read_links()</a></code> <code><a href="read_feats.html">read_sublinks()</a></code> </p>
+        </td>
+        <td><p>Read features and links from common file formats</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="read_alitv.html">read_alitv()</a></code> </p>
         </td>
         <td><p>Read AliTV .json file</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="read_gffs.html">read_gffs()</a></code> </p>
+          <p><code><a href="read_bed.html">read_bed()</a></code> </p>
         </td>
-        <td><p>Read .gff files</p></td>
+        <td><p>Read a BED file</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="read_gffs_as_contigs.html">read_gffs_as_contigs()</a></code> </p>
+          <p><code><a href="read_blast.html">read_blast()</a></code> </p>
         </td>
-        <td><p>Read genome_ids, contig_ids and contig lengths from .gff files.</p></td>
+        <td><p>Read BLAST tab-separated output</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_gbk.html">read_gbk()</a></code> </p>
+        </td>
+        <td><p>Read genbank files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_gff3.html">read_gff3()</a></code> </p>
+        </td>
+        <td><p>Read features from GFF3 files</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="read_paf.html">read_paf()</a></code> </p>
         </td>
-        <td><p>read a .paf file (minimap/minimap2). Only the first 12 canonical
-columns. Ignores tagged extra fields.</p></td>
+        <td><p>Read a .paf file (minimap/minimap2).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_seqs.html">read_seqs()</a></code> <code><a href="read_seqs.html">read_seq_len()</a></code> <code><a href="read_seqs.html">read_fai()</a></code> </p>
+        </td>
+        <td><p>Read a sequence index</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="swap_query.html">swap_query()</a></code> </p>
+        </td>
+        <td><p>Swap query and subject</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ex.html">ex()</a></code> </p>
+        </td>
+        <td><p>Get path to gggenomes example files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="file_formats.html">file_formats()</a></code> </p>
+        </td>
+        <td><p>Defined file formats and extensions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="def_names.html">def_names()</a></code> </p>
+        </td>
+        <td><p>Default column types for defined formats</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="def_types.html">def_types()</a></code> </p>
+        </td>
+        <td><p>Default column types for defined formats</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -395,9 +436,39 @@ columns. Ignores tagged extra fields.</p></td>
       <tr>
         
         <td>
-          <p><code><a href="as_features.html">as_features()</a></code> </p>
+          <p><code><a href="layout.html">layout()</a></code> </p>
         </td>
-        <td><p>Compute a layout for feature data</p></td>
+        <td><p>Re-layout a genome layout</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="layout_feats.html">layout_feats()</a></code> </p>
+        </td>
+        <td><p>Layout feats</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="layout_links.html">layout_links()</a></code> </p>
+        </td>
+        <td><p>Layout tbl_link</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="require_vars.html">require_vars()</a></code> </p>
+        </td>
+        <td><p>Require variables in an object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_seqs.html">get_seqs()</a></code> </p>
+        </td>
+        <td><p>Get/set the seqs track</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_feats.html">as_feats()</a></code> </p>
+        </td>
+        <td><p>Compute a layout for feat data</p></td>
       </tr><tr>
         
         <td>
@@ -413,15 +484,21 @@ columns. Ignores tagged extra fields.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as_subfeatures.html">as_subfeatures()</a></code> </p>
+          <p><code><a href="as_subfeats.html">as_subfeats()</a></code> </p>
         </td>
-        <td><p>Compute a layout for subfeature data</p></td>
+        <td><p>Compute a layout for subfeat data</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="as_sublinks.html">as_sublinks()</a></code> </p>
         </td>
-        <td><p>Compute a layout for links linking features</p></td>
+        <td><p>Compute a layout for links linking feats</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="as_tracks.html">as_tracks()</a></code> </p>
+        </td>
+        <td><p>Convert a list of tibbles into tracks with magic</p></td>
       </tr><tr>
         
         <td>
@@ -451,7 +528,197 @@ columns. Ignores tagged extra fields.</p></td>
         <td>
           <p><code><a href="x.html">x()</a></code> <code><a href="x.html">xend()</a></code> </p>
         </td>
-        <td><p>Project feature coordinates into layout space</p></td>
+        <td><p>Project feat coordinates into layout space</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="track_ids.html">track_ids()</a></code> </p>
+        </td>
+        <td><p>Named vector of track ids and types</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="track_types.html">track_types()</a></code> </p>
+        </td>
+        <td><p>All types of all tracks</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vars_track.html">vars_track()</a></code> </p>
+        </td>
+        <td><p>Tidyselect track variables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="activate.html">activate()</a></code> <code><a href="activate.html">active()</a></code> </p>
+        </td>
+        <td><p>activate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="comma.html">comma()</a></code> </p>
+        </td>
+        <td><p>Collapse a string with commas</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dim.gggenomes_layout.html">dim(<i>&lt;gggenomes_layout&gt;</i>)</a></code> </p>
+        </td>
+        <td><p><code>ggplot2::facet_null</code> checks data with <code>empty(df)</code> using <code>dim</code>. This causes
+and error because dim(gggenome_layout) is undefined. Return dim of primary
+table instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ggplot.gggenomes_layout.html">ggplot(<i>&lt;gggenomes_layout&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>ggplot.default tries to <code>fortify(data)</code> and we don't want that here</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="has_vars.html">has_vars()</a></code> </p>
+        </td>
+        <td><p>Check if variables exist in object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="introduce.html">introduce()</a></code> </p>
+        </td>
+        <td><p>Introduce non-existing columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="match_arg.html">match_arg()</a></code> </p>
+        </td>
+        <td><p>match.arg defaulting to all choices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="theme_gggenomes_clean.html">theme_gggenomes_clean()</a></code> </p>
+        </td>
+        <td><p>gggenomes default theme</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="track_nrows.html">track_nrows()</a></code> </p>
+        </td>
+        <td><p>Number of rows of all tracks tables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="track_type.html">track_type()</a></code> </p>
+        </td>
+        <td><p>Track type by track id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vars_track_error.html">vars_track_error()</a></code> </p>
+        </td>
+        <td><p>Error messages for `vars_track``</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="write_gff3.html">write_gff3()</a></code> </p>
+        </td>
+        <td><p>Write a gff3 file from a tidy table</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-handling-files" class="hasAnchor"><a href="#section-handling-files" class="anchor"></a>Handling files</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="ext_to_format.html">ext_to_format()</a></code> </p>
+        </td>
+        <td><p>File format from suffix</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="file_exts.html">file_exts()</a></code> </p>
+        </td>
+        <td><p>Defined file extensions and associated formats</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="file_label.html">file_label()</a></code> </p>
+        </td>
+        <td><p>Add a unique name to files</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-sets" class="hasAnchor"><a href="#section-data-sets" class="anchor"></a>Data sets</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="emale_ava.html">emale_ava</a></code> </p>
+        </td>
+        <td><p>All-versus-all whole genome alignments of 6 EMALE genomes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_cogs.html">emale_cogs</a></code> </p>
+        </td>
+        <td><p>Clusters of orthologs of 6 EMALE proteomes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_gc.html">emale_gc</a></code> </p>
+        </td>
+        <td><p>Relative GC-content along 6 EMALE genomes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_genes.html">emale_genes</a></code> </p>
+        </td>
+        <td><p>Gene annotations if 6 EMALE genomes (endogenous virophages)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_ngaros.html">emale_ngaros</a></code> </p>
+        </td>
+        <td><p>Integrated Ngaro retrotransposons of 6 EMALE genomes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_prot_ava.html">emale_prot_ava</a></code> </p>
+        </td>
+        <td><p>All-versus-all alignments 6 EMALE proteomes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_prot_uniref50.html">emale_prot_uniref50</a></code> </p>
+        </td>
+        <td><p>Alignments of 6 EMALE proteomes against Uniref50</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_seqs.html">emale_seqs</a></code> </p>
+        </td>
+        <td><p>Sequence index of 6 EMALE genomes (endogenous virophages)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="emale_tirs.html">emale_tirs</a></code> </p>
+        </td>
+        <td><p>Terminal inverted repeats of 6 EMALE genomes</p></td>
       </tr>
     </tbody>
     </table>
@@ -471,7 +738,7 @@ columns. Ignores tagged extra fields.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
