@@ -170,7 +170,8 @@ set_seqs <- function(x, value){
 }
 #' @export
 set_seqs.gggenomes <- function(x, value) {
-  set_seqs(x$data, value)
+  x$data <- set_seqs(x$data, value)
+  x
 }
 #' @export
 set_seqs.gggenomes_layout <- function(x, value) {
