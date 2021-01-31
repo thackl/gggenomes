@@ -6,6 +6,7 @@ reference:
     - gggenomes
 - title: "Add and use tracks"
 - contents:
+    - track_info
     - starts_with("add_")
     - pull_seqs
 - title: "Draw geoms & positions"
@@ -29,6 +30,11 @@ reference:
 - contents:
     - read_feats
     - starts_with("read_")
+    - swap_query
+    - ex
+    - file_formats
+    - def_names
+    - def_types
 - title: "Under the hood"
   desc: >
     Functions that power gggenomes under the hood. Useful for developers and power-users.
@@ -36,12 +42,25 @@ reference:
   - layout
   - layout_feats
   - layout_links
+  - require_vars
+  - get_seqs
   - starts_with("as_")
   - swap_if
   - in_range
   - anchor
   - width
   - x
+  - track_ids
+  - track_types
+  - vars_track
+- title: "Handling files"
+- contents:
+  - ext_to_format
+  - file_exts
+  - file_label
+- title: "Data sets"
+- contents:
+  - starts_with("emale")
 figures:
   fig.width: 10
   fig.height: 5
