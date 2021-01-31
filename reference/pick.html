@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pick seqs and bins by name or position — pick • gggenomes</title>
+<title>Pick bins and seqs by name or position — pick • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,12 +48,11 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Pick seqs and bins by name or position — pick" />
-<meta property="og:description" content="Pick which sequences and bins to show and in what order. Uses
-dyplr::select-like syntax, which means unquoted genome names, positional
-arguments and select helper functions, such as starts_with() are
-supported. Renaming is not supported because it would break associations with
-other tracks." />
+<meta property="og:title" content="Pick bins and seqs by name or position — pick" />
+<meta property="og:description" content="Pick which bins and seqs to show and in what order. Uses
+dplyr::select()-like syntax, which means unquoted genome names, positional
+arguments and selection helpers, such as
+tidyselect::starts_with() are supported. Renaming is not supported." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -134,58 +133,68 @@ other tracks." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pick seqs and bins by name or position</h1>
+    <h1>Pick bins and seqs by name or position</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/pick.R'><code>R/pick.R</code></a></small>
     <div class="hidden name"><code>pick.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Pick which sequences and bins to show and in what order. Uses
-dyplr::select-like syntax, which means unquoted genome names, positional
-arguments and select helper functions, such as <code>starts_with()</code> are
-supported. Renaming is not supported because it would break associations with
-other tracks.</p>
+    <p>Pick which bins and seqs to show and in what order. Uses
+<code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code>-like syntax, which means unquoted genome names, positional
+arguments and <a href='https://tidyselect.r-lib.org/reference/language.html'>selection helpers</a>, such as
+<code><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>tidyselect::starts_with()</a></code> are supported. Renaming is not supported.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pick</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>pick</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>pick_at</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>pick_seqs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pick_bins</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>pick_surgical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tree</span>, infer_seq_id <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span></pre>
+<span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tree</span>, infer_bin_id <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>seqs to pick, select-like expression</p></td>
+      <td><p>bins/seqs to pick, select-like expression multiple args in c()</p></td>
     </tr>
     <tr>
-      <th>bins</th>
-      <td><p>to pick from, expression, enclose multiple args in c()</p></td>
+      <th>.bins</th>
+      <td><p>scope for positional arguments, select-like expression, enclose
+multiple arguments with <code><a href='https://rdrr.io/r/base/c.html'>c()</a></code>!</p></td>
     </tr>
     <tr>
       <th>tree</th>
       <td><p>a phylogenetic tree in ggtree or phylo format.</p></td>
     </tr>
     <tr>
-      <th>infer_seq_id</th>
-      <td><p>an expression to extract seq_ids from the tree data.</p></td>
+      <th>infer_bin_id</th>
+      <td><p>an expression to extract bin_ids from the tree data.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Use the dots to select sequences, and the bins argument to set the scope for
-positional arguments. For example, <code>pick(1)</code> will pick the first sequence
-from the first bin, while <code>pick(1, bins=3)</code> will pick the first sequence from
-the third bin.</p>
-<p><code>pick_at</code> keeps bins that are not picked from, as they are.</p>
-<p><code>pick_bins</code> works on entire bins.</p>
-<p><code>pick_by_tree</code> picks sequences to align with a given phylogenetic tree.</p>
+    <p>Use the dots to select bins or sequences (depending on function suffix), and
+the <code>.bins</code> argument to set the scope for positional arguments. For example,
+<code>pick_seqs(1)</code> will pick the first sequence from the first bin, while
+<code>pick_seqs(1, .bins=3)</code> will pick the first sequence from the third bin.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
+    
+<ul>
+<li><p><code>pick</code>: pick bins with <code>bin_id</code>s and bin position (1 == top)</p></li>
+<li><p><code>pick_seqs</code>: pick individual seqs with <code>seq_id</code>s and seq positions (1 ==
+top-left)</p></li>
+<li><p><code>pick_surgical</code>: pick individual seqs but only modify bins containing target
+seqs, keep rest as is.</p></li>
+<li><p><code>pick_by_tree</code>: align bins with a given phylogenetic tree.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
