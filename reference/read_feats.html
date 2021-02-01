@@ -166,27 +166,35 @@ different genome.</p>
     </tr>
     <tr>
       <th>format</th>
-      <td><p>If NULL, will be guessed from file extension. Else, any format
-known to gggenomes ("gff3", "gbk", ... see <code><a href='file_formats.html'>file_formats()</a></code> for full list)
-or any suffix that maps to a known <code>read_&lt;suffix&gt;</code> function to be called,
-such as <code><a href='https://readr.tidyverse.org/reference/read_delim.html'>readr::read_tsv()</a></code>, for example.</p></td>
+      <td><p>If NULL, guess from file extension. Else, any format known to
+gggenomes (gff3, gbk, ... see <code><a href='file_formats.html'>file_formats()</a></code> for full list) or any suffix
+of a known <code>read_&lt;suffix&gt;</code> function, e.g. tsv for <code><a href='https://readr.tidyverse.org/reference/read_delim.html'>readr::read_tsv()</a></code>.</p></td>
     </tr>
     <tr>
       <th>.id</th>
-      <td><p>When binding output from several files, how to name the column
-with the name of the file each record came from. Defaults to "file_id". Set
-to "bin_id" if every file represents a different bin.</p></td>
+      <td><p>the name of the column storing the file name each record came
+from. Defaults to "file_id". Set to "bin_id" if every file represents a
+different bin.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed on to the specific read function for
-the given format.</p></td>
+      <td><p>additional arguments passed on to the format-specific read
+function called down the line.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a gggenomes compatible feature or link tibble</p>
+    <p>A gggenomes-compatible feature or link tibble</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>read_feats</code>: read files as features mapping onto sequences</p></li>
+<li><p><code>read_subfeats</code>: read files as subfeatures mapping onto other features</p></li>
+<li><p><code>read_links</code>: read files as links connecting sequences</p></li>
+<li><p><code>read_sublinks</code>: read files as sublinks connecting features</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># read a file</span>
@@ -228,13 +236,47 @@ the given format.</p></td>
 #&gt; </span><span style='color: #555555;'>19</span><span> eden-u… ctg123  </span><span style='text-decoration: underline;'>1</span><span>000  </span><span style='text-decoration: underline;'>1</span><span>012 +      TF_b… tfbs00… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  </span><span style='color: #BB0000;'>NA</span><span>    
 #&gt; </span><span style='color: #555555;'>20</span><span> eden-u… ctg123  </span><span style='text-decoration: underline;'>7</span><span>601  </span><span style='text-decoration: underline;'>9</span><span>000 +      thre… </span><span style='color: #BB0000;'>NA</span><span>      </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  </span><span style='color: #BB0000;'>NA</span><span>    
 #&gt; </span><span style='color: #555555;'># … with 5 more variables: score </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, phase </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, name </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, Target </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   geom_id </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+#&gt; </span><span style='color: #555555;'>#   geom_id </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># read all gffs from a directory</span>
-<span class='fu'>read_feats</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='st'>"path/to/directory"</span>, <span class='st'>"*.gff$"</span>, full.names<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>read_feats</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/"</span><span class='op'>)</span>, <span class='st'>"*.gff$"</span>, full.names<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Reading as gff3:</span></div><div class='output co'>#&gt; <span class='message'>* emales-ngaros [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-ngaros.gff]</span></div><div class='output co'>#&gt; <span class='message'>Harmonizing column names</span>
+#&gt; <span class='message'>* ID -&gt; feat_id</span>
+#&gt; <span class='message'>* Parent -&gt; parent_ids</span>
+#&gt; <span class='message'>* Name -&gt; name</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #555555;'># A tibble: 1 x 3</span><span></span>
+#&gt; <span class='message'>  source type              n</span>
+#&gt; <span class='message'>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></span>
+#&gt; <span class='message'></span><span style='color: #555555;'>1</span><span> MFG    repeat_region     3</span></div><div class='output co'>#&gt; <span class='message'>* emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-tirs.gff]</span></div><div class='output co'>#&gt; <span class='message'>Harmonizing column names</span>
+#&gt; <span class='message'>* ID -&gt; feat_id</span>
+#&gt; <span class='message'>* Parent -&gt; parent_ids</span>
+#&gt; <span class='message'>* Name -&gt; name</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #555555;'># A tibble: 1 x 3</span><span></span>
+#&gt; <span class='message'>  source type              n</span>
+#&gt; <span class='message'>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></span>
+#&gt; <span class='message'></span><span style='color: #555555;'>1</span><span> MFG    repeat_region    12</span></div><div class='output co'>#&gt; <span class='message'>* emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales.gff]</span></div><div class='output co'>#&gt; <span class='message'>Harmonizing column names</span>
+#&gt; <span class='message'>* ID -&gt; feat_id</span>
+#&gt; <span class='message'>* Parent -&gt; parent_ids</span>
+#&gt; <span class='message'>* Name -&gt; name</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #555555;'># A tibble: 1 x 3</span><span></span>
+#&gt; <span class='message'>  source type      n</span>
+#&gt; <span class='message'>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></span>
+#&gt; <span class='message'></span><span style='color: #555555;'>1</span><span> MFG    CDS     143</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 158 x 17</span><span>
+#&gt;    file_id seq_id start   end strand type  feat_id introns parent_ids source
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'> 1</span><span> emales… BVI_0… </span><span style='text-decoration: underline;'>11</span><span>043 </span><span style='text-decoration: underline;'>17</span><span>065 </span><span style='color: #BB0000;'>NA</span><span>     repe… nBVI_0… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 2</span><span> emales… BVI_0…  </span><span style='text-decoration: underline;'>7</span><span>894 </span><span style='text-decoration: underline;'>14</span><span>280 </span><span style='color: #BB0000;'>NA</span><span>     repe… nBVI_0… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 3</span><span> emales… E4-10…  </span><span style='text-decoration: underline;'>2</span><span>854  </span><span style='text-decoration: underline;'>9</span><span>283 </span><span style='color: #BB0000;'>NA</span><span>     repe… nE4-10… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 4</span><span> emales… BVI_0…     1   473 +      repe… BVI_00… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 5</span><span> emales… BVI_0… </span><span style='text-decoration: underline;'>26</span><span>348 </span><span style='text-decoration: underline;'>26</span><span>820 -      repe… BVI_00… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 6</span><span> emales… BVI_0…     1   488 +      repe… BVI_06… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 7</span><span> emales… BVI_0… </span><span style='text-decoration: underline;'>26</span><span>321 </span><span style='text-decoration: underline;'>26</span><span>808 -      repe… BVI_06… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 8</span><span> emales… Cflag…     1  </span><span style='text-decoration: underline;'>1</span><span>081 +      repe… Cflag_… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'> 9</span><span> emales… Cflag… </span><span style='text-decoration: underline;'>20</span><span>231 </span><span style='text-decoration: underline;'>21</span><span>311 -      repe… Cflag_… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'>10</span><span> emales… E4-10…     1   319 +      repe… E4-10_… </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  MFG   
+#&gt; </span><span style='color: #555555;'># … with 148 more rows, and 7 more variables: score </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, phase </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,</span><span>
+#&gt; </span><span style='color: #555555;'>#   name </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geom_id </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, width </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, gc_content </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, Note </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># read remote files</span>
 <span class='va'>gbk_phages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-PSSP7 <span class='op'>=</span> <span class='st'>"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span>,
-PSSP3 <span class='op'>=</span> <span class='st'>"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz"</span><span class='op'>)</span>
+  PSSP7 <span class='op'>=</span> <span class='st'>"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span>,
+  PSSP3 <span class='op'>=</span> <span class='st'>"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz"</span><span class='op'>)</span>
 <span class='fu'>read_feats</span><span class='op'>(</span><span class='va'>gbk_phages</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></span></pre>

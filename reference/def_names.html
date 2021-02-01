@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default column types for defined formats — def_names • gggenomes</title>
+<title>Default column names and types for defined formats — def_names • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,9 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Default column types for defined formats — def_names" />
-<meta property="og:description" content="Default column types for defined formats" />
+<meta property="og:title" content="Default column names and types for defined formats — def_names" />
+<meta property="og:description" content="Intended to be used in readr::read_tsv()-like functions that accept a
+col_names and a col_types argument." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -130,22 +131,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default column types for defined formats</h1>
+    <h1>Default column names and types for defined formats</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read.R'><code>R/read.R</code></a></small>
     <div class="hidden name"><code>def_names.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Default column types for defined formats</p>
+    <p>Intended to be used in <code><a href='https://readr.tidyverse.org/reference/read_delim.html'>readr::read_tsv()</a></code>-like functions that accept a
+<code>col_names</code> and a <code>col_types</code> argument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>def_names</span><span class='op'>(</span><span class='va'>format</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>def_names</span><span class='op'>(</span><span class='va'>format</span><span class='op'>)</span>
+
+<span class='fu'>def_types</span><span class='op'>(</span><span class='va'>format</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a vector with default column names for the given format</p>
+<p>a vector with default column types for the given format</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
+    
+<ul>
+<li><p><code>def_names</code>: default column names for defined formats</p></li>
+<li><p><code>def_types</code>: default column types for defined formats</p></li>
+</ul>
+    <h2 class="hasAnchor" id="defined-formats-column-types-and-names"><a class="anchor" href="#defined-formats-column-types-and-names"></a>Defined formats, column types and names</h2>
+
+    
+
+<pre>
+  gff3       ccciiccic       seq_id,source,type,start,end,score,strand,phase,attributes
+  paf        ciiicciiiiid    seq_id,length,start,end,strand,seq_id2,length2,start2,end2,map_match,map_length,map_quality
+  blast      ccdiiiiiiidd    seq_id,seq_id2,pident,length,mismatch,gapopen,start,end,start2,end2,evalue,bitscore
+  bed        ciicdc          seq_id,start,end,name,score,strand
+  fai        ci---           seq_id,seq_desc,length
+  seq_len    cci             seq_id,seq_desc,length
+</pre>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># read a blast-tabular file with read_tsv</span>
+<span class='fu'>read_tsv</span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales-prot-ava.o6"</span><span class='op'>)</span>, col_names<span class='op'>=</span><span class='fu'>def_names</span><span class='op'>(</span><span class='st'>"blast"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Column specification</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────────────</span><span></span>
+#&gt; <span class='message'>cols(</span>
+#&gt; <span class='message'>  seq_id = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  seq_id2 = </span><span style='color: #BB0000;'>col_character()</span><span>,</span>
+#&gt; <span class='message'>  pident = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  length = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  mismatch = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  gapopen = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  start = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  end = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  start2 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  end2 = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  evalue = </span><span style='color: #00BB00;'>col_double()</span><span>,</span>
+#&gt; <span class='message'>  bitscore = </span><span style='color: #00BB00;'>col_double()</span><span></span>
+#&gt; <span class='message'>)</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 827 x 12</span><span>
+#&gt;    seq_id seq_id2 pident length mismatch gapopen start   end start2  end2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Cflag… Cflag_…  1        119        0       0     1   119      1   119
+#&gt; </span><span style='color: #555555;'> 2</span><span> Cflag… RCC970…  1        119        0       0     1   119      1   119
+#&gt; </span><span style='color: #555555;'> 3</span><span> Cflag… E4-10_…  0.991    119        1       0     1   119      1   119
+#&gt; </span><span style='color: #555555;'> 4</span><span> Cflag… BVI_06…  0.991    119        1       0     1   119      1   119
+#&gt; </span><span style='color: #555555;'> 5</span><span> Cflag… E4-10_…  0.983    119        2       0     1   119      1   119
+#&gt; </span><span style='color: #555555;'> 6</span><span> Cflag… BVI_00…  0.983    119        2       0     1   119      1   119
+#&gt; </span><span style='color: #555555;'> 7</span><span> E4-10… E4-10_…  1        406        0       0     1   406      1   406
+#&gt; </span><span style='color: #555555;'> 8</span><span> E4-10… E4-10_…  1        406        0       0     1   406      1   406
+#&gt; </span><span style='color: #555555;'> 9</span><span> E4-10… BVI_06…  0.997    406        1       0     1   406      1   406
+#&gt; </span><span style='color: #555555;'>10</span><span> E4-10… BVI_00…  0.987    406        5       0     1   406      1   406
+#&gt; </span><span style='color: #555555;'># … with 817 more rows, and 2 more variables: evalue </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bitscore </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
