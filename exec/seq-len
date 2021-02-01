@@ -1,0 +1,71 @@
+#!/usr/bin/env perl
+# Created: 17 Jan 2021
+# Author: Thomas Hackl, thackl@lim4.de
+use warnings;
+use strict;
+use Getopt::Long  qw(:config no_ignore_case bundling);
+use Data::Dumper;
+
+GetOptions (
+    "out|o=s" => sub { '-' ne $_[1] and open(STDOUT, '>', $_[1]) || die $! },
+    "help|h!" => \(my $help),
+    "debug|D!" => \(my $debug),
+) or die("Error in command line arguments\n");
+
+if ($help){
+    print "Usage: seq-len < in > out\n";
+    printf " %-19s  %s\n", "-o/--out", "write to this file [STDOUT]";
+    printf " %-19s  %s\n", "-h/--help", "show this help";
+    printf " %-19s  %s\n", "-D/--debug", "show debug messages";
+    print "Reads FASTA, GFF3 and Genbank.\n";
+    print "Generates three tab-separated columns: seq_id, seq_desc and length\n";
+    exit 0;
+}
+
+# determine format based on first line
+my $first = <>;
+my @r;
+my $seq_reg = 0;
+
+# fasta
+if ($first =~ /^>(\S+)(?:\s(.*))?/){
+    @r = ($1, $2 // "", 0);
+    while (<>) {
+        tr/\r\n//d;             # chomp() fails on \r\n;
+        if (/^>(\S+)(?:\s(.*))?/) {
+            print join("\t", @r),"\n";
+            @r = ($1, $2 // "", 0);
+        } else {
+            $r[2] += length($_)
+        }
+    }
+    print join("\t", @r),"\n";
+}
+
+# gbk
+elsif ($first=~ /^LOCUS\s+(\S+)\s+(\d+)/) {
+    print $1,"\t\t",$2,"\n";
+    while (<>) {
+        if (/^LOCUS\s+(\S+)\s+(\d+)/){
+            print $1,"\t\t",$2,"\n";
+        }
+    }
+}
+
+# gff
+elsif ($first =~ /^##gff/) { 
+    while (<>){
+        $first = undef;
+        if (/^##sequence-region\s(\S+)\s(\d+)\s(\d+)/){
+            $seq_reg++;
+            print $1,"\t\t",$3-$2+1,"\n";
+        }
+    };
+    unless ($seq_reg) {
+        die "Cannot parse sequence lengths: ##sequence-region directives are missing.\n";
+    }
+}
+
+else {
+    die "Unknown format, can read fasta, gbk and gff with proper ##gff-version and ##sequence-region directives\n";
+}
