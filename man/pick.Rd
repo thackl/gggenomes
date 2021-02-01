@@ -16,12 +16,12 @@ pick_surgical(x, ..., .bins = everything())
 pick_by_tree(x, tree, infer_bin_id = label)
 }
 \arguments{
-\item{...}{bins/seqs to pick, select-like expression multiple args in c()}
+\item{...}{bins/seqs to pick, select-like expression.}
 
 \item{.bins}{scope for positional arguments, select-like expression, enclose
 multiple arguments with \code{c()}!}
 
-\item{tree}{a phylogenetic tree in ggtree or phylo format.}
+\item{tree}{a phylogenetic tree in \link{ggtree} or \link{ape}-"phylo" format.}
 
 \item{infer_bin_id}{an expression to extract bin_ids from the tree data.}
 }
@@ -39,15 +39,16 @@ the \code{.bins} argument to set the scope for positional arguments. For example
 }
 \section{Functions}{
 \itemize{
-\item \code{pick}: pick bins with \code{bin_id}s and bin position (1 == top)
+\item \code{pick}: pick bins by bin_id, positional argument (start at top)
+or select-helper.
 
-\item \code{pick_seqs}: pick individual seqs with \code{seq_id}s and seq positions (1 ==
-top-left)
+\item \code{pick_seqs}: pick individual seqs seq_id, positional argument (start at
+top left) or select-helper.
 
-\item \code{pick_surgical}: pick individual seqs but only modify bins containing target
+\item \code{pick_surgical}: pick individual seqs but only modify bins containing those
 seqs, keep rest as is.
 
-\item \code{pick_by_tree}: align bins with a given phylogenetic tree.
+\item \code{pick_by_tree}: align bins with the leaves in a given phylogenetic tree.
 }}
 
 \examples{
@@ -63,22 +64,26 @@ p
 
 # remove
 p \%>\% pick(-B)
+
 # select and reorder, by ID and position
 p \%>\% pick(C, 1)
+
 # use helper function
 p \%>\% pick(starts_with("B"))
 
 # pick just some seqs
 p \%>\% pick_seqs(1, c3)
+
 # pick with .bin scope
 p \%>\% pick_seqs(3:1, .bins=C)
 
 # change seqs in some bins, but keep rest as is
 p \%>\% pick_surgical(3:1, .bins=B)
+
 # same w/o scope, unaffected bins remain as is
 p \%>\% pick_surgical(b3, b2, b1)
 
-Align sequences with and plot next to a phylogenetic tree
+# Align sequences with and plot next to a phylogenetic tree
 library(patchwork)  # arrange multiple plots
 library(ggtree)     # plot phylogenetic trees
 
