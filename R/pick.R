@@ -23,22 +23,26 @@
 #'
 #' # remove
 #' p %>% pick(-B)
+#'
 #' # select and reorder, by ID and position
 #' p %>% pick(C, 1)
+#'
 #' # use helper function
 #' p %>% pick(starts_with("B"))
 #'
 #' # pick just some seqs
 #' p %>% pick_seqs(1, c3)
+#'
 #' # pick with .bin scope
 #' p %>% pick_seqs(3:1, .bins=C)
 #'
 #' # change seqs in some bins, but keep rest as is
 #' p %>% pick_surgical(3:1, .bins=B)
+#'
 #' # same w/o scope, unaffected bins remain as is
 #' p %>% pick_surgical(b3, b2, b1)
 #'
-#' Align sequences with and plot next to a phylogenetic tree
+#' # Align sequences with and plot next to a phylogenetic tree
 #' library(patchwork)  # arrange multiple plots
 #' library(ggtree)     # plot phylogenetic trees
 #'
@@ -79,16 +83,17 @@
 #'   t + p %>% pick_by_tree(t) + plot_layout(widths = c(1,5))
 #' }
 #'
-#' @describeIn pick pick bins with `bin_id`s and bin position (1 == top)
-#' @param ... bins/seqs to pick, select-like expression multiple args in c()
+#' @describeIn pick pick bins by bin_id, positional argument (start at top)
+#'   or select-helper.
+#' @param ... bins/seqs to pick, select-like expression.
 #' @export
 pick <- function(x, ...){
   if(!has_dots()) return(x)
   pick_impl(x, .bins=c(...))
 }
 
-#' @describeIn pick pick individual seqs with `seq_id`s and seq positions (1 ==
-#'   top-left)
+#' @describeIn pick pick individual seqs seq_id, positional argument (start at
+#'   top left) or select-helper.
 #' @param .bins scope for positional arguments, select-like expression, enclose
 #'   multiple arguments with `c()`!.
 #' @export
@@ -97,7 +102,7 @@ pick_seqs <- function(x, ..., .bins=everything()){
   pick_impl(x, ..., .bins = {{ .bins }}, .surgical=FALSE)
 }
 
-#' @describeIn pick pick individual seqs but only modify bins containing target
+#' @describeIn pick pick individual seqs but only modify bins containing those
 #'   seqs, keep rest as is.
 #' @param .bins scope for positional arguments, select-like expression, enclose
 #'   multiple arguments with `c()`!
@@ -107,8 +112,8 @@ pick_surgical <- function(x, ..., .bins=everything()){
   pick_impl(x, ..., .bins = {{ .bins }}, .surgical=TRUE)
 }
 
-#' @describeIn pick align bins with a given phylogenetic tree.
-#' @param tree a phylogenetic tree in ggtree or phylo format.
+#' @describeIn pick align bins with the leaves in a given phylogenetic tree.
+#' @param tree a phylogenetic tree in [ggtree] or [ape]-"phylo" format.
 #' @param infer_bin_id an expression to extract bin_ids from the tree data.
 #' @export
 pick_by_tree <- function(x, tree, infer_bin_id = label){

@@ -2,62 +2,43 @@
 
 ## A grammar of graphics for comparative genomics
 
-gggenomes is a versatile graphics package for creating comparative genomic maps,
-extending the popular R visualization package
-[ggplot2](https://ggplot2.tidyverse.org/). It adds dedicated plot functions
-(geoms, positions) for common sequence and alignment features, such as gene
-models and syntenic regions, as we well as verbs to further manipulate the plot
-and the underlying data, for example, to quickly zoom in into gene
-neighborhoods.
+gggenomes is a versatile graphics package for comparative genomics. It extends the popular R visualization package[ggplot2](https://ggplot2.tidyverse.org/) by adding dedicated plot functions for genes, syntenic regions, etc. and verbs to manipulate the plot to, for example, quickly zoom in into gene neighborhoods.
 
 ## A realistic use case comparing six viral genomes
 
-For a reproducible recipe describing the full *evolution* of this plot starting
-from a mere set of contigs, and including the bioinformatics analysis workflow,
-have a look at [From a few sequences to a complex map in
-minutes](https://thackl.github.io/gggenomes/articles/emales.html). For a compact
-version to of the code see below.
+gggenomes makes it easy to combine data and annotations from different sources into one comprehensive and elegant plot. Here we compare the genomic architecture of 6 viral genomes initially described in [Hackl et al.: Endogenous virophages populate the genomes of a marine heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
 
-![](man/figures/EMALEs.png)
+![](man/figures/emales.png)
 
 ```R
-# EMALEs: endogenous mavirus-like elements (Hackl et al. in prep.)
-# a use case data bundled with ggggenomes
-seqs <- emale_seqs[1:6,]                # first 6 genomes only
-p <- gggenomes(seqs, emale_genes, emale_tirs, emale_links) %>%
-                                        # standard tracks
-  add_features(emale_transposons, emale_gc) %>%
-                                        # more features
-  add_subfeatures(genes, emale_blast, transform="aa2nuc") %>%
-                                        # features that map onto features
-  add_clusters(genes, emale_cogs)       # and some gene cluster info
+library(gggenomes)
 
-# add geoms and customize the plot
-p <- p +
-  geom_seq() + geom_bin_label() +       # chromosomes and labels
-  geom_link(offset = c(0.3, 0.2), color="white", alpha=.3) +
-                                        # synthenic regions
-  geom_feature(aes(color="terminal inverted repeat"), use_features(2),
-    size=4) +                           # repeats
-  geom_feature(aes(color="integrated transposon"),
-    use_features(emale_transposons), size=7) +
-                                        # transposons
-  geom_gene(aes(fill=cluster_label)) +  # colored genes
-  geom_feature(aes(color=blast_desc), use_features(emale_blast),
-    size=2, position="pile") +          # some blast hits
+# to inspect the example data shipped with gggenomes
+data(package="gggenomes")
+
+gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) %>%
+  add_feats(ngaros=emale_ngaros, gc=emale_gc) %>%
+  add_sublinks(emale_prot_ava) %>%
+  flip_nicely() +
+  geom_feat(position="identity", size=6) +
+  geom_seq() +
+  geom_link(data=links(2)) +
+  geom_bin_label() +
+  geom_gene(aes(fill=name)) +
+  geom_gene_tag(aes(label=name), nudge_y=0.1, check_overlap = TRUE) +
+  geom_feat(data=feats(ngaros), alpha=.3, size=10, position="identity") +
+  geom_feat_note(aes(label="Ngaro-transposon"), feats(ngaros),
+      nudge_y=.1, vjust=0) +
   geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
-    group=seq_id, linetype="GC-content"), use_features(emale_gc),
-    fill="blue", alpha=.5) +            # combine with ggplot2 geoms
-  scale_fill_brewer("Conserved genes", palette="Set3") +
-  scale_color_viridis_d("Blast hits & Features", direction = -1) +
-  scale_linetype("Graphs") +
-  ggtitle(expression(paste("Endogenous mavirus-like elements of ",
-  italic("C. burkhardae"))))
+      group=seq_id, linetype="GC-content"), feats(gc),
+      fill="lavenderblush4", position=position_nudge(y=-.1)) +
+  scale_fill_brewer("Genes", palette="Dark2", na.value="cornsilk3")
 
-# reverse-complement 3 genomes for better alignment
-p <- p %>% flip_bins(3:5)
-p
+ggsave("man/figures/emales.png", width=8, height=4)
 ```
+
+For a reproducible recipe describing the full *evolution* of an earlier version of this plot with an older version of gggenomes starting from a mere set of contigs, and including the bioinformatics analysis workflow, have a look at [From a few sequences to a complex map in
+minutes](https://thackl.github.io/gggenomes/articles/emales.html).
 
 ## Motivation & concept
 
