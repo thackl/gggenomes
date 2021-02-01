@@ -40,3 +40,4 @@ records that initially had \verb{start < end == start2 < end2} and "-"
 otherwise. If \code{strand} was provided, \code{start} and \code{end} will be reorganized to
 conform with \code{start < end} without any additional effect.
 }
+\keyword{internal}

@@ -13,3 +13,4 @@ table instead}
 and error because dim(gggenome_layout) is undefined. Return dim of primary
 table instead
 }
+\keyword{internal}

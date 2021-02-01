@@ -1,4 +1,4 @@
-#' Text
+#' Add text to genes, features, etc.
 #'
 #'
 #' @inheritParams ggplot2::geom_text

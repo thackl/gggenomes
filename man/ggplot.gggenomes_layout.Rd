@@ -9,3 +9,4 @@
 \description{
 ggplot.default tries to \code{fortify(data)} and we don't want that here
 }
+\keyword{internal}

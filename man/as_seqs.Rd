@@ -31,3 +31,4 @@ chr <- tibble(
 
 as_seqs(chr)
 }
+\keyword{internal}

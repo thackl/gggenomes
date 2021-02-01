@@ -21,13 +21,22 @@ read_fai(file, col_names = def_names("fai"), col_types = def_types("fai"), ...)
 \item{file}{fasta or .fai/.seqkit.fai fasta index}
 }
 \value{
-gggenomes-compatible seqs tibble
+A gggenomes-compatible sequence tibble
 }
 \description{
 Read ID, description and length for each sequence from common formats
 including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
-are "seq_id", "seq_desc" and "length".
+are seq_id, seq_desc and length.
 }
+\section{Functions}{
+\itemize{
+\item \code{read_seqs}: read seqs from files with automatic format detection
+
+\item \code{read_seq_len}: read seqs from a single file in fasta, gbk or gff3 format.
+
+\item \code{read_fai}: read seqs from a single file in seqkit/samtools fai format.
+}}
+
 \examples{
 # from a fasta file
 read_seqs(ex("emales/emales.fna"))

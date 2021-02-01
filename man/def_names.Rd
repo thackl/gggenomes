@@ -2,13 +2,42 @@
 % Please edit documentation in R/read.R
 \name{def_names}
 \alias{def_names}
-\title{Default column types for defined formats}
+\alias{def_types}
+\title{Default column names and types for defined formats}
 \usage{
 def_names(format)
+
+def_types(format)
 }
 \value{
 a vector with default column names for the given format
+
+a vector with default column types for the given format
 }
 \description{
-Default column types for defined formats
+Intended to be used in \code{\link[readr:read_delim]{readr::read_tsv()}}-like functions that accept a
+\code{col_names} and a \code{col_types} argument.
+}
+\section{Functions}{
+\itemize{
+\item \code{def_names}: default column names for defined formats
+
+\item \code{def_types}: default column types for defined formats
+}}
+
+\section{Defined formats, column types and names}{
+
+\preformatted{
+  gff3       ccciiccic       seq_id,source,type,start,end,score,strand,phase,attributes
+  paf        ciiicciiiiid    seq_id,length,start,end,strand,seq_id2,length2,start2,end2,map_match,map_length,map_quality
+  blast      ccdiiiiiiidd    seq_id,seq_id2,pident,length,mismatch,gapopen,start,end,start2,end2,evalue,bitscore
+  bed        ciicdc          seq_id,start,end,name,score,strand
+  fai        ci---           seq_id,seq_desc,length
+  seq_len    cci             seq_id,seq_desc,length
+}
+}
+
+\examples{
+# read a blast-tabular file with read_tsv
+read_tsv(ex("emales/emales-prot-ava.o6"), col_names=def_names("blast"))
 }

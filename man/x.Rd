@@ -2,12 +2,9 @@
 % Please edit documentation in R/coords.R
 \name{x}
 \alias{x}
-\alias{xend}
 \title{Project feat coordinates into layout space}
 \usage{
 x(start, end, strand, seq_x, seq_start, seq_strand)
-
-xend(start, end, strand, seq_x, seq_start, seq_strand)
 }
 \arguments{
 \item{seq_anchor}{the virtual x-start of the full length sequence in plot
@@ -16,3 +13,4 @@ space}
 \description{
 Project feat coordinates into layout space
 }
+\keyword{internal}

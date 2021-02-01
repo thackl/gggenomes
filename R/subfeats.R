@@ -73,6 +73,7 @@ add_subfeat_tracks <- function(x, parent_track_id, tracks, transform){
 #' annotations, e.g. genes and protein blast results.
 #' @return a tbl_df with plot coordinates
 #' @export
+#' @keywords internal
 as_subfeats <- function(x, seqs, feats, ..., everything=TRUE){
   UseMethod("as_subfeats")
 }

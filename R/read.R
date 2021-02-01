@@ -1,4 +1,4 @@
-#' Swap query and subject
+#' Swap query and subject in blast-like feature tables
 #'
 #' Swap query and subject columns in a table read with [read_feats()] or
 #' [read_links()], for example, from blast searches. Swaps columns with
@@ -30,9 +30,18 @@ swap_query <- function(x){
   x
 }
 
-#' Default column types for defined formats
+#' Default column names and types for defined formats
+#'
+#' Intended to be used in [readr::read_tsv()]-like functions that accept a
+#' `col_names` and a `col_types` argument.
+#'
 #' @export
 #' @return a vector with default column names for the given format
+#' @eval def_names_rd()
+#' @describeIn def_names default column names for defined formats
+#' @examples
+#' # read a blast-tabular file with read_tsv
+#' read_tsv(ex("emales/emales-prot-ava.o6"), col_names=def_names("blast"))
 def_names <- function(format){
   ff <- gggenomes_global$def_names
   if(!format %in% names(ff)){
@@ -44,7 +53,8 @@ def_names <- function(format){
   ff[[format]]
 }
 
-#' Default column types for defined formats
+
+#' @describeIn def_names default column types for defined formats
 #' @export
 #' @return a vector with default column types for the given format
 def_types <- function(format){
@@ -186,15 +196,27 @@ file_formats_rd <- function(){
   ff <- mutate(ff, context = ifelse(duplicated(context), "", context))
 
   ff <- str_c(sep = "\n",
-      "@section Defined Contexts, Formats and Extensions:",
+      "@section Defined contexts, formats and extensions:",
       "\\preformatted{",
-      #sprintf("%-8s %-7s  %s", "Context", "Format", "Extensions"),
+      #sprintf("%-9s %-12s  %s", "Context", "Format", "Extensions"),
       str_c(collapse = "\n",
             str_glue_data(ff, '{sprintf("%-8s", context)} ',
                     '{sprintf("%-7s", format)}  [{extension}]')),
       "}"
       )
   ff
+}
+
+def_names_rd <- function(){
+  ns <- gggenomes_global$def_names
+  ts <- gggenomes_global$def_types
+  str_c(sep = "\n",
+    "@section Defined formats, column types and names:",
+    "\\preformatted{",
+      paste0(map(names(ns),
+          ~sprintf("  %-10s %-15s %s", .x, ts[[.x]], comma(ns[[.x]]))), collapse="\n"),
+    "}"
+  )
 }
 
 is_connection <- function(x) inherits(x, "connection")

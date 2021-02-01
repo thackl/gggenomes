@@ -24,6 +24,7 @@ swap_if <- function(x, condition, ...){
 #'
 #' @param x vector (coerced to character)
 #' @param collapse character string to separate elements.
+#' @keywords internal
 comma <- function(x, collapse = ","){
     paste(x, collapse=collapse)
 }

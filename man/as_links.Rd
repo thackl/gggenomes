@@ -31,3 +31,4 @@ ggplots native transformation functions for position aesthetics. Those only
 work well with a specific set of predefined var names, which include those
 used above.
 }
+\keyword{internal}

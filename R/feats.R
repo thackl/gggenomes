@@ -18,6 +18,7 @@
 #' @param ... passed on to `layout_seqs()`
 #' @return a tbl_df with plot coordinates
 #' @export
+#' @keywords internal
 as_feats <- function(x, seqs, ..., everything=TRUE){
   UseMethod("as_feats")
 }
@@ -66,6 +67,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
 #' example after focusing in on a subregion. Choices are to "drop" them, "keep"
 #' them or "trim" them to the subregion boundaries.
 #' @param ... not used
+#' @keywords internal
 layout_feats <- function(x, seqs, keep="strand",
   marginal=c("trim", "drop", "keep"), ...){
   marginal <- match.arg(marginal)

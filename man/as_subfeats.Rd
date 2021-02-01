@@ -41,3 +41,4 @@ records that initially had \code{start < end} and "-" for \code{end < start} inp
 \code{strand} was provided, \code{start} and \code{end} will be reorganized to conform with
 \code{start < end} without any additional effect.
 }
+\keyword{internal}

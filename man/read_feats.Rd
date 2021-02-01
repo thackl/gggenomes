@@ -18,20 +18,19 @@ read_sublinks(files, format = NULL, .id = "file_id", ...)
 \arguments{
 \item{files}{files to reads. Should all be of same format.}
 
-\item{format}{If NULL, will be guessed from file extension. Else, any format
-known to gggenomes ("gff3", "gbk", ... see \code{\link[=file_formats]{file_formats()}} for full list)
-or any suffix that maps to a known \verb{read_<suffix>} function to be called,
-such as \code{\link[readr:read_delim]{readr::read_tsv()}}, for example.}
+\item{format}{If NULL, guess from file extension. Else, any format known to
+gggenomes (gff3, gbk, ... see \code{\link[=file_formats]{file_formats()}} for full list) or any suffix
+of a known \verb{read_<suffix>} function, e.g. tsv for \code{readr::read_tsv()}.}
 
-\item{.id}{When binding output from several files, how to name the column
-with the name of the file each record came from. Defaults to "file_id". Set
-to "bin_id" if every file represents a different bin.}
+\item{.id}{the name of the column storing the file name each record came
+from. Defaults to "file_id". Set to "bin_id" if every file represents a
+different bin.}
 
-\item{...}{additional arguments passed on to the specific read function for
-the given format.}
+\item{...}{additional arguments passed on to the format-specific read
+function called down the line.}
 }
 \value{
-a gggenomes compatible feature or link tibble
+A gggenomes-compatible feature or link tibble
 }
 \description{
 Read features or links from common formats, such as GFF3, Genbank, BED, BLAST
@@ -41,16 +40,29 @@ Can read multiple files in the same format into a single table: useful, for
 example, to read a folder of gff-files with each containing genes of a
 different genome.
 }
+\section{Functions}{
+\itemize{
+\item \code{read_feats}: read files as features mapping onto sequences
+
+\item \code{read_subfeats}: read files as subfeatures mapping onto other features
+
+\item \code{read_links}: read files as links connecting sequences
+
+\item \code{read_sublinks}: read files as sublinks connecting features
+}}
+
 \examples{
 # read a file
 read_feats(ex("eden-utr.gff"))
-\dontrun{
+
 # read all gffs from a directory
-read_feats(list.files("path/to/directory", "*.gff$", full.names=TRUE))
+read_feats(list.files(ex("emales/"), "*.gff$", full.names=TRUE))
+
+\dontrun{
 # read remote files
 gbk_phages <- c(
-PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
-PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
+  PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
+  PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 read_feats(gbk_phages)
 }
 }

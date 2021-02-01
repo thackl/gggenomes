@@ -9,3 +9,4 @@ anchor(x, start, strand)
 \description{
 Together with the seq strand, this is sufficient to project feats
 }
+\keyword{internal}

@@ -7,7 +7,7 @@
 \alias{geom_gene_text}
 \alias{geom_gene_tag}
 \alias{geom_gene_note}
-\title{Text}
+\title{Add text to genes, features, etc.}
 \usage{
 geom_feat_text(
   mapping = NULL,
@@ -169,5 +169,5 @@ Useful for offsetting text from points, particularly on discrete scales.
 Cannot be jointly specified with \code{position}.}
 }
 \description{
-Text
+Add text to genes, features, etc.
 }

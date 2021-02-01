@@ -10,3 +10,4 @@ match_arg(arg, choices, several.ok = FALSE)
 equivalent to base::match.arg, but returns all choices on arg=NULL if
 several.ok=TRUE
 }
+\keyword{internal}
