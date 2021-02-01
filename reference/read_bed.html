@@ -176,10 +176,22 @@ imputation fails, you'll need to supply the correct types yourself.</p>
 one column specification for each column. If you only want to read a
 subset of the columns, use <code><a href='https://readr.tidyverse.org/reference/cols.html'>cols_only()</a></code>.</p>
 <p>Alternatively, you can use a compact string representation where each
-character represents one column:
-c = character, i = integer, n = number, d = double,
-l = logical, f = factor, D = date, T = date time, t = time, ? = guess, or
-<code>_</code>/<code><a href='https://rdrr.io/r/base/Arithmetic.html'>-</a></code> to skip the column.</p></td>
+character represents one column:</p><ul>
+<li><p>c = character</p></li>
+<li><p>i = integer</p></li>
+<li><p>n = number</p></li>
+<li><p>d = double</p></li>
+<li><p>l = logical</p></li>
+<li><p>f = factor</p></li>
+<li><p>D = date</p></li>
+<li><p>T = date time</p></li>
+<li><p>t = time</p></li>
+<li><p>? = guess</p></li>
+<li><p>_ or - = skip</p>
+<p>By default, reading a file without a column specification will print a
+message showing what <code>readr</code> guessed they were. To remove this message,
+use <code>col_types = cols()</code>.</p></li>
+</ul></td>
     </tr>
     </table>
 
