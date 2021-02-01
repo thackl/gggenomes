@@ -8,30 +8,32 @@
 #' different genome.
 #'
 #' @param files files to reads. Should all be of same format.
-#' @param format If NULL, will be guessed from file extension. Else, any format
-#'   known to gggenomes ("gff3", "gbk", ... see [file_formats()] for full list)
-#'   or any suffix that maps to a known `read_<suffix>` function to be called,
-#'   such as [readr::read_tsv()], for example.
-#' @param .id When binding output from several files, how to name the column
-#'   with the name of the file each record came from. Defaults to "file_id". Set
-#'   to "bin_id" if every file represents a different bin.
-#' @param ... additional arguments passed on to the specific read function for
-#'   the given format.
+#' @param format If NULL, guess from file extension. Else, any format known to
+#'   gggenomes (gff3, gbk, ... see [file_formats()] for full list) or any suffix
+#'   of a known `read_<suffix>` function, e.g. tsv for `readr::read_tsv()`.
+#' @param .id the name of the column storing the file name each record came
+#'   from. Defaults to "file_id". Set to "bin_id" if every file represents a
+#'   different bin.
+#' @param ... additional arguments passed on to the format-specific read
+#'   function called down the line.
 #'
-#' @return a gggenomes compatible feature or link tibble
+#' @return A gggenomes-compatible feature or link tibble
 #' @export
 #' @examples
 #' # read a file
 #' read_feats(ex("eden-utr.gff"))
-#' \dontrun{
+#'
 #' # read all gffs from a directory
-#' read_feats(list.files("path/to/directory", "*.gff$", full.names=TRUE))
+#' read_feats(list.files(ex("emales/"), "*.gff$", full.names=TRUE))
+#'
+#' \dontrun{
 #' # read remote files
 #' gbk_phages <- c(
-#' PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
-#' PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
+#'   PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
+#'   PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 #' read_feats(gbk_phages)
 #' }
+#' @describeIn read_feats read files as features mapping onto sequences
 read_feats <- function(files, format=NULL, .id="file_id", ...){
   if(is_connection(files))
     files <- list(files) # weird things happen to pipes in vectors
@@ -54,22 +56,22 @@ read_feats <- function(files, format=NULL, .id="file_id", ...){
   feats
 }
 
-#' @rdname read_feats
 #' @export
+#' @describeIn read_feats read files as subfeatures mapping onto other features
 read_subfeats <- function(files, format=NULL, .id="file_id", ...){
   feats <- read_feats(files=files, format=format, ...)
   rename(feats, feat_id=seq_id, feat_id2=seq_id2)
 }
 
-#' @rdname read_feats
 #' @export
+#' @describeIn read_feats read files as links connecting sequences
 read_links <- function(files, format=NULL, .id="file_id", ...){
   feats <- read_feats(files=files, format=format, ...)
   rename(feats, seq_id=seq_id, start=start, end=end)
 }
 
-#' @rdname read_feats
 #' @export
+#' @describeIn read_feats read files as sublinks connecting features
 read_sublinks <- function(files, format=NULL, .id="file_id", ...){
   feats <- read_feats(files=files, format=format, ...)
   rename(feats, feat_id=seq_id, start=start, end=end, feat_id2=seq_id2)

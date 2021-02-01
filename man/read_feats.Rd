@@ -41,16 +41,29 @@ Can read multiple files in the same format into a single table: useful, for
 example, to read a folder of gff-files with each containing genes of a
 different genome.
 }
+\section{Functions}{
+\itemize{
+\item \code{read_feats}: read files as features mapping onto sequences
+
+\item \code{read_subfeats}: read files as subfeatures mapping onto other features
+
+\item \code{read_links}: read files as links connecting sequences
+
+\item \code{read_sublinks}: read files as sublinks connecting features
+}}
+
 \examples{
 # read a file
 read_feats(ex("eden-utr.gff"))
-\dontrun{
+
 # read all gffs from a directory
-read_feats(list.files("path/to/directory", "*.gff$", full.names=TRUE))
+read_feats(list.files(ex("emales/"), "*.gff$", full.names=TRUE))
+
+\dontrun{
 # read remote files
 gbk_phages <- c(
-PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
-PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
+  PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
+  PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
 read_feats(gbk_phages)
 }
 }

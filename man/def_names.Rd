@@ -25,7 +25,7 @@ Intended to be used in \code{\link[readr:read_delim]{readr::read_tsv()}}-like fu
 \item \code{def_types}: default column types for defined formats
 }}
 
-\section{Defined column names and types}{
+\section{Defined formats, column types and names}{
 
 \preformatted{
   gff3       ccciiccic       seq_id,source,type,start,end,score,strand,phase,attributes

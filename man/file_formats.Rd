@@ -21,7 +21,7 @@ holds both feature and sequence information. If read in "feats" context
 \code{read_feats("*.gbk")} it will return a feature table, if read in "seqs"
 context \code{read_seqs("*.gbk")}, a sequence index.
 }
-\section{Defined Contexts, Formats and Extensions}{
+\section{Defined contexts, formats and extensions}{
 
 \preformatted{
 feats    ambigious  [txt,tsv,csv]

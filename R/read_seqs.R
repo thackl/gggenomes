@@ -2,12 +2,12 @@
 #'
 #' Read ID, description and length for each sequence from common formats
 #' including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
-#' are *seq_id*, *seq_desc* and *length*.
+#' are seq_id, seq_desc and length.
 #'
 #' @importFrom readr read_tsv
 #' @param file fasta or .fai/.seqkit.fai fasta index
 #' @export
-#' @return gggenomes-compatible seqs tibble
+#' @return A gggenomes-compatible sequence tibble
 #' @describeIn read_seqs read seqs from files with automatic format detection
 #' @examples
 #' # from a fasta file
