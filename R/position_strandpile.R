@@ -60,12 +60,16 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
   required_aes = c("x","xend","y"),
   optional_aes = c("yend"),
   setup_params = function(self, data){
+    # DO NOT OVERWRITE self$grouped - it will propagate to subsequent
+    # instanciations in other plots!
     if(is.null(self$grouped)) # assume grouped for geneish geoms
-      self$grouped <- has_vars(data, c("type"))
+      grouped <- has_vars(data, c("type"))
+    else
+      grouped <- self$grouped
 
     list(offset = self$offset, strandwise = self$strandwise, base=self$base,
          gap=self$gap, flip = self$flip,
-         grouped = self$grouped, framewise = self$framewise)
+         grouped = grouped, framewise = self$framewise)
   },
   compute_panel = function(data, params, scales) {
     if(!params$strandwise && !params$framewise && is.na(params$gap)){
