@@ -21,12 +21,12 @@ read_fai(file, col_names = def_names("fai"), col_types = def_types("fai"), ...)
 \item{file}{fasta or .fai/.seqkit.fai fasta index}
 }
 \value{
-gggenomes-compatible seqs tibble
+A gggenomes-compatible sequence tibble
 }
 \description{
 Read ID, description and length for each sequence from common formats
 including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
-are \emph{seq_id}, \emph{seq_desc} and \emph{length}.
+are seq_id, seq_desc and length.
 }
 \section{Functions}{
 \itemize{

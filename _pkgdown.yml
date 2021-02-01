@@ -15,7 +15,8 @@ reference:
     - geom_gene
     - geom_feat
     - geom_link
-    - starts_with("geom_")
+    - ends_with(c("_text", "_tag", "_note"))
+    - starts_with("geom")
     - starts_with("position_")
     - starts_with("use_")
 - title: "Manipulate plot & data"

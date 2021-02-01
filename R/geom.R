@@ -18,16 +18,6 @@ geom_seq <- function(mapping = NULL, data = seqs(),
   geom_segment(mapping = mapping, data = data, arrow = arrow, ...)
 }
 
-#' Draw genes fast but not so pretty
-#'
-#' @param data feat_layout
-#' @export
-geom_gene_fast <- function(mapping = NULL, data = genes(),
-    arrow = TRUE, nudge_by_strand = NULL, size = 4, color = "cornflowerblue", ...){
-  geom_feat(mapping=mapping, data=data, arrow=arrow,
-               nudge_by_strand=nudge_by_strand, size=size, color = color, ...)
-}
-
 #' draw feat labels
 #'
 #' @export
