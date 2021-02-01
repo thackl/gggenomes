@@ -15,10 +15,10 @@ reference:
     - geom_gene
     - geom_feat
     - geom_link
-    - ends_with(c("_text", "_tag", "_note"))
+    - ends_with("_text|_tag|_note")
     - starts_with("geom")
     - starts_with("position_")
-    - starts_with("use_")
+    - starts_with("theme_")
 - title: "Manipulate plot & data"
 - contents:
     - pick
@@ -37,37 +37,21 @@ reference:
     - file_formats
     - def_names
     - def_types
+    - starts_with("write")
 - title: "Under the hood"
   desc: >
     Functions that power gggenomes under the hood. Useful for developers and power-users.
 - contents:
   - layout
-  - layout_feats
-  - layout_links
-  - require_vars
   - get_seqs
-  - starts_with("as_")
+  - starts_with("track")
+  - require_vars
+  - vars_track
   - swap_if
   - in_range
-  - anchor
   - width
-  - x
-  - track_ids
-  - track_types
-  - vars_track
-  - activate
-  - comma
-  - dim.gggenomes_layout
-  - ggplot.gggenomes_layout
-  - has_vars
   - introduce
-  - match_arg
-  - theme_gggenomes_clean
-  - track_nrows
-  - track_type
-  - vars_track_error
-  - write_gff3
-- title: "Handling files"
+- title: "Handle files"
 - contents:
   - ext_to_format
   - file_exts
@@ -78,8 +62,6 @@ reference:
 figures:
   fig.width: 10
   fig.height: 5
-  #  dev.args:
-  #  type: "cairo"
 template:
   params:
     bootswatch: cosmo

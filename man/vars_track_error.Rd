@@ -2,10 +2,11 @@
 % Please edit documentation in R/pull_tracks.R
 \name{vars_track_error}
 \alias{vars_track_error}
-\title{Error messages for `vars_track``}
+\title{Error messages for vars_track}
 \usage{
 vars_track_error(bad_value, track_ids, ignore_pos)
 }
 \description{
-Error messages for `vars_track``
+Error messages for vars_track
 }
+\keyword{internal}

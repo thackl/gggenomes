@@ -17,6 +17,7 @@
 #'
 #' as_seqs(chr)
 #' @export
+#' @keywords internal
 as_seqs <- function(x, ...){
     UseMethod("as_seqs")
 }
@@ -164,6 +165,8 @@ get_seqs.gggenomes <- function(x){
 get_seqs.gggenomes_layout <- function(x){
   x$seqs[["seqs"]]
 }
+
+#' @rdname get_seqs
 #' @export
 set_seqs <- function(x, value){
   UseMethod("set_seqs")

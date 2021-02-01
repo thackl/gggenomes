@@ -17,6 +17,7 @@
 #' @param x link data convertible to a link layout
 #' @inheritParams as_feats
 #' @export
+#' @keywords internal
 as_links <- function(x, seqs, ..., everything=TRUE){
     UseMethod("as_links")
 }
@@ -64,6 +65,7 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
 #'
 #' @inheritParams as_links
 #' @param ... not used
+#' @keywords internal
 layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
   marginal=c("trim", "drop", "keep"), ...){
   marginal <- match.arg(marginal)

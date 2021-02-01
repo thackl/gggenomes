@@ -14,3 +14,4 @@ comma(x, collapse = ",")
 \description{
 Collapse a string with commas
 }
+\keyword{internal}

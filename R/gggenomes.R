@@ -90,6 +90,7 @@ gggenomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL, ...,
 #' ggplot.default tries to `fortify(data)` and we don't want that here
 #'
 #' @export
+#' @keywords internal
 ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
                                environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
@@ -134,15 +135,15 @@ layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
       seqs <- mutate(seqs, bin_id = {{ infer_bin_id }})
   }else{
     if(is.null(feats) & is.null(links))
-      stop("Need at least one of: seqs, genes, feats or links")
+      abort("Need at least one of: seqs, genes, feats or links")
 
     # infer dummy seqs
     if(!is.null(feats)){
-      write("No seqs provided, inferring seqs from feats", stderr())
+      inform("No seqs provided, inferring seqs from feats")
       seqs <- infer_seqs_from_feats(feats[[1]], {{infer_bin_id}}, {{infer_start}},
                                      {{infer_end}}, {{infer_length}})
     }else if(!is.null(links)){
-      write("No seqs or feats provided, inferring seqs from links", stderr())
+      inform("No seqs or feats provided, inferring seqs from links")
       seqs <- infer_seqs_from_links(links[[1]],  {{infer_bin_id}}, {{infer_start}},
                                      {{infer_end}}, {{infer_length}})
     }
@@ -165,6 +166,7 @@ layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
 #' and error because dim(gggenome_layout) is undefined. Return dim of primary
 #' table instead
 #' @export
+#' @keywords internal
 dim.gggenomes_layout <- function(x) dim(get_seqs(x))
 
 #' @export

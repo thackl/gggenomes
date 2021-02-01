@@ -20,3 +20,4 @@ TRUE/FALSE
 Returns TRUE if all variables exists. If \code{any=TRUE} returns TRUE if at least
 one variable exists.
 }
+\keyword{internal}

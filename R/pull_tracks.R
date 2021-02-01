@@ -213,6 +213,7 @@ pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, 
 #'   giving the position from the left/right.
 #' @param track_type restrict to these types of tracks - affects position-based
 #'   selection
+#' @param ignore_pos names of tracks to ignore when selecting by position.
 #' @return The selected track_id as an unnamed string
 vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
     ignore_pos = NULL){
@@ -246,7 +247,8 @@ vars_track <- function(x, track_id, track_type = c("seqs", "feats", "links"),
     })
 }
 
-#' Error messages for `vars_track``
+#' Error messages for vars_track
+#' @keywords internal
 vars_track_error <- function(bad_value, track_ids, ignore_pos){
   if(is_function(bad_value)) bad_value <- "<function>"
   if(is.numeric(bad_value)) bad_value <- as.character(bad_value)

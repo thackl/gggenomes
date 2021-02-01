@@ -2,9 +2,12 @@
 % Please edit documentation in R/seqs.R
 \name{get_seqs}
 \alias{get_seqs}
+\alias{set_seqs}
 \title{Get/set the seqs track}
 \usage{
 get_seqs(x)
+
+set_seqs(x, value)
 }
 \arguments{
 \item{x}{a gggenomes or gggenomes_layout objekt}

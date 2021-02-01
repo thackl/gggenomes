@@ -29,9 +29,9 @@ require_vars <- function(x, vars, warn_only=FALSE){
 
   if(length(missing_vars) > 0)
     if(warn_only)
-      warning("Required column(s) missing: ", paste(missing_vars, collapse=","))
+      warn(c("Required column(s) missing: ", str_glue("{missing_vars}")))
     else
-      stop("Required column(s) missing: ", paste(missing_vars, collapse=","))
+      abort(c("Required column(s) missing: ", str_glue("{missing_vars}")))
   x
 }
 
@@ -45,6 +45,7 @@ require_vars <- function(x, vars, warn_only=FALSE){
 #' @param any if TRUE not all but at least one variable has to exists
 #' @return TRUE/FALSE
 #' @export
+#' @keywords internal
 has_vars <- function(x, vars, any=FALSE){
   if(any)
     any(vars %in% names(x))
@@ -56,6 +57,7 @@ has_vars <- function(x, vars, any=FALSE){
 #'
 #' equivalent to base::match.arg, but returns all choices on arg=NULL if
 #' several.ok=TRUE
+#' @keywords internal
 match_arg <- function (arg, choices, several.ok = FALSE){
   if (missing(choices)) {
     formal.args <- formals(sys.function(sysP <- sys.parent()))

@@ -26,3 +26,4 @@ them or "trim" them to the subregion boundaries.}
 \description{
 Augment feats with all data necessary for plotting
 }
+\keyword{internal}
