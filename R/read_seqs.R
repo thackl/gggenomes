@@ -2,12 +2,13 @@
 #'
 #' Read ID, description and length for each sequence from common formats
 #' including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
-#' are "seq_id", "seq_desc" and "length".
+#' are *seq_id*, *seq_desc* and *length*.
 #'
 #' @importFrom readr read_tsv
 #' @param file fasta or .fai/.seqkit.fai fasta index
 #' @export
 #' @return gggenomes-compatible seqs tibble
+#' @describeIn read_seqs read seqs from files with automatic format detection
 #' @examples
 #' # from a fasta file
 #' read_seqs(ex("emales/emales.fna"))
@@ -40,7 +41,7 @@ read_seqs <- function(files, format=NULL, .id="file_id", ...){
   seqs
 }
 
-#' @rdname read_seqs
+#' @describeIn read_seqs read seqs from a single file in fasta, gbk or gff3 format.
 #' @export
 read_seq_len <- function(file, col_names = def_names("seq_len"),
     col_types = def_types("seq_len"), ...){
@@ -52,7 +53,7 @@ read_seq_len <- function(file, col_names = def_names("seq_len"),
 
 }
 
-#' @rdname read_seqs
+#' @describeIn read_seqs read seqs from a single file in seqkit/samtools fai format.
 #' @export
 read_fai <- function(file, col_names=def_names("fai"),
     col_types=def_types("fai"), ...){

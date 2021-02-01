@@ -28,6 +28,7 @@ reference:
   desc: >
     Read common bioinformatics file types
 - contents:
+    - read_seqs
     - read_feats
     - starts_with("read_")
     - swap_query

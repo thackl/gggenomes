@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.R
 \name{swap_query}
 \alias{swap_query}
-\title{Swap query and subject}
+\title{Swap query and subject in blast-like feature tables}
 \usage{
 swap_query(x)
 }
