@@ -132,7 +132,9 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
     # unnest exons before coord$transform so all x/xend get transformed
     data <- mutate(data,
       id = row_number(),
-      introns = ifelse(type %in% params$intron_types, introns, list(NULL)))
+      introns = ifelse(type %in% params$intron_types, introns, list(NULL)),
+      introns = map(introns, ~.x - c(1, 0)) # convert 1[s,e] to 0[s,e) for drawing
+    )
 
     data <- unnest_exons(data)
   },
@@ -264,6 +266,8 @@ exon_spans <- function(x, xend, introns, ...){
 
   introns <- if(x<xend) x + introns else xend + rev(introns)
   exons <- c(x, introns, xend)
+  print(introns)
+  print(exons)
 
   as_tibble(vec_unzip(exons, c("x", "xend")))
 }

@@ -150,5 +150,6 @@ coords2introns <- function(starts, ends){
     return(NULL)
   i <- 2:n
   # introns: start, end, start2, end2, ...
-  c(rbind(ends[i-1], starts[i])) - starts[1]
+  # +2 corrects of 1[s,e] coord issues
+  c(rbind(ends[i-1]+2, starts[i])) - starts[1]
 }
