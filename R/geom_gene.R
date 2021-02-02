@@ -256,11 +256,6 @@ makeContent.genetree <- function(x){
   grid::setChildren(x, grobs)
 }
 
-unzip <- function(x, names=NULL){
-  i <- c(TRUE, FALSE)
-  set_names(list(x[i], x[!i]), names)
-}
-
 exon_spans <- function(x, xend, introns, ...){
   n <- length(introns)
   if(n<2){
@@ -270,7 +265,7 @@ exon_spans <- function(x, xend, introns, ...){
   introns <- if(x<xend) x + introns else xend + rev(introns)
   exons <- c(x, introns, xend)
 
-  as_tibble(unzip(exons, c("x", "xend")))
+  as_tibble(vec_unzip(exons, c("x", "xend")))
 }
 
 exon_polys <- function(x, xend, y, height, arrow_width, arrow_height){

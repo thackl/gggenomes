@@ -50,6 +50,18 @@ shared_names <- function(x, ...){
   names[names %in% names2(x)]
 }
 
+# split a vector of tuples c(a1,b2,a2,b2) into a list of two vectors
+# list(a=c(a1,a2), b=c(b1,b2))
+vec_unzip <- function(x, names=NULL, ignore_odd=FALSE){
+  if(!ignore_odd && length(x)%%2){
+    abort(str_glue("Won't unzip a vector of uneven length {(length(x))}\n",
+                   "Disable error with `ignore_odd=TRUE`"))
+  }
+
+  i <- c(TRUE, FALSE)
+  set_names(list(x[i], x[!i]), names)
+}
+
 #' @export
 #' @importFrom magrittr %>%
 magrittr::`%>%`
