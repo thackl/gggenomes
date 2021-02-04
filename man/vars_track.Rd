@@ -8,7 +8,7 @@ vars_track(
   x,
   track_id,
   track_type = c("seqs", "feats", "links"),
-  ignore_pos = NULL
+  ignore = NULL
 )
 }
 \arguments{
@@ -20,7 +20,7 @@ giving the position from the left/right.}
 \item{track_type}{restrict to these types of tracks - affects position-based
 selection}
 
-\item{ignore_pos}{names of tracks to ignore when selecting by position.}
+\item{ignore}{names of tracks to ignore when selecting by position.}
 }
 \value{
 The selected track_id as an unnamed string
