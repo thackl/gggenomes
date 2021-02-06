@@ -3,28 +3,25 @@
 # manipulated by other packages.
 gggenomes_global  <- new.env(parent = emptyenv())
 
-# list of contexts of dictionaryish vectors mapping suffixes to file formats
-gggenomes_global$file_formats <- map(list(
-  feats = list(
-    gff3 = qc(gff, gff3),
-    gbk = qc(gbk, gb, gbff),
-    bed = qc(bed),
-    fasta = qc(fa, fas, fasta, ffn, fna, faa),
-    blast = qc(m8, o6, o7),
-    paf = qc(paf),
-    ambigious = qc(txt, tsv, csv)
-  ),
-  seqs = list(
-    fai = qc(fai),
-    seq_len = qc(fa, fas, fasta, ffn, fna, faa, gff, gbk),
-    ambigious = qc(txt, tsv, csv)
-  ),
-  zips = list(
-    bz2 = qc(bz, bz2),
-    gz = qc(gz),
-    xz = qc(xz),
-    zip = qc(zip))
-), ~deframe(stack(.x) %>% mutate(ind=as.character(ind))))
+# Mapping of file formats, extensions, contexts, and parsers
+#
+# parser is a function name, like "read_tsv", ...
+#
+# context=NA defines fallback parser that is used if no parser is defined for
+# the specific context
+gggenomes_global$def_formats <- tribble(
+  ~format, ~ext, ~context, ~parser,
+  "ambigious", qc(txt,tsv,csv), NA, "read_ambigious",
+  "fasta", qc(fa,fas,fasta,ffn,fna,faa), qc(seqs), qc(read_seq_len),
+  "fai", qc(fai), qc(seqs), qc(read_fai),
+  "gff3", qc(gff,gff3), qc(feats, seqs), qc(read_gff3, read_seq_len),
+  "gbk", qc(gbk,gb,gbff,gpff), qc(feats, seqs), qc(read_gbk, read_seq_len),
+  "bed", qc(bed), "feats", "read_bed",
+  "blast", qc(m8,o6,o7), "feats", "read_blast",
+  "paf", qc(paf), "feats", "read_paf",
+  "alitv", qc(json), qc(feats, seqs, links),
+     qc(read_alitv_genes, read_alitv_seqs, read_alitv_links)
+)
 
 # Default column names for different formats
 gggenomes_global$def_names <- list(

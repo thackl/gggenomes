@@ -34,7 +34,7 @@ reference:
     - starts_with("read_")
     - swap_query
     - ex
-    - file_formats
+    - def_formats
     - def_names
     - def_types
     - starts_with("write")
@@ -51,10 +51,6 @@ reference:
   - in_range
   - width
   - introduce
-- title: "Handle files"
-- contents:
-  - ext_to_format
-  - file_exts
   - file_label
 - title: "Data sets"
 - contents:
