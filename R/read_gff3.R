@@ -22,16 +22,21 @@
 #' @return tibble
 read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
     col_names = def_names("gff3"), col_types = def_types("gff3")){
-  x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".", comment="#")
+
+  x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".",
+                comment = "#")
 
   # ignore FASTA block - dirty fix because all seqs are read into x first and
-  # also create parsing warnings
-  i <- which(x[[1]] == "##FASTA")
-  if(length(i) > 0)
-    x <- slice_head(i-1)
+  # create parsing warnings
+  i <- str_which(x[[1]], "^>")[1]
+  if(!is.na(i)){
+    x <- slice_head(x, n=i-1)
+    warn(str_glue("Note: File contains ##FASTA section starting at line {i}.\n",
+        "You can ignore any parsing failures starting from that row."))
+  }
 
   reserved_names <- c(col_names[1:8], c("name", "feat_id", "parent_ids", "introns"))
-  x_attrs <- tidy_attributes(x[["attributes"]], reserved_names)
+  x_attrs <- tidy_attributes(x[[9]], reserved_names)
 
   x <- bind_cols(x[,1:8], x_attrs)
 
@@ -108,7 +113,12 @@ infer_cds_parent <- function(x){
 
 tidy_attributes <- function(x, reserved_names){
   d <- map_df(str_split(x, ";"), function(r){
-    r <- r[r!=""] # ignore empty elements
+    # handle missing comments
+    if(!length(r) || is.na(r))
+      return(tibble())
+
+    # ignore empty elements caused by trailing or duplicated ";"
+    r <- r[r!=""]
     z <- str_split(r, "=")
     z <- as_tibble(set_names(map(z,2), map(z,1)))
     return(z)
@@ -140,5 +150,6 @@ coords2introns <- function(starts, ends){
     return(NULL)
   i <- 2:n
   # introns: start, end, start2, end2, ...
-  c(rbind(ends[i-1], starts[i])) - starts[1]
+  # +2 corrects of 1[s,e] coord issues
+  c(rbind(ends[i-1]+2, starts[i])) - starts[1]
 }

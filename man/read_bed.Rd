@@ -23,9 +23,8 @@ vector of greater than length 1.
 Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
 
 \item{col_names}{column names to use. Defaults to \link{def_names("bed")}
-compatible with blast tabular output (\verb{--outfmt 6/7} in blast++ and \code{-m8}
-in blast-legacy). \link{def_names("bed")} can easily be combined with extra
-columns: \code{col_names = c(def_names("bed"), "more", "things")}.}
+compatible with canonical bed files. \link{def_names("bed")} can easily be
+combined with extra columns: \code{col_names = c(def_names("bed"), "more", "things")}.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[readr:cols]{cols()}} specification, or
 a string. See \code{vignette("readr")} for more details.
@@ -62,5 +61,7 @@ use \code{col_types = cols()}.
 
 }
 \description{
-Read a BED file
+BED files use 0-based coordinate starts, while gggenomes uses 1-based start
+coordinates. BED file coordinates are therefore transformed into 1-based
+coordinates during import.
 }

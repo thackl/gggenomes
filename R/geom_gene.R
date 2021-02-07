@@ -45,27 +45,56 @@
 #'
 #' @export
 #' @examples
+#' gggenomes(genes=emale_genes) +
+#'  geom_gene()
+#'
+#' gggenomes(genes=emale_genes) +
+#'  geom_gene(aes(fill=as.numeric(gc_content)),position="strand") +
+#'  scale_fill_viridis_b()
+#'
+#' types <- c(NA, "CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA", "intron",
+#'  "misc_RNA", "mobile_element", "operon", "...")
+#' g0 <- tibble(seq_id="A", start=seq_along(types)*10,
+#'  end=seq_along(types)*10+7, type=types, introns=list(c(3,5)))
+#'
+#' gggenomes(genes=g0) +
+#'   # all features in the "genes" regardless of type
+#'   geom_feat(data=feats(genes)) +
+#'   geom_text(aes(label="geom_feat", x=-15, y=.9)) + xlim(-20, NA) +
+#'   # only features in the "genes" of geneish type (implicit `data=genes()`)
+#'   geom_gene() +
+#'   geom_gene_tag(aes(label=ifelse(is.na(type), "<NA>", type)), data=genes(.gene_types = NULL)) +
+#'   geom_text(aes(label="geom_gene", x=-15, y=1)) +
+#'   # control which types are returned from the track
+#'   geom_gene(aes(y=1.1), data=genes(.gene_types = c("CDS", "misc_RNA"))) +
+#'   geom_text(aes(label="gene_types", x=-15, y=1.1)) +
+#'   # control which types can have introns
+#'   geom_gene(aes(y=1.2, yend=1.2), data=genes(.gene_types = c("CDS", "misc_RNA")),  intron_types = "misc_RNA") +
+#'   geom_text(aes(label="intron_types", x=-15, y=1.2))
+#'
+#' # spliced genes
+#' library(patchwork)
 #' g0 <- read_gff3(ex("eden-utr.gff"))
 #' gg <- gggenomes(genes=g0)
-#' gg + geom_gene(position="pile")
+#' gg + geom_gene(position="pile") +
 #' gg + geom_gene(aes(fill=type), position="pile",
-#'          shape = 0, intron_shape = 0, color="white")
+#'          shape = 0, intron_shape = 0, color="white") +
 #' # some fine-control on cds/rna/intron after_scale aesthetics
 #' gg + geom_gene(aes(fill=geom_id), position="pile",
 #'          size = 2, shape = c(4,3), rna_size = 2, intron_shape = 4, stroke=0,
 #'          cds_aes=aes(fill="black"), rna_aes=aes(fill=fill),
 #'          intron_aes=aes(colour=fill, stroke=2)) +
-#'      scale_fill_viridis_d()
+#'      scale_fill_viridis_d() +
 #' # fun with introns
-#' gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4))
+#' gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4)) +
 #' gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4),
-#'          intron_types=c())
+#'          intron_types=c()) +
 #' gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4),
 #'          intron_types="CDS")
 geom_gene <- function(mapping = NULL, data = genes(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     size = 2, rna_size = size, shape = size, rna_shape = shape, intron_shape = size,
-    intron_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA"),
+    intron_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA"),
     cds_aes = NULL, rna_aes = NULL, intron_aes = NULL, ...){
 
   sizes <- c(size_expand(size, shape), size_expand(rna_size, rna_shape), intron=intron_shape)
@@ -132,7 +161,9 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
     # unnest exons before coord$transform so all x/xend get transformed
     data <- mutate(data,
       id = row_number(),
-      introns = ifelse(type %in% params$intron_types, introns, list(NULL)))
+      introns = ifelse(type %in% params$intron_types, introns, list(NULL)),
+      introns = map(introns, ~.x - c(1, 0)) # convert 1[s,e] to 0[s,e) for drawing
+    )
 
     data <- unnest_exons(data)
   },
@@ -256,11 +287,6 @@ makeContent.genetree <- function(x){
   grid::setChildren(x, grobs)
 }
 
-unzip <- function(x, names=NULL){
-  i <- c(TRUE, FALSE)
-  set_names(list(x[i], x[!i]), names)
-}
-
 exon_spans <- function(x, xend, introns, ...){
   n <- length(introns)
   if(n<2){
@@ -270,7 +296,7 @@ exon_spans <- function(x, xend, introns, ...){
   introns <- if(x<xend) x + introns else xend + rev(introns)
   exons <- c(x, introns, xend)
 
-  as_tibble(unzip(exons, c("x", "xend")))
+  as_tibble(vec_unzip(exons, c("x", "xend")))
 }
 
 exon_polys <- function(x, xend, y, height, arrow_width, arrow_height){

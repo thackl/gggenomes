@@ -1,19 +1,25 @@
 #' Read a BED file
 #'
+#' BED files use 0-based coordinate starts, while gggenomes uses 1-based start
+#' coordinates. BED file coordinates are therefore transformed into 1-based
+#' coordinates during import.
+#'
 #' @inheritParams readr::read_tsv
 #' @param col_names column names to use. Defaults to [def_names("bed")]
-#'   compatible with blast tabular output (`--outfmt 6/7` in blast++ and `-m8`
-#'   in blast-legacy). [def_names("bed")] can easily be combined with extra
-#'   columns: `col_names = c(def_names("bed"), "more", "things")`.
+#'   compatible with canonical bed files. [def_names("bed")] can easily be
+#'   combined with extra columns: `col_names = c(def_names("bed"), "more",
+#'   "things")`.
 #'
 #' @return
 #' @export
 read_bed <- function (file, col_names = def_names("bed"),
     col_types = def_types("bed"), ...){
 
-    x <- read_tsv(file, comment = "#", col_names = FALSE, col_types = col_types, ...)
-  # handle bed files with only some of the default columns (valid)
-  i <- seq_len(min(ncol(x), length(col_names)))
-  names(x)[i] <- col_names[i]
+  x <- read_tsv(file, comment = "#", col_names = col_names, col_types = col_types, ...)
+
+  # bed is 0-based
+  inform("BED files use 0-based coordinate starts - transforming to 1-based")
+  x[[2]] <- x[[2]] + 1;
+
   x
 }

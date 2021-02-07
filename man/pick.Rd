@@ -3,7 +3,7 @@
 \name{pick}
 \alias{pick}
 \alias{pick_seqs}
-\alias{pick_surgical}
+\alias{pick_seqs_within}
 \alias{pick_by_tree}
 \title{Pick bins and seqs by name or position}
 \usage{
@@ -11,7 +11,7 @@ pick(x, ...)
 
 pick_seqs(x, ..., .bins = everything())
 
-pick_surgical(x, ..., .bins = everything())
+pick_seqs_within(x, ..., .bins = everything())
 
 pick_by_tree(x, tree, infer_bin_id = label)
 }
@@ -45,7 +45,7 @@ or select-helper.
 \item \code{pick_seqs}: pick individual seqs seq_id, positional argument (start at
 top left) or select-helper.
 
-\item \code{pick_surgical}: pick individual seqs but only modify bins containing those
+\item \code{pick_seqs_within}: pick individual seqs but only modify bins containing those
 seqs, keep rest as is.
 
 \item \code{pick_by_tree}: align bins with the leaves in a given phylogenetic tree.
@@ -78,10 +78,10 @@ p \%>\% pick_seqs(1, c3)
 p \%>\% pick_seqs(3:1, .bins=C)
 
 # change seqs in some bins, but keep rest as is
-p \%>\% pick_surgical(3:1, .bins=B)
+p \%>\% pick_seqs_within(3:1, .bins=B)
 
 # same w/o scope, unaffected bins remain as is
-p \%>\% pick_surgical(b3, b2, b1)
+p \%>\% pick_seqs_within(b3, b2, b1)
 
 # Align sequences with and plot next to a phylogenetic tree
 library(patchwork)  # arrange multiple plots

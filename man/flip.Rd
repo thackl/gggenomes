@@ -3,14 +3,14 @@
 \name{flip}
 \alias{flip}
 \alias{flip_seqs}
-\alias{flip_nicely}
+\alias{flip_by_links}
 \title{Flip bins and sequences}
 \usage{
 flip(x, ..., .bin_track = seqs)
 
 flip_seqs(x, ..., .bins = everything(), .seq_track = seqs, .bin_track = seqs)
 
-flip_nicely(x, link_track = 1, min_coverage = 0.2)
+flip_by_links(x, link_track = 1, min_coverage = 0.2)
 }
 \arguments{
 \item{x}{a gggenomes object}
@@ -34,28 +34,38 @@ links supporting a flip to actually carry it out.}
 }
 \description{
 \code{flip} and \code{flip_seqs} reverse-complement specified bins or individual
-sequences and their features. \code{flip_nicely} automatically flips bins using a
+sequences and their features. \code{flip_by_links} automatically flips bins using a
 heuristic that maximizes the amount of forward strand links between
 neighboring bins.
 }
 \examples{
-p <- gggenomes(emale_seqs[1:7,], links=emale_ava) +
-  geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
-  scale_color_manual(values=c("+"="blue", "-"="red"))
-# some bins would align nicer if reverse-complemented
-p
+library(patchwork)
+p <- gggenomes(genes=emale_genes) +
+  geom_seq(aes(color=strand), arrow=TRUE) +
+  geom_link(aes(fill=strand)) +
+  expand_limits(color=c("-")) +
+  labs(caption="not flipped")
 
-# flip bins 3, 4 and 5
-p \%>\% flip(3:5)
+# nothing flipped
+p0 <- p \%>\% add_links(emale_ava)
 
-# flip automatically based on links
-p \%>\% flip_nicely()
+# flip manually
+p1 <- p \%>\% add_links(emale_ava) \%>\%
+  flip(4:6) + labs(caption="manually")
 
-# also works with links from clusters
-p <- gggenomes(emale_seqs, emale_genes) +
-  geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
-  scale_color_manual(values=c("+"="blue", "-"="red"))
-p \%>\%
-  add_clusters(emale_cogs) \%>\%
-  flip_nicely(emale_cogs)
+# flip automatically based on genome-genome links
+p2 <- p \%>\% add_links(emale_ava) \%>\%
+  flip_by_links() + labs(caption="genome alignments")
+
+# flip automatically based on protein-protein links
+p3 <- p \%>\% add_sublinks(emale_prot_ava) \%>\%
+  flip_by_links() + labs(caption="protein alignments")
+
+# flip automatically based on genes linked implicitly by belonging
+# to the same clusters of orthologs (or any grouping of your choice)
+p4 <- p \%>\% add_clusters(emale_cogs) \%>\%
+  flip_by_links() + labs(caption="shared orthologs")
+
+p0 + p1 + p2 + p3 + p4 + plot_layout(nrow=1, guides="collect")
+
 }

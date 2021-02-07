@@ -14,25 +14,29 @@
 \alias{pull_bins}
 \alias{pull_bins.gggenomes_layout}
 \alias{pull_track}
-\title{Use a certain track, possibly filtered}
+\title{Tracks in- and outside \verb{geom_*} calls}
 \usage{
-feats(.track_id = 1, ..., .ignore_pos = "genes", .geneify = FALSE)
+feats(.track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 
-genes(..., .feat_type = c("CDS", "mRNA", "tRNA"))
+genes(..., .gene_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA"))
 
-links(.track_id = 1, ..., .ignore_pos = NULL, .adjacent_only = TRUE)
+links(.track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
 
 seqs(...)
 
 bins(..., .group = vars())
 
-track(.track_id = 1, ..., .track_type = NULL, .ignore_pos = NULL)
+track(.track_id = 1, ..., .track_type = NULL, .ignore = NULL)
 
-pull_feats(.x, .track_id = 1, ..., .ignore_pos = "genes", .geneify = FALSE)
+pull_feats(.x, .track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 
-pull_genes(.x, ..., .feat_type = c("CDS", "mRNA", "tRNA"))
+pull_genes(
+  .x,
+  ...,
+  .gene_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA")
+)
 
-pull_links(.x, .track_id = 1, ..., .ignore_pos = NULL, .adjacent_only = TRUE)
+pull_links(.x, .track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
 
 pull_seqs(.x, ...)
 
@@ -40,7 +44,7 @@ pull_bins(.x, ..., .group = vars())
 
 \method{pull_bins}{gggenomes_layout}(.x, ..., .group = vars())
 
-pull_track(.x, .track_id = 1, ..., .track_type = NULL, .ignore_pos = NULL)
+pull_track(.x, .track_id = 1, ..., .track_type = NULL, .ignore = NULL)
 }
 \arguments{
 \item{.track_id}{The track to pull out, either as a literal variable name or
@@ -49,14 +53,12 @@ as a positive/negative integer giving the position from the left/right.}
 \item{...}{Logical predicates passed on to \link[dplyr:filter]{dplyr::filter}. "seqs", "feats",
 "links". Affects position-based selection.}
 
-\item{.ignore_pos}{a regular string vector with track_ids to ignore when
-using integer positions.}
+\item{.ignore}{track names to ignore when selecting by position.}
 
 \item{.geneify}{add dummy type, introns and geom_id column to play nicely
-with geoms supporting multi-level and multi-span gene models.}
+with geoms supporting multi-level and spliced gene models.}
 
-\item{.feat_type}{filter for feats tagged as coding sequence in the type
-column (\code{type \%in\% .feat_type})}
+\item{.gene_types}{return only feats of this type (\code{type \%in\% .gene_types})}
 
 \item{.adjacent_only}{filter for links connecting direct neighbors
 (\verb{abs(y-yend)==1)})}
@@ -105,7 +107,7 @@ gg \%>\% track_info()            # info about track ids, positions and types
 gg \%>\% pull_feats()            # easiest
 gg \%>\% pull_feats(feats)       # by id
 gg \%>\% pull_feats(1)           # by position
-gg \%>\% pull_feats(2, .ignore_pos=NULL)  # default .ignore_pos="genes"
+gg \%>\% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
 
 # get "seqs" track (always track #1)
 gg \%>\% pull_seqs()
