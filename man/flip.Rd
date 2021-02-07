@@ -61,8 +61,8 @@ p2 <- p \%>\% add_links(emale_ava) \%>\%
 p3 <- p \%>\% add_sublinks(emale_prot_ava) \%>\%
   flip_by_links() + labs(caption="protein alignments")
 
-# flip automatically based on genes linked implicitly by belonging to the same
-# clusters of orthologs (or any grouping of your choice)
+# flip automatically based on genes linked implicitly by belonging
+# to the same clusters of orthologs (or any grouping of your choice)
 p4 <- p \%>\% add_clusters(emale_cogs) \%>\%
   flip_by_links() + labs(caption="shared orthologs")
 

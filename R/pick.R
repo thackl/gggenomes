@@ -37,10 +37,10 @@
 #' p %>% pick_seqs(3:1, .bins=C)
 #'
 #' # change seqs in some bins, but keep rest as is
-#' p %>% pick_surgical(3:1, .bins=B)
+#' p %>% pick_seqs_within(3:1, .bins=B)
 #'
 #' # same w/o scope, unaffected bins remain as is
-#' p %>% pick_surgical(b3, b2, b1)
+#' p %>% pick_seqs_within(b3, b2, b1)
 #'
 #' # Align sequences with and plot next to a phylogenetic tree
 #' library(patchwork)  # arrange multiple plots
@@ -99,7 +99,7 @@ pick <- function(x, ...){
 #' @export
 pick_seqs <- function(x, ..., .bins=everything()){
   if(!has_dots()) return(x)
-  pick_impl(x, ..., .bins = {{ .bins }}, .surgical=FALSE)
+  pick_impl(x, ..., .bins = {{ .bins }}, .seqs_within=FALSE)
 }
 
 #' @describeIn pick pick individual seqs but only modify bins containing those
@@ -107,9 +107,9 @@ pick_seqs <- function(x, ..., .bins=everything()){
 #' @param .bins scope for positional arguments, select-like expression, enclose
 #'   multiple arguments with `c()`!
 #' @export
-pick_surgical <- function(x, ..., .bins=everything()){
+pick_seqs_within <- function(x, ..., .bins=everything()){
   if(!has_dots()) return(x)
-  pick_impl(x, ..., .bins = {{ .bins }}, .surgical=TRUE)
+  pick_impl(x, ..., .bins = {{ .bins }}, .seqs_within=TRUE)
 }
 
 #' @describeIn pick align bins with the leaves in a given phylogenetic tree.
@@ -153,7 +153,7 @@ pick_by_tree <- function(x, tree, infer_bin_id = label){
   pick(x, all_of(tree_ids))
 }
 
-pick_impl <- function(x, ..., .bins=everything(), .surgical=FALSE){
+pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
   l <- s %>% thacklr::split_by(bin_id)
@@ -166,7 +166,7 @@ pick_impl <- function(x, ..., .bins=everything(), .surgical=FALSE){
     seq_ids <- s$seq_id %>% set_names(.)
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j,]
-    if(isTRUE(.surgical)){ # splice modified bins into rest
+    if(isTRUE(.seqs_within)){ # splice modified bins into rest
       m <- s %>% thacklr::split_by(bin_id)
       l[names(m)] <- m
       s <- bind_rows(l)
