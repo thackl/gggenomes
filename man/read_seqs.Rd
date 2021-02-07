@@ -6,7 +6,7 @@
 \alias{read_fai}
 \title{Read a sequence index}
 \usage{
-read_seqs(files, format = NULL, .id = "file_id", ...)
+read_seqs(files, format = NULL, .id = "file_id", parse_desc = TRUE, ...)
 
 read_seq_len(
   file,
@@ -18,6 +18,9 @@ read_seq_len(
 read_fai(file, col_names = def_names("fai"), col_types = def_types("fai"), ...)
 }
 \arguments{
+\item{parse_desc}{remove \verb{key=some value} pairs from \code{seq_desc} and turn them
+into \code{key}-named columns.}
+
 \item{file}{fasta or .fai/.seqkit.fai fasta index}
 }
 \value{
@@ -38,10 +41,17 @@ are seq_id, seq_desc and length.
 }}
 
 \examples{
-# from a fasta file
+# read sequences from a fasta file.
+read_seqs(ex("emales/emales.fna"), parse_desc=FALSE)
+
+# read sequences from a fasta file with `parse_desc=TRUE` (default). `key=value`
+# pairs are removed from `seq_desc` and parsed into columns with `key` as name
 read_seqs(ex("emales/emales.fna"))
+
 # from samtools/seqkit style index
 read_seqs(ex("emales/emales.fna.seqkit.fai"))
+
 # from multiple gff file
 read_seqs(c(ex("emales/emales.gff"), ex("emales/emales-tirs.gff")))
+
 }
