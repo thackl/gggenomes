@@ -85,7 +85,7 @@ tidyselect::starts_with() are supported. Renaming is not supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@ arguments and <a href='https://tidyselect.r-lib.org/reference/language.html'>sel
 
 <span class='fu'>pick_seqs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pick_surgical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tree</span>, infer_bin_id <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span></pre>
 
@@ -189,7 +189,7 @@ the <code>.bins</code> argument to set the scope for positional arguments. For e
 or select-helper.</p></li>
 <li><p><code>pick_seqs</code>: pick individual seqs seq_id, positional argument (start at
 top left) or select-helper.</p></li>
-<li><p><code>pick_surgical</code>: pick individual seqs but only modify bins containing those
+<li><p><code>pick_seqs_within</code>: pick individual seqs but only modify bins containing those
 seqs, keep rest as is.</p></li>
 <li><p><code>pick_by_tree</code>: align bins with the leaves in a given phylogenetic tree.</p></li>
 </ul>
@@ -221,10 +221,10 @@ length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/bas
 <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>C</span><span class='op'>)</span>
 </div><div class='img'><img src='pick-6.png' alt='' width='960' height='480' /></div><div class='input'>
 <span class='co'># change seqs in some bins, but keep rest as is</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_surgical</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>B</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>B</span><span class='op'>)</span>
 </div><div class='img'><img src='pick-7.png' alt='' width='960' height='480' /></div><div class='input'>
 <span class='co'># same w/o scope, unaffected bins remain as is</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_surgical</span><span class='op'>(</span><span class='va'>b3</span>, <span class='va'>b2</span>, <span class='va'>b1</span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='va'>b3</span>, <span class='va'>b2</span>, <span class='va'>b1</span><span class='op'>)</span>
 </div><div class='img'><img src='pick-8.png' alt='' width='960' height='480' /></div><div class='input'>
 <span class='co'># Align sequences with and plot next to a phylogenetic tree</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>  <span class='co'># arrange multiple plots</span>

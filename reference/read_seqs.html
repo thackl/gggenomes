@@ -84,7 +84,7 @@ are seq_id, seq_desc and length." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@ including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
 are seq_id, seq_desc and length.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_seqs</span><span class='op'>(</span><span class='va'>files</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, .id <span class='op'>=</span> <span class='st'>"file_id"</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>read_seqs</span><span class='op'>(</span><span class='va'>files</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, .id <span class='op'>=</span> <span class='st'>"file_id"</span>, parse_desc <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>read_seq_len</span><span class='op'>(</span>
   <span class='va'>file</span>,
@@ -157,6 +157,11 @@ are seq_id, seq_desc and length.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>parse_desc</th>
+      <td><p>remove <code>key=some value</code> pairs from <code>seq_desc</code> and turn them
+into <code>key</code>-named columns.</p></td>
+    </tr>
     <tr>
       <th>file</th>
       <td><p>fasta or .fai/.seqkit.fai fasta index</p></td>
@@ -176,8 +181,8 @@ are seq_id, seq_desc and length.</p>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># from a fasta file</span>
-<span class='fu'>read_seqs</span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales.fna"</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># read sequences from a fasta file.</span>
+<span class='fu'>read_seqs</span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales.fna"</span><span class='op'>)</span>, parse_desc<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Reading as seq_len:</span></div><div class='output co'>#&gt; <span class='message'>* emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 4</span><span>
 #&gt;   file_id seq_id      seq_desc                                            length
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                                </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
@@ -186,17 +191,31 @@ are seq_id, seq_desc and length.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> emales  Cflag_017B  emale_type=EMALE01 is_typespecies=TRUE has_tir=TRUE  </span><span style='text-decoration: underline;'>21</span><span>311
 #&gt; </span><span style='color: #555555;'>4</span><span> emales  E4-10_086   emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  </span><span style='text-decoration: underline;'>20</span><span>642
 #&gt; </span><span style='color: #555555;'>5</span><span> emales  E4-10_112   emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  </span><span style='text-decoration: underline;'>26</span><span>856
-#&gt; </span><span style='color: #555555;'>6</span><span> emales  RCC970_016B emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  </span><span style='text-decoration: underline;'>20</span><span>152</div><div class='input'><span class='co'># from samtools/seqkit style index</span>
+#&gt; </span><span style='color: #555555;'>6</span><span> emales  RCC970_016B emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  </span><span style='text-decoration: underline;'>20</span><span>152</div><div class='input'>
+<span class='co'># read sequences from a fasta file with `parse_desc=TRUE` (default). `key=value`</span>
+<span class='co'># pairs are removed from `seq_desc` and parsed into columns with `key` as name</span>
+<span class='fu'>read_seqs</span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales.fna"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Reading as seq_len:</span></div><div class='output co'>#&gt; <span class='message'>* emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 7</span><span>
+#&gt;   file_id seq_id      seq_desc length emale_type is_typespecies has_tir
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>1</span><span> emales  BVI_008A    </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>820 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>2</span><span> emales  BVI_069     </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>808 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>3</span><span> emales  Cflag_017B  </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>21</span><span>311 EMALE01    TRUE           TRUE   
+#&gt; </span><span style='color: #555555;'>4</span><span> emales  E4-10_086   </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>642 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>5</span><span> emales  E4-10_112   </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>856 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>6</span><span> emales  RCC970_016B </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>152 EMALE01    FALSE          TRUE   </div><div class='input'>
+<span class='co'># from samtools/seqkit style index</span>
 <span class='fu'>read_seqs</span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales.fna.seqkit.fai"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Reading as fai:</span></div><div class='output co'>#&gt; <span class='message'>* emales.fna.seqkit [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna.seqkit.fai]</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 4</span><span>
-#&gt;   file_id          seq_id     seq_desc                                    length
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                        </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> emales.fna.seqk… BVI_008A   emale_type=EMALE01 is_typespecies=FALSE ha…  </span><span style='text-decoration: underline;'>26</span><span>820
-#&gt; </span><span style='color: #555555;'>2</span><span> emales.fna.seqk… BVI_069    emale_type=EMALE01 is_typespecies=FALSE ha…  </span><span style='text-decoration: underline;'>26</span><span>808
-#&gt; </span><span style='color: #555555;'>3</span><span> emales.fna.seqk… Cflag_017B emale_type=EMALE01 is_typespecies=TRUE has…  </span><span style='text-decoration: underline;'>21</span><span>311
-#&gt; </span><span style='color: #555555;'>4</span><span> emales.fna.seqk… E4-10_086  emale_type=EMALE01 is_typespecies=FALSE ha…  </span><span style='text-decoration: underline;'>20</span><span>642
-#&gt; </span><span style='color: #555555;'>5</span><span> emales.fna.seqk… E4-10_112  emale_type=EMALE01 is_typespecies=FALSE ha…  </span><span style='text-decoration: underline;'>26</span><span>856
-#&gt; </span><span style='color: #555555;'>6</span><span> emales.fna.seqk… RCC970_01… emale_type=EMALE01 is_typespecies=FALSE ha…  </span><span style='text-decoration: underline;'>20</span><span>152</div><div class='input'><span class='co'># from multiple gff file</span>
+</div><div class='output co'>#&gt; <span class='message'>Reading as fai:</span></div><div class='output co'>#&gt; <span class='message'>* emales.fna.seqkit [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna.seqkit.fai]</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 7</span><span>
+#&gt;   file_id           seq_id     seq_desc length emale_type is_typespecies has_tir
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>1</span><span> emales.fna.seqkit BVI_008A   </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>820 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>2</span><span> emales.fna.seqkit BVI_069    </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>808 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>3</span><span> emales.fna.seqkit Cflag_017B </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>21</span><span>311 EMALE01    TRUE           TRUE   
+#&gt; </span><span style='color: #555555;'>4</span><span> emales.fna.seqkit E4-10_086  </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>642 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>5</span><span> emales.fna.seqkit E4-10_112  </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>856 EMALE01    FALSE          TRUE   
+#&gt; </span><span style='color: #555555;'>6</span><span> emales.fna.seqkit RCC970_01… </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>152 EMALE01    FALSE          TRUE   </div><div class='input'>
+<span class='co'># from multiple gff file</span>
 <span class='fu'>read_seqs</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales.gff"</span><span class='op'>)</span>, <span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales-tirs.gff"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Reading as seq_len:</span></div><div class='output co'>#&gt; <span class='message'>* emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span></div><div class='output co'>#&gt; <span class='message'>* emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 4</span><span>
 #&gt;    file_id     seq_id      seq_desc length
@@ -212,7 +231,8 @@ are seq_id, seq_desc and length.</p>
 #&gt; </span><span style='color: #555555;'> 9</span><span> emales-tirs Cflag_017B  </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>21</span><span>311
 #&gt; </span><span style='color: #555555;'>10</span><span> emales-tirs E4-10_086   </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>642
 #&gt; </span><span style='color: #555555;'>11</span><span> emales-tirs E4-10_112   </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>26</span><span>856
-#&gt; </span><span style='color: #555555;'>12</span><span> emales-tirs RCC970_016B </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>152</div></span></pre>
+#&gt; </span><span style='color: #555555;'>12</span><span> emales-tirs RCC970_016B </span><span style='color: #BB0000;'>NA</span><span>        </span><span style='text-decoration: underline;'>20</span><span>152</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -50,7 +50,7 @@
 
 <meta property="og:title" content="Flip bins and sequences — flip" />
 <meta property="og:description" content="flip and flip_seqs reverse-complement specified bins or individual
-sequences and their features. flip_nicely automatically flips bins using a
+sequences and their features. flip_by_links automatically flips bins using a
 heuristic that maximizes the amount of forward strand links between
 neighboring bins." />
 <meta property="og:image" content="/logo.svg" />
@@ -85,7 +85,7 @@ neighboring bins." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@ neighboring bins." />
 
     <div class="ref-description">
     <p><code>flip</code> and <code>flip_seqs</code> reverse-complement specified bins or individual
-sequences and their features. <code>flip_nicely</code> automatically flips bins using a
+sequences and their features. <code>flip_by_links</code> automatically flips bins using a
 heuristic that maximizes the amount of forward strand links between
 neighboring bins.</p>
     </div>
@@ -149,7 +149,7 @@ neighboring bins.</p>
 
 <span class='fu'>flip_seqs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span>, .seq_track <span class='op'>=</span> <span class='va'>seqs</span>, .bin_track <span class='op'>=</span> <span class='va'>seqs</span><span class='op'>)</span>
 
-<span class='fu'>flip_nicely</span><span class='op'>(</span><span class='va'>x</span>, link_track <span class='op'>=</span> <span class='fl'>1</span>, min_coverage <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></pre>
+<span class='fu'>flip_by_links</span><span class='op'>(</span><span class='va'>x</span>, link_track <span class='op'>=</span> <span class='fl'>1</span>, min_coverage <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,29 +189,36 @@ links supporting a flip to actually carry it out.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_seqs</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>7</span>,<span class='op'>]</span>, links<span class='op'>=</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>strand</span><span class='op'>)</span>, arrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_color_manual</span><span class='op'>(</span>values<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"+"</span><span class='op'>=</span><span class='st'>"blue"</span>, <span class='st'>"-"</span><span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The `i` argument of ``[.tbl_df`()` must lie in [0, rows] if positive, as of tibble 3.0.0.</span>
-#&gt; <span class='warning'>Use `NA_integer_` as row index to obtain a row full of `NA` values.</span>
-#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'><span class='co'># some bins would align nicer if reverse-complemented</span>
-<span class='va'>p</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_segment).</span></div><div class='img'><img src='flip-1.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># flip bins 3, 4 and 5</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>flip</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='img'><img src='flip-2.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># flip automatically based on links</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>flip_nicely</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Flipping: 3,4,5</span></div><div class='img'><img src='flip-3.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># also works with links from clusters</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_seqs</span>, <span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>strand</span><span class='op'>)</span>, arrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_color_manual</span><span class='op'>(</span>values<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"+"</span><span class='op'>=</span><span class='st'>"blue"</span>, <span class='st'>"-"</span><span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='add_clusters.html'>add_clusters</a></span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>flip_nicely</span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Joining, by = "feat_id"</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 3,4,5</span></div><div class='img'><img src='flip-4.png' alt='' width='960' height='480' /></div></span></pre>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>strand</span><span class='op'>)</span>, arrow<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>strand</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>expand_limits</span><span class='op'>(</span>color<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"-"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"not flipped"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='input'>
+<span class='co'># nothing flipped</span>
+<span class='va'>p0</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_links.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span>
+
+<span class='co'># flip manually</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_links.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>flip</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"manually"</span><span class='op'>)</span>
+
+<span class='co'># flip automatically based on genome-genome links</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_links.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>flip_by_links</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"genome alignments"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Flipping: 4,5,6</span></div><div class='input'>
+<span class='co'># flip automatically based on protein-protein links</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_sublinks.html'>add_sublinks</a></span><span class='op'>(</span><span class='va'>emale_prot_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>flip_by_links</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"protein alignments"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Transforming sublinks with "aa2nuc". Disable with `.transform = "none"`</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 4,5,6</span></div><div class='input'>
+<span class='co'># flip automatically based on genes linked implicitly by belonging</span>
+<span class='co'># to the same clusters of orthologs (or any grouping of your choice)</span>
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_clusters.html'>add_clusters</a></span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>flip_by_links</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"shared orthologs"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = "feat_id"</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 4,5,6</span></div><div class='input'>
+<span class='va'>p0</span> <span class='op'>+</span> <span class='va'>p1</span> <span class='op'>+</span> <span class='va'>p2</span> <span class='op'>+</span> <span class='va'>p3</span> <span class='op'>+</span> <span class='va'>p4</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>nrow<span class='op'>=</span><span class='fl'>1</span>, guides<span class='op'>=</span><span class='st'>"collect"</span><span class='op'>)</span>
+</div><div class='img'><img src='flip-1.png' alt='' width='960' height='480' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

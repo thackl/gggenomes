@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Use a certain track, possibly filtered — feats • gggenomes</title>
+<title>Tracks in- and outside geom_* calls — feats • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,7 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Use a certain track, possibly filtered — feats" />
+<meta property="og:title" content="Tracks in- and outside geom_* calls — feats" />
 <meta property="og:description" content="Track selection works like dplyr::pull() and supports unquoted ids and
 positional arguments. ... can be used to subset the data in
 dplyr::filter() fashion. pull-prefixed variants return the specified
@@ -85,7 +85,7 @@ track from a gggenome object. Unprefixed variants work inside geom_* calls." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@ track from a gggenome object. Unprefixed variants work inside geom_* calls." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Use a certain track, possibly filtered</h1>
+    <h1>Tracks in- and outside <code>geom_*</code> calls</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/pull_tracks.R'><code>R/pull_tracks.R</code></a></small>
     <div class="hidden name"><code>pull_track.Rd</code></div>
     </div>
@@ -145,23 +145,27 @@ positional arguments. <code>...</code> can be used to subset the data in
 track from a gggenome object. Unprefixed variants work inside <code>geom_*</code> calls.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>feats</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore_pos <span class='op'>=</span> <span class='st'>"genes"</span>, .geneify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>feats</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore <span class='op'>=</span> <span class='st'>"genes"</span>, .geneify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>genes</span><span class='op'>(</span><span class='va'>...</span>, .feat_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CDS"</span>, <span class='st'>"mRNA"</span>, <span class='st'>"tRNA"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>genes</span><span class='op'>(</span><span class='va'>...</span>, .gene_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CDS"</span>, <span class='st'>"mRNA"</span>, <span class='st'>"tRNA"</span>, <span class='st'>"tmRNA"</span>, <span class='st'>"ncRNA"</span>, <span class='st'>"rRNA"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>links</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore_pos <span class='op'>=</span> <span class='cn'>NULL</span>, .adjacent_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>links</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore <span class='op'>=</span> <span class='cn'>NULL</span>, .adjacent_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'>seqs</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>bins</span><span class='op'>(</span><span class='va'>...</span>, .group <span class='op'>=</span> <span class='fu'>vars</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>track</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .track_type <span class='op'>=</span> <span class='cn'>NULL</span>, .ignore_pos <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>track</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .track_type <span class='op'>=</span> <span class='cn'>NULL</span>, .ignore <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='fu'>pull_feats</span><span class='op'>(</span><span class='va'>.x</span>, .track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore_pos <span class='op'>=</span> <span class='st'>"genes"</span>, .geneify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>pull_feats</span><span class='op'>(</span><span class='va'>.x</span>, .track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore <span class='op'>=</span> <span class='st'>"genes"</span>, .geneify <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>pull_genes</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>...</span>, .feat_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CDS"</span>, <span class='st'>"mRNA"</span>, <span class='st'>"tRNA"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>pull_genes</span><span class='op'>(</span>
+  <span class='va'>.x</span>,
+  <span class='va'>...</span>,
+  .gene_types <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CDS"</span>, <span class='st'>"mRNA"</span>, <span class='st'>"tRNA"</span>, <span class='st'>"tmRNA"</span>, <span class='st'>"ncRNA"</span>, <span class='st'>"rRNA"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>pull_links</span><span class='op'>(</span><span class='va'>.x</span>, .track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore_pos <span class='op'>=</span> <span class='cn'>NULL</span>, .adjacent_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>pull_links</span><span class='op'>(</span><span class='va'>.x</span>, .track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .ignore <span class='op'>=</span> <span class='cn'>NULL</span>, .adjacent_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='fu'>pull_seqs</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -170,7 +174,7 @@ track from a gggenome object. Unprefixed variants work inside <code>geom_*</code
 <span class='co'># S3 method for gggenomes_layout</span>
 <span class='fu'>pull_bins</span><span class='op'>(</span><span class='va'>.x</span>, <span class='va'>...</span>, .group <span class='op'>=</span> <span class='fu'>vars</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pull_track</span><span class='op'>(</span><span class='va'>.x</span>, .track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .track_type <span class='op'>=</span> <span class='cn'>NULL</span>, .ignore_pos <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>pull_track</span><span class='op'>(</span><span class='va'>.x</span>, .track_id <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span>, .track_type <span class='op'>=</span> <span class='cn'>NULL</span>, .ignore <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,19 +190,17 @@ as a positive/negative integer giving the position from the left/right.</p></td>
 "links". Affects position-based selection.</p></td>
     </tr>
     <tr>
-      <th>.ignore_pos</th>
-      <td><p>a regular string vector with track_ids to ignore when
-using integer positions.</p></td>
+      <th>.ignore</th>
+      <td><p>track names to ignore when selecting by position.</p></td>
     </tr>
     <tr>
       <th>.geneify</th>
       <td><p>add dummy type, introns and geom_id column to play nicely
-with geoms supporting multi-level and multi-span gene models.</p></td>
+with geoms supporting multi-level and spliced gene models.</p></td>
     </tr>
     <tr>
-      <th>.feat_type</th>
-      <td><p>filter for feats tagged as coding sequence in the type
-column (<code>type %in% .feat_type</code>)</p></td>
+      <th>.gene_types</th>
+      <td><p>return only feats of this type (<code>type %in% .gene_types</code>)</p></td>
     </tr>
     <tr>
       <th>.adjacent_only</th>
@@ -306,7 +308,7 @@ on-the-fly.</p></li>
 #&gt; </span><span style='color: #555555;'>12</span><span>     1 </span><span style='text-decoration: underline;'>20</span><span>152 </span><span style='text-decoration: underline;'>19</span><span>698 RCC97… RCC97… </span><span style='text-decoration: underline;'>19</span><span>699 </span><span style='text-decoration: underline;'>20</span><span>152 emales… -      repe… RCC970…
 #&gt; </span><span style='color: #555555;'># … with 9 more variables: introns </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, parent_ids </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span style='color: #555555;'>, source </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   score </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, phase </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, name </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, width </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, geom_id </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   .marginal </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='va'>gg</span> <span class='op'>%&gt;%</span> <span class='fu'>pull_feats</span><span class='op'>(</span><span class='fl'>2</span>, .ignore_pos<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>  <span class='co'># default .ignore_pos="genes"</span>
+#&gt; </span><span style='color: #555555;'>#   .marginal </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span></div><div class='input'><span class='va'>gg</span> <span class='op'>%&gt;%</span> <span class='fu'>pull_feats</span><span class='op'>(</span><span class='fl'>2</span>, .ignore<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>  <span class='co'># default .ignore="genes"</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 12 x 20</span><span>
 #&gt;        y     x  xend bin_id seq_id start   end file_id strand type  feat_id
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
@@ -341,7 +343,10 @@ on-the-fly.</p></li>
 <span class='co'># plot integrated transposons and GC content for some viral genomes</span>
 <span class='va'>gg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_seqs</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span>,<span class='op'>]</span>,
   feats<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>emale_ngaros</span>, GC<span class='op'>=</span><span class='va'>emale_gc</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>gg</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The `i` argument of ``[.tbl_df`()` must lie in [0, rows] if positive, as of tibble 3.0.0.</span>
+#&gt; <span class='warning'>Use `NA_integer_` as row index to obtain a row full of `NA` values.</span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'><span class='va'>gg</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='st'>"skyblue"</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'># defaults to data=feats()</span>
   <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>+</span><span class='va'>score</span><span class='op'>-</span><span class='fl'>.6</span>, group<span class='op'>=</span><span class='va'>y</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'>feats</span><span class='op'>(</span><span class='va'>GC</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"gray60"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_segment).</span></div><div class='img'><img src='pull_track-1.png' alt='' width='960' height='480' /></div></span></pre>

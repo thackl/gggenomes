@@ -49,7 +49,9 @@
   <script src="../extra.js"></script>
 
 <meta property="og:title" content="Read a BED file — read_bed" />
-<meta property="og:description" content="Read a BED file" />
+<meta property="og:description" content="BED files use 0-based coordinate starts, while gggenomes uses 1-based start
+coordinates. BED file coordinates are therefore transformed into 1-based
+coordinates during import." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -82,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -136,7 +138,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Read a BED file</p>
+    <p>BED files use 0-based coordinate starts, while gggenomes uses 1-based start
+coordinates. BED file coordinates are therefore transformed into 1-based
+coordinates during import.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_bed</span><span class='op'>(</span><span class='va'>file</span>, col_names <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_names</a></span><span class='op'>(</span><span class='st'>"bed"</span><span class='op'>)</span>, col_types <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_types</a></span><span class='op'>(</span><span class='st'>"bed"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -161,9 +165,8 @@ vector of greater than length 1.</p>
     <tr>
       <th>col_names</th>
       <td><p>column names to use. Defaults to def_names("bed")
-compatible with blast tabular output (<code>--outfmt 6/7</code> in blast++ and <code>-m8</code>
-in blast-legacy). def_names("bed") can easily be combined with extra
-columns: <code>col_names = c(def_names("bed"), "more", "things")</code>.</p></td>
+compatible with canonical bed files. def_names("bed") can easily be
+combined with extra columns: <code>col_names = c(def_names("bed"), "more", "things")</code>.</p></td>
     </tr>
     <tr>
       <th>col_types</th>
