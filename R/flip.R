@@ -1,7 +1,7 @@
 #' Flip bins and sequences
 #'
 #' `flip` and `flip_seqs` reverse-complement specified bins or individual
-#' sequences and their features. `flip_nicely` automatically flips bins using a
+#' sequences and their features. `flip_by_links` automatically flips bins using a
 #' heuristic that maximizes the amount of forward strand links between
 #' neighboring bins.
 #'
@@ -17,25 +17,35 @@
 #'   function is evaluated.
 #'
 #' @examples
-#' p <- gggenomes(emale_seqs[1:7,], links=emale_ava) +
-#'   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
-#'   scale_color_manual(values=c("+"="blue", "-"="red"))
-#' # some bins would align nicer if reverse-complemented
-#' p
+#' library(patchwork)
+#' p <- gggenomes(genes=emale_genes) +
+#'   geom_seq(aes(color=strand), arrow=TRUE) +
+#'   geom_link(aes(fill=strand)) +
+#'   expand_limits(color=c("-")) +
+#'   labs(caption="not flipped")
 #'
-#' # flip bins 3, 4 and 5
-#' p %>% flip(3:5)
+#' # nothing flipped
+#' p0 <- p %>% add_links(emale_ava)
 #'
-#' # flip automatically based on links
-#' p %>% flip_nicely()
+#' # flip manually
+#' p1 <- p %>% add_links(emale_ava) %>%
+#'   flip(4:6) + labs(caption="manually")
 #'
-#' # also works with links from clusters
-#' p <- gggenomes(emale_seqs, emale_genes) +
-#'   geom_seq(aes(color=strand), arrow=TRUE) + geom_link() +
-#'   scale_color_manual(values=c("+"="blue", "-"="red"))
-#' p %>%
-#'   add_clusters(emale_cogs) %>%
-#'   flip_nicely(emale_cogs)
+#' # flip automatically based on genome-genome links
+#' p2 <- p %>% add_links(emale_ava) %>%
+#'   flip_by_links() + labs(caption="genome alignments")
+#'
+#' # flip automatically based on protein-protein links
+#' p3 <- p %>% add_sublinks(emale_prot_ava) %>%
+#'   flip_by_links() + labs(caption="protein alignments")
+#'
+#' # flip automatically based on genes linked implicitly by belonging
+#' # to the same clusters of orthologs (or any grouping of your choice)
+#' p4 <- p %>% add_clusters(emale_cogs) %>%
+#'   flip_by_links() + labs(caption="shared orthologs")
+#'
+#' p0 + p1 + p2 + p3 + p4 + plot_layout(nrow=1, guides="collect")
+#'
 #' @export
 flip <- function(x, ..., .bin_track=seqs){
   UseMethod("flip")
@@ -71,22 +81,24 @@ flip_seqs.gggenomes_layout <- function(x, ..., .bins=everything(), .seq_track=se
 #' @param min_coverage at least this much of the shorter bin must be covered by
 #'   links supporting a flip to actually carry it out.
 #' @export
-flip_nicely <- function(x, link_track=1, min_coverage=.2){
-  UseMethod("flip_nicely")
+flip_by_links <- function(x, link_track=1, min_coverage=.2){
+  UseMethod("flip_by_links")
 }
 #' @export
-flip_nicely.gggenomes <- function(x, link_track=1, min_coverage=.2){
-    x$data <- flip_nicely(x$data, link_track={{link_track}}, min_coverage=min_coverage)
+flip_by_links.gggenomes <- function(x, link_track=1, min_coverage=.2){
+    x$data <- flip_by_links(x$data, link_track={{link_track}}, min_coverage=min_coverage)
     x
 }
 #' @export
-flip_nicely.gggenomes_layout <- function(x, link_track=1, min_coverage=.2){
+flip_by_links.gggenomes_layout <- function(x, link_track=1, min_coverage=.2){
  if(length(x$links) < 1)
-   rlang::abort("Links are required to flip bins nicely")
+   rlang::abort("Links are required to `flip_by_links`")
   l0 <- pull_links(x, {{link_track}})
   s0 <- ungroup(pull_seqs(x))
 
   l1 <- l0 %>% group_by(seq_id, seq_id2, strand) %>%
+    # treat a-b and b-a the same (lexical order)
+    swap_if(seq_id > seq_id2, seq_id, seq_id2) %>%
     summarize(mapped=min(c(sum(width(start,end)), sum(width(start2, end2)))))
 
   l2 <- l1 %>%
@@ -108,7 +120,8 @@ flip_nicely.gggenomes_layout <- function(x, link_track=1, min_coverage=.2){
   y_flip <- l3 %>% filter(flip < 0) %>% pull(y2)
 
   if(!length(y_flip)){
-    inform("All bins appear to be flipped nicely. Maybe change `min_coverage` or flip manually")
+    inform(str_glue("All bins appear to be flipped nicely based on the given",
+                    "links. Maybe change `min_coverage` or flip manually"))
     return(x)
   }else{
     inform(paste("Flipping:", comma(y_flip)))

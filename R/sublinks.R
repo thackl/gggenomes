@@ -153,6 +153,14 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
         start2 = if_reverse(.feat_strand2, .feat_end2-start2, .feat_start2+start2),
         end2 = if_reverse(.feat_strand2, .feat_end2-end2, .feat_start2+end2),
         .feat_start2=NULL, .feat_end2=NULL, .feat_strand2=NULL)
+
+    # this seems redundant but it works - that's because initially strand
+    # indicates if two features align in the same or opposite direction. But
+    # from here on out it has a new meaning - the actual strand of the
+    # sublink-converted-link - which is a combo of link, feature, and seq strands...
+    x$strand <- strand_chr((x$start < x$end) == (x$start2 < x$end2))
+    x <- x %>% swap_if(start > end, start, end)
+    x <- x %>% swap_if(start2 > end2, start2, end2)
   }
   if(compute_layout)
       layout_links(x, seqs, ...)
