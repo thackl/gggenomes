@@ -1,4 +1,4 @@
-#' Tracks in- and outside `geom_*` calls
+#' Use tracks inside and outside `geom_*` calls
 #'
 #' Track selection works like [dplyr::pull()] and supports unquoted ids and
 #' positional arguments. `...` can be used to subset the data in

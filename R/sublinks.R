@@ -1,10 +1,12 @@
-#' Add sublinks
-#'
-#' Add sublinks
-#'
-#' @param ... sublink tables with names, i.e. blast=blast_df, domains=domain_df
-#' @param .track_id track_id of the feats the sublinks map onto.
-#' @param .transform one of "aa2nuc", "none", "nuc2aa"
+#' @describeIn add_tracks Add links that connect features, such as
+#' protein-protein alignments connecting genes.
+#' @order 4
+#' @examples
+#' # Add protein-protein alignments
+#' gggenomes(emale_genes) %>%
+#'   add_sublinks(emale_prot_ava) +
+#'   geom_gene() + geom_link()
+#' 
 #' @export
 add_sublinks <- function(x, ..., .track_id = "genes", .transform = "aa2nuc"){
   UseMethod("add_sublinks")

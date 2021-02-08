@@ -1,23 +1,23 @@
-#' Add gene (or feature) clusters
-#'
-#' Converts a table with the two required columns `cluster_id` and `feat_id`
-#' into a link track connecting features belonging to the same cluster over
-#' their entire length. Additionally, the table is joined to the parent feature
-#' table, adding `cluster_id` and all additional columns with cluster
-#' information to the feat table.
-#'
-#' @inheritParams add_subfeats
+#' @describeIn add_tracks Add gene clusters or other feature groups. Takes a
+#' data.frame with at least two required columns `cluster_id` and `feat_id`. The
+#' data.frame is converted to a link track connecting features belonging to the
+#' same cluster over their entire length. Additionally, the data.frame is joined
+#' to the parent feature track, adding `cluster_id` and all additional columns
+#' to the parent table.
+#' @order 5
 #' @export
 #' @examples
+#' # add clusters
 #' gggenomes(emale_genes, emale_seqs) %>%
 #'   add_clusters(emale_cogs) %>%
-#'   flip_by_links() +    # works because clusters become links
-#'   geom_link() +        # works because clusters become links
+#'   flip_by_links() +    # works because clusters
+#'   geom_link() +        # become links
 #'   geom_seq() +
 #'   # works because cluster info is joined to gene track
 #'   geom_gene(aes(fill=ifelse(is.na(cluster_id), NA,
 #'       str_glue("{cluster_id} [{cluster_size}]")))) +
 #'   scale_fill_discrete("COGs")
+#' 
 add_clusters <- function(x, ..., .track_id = "genes"){
   UseMethod("add_clusters")
 }
