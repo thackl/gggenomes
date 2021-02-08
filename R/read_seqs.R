@@ -1,51 +1,24 @@
-#' Read a sequence index
-#'
-#' Read ID, description and length for each sequence from common formats
-#' including FASTA, samtools/seqkit FASTA index files, and GFF3. Default columns
-#' are seq_id, seq_desc and length.
-#'
-#' @importFrom readr read_tsv
-#' @param file fasta or .fai/.seqkit.fai fasta index
-#' @param parse_desc remove `key=some value` pairs from `seq_desc` and turn them
-#'   into `key`-named columns.
+#' @param parse_desc turn `key=some value` pairs from `seq_desc` into `key`-named
+#'   columns and remove them from `seq_desc`.
 #' @export
-#' @return A gggenomes-compatible sequence tibble
-#' @describeIn read_seqs read seqs from files with automatic format detection
+#' @describeIn read_tracks read sequence ID, description and length.
 #' @examples
 #' # read sequences from a fasta file.
 #' read_seqs(ex("emales/emales.fna"), parse_desc=FALSE)
 #'
-#' # read sequences from a fasta file with `parse_desc=TRUE` (default). `key=value`
+#' # read sequence info from a fasta file with `parse_desc=TRUE` (default). `key=value`
 #' # pairs are removed from `seq_desc` and parsed into columns with `key` as name
 #' read_seqs(ex("emales/emales.fna"))
 #'
-#' # from samtools/seqkit style index
+#' # read sequence info from samtools/seqkit style index
 #' read_seqs(ex("emales/emales.fna.seqkit.fai"))
 #'
-#' # from multiple gff file
+#' # read sequence info from multiple gff file
 #' read_seqs(c(ex("emales/emales.gff"), ex("emales/emales-tirs.gff")))
 #'
-read_seqs <- function(files, format=NULL, .id="file_id", parse_desc=TRUE, ...){
-  if(any(map_lgl(files, is_connection))){
-    warn("Using connections instead of paths to files can lead to unexpected behaviour")
-    is_connection(files)
-      files <- list(files) # weird things happen to pipes in vectors
-  }
-
-  # infer file format from suffix
-  format <- (format %||% file_format_unique(files, "seqs"))
-
-  if(format == 'ambigious'){
-    abort(str_glue('Ambigious file extension(s): "', comma(unique(file_ext(files))),
-                   '".\nPlease specify `format` explicitly'))
-  }
-
-  # for unnamed files, infer name from filename (used as file_id/bin_id)
-  files <- file_label(files)
-
-  # map_df .id = bin_id
-  inform(str_glue("Reading as {format}:"))
-  seqs <- map2_df(files, names(files), read_format, .id=.id, format, ...)
+read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
+    parse_desc=TRUE, ...){
+  seqs <- read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
 
   if(parse_desc){
     seqs <- mutate(seqs, parse_desc(seq_desc))
@@ -61,7 +34,7 @@ parse_desc <- function(x, pattern="\\s*(\\S+)=\\{?([^=]+?)(\\s|\\}|$)"){
     if(any(is.na(.x[,2]))) return(tibble(.rows=1))
     # else return tibble with keys as names
     .x[,3] %>% as.list %>% set_names(.x[,2]) %>% as_tibble
-  })
+  }) %>% mutate(across(everything(), type.convert, as.is=TRUE))
 
   # if key has the name of a reserved column, rename it so we don't overwrite
   rename_i <- names(y) %in% qc(file_id, seq_id, seq_desc, length)
@@ -74,7 +47,9 @@ parse_desc <- function(x, pattern="\\s*(\\S+)=\\{?([^=]+?)(\\s|\\}|$)"){
   mutate(y, seq_desc=z, .before=1)
 }
 
-#' @describeIn read_seqs read seqs from a single file in fasta, gbk or gff3 format.
+#' Read sequence index
+#'
+#' @describeIn read_seq_len read seqs from a single file in fasta, gbk or gff3 format.
 #' @export
 read_seq_len <- function(file, col_names = def_names("seq_len"),
     col_types = def_types("seq_len"), ...){
@@ -86,7 +61,7 @@ read_seq_len <- function(file, col_names = def_names("seq_len"),
 
 }
 
-#' @describeIn read_seqs read seqs from a single file in seqkit/samtools fai format.
+#' @describeIn read_seq_len read seqs from a single file in seqkit/samtools fai format.
 #' @export
 read_fai <- function(file, col_names=def_names("fai"),
     col_types=def_types("fai"), ...){

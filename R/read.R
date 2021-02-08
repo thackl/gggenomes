@@ -1,33 +1,135 @@
-#' Swap query and subject in blast-like feature tables
+#' Read files in various formats into track tables
 #'
-#' Swap query and subject columns in a table read with [read_feats()] or
-#' [read_links()], for example, from blast searches. Swaps columns with
-#' name/name2, such as 'seq_id/seq_id2', 'start/start2', ...
+#' Convenience functions to read sequences, features or links from various
+#' bioinformatics file formats, such as FASTA, GFF3, Genbank, BLAST tabular
+#' output, etc. See [def_formats()] for full list. File formats and the
+#' corresponding read-functions are automatically determined based on file
+#' extensions. All these functions can read multiple files in the same format at
+#' once, and combine them into a single table - useful, for example, to read a
+#' folder of gff-files with each file containing genes of a different genome.
 #'
-#' @param x tibble with query and subject columns
-#' @export
-#' @return tibble with swapped query/subject columns
-#' @examples
-#' feats <- tribble(
-#'  ~seq_id, ~seq_id2, ~start, ~end, ~strand, ~start2, ~end2, ~evalue,
-#'  "A", "B", 100, 200, "+", 10000, 10200, 1e-5
-#' )
-#' # make B the query
-#' swap_query(feats)
-swap_query <- function(x){
-  # for every pair seq_id/seq_id2, name/name2 > name2/name
-  n <- names(x)
-  m <- str_subset(n, "\\D2") %>% str_remove("2$") %>% intersect(n)
-  if(!length(m))
-    return(x)
+#' @name read_tracks
+#' @inheritParams read_context
+#' @return A gggenomes-compatible sequence, feature or link tibble
+NULL
 
-  m2 <- paste0(m, "2")
-  i <- which(n %in% m)
-  i2 <- which(n %in% m2)
-  inform(c("Swapping query/subject-associated columns",
-           comma(m, collapse='  '), comma(m2, collapse=' ')))
-  x[c(i, i2)] <- x[c(i2, i)]
+
+#' Read files in different contexts
+#'
+#' Powers [read_seqs()], [read_feats()], [read_links()]
+#' @param files files to reads. Should all be of same format. In many cases,
+#'   compressed files (`.gz`, `.bz2`, `.xz`, or `.zip`) are supported.
+#'   Similarly, automatic download of remote files starting with `http(s)://` or
+#'   `ftp(s)://` works in most cases.
+#' @param .id the column with the name of the file a record was read from.
+#'   Defaults to "file_id". Set to "bin_id" if every file represents a different
+#'   bin.
+#' @param format specify a format known to gggenomes, such as `gff3`, `gbk`, ...
+#'   to overwrite automatic determination based on the file extension (see
+#'   [def_formats()] for full list).
+#' @param parser specify the name of an R function to overwrite automatic
+#'   determination based on format, e.g. `parser="read_tsv"`.
+#' @param ... additional arguments passed on to the format-specific read
+#'   function called down the line.
+#' @param context the context ("seqs", "feats", "links") in which a given format
+#'   should be read.
+#' @describeIn read_context bla keywords internal
+read_context <- function(files, context, .id="file_id", format=NULL, parser=NULL, ...){
+  if(is_connection(files))
+    files <- list(files) # weird things happen to pipes in vectors
+
+  # for unnamed files, infer name from filename (used as file_id/bin_id)
+  files <- file_label(files)
+
+  parser <- parser %||% file_parser(files, context=context, format=format, require_unique=T)
+  # map_df .id = bin_id
+  inform(str_glue("Reading '{names(parser)}' with `{parser}()`:"))
+  x <- map2_df(files, names(files), .id=.id, parser=parser, ...,
+               .f=function(file, name, parser, ...){
+                 inform(str_glue("* {.id}: {name} [{file}]"))
+                 exec(parser, file, ...)
+               })
+
   x
+}
+
+read_ambigious <- function(file, ...){
+  abort(c("Ambigious file extension, please specify format or parser explicitly"), file)
+}
+
+# file: vec of files
+# context: vec of context
+# single file/context is recycled to match multiple context/files if given
+# format:  force this format regardless of file extension
+file_parser <- function(file, context=NULL, format=NULL, require_unique=FALSE){
+  format <- format %||% def_formats(file, context=context)
+  parser <- def_parser(format, context=context) %>% set_names(format)
+
+  if(require_unique){
+    p <- unique(parser)
+    if(length(p) > 1)
+      abort(c("All files need the same format/parser.", i="Got mix of:", unname(p)))
+    parser <- parser[1] # unique(parser) strips names
+  }
+  parser
+}
+
+#' Defined file formats and extensions
+#'
+#' For seamless reading of different file formats, gggenomes uses a mapping of
+#' known formats to associated file extensions and contexts in which the
+#' different formats can be read. The notion of context allows one to read
+#' different information from the same format/extension. For example, a gbk file
+#' holds both feature and sequence information. If read in "feats" context
+#' `read_feats("*.gbk")` it will return a feature table, if read in "seqs"
+#' context `read_seqs("*.gbk")`, a sequence index.
+#'
+#' @param file a vector of file names
+#' @param ext a vector of file extensions
+#' @param context a vector of file contexts defined in
+#'   `gggenomes_global$def_formats`
+#' @param parser a vector of file parsers defined in
+#'   `gggenomes_global$def_formats`
+#' @return dictionarish vector of file formats with recognized extensions as
+#'   names
+#' @export
+#' @examples
+#' # vector of defined zip formats and recognized extensions as names
+#' # format of file
+#' def_formats("foo.fa")
+#'
+#' # formats associated with each extension
+#' def_formats(ext=qc(fa, gff))
+#'
+#' # all formats/extensions that can be read in seqs context; includes formats
+#' # that are defined for context=NA, i.e. that can be read in any context.
+#' def_formats(context="seqs")
+#' @eval def_formats_rd()
+def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na=FALSE){
+  if(!is.null(file)){
+    ext <- c(file_ext(file), ext)
+  }
+
+  ff <- filter_def_formats(context=context, parser=parser) %>% unchop(ext)
+
+  format <- deframe(select(ff, ext, format))
+  if(!is.null(ext))
+    format <- format[ext]
+
+  if(!allow_na && any(is.na(format))){
+    bad <- ext[is.na(format)]
+    names(bad) <- rep("x", length(bad))
+    good <- def_formats(context=context, parser=parser) %>%
+      enframe(name = "ext", value = "format") %>%
+      chop(ext) %>% mutate(ext = map_chr(ext, comma)) %>% format()
+    abort(c(str_glue('Unknown extention(s):'),
+            i=str_glue("in context: {context}"),
+            i=str_glue("with parser: {parser}"),
+            bad,
+            i="Recognized formats/extensions for given context/parser:",
+            good[-(1:3)]))
+  }
+  format
 }
 
 #' Default column names and types for defined formats
@@ -53,7 +155,6 @@ def_names <- function(format){
   ff[[format]]
 }
 
-
 #' @describeIn def_names default column types for defined formats
 #' @export
 #' @return a vector with default column types for the given format
@@ -68,62 +169,23 @@ def_types <- function(format){
   ff[[format]]
 }
 
-#' Defined file formats and extensions
-#'
-#' For seamless reading of different file formats, gggenomes uses a mapping of
-#' known formats to associated file extensions and contexts in which the
-#' different formats can be read. The notion of context allows one to read
-#' different information from the same format/extension. For example, a gbk file
-#' holds both feature and sequence information. If read in "feats" context
-#' `read_feats("*.gbk")` it will return a feature table, if read in "seqs"
-#' context `read_seqs("*.gbk")`, a sequence index.
-#'
-#'
-#' @param context a file format context defined in `gggenomes_global$file_formats`
-#' @return dictionarish vector of file formats with recognized extensions as names
-#' @export
-#' @examples
-#' # vector of defined zip formats and recognized extensions as names
-#' file_formats("zips")
-#' @eval file_formats_rd()
-file_formats <- function(context){
-  ff <- gggenomes_global$file_formats
-  if(!context %in% names(ff)){
-    abort(c(
-      str_glue("Unknown file format context '{context}'.\nDefined families are:"),
-      names(ff)
-    ))
-  }
-  ff[[context]]
+def_parser <- function(format, context=NULL){
+  context <- context %||% NA
+
+  # recycle format & context to same length
+  x <- tibble(format=format, context=context)
+
+  # for each format/context combo, get parser
+  pp <- pmap_chr(x, function(format, context){
+    r <- filter_def_formats(format=format, context=context) %>% pull(parser)
+    if(!length(r) || is.na(r))
+      abort(str_glue("No predefined parser for: `format={format}, context={context}`"))
+    r
+  })
+  pp
 }
 
-#' Defined file extensions and associated formats
-#'
-#' @inheritParams file_formats
-#' @return vector of file extensions with formats as names
-#' @examples
-#' # vector of zip-context file extensions and format names
-#' gggenomes:::file_exts("zips")
-file_exts <- function(context){
-  f <- file_formats(context)
-  set_names(names(f), f)
-}
-
-#' File format from suffix
-#' @param x a vector of file extensions
-#' @param context a file format context defined in [file_formats()]
-#' @return a vector of formats with extensions as names
-#' @examples
-#' gggenomes:::ext_to_format(c("gff", "txt", "FASTA"), "feats")
-ext_to_format <- function(x, context){
-  x <- str_to_lower(x)
-  if(is_dictionaryish(context))
-    context[x]
-  else
-    file_formats(context)[x]
-}
-
-file_strip_zip <- function(file, ext = names(file_formats("zips"))){
+file_strip_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
   ext <- paste0("\\.", ext, "$", collapse="|")
   str_remove(file, ext)
 }
@@ -140,30 +202,8 @@ file_name <- function(file, pattern = "\\.[^.]+$", ignore_zip = TRUE){
   str_remove(basename(file), pattern)
 }
 
-file_format <- function(file, context, allow_na = FALSE){
-  ext <- file_ext(file)
-  format <- ext_to_format(ext, context)
-  if(!allow_na && any(is.na(format))){
-    bad <- file[is.na(format)]
-    names(bad) <- rep("x", length(bad))
-    good <- file_formats("feats") %>%
-      enframe(name = "ext", value = "format") %>%
-      chop(ext) %>% mutate(ext = map_chr(ext, comma)) %>% format()
-    abort(c(str_glue('Bad extention for file format context "{context}"'), bad,
-      i="Recognized formats/extensions:", good[-(1:3)]))
-  }
-  set_names(format, file)
-}
-
 file_id <- function(file){
   vctrs::vec_as_names(file_name(file), repair="unique")
-}
-
-file_format_unique <- function(files, context, allow_duplicates = FALSE){
-  fmt <- unique(file_format(files, context))
-  if(!allow_duplicates && length(fmt) > 1)
-    abort(c("All files need the same format.", i="Got mix of:", unname(fmt)))
-  fmt
 }
 
 #' Add a unique name to files
@@ -176,100 +216,55 @@ file_label <- function(file){
   file
 }
 
-
-file_is_zip <- function(file, ext = names(file_formats("zips"))){
+file_is_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
   pattern <- paste0("\\.", ext, "$", collapse="|")
   str_detect(file, pattern)
 }
-
 
 file_is_url <- function(file){
   str_detect(file, "^((http|ftp)s?|sftp)://")
 }
 
-file_formats_rd <- function(){
-  ff <- gggenomes_global$file_formats %>%
-    map_df(.id="context", function(x){
-      enframe(x, "extension", "format") %>% group_by(format) %>%
-        summarize(extension = comma(extension), .groups="drop")
-    })
-  ff <- mutate(ff, context = ifelse(duplicated(context), "", context))
+is_connection <- function(x) inherits(x, "connection")
 
-  ff <- str_c(sep = "\n",
-      "@section Defined contexts, formats and extensions:",
-      "\\preformatted{",
-      #sprintf("%-9s %-12s  %s", "Context", "Format", "Extensions"),
-      str_c(collapse = "\n",
-            str_glue_data(ff, '{sprintf("%-8s", context)} ',
-                    '{sprintf("%-7s", format)}  [{extension}]')),
-      "}"
-      )
+
+# filter but keep fallback parser for context=NA
+filter_def_formats <- function(ff, format=NULL, context=NULL, parser=NULL){
+  ff <- gggenomes_global$def_formats
+  if(!is.null(format)){
+    ff <- filter(ff, format %in% !!format)
+  }
+
+  if(!is.null(context) || !is.null(parser)){
+    ff <- unchop(ff, c(context, parser))
+    if(!is.null(context)){
+      # context=NA defines fallback parser which is always last in arrange
+      ff <- ff %>% group_by(format) %>%
+        filter(context %in% !!context | is.na(context)) %>%
+        arrange(context, .by_group = TRUE) %>% slice_head(n=1)
+    }
+    if(!is.null(parser))
+      ff <- filter(ff, parser %in% !!parser)
+  }
   ff
+}
+
+def_formats_rd <- function(){
+  str_c(collapse = "\n", c(
+    "@section Defined formats, extensions, contexts, and parsers:",
+    "\\preformatted{",
+    capture_output(as.data.frame(gggenomes_global$def_formats), print=TRUE, width=120),
+    "}"))
 }
 
 def_names_rd <- function(){
   ns <- gggenomes_global$def_names
   ts <- gggenomes_global$def_types
   str_c(sep = "\n",
-    "@section Defined formats, column types and names:",
-    "\\preformatted{",
-      paste0(map(names(ns),
-          ~sprintf("  %-10s %-15s %s", .x, ts[[.x]], comma(ns[[.x]]))), collapse="\n"),
-    "}"
+        "@section Defined formats, column types and names:",
+        "\\preformatted{",
+        paste0(map(names(ns),
+                   ~sprintf("  %-10s %-15s %s", .x, ts[[.x]], comma(ns[[.x]]))), collapse="\n"),
+        "}"
   )
 }
-
-is_connection <- function(x) inherits(x, "connection")
-
-#' Read AliTV .json file
-#'
-#' this file contains sequences, links and (optionally) genes
-#'
-#' @importFrom tidyr unnest_wider
-#' @importFrom tidyr unnest
-#' @importFrom jsonlite fromJSON
-#' @param file path to json
-#' @export
-#' @return list with seqs, genes, and links
-#' @examples
-#' ali <- read_alitv("https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json")
-#' gggenomes(ali$seqs, ali$genes, links=ali$links) +
-#'   geom_seq() +
-#'   geom_bin_label() +
-#'   geom_gene(aes(fill=class)) +
-#'   geom_link()
-#' p <- gggenomes(ali$seqs, ali$genes, links=ali$links) +
-#'   geom_seq() +
-#'   geom_bin_label() +
-#'   geom_gene(aes(color=class)) +
-#'   geom_link(aes(fill=identity)) +
-#'   scale_fill_distiller(palette="RdYlGn", direction = 1)
-#' p %>% flip_seq("Same_gi") %>% pick(1,3,2,4,5,6,7,8)
-read_alitv <- function(file){
-  ali <- jsonlite::fromJSON(file, simplifyDataFrame=TRUE)
-  seqs <- tibble(seq = ali$data$karyo$chromosome) %>%
-    mutate(seq_id = names(seq)) %>%
-    unnest_wider(seq) %>%
-    rename(bin_id = genome_id)
-  genes <- tibble(feature = ali$data$feature) %>%
-    mutate(class = names(feature)) %>%
-    filter(class != "link") %>%
-    unnest(feature) %>%
-    rename(seq_id=karyo)
-  links <- tibble(links=ali$data$links) %>% unnest(links) %>% unnest(links) %>% unnest_wider(links)
-  link_pos <- tibble(link=ali$data$features$link) %>% mutate(id=names(link)) %>% unnest_wider(link)
-  links <- links %>%
-    left_join(link_pos, by=c("source"="id")) %>%
-    left_join(link_pos, by=c("target"="id")) %>%
-    transmute(
-        seq_id1=karyo.x,
-        start1=start.x,
-        end1=end.x,
-        seq_id2=karyo.y,
-        start2=start.y,
-        end2=end.y,
-        identity=identity
-    )
-  return(list(seqs=seqs,genes=genes,links=links))
-}
-
