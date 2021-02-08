@@ -1,20 +1,51 @@
+#' @param parse_desc turn `key=some value` pairs from `seq_desc` into `key`-named
+#'   columns and remove them from `seq_desc`.
 #' @export
 #' @describeIn read_tracks read sequence ID, description and length.
 #' @examples
-#' # reads sequence index from a fasta file
+#' # read sequences from a fasta file.
+#' read_seqs(ex("emales/emales.fna"), parse_desc=FALSE)
+#'
+#' # read sequence info from a fasta file with `parse_desc=TRUE` (default). `key=value`
+#' # pairs are removed from `seq_desc` and parsed into columns with `key` as name
 #' read_seqs(ex("emales/emales.fna"))
 #'
-#'
-#' # from samtools/seqkit style index
+#' # read sequence info from samtools/seqkit style index
 #' read_seqs(ex("emales/emales.fna.seqkit.fai"))
 #'
-#'
-#' # from multiple gff file
+#' # read sequence info from multiple gff file
 #' read_seqs(c(ex("emales/emales.gff"), ex("emales/emales-tirs.gff")))
-read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL, ...){
-  read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
+#'
+read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
+    parse_desc=TRUE, ...){
+  seqs <- read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
+
+  if(parse_desc){
+    seqs <- mutate(seqs, parse_desc(seq_desc))
+  }
+
+  seqs
 }
 
+parse_desc <- function(x, pattern="\\s*(\\S+)=\\{?([^=]+?)(\\s|\\}|$)"){
+  m <- str_match_all(x, pattern) # create  list of match matrices
+  y <- map_df(m, function(.x){
+    # if x was NA, all match values are NA - return empty tibble with one row
+    if(any(is.na(.x[,2]))) return(tibble(.rows=1))
+    # else return tibble with keys as names
+    .x[,3] %>% as.list %>% set_names(.x[,2]) %>% as_tibble
+  }) %>% mutate(across(everything(), type.convert, as.is=TRUE))
+
+  # if key has the name of a reserved column, rename it so we don't overwrite
+  rename_i <- names(y) %in% qc(file_id, seq_id, seq_desc, length)
+  names(y)[rename_i] <- paste0("seq_desc_", names(y)[rename_i])
+
+  # remove key=value data from seq_desc and turn resulting emtpy "" into NA
+  z <- str_remove_all(x, pattern)
+  z[z==""] <- NA
+
+  mutate(y, seq_desc=z, .before=1)
+}
 
 #' Read sequence index
 #'

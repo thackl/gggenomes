@@ -17,7 +17,14 @@ read_links(files, .id = "file_id", format = NULL, parser = NULL, ...)
 
 read_sublinks(files, .id = "file_id", format = NULL, parser = NULL, ...)
 
-read_seqs(files, .id = "file_id", format = NULL, parser = NULL, ...)
+read_seqs(
+  files,
+  .id = "file_id",
+  format = NULL,
+  parser = NULL,
+  parse_desc = TRUE,
+  ...
+)
 }
 \arguments{
 \item{files}{files to reads. Should all be of same format. In many cases,
@@ -38,6 +45,9 @@ determination based on format, e.g. \code{parser="read_tsv"}.}
 
 \item{...}{additional arguments passed on to the format-specific read
 function called down the line.}
+
+\item{parse_desc}{turn \verb{key=some value} pairs from \code{seq_desc} into \code{key}-named
+columns and remove them from \code{seq_desc}.}
 }
 \value{
 A gggenomes-compatible sequence, feature or link tibble
@@ -83,14 +93,17 @@ read_feats(gbk_phages)
 }
 
 
-# reads sequence index from a fasta file
+# read sequences from a fasta file.
+read_seqs(ex("emales/emales.fna"), parse_desc=FALSE)
+
+# read sequence info from a fasta file with `parse_desc=TRUE` (default). `key=value`
+# pairs are removed from `seq_desc` and parsed into columns with `key` as name
 read_seqs(ex("emales/emales.fna"))
 
-
-# from samtools/seqkit style index
+# read sequence info from samtools/seqkit style index
 read_seqs(ex("emales/emales.fna.seqkit.fai"))
 
-
-# from multiple gff file
+# read sequence info from multiple gff file
 read_seqs(c(ex("emales/emales.gff"), ex("emales/emales-tirs.gff")))
+
 }
