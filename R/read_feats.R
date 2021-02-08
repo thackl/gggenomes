@@ -33,14 +33,14 @@ read_subfeats <- function(files, .id="file_id", format=NULL, parser=NULL, ...){
 #' @export
 #' @describeIn read_tracks read files as links connecting sequences
 read_links <- function(files, .id="file_id", format=NULL, parser=NULL, ...){
-  feats <- read_context(files, "feats", .id=.id, format=format, parser=parser, ...)
+  feats <- read_context(files, "links", .id=.id, format=format, parser=parser, ...)
   rename(feats, seq_id=seq_id, start=start, end=end)
 }
 
 #' @export
 #' @describeIn read_tracks read files as sublinks connecting features
 read_sublinks <- function(files, .id="file_id", format=NULL, parser=NULL, ...){
-  feats <- read_context(files, "feats", .id=.id, format=format, parser=parser, ...)
+  feats <- read_context(files, "links", .id=.id, format=format, parser=parser, ...)
   rename(feats, feat_id=seq_id, start=start, end=end, feat_id2=seq_id2)
 }
 
