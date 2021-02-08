@@ -6,7 +6,7 @@
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
 #' @examples
-#' p <- gggenomes(emale_seqs[1:6,], links = emale_ava) + geom_seq()
+#' p <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
 #' p + geom_link()
 #' # change offset from seqs
 #' p + geom_link(aes(fill=de, color=de), offset = 0.05) +

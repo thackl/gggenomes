@@ -100,7 +100,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #' @param ... link tables, possibly named, i.e. blast=blast_df, domains=domain_df
 #' @inheritParams as_links
 #' @examples
-#' gggenomes(emale_seqs[1:4,]) %>%
+#' gggenomes(seqs=emale_seqs) %>%
 #'   add_links(links=emale_ava) +
 #'   geom_seq() + geom_link()
 #' @export

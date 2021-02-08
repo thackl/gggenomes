@@ -4,7 +4,7 @@ reference:
     Construct a plot combining multiple tracks
 - contents:
     - gggenomes
-- title: "Add and use tracks"
+- title: "Handle tracks"
 - contents:
     - track_info
     - starts_with("add_")
@@ -43,8 +43,10 @@ reference:
     Functions that power gggenomes under the hood. Useful for developers and power-users.
 - contents:
   - layout
+  - layout_genomes
+  - layout_seqs
   - get_seqs
-  - starts_with("track")
+  - starts_with("track_")
   - require_vars
   - vars_track
   - swap_if

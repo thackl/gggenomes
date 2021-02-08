@@ -4,7 +4,7 @@
 \alias{as_tracks}
 \title{Convert a list of tibbles into tracks with magic}
 \usage{
-as_tracks(tracks, tracks_exprs, reserved_ids = NULL)
+as_tracks(tracks, tracks_exprs, reserved_ids = NULL, context = NULL)
 }
 \description{
 Convert a list of tibbles into tracks with magic

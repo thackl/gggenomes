@@ -9,9 +9,9 @@
 #' @inheritParams add_subfeats
 #' @export
 #' @examples
-#' gggenomes(emale_seqs, emale_genes) %>%
+#' gggenomes(emale_genes, emale_seqs) %>%
 #'   add_clusters(emale_cogs) %>%
-#'   flip_nicely() +      # works because clusters become links
+#'   flip_by_links() +    # works because clusters become links
 #'   geom_link() +        # works because clusters become links
 #'   geom_seq() +
 #'   # works because cluster info is joined to gene track

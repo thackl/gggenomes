@@ -1,24 +1,41 @@
 #' Plot genomes, features and synteny maps
 #'
-#' Sequence data: `read_fai`
+#' @param genes,feats A data.frame, a list of data.frames, or a character vector
+#'   with paths to files containing gene data. Each item is added as feature
+#'   track.
 #'
-#' Feat data: `read_gff`
+#'   For a single data.frame the track_id will be "genes" and "feats",
+#'   respectively. For a list, track_ids are parsed from the list names, or if
+#'   names are missing from the name of the variable containing each data.frame.
+#'   Data columns:
 #'
-#' Link data: `read_paf`
-#' @param seqs a table with sequence data (seq_id, bin_id, length)
-#' @param genes a table or a list of table with gene data to be added as feat
-#'   tracks. Required columns: seq_id, bin_id, start, end.
+#'   - required: `seq_id,start,end`
+#'   - recognized: `strand,bin_id,feat_id,introns`
 #'
-#'   For a single table, adds the track_id will be "genes". For a list,
-#'   track_ids are parsed from the list names, or if names are missing from the
-#'   name of the variable containing each table.
-#' @param feats same as genes, but the single table track_id will default to
-#'   "feats".
-#' @param links a table or a list of tables with link data to be added as link
-#'   tracks (columns: from, to, from_start, from_end, to_start, to_end). Same
-#'   naming scheme as for feats.
-#' @param ... layout parameters passed on to [layout_genomes()] /
-#'   [layout_seqs()]
+#' @param seqs A data.frame or a character vector with paths to files containing
+#'   sequence data. Data columns:
+#'
+#'   - required: `seq_id,length`
+#'   - recognized: `bin_id,start,end,strand`
+#'
+#' @param links A data.frame or a character vector with paths to files
+#'   containing link data. Each item is added as links track. Data columns:
+#'
+#'   - required: `seq_id,seq_id2`
+#'   - recognized: `start,end,bin_id,start2,end2,bin_id2,strand`
+#'
+#' @param .id The name of the column for file labels that are created when
+#'   reading directly from files. Defaults to "file_id". Set to "bin_id" if
+#'   every file represents a different bin.
+##' @param infer_length,infer_start,infer_end,infer_bin_id used to infer pseudo
+#' seqs if only feats or links are provided, or if no bin_id column was
+#' provided. The expressions are evaluated in the context of the first feat
+#' or link track.
+#'
+#' By default subregions of sequences from the first to the last feat/link
+#' are generated. Set `infer_start` to 0 to show all sequences from their
+#' true beginning.
+#' @inheritParams layout_seqs
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
 #'   developmental purposes.
@@ -28,17 +45,17 @@
 #' @examples
 #' # Compare the genomic organization of three viral elements
 #' # EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
-#' gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) +
+#' gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) +
 #'   geom_seq() + geom_bin_label() +                  # chromosomes and labels
 #'   geom_feat(size=8) +                              # terminal inverted repeats
 #'   geom_gene(aes(fill=strand), position="strand") + # genes
 #'   geom_link(offset = 0.15)                         # synteny-blocks
 #'
 #' # with some more information
-#' gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) %>%
+#' gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) %>%
 #'   add_feats(emale_ngaros, emale_gc) %>%
 #'   add_clusters(emale_cogs) %>%
-#'   flip_nicely() +
+#'   flip_by_links() +
 #'   geom_link(offset = 0.15, color="white") +                        # synteny-blocks
 #'   geom_seq() + geom_bin_label() +                  # chromosomes and labels
 #'   # thistle4, salmon4, burlywood4
@@ -53,19 +70,33 @@
 #'   geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
 #'                   group=seq_id, linetype="GC-content"), feats(emale_gc),
 #'               fill="lavenderblush4", position=position_nudge(y=-.1))
-gggenomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL, ...,
-  theme = c("clean", NULL), .layout=NULL){
+#'
+#' # initialize plot directly from files
+#' gggenomes(
+#'   ex("emales/emales.gff"),
+#'   ex("emales/emales.gff"),
+#'   ex("emales/emales-tirs.gff"),
+#'   ex("emales/emales.paf")
+#' ) + geom_seq() + geom_gene() + geom_feat() + geom_link()
+#'
+gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
+    .id="file_id", spacing=0.05, wrap=NULL, infer_bin_id = seq_id,
+    infer_start = min(start,end), infer_end = max(start,end),
+    infer_length = max(start,end), theme = c("clean", NULL),
+    .layout=NULL, ...){
 
   # parse track_args to tracks - some magic for a convenient api
   genes_exprs <- enexpr(genes)
   feats_exprs <- enexpr(feats)
   links_exprs <- enexpr(links)
 
-  genes <- as_tracks(genes, genes_exprs, "seqs")
-  feats <- as_tracks(feats, feats_exprs, c("seqs", names2(genes)))
+  genes <- as_tracks(genes, genes_exprs, "seqs", context="feats")
+  feats <- as_tracks(feats, feats_exprs, c("seqs", names2(genes)), context="feats")
   feats <- c(genes, feats) # genes are just feats
-  links <- as_tracks(links, links_exprs, c("seqs", names2(feats)))
+  links <- as_tracks(links, links_exprs, c("seqs", names2(feats)), context="links")
 
+  if(is_character(seqs))
+    seqs <- read_seqs(seqs, .id=.id)
 
   layout <- .layout %||% layout_genomes(seqs=seqs, genes=genes, feats=feats,
                                         links=links, ...)
@@ -113,16 +144,9 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
   ggplot2:::set_last_plot(p)
   p
 }
-#' @rdname gggenomes
+#' Layout genomes
 #' @inheritParams gggenomes
-#' @param infer_length,infer_start,infer_end,infer_bin_id used to infer pseudo
-#' seqs if only feats or links are provided, or if no bin_id column was
-#' provided. The expressions are evaluated in the context of the first feat
-#' or link track.
-#'
-#' By default subregions of sequences from the first to the last feat/link
-#' are generated. Set `infer_start` to 0 to show all sequences from their
-#' true beginning.
+#' @keywords internal
 #' @return gggenomes_layout object
 #' @export
 layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
