@@ -99,7 +99,9 @@ gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
     seqs <- read_seqs(seqs, .id=.id)
 
   layout <- .layout %||% layout_genomes(seqs=seqs, genes=genes, feats=feats,
-                                        links=links, ...)
+      links=links, spacing=spacing, wrap=wrap, infer_bin_id={{infer_bin_id}},
+      infer_start={{infer_start}}, infer_end={{infer_end}},
+      infer_length={{infer_length}}, ...)
 
   p <- ggplot(data = layout)
   class(p) <- c('gggenomes', class(p))
