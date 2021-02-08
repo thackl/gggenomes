@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read AliTV .json file — read_alitv • gggenomes</title>
+<title>Read sequence index — read_seq_len • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Read AliTV .json file — read_alitv" />
-<meta property="og:description" content="this file contains sequences, links and (optionally) genes" />
+<meta property="og:title" content="Read sequence index — read_seq_len" />
+<meta property="og:description" content="Read sequence index" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -130,45 +130,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read AliTV .json file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read_alitv.R'><code>R/read_alitv.R</code></a></small>
-    <div class="hidden name"><code>read_alitv.Rd</code></div>
+    <h1>Read sequence index</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read_seqs.R'><code>R/read_seqs.R</code></a></small>
+    <div class="hidden name"><code>read_seq_len.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>this file contains sequences, links and (optionally) genes</p>
+    <p>Read sequence index</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_alitv</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_seq_len</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  col_names <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_names</a></span><span class='op'>(</span><span class='st'>"seq_len"</span><span class='op'>)</span>,
+  col_types <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_types</a></span><span class='op'>(</span><span class='st'>"seq_len"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>file</th>
-      <td><p>path to json</p></td>
-    </tr>
-    </table>
+<span class='fu'>read_fai</span><span class='op'>(</span><span class='va'>file</span>, col_names <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_names</a></span><span class='op'>(</span><span class='st'>"fai"</span><span class='op'>)</span>, col_types <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_types</a></span><span class='op'>(</span><span class='st'>"fai"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list with seqs, genes, and links</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ali</span> <span class='op'>&lt;-</span> <span class='fu'>read_alitv</span><span class='op'>(</span><span class='st'>"https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json"</span><span class='op'>)</span>
-<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>seqs</span>, <span class='va'>ali</span><span class='op'>$</span><span class='va'>genes</span>, links<span class='op'>=</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>links</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='read_alitv-1.png' alt='' width='960' height='480' /></div><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>seqs</span>, <span class='va'>ali</span><span class='op'>$</span><span class='va'>genes</span>, links<span class='op'>=</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>links</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>identity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_distiller</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"RdYlGn"</span>, direction <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='flip.html'>flip_seqs</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick_seqs</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>8</span><span class='op'>)</span>
-</div><div class='img'><img src='read_alitv-2.png' alt='' width='960' height='480' /></div></pre>
+    
+<ul>
+<li><p><code>read_seq_len</code>: read seqs from a single file in fasta, gbk or gff3 format.</p></li>
+<li><p><code>read_fai</code>: read seqs from a single file in seqkit/samtools fai format.</p></li>
+</ul>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

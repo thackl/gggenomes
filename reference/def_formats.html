@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read AliTV .json file — read_alitv • gggenomes</title>
+<title>Defined file formats and extensions — def_formats • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,14 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Read AliTV .json file — read_alitv" />
-<meta property="og:description" content="this file contains sequences, links and (optionally) genes" />
+<meta property="og:title" content="Defined file formats and extensions — def_formats" />
+<meta property="og:description" content="For seamless reading of different file formats, gggenomes uses a mapping of
+known formats to associated file extensions and contexts in which the
+different formats can be read. The notion of context allows one to read
+different information from the same format/extension. For example, a gbk file
+holds both feature and sequence information. If read in &quot;feats&quot; context
+read_feats(&quot;*.gbk&quot;) it will return a feature table, if read in &quot;seqs&quot;
+context read_seqs(&quot;*.gbk&quot;), a sequence index." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -130,45 +136,93 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read AliTV .json file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read_alitv.R'><code>R/read_alitv.R</code></a></small>
-    <div class="hidden name"><code>read_alitv.Rd</code></div>
+    <h1>Defined file formats and extensions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read.R'><code>R/read.R</code></a></small>
+    <div class="hidden name"><code>def_formats.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>this file contains sequences, links and (optionally) genes</p>
+    <p>For seamless reading of different file formats, gggenomes uses a mapping of
+known formats to associated file extensions and contexts in which the
+different formats can be read. The notion of context allows one to read
+different information from the same format/extension. For example, a gbk file
+holds both feature and sequence information. If read in "feats" context
+<code><a href='read_tracks.html'>read_feats("*.gbk")</a></code> it will return a feature table, if read in "seqs"
+context <code><a href='read_tracks.html'>read_seqs("*.gbk")</a></code>, a sequence index.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_alitv</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>def_formats</span><span class='op'>(</span>
+  file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ext <span class='op'>=</span> <span class='cn'>NULL</span>,
+  context <span class='op'>=</span> <span class='cn'>NULL</span>,
+  parser <span class='op'>=</span> <span class='cn'>NULL</span>,
+  allow_na <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>path to json</p></td>
+      <td><p>a vector of file names</p></td>
+    </tr>
+    <tr>
+      <th>ext</th>
+      <td><p>a vector of file extensions</p></td>
+    </tr>
+    <tr>
+      <th>context</th>
+      <td><p>a vector of file contexts defined in
+<code>gggenomes_global$def_formats</code></p></td>
+    </tr>
+    <tr>
+      <th>parser</th>
+      <td><p>a vector of file parsers defined in
+<code>gggenomes_global$def_formats</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list with seqs, genes, and links</p>
+    <p>dictionarish vector of file formats with recognized extensions as
+names</p>
+    <h2 class="hasAnchor" id="defined-formats-extensions-contexts-and-parsers"><a class="anchor" href="#defined-formats-extensions-contexts-and-parsers"></a>Defined formats, extensions, contexts, and parsers</h2>
+
+    
+
+<pre>
+     format                           ext            context                                              parser
+1 ambigious                 txt, tsv, csv                 NA                                      read_ambigious
+2     fasta fa, fas, fasta, ffn, fna, faa               seqs                                        read_seq_len
+3       fai                           fai               seqs                                            read_fai
+4      gff3                     gff, gff3        feats, seqs                             read_gff3, read_seq_len
+5       gbk           gbk, gb, gbff, gpff        feats, seqs                              read_gbk, read_seq_len
+6       bed                           bed              feats                                            read_bed
+7     blast                    m8, o6, o7              feats                                          read_blast
+8       paf                           paf              feats                                            read_paf
+9     alitv                          json feats, seqs, links read_alitv_genes, read_alitv_seqs, read_alitv_links
+</pre>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ali</span> <span class='op'>&lt;-</span> <span class='fu'>read_alitv</span><span class='op'>(</span><span class='st'>"https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json"</span><span class='op'>)</span>
-<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>seqs</span>, <span class='va'>ali</span><span class='op'>$</span><span class='va'>genes</span>, links<span class='op'>=</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>links</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='read_alitv-1.png' alt='' width='960' height='480' /></div><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>seqs</span>, <span class='va'>ali</span><span class='op'>$</span><span class='va'>genes</span>, links<span class='op'>=</span><span class='va'>ali</span><span class='op'>$</span><span class='va'>links</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>class</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>identity</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_distiller</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"RdYlGn"</span>, direction <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='flip.html'>flip_seqs</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='pick.html'>pick_seqs</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>8</span><span class='op'>)</span>
-</div><div class='img'><img src='read_alitv-2.png' alt='' width='960' height='480' /></div></pre>
+    <pre class="examples"><div class='input'><span class='co'># vector of defined zip formats and recognized extensions as names</span>
+<span class='co'># format of file</span>
+<span class='fu'>def_formats</span><span class='op'>(</span><span class='st'>"foo.fa"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      fa 
+#&gt; "fasta" </div><div class='input'>
+<span class='co'># formats associated with each extension</span>
+<span class='fu'>def_formats</span><span class='op'>(</span>ext<span class='op'>=</span><span class='fu'>qc</span><span class='op'>(</span><span class='va'>fa</span>, <span class='va'>gff</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      fa     gff 
+#&gt; "fasta"  "gff3" </div><div class='input'>
+<span class='co'># all formats/extensions that can be read in seqs context; includes formats</span>
+<span class='co'># that are defined for context=NA, i.e. that can be read in any context.</span>
+<span class='fu'>def_formats</span><span class='op'>(</span>context<span class='op'>=</span><span class='st'>"seqs"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        json         txt         tsv         csv         fai          fa 
+#&gt;     "alitv" "ambigious" "ambigious" "ambigious"       "fai"     "fasta" 
+#&gt;         fas       fasta         ffn         fna         faa         gbk 
+#&gt;     "fasta"     "fasta"     "fasta"     "fasta"     "fasta"       "gbk" 
+#&gt;          gb        gbff        gpff         gff        gff3 
+#&gt;       "gbk"       "gbk"       "gbk"      "gff3"      "gff3" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

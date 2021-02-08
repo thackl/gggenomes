@@ -90,7 +90,7 @@
       <h1 data-toc-skip>From a few sequences to a complex map in minutes</h1>
                         <h4 class="author">Thomas Hackl</h4>
             
-            <h4 class="date">2021-02-07</h4>
+            <h4 class="date">2021-02-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd"><code>vignettes/emales.Rmd</code></a></small>
       <div class="hidden name"><code>emales.Rmd</code></div>
@@ -114,7 +114,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thackl/gggenomes">gggenomes</a></span><span class="op">)</span>
 
 <span class="co"># parse sequence length and some metadata from fasta file</span>
-<span class="va">emale_seqs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seqs.html">read_fai</a></span><span class="op">(</span><span class="st">"emales.fna"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">emale_seqs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seq_len.html">read_fai</a></span><span class="op">(</span><span class="st">"emales.fna"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">extract</span><span class="op">(</span><span class="va">seq_desc</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"emale_type"</span>, <span class="st">"is_typespecies"</span><span class="op">)</span>, <span class="st">"=(\\S+) \\S+=(\\S+)"</span>,
     remove<span class="op">=</span><span class="cn">F</span>, convert<span class="op">=</span><span class="cn">T</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">arrange</span><span class="op">(</span><span class="va">emale_type</span>, <span class="va">length</span><span class="op">)</span>
