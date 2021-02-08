@@ -85,7 +85,7 @@ neighboring bins." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
       </span>
     </div>
 
@@ -197,23 +197,23 @@ links supporting a flip to actually carry it out.</p></td>
   <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"not flipped"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='input'>
 <span class='co'># nothing flipped</span>
-<span class='va'>p0</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_links.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span>
+<span class='va'>p0</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_feats.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span>
 
 <span class='co'># flip manually</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_links.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_feats.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>flip</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"manually"</span><span class='op'>)</span>
 
 <span class='co'># flip automatically based on genome-genome links</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_links.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_feats.html'>add_links</a></span><span class='op'>(</span><span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>flip_by_links</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"genome alignments"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Flipping: 4,5,6</span></div><div class='input'>
 <span class='co'># flip automatically based on protein-protein links</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_sublinks.html'>add_sublinks</a></span><span class='op'>(</span><span class='va'>emale_prot_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_feats.html'>add_sublinks</a></span><span class='op'>(</span><span class='va'>emale_prot_ava</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>flip_by_links</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"protein alignments"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Transforming sublinks with "aa2nuc". Disable with `.transform = "none"`</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 4,5,6</span></div><div class='input'>
 <span class='co'># flip automatically based on genes linked implicitly by belonging</span>
 <span class='co'># to the same clusters of orthologs (or any grouping of your choice)</span>
-<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_clusters.html'>add_clusters</a></span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_feats.html'>add_clusters</a></span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>flip_by_links</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>labs</span><span class='op'>(</span>caption<span class='op'>=</span><span class='st'>"shared orthologs"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Joining, by = "feat_id"</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 4,5,6</span></div><div class='input'>
 <span class='va'>p0</span> <span class='op'>+</span> <span class='va'>p1</span> <span class='op'>+</span> <span class='va'>p2</span> <span class='op'>+</span> <span class='va'>p3</span> <span class='op'>+</span> <span class='va'>p4</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>nrow<span class='op'>=</span><span class='fl'>1</span>, guides<span class='op'>=</span><span class='st'>"collect"</span><span class='op'>)</span>

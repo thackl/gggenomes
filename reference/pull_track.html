@@ -85,7 +85,7 @@ track from a gggenome object. Unprefixed variants work inside geom_* calls." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
       </span>
     </div>
 
@@ -243,7 +243,7 @@ on-the-fly.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='va'>gg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_seqs</span>, <span class='va'>emale_genes</span>, <span class='va'>emale_tirs</span>, <span class='va'>emale_ava</span><span class='op'>)</span>
+<span class='va'>gg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span>, <span class='va'>emale_seqs</span>, <span class='va'>emale_tirs</span>, <span class='va'>emale_ava</span><span class='op'>)</span>
 <span class='va'>gg</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='track_info.html'>track_info</a></span><span class='op'>(</span><span class='op'>)</span>            <span class='co'># info about track ids, positions and types</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 4</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   type [3]</span><span>
@@ -341,15 +341,11 @@ on-the-fly.</p></li>
 #&gt; </span><span style='color: #555555;'>6</span><span>     6     0 </span><span style='text-decoration: underline;'>26</span><span>856 +      E4-10… E4-10…  </span><span style='text-decoration: underline;'>26</span><span>856          0     1 </span><span style='text-decoration: underline;'>26</span><span>856 emales 
 #&gt; </span><span style='color: #555555;'># … with 1 more variable: seq_desc </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># plot integrated transposons and GC content for some viral genomes</span>
-<span class='va'>gg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_seqs</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span>,<span class='op'>]</span>,
-  feats<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>emale_ngaros</span>, GC<span class='op'>=</span><span class='va'>emale_gc</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The `i` argument of ``[.tbl_df`()` must lie in [0, rows] if positive, as of tibble 3.0.0.</span>
-#&gt; <span class='warning'>Use `NA_integer_` as row index to obtain a row full of `NA` values.</span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
-#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'><span class='va'>gg</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='va'>gg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs</span>, feats<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>emale_ngaros</span>, GC<span class='op'>=</span><span class='va'>emale_gc</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gg</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='st'>"skyblue"</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'># defaults to data=feats()</span>
   <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>+</span><span class='va'>score</span><span class='op'>-</span><span class='fl'>.6</span>, group<span class='op'>=</span><span class='va'>y</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'>feats</span><span class='op'>(</span><span class='va'>GC</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"gray60"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_segment).</span></div><div class='img'><img src='pull_track-1.png' alt='' width='960' height='480' /></div></span></pre>
+</div><div class='img'><img src='pull_track-1.png' alt='' width='960' height='480' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

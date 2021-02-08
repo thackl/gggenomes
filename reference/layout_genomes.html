@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gene annotations if 6 EMALE genomes (endogenous virophages) — emale_genes • gggenomes</title>
+<title>Layout genomes — layout_genomes • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Gene annotations if 6 EMALE genomes (endogenous virophages) — emale_genes" />
-<meta property="og:description" content="A data set containing gene feature annotations for 6 endogenous virophages
-found in the genomes of the marine protist Cafeteria burkhardae." />
+<meta property="og:title" content="Layout genomes — layout_genomes" />
+<meta property="og:description" content="Layout genomes" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -131,51 +130,117 @@ found in the genomes of the marine protist Cafeteria burkhardae." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gene annotations if 6 EMALE genomes (endogenous virophages)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>emale_genes.Rd</code></div>
+    <h1>Layout genomes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/gggenomes.R'><code>R/gggenomes.R</code></a></small>
+    <div class="hidden name"><code>layout_genomes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A data set containing gene feature annotations for 6 endogenous virophages
-found in the genomes of the marine protist <em>Cafeteria burkhardae</em>.</p>
+    <p>Layout genomes</p>
     </div>
 
-    <pre class="usage"><span class='va'>emale_genes</span></pre>
+    <pre class="usage"><span class='fu'>layout_genomes</span><span class='op'>(</span>
+  seqs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  genes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  feats <span class='op'>=</span> <span class='cn'>NULL</span>,
+  links <span class='op'>=</span> <span class='cn'>NULL</span>,
+  infer_bin_id <span class='op'>=</span> <span class='va'>seq_id</span>,
+  infer_start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>,
+  infer_end <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>,
+  infer_length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>seqs</th>
+      <td><p>A data.frame or a character vector with paths to files containing
+sequence data. Data columns:</p><ul>
+<li><p>required: <code>seq_id,length</code></p></li>
+<li><p>recognized: <code>bin_id,start,end,strand</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>genes</th>
+      <td><p>A data.frame, a list of data.frames, or a character vector
+with paths to files containing gene data. Each item is added as feature
+track.</p>
+<p>For a single data.frame the track_id will be "genes" and "feats",
+respectively. For a list, track_ids are parsed from the list names, or if
+names are missing from the name of the variable containing each data.frame.
+Data columns:</p><ul>
+<li><p>required: <code>seq_id,start,end</code></p></li>
+<li><p>recognized: <code>strand,bin_id,feat_id,introns</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>feats</th>
+      <td><p>A data.frame, a list of data.frames, or a character vector
+with paths to files containing gene data. Each item is added as feature
+track.</p>
+<p>For a single data.frame the track_id will be "genes" and "feats",
+respectively. For a list, track_ids are parsed from the list names, or if
+names are missing from the name of the variable containing each data.frame.
+Data columns:</p><ul>
+<li><p>required: <code>seq_id,start,end</code></p></li>
+<li><p>recognized: <code>strand,bin_id,feat_id,introns</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>links</th>
+      <td><p>A data.frame or a character vector with paths to files
+containing link data. Each item is added as links track. Data columns:</p><ul>
+<li><p>required: <code>seq_id,seq_id2</code></p></li>
+<li><p>recognized: <code>start,end,bin_id,start2,end2,bin_id2,strand</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>infer_bin_id</th>
+      <td><p>used to infer pseudo
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
+or link track.</p>
+<p>By default subregions of sequences from the first to the last feat/link
+are generated. Set <code>infer_start</code> to 0 to show all sequences from their
+true beginning.</p></td>
+    </tr>
+    <tr>
+      <th>infer_start</th>
+      <td><p>used to infer pseudo
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
+or link track.</p>
+<p>By default subregions of sequences from the first to the last feat/link
+are generated. Set <code>infer_start</code> to 0 to show all sequences from their
+true beginning.</p></td>
+    </tr>
+    <tr>
+      <th>infer_end</th>
+      <td><p>used to infer pseudo
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
+or link track.</p>
+<p>By default subregions of sequences from the first to the last feat/link
+are generated. Set <code>infer_start</code> to 0 to show all sequences from their
+true beginning.</p></td>
+    </tr>
+    <tr>
+      <th>infer_length</th>
+      <td><p>used to infer pseudo
+seqs if only feats or links are provided, or if no bin_id column was
+provided. The expressions are evaluated in the context of the first feat
+or link track.</p>
+<p>By default subregions of sequences from the first to the last feat/link
+are generated. Set <code>infer_start</code> to 0 to show all sequences from their
+true beginning.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 143 rows and 17 columns</p><dl>
-<dt>file_id</dt><dd><p>name of the file the data was read from</p></dd>
-<dt>seq_id</dt><dd><p>identifier of the sequence the feature appears on</p></dd>
-<dt>start</dt><dd><p>start of the feature on the sequence</p></dd>
-<dt>end</dt><dd><p>end of the feature on the sequence</p></dd>
-<dt>strand</dt><dd><p>reading orientation relative to sequence (+ or -)</p></dd>
-<dt>type</dt><dd><p>feature type (CDS, mRNA, gene, ...)</p></dd>
-<dt>feat_id</dt><dd><p>unique identifier of the feature</p></dd>
-<dt>introns</dt><dd><p>a list column with internal intron start/end positions</p></dd>
-<dt>parent_ids</dt><dd><p>a list column with parent IDs - feat_id's of parent features</p></dd>
-<dt>source</dt><dd><p>source of the annotation</p></dd>
-<dt>score</dt><dd><p>score of the annotation</p></dd>
-<dt>phase</dt><dd><p>For "CDS" features indicates where the next codon begins relative to the 5' start</p></dd>
-<dt>width</dt><dd><p>width of the feature</p></dd>
-<dt>gc_content</dt><dd><p>relative GC-content of the feature</p></dd>
-<dt>name</dt><dd><p>name of the feature</p></dd>
-<dt>Note</dt><dd><p></p></dd>
-<dt>geom_id</dt><dd><p>an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)</p></dd>
-
-</dl>
-
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    
-<ul>
-<li><p>Publication: <a href='http://dx.doi.org/10.1101/2020.11.30.404863'>http://dx.doi.org/10.1101/2020.11.30.404863</a></p></li>
-<li><p>Raw data: <a href='https://github.com/thackl/cb-emales'>https://github.com/thackl/cb-emales</a></p></li>
-<li><p>Derived &amp; bundled data: <code><a href='ex.html'>ex("emales/emales.gff")</a></code></p></li>
-</ul>
-
+    <p>gggenomes_layout object</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

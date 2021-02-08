@@ -85,7 +85,7 @@ tidyselect::starts_with() are supported. Renaming is not supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2.9000</span>
       </span>
     </div>
 
@@ -200,7 +200,7 @@ bin_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/bas
 seq_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a1"</span>,<span class='st'>"b1"</span>,<span class='st'>"b2"</span>,<span class='st'>"b3"</span>,<span class='st'>"c1"</span>,<span class='st'>"c2"</span>,<span class='st'>"c3"</span><span class='op'>)</span>,
 length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e4</span>, <span class='fl'>6e3</span>, <span class='fl'>2e3</span>, <span class='fl'>1e3</span>, <span class='fl'>3e3</span>, <span class='fl'>3e3</span>, <span class='fl'>3e3</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>s0</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>bin_id</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>s0</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>bin_id</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq_label.html'>geom_seq_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>expand_limits</span><span class='op'>(</span>color<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>p</span>

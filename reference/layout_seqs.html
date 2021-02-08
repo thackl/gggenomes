@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gene annotations if 6 EMALE genomes (endogenous virophages) — emale_genes • gggenomes</title>
+<title>Layout sequences — layout_seqs • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Gene annotations if 6 EMALE genomes (endogenous virophages) — emale_genes" />
-<meta property="og:description" content="A data set containing gene feature annotations for 6 endogenous virophages
-found in the genomes of the marine protist Cafeteria burkhardae." />
+<meta property="og:title" content="Layout sequences — layout_seqs" />
+<meta property="og:description" content="Layout sequences" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -131,50 +130,36 @@ found in the genomes of the marine protist Cafeteria burkhardae." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gene annotations if 6 EMALE genomes (endogenous virophages)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>emale_genes.Rd</code></div>
+    <h1>Layout sequences</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/seqs.R'><code>R/seqs.R</code></a></small>
+    <div class="hidden name"><code>layout_seqs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A data set containing gene feature annotations for 6 endogenous virophages
-found in the genomes of the marine protist <em>Cafeteria burkhardae</em>.</p>
+    <p>Layout sequences</p>
     </div>
 
-    <pre class="usage"><span class='va'>emale_genes</span></pre>
+    <pre class="usage"><span class='fu'>layout_seqs</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  spacing <span class='op'>=</span> <span class='fl'>0.05</span>,
+  wrap <span class='op'>=</span> <span class='cn'>NULL</span>,
+  spacing_style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"regular"</span>, <span class='st'>"center"</span>, <span class='st'>"spread"</span><span class='op'>)</span>,
+  keep <span class='op'>=</span> <span class='st'>"strand"</span>
+<span class='op'>)</span></pre>
 
-
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
-
-    <p>A data frame with 143 rows and 17 columns</p><dl>
-<dt>file_id</dt><dd><p>name of the file the data was read from</p></dd>
-<dt>seq_id</dt><dd><p>identifier of the sequence the feature appears on</p></dd>
-<dt>start</dt><dd><p>start of the feature on the sequence</p></dd>
-<dt>end</dt><dd><p>end of the feature on the sequence</p></dd>
-<dt>strand</dt><dd><p>reading orientation relative to sequence (+ or -)</p></dd>
-<dt>type</dt><dd><p>feature type (CDS, mRNA, gene, ...)</p></dd>
-<dt>feat_id</dt><dd><p>unique identifier of the feature</p></dd>
-<dt>introns</dt><dd><p>a list column with internal intron start/end positions</p></dd>
-<dt>parent_ids</dt><dd><p>a list column with parent IDs - feat_id's of parent features</p></dd>
-<dt>source</dt><dd><p>source of the annotation</p></dd>
-<dt>score</dt><dd><p>score of the annotation</p></dd>
-<dt>phase</dt><dd><p>For "CDS" features indicates where the next codon begins relative to the 5' start</p></dd>
-<dt>width</dt><dd><p>width of the feature</p></dd>
-<dt>gc_content</dt><dd><p>relative GC-content of the feature</p></dd>
-<dt>name</dt><dd><p>name of the feature</p></dd>
-<dt>Note</dt><dd><p></p></dd>
-<dt>geom_id</dt><dd><p>an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)</p></dd>
-
-</dl>
-
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    
-<ul>
-<li><p>Publication: <a href='http://dx.doi.org/10.1101/2020.11.30.404863'>http://dx.doi.org/10.1101/2020.11.30.404863</a></p></li>
-<li><p>Raw data: <a href='https://github.com/thackl/cb-emales'>https://github.com/thackl/cb-emales</a></p></li>
-<li><p>Derived &amp; bundled data: <code><a href='ex.html'>ex("emales/emales.gff")</a></code></p></li>
-</ul>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>spacing</th>
+      <td><p>between sequences in bases (&gt;1) or relative to longest bin (&lt;1)</p></td>
+    </tr>
+    <tr>
+      <th>wrap</th>
+      <td><p>wrap bins into multiple lines with at most this many nucleotides
+per lin.</p></td>
+    </tr>
+    </table>
 
 
   </div>
