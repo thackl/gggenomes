@@ -21,7 +21,7 @@
 #'   geom_gene(aes(color=class)) +
 #'   geom_link(aes(fill=identity)) +
 #'   scale_fill_distiller(palette="RdYlGn", direction = 1)
-#' p %>% flip_seq("Same_gi") %>% pick(1,3,2,4,5,6,7,8)
+#' p %>% flip_seqs(5) %>% pick_seqs(1,3,2,4,5,6,7,8)
 read_alitv <- function(file){
   ali <- jsonlite::fromJSON(file, simplifyDataFrame=TRUE)
   seqs <- tibble(seq = ali$data$karyo$chromosome) %>%
