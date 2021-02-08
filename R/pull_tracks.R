@@ -1,4 +1,4 @@
-#' Tracks in- and outside `geom_*` calls
+#' Use tracks inside and outside `geom_*` calls
 #'
 #' Track selection works like [dplyr::pull()] and supports unquoted ids and
 #' positional arguments. `...` can be used to subset the data in
@@ -22,7 +22,7 @@
 #'   "seqs", "feats", "links".
 #' @examples
 #'
-#' gg <- gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava)
+#' gg <- gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava)
 #' gg %>% track_info()            # info about track ids, positions and types
 #'
 #' # get first feat track that isn't "genes" (all equivalent)
@@ -35,8 +35,7 @@
 #' gg %>% pull_seqs()
 #'
 #' # plot integrated transposons and GC content for some viral genomes
-#' gg <- gggenomes(emale_seqs[1:8,],
-#'   feats=list(emale_ngaros, GC=emale_gc))
+#' gg <- gggenomes(seqs=emale_seqs, feats=list(emale_ngaros, GC=emale_gc))
 #' gg + geom_seq() +
 #'   geom_feat(color="skyblue") + # defaults to data=feats()
 #'   geom_line(aes(x, y+score-.6, group=y), data=feats(GC), color="gray60")

@@ -85,14 +85,16 @@ tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"))
 
 #' Convert a list of tibbles into tracks with magic
 #' @keywords internal
-as_tracks <- function(tracks, tracks_exprs, reserved_ids=NULL){
+as_tracks <- function(tracks, tracks_exprs, reserved_ids=NULL, context=NULL){
   # capture for df naming before first eval of tracks
   track_name <- as_label(enexpr(tracks))
-
   if(is.null(tracks)){
     return(tracks)
   }else if(is.data.frame(tracks)){
     tracks <- list(tracks)
+    names(tracks) <- track_name
+  }else if(is_character(tracks)){
+    tracks <- list(read_context(tracks, context))
     names(tracks) <- track_name
   }else if(is.list(tracks)){
     if(!is.list(tracks_exprs)) # make sure tracks_exprs is a list

@@ -46,8 +46,8 @@ context \code{read_seqs("*.gbk")}, a sequence index.
 4      gff3                     gff, gff3        feats, seqs                             read_gff3, read_seq_len
 5       gbk           gbk, gb, gbff, gpff        feats, seqs                              read_gbk, read_seq_len
 6       bed                           bed              feats                                            read_bed
-7     blast                    m8, o6, o7              feats                                          read_blast
-8       paf                           paf              feats                                            read_paf
+7     blast                    m8, o6, o7       feats, links                                  read_paf, read_paf
+8       paf                           paf       feats, links                                  read_paf, read_paf
 9     alitv                          json feats, seqs, links read_alitv_genes, read_alitv_seqs, read_alitv_links
 }
 }

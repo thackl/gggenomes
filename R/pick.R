@@ -16,7 +16,7 @@
 #' seq_id = c("a1","b1","b2","b3","c1","c2","c3"),
 #' length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3))
 #'
-#' p <- gggenomes(s0) + geom_seq(aes(color=bin_id), size=3) +
+#' p <- gggenomes(seqs=s0) + geom_seq(aes(color=bin_id), size=3) +
 #'   geom_bin_label() + geom_seq_label() +
 #'   expand_limits(color=c("A","B","C"))
 #' p

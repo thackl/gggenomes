@@ -96,13 +96,15 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 }
 
 
-#' Add links
-#' @param ... link tables, possibly named, i.e. blast=blast_df, domains=domain_df
-#' @inheritParams as_links
+#' @describeIn add_tracks Add links connecting sequences, such as whole-genome
+#' alignment data.
+#' @order 2
 #' @examples
-#' gggenomes(emale_seqs[1:4,]) %>%
+#' # Add all-vs-all whole-genome alignments
+#' gggenomes(seqs=emale_seqs) %>%
 #'   add_links(links=emale_ava) +
 #'   geom_seq() + geom_link()
+#' 
 #' @export
 add_links <- function(x, ...){
   UseMethod("add_links")

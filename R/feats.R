@@ -94,14 +94,15 @@ drop_feat_layout <- function(x, seqs, keep="strand"){
   discard(x, names(x) %in% drop)
 }
 
-#' Add feats
-#' @param ... feat tables with names, i.e. genes=gene_df, snps=snp_df
+#' @describeIn add_tracks Add feature annotations to sequences
+#' @order 1
 #' @export
-#'
 #' @examples
-#' gggenomes(emale_seqs) %>%
+#' # Add some repeat annotations
+#' gggenomes(seqs=emale_seqs) %>%
 #'   add_feats(repeats=emale_tirs) +
 #'   geom_seq() + geom_feat()
+#' 
 add_feats <- function(x, ...){
   UseMethod("add_feats")
 }

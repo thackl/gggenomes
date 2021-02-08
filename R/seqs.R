@@ -51,7 +51,8 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
   layout_seqs(x, ...)
 }
 
-#' @rdname gggenomes
+#' Layout sequences
+#'
 #' @param spacing between sequences in bases (>1) or relative to longest bin (<1)
 #' @param wrap wrap bins into multiple lines with at most this many nucleotides
 #' per lin.

@@ -1,16 +1,14 @@
-#' Add subfeats
-#'
-#' Add subfeats
-#'
-#' @param ... subfeat tables with names, i.e. blast=blast_df, domains=domain_df
-#' @param .track_id track_id of the feats the sublinks map onto.
-#' @param .transform one of "aa2nuc", "none", "nuc2aa"
+#' @describeIn add_tracks Add features of features, such as gene/protein
+#' domains, blast hits to genes/proteins, etc.
+#' @order 3
 #' @export
 #' @examples
+#' # Add domains to genes
 #' genes <- tibble(seq_id="A", start=100, end=200, feat_id="gene1")
 #' domains <- tibble(feat_id = "gene1", start=40, end=80)
-#' gggenomes(genes=genes) %>% add_subfeats(domains) +
+#' gggenomes(genes=genes) %>% add_subfeats(domains, .transform = "none") +
 #'   geom_gene() + geom_feat()
+#' 
 add_subfeats <- function(x, ..., .track_id = "genes", .transform = "aa2nuc"){
   UseMethod("add_subfeats")
 }
