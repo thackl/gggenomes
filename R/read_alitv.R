@@ -39,9 +39,9 @@ read_alitv <- function(file){
     left_join(link_pos, by=c("source"="id")) %>%
     left_join(link_pos, by=c("target"="id")) %>%
     transmute(
-      seq_id1=karyo.x,
-      start1=start.x,
-      end1=end.x,
+      seq_id=karyo.x,
+      start=start.x,
+      end=end.x,
       seq_id2=karyo.y,
       start2=start.y,
       end2=end.y,
