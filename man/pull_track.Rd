@@ -14,7 +14,7 @@
 \alias{pull_bins}
 \alias{pull_bins.gggenomes_layout}
 \alias{pull_track}
-\title{Tracks in- and outside \verb{geom_*} calls}
+\title{Use tracks inside and outside \verb{geom_*} calls}
 \usage{
 feats(.track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 

@@ -16,10 +16,10 @@ library(gggenomes)
 # to inspect the example data shipped with gggenomes
 data(package="gggenomes")
 
-gggenomes(emale_seqs, emale_genes, emale_tirs, emale_ava) %>%
+gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) %>%
   add_feats(ngaros=emale_ngaros, gc=emale_gc) %>%
   add_sublinks(emale_prot_ava) %>%
-  flip_nicely() +
+  flip_by_links() +
   geom_feat(position="identity", size=6) +
   geom_seq() +
   geom_link(data=links(2)) +
