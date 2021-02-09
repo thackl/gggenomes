@@ -20,7 +20,7 @@ read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
     parse_desc=TRUE, ...){
   seqs <- read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
 
-  if(parse_desc){
+  if(parse_desc && has_name(seqs, "seq_desc")){
     seqs <- mutate(seqs, parse_desc(seq_desc))
   }
 
