@@ -71,8 +71,27 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 
   # infer spacing length from bin lengths
   if(spacing < 1){
-    len <- x %>% summarize(length=sum(length))
-    spacing <- ceiling(max(len$length) * spacing)
+    bins <- x %>%
+      group_by(bin_id) %>%
+      summarize(
+        bin_len=sum(length),
+        seq_n=n()) %>%
+      ungroup() %>%
+      summarize(
+        max_bin_len = max(bin_len),
+        max_seq_n = max(seq_n))
+
+    if(is.null(wrap)){
+      seq_row <- bins$max_seq_n
+      bin_len <- bins$max_bin_len
+    }else{
+      wrap_rows <- bins$max_bin_len/wrap # roughly
+      seq_row <- bins$max_seq_n/wrap_rows
+      bin_len <- wrap
+    }
+
+    # / sqrt(bins$max_seq_n)
+    spacing <- ceiling(bin_len/sqrt(seq_row) * spacing)
   }
 
   # compute seq starts in layout
