@@ -183,9 +183,9 @@ pull_bins.gggenomes <- function(.x, ..., .group=vars()){
 #' @rdname pull_track
 #' @export
 pull_bins.gggenomes_layout <- function(.x, ..., .group=vars()){
-  .group <- c(vars(y, bin_id), .group)
+  .group <- c(vars(bin_id), .group)
   get_seqs(.x) %>% filter(...) %>% group_by(!!!.group) %>%
-    summarize(x = min(x,xend), xend = max(x,xend)) %>%
+    summarize(y=min(y), x = min(x,xend), xend = max(x,xend)) %>%
     ungroup()
 }
 

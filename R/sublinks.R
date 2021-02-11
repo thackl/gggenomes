@@ -6,7 +6,7 @@
 #' gggenomes(emale_genes) %>%
 #'   add_sublinks(emale_prot_ava) +
 #'   geom_gene() + geom_link()
-#' 
+#'
 #' @export
 add_sublinks <- function(x, ..., .track_id = "genes", .transform = "aa2nuc"){
   UseMethod("add_sublinks")
@@ -40,7 +40,7 @@ add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
   links <- map(tracks, as_sublinks, get_seqs(x), feats, transform = transform,
                compute_layout=FALSE) # layout only keeps adjacent
   x$links <- c(x$links, map(links, layout_links, get_seqs(x)))
-  x$orig_links <- c(x$orig_links, links)
+  x$orig_links <- c(x$orig_links, map(links, as_orig_links, get_seqs(x))) # also store orig links for re-layout
   x
 }
 

@@ -2,41 +2,108 @@
 % Please edit documentation in R/focus.R
 \name{focus}
 \alias{focus}
-\title{Focus on feats and regions of interest}
+\title{Focus on features and regions of interest}
 \usage{
 focus(
   x,
   ...,
-  track_id = genes,
-  plus = 2000,
-  marginal = c("trim", "drop", "keep"),
-  subseqs = NULL
+  .track_id = 2,
+  .max_dist = 10000,
+  .expand = 5000,
+  .overhang = c("drop", "trim", "keep"),
+  .locus_id = str_glue("{seq_id}_lc{row_number()}"),
+  .locus_id_group = seq_id,
+  .locus_bin = c("bin", "seq", "locus"),
+  .locus_score = n(),
+  .locus_filter = TRUE,
+  .loci = NULL
 )
 }
 \arguments{
-\item{x}{a gggenomes object}
+\item{x}{A gggenomes object}
 
 \item{...}{Logical predicates defined in terms of the variables in the track
-given by 'track_id'. Multiple conditions are combined with ‘&’. Only rows
+given by \code{.track_id}. Multiple conditions are combined with ‘&’. Only rows
 where the condition evaluates to ‘TRUE’ are kept.
 
-The arguments in ‘...’ are automatically quoted and evaluated in the context
-of the data frame. They support unquoting and splicing. See
+The arguments in ‘...’ are automatically quoted and evaluated in the
+context of the data frame. They support unquoting and splicing. See
 ‘vignette("programming")’ for an introduction to these concepts.}
 
-\item{track_id}{the track to filter from}
+\item{.track_id}{the track to filter from - defaults to first feature track,
+usually "genes". Can be a quoted or unquoted string or a positional
+argument giving the index of a track among all tracks (seqs, feats &
+links).}
 
-\item{plus}{the amount to nucleotides to extend the focus around the target
-feats. Give two values for different up- and downstream extensions.}
+\item{.max_dist}{Maximum distance between adjacent features to be included
+into the same locus, default 10kb.}
 
-\item{marginal}{how to handle feats that stick out of sequences, for
-example after focusing in on a subregion. Choices are to "drop" them, "keep"
-them or "trim" them to the subregion boundaries.}
+\item{.expand}{The amount to nucleotides to expand the focus around the
+target features. Default 2kb. Give two values for different up- and
+downstream expansions.}
 
-\item{subseqs}{a dataframe specifying sequence regions (subseqs) of interest
-directly. Required columns are 'seq_id, start, end'. Superceeds \code{...}.}
+\item{.overhang}{How to handle features overlapping the locus boundaries
+(including expand). Options are to "keep" them, "trim" them exactly at the
+boundaries, or "drop" all features not fully included within the
+boundaries.}
+
+\item{.locus_id, .locus_id_group}{How to generate the ids for the new loci
+which will eventually become their new \code{seq_id}s.}
+
+\item{.locus_bin}{What bin to assign new locus to. Defaults to keeping the
+original binning, but can be set to the "seq" to bin all loci originating
+from the same parent sequence, or to "locus" to separate all loci into
+individual bins.}
+
+\item{.loci}{A data.frame specifying loci directly. Required columns are
+\verb{seq_id,start,end}. Supersedes \code{...}.}
 }
 \description{
-Only show subsequences from the complete data set containing feats of
-interest.
+Only show loci containing features of interest. Loci can either be provided
+as predefined regions directly (\verb{loci=}), or are constructed automatically
+based on pre-selected features (via \code{...}). Features within \code{max_dist} are
+greedily combined into the same locus. The, thus, identified loci are
+extracted from their parent sequences and promoted to new sequences,
+replacing the original sequence set. The new sequences will have their
+\code{locus_id} as their new \code{seq_id}.
+}
+\examples{
+
+# Let's hunt some defense systems in marine SAGs
+# read the genomes
+s0 <- read_seqs(ex("gorg/gorg.fna"))
+s1 <- s0 \%>\%
+  # strip trailing number from contigs to get bins
+  mutate(bin_id = str_remove(seq_id, "_\\\\d+$")) \%>\%
+  slice_head(n=200)  # we only need a few contigs for this
+# gene annotations from prokka
+g0 <- read_feats(ex("gorg/gorg.gff"))
+
+# best hits to the PADS Arsenal database of prokaryotic defense-system genes
+# $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \
+#     --greedy-best-hits
+f0 <- read_feats(ex("gorg/gorg-pads-defense.o6"))
+f1 <- f0 \%>\%
+  # parser system/gene info
+  separate(seq_id2, into=qc(seq_id2, system, gene), sep=",") \%>\%
+  filter(
+    evalue < 1e-10,  # get rid of some spurious hits
+    # and let's focus just on a few systems for this example
+    system \%in\% c("CRISPR-CAS", "DISARM", "GABIJA", "LAMASSU", "THOERIS"))
+
+# plot the distribution of hits across full genomes
+gggenomes(g0, s1, f1, wrap=2e5) +
+  geom_seq() + geom_bin_label() +
+  scale_color_brewer(palette="Dark2") +
+  geom_point(aes(x=x,y=y, color=system), data=feats())
+
+# zoom in on loci
+gggenomes(g0, s1, f1, wrap=5e4) \%>\%
+  focus(.track_id = feats) +
+  geom_seq() + geom_bin_label() +
+  geom_gene() +
+  geom_feat(aes(color=system)) +
+  geom_feat_tag(aes(label=gene)) +
+  scale_color_brewer(palette="Dark2")
+
 }

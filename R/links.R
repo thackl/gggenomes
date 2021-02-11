@@ -104,7 +104,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #' gggenomes(seqs=emale_seqs) %>%
 #'   add_links(links=emale_ava) +
 #'   geom_seq() + geom_link()
-#' 
+#'
 #' @export
 add_links <- function(x, ...){
   UseMethod("add_links")
@@ -127,8 +127,19 @@ add_links.gggenomes_layout <- function(x, ...){
 
 add_link_tracks <- function(x, tracks){
   x$links <- c(x$links, map(tracks, as_links, get_seqs(x))) # this is lossy, so
-  x$orig_links <- c(x$orig_links, tracks) # also store orig links for re-layout
+  x$orig_links <- c(x$orig_links, map(tracks, as_orig_links, get_seqs(x))) # also store orig links for re-layout
   x
+}
+
+# add bin_id to orig links, required for focus
+as_orig_links <- function(links, seqs){
+  if(!has_vars("bin_id", "bin_id2")){
+    links <- left_join(links, select(seqs, bin_id, seq_id),
+        by=shared_names(links, "seq_id", "bin_id"))
+    links <- left_join(links, select(seqs, bin_id2=bin_id, seq_id2=seq_id),
+        by=shared_names(links, "seq_id2", "bin_id2"))
+  }
+  links
 }
 
 #' @export

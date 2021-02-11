@@ -20,18 +20,18 @@ read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
     parse_desc=TRUE, ...){
   seqs <- read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
 
-  if(parse_desc){
+  if(parse_desc && has_name(seqs, "seq_desc")){
     seqs <- mutate(seqs, parse_desc(seq_desc))
   }
 
   seqs
 }
 
-parse_desc <- function(x, pattern="\\s*(\\S+)=\\{?([^=]+?)(\\s|\\}|$)"){
+parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   m <- str_match_all(x, pattern) # create  list of match matrices
   y <- map_df(m, function(.x){
     # if x was NA, all match values are NA - return empty tibble with one row
-    if(any(is.na(.x[,2]))) return(tibble(.rows=1))
+    if(nrow(.x) < 1 || any(is.na(.x[,2]))) return(tibble(.rows=1))
     # else return tibble with keys as names
     .x[,3] %>% as.list %>% set_names(.x[,2]) %>% as_tibble
   }) %>% mutate(across(everything(), type.convert, as.is=TRUE))

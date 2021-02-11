@@ -17,7 +17,7 @@ gggenomes_global$def_formats <- tribble(
   "gff3", qc(gff,gff3), qc(feats, seqs), qc(read_gff3, read_seq_len),
   "gbk", qc(gbk,gb,gbff,gpff), qc(feats, seqs), qc(read_gbk, read_seq_len),
   "bed", qc(bed), "feats", "read_bed",
-  "blast", qc(m8,o6,o7), qc(feats, links), qc(read_paf, read_paf),
+  "blast", qc(m8,o6,o7), qc(feats, links), qc(read_blast, read_blast),
   "paf", qc(paf), qc(feats, links), qc(read_paf, read_paf),
   "alitv", qc(json), qc(feats, seqs, links),
      qc(read_alitv_genes, read_alitv_seqs, read_alitv_links)
