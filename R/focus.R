@@ -52,8 +52,7 @@
 #' s0 <- read_seqs(ex("gorg/gorg.fna"))
 #' s1 <- s0 %>%
 #'   # strip trailing number from contigs to get bins
-#'   mutate(bin_id = str_remove(seq_id, "_\\d+$")) %>%
-#'   slice_head(n=200)  # we only need a few contigs for this
+#'   mutate(bin_id = str_remove(seq_id, "_\\d+$"))
 #' # gene annotations from prokka
 #' g0 <- read_feats(ex("gorg/gorg.gff"))
 #'
