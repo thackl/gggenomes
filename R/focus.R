@@ -1,12 +1,12 @@
-#' Focus on features and regions of interest
+#' Show features and regions of interest
 #'
-#' Only show loci containing features of interest. Loci can either be provided
+#' Show loci containing features of interest. Loci can either be provided
 #' as predefined regions directly (`loci=`), or are constructed automatically
 #' based on pre-selected features (via `...`). Features within `max_dist` are
-#' greedily combined into the same locus. The, thus, identified loci are
-#' extracted from their parent sequences and promoted to new sequences,
-#' replacing the original sequence set. The new sequences will have their
-#' `locus_id` as their new `seq_id`.
+#' greedily combined into the same locus. `locate()` adds these loci as new
+#' track so that they can be easily visualized. `focus()` extracts those loci
+#' from their parent sequences making them the new sequence set. These sequences
+#' will have their `locus_id` as their new `seq_id`.
 #' @param x A gggenomes object
 #' @param ... Logical predicates defined in terms of the variables in the track
 #'   given by `.track_id`. Multiple conditions are combined with ‘&’. Only rows
@@ -34,6 +34,14 @@
 #'   original binning, but can be set to the "seq" to bin all loci originating
 #'   from the same parent sequence, or to "locus" to separate all loci into
 #'   individual bins.
+#' @param .locus_score An expression evaluated in the context of all features
+#'   that are combined into a new locus. Results are stored in the column
+#'   `locus_score`. Defaults to the `n()`, i.e. the number of features per
+#'   locus. Set, for example, to `sum(bitscore)` to sum over all blast hit
+#'   bitscore of per locus. Usually used in conjunction with `.locus_filter`.
+#' @param .locus_filter An predicate expression used to post-filter identified
+#'   loci. Set `.locus_filter=locus_score >= 3` to only return loci comprising
+#'   at least 3 target features.
 #' @param .loci A data.frame specifying loci directly. Required columns are
 #'   `seq_id,start,end`. Supersedes `...`.
 #' @export
@@ -67,6 +75,15 @@
 #'   scale_color_brewer(palette="Dark2") +
 #'   geom_point(aes(x=x,y=y, color=system), data=feats())
 #'
+#' # hilight the regions containing hits
+#' gggenomes(g0, s1, f1, wrap=2e5) %>%
+#'   locate(.track_id = feats) %>%
+#'   identity() +
+#'   geom_seq() + geom_bin_label() +
+#'   scale_color_brewer(palette="Dark2") +
+#'   geom_feat(data=feats(loci), color="plum3") +
+#'   geom_point(aes(x=x,y=y, color=system), data=feats())
+#'
 #' # zoom in on loci
 #' gggenomes(g0, s1, f1, wrap=5e4) %>%
 #'   focus(.track_id = feats) +
@@ -75,7 +92,7 @@
 #'   geom_feat(aes(color=system)) +
 #'   geom_feat_tag(aes(label=gene)) +
 #'   scale_color_brewer(palette="Dark2")
-#'
+#' @describeIn focus Identify regions of interest and zoom in on them
 focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
     .overhang=c("drop", "trim", "keep"),
     .locus_id=str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
@@ -87,25 +104,17 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
 
   # construct loci from predicate hits
   if(is.null(.loci)){
-      targets <- pull_track(x, {{.track_id}}, ...)
-      if(nrow(targets) <1)
-        abort("Found no targets to focus on")
-      loci <- targets %>%
-        compute_loci(max_dist=.max_dist, locus_score={{.locus_score}}, locus_filter={{.locus_filter}},
-                     locus_id={{.locus_id}}, locus_id_group={{.locus_id_group}}) %>%
-        arrange(locus_id) %>%
-        mutate(
-          start = start - .expand[1],
-          end=end + .expand[2],
-          locus_length = width(start, end)
-        )
+    loci <- locate_impl(x, ..., .track_id={{.track_id}}, .max_dist=.max_dist,
+        .expand=.expand, .locus_id={{.locus_id}},
+        .locus_id_group={{.locus_id_group}}, .locus_bin={{.locus_bin}},
+        .locus_score={{.locus_score}}, .locus_filter={{.locus_filter}})
   }else{
     # coerce IDs to chars, so we don't get errors in join by mismatched types
     loci <- mutate(.loci, seq_id = as.character(seq_id))
     if(!has_name("locus_id")){
       print("hi")
-      loci <- group_by({{ locus_id_group }}) %>%
-        mutate(loci, locus_id = str_glue(locus_id)) %>%
+      loci <- group_by({{ .locus_id_group }}) %>%
+        mutate(loci, locus_id = str_glue(.locus_id)) %>%
         ungroup
     }
   }
@@ -138,7 +147,7 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
   x$data$orig_links <- map(x$data$orig_links, focus_links, s, bin_id)
 
   # rename seqs/bins to loci
-  s <- mutate(s, bin_id = .data[[bin_id]], seq_id = locus_id)
+  s <- mutate(s, bin_id = .data[[bin_id]], orig_seq_id = seq_id, seq_id = locus_id)
 
   if(FALSE){#any(duplicated(s$seq_id))){
     # NOTE: currently, this would create a clone of the sequence - duplicating
@@ -154,6 +163,51 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
   x <- set_seqs(x, s)
   layout(x, args_feats = list(marginal = marginal))
 }
+
+#' @export
+#' @param .locus_track The name of the new track containing the identified loci.
+#' @describeIn focus Identify regions of interest and add them as new feature track
+locate <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
+                  .locus_id=str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
+                  .locus_bin = c("bin", "seq", "locus"),
+                  .locus_score=n(), .locus_filter=TRUE, .locus_track="loci"){
+
+  loci <- locate_impl(x, ..., .track_id={{.track_id}}, .max_dist=.max_dist,
+      .expand=.expand, .locus_id={{.locus_id}},
+      .locus_id_group={{.locus_id_group}}, .locus_bin={{.locus_bin}},
+      .locus_score={{.locus_score}}, .locus_filter={{.locus_filter}})
+
+  # odd construct to name an argument in a call based on a variable
+  # essentially doing: add_feats(x, !!.locus_track=loci) - which doesn't work
+  inform(str_glue(
+    "Adding '{.locus_track}' track. Plot with `geom_feat(data=feats({.locus_track}))`"))
+  args <- set_names(list(loci), .locus_track);
+  exec(add_feats, x, !!!args)
+}
+
+locate_impl <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
+    .locus_id=str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
+    .locus_bin = c("bin", "seq", "locus"),
+    .locus_score=n(), .locus_filter=TRUE, .loci=NULL){
+  if(length(.expand==1)) .expand <- c(.expand,.expand)
+  bin_id <- paste0(match.arg(.locus_bin), "_id")
+
+  targets <- pull_track(x, {{.track_id}}, ...)
+  if(nrow(targets) <1)
+    abort("Found no targets to build loci from")
+
+  loci <- targets %>%
+    compute_loci(max_dist=.max_dist, locus_score={{.locus_score}}, locus_filter={{.locus_filter}},
+                 locus_id={{.locus_id}}, locus_id_group={{.locus_id_group}}) %>%
+    arrange(locus_id) %>%
+    mutate(
+      start = start - .expand[1],
+      end=end + .expand[2],
+      locus_length = width(start, end)
+    )
+  loci
+}
+
 
 focus_feats <- function(track, seqs, bin_id){
   # !! is loci - rest is feature
