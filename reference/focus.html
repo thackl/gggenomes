@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Focus on features and regions of interest — focus • gggenomes</title>
+<title>Show features and regions of interest — focus • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,14 +48,14 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Focus on features and regions of interest — focus" />
-<meta property="og:description" content="Only show loci containing features of interest. Loci can either be provided
+<meta property="og:title" content="Show features and regions of interest — focus" />
+<meta property="og:description" content="Show loci containing features of interest. Loci can either be provided
 as predefined regions directly (loci=), or are constructed automatically
 based on pre-selected features (via ...). Features within max_dist are
-greedily combined into the same locus. The, thus, identified loci are
-extracted from their parent sequences and promoted to new sequences,
-replacing the original sequence set. The new sequences will have their
-locus_id as their new seq_id." />
+greedily combined into the same locus. locate() adds these loci as new
+track so that they can be easily visualized. focus() extracts those loci
+from their parent sequences making them the new sequence set. These sequences
+will have their locus_id as their new seq_id." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -136,19 +136,19 @@ locus_id as their new seq_id." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Focus on features and regions of interest</h1>
+    <h1>Show features and regions of interest</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/focus.R'><code>R/focus.R</code></a></small>
     <div class="hidden name"><code>focus.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Only show loci containing features of interest. Loci can either be provided
+    <p>Show loci containing features of interest. Loci can either be provided
 as predefined regions directly (<code>loci=</code>), or are constructed automatically
 based on pre-selected features (via <code>...</code>). Features within <code>max_dist</code> are
-greedily combined into the same locus. The, thus, identified loci are
-extracted from their parent sequences and promoted to new sequences,
-replacing the original sequence set. The new sequences will have their
-<code>locus_id</code> as their new <code>seq_id</code>.</p>
+greedily combined into the same locus. <code>locate()</code> adds these loci as new
+track so that they can be easily visualized. <code>focus()</code> extracts those loci
+from their parent sequences making them the new sequence set. These sequences
+will have their <code>locus_id</code> as their new <code>seq_id</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>focus</span><span class='op'>(</span>
@@ -164,6 +164,20 @@ replacing the original sequence set. The new sequences will have their
   .locus_score <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span>,
   .locus_filter <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .loci <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
+
+<span class='fu'>locate</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>...</span>,
+  .track_id <span class='op'>=</span> <span class='fl'>2</span>,
+  .max_dist <span class='op'>=</span> <span class='fl'>10000</span>,
+  .expand <span class='op'>=</span> <span class='fl'>5000</span>,
+  .locus_id <span class='op'>=</span> <span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"{seq_id}_lc{row_number()}"</span><span class='op'>)</span>,
+  .locus_id_group <span class='op'>=</span> <span class='va'>seq_id</span>,
+  .locus_bin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bin"</span>, <span class='st'>"seq"</span>, <span class='st'>"locus"</span><span class='op'>)</span>,
+  .locus_score <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span>,
+  .locus_filter <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  .locus_track <span class='op'>=</span> <span class='st'>"loci"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -220,12 +234,37 @@ from the same parent sequence, or to "locus" to separate all loci into
 individual bins.</p></td>
     </tr>
     <tr>
+      <th>.locus_score</th>
+      <td><p>An expression evaluated in the context of all features
+that are combined into a new locus. Results are stored in the column
+<code>locus_score</code>. Defaults to the <code>n()</code>, i.e. the number of features per
+locus. Set, for example, to <code><a href='https://rdrr.io/r/base/sum.html'>sum(bitscore)</a></code> to sum over all blast hit
+bitscore of per locus. Usually used in conjunction with <code>.locus_filter</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.locus_filter</th>
+      <td><p>An predicate expression used to post-filter identified
+loci. Set <code>.locus_filter=locus_score &gt;= 3</code> to only return loci comprising
+at least 3 target features.</p></td>
+    </tr>
+    <tr>
       <th>.loci</th>
       <td><p>A data.frame specifying loci directly. Required columns are
 <code>seq_id,start,end</code>. Supersedes <code>...</code>.</p></td>
     </tr>
+    <tr>
+      <th>.locus_track</th>
+      <td><p>The name of the new track containing the identified loci.</p></td>
+    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>focus</code>: Identify regions of interest and zoom in on them</p></li>
+<li><p><code>locate</code>: Identify regions of interest and add them as new feature track</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -241,14 +280,12 @@ individual bins.</p></td>
 </div><div class='output co'>#&gt; <span class='message'>Reading 'gff3' with `read_gff3()`:</span></div><div class='output co'>#&gt; <span class='message'>* file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff]</span></div><div class='output co'>#&gt; <span class='message'>Harmonizing column names</span>
 #&gt; <span class='message'>* ID -&gt; feat_id</span>
 #&gt; <span class='message'>* Parent -&gt; parent_ids</span>
-#&gt; <span class='message'>* Name -&gt; name</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #555555;'># A tibble: 5 x 3</span><span></span>
-#&gt; <span class='message'>  source       type              n</span>
-#&gt; <span class='message'>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></span>
-#&gt; <span class='message'></span><span style='color: #555555;'>1</span><span> Aragorn:1.2  tmRNA            17</span>
-#&gt; <span class='message'></span><span style='color: #555555;'>2</span><span> Aragorn:1.2  tRNA            714</span>
-#&gt; <span class='message'></span><span style='color: #555555;'>3</span><span> barrnap:0.6  rRNA            101</span>
-#&gt; <span class='message'></span><span style='color: #555555;'>4</span><span> minced:0.2.0 repeat_region </span><span style='text-decoration: underline;'>31</span><span>705</span>
-#&gt; <span class='message'></span><span style='color: #555555;'>5</span><span> Prodigal:2.6 CDS           </span><span style='text-decoration: underline;'>31</span><span>705</span></div><div class='input'>
+#&gt; <span class='message'>* Name -&gt; name</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #555555;'># A tibble: 3 x 3</span><span></span>
+#&gt; <span class='message'>  source       type      n</span>
+#&gt; <span class='message'>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span></span>
+#&gt; <span class='message'></span><span style='color: #555555;'>1</span><span> Aragorn:1.2  tRNA     62</span>
+#&gt; <span class='message'></span><span style='color: #555555;'>2</span><span> barrnap:0.6  rRNA     10</span>
+#&gt; <span class='message'></span><span style='color: #555555;'>3</span><span> Prodigal:2.6 CDS    </span><span style='text-decoration: underline;'>3</span><span>268</span></div><div class='input'>
 <span class='co'># best hits to the PADS Arsenal database of prokaryotic defense-system genes</span>
 <span class='co'># $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \</span>
 <span class='co'>#     --greedy-best-hits</span>
@@ -267,6 +304,15 @@ individual bins.</p></td>
   <span class='fu'>scale_color_brewer</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>, color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='focus-1.png' alt='' width='960' height='480' /></div><div class='input'>
+<span class='co'># hilight the regions containing hits</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>2e5</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>locate</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='va'>feats</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/identity.html'>identity</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_color_brewer</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='va'>loci</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"plum3"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>, color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Adding 'loci' track. Plot with `geom_feat(data=feats(loci))`</span></div><div class='img'><img src='focus-2.png' alt='' width='960' height='480' /></div><div class='input'>
 <span class='co'># zoom in on loci</span>
 <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>5e4</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>focus</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='va'>feats</span><span class='op'>)</span> <span class='op'>+</span>
@@ -280,8 +326,7 @@ individual bins.</p></td>
 #&gt; <span class='message'>* q25: 6464</span>
 #&gt; <span class='message'>* med: 9739</span>
 #&gt; <span class='message'>* q75: 10714</span>
-#&gt; <span class='message'>* max: 19561</span></div><div class='img'><img src='focus-2.png' alt='' width='960' height='480' /></div><div class='input'>
-</div></span></pre>
+#&gt; <span class='message'>* max: 19561</span></div><div class='img'><img src='focus-3.png' alt='' width='960' height='480' /></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
