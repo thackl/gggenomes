@@ -19,6 +19,28 @@
 #'   lowest stack level on the sequence, 1 to put forward/reverse sequence one
 #'   half offset above/below the sequence line.
 #' @export
+#' @examples
+#' library(patchwork)
+#' p <- gggenomes(emale_genes) %>%
+#'   pick(3:4) + geom_seq()
+#'
+#' f0 <- tibble(
+#'   seq_id = pull_seqs(p)$seq_id[1],
+#'   start = 1:20*1000,
+#'   end = start + 2500,
+#'   strand = rep(c("+", "-"), length(start)/2)
+#' )
+#'
+#' sixframe <- function(x, strand) as.character((x%%3 + 1) * strand_int(strand))
+#'
+#' p1 <- p + geom_gene()
+#' p2 <- p + geom_gene(aes(fill=strand), position="strand")
+#' p3 <- p + geom_gene(aes(fill=strand), position=position_strand(flip=TRUE, base=0.2))
+#' p4 <- p + geom_gene(aes(fill=sixframe(x,strand)), position="sixframe")
+#' p5 <- p %>% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand))
+#' p6 <- p %>% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand), position="strandpile")
+#' p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol=3, guides="collect") & ylim(2.5,0.5)
+#'
 position_strand <- function(offset = 0.1, flip = FALSE, grouped = NULL,
                             base = offset/2){
   ggproto(NULL, PositionStrand, offset = offset, flip = flip,
@@ -27,7 +49,7 @@ position_strand <- function(offset = 0.1, flip = FALSE, grouped = NULL,
 #' @rdname position_strand
 #' @export
 position_pile <- function(offset = 0.1, gap=1, flip = FALSE,
-    grouped = NULL, base = offset){
+    grouped = NULL, base = 0){
   ggproto(NULL, PositionPile, offset = offset, gap = gap,
           flip = flip, grouped = grouped, base = base)
 }
@@ -124,7 +146,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionPile <- ggproto("PositionPile", PositionStrandpile, strandwise = FALSE, base = 0.1)
+PositionPile <- ggproto("PositionPile", PositionStrandpile, strandwise = FALSE, base = 0)
 #' @rdname position_strand
 #' @format NULL
 #' @usage NULL

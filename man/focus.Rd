@@ -2,7 +2,8 @@
 % Please edit documentation in R/focus.R
 \name{focus}
 \alias{focus}
-\title{Focus on features and regions of interest}
+\alias{locate}
+\title{Show features and regions of interest}
 \usage{
 focus(
   x,
@@ -17,6 +18,20 @@ focus(
   .locus_score = n(),
   .locus_filter = TRUE,
   .loci = NULL
+)
+
+locate(
+  x,
+  ...,
+  .track_id = 2,
+  .max_dist = 10000,
+  .expand = 5000,
+  .locus_id = str_glue("{seq_id}_lc{row_number()}"),
+  .locus_id_group = seq_id,
+  .locus_bin = c("bin", "seq", "locus"),
+  .locus_score = n(),
+  .locus_filter = TRUE,
+  .locus_track = "loci"
 )
 }
 \arguments{
@@ -55,18 +70,37 @@ original binning, but can be set to the "seq" to bin all loci originating
 from the same parent sequence, or to "locus" to separate all loci into
 individual bins.}
 
+\item{.locus_score}{An expression evaluated in the context of all features
+that are combined into a new locus. Results are stored in the column
+\code{locus_score}. Defaults to the \code{n()}, i.e. the number of features per
+locus. Set, for example, to \code{sum(bitscore)} to sum over all blast hit
+bitscore of per locus. Usually used in conjunction with \code{.locus_filter}.}
+
+\item{.locus_filter}{An predicate expression used to post-filter identified
+loci. Set \code{.locus_filter=locus_score >= 3} to only return loci comprising
+at least 3 target features.}
+
 \item{.loci}{A data.frame specifying loci directly. Required columns are
 \verb{seq_id,start,end}. Supersedes \code{...}.}
+
+\item{.locus_track}{The name of the new track containing the identified loci.}
 }
 \description{
-Only show loci containing features of interest. Loci can either be provided
+Show loci containing features of interest. Loci can either be provided
 as predefined regions directly (\verb{loci=}), or are constructed automatically
 based on pre-selected features (via \code{...}). Features within \code{max_dist} are
-greedily combined into the same locus. The, thus, identified loci are
-extracted from their parent sequences and promoted to new sequences,
-replacing the original sequence set. The new sequences will have their
-\code{locus_id} as their new \code{seq_id}.
+greedily combined into the same locus. \code{locate()} adds these loci as new
+track so that they can be easily visualized. \code{focus()} extracts those loci
+from their parent sequences making them the new sequence set. These sequences
+will have their \code{locus_id} as their new \code{seq_id}.
 }
+\section{Functions}{
+\itemize{
+\item \code{focus}: Identify regions of interest and zoom in on them
+
+\item \code{locate}: Identify regions of interest and add them as new feature track
+}}
+
 \examples{
 
 # Let's hunt some defense systems in marine SAGs
@@ -97,6 +131,15 @@ gggenomes(g0, s1, f1, wrap=2e5) +
   scale_color_brewer(palette="Dark2") +
   geom_point(aes(x=x,y=y, color=system), data=feats())
 
+# hilight the regions containing hits
+gggenomes(g0, s1, f1, wrap=2e5) \%>\%
+  locate(.track_id = feats) \%>\%
+  identity() +
+  geom_seq() + geom_bin_label() +
+  scale_color_brewer(palette="Dark2") +
+  geom_feat(data=feats(loci), color="plum3") +
+  geom_point(aes(x=x,y=y, color=system), data=feats())
+
 # zoom in on loci
 gggenomes(g0, s1, f1, wrap=5e4) \%>\%
   focus(.track_id = feats) +
@@ -105,5 +148,4 @@ gggenomes(g0, s1, f1, wrap=5e4) \%>\%
   geom_feat(aes(color=system)) +
   geom_feat_tag(aes(label=gene)) +
   scale_color_brewer(palette="Dark2")
-
 }

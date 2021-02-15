@@ -14,13 +14,7 @@
 \usage{
 position_strand(offset = 0.1, flip = FALSE, grouped = NULL, base = offset/2)
 
-position_pile(
-  offset = 0.1,
-  gap = 1,
-  flip = FALSE,
-  grouped = NULL,
-  base = offset
-)
+position_pile(offset = 0.1, gap = 1, flip = FALSE, grouped = NULL, base = 0)
 
 position_strandpile(
   offset = 0.1,
@@ -56,5 +50,28 @@ Can be negative to allow small overlaps. NA disables stacking.}
 stacks overlapping feats up-/downward based on their strand.
 \code{position_sixframe()} offsets the feats based on their strand and reading
 frame.
+}
+\examples{
+library(patchwork)
+p <- gggenomes(emale_genes) \%>\%
+  pick(3:4) + geom_seq()
+
+f0 <- tibble(
+  seq_id = pull_seqs(p)$seq_id[1],
+  start = 1:20*1000,
+  end = start + 2500,
+  strand = rep(c("+", "-"), length(start)/2)
+)
+
+sixframe <- function(x, strand) as.character((x\%\%3 + 1) * strand_int(strand))
+
+p1 <- p + geom_gene()
+p2 <- p + geom_gene(aes(fill=strand), position="strand")
+p3 <- p + geom_gene(aes(fill=strand), position=position_strand(flip=TRUE, base=0.2))
+p4 <- p + geom_gene(aes(fill=sixframe(x,strand)), position="sixframe")
+p5 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand))
+p6 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand), position="strandpile")
+p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol=3, guides="collect") & ylim(2.5,0.5)
+
 }
 \keyword{datasets}
