@@ -80,7 +80,7 @@ sequences.
 read_feats(ex("eden-utr.gff"))
 
 
-# read all gffs from a directory
+# read all gff files from a directory
 read_feats(list.files(ex("emales/"), "*.gff$", full.names=TRUE))
 
 

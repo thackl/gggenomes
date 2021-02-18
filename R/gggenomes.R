@@ -57,9 +57,9 @@
 #'   add_clusters(emale_cogs) %>%
 #'   flip_by_links() +
 #'   geom_link(offset = 0.15, color="white") +                        # synteny-blocks
-#'   geom_seq() + geom_bin_label() +                  # chromosomes and labels
+#'   geom_seq() + geom_bin_label() +                                  # chromosomes and labels
 #'   # thistle4, salmon4, burlywood4
-#'   geom_feat(size=6, position="identity") +                              # terminal inverted repeats
+#'   geom_feat(size=6, position="identity") +                         # terminal inverted repeats
 #'   geom_feat(data=feats(emale_ngaros), color="turquoise4", alpha=.3,
 #'             position="strand", size=16) +
 #'   geom_feat_note(aes(label=type), data=feats(emale_ngaros),
