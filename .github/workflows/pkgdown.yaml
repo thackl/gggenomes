@@ -52,6 +52,14 @@ jobs:
       - name: Install package
         run: R CMD INSTALL .
 
+      - name: Session Info
+        run: |
+          library(tidyverse)
+          library(IRanges)
+          library(gggenomes)
+          print(sessionInfo())
+        shell: Rscript {0}
+
       - name: Configure git user
         run: |
           git config --global user.name "github-actions[bot]"
