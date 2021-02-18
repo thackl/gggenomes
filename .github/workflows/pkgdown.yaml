@@ -60,6 +60,9 @@ jobs:
           print(sessionInfo())
         shell: Rscript {0}
 
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+
       - name: Configure git user
         run: |
           git config --global user.name "github-actions[bot]"
