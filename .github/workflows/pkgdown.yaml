@@ -44,6 +44,8 @@ jobs:
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
           install.packages('pkgdown')
+          install.packages("BiocManager")
+          BiocManager::install("IRanges")
           #remotes::install_dev("pkgdown")
         shell: Rscript {0}
 
