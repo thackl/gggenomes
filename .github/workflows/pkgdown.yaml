@@ -14,7 +14,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r@master
         with:
-          r-version: 4.0.0
+          r-version: 4.0.4
 
       - uses: r-lib/actions/setup-pandoc@master
       
@@ -36,8 +36,8 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ubuntu-r-4.0-0-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ubuntu-r-4.0-0-
+          key: ubuntu-r-4.0-4-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ubuntu-r-4.0-4-
 
       - name: Install dependencies
         run: |
