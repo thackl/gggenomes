@@ -40,6 +40,9 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
 
   x <- bind_cols(x[,1:8], x_attrs)
 
+  # set a default feat_id
+  x <- mutate(x, feat_id = coalesce(feat_id, paste0("f", row_number())))
+
   # collapse multi-line CDS (and cds_match)
   x <- x %>% group_by(type, feat_id) %>% summarize(
     introns = list(coords2introns(start, end)),
