@@ -20,7 +20,7 @@ Roxygen: list(markdown = TRUE)
 Remotes: github::thackl/thacklr, bioc::release/rtracklayer
 Depends:
     R (>= 3.4.2),
-    dplyr (== 1.0.3),
+    dplyr,
     ggplot2,
     gggenes,
     purrr,
