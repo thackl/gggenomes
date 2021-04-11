@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Do numeric values fall into specified ranges? — in_range • gggenomes</title>
+<title>X-scale for genomic data — scale_x_bp • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,9 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Do numeric values fall into specified ranges? — in_range" />
-<meta property="og:description" content="Do numeric values fall into specified ranges?" />
+<meta property="og:title" content="X-scale for genomic data — scale_x_bp" />
+<meta property="og:description" content="scale_x_bp() is the default scale for genomic x-axis. It wraps
+ggplot2::scale_x_continuous() using label_bp() as default labeller." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -130,59 +131,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Do numeric values fall into specified ranges?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/ranges.R'><code>R/ranges.R</code></a></small>
-    <div class="hidden name"><code>in_range.Rd</code></div>
+    <h1>X-scale for genomic data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/scale_x.R'><code>R/scale_x.R</code></a></small>
+    <div class="hidden name"><code>scale_x_bp.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Do numeric values fall into specified ranges?</p>
+    <p><code>scale_x_bp()</code> is the default scale for genomic x-axis. It wraps
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code> using <code>label_bp()</code> as default labeller.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, closed <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>scale_x_bp</span><span class='op'>(</span><span class='va'>...</span>, suffix <span class='op'>=</span> <span class='st'>""</span>, sep <span class='op'>=</span> <span class='st'>""</span>, accuracy <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+
+<span class='fu'>label_bp</span><span class='op'>(</span>suffix <span class='op'>=</span> <span class='st'>""</span>, sep <span class='op'>=</span> <span class='st'>""</span>, accuracy <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>a numeric vector of values</p></td>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code></p></td>
     </tr>
     <tr>
-      <th>left, right</th>
-      <td><p>boundary values or vectors of same length as x</p></td>
+      <th>suffix</th>
+      <td><p>unit suffix e.g. "bp"</p></td>
     </tr>
     <tr>
-      <th>closed</th>
-      <td><p>wether to include (<code>TRUE</code>) or exclude (<code>FALSE</code>) the
-endpoints. Provide 2 values for different behaviors for lower and upper
-boundary, e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(TRUE, FALSE)</a></code> to include only the lower boundary.</p></td>
+      <th>sep</th>
+      <td><p>between number and unit prefix+suffix</p></td>
+    </tr>
+    <tr>
+      <th>accuracy</th>
+      <td><p>A number to round to. Use (e.g.) <code>0.01</code> to show 2 decimal
+places of precision. If <code>NULL</code>, the default, uses a heuristic that should
+ensure breaks have the minimum number of digits needed to show the
+difference between adjacent values.</p>
+<p>Applied to rescaled data.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a logical vector of the same length as the input</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE</div><div class='input'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, closed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># left-open</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE  TRUE FALSE</div><div class='input'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='co'># vector of boundaries, single values recycle</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE FALSE FALSE</div><div class='input'>
-
-<span class='co'># plays nicely with dplyr</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span>, left<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, right<span class='op'>=</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span>
-<span class='fu'>mutate</span><span class='op'>(</span><span class='va'>df</span>,
-  closed<span class='op'>=</span><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  open<span class='op'>=</span><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 5</span><span>
-#&gt;       x  left right closed open 
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>     4     1     3 FALSE  FALSE
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>     4     2     4 TRUE   FALSE
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>     4     3     5 TRUE   TRUE 
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>     4     4     6 TRUE   FALSE
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span>     4     5     7 FALSE  FALSE</div></span></pre>
+    <pre class="examples"><div class='input'><span class='co'># scale_x_bp invoked by default</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='img'><img src='scale_x_bp-1.png' alt='' width='960' height='480' /></div><div class='input'>
+<span class='co'># customize labels</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_x_bp</span><span class='op'>(</span>suffix<span class='op'>=</span><span class='st'>"bp"</span>, sep<span class='op'>=</span><span class='st'>" "</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='img'><img src='scale_x_bp-2.png' alt='' width='960' height='480' /></div><div class='input'>
+<span class='co'># Note: xlim will overwrite scale_x_bp() with ggplot2::scale_x_continuous()</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>3e4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='img'><img src='scale_x_bp-3.png' alt='' width='960' height='480' /></div><div class='input'>
+<span class='co'># set limits explicitly with scale_x_bp() to avoid overwrite</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>scale_x_bp</span><span class='op'>(</span>limits<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>3e4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='img'><img src='scale_x_bp-4.png' alt='' width='960' height='480' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
