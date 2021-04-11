@@ -253,7 +253,7 @@ def_formats_rd <- function(){
   str_c(collapse = "\n", c(
     "@section Defined formats, extensions, contexts, and parsers:",
     "\\preformatted{",
-    capture_output(as.data.frame(gggenomes_global$def_formats), print=TRUE, width=120),
+    testthat::capture_output(as.data.frame(gggenomes_global$def_formats), print=TRUE, width=120),
     "}"))
 }
 

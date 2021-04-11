@@ -268,23 +268,4 @@ theme_gggenomes_clean <- function(base_size = 12, base_family = "", base_line_si
   )
 }
 
-#' @inheritParams ggplot2::scale_x_continuous
-#' @export
-scale_x_continuous <- function(...){
-  ggplot2::scale_x_continuous(labels = label_bp(), ...)
-}
 
-label_bp <- function (accuracy = 1, unit = "", sep = "", ...) {
-  scales:::force_all(accuracy, ...)
-  function(x) {
-    breaks <- c(0, 10^c(k = 3, M = 6, G = 9))
-    n_suffix <- cut(abs(x), breaks = c(unname(breaks), Inf),
-                    labels = c(names(breaks)), right = FALSE)
-    n_suffix[is.na(n_suffix)] <- ""
-    suffix <- paste0(sep, n_suffix, unit)
-    scale <- 1/breaks[n_suffix]
-    scale[which(scale %in% c(Inf, NA))] <- 1
-    scales::number(x, accuracy = accuracy, scale = unname(scale),
-           suffix = suffix, ...)
-  }
-}
