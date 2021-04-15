@@ -66,8 +66,11 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
   x <- drop_seq_layout(x, keep=keep)
 
   # Index bins by order
-  x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
+  x %<>% mutate(y = match(bin_id, rev(unique(.$bin_id)))) %>%
     group_by(bin_id)
+
+  #x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
+  #  group_by(bin_id)
 
   # infer spacing length from bin lengths
   if(spacing < 1){
@@ -124,7 +127,11 @@ wrap <- function(.data, xmax, xpad=1000){
     xstart <- l[[i]]$bin_offset[1]
     l[[i]] <- wrap_impl(l[[i]], xmax=xmax, xpad=xpad, ystart=ystart, xstart=xstart)
   }
-  bind_rows(l)
+
+  x <- bind_rows(l)
+  # account for bins listed from top-to-bottom but y=0 at plot bottom
+  x$y <- max(x$y) - x$y + 1
+  x
 }
 
 

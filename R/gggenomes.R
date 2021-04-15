@@ -79,6 +79,11 @@
 #'   ex("emales/emales.paf")
 #' ) + geom_seq() + geom_gene() + geom_feat() + geom_link()
 #'
+#' # multi-contig genomes wrap to fixed width
+#' s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa", full.names = TRUE))
+#' s1 <- s0 %>% filter(length > 5e5)
+#' gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+#'   geom_seq() + geom_bin_label() + geom_seq_label()
 gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
     .id="file_id", spacing=0.05, wrap=NULL, infer_bin_id = seq_id,
     infer_start = min(start,end), infer_end = max(start,end),
@@ -106,10 +111,7 @@ gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
   p <- ggplot(data = layout)
   class(p) <- c('gggenomes', class(p))
 
-  p <- p + scale_y_continuous("", expand = expansion(add=.1, mult=.1),
-      trans = scales::reverse_trans())
-
-  #p <- p + scale_x_continuous("", labels=scales::label_bytes())
+  p <- p + scale_y_continuous(expand = expansion(add=.7, mult=0.01))
 
   theme_name <- theme[[1]] %||% match.arg(theme[[1]], c("clean"))
   if(!is.null(theme_name)){ # add theme
