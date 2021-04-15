@@ -45,10 +45,38 @@ geom_seq_label <- function(mapping = NULL, data = seqs(),
 #' @param expand_left by this much relative to the widest bin
 #' @param expand_x expand the plot to include this absolute x value
 #' @param expand_aes provide custom aes mappings for the expansion (advanced)
+#' @param yjust for multiline bins set to 0.5 to center labels on bins, and 1 to
+#'   align labels to the bottom.
 #' @export
-geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 3, nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL, ...){
+#' @examples
+#' s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa", full.names = TRUE))
+#' s1 <- s0 %>% filter(length>5e5)
+#'
+#' gggenomes(emale_genes) + geom_seq() + geom_gene() +
+#'   geom_bin_label()
+#'
+#' # make larger labels and extra room on the canvas
+#' gggenomes(emale_genes) + geom_seq() + geom_gene() +
+#'   geom_bin_label(size = 7, expand_left =.4)
+#'
+#' # align labels for wrapped bins:
+#' # top
+#' gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+#'   geom_seq() + geom_bin_label() + geom_seq_label()
+#'
+#' # center
+#' gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+#'   geom_seq() + geom_bin_label(yjust=.5) + geom_seq_label()
+#'
+#' # bottom
+#' gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+#'   geom_seq() + geom_bin_label(yjust=1) + geom_seq_label()
+geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 3,
+    nudge_left = 0.05, expand_left = 0.20, expand_x=NULL, expand_aes=NULL,
+    yjust = 0, ...){
 
-  default_aes <- aes_(y=~y,x=~pmin(x,xend) - max_width(x,xend) * nudge_left, label=~bin_id)
+  default_aes <- aes_(y=~ymin * yjust + ymax * (1-yjust),
+                      x=~pmin(x,xend) - max_width(x,xend) * nudge_left, label=~bin_id)
   mapping <- aes_intersect(mapping, default_aes)
   r <- list(geom_text(mapping = mapping, data = data,
               hjust = hjust, size = size, ...))

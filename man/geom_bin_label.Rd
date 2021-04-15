@@ -13,6 +13,7 @@ geom_bin_label(
   expand_left = 0.2,
   expand_x = NULL,
   expand_aes = NULL,
+  yjust = 0,
   ...
 )
 }
@@ -45,6 +46,9 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{expand_aes}{provide custom aes mappings for the expansion (advanced)}
 
+\item{yjust}{for multiline bins set to 0.5 to center labels on bins, and 1 to
+align labels to the bottom.}
+
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
@@ -58,4 +62,28 @@ expands the plot to the left by 20\% to make labels visible.
 \details{
 Set \code{x} and \code{expand_x} to an absolute position to align all labels at a
 specific location
+}
+\examples{
+s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa", full.names = TRUE))
+s1 <- s0 \%>\% filter(length>5e5)
+
+gggenomes(emale_genes) + geom_seq() + geom_gene() +
+  geom_bin_label()
+
+# make larger labels and extra room on the canvas
+gggenomes(emale_genes) + geom_seq() + geom_gene() +
+  geom_bin_label(size = 7, expand_left =.4)
+
+# align labels for wrapped bins:
+# top
+gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+  geom_seq() + geom_bin_label() + geom_seq_label()
+
+# center
+gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+  geom_seq() + geom_bin_label(yjust=.5) + geom_seq_label()
+
+# bottom
+gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+  geom_seq() + geom_bin_label(yjust=1) + geom_seq_label()
 }

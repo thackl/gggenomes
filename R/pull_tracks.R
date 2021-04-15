@@ -185,7 +185,8 @@ pull_bins.gggenomes <- function(.x, ..., .group=vars()){
 pull_bins.gggenomes_layout <- function(.x, ..., .group=vars()){
   .group <- c(vars(bin_id), .group)
   get_seqs(.x) %>% filter(...) %>% group_by(!!!.group) %>%
-    summarize(y=min(y), x = min(x,xend), xend = max(x,xend)) %>%
+    summarize(ymin = min(y), ymax = max(y), y = (ymin+ymax)/2,
+              x = min(x,xend), xend = max(x,xend)) %>%
     ungroup()
 }
 
