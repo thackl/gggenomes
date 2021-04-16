@@ -8,7 +8,7 @@
 #' domains <- tibble(feat_id = "gene1", start=40, end=80)
 #' gggenomes(genes=genes) %>% add_subfeats(domains, .transform = "none") +
 #'   geom_gene() + geom_feat()
-#' 
+#'
 add_subfeats <- function(x, ..., .track_id = "genes", .transform = "aa2nuc"){
   UseMethod("add_subfeats")
 }
@@ -23,7 +23,7 @@ add_subfeats.gggenomes <- function(x, ..., .track_id = "genes",
 
 #' @export
 add_subfeats.gggenomes_layout <- function(x, ..., .track_id = "genes",
-    .transform = "aa2nuc"){
+    .transform = c("none", "aa2nuc", "nuc2aa")){
   if(!has_dots()) return(x)
   dot_exprs <- enexprs(...) # defuse before list(...)
   .transform <- match_arg(.transform)

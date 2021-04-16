@@ -117,6 +117,10 @@ pick_seqs_within <- function(x, ..., .bins=everything()){
 #' @param infer_bin_id an expression to extract bin_ids from the tree data.
 #' @export
 pick_by_tree <- function(x, tree, infer_bin_id = label){
+  if (!requireNamespace("ggtree", quietly = TRUE)) {
+    abort("ggtree must be installed to use this function")
+  }
+
   if(inherits(tree, "phylo")) tree <- ggtree(tree)
   tree_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
     transmute(bin_id = {{ infer_bin_id }}) %>% pull(bin_id)
