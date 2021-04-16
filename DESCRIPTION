@@ -32,4 +32,6 @@ Depends:
     jsonlite
 Suggests:
     testthat,
-    rtracklayer
+    rtracklayer,
+    ggtree,
+    patchwork
