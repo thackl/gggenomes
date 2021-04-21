@@ -47,7 +47,7 @@ jobs:
           install.packages("BiocManager")
           BiocManager::install("IRanges")
           remotes::install_dev("dplyr")
-          remotes::install_dev("pkgdown")
+          devtools::install_github("YuLab-SMU/ggtree")
         shell: Rscript {0}
 
       - name: Install package
