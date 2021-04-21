@@ -20,7 +20,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt-get install libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
+          sudo apt-get install --yes libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev
       
       - name: Install XQuartz
         if: runner.os == 'macOS'
@@ -44,10 +44,11 @@ jobs:
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
           install.packages('pkgdown')
+          install.packages('devtools')
           install.packages("BiocManager")
           BiocManager::install("IRanges")
           remotes::install_dev("dplyr")
-          #remotes::install_dev("pkgdown")
+          devtools::install_github("YuLab-SMU/ggtree")
         shell: Rscript {0}
 
       - name: Install package
