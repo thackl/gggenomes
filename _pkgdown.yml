@@ -15,6 +15,7 @@ reference:
     - geom_gene
     - geom_feat
     - geom_link
+    - geom_wiggle
     - ends_with("_text|_tag|_note")
     - starts_with("geom")
     - starts_with("position_")
