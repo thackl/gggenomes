@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -95,6 +95,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/gggenomes.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -105,7 +108,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/emales.html">From a few sequences to a complex map in minutes</a>
+      <a href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a>
     </li>
   </ul>
 </li>
@@ -165,11 +168,11 @@ dplyr::select-like syntax</p></td>
     <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>100</span><span class='op'>)</span>, end<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># ensure start of a range is always smaller than the end</span>
 <span class='fu'>gggenomes</span><span class='fu'>:::</span><span class='fu'>swap_if</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>start</span> <span class='op'>&gt;</span> <span class='va'>end</span>, <span class='va'>start</span>, <span class='va'>end</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 2</span>
 #&gt;   start   end
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>    10    30
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>    50   100</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>    10    30
+#&gt; <span style='color: #BCBCBC;'>2</span>    50   100</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

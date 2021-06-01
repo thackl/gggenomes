@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -95,6 +95,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/gggenomes.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -105,7 +108,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/emales.html">From a few sequences to a complex map in minutes</a>
+      <a href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a>
     </li>
   </ul>
 </li>
@@ -206,7 +209,7 @@ to the parent table.</p></li>
 <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>add_sublinks</span><span class='op'>(</span><span class='va'>emale_prot_ava</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_link.html'>geom_link</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='output co'>#&gt; <span class='message'>Transforming sublinks with "aa2nuc". Disable with `.transform = "none"`</span></div><div class='output co'>#&gt; <span class='error'>Error in x$start &lt; x$end: comparison of these types is not implemented</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>No seqs provided, inferring seqs from feats</span></div><div class='output co'>#&gt; <span class='message'>Transforming sublinks with "aa2nuc". Disable with `.transform = "none"`</span></div><div class='img'><img src='add_tracks-4.png' alt='' width='960' height='480' /></div><div class='input'>
 <span class='co'># add clusters</span>
 <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>emale_genes</span>, <span class='va'>emale_seqs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>add_clusters</span><span class='op'>(</span><span class='va'>emale_cogs</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -217,7 +220,7 @@ to the parent table.</p></li>
   <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>cluster_id</span><span class='op'>)</span>, <span class='cn'>NA</span>,
       <span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"{cluster_id} [{cluster_size}]"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>scale_fill_discrete</span><span class='op'>(</span><span class='st'>"COGs"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Joining, by = "feat_id"</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 2,3,4</span></div><div class='img'><img src='add_tracks-4.png' alt='' width='960' height='480' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = "feat_id"</span></div><div class='output co'>#&gt; <span class='message'>Flipping: 2,3,4</span></div><div class='img'><img src='add_tracks-5.png' alt='' width='960' height='480' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

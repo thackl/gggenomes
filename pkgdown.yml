@@ -3,5 +3,6 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   emales: emales.html
-last_built: 2021-04-21T09:02Z
+  gggenomes: gggenomes.html
+last_built: 2021-06-01T12:44Z
 

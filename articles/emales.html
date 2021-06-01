@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>From a few sequences to a complex map in minutes • gggenomes</title>
+<title>From a few sequences to a complex map in minutes (old version) • gggenomes</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<script src="../extra.js"></script><meta property="og:title" content="From a few sequences to a complex map in minutes">
+<script src="../extra.js"></script><meta property="og:title" content="From a few sequences to a complex map in minutes (old version)">
 <meta property="og:description" content="gggenomes">
 <meta property="og:image" content="/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -52,6 +52,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/gggenomes.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -62,7 +65,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/emales.html">From a few sequences to a complex map in minutes</a>
+      <a href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a>
     </li>
   </ul>
 </li>
@@ -87,10 +90,10 @@
       </header><script src="emales_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>From a few sequences to a complex map in minutes</h1>
+      <h1 data-toc-skip>From a few sequences to a complex map in minutes (old version)</h1>
                         <h4 class="author">Thomas Hackl</h4>
             
-            <h4 class="date">2021-04-21</h4>
+            <h4 class="date">2021-06-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd"><code>vignettes/emales.Rmd</code></a></small>
       <div class="hidden name"><code>emales.Rmd</code></div>
@@ -99,18 +102,17 @@
 
     
     
+<p><strong>DISCLAIMER: I’ve created this demo with an early version of gggenomes. Not all of the code will function with current releases. However, the general workflow both with respect to the external tools and gggenomes code is still valid and this demo should therefore be understood as an hopefully inspiring guide - not as an exactly reproducible code example (Those kind of examples you can find in the examples sections of the documentation).</strong></p>
 <p>This is a real-life example demonstrating the use of <code>gggenomes</code> to explore viral genomes. We start with just a bunch of viral contigs and ask: Is there anything interesting going on here?</p>
 <p>We use a few bioinformatics commandline tools to run some analyzes, and visualize the results using <code>gggenomes</code>. By successively adding new data as new tracks we build a rich plot that ultimatly reveals novel insights into an exciting system.</p>
 <p>This example is bundled <code><a href="https://rdrr.io/r/utils/data.html">data(package="gggenomes")</a></code> To rerun the this example including the bioinformatics analyzes download the <a href="https://github.com/thackl/gggenomes/tree/master/data-raw/emales">raw data</a> from github.</p>
-<p>TODO Teaser (plot preview)</p>
-<p>TODO Which tools I used</p>
 <p><img src="emales/emales-p7.png"></p>
 <div id="read-in-the-genomes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#read-in-the-genomes" class="anchor"></a>Read in the genomes</h3>
 <p>We start with a fasta file of 33 viral genomes. We read sequence length and some metadata from the header lines using `read<sub>fai</sub>`…</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thackl/gggenomes">gggenomes</a></span><span class="op">)</span>
 
 <span class="co"># parse sequence length and some metadata from fasta file</span>
