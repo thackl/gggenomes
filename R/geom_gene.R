@@ -214,8 +214,13 @@ native_width <- function(x){
 
 #' @export
 makeContent.genetree <- function(x){
-
   data <- x$data
+
+  coord_flipped <- FALSE
+  if(names(data)[1] == "x"){
+    coord_flipped <- TRUE
+    data <- rename(data, y=x, x=y, xend=yend)
+  }
 
   s <- x$sizes
   height <- native_height(s[1])
@@ -281,6 +286,10 @@ makeContent.genetree <- function(x){
           linejoin = "round"
         ))
     }), grobs)
+  }
+
+  if(coord_flipped){
+    grobs <- map(grobs, function(x){x[1:2] <- x[2:1]; x})
   }
 
   class(grobs) <- "gList"
