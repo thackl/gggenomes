@@ -34,4 +34,5 @@ Suggests:
     testthat,
     rtracklayer,
     ggtree,
-    patchwork
+    patchwork,
+    Hmisc

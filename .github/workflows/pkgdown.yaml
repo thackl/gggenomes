@@ -49,6 +49,7 @@ jobs:
           BiocManager::install("IRanges")
           remotes::install_dev("dplyr")
           devtools::install_github("YuLab-SMU/ggtree")
+          install.packages("Hmisc")
         shell: Rscript {0}
 
       - name: Install package
