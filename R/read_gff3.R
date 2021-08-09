@@ -1,32 +1,38 @@
-#' Read features from GFF3 files
+#' Read features from GFF3 (and with some limitations GFF2/GTF) files
 #'
 #' Files with `##FASTA` section work but result in parsing problems for all
 #' lines of the fasta section. Just ignore those warnings, or strip the fasta
 #' section ahead of time from the file.
 #'
 #' @importFrom readr read_tsv
-#' @inheritParams read_gff3
+#' @inheritParams readr::read_tsv
 #' @param sources only return features from these sources
 #' @param types only return features of these types, e.g. gene, CDS, ...
 #' @param infer_cds_parents infer the mRNA parent for CDS features based on
-#'   overlapping coordinates. In most GFFs this is properly set, but sometimes
-#'   this information is missing. Generally, this is not a problem, however,
-#'   geom_gene calls parse the parent information to determine which CDS and
-#'   mRNAs are part of the same gene model. Without the parent info, mRNA and
-#'   CDS are plotted as individual features.
-#' @param col_names column names to use. Defaults to [def_names("blast")]
-#'   compatible with blast tabular output (`--outfmt 6/7` in blast++ and `-m8`
-#'   in blast-legacy). [def_names("blast")] can easily be combined with extra
-#'   columns: `col_names = c(def_names("blast"), "more", "things")`.
+#'   overlapping coordinates. Default TRUE for gff2/gtf, FALSE for gff3. In most
+#'   GFFs this is properly set, but sometimes this information is missing.
+#'   Generally, this is not a problem, however, geom_gene calls parse the parent
+#'   information to determine which CDS and mRNAs are part of the same gene
+#'   model. Without the parent info, mRNA and CDS are plotted as individual
+#'   features.
+#' @param sort_exons make sure that exons/introns appear sorted. Default TRUE.
+#'   Set to FALSE to read CDS/exon order exactly as present in the file, which
+#'   is less robust, but faster and allows non-canonical splicing
+#'   (exon1-exon3-exon2).
+#' @param col_names column names to use. Defaults to [def_names("gff3")].
+#' @param col_types column types to use. Defaults to [def_types("gff3")].
+#' @param keep_attr keep the original attributes column also after parsing
+#'   tag=value pairs into tidy columns.
 #' @export
 #' @return tibble
-read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
-    col_names = def_names("gff3"), col_types = def_types("gff3")){
+read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
+    sort_exons=TRUE, col_names = def_names("gff3"),
+    col_types = def_types("gff3"), keep_attr=FALSE){
 
   x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".",
                 comment = "#")
 
-  # ignore FASTA block - dirty fix because all seqs are read into x first and
+    # ignore FASTA block - dirty fix because all seqs are read into x first and
   # create parsing warnings
   i <- str_which(x[[1]], "^>")[1]
   if(!is.na(i)){
@@ -35,32 +41,45 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
         "You can ignore any parsing failures starting from that row."))
   }
 
-  reserved_names <- c(col_names[1:8], c("name", "feat_id", "parent_ids", "introns"))
-  x_attrs <- tidy_attributes(x[[9]], reserved_names)
+  # guess if gff2/gtf - " " instead of "=" as sep for attribute "tag value" pairs
+  is_gff2 <- str_match(na.omit(x[[9]])[1], "[= ]") == " "
+  if(is_gff2){
+    warn(str_glue("This looks like a gff2/gtf file. This is usually fine, ",
+        "but given the ambigious definition of this format, it is not ",
+        "guaranteed that gene models are always captured correctly. ",
+        "exons/CDS might not be recognized as belonging to the same gene, etc. ",
+        "Also note: types and attributes are as far as possible converted to ",
+        "match gff3 standards (transcript -> mRNA, 5'/3'UTR -> five/three_prime_UTR, ...)"
+        ))
 
-  x <- bind_cols(x[,1:8], x_attrs)
+    # make this consistent with gff3
+    x[[3]][x[[3]] == "transcript"] <- "mRNA"
+    x[[3]][x[[3]] == "5'UTR"] <- "five_prime_UTR"
+    x[[3]][x[[3]] == "3'UTR"] <- "three_prime_UTR"
+  }
 
-  # set a default feat_id
-  x <- mutate(x, feat_id = coalesce(feat_id, paste0("f", row_number())))
+  x <- tidy_attributes(x, is_gff2=is_gff2, keep_attr=keep_attr)
 
   # collapse multi-line CDS (and cds_match)
+  x <- mutate(x, .row_index = row_number()) # helper for robust order
   x <- x %>% group_by(type, feat_id) %>% summarize(
-    introns = list(coords2introns(start, end)),
+    introns = list(coords2introns(start, end, sort_exons)),
     start = min(start), end = max(end),
     parent_ids = list(first(parent_ids)), # special treat for lst_col
     across(c(-start, -end, -introns, -parent_ids), first)
-  ) %>% ungroup
+  ) %>% ungroup %>% arrange(.row_index) %>% select(-.row_index)
 
+  if(is_gff2)
+    x <- add_mrna_for_exons(x, col_names)
 
   if(infer_cds_parents)
     x <- infer_cds_parent(x)
-
 
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, type=="exon") %>%
     select(exon_id=feat_id, start, end, feat_id=parent_ids) %>%
     unchop(feat_id) %>% group_by(feat_id) %>%
-    summarize(introns = list(coords2introns(start, end)))
+    summarize(introns = list(coords2introns(start, end, sort_exons)))
 
   # for mRNAs w/o exons: mrna_introns == cds_introns + length(five_prime_UTR)
   mrna_cds_five_prime <- filter(x, type=="five_prime_UTR") %>%
@@ -101,6 +120,32 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
   x
 }
 
+add_mrna_for_exons <- function(x, col_names){
+  # add one mRNA for each exon w/ parent_id that doesn't exist
+  mrna_ids <- filter(x, type=="mRNA")[["feat_id"]]
+  # orfan exons
+  x2 <- mutate(x, .row_index = row_number())
+  exons <- filter(x2, type=="exon") %>% unchop(parent_ids) %>%
+    filter(!parent_ids %in% mrna_ids)
+
+  if(nrow(exons) == 0)
+    return(x)
+
+  mrnas <- exons %>%
+    select(all_of(col_names[1:8]), feat_id=parent_ids, .row_index) %>%
+    group_by(feat_id) %>% summarize(
+      across(c(-start, -end), first),
+      start = min(start), end=max(end)
+    ) %>%
+    select(all_of(col_names[1:8]), feat_id, .row_index) %>%
+    mutate(type="mRNA", parent_ids=NA_character_, name=NA_character_,
+      parent_ids = as.list(parent_ids))
+
+  # insert mrnas right before exons
+  x2 <- bind_rows(mrnas, x2) %>% arrange(.row_index) %>% select(-.row_index)
+  x2
+}
+
 infer_cds_parent <- function(x){
   i <- which(x$type == "CDS" & is.na(x$parent_ids))
   j <- which(x$type == "mRNA")
@@ -114,43 +159,84 @@ infer_cds_parent <- function(x){
   x
 }
 
-tidy_attributes <- function(x, reserved_names){
-  d <- map_df(str_split(x, ";"), function(r){
+tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE){
+
+  d <- map_df(str_split(x[[9]], "; *"), function(r){
     # handle missing comments
     if(!length(r) || is.na(r))
       return(tibble())
 
     # ignore empty elements caused by trailing or duplicated ";"
     r <- r[r!=""]
-    z <- str_split(r, "=")
-    z <- as_tibble(set_names(map(z,2), map(z,1)))
+    z <- str_split(r, "[= ]", 2)
+    k <- as.list(make.unique(map_chr(z,1), sep="_"))
+    v <- map(z,2)
+    z <- as_tibble(set_names(v, k))
     return(z)
   })
 
+  if(is_gff2)
+    d <- mutate(d, across(where(is.character), str_remove_all, '^"|"$'))
+
+  orig <- names(d)
+  harmonized <- snakecase::to_any_case(orig) %>%
+    str_replace("^id$", "feat_id") %>%
+    str_replace("^parent$", "parent_ids")
+
+  names(d) <- make.unique(c(names(x), harmonized))[-seq_along(names(x))]
+  renamed <- tibble(orig, new=names(d))[orig!=names(d),]
+
+  inform(c("Harmonizing attribute names",
+           str_glue_data(renamed, "{orig} -> {new}")))
+
   # make sure these columns always exist in gff-based table
-  req <- tibble(ID=NA_character_, Parent=NA_character_, Name=NA_character_)
-  req_miss <- setdiff(names(req), names(d))
-  if(length(req_miss > 0))
-    d <- bind_cols(d, req[req_miss])
+  d <- introduce(d, feat_id=NA_character_, parent_ids=NA_character_, name=NA_character_) %>%
+    relocate(feat_id, parent_ids, name)
+
+  if(keep_attr)
+    x <- bind_cols(x[,1:8], d, x[,9])
+  else
+    x <- bind_cols(x[,1:8], d)
+
+  if(is_gff2 && has_vars(x, c("transcript_id"))){
+    # make sure this always there
+    x <- introduce(x, protein_id=NA_character_) %>%
+      group_by(type, transcript_id) # need this for numbering exons
+
+    # mRNA feat_id=transcript_id
+    # CDS feat_id="cds-"transcript_id|protein_id;parent_ids=transcript_id;
+    # exon feat_id="exon-"transcript_id.#;parent_ids=transcript_id;
+    x <- mutate(x,
+      feat_id = ifelse(type == "mRNA" & is.na(feat_id), transcript_id, feat_id),
+      feat_id = ifelse(type == "CDS" & is.na(feat_id),
+                       str_c("cds-", coalesce(transcript_id, protein_id)), feat_id),
+      feat_id = ifelse(type == "exon" & is.na(feat_id),
+                       str_c("exon-", transcript_id, "-", row_number()), feat_id),
+      parent_ids = ifelse(type %in% c("CDS", "exon") & is.na(parent_ids),
+                       transcript_id, parent_ids)
+      ) %>% ungroup
+  }
 
   # make Parent a list col (one feature can have multiple parents)
-  d <- mutate(d, Parent=str_split(Parent, ","))
+  x <- mutate(x, parent_ids=str_split(parent_ids, ","))
 
-  # rename attributes matching reserved column names
-  renames <- list(feat_id="ID", parent_ids="Parent", name="Name")
-  for(name in intersect(names(d),reserved_names)){
-    renames[[paste0(name, ".1")]] <- name
-  }
-  inform(c("Harmonizing column names",
-    renames %>% unlist %>% enframe %>% str_glue_data("{value} -> {name}")))
-  rename(d, !!!renames)
+  # set a dummy feat_id
+  x <- mutate(x, feat_id = coalesce(feat_id, paste0("feat_", row_number())))
+  x
 }
 
 
-coords2introns <- function(starts, ends){
+coords2introns <- function(starts, ends, sort_exons=TRUE){
   n <- length(starts)
   if(n < 2)
     return(NULL)
+
+  if(sort_exons && is.unsorted(starts)){
+    o <- order(starts)
+    starts <- starts[o]
+    ends <- ends[o]
+  }
+
   i <- 2:n
   # introns: start, end, start2, end2, ...
   # +2 corrects of 1[s,e] coord issues

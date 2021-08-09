@@ -28,7 +28,7 @@ Intended to be used in \code{\link[readr:read_delim]{readr::read_tsv()}}-like fu
 \section{Defined formats, column types and names}{
 
 \preformatted{
-  gff3       ccciiccic       seq_id,source,type,start,end,score,strand,phase,attributes
+  gff3       ccciicccc       seq_id,source,type,start,end,score,strand,phase,attributes
   paf        ciiicciiiiid    seq_id,length,start,end,strand,seq_id2,length2,start2,end2,map_match,map_length,map_quality
   blast      ccdiiiiiiidd    seq_id,seq_id2,pident,length,mismatch,gapopen,start,end,start2,end2,evalue,bitscore
   bed        ciicdc          seq_id,start,end,name,score,strand

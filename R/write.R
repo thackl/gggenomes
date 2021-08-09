@@ -16,7 +16,7 @@
 #' }
 #' @export
 write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".", strand=".", phase=".",
-  id_var = "ID", head="##gff-version 3"){
+  id_var = "feat_id", head="##gff-version 3"){
   if(!is.null(seqs)){
     if(!all(has_name(seqs, c("start", "end")))){
       if(!has_name(seqs, "length"))
@@ -51,7 +51,11 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
   gff3_attr <- c("ID", "Name", "Alias", "Parent", "Target", "Gap", "Derives_from", "Note", "Ontology_term")
   cols <- c("seq_id", "source", "type", "start", "end", "score", "strand", "phase")
 
-  feats <- feats %>% mutate(across(all_of(cols), ~replace_na(.x, ".")))
+  feats <- feats %>% mutate(
+    across(1:8, ~replace_na(.x, ".")),
+    across(where(is_list), )
+  )
+
   attr <- setdiff(names(feats), c(cols, id_tag))
 
   if(!is.null(id_tag) || length(attr)){
@@ -61,19 +65,19 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
     names(feats)[attr_predef_ii] <- str_to_title(names(feats)[attr_predef_ii])
     attr_custom <- setdiff(attr, attr_predef)
     attr <- c(id_tag, str_to_title(attr_predef), attr_custom)
-    
+
     for(att in attr){
-      feats[[att]] <- ifelse(is.na(feats[[att]]), "", paste0(att, "=", feats[[att]]))
+      feats[[att]] <- ifelse(is.na(feats[[att]]) | !length(feats[[att]]), "", paste0(att, "=", feats[[att]]))
     }
-    
+
     feats <- unite(feats, "attr", all_of(attr), sep=";") %>%
       mutate(attr = str_replace_all(attr, ";{2,}", ";"))
     body <- feats[,c(cols, "attr")]
   }else{
     body <- feats[,cols]
   }
-  
+
   write(head, file)
-  if(!is.null(seqs)) write_tsv(seqs, file, append=T, col_names=F)
-  write_tsv(body, file, append=T, col_names=F)
+  if(!is.null(seqs)) write_tsv(seqs, file, append=T, col_names=F, quote="none", escape="none")
+  write_tsv(body, file, append=T, col_names=F, quote="none", escape="none")
 }

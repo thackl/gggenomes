@@ -14,7 +14,7 @@ gggenomes_global$def_formats <- tribble(
   "ambigious", qc(txt,tsv,csv), NA, "read_ambigious",
   "fasta", qc(fa,fas,fasta,ffn,fna,faa), qc(seqs), qc(read_seq_len),
   "fai", qc(fai), qc(seqs), qc(read_fai),
-  "gff3", qc(gff,gff3), qc(feats, seqs), qc(read_gff3, read_seq_len),
+  "gff3", qc(gff,gff3,gff2,gtf), qc(feats, seqs), qc(read_gff3, read_seq_len),
   "gbk", qc(gbk,gb,gbff,gpff), qc(feats, seqs), qc(read_gbk, read_seq_len),
   "bed", qc(bed), "feats", "read_bed",
   "blast", qc(m8,o6,o7), qc(feats, links), qc(read_blast, read_blast),
@@ -36,7 +36,7 @@ gggenomes_global$def_names <- list(
 )
 
 gggenomes_global$def_types <- list(
-  gff3 = "ccciiccic",
+  gff3 = "ccciicccc",
   paf =  "ciiicciiiiid",
   blast = "ccdiiiiiiidd",
   bed = "ciicdc",

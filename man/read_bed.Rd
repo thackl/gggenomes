@@ -31,9 +31,10 @@ a string. See \code{vignette("readr")} for more details.
 
 If \code{NULL}, all column types will be imputed from the first 1000 rows
 on the input. This is convenient (and fast), but not robust. If the
-imputation fails, you'll need to supply the correct types yourself.
+imputation fails, you'll need to increase the \code{guess_max} or supply the
+correct types yourself.
 
-If a column specification created by \code{\link[readr:cols]{cols()}}, it must contain
+Column specifications created by \code{\link[=list]{list()}} or \code{\link[readr:cols]{cols()}} must contain
 one column specification for each column. If you only want to read a
 subset of the columns, use \code{\link[readr:cols]{cols_only()}}.
 
@@ -54,7 +55,7 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-use \code{col_types = cols()}.
+set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).
 }}
 }
 \value{
