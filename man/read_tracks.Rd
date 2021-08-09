@@ -7,7 +7,7 @@
 \alias{read_links}
 \alias{read_sublinks}
 \alias{read_seqs}
-\title{Read files in various formats into track tables}
+\title{Read files in various standard formats (FASTA, GFF3, GBK, BED, BLAST, ...) into track tables}
 \usage{
 read_feats(files, .id = "file_id", format = NULL, parser = NULL, ...)
 

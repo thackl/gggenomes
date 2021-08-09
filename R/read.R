@@ -1,4 +1,4 @@
-#' Read files in various formats into track tables
+#' Read files in various standard formats (FASTA, GFF3, GBK, BED, BLAST, ...) into track tables
 #'
 #' Convenience functions to read sequences, features or links from various
 #' bioinformatics file formats, such as FASTA, GFF3, Genbank, BLAST tabular
