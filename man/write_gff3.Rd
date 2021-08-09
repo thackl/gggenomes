@@ -13,7 +13,7 @@ write_gff3(
   score = ".",
   strand = ".",
   phase = ".",
-  id_var = "ID",
+  id_var = "feat_id",
   head = "##gff-version 3"
 )
 }

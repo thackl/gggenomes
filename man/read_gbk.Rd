@@ -7,16 +7,32 @@
 read_gbk(file, sources = NULL, types = NULL, infer_cds_parents = TRUE)
 }
 \arguments{
+\item{file}{Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).
+
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.
+
+Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
+
 \item{sources}{only return features from these sources}
 
 \item{types}{only return features of these types, e.g. gene, CDS, ...}
 
 \item{infer_cds_parents}{infer the mRNA parent for CDS features based on
-overlapping coordinates. In most GFFs this is properly set, but sometimes
-this information is missing. Generally, this is not a problem, however,
-geom_gene calls parse the parent information to determine which CDS and
-mRNAs are part of the same gene model. Without the parent info, mRNA and
-CDS are plotted as individual features.}
+overlapping coordinates. Default TRUE for gff2/gtf, FALSE for gff3. In most
+GFFs this is properly set, but sometimes this information is missing.
+Generally, this is not a problem, however, geom_gene calls parse the parent
+information to determine which CDS and mRNAs are part of the same gene
+model. Without the parent info, mRNA and CDS are plotted as individual
+features.}
 }
 \value{
 tibble

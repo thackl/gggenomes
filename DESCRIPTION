@@ -24,7 +24,7 @@ Depends:
     ggplot2,
     gggenes,
     purrr,
-    readr,
+    readr (>= 2.0.0),
     stringr,
     tidyr,
     thacklr,

@@ -13,12 +13,26 @@ read_paf(
 )
 }
 \arguments{
+\item{file}{Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).
+
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
+be automatically uncompressed. Files starting with \verb{http://},
+\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.
+
+Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.
+
+Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
+
 \item{max_tags}{maximum number of optional fields to include}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("blast")}
-compatible with blast tabular output (\verb{--outfmt 6/7} in blast++ and \code{-m8}
-in blast-legacy). \link{def_names("blast")} can easily be combined with extra
-columns: \code{col_names = c(def_names("blast"), "more", "things")}.}
+\item{col_names}{column names to use. Defaults to \link{def_names("gff3")}.}
+
+\item{col_types}{column types to use. Defaults to \link{def_types("gff3")}.}
 }
 \value{
 tibble
