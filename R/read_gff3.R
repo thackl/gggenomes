@@ -44,12 +44,13 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=FALSE,
   x <- mutate(x, feat_id = coalesce(feat_id, paste0("f", row_number())))
 
   # collapse multi-line CDS (and cds_match)
+  x <- mutate(x, .row_index = row_number()) # helper for robust order
   x <- x %>% group_by(type, feat_id) %>% summarize(
     introns = list(coords2introns(start, end)),
     start = min(start), end = max(end),
     parent_ids = list(first(parent_ids)), # special treat for lst_col
     across(c(-start, -end, -introns, -parent_ids), first)
-  ) %>% ungroup
+  ) %>% ungroup %>% arrange(.row_index) %>% mutate(-.row_index)
 
 
   if(infer_cds_parents)
