@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read features from GFF3 files — read_gff3 • gggenomes</title>
+<title>Read features from GFF3 (and with some limitations GFF2/GTF) files — read_gff3 • gggenomes</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,7 +48,7 @@
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
 
-<meta property="og:title" content="Read features from GFF3 files — read_gff3" />
+<meta property="og:title" content="Read features from GFF3 (and with some limitations GFF2/GTF) files — read_gff3" />
 <meta property="og:description" content="Files with ##FASTA section work but result in parsing problems for all
 lines of the fasta section. Just ignore those warnings, or strip the fasta
 section ahead of time from the file." />
@@ -84,7 +84,7 @@ section ahead of time from the file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2.9000</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@ section ahead of time from the file." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read features from GFF3 files</h1>
+    <h1>Read features from GFF3 (and with some limitations GFF2/GTF) files</h1>
     <small class="dont-index">Source: <a href='https://github.com/thackl/gggenomes/blob/master/R/read_gff3.R'><code>R/read_gff3.R</code></a></small>
     <div class="hidden name"><code>read_gff3.Rd</code></div>
     </div>
@@ -150,14 +150,30 @@ section ahead of time from the file.</p>
   <span class='va'>file</span>,
   sources <span class='op'>=</span> <span class='cn'>NULL</span>,
   types <span class='op'>=</span> <span class='cn'>NULL</span>,
-  infer_cds_parents <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  infer_cds_parents <span class='op'>=</span> <span class='va'>is_gff2</span>,
+  sort_exons <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_names <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_names</a></span><span class='op'>(</span><span class='st'>"gff3"</span><span class='op'>)</span>,
-  col_types <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_types</a></span><span class='op'>(</span><span class='st'>"gff3"</span><span class='op'>)</span>
+  col_types <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_types</a></span><span class='op'>(</span><span class='st'>"gff3"</span><span class='op'>)</span>,
+  keep_attr <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+be automatically uncompressed. Files starting with <code>http://</code>,
+<code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='https://readr.tidyverse.org/reference/clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
+    </tr>
     <tr>
       <th>sources</th>
       <td><p>only return features from these sources</p></td>
@@ -169,18 +185,32 @@ section ahead of time from the file.</p>
     <tr>
       <th>infer_cds_parents</th>
       <td><p>infer the mRNA parent for CDS features based on
-overlapping coordinates. In most GFFs this is properly set, but sometimes
-this information is missing. Generally, this is not a problem, however,
-geom_gene calls parse the parent information to determine which CDS and
-mRNAs are part of the same gene model. Without the parent info, mRNA and
-CDS are plotted as individual features.</p></td>
+overlapping coordinates. Default TRUE for gff2/gtf, FALSE for gff3. In most
+GFFs this is properly set, but sometimes this information is missing.
+Generally, this is not a problem, however, geom_gene calls parse the parent
+information to determine which CDS and mRNAs are part of the same gene
+model. Without the parent info, mRNA and CDS are plotted as individual
+features.</p></td>
+    </tr>
+    <tr>
+      <th>sort_exons</th>
+      <td><p>make sure that exons/introns appear sorted. Default TRUE.
+Set to FALSE to read CDS/exon order exactly as present in the file, which
+is less robust, but faster and allows non-canonical splicing
+(exon1-exon3-exon2).</p></td>
     </tr>
     <tr>
       <th>col_names</th>
-      <td><p>column names to use. Defaults to def_names("blast")
-compatible with blast tabular output (<code>--outfmt 6/7</code> in blast++ and <code>-m8</code>
-in blast-legacy). def_names("blast") can easily be combined with extra
-columns: <code>col_names = c(def_names("blast"), "more", "things")</code>.</p></td>
+      <td><p>column names to use. Defaults to def_names("gff3").</p></td>
+    </tr>
+    <tr>
+      <th>col_types</th>
+      <td><p>column types to use. Defaults to def_types("gff3").</p></td>
+    </tr>
+    <tr>
+      <th>keep_attr</th>
+      <td><p>keep the original attributes column also after parsing
+tag=value pairs into tidy columns.</p></td>
     </tr>
     </table>
 

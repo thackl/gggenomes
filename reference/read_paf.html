@@ -83,7 +83,7 @@ optional fields will be parsed into a tidy format, one column per tag." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2.9000</span>
       </span>
     </div>
 
@@ -156,15 +156,30 @@ optional fields will be parsed into a tidy format, one column per tag.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>file</th>
+      <td><p>Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+be automatically uncompressed. Files starting with <code>http://</code>,
+<code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='https://readr.tidyverse.org/reference/clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
+    </tr>
+    <tr>
       <th>max_tags</th>
       <td><p>maximum number of optional fields to include</p></td>
     </tr>
     <tr>
       <th>col_names</th>
-      <td><p>column names to use. Defaults to def_names("blast")
-compatible with blast tabular output (<code>--outfmt 6/7</code> in blast++ and <code>-m8</code>
-in blast-legacy). def_names("blast") can easily be combined with extra
-columns: <code>col_names = c(def_names("blast"), "more", "things")</code>.</p></td>
+      <td><p>column names to use. Defaults to def_names("gff3").</p></td>
+    </tr>
+    <tr>
+      <th>col_types</th>
+      <td><p>column types to use. Defaults to def_types("gff3").</p></td>
     </tr>
     </table>
 

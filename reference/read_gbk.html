@@ -84,7 +84,7 @@ around a Perl-based gb2gff converter and read_gff3()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2.9000</span>
       </span>
     </div>
 
@@ -152,6 +152,20 @@ around a Perl-based <code>gb2gff</code> converter and <code><a href='read_gff3.h
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>file</th>
+      <td><p>Either a path to a file, a connection, or literal data
+(either a single string or a raw vector).</p>
+<p>Files ending in <code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code> will
+be automatically uncompressed. Files starting with <code>http://</code>,
+<code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
+downloaded. Remote gz files can also be automatically downloaded and
+decompressed.</p>
+<p>Literal data is most useful for examples and tests. It must contain at
+least one new line to be recognised as data (instead of a path) or be a
+vector of greater than length 1.</p>
+<p>Using a value of <code><a href='https://readr.tidyverse.org/reference/clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
+    </tr>
+    <tr>
       <th>sources</th>
       <td><p>only return features from these sources</p></td>
     </tr>
@@ -162,11 +176,12 @@ around a Perl-based <code>gb2gff</code> converter and <code><a href='read_gff3.h
     <tr>
       <th>infer_cds_parents</th>
       <td><p>infer the mRNA parent for CDS features based on
-overlapping coordinates. In most GFFs this is properly set, but sometimes
-this information is missing. Generally, this is not a problem, however,
-geom_gene calls parse the parent information to determine which CDS and
-mRNAs are part of the same gene model. Without the parent info, mRNA and
-CDS are plotted as individual features.</p></td>
+overlapping coordinates. Default TRUE for gff2/gtf, FALSE for gff3. In most
+GFFs this is properly set, but sometimes this information is missing.
+Generally, this is not a problem, however, geom_gene calls parse the parent
+information to determine which CDS and mRNAs are part of the same gene
+model. Without the parent info, mRNA and CDS are plotted as individual
+features.</p></td>
     </tr>
     </table>
 
