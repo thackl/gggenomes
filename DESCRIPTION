@@ -29,7 +29,8 @@ Depends:
     tidyr,
     thacklr,
     tibble,
-    jsonlite
+    jsonlite,
+    snakecase
 Suggests:
     testthat,
     rtracklayer,
