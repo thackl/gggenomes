@@ -13,6 +13,7 @@ layout_genomes(
   infer_start = min(start, end),
   infer_end = max(start, end),
   infer_length = max(start, end),
+  adjacent_only = TRUE,
   ...
 )
 }

@@ -111,7 +111,6 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
     # coerce IDs to chars, so we don't get errors in join by mismatched types
     loci <- mutate(.loci, seq_id = as.character(seq_id))
     if(!has_name("locus_id")){
-      print("hi")
       loci <- group_by({{ .locus_id_group }}) %>%
         mutate(loci, locus_id = str_glue(.locus_id)) %>%
         ungroup
@@ -237,7 +236,6 @@ focus_links <- function(track, seqs, bin_id){
       bin_id2 = .data[[bin_id2]], seq_id2 = locus_id2
     ) %>%
     select(-starts_with(".seq"))
-  print(track)
   track
 }
 

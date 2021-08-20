@@ -68,7 +68,7 @@ genes <- function(..., .gene_types=c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "r
 }
 #' @describeIn pull_track by default pulls out the first link track.
 #' @export
-links <- function(.track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
+links <- function(.track_id=1, ..., .ignore=NULL, .adjacent_only=NULL){
   dots <- quos(...)
   function(.x, ...){
     pull_links(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .adjacent_only=.adjacent_only)
@@ -143,17 +143,19 @@ pull_genes.gggenomes_layout <- function(.x, ..., .gene_types=c("CDS", "mRNA",
 
 #' @rdname pull_track
 #' @export
-pull_links <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
+pull_links <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=NULL){
   UseMethod("pull_links")
 }
 #' @export
-pull_links.gggenomes <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
+pull_links.gggenomes <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=NULL){
   pull_links(.x$data, {{.track_id}}, ..., .ignore=.ignore, .adjacent_only=.adjacent_only)
 }
 #' @export
-pull_links.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=TRUE){
+pull_links.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=NULL){
   track <- pull_track(.x, {{.track_id}}, ..., .track_type="links", .ignore=.ignore)
-  if(.adjacent_only) track <- filter(track, abs(y-yend)==1)
+  if(isTRUE(.adjacent_only)) track <- filter(track, abs(y-yend)==1)
+  if(isFALSE(.adjacent_only) && .x$args_links$adjacent_only)
+    rlang::warn('`.adjacent_only=FALSE` here has no effect because gggenomes was invoked with `adjacent_only=TRUE`')
   track
 }
 

@@ -20,7 +20,7 @@ feats(.track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
 
 genes(..., .gene_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA"))
 
-links(.track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
+links(.track_id = 1, ..., .ignore = NULL, .adjacent_only = NULL)
 
 seqs(...)
 
@@ -36,7 +36,7 @@ pull_genes(
   .gene_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA")
 )
 
-pull_links(.x, .track_id = 1, ..., .ignore = NULL, .adjacent_only = TRUE)
+pull_links(.x, .track_id = 1, ..., .ignore = NULL, .adjacent_only = NULL)
 
 pull_seqs(.x, ...)
 

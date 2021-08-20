@@ -75,9 +75,6 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
   # get layout vars necessary for projecting feats from seqs
   x <- add_link_layout_scaffold(x, seqs)
 
-  # TODO: adjacent_only can currently not overwritten by add_links() this is
-  # mostly for performance - no need to compute on a-v-a links, of only adjacent
-  # ones are displayed in the end
   if(adjacent_only){
     x <- filter(x, abs(y-yend) == 1)
     if(nrow(x)==0){
@@ -106,27 +103,28 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #'   geom_seq() + geom_link()
 #'
 #' @export
-add_links <- function(x, ...){
+add_links <- function(x, ..., .adjacent_only=TRUE){
   UseMethod("add_links")
 }
 
 #' @export
-add_links.gggenomes <- function(x, ...){
-  x$data <- add_links(x$data, ...)
+add_links.gggenomes <- function(x, ..., .adjacent_only=TRUE){
+  x$data <- add_links(x$data, ..., .adjacent_only=.adjacent_only)
   x
 }
 
 #' @export
-add_links.gggenomes_layout <- function(x, ...){
+add_links.gggenomes_layout <- function(x, ..., .adjacent_only=TRUE){
   if(!has_dots()) return(x)
   dot_exprs <- enexprs(...) # defuse before list(...)
   tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
   # convert to layouts
-  add_link_tracks(x, tracks)
+  add_link_tracks(x, tracks, adjacent_only=.adjacent_only)
 }
 
-add_link_tracks <- function(x, tracks){
-  x$links <- c(x$links, map(tracks, as_links, get_seqs(x))) # this is lossy, so
+add_link_tracks <- function(x, tracks, adjacent_only=TRUE){
+  x$links <- c(x$links, map(tracks, as_links, get_seqs(x),
+      adjacent_only=adjacent_only)) # this is lossy, so
   x$orig_links <- c(x$orig_links, map(tracks, as_orig_links, get_seqs(x))) # also store orig links for re-layout
   x
 }

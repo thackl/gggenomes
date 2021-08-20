@@ -12,7 +12,7 @@
 \usage{
 add_feats(x, ...)
 
-add_links(x, ...)
+add_links(x, ..., .adjacent_only = TRUE)
 
 add_subfeats(x, ..., .track_id = "genes", .transform = "aa2nuc")
 
