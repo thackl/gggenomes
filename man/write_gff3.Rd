@@ -14,7 +14,9 @@ write_gff3(
   strand = ".",
   phase = ".",
   id_var = "feat_id",
-  head = "##gff-version 3"
+  parent_var = "parent_ids",
+  head = "##gff-version 3",
+  ignore_attr = c("introns", "geom_id")
 )
 }
 \arguments{
@@ -35,7 +37,12 @@ directives in the header}
 
 \item{id_var}{the name of the column to use as the GFF3 \code{ID} tag}
 
+\item{parent_var}{the name of the column to use as GFF3 \code{Parent} tag}
+
 \item{head}{additional information to add to the header section}
+
+\item{ignore_attr}{attributes not to be included in GFF3 tag list. Defaults
+to internals: \verb{introns, geom_id}}
 }
 \description{
 Write a gff3 file from a tidy table
