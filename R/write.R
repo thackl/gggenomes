@@ -58,8 +58,6 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
   gff3_attr <- c("ID", "Parent", "Name", "Alias", "Target", "Gap", "Derives_from", "Note", "Ontology_term")
   gff3_cols <- c("seq_id", "source", "type", "start", "end", "score", "strand", "phase")
 
-  print(names(feats))
-
   # compute starts/ends for CDS and cDNA_match from introns
   feats <- unchop_cds(feats)
   feats <- select(feats, -all_of(ignore_attr))

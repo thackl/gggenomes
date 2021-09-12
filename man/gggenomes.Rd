@@ -12,6 +12,7 @@ gggenomes(
   .id = "file_id",
   spacing = 0.05,
   wrap = NULL,
+  adjacent_only = TRUE,
   infer_bin_id = seq_id,
   infer_start = min(start, end),
   infer_end = max(start, end),

@@ -22,7 +22,8 @@ layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
    for(i in seq_along(x$feats))
      x$feats[[i]] %<>% exec(layout_feats, ., get_seqs(x), !!!args_feats)
    for(i in seq_along(x$links))
-     x$links[[i]] <- exec(as_links, x$orig_links[[i]], get_seqs(x), !!!args_links)
+     x$links[[i]] <- exec(as_links, x$orig_links[[i]], get_seqs(x),
+                          !!!args_links, !!!x$args_links)
   x
 }
 

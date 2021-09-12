@@ -85,10 +85,10 @@
 #' gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
 #'   geom_seq() + geom_bin_label() + geom_seq_label()
 gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
-    .id="file_id", spacing=0.05, wrap=NULL, infer_bin_id = seq_id,
-    infer_start = min(start,end), infer_end = max(start,end),
-    infer_length = max(start,end), theme = c("clean", NULL),
-    .layout=NULL, ...){
+    .id="file_id", spacing=0.05, wrap=NULL, adjacent_only=TRUE,
+    infer_bin_id = seq_id, infer_start = min(start,end),
+    infer_end = max(start,end), infer_length = max(start,end),
+    theme = c("clean", NULL), .layout=NULL, ...){
 
   # parse track_args to tracks - some magic for a convenient api
   genes_exprs <- enexpr(genes)
@@ -104,9 +104,9 @@ gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
     seqs <- read_seqs(seqs, .id=.id)
 
   layout <- .layout %||% layout_genomes(seqs=seqs, genes=genes, feats=feats,
-      links=links, spacing=spacing, wrap=wrap, infer_bin_id={{infer_bin_id}},
-      infer_start={{infer_start}}, infer_end={{infer_end}},
-      infer_length={{infer_length}}, ...)
+      links=links, spacing=spacing, wrap=wrap, adjacent_only=adjacent_only,
+      infer_bin_id={{infer_bin_id}}, infer_start={{infer_start}},
+      infer_end={{infer_end}}, infer_length={{infer_length}}, ...)
 
   p <- ggplot(data = layout)
   class(p) <- c('gggenomes', class(p))
@@ -155,7 +155,7 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 #' @export
 layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
     infer_bin_id = seq_id, infer_start = min(start,end), infer_end = max(start,end),
-    infer_length = max(start,end), ...){
+    infer_length = max(start,end), adjacent_only=TRUE, ...){
 
   # check seqs / infer seqs if not provided
   if(!is.null(seqs)){
@@ -179,13 +179,13 @@ layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
 
   # init the gggenomes_layout object
   x <- list(seqs = NULL, feats = list(), links = list(), orig_links = list(),
-            args_seqs = list(...))
+      args_seqs = list(...), args_links = list(adjacent_only=adjacent_only))
   x %<>% set_class("gggenomes_layout", "prepend")
 
   # add track data to layout
   x %<>% add_seqs(seqs, ...) # layout seqs
   if(!is.null(feats)) x <- add_feat_tracks(x, feats)
-  if(!is.null(links)) x <- add_link_tracks(x, links)
+  if(!is.null(links)) x <- add_link_tracks(x, links, adjacent_only = adjacent_only)
 
   x
 }

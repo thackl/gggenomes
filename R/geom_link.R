@@ -1,7 +1,8 @@
 #' Draw links
 #'
-#' Note `.adjacent_only=TRUE` is somewhat redundant with
-#' layout_links(adjacent_only =TRUE), which currently is always set to TRUE
+#' Note that by default only links between adjacent genomes are computed and
+#' shown. Set `gggenomes(..., adjacent_only=TRUE)` to compute and show all links
+#' between all genomes.
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
@@ -13,6 +14,8 @@
 #'   scale_fill_viridis_b() + scale_colour_viridis_b()
 #' # combine with flip
 #' p %>% flip(3,4,5) + geom_link()
+#' # compute & show all links among all genomes (not recommended for large dataset)
+#' gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
 geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     offset = 0.15, ...) {
