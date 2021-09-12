@@ -145,6 +145,7 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
   seqs <- enquo(seqs)
   if(!quo_is_null(seqs)){
     seq_sel_lst <- split_by(pull_track(x, {{seq_track}}), seq_id)
+    seq_sel_lst <- seq_sel_lst[names(seq_sel_lst) %in% flip_tbl$seq_id]
     seq_i <- tidyselect::eval_select(expr(!! seqs ), seq_sel_lst)
     seq_i <- flip_tbl$seq_id %in% names(seq_i)
     flip_tbl$strand[seq_i] <- flip_strand(flip_tbl$strand[seq_i])
@@ -163,4 +164,3 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
   x <- set_seqs(x, seq_tbl)
   layout(x)
 }
-
