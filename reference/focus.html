@@ -280,9 +280,9 @@ at least 3 target features.</p></td>
 <span class='co'># gene annotations from prokka</span>
 <span class='va'>g0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_feats</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg.gff"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Reading 'gff3' with `read_gff3()`:</span></div><div class='output co'>#&gt; <span class='message'>* file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff]</span></div><div class='output co'>#&gt; <span class='message'>Harmonizing attribute names</span>
-#&gt; <span class='message'>* ID -&gt; feat_id</span>
-#&gt; <span class='message'>* Name -&gt; name</span>
-#&gt; <span class='message'>* eC_number -&gt; e_c_number</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #949494;'># A tibble: 3 × 3</span></span>
+#&gt; <span class='message'>ID -&gt; feat_id</span>
+#&gt; <span class='message'>Name -&gt; name</span>
+#&gt; <span class='message'>eC_number -&gt; e_c_number</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #949494;'># A tibble: 3 × 3</span></span>
 #&gt; <span class='message'>  source       type      n</span>
 #&gt; <span class='message'>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
 #&gt; <span class='message'><span style='color: #BCBCBC;'>1</span> Aragorn:1.2  tRNA     62</span>
@@ -324,11 +324,11 @@ at least 3 target features.</p></td>
   <span class='fu'><a href='geom_feat_text.html'>geom_feat_tag</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>label<span class='op'>=</span><span class='va'>gene</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>scale_color_brewer</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Showing 36 loci with the following size distribution</span>
-#&gt; <span class='message'>* min: 2500</span>
-#&gt; <span class='message'>* q25: 6464</span>
-#&gt; <span class='message'>* med: 9739</span>
-#&gt; <span class='message'>* q75: 10714</span>
-#&gt; <span class='message'>* max: 19561</span></div><div class='img'><img src='focus-3.png' alt='' width='960' height='480' /></div></pre>
+#&gt; <span class='message'>min: 2500</span>
+#&gt; <span class='message'>q25: 6464</span>
+#&gt; <span class='message'>med: 9739</span>
+#&gt; <span class='message'>q75: 10714</span>
+#&gt; <span class='message'>max: 19561</span></div><div class='img'><img src='focus-3.png' alt='' width='960' height='480' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

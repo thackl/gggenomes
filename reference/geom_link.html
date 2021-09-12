@@ -49,8 +49,9 @@
   <script src="../extra.js"></script>
 
 <meta property="og:title" content="Draw links — geom_link" />
-<meta property="og:description" content="Note .adjacent_only=TRUE is somewhat redundant with
-layout_links(adjacent_only =TRUE), which currently is always set to TRUE" />
+<meta property="og:description" content="Note that by default only links between adjacent genomes are computed and
+shown. Set gggenomes(..., adjacent_only=TRUE) to compute and show all links
+between all genomes." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -140,8 +141,9 @@ layout_links(adjacent_only =TRUE), which currently is always set to TRUE" />
     </div>
 
     <div class="ref-description">
-    <p>Note <code>.adjacent_only=TRUE</code> is somewhat redundant with
-layout_links(adjacent_only =TRUE), which currently is always set to TRUE</p>
+    <p>Note that by default only links between adjacent genomes are computed and
+shown. Set <code><a href='gggenomes.html'>gggenomes(..., adjacent_only=TRUE)</a></code> to compute and show all links
+between all genomes.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_link</span><span class='op'>(</span>
@@ -175,7 +177,9 @@ layout_links(adjacent_only =TRUE), which currently is always set to TRUE</p>
   <span class='fu'>scale_fill_viridis_b</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_b</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='img'><img src='geom_link-2.png' alt='' width='960' height='480' /></div><div class='input'><span class='co'># combine with flip</span>
 <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='flip.html'>flip</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_link-3.png' alt='' width='960' height='480' /></div></pre>
+</div><div class='img'><img src='geom_link-3.png' alt='' width='960' height='480' /></div><div class='input'><span class='co'># compute &amp; show all links among all genomes (not recommended for large dataset)</span>
+<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>links<span class='op'>=</span><span class='va'>emale_ava</span>, adjacent_only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>No seqs or feats provided, inferring seqs from links</span></div><div class='img'><img src='geom_link-4.png' alt='' width='960' height='480' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
