@@ -29,6 +29,8 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
     sort_exons=TRUE, col_names = def_names("gff3"),
     col_types = def_types("gff3"), keep_attr=FALSE){
 
+  # there seems to be an issue with 'na="."' in readr::read_tsv
+  # https://github.com/tidyverse/readr/issues/1279
   x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".",
                 comment = "#")
 
@@ -68,6 +70,14 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
     parent_ids = list(first(parent_ids)), # special treat for lst_col
     across(c(-start, -end, -introns, -parent_ids), first)
   ) %>% ungroup %>% arrange(.row_index) %>% select(-.row_index)
+
+  # band aid fix for collapsed CDS/cDNA_match - set score and phase NA because
+  # it differs for different spans and we don't store this as a list col
+  cds_collapsed_i <- x$type %in% c("CDS", "cDNA_match") & !map_lgl(x$introns, is.null)
+  if(any(cds_collapsed_i)){
+    x$score[cds_collapsed_i] <- NA
+    x$phase[cds_collapsed_i] <- NA
+  }
 
   if(is_gff2)
     x <- add_mrna_for_exons(x, col_names)
