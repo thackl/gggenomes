@@ -125,7 +125,7 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
 
   # overwrite old loci
   s <- select(ungroup(get_seqs(x)), -any_of(qc(start, end, locus_length)))
-  s <- inner_join(loci, s, by="seq_id")
+  s <- inner_join(s, loci, by="seq_id")
   s <- mutate(s,
     start = ifelse(start < 1, 1, start),
     end = ifelse(length < end, length, end),
