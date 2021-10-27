@@ -45,6 +45,12 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
         "You can ignore any parsing failures starting from that row."))
   }
 
+  if(!is.null(types))
+    x <- filter(x, type %in% types)
+
+  if(!is.null(sources))
+    x <- filter(x, source %in% sources)
+
   # guess if gff2/gtf - " " instead of "=" as sep for attribute "tag value" pairs
   if(is.null(is_gff2))
     is_gff2 <- guess_is_gff2(x)
