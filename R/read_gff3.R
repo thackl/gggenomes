@@ -278,7 +278,7 @@ guess_is_gff2 <- function(x){
     return(FALSE)
   }
 
-  is_gff2 <- str_match(attr, "[= ]") == " "
+  is_gff2 <- str_match(attr[1], "[= ]") == " "
   if(is.na(is_gff2)){
     rlang::warn("Failed to guess gff version, assuming gff3, overwrite with `is_gff2=TRUE`")
     return(FALSE)
