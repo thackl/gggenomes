@@ -129,10 +129,10 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
   s <- mutate(s,
     start = ifelse(start < 1, 1, start),
     end = ifelse(length < end, length, end),
-    length = width(start, end)
+    locus_length = width(start, end)
     )
 
-  qs <- floor(quantile(s$length, c(0,.25,.5,.75,1)))
+  qs <- floor(quantile(s$locus_length, c(0,.25,.5,.75,1)))
   qs_lab <- qc(min,q25,med,q75,max)
 
   inform(c(
