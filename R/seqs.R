@@ -77,7 +77,7 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
     bins <- x %>%
       group_by(bin_id) %>%
       summarize(
-        bin_len=sum(length),
+        bin_len=sum(width(start, end)),
         seq_n=n()) %>%
       ungroup() %>%
       summarize(
