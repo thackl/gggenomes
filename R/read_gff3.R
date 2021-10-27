@@ -23,11 +23,13 @@
 #' @param col_types column types to use. Defaults to [def_types("gff3")].
 #' @param keep_attr keep the original attributes column also after parsing
 #'   tag=value pairs into tidy columns.
+#' @param fix_augustus_cds If true, assume Augustus gff with bad CDS IDs that
+#'   need fixing
 #' @export
 #' @return tibble
 read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
     sort_exons=TRUE, col_names = def_names("gff3"),
-    col_types = def_types("gff3"), keep_attr=FALSE){
+    col_types = def_types("gff3"), keep_attr=FALSE, fix_augustus_cds=TRUE){
 
   # there seems to be an issue with 'na="."' in readr::read_tsv
   # https://github.com/tidyverse/readr/issues/1279
@@ -60,7 +62,8 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
     x[[3]][x[[3]] == "3'UTR"] <- "three_prime_UTR"
   }
 
-  x <- tidy_attributes(x, is_gff2=is_gff2, keep_attr=keep_attr)
+  x <- tidy_attributes(x, is_gff2=is_gff2, keep_attr=keep_attr,
+      fix_augustus_cds=fix_augustus_cds)
 
   # collapse multi-line CDS (and cds_match)
   x <- mutate(x, .row_index = row_number()) # helper for robust order
@@ -169,7 +172,7 @@ infer_cds_parent <- function(x){
   x
 }
 
-tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE){
+tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=TRUE){
 
   d <- map_df(str_split(x[[9]], "; *"), function(r){
     # handle missing comments
@@ -232,6 +235,11 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE){
 
   # set a dummy feat_id
   x <- mutate(x, feat_id = coalesce(feat_id, paste0("feat_", row_number())))
+
+  # fix augustus CDS
+  if(fix_augustus_cds)
+    x <- mutate(x, feat_id = ifelse(type == "CDS", str_replace(feat_id, "CDS\\d+$", "CDS"), feat_id))
+
   x
 }
 
