@@ -29,7 +29,7 @@
 #' @return tibble
 read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
     sort_exons=TRUE, col_names = def_names("gff3"),
-    col_types = def_types("gff3"), keep_attr=FALSE, fix_augustus_cds=TRUE){
+    col_types = def_types("gff3"), keep_attr=FALSE, fix_augustus_cds=TRUE, is_gff2=NULL){
 
   # there seems to be an issue with 'na="."' in readr::read_tsv
   # https://github.com/tidyverse/readr/issues/1279
@@ -46,7 +46,9 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
   }
 
   # guess if gff2/gtf - " " instead of "=" as sep for attribute "tag value" pairs
-  is_gff2 <- str_match(na.omit(x[[9]])[1], "[= ]") == " "
+  if(is.null(is_gff2))
+    is_gff2 <- guess_is_gff2(x)
+
   if(is_gff2){
     warn(str_glue("This looks like a gff2/gtf file. This is usually fine, ",
         "but given the ambigious definition of this format, it is not ",
@@ -176,8 +178,8 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
 
   d <- map_df(str_split(x[[9]], "; *"), function(r){
     # handle missing comments
-    if(!length(r) || is.na(r))
-      return(tibble())
+    if(!str_length(r) || is.na(r))
+      return(tibble(.rows=1)) # make sure this df has at least 1 row!
 
     # ignore empty elements caused by trailing or duplicated ";"
     r <- r[r!=""]
@@ -259,4 +261,21 @@ coords2introns <- function(starts, ends, sort_exons=TRUE){
   # introns: start, end, start2, end2, ...
   # +2 corrects of 1[s,e] coord issues
   c(rbind(ends[i-1]+2, starts[i])) - starts[1]
+}
+
+# guess gff version based on key/value delimiter of 9th column (= for 3, " " for 2)
+guess_is_gff2 <- function(x){
+  attr <- x[[9]]
+  attr <- attr[which(str_length(attr) > 0)]
+  if(length(attr) == 0){
+    rlang::warn("Failed to guess gff version, assuming gff3, overwrite with `is_gff2=TRUE`")
+    return(FALSE)
+  }
+
+  is_gff2 <- str_match(attr, "[= ]") == " "
+  if(is.na(is_gff2)){
+    rlang::warn("Failed to guess gff version, assuming gff3, overwrite with `is_gff2=TRUE`")
+    return(FALSE)
+  }
+  is_gff2
 }
