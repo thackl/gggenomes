@@ -85,7 +85,7 @@ tidyselect::starts_with() are supported. Renaming is not supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
       </span>
     </div>
 
@@ -150,9 +150,9 @@ arguments and <a href='https://tidyselect.r-lib.org/reference/language.html'>sel
 
     <pre class="usage"><span class='fu'>pick</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>pick_seqs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>pick_seqs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'>everything</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, .bins <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tree</span>, infer_bin_id <span class='op'>=</span> <span class='va'>label</span><span class='op'>)</span></pre>
 
@@ -198,98 +198,116 @@ seqs, keep rest as is.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>s0</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>
-bin_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span>,
-seq_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a1"</span>,<span class='st'>"b1"</span>,<span class='st'>"b2"</span>,<span class='st'>"b3"</span>,<span class='st'>"c1"</span>,<span class='st'>"c2"</span>,<span class='st'>"c3"</span><span class='op'>)</span>,
-length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e4</span>, <span class='fl'>6e3</span>, <span class='fl'>2e3</span>, <span class='fl'>1e3</span>, <span class='fl'>3e3</span>, <span class='fl'>3e3</span>, <span class='fl'>3e3</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>s0</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>bin_id</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq_label.html'>geom_seq_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>expand_limits</span><span class='op'>(</span>color<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='img'><img src='pick-1.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># remove</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick</span><span class='op'>(</span><span class='op'>-</span><span class='va'>B</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-2.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># select and reorder, by ID and position</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick</span><span class='op'>(</span><span class='va'>C</span>, <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-3.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># use helper function</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick</span><span class='op'>(</span><span class='fu'>starts_with</span><span class='op'>(</span><span class='st'>"B"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-4.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># pick just some seqs</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs</span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>c3</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-5.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># pick with .bin scope</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>C</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-6.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># change seqs in some bins, but keep rest as is</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>B</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-7.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># same w/o scope, unaffected bins remain as is</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='va'>b3</span>, <span class='va'>b2</span>, <span class='va'>b1</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-8.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># Align sequences with and plot next to a phylogenetic tree</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>  <span class='co'># arrange multiple plots</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yulab-smu.top/treedata-book/'>ggtree</a></span><span class='op'>)</span>     <span class='co'># plot phylogenetic trees</span>
-</div><div class='output co'>#&gt; <span class='message'>ggtree v3.1.6  For help: https://yulab-smu.top/treedata-book/</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>If you use ggtree in published research, please cite the most appropriate paper(s):</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>1. Guangchuang Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</span>
-#&gt; <span class='message'>2. Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods for mapping and visualizing associated data on phylogeny using ggtree. Molecular Biology and Evolution. 2018, 35(12):3041-3043. doi:10.1093/molbev/msy194</span>
-#&gt; <span class='message'>3. Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span>
-#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘ggtree’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:gggenomes’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    flip</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:tidyr’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    expand</span></div><div class='input'>
-<span class='co'># load and plot a phylogenetic tree</span>
-<span class='va'>emale_mcp_tree</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>read.tree</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales-MCP.nwk"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ggtree/man/ggtree.html'>ggtree</a></span><span class='op'>(</span><span class='va'>emale_mcp_tree</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/ggtree/man/geom_tiplab.html'>geom_tiplab</a></span><span class='op'>(</span>align<span class='op'>=</span><span class='cn'>T</span>, size<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0.05</span><span class='op'>)</span> <span class='co'># make room for labels</span>
-
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs</span>, genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='co'># plot next to each other, but with</span>
-<span class='co'># different order in tree and genomes</span>
-<span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='pick-9.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># reorder genomes to match tree order</span>
-<span class='co'># with a warning caused by mismatch in y-scale expansions</span>
-<span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Tree and genomes have different y-scale expansions. This can cause slight misalignments of leaves and sequences.</span>
-#&gt; <span class='warning'>Consider adding `+ scale_y_continuous(expand=c(0.01,0.7,0.01,0.7))` to the tree as a fix</span>
-#&gt; <span class='warning'><span style='color: #00BBBB;'>•</span> tree: 0,0.6,0,0.6</span>
-#&gt; <span class='warning'><span style='color: #00BBBB;'>•</span> bins: 0.01,0.7,0.01,0.7</span></div><div class='img'><img src='pick-10.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># extra genomes are dropped with a notification</span>
-<span class='va'>emale_seqs_more</span> <span class='op'>&lt;-</span> <span class='va'>emale_seqs</span>
-<span class='va'>emale_seqs_more</span><span class='op'>[</span><span class='fl'>7</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>emale_seqs_more</span><span class='op'>[</span><span class='fl'>6</span>,<span class='op'>]</span>
-<span class='va'>emale_seqs_more</span><span class='op'>$</span><span class='va'>seq_id</span><span class='op'>[</span><span class='fl'>7</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"One more genome"</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs_more</span>, genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Some bin_ids are missing in the tree, will drop those from genomes.</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> One more genome</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Tree and genomes have different y-scale expansions. This can cause slight misalignments of leaves and sequences.</span>
-#&gt; <span class='warning'>Consider adding `+ scale_y_continuous(expand=c(0.01,0.7,0.01,0.7))` to the tree as a fix</span>
-#&gt; <span class='warning'><span style='color: #00BBBB;'>•</span> tree: 0,0.6,0,0.6</span>
-#&gt; <span class='warning'><span style='color: #00BBBB;'>•</span> bins: 0.01,0.7,0.01,0.7</span></div><div class='img'><img src='pick-11.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># no shared ids will cause an error</span>
-  <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='fu'>tibble</span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"foo"</span>, length<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span>
-  <span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># extra leafs in tree will cause an error</span>
-  <span class='va'>emale_seqs_fewer</span> <span class='op'>&lt;-</span> <span class='fu'>slice_head</span><span class='op'>(</span><span class='va'>emale_seqs</span>, n<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
-  <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs_fewer</span>, genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span>
-  <span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>s0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span class='r-in'>bin_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span>, <span class='st'>"C"</span><span class='op'>)</span>,</span>
+<span class='r-in'>seq_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a1"</span>,<span class='st'>"b1"</span>,<span class='st'>"b2"</span>,<span class='st'>"b3"</span>,<span class='st'>"c1"</span>,<span class='st'>"c2"</span>,<span class='st'>"c3"</span><span class='op'>)</span>,</span>
+<span class='r-in'>length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1e4</span>, <span class='fl'>6e3</span>, <span class='fl'>2e3</span>, <span class='fl'>1e3</span>, <span class='fl'>3e3</span>, <span class='fl'>3e3</span>, <span class='fl'>3e3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>s0</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>bin_id</span><span class='op'>)</span>, size<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq_label.html'>geom_seq_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expand_limits.html'>expand_limits</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span></span>
+<span class='r-plt img'><img src='pick-1.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># remove</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick</span><span class='op'>(</span><span class='op'>-</span><span class='va'>B</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-2.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># select and reorder, by ID and position</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick</span><span class='op'>(</span><span class='va'>C</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-3.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># use helper function</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick</span><span class='op'>(</span><span class='fu'><a href='https://tidyselect.r-lib.org/reference/starts_with.html'>starts_with</a></span><span class='op'>(</span><span class='st'>"B"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-4.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># pick just some seqs</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_seqs</span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>c3</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-5.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># pick with .bin scope</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_seqs</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>C</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-6.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># change seqs in some bins, but keep rest as is</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span>, .bins<span class='op'>=</span><span class='va'>B</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-7.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># same w/o scope, unaffected bins remain as is</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_seqs_within</span><span class='op'>(</span><span class='va'>b3</span>, <span class='va'>b2</span>, <span class='va'>b1</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-8.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Align sequences with and plot next to a phylogenetic tree</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://patchwork.data-imaginist.com'>patchwork</a></span><span class='op'>)</span>  <span class='co'># arrange multiple plots</span></span>
+<span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yulab-smu.top/treedata-book/'>ggtree</a></span><span class='op'>)</span>     <span class='co'># plot phylogenetic trees</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> ggtree v3.3.0.900  For help: https://yulab-smu.top/treedata-book/</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> If you use ggtree in published research, please cite the most appropriate paper(s):</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 1. Guangchuang Yu. Using ggtree to visualize data on tree-like structures. Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 2. Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods for mapping and visualizing associated data on phylogeny using ggtree. Molecular Biology and Evolution. 2018, 35(12):3041-3043. doi:10.1093/molbev/msy194</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 3. Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Attaching package: ‘ggtree’</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> The following object is masked from ‘package:gggenomes’:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>     flip</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> The following object is masked from ‘package:tidyr’:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>     expand</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load and plot a phylogenetic tree</span></span>
+<span class='r-in'><span class='va'>emale_mcp_tree</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>read.tree</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"emales/emales-MCP.nwk"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ggtree/man/ggtree.html'>ggtree</a></span><span class='op'>(</span><span class='va'>emale_mcp_tree</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/ggtree/man/geom_tiplab.html'>geom_tiplab</a></span><span class='op'>(</span>align<span class='op'>=</span><span class='cn'>T</span>, size<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0.05</span><span class='op'>)</span> <span class='co'># make room for labels</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs</span>, genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot next to each other, but with</span></span>
+<span class='r-in'><span class='co'># different order in tree and genomes</span></span>
+<span class='r-in'><span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='pick-9.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># reorder genomes to match tree order</span></span>
+<span class='r-in'><span class='co'># with a warning caused by mismatch in y-scale expansions</span></span>
+<span class='r-in'><span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Tree and genomes have different y-scale expansions. This can cause slight misalignments of leaves and sequences.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Consider adding `+ scale_y_continuous(expand=c(0.01,0.7,0.01,0.7))` to the tree as a fix</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> tree: 0,0.6,0,0.6</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> bins: 0.01,0.7,0.01,0.7</span>
+<span class='r-plt img'><img src='pick-10.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># extra genomes are dropped with a notification</span></span>
+<span class='r-in'><span class='va'>emale_seqs_more</span> <span class='op'>&lt;-</span> <span class='va'>emale_seqs</span></span>
+<span class='r-in'><span class='va'>emale_seqs_more</span><span class='op'>[</span><span class='fl'>7</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>emale_seqs_more</span><span class='op'>[</span><span class='fl'>6</span>,<span class='op'>]</span></span>
+<span class='r-in'><span class='va'>emale_seqs_more</span><span class='op'>$</span><span class='va'>seq_id</span><span class='op'>[</span><span class='fl'>7</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='st'>"One more genome"</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs_more</span>, genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Some bin_ids are missing in the tree, will drop those from genomes.</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> One more genome</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Tree and genomes have different y-scale expansions. This can cause slight misalignments of leaves and sequences.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> Consider adding `+ scale_y_continuous(expand=c(0.01,0.7,0.01,0.7))` to the tree as a fix</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> tree: 0,0.6,0,0.6</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> bins: 0.01,0.7,0.01,0.7</span>
+<span class='r-plt img'><img src='pick-11.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># no shared ids will cause an error</span></span>
+<span class='r-in'>  <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>seq_id <span class='op'>=</span> <span class='st'>"foo"</span>, length<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># extra leafs in tree will cause an error</span></span>
+<span class='r-in'>  <span class='va'>emale_seqs_fewer</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_head</a></span><span class='op'>(</span><span class='va'>emale_seqs</span>, n<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs_fewer</span>, genes<span class='op'>=</span><span class='va'>emale_genes</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>    <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>t</span> <span class='op'>+</span> <span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>pick_by_tree</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://patchwork.data-imaginist.com/reference/plot_layout.html'>plot_layout</a></span><span class='op'>(</span>widths <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

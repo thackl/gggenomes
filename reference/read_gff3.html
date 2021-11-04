@@ -84,7 +84,7 @@ section ahead of time from the file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
       </span>
     </div>
 
@@ -154,7 +154,9 @@ section ahead of time from the file.</p>
   sort_exons <span class='op'>=</span> <span class='cn'>TRUE</span>,
   col_names <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_names</a></span><span class='op'>(</span><span class='st'>"gff3"</span><span class='op'>)</span>,
   col_types <span class='op'>=</span> <span class='fu'><a href='def_names.html'>def_types</a></span><span class='op'>(</span><span class='st'>"gff3"</span><span class='op'>)</span>,
-  keep_attr <span class='op'>=</span> <span class='cn'>FALSE</span>
+  keep_attr <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fix_augustus_cds <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  is_gff2 <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -169,9 +171,9 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with <code><a href='https://rdrr.io/r/base/AsIs.html'>I()</a></code>, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.</p>
 <p>Using a value of <code><a href='https://readr.tidyverse.org/reference/clipboard.html'>clipboard()</a></code> will read from the system clipboard.</p></td>
     </tr>
     <tr>
@@ -211,6 +213,11 @@ is less robust, but faster and allows non-canonical splicing
       <th>keep_attr</th>
       <td><p>keep the original attributes column also after parsing
 tag=value pairs into tidy columns.</p></td>
+    </tr>
+    <tr>
+      <th>fix_augustus_cds</th>
+      <td><p>If true, assume Augustus gff with bad CDS IDs that
+need fixing</p></td>
     </tr>
     </table>
 

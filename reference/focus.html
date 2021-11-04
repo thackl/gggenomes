@@ -88,7 +88,7 @@ will have their locus_id as their new seq_id." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
       </span>
     </div>
 
@@ -161,10 +161,10 @@ will have their <code>locus_id</code> as their new <code>seq_id</code>.</p>
   .max_dist <span class='op'>=</span> <span class='fl'>10000</span>,
   .expand <span class='op'>=</span> <span class='fl'>5000</span>,
   .overhang <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"drop"</span>, <span class='st'>"trim"</span>, <span class='st'>"keep"</span><span class='op'>)</span>,
-  .locus_id <span class='op'>=</span> <span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"{seq_id}_lc{row_number()}"</span><span class='op'>)</span>,
+  .locus_id <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_glue.html'>str_glue</a></span><span class='op'>(</span><span class='st'>"{seq_id}_lc{row_number()}"</span><span class='op'>)</span>,
   .locus_id_group <span class='op'>=</span> <span class='va'>seq_id</span>,
   .locus_bin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bin"</span>, <span class='st'>"seq"</span>, <span class='st'>"locus"</span><span class='op'>)</span>,
-  .locus_score <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span>,
+  .locus_score <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,
   .locus_filter <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .loci <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
@@ -175,10 +175,10 @@ will have their <code>locus_id</code> as their new <code>seq_id</code>.</p>
   .track_id <span class='op'>=</span> <span class='fl'>2</span>,
   .max_dist <span class='op'>=</span> <span class='fl'>10000</span>,
   .expand <span class='op'>=</span> <span class='fl'>5000</span>,
-  .locus_id <span class='op'>=</span> <span class='fu'>str_glue</span><span class='op'>(</span><span class='st'>"{seq_id}_lc{row_number()}"</span><span class='op'>)</span>,
+  .locus_id <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_glue.html'>str_glue</a></span><span class='op'>(</span><span class='st'>"{seq_id}_lc{row_number()}"</span><span class='op'>)</span>,
   .locus_id_group <span class='op'>=</span> <span class='va'>seq_id</span>,
   .locus_bin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bin"</span>, <span class='st'>"seq"</span>, <span class='st'>"locus"</span><span class='op'>)</span>,
-  .locus_score <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span>,
+  .locus_score <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span>,
   .locus_filter <span class='op'>=</span> <span class='cn'>TRUE</span>,
   .locus_track <span class='op'>=</span> <span class='st'>"loci"</span>
 <span class='op'>)</span></pre>
@@ -240,8 +240,8 @@ individual bins.</p></td>
       <th>.locus_score</th>
       <td><p>An expression evaluated in the context of all features
 that are combined into a new locus. Results are stored in the column
-<code>locus_score</code>. Defaults to the <code>n()</code>, i.e. the number of features per
-locus. Set, for example, to <code><a href='https://rdrr.io/r/base/sum.html'>sum(bitscore)</a></code> to sum over all blast hit
+<code>locus_score</code>. Defaults to the <code><a href='https://dplyr.tidyverse.org/reference/context.html'>n()</a></code>, i.e. the number of features per
+locus. Set, for example, to <code>sum(bitscore)</code> to sum over all blast hit
 bitscore of per locus. Usually used in conjunction with <code>.locus_filter</code>.</p></td>
     </tr>
     <tr>
@@ -270,65 +270,79 @@ at least 3 target features.</p></td>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Let's hunt some defense systems in marine SAGs</span>
-<span class='co'># read the genomes</span>
-<span class='va'>s0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_seqs</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg.fna"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Reading 'fasta' with `read_seq_len()`:</span></div><div class='output co'>#&gt; <span class='message'>* file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna]</span></div><div class='input'><span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='va'>s0</span> <span class='op'>%&gt;%</span>
-  <span class='co'># strip trailing number from contigs to get bins</span>
-  <span class='fu'>mutate</span><span class='op'>(</span>bin_id <span class='op'>=</span> <span class='fu'>str_remove</span><span class='op'>(</span><span class='va'>seq_id</span>, <span class='st'>"_\\d+$"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># gene annotations from prokka</span>
-<span class='va'>g0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_feats</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg.gff"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Reading 'gff3' with `read_gff3()`:</span></div><div class='output co'>#&gt; <span class='message'>* file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff]</span></div><div class='output co'>#&gt; <span class='message'>Harmonizing attribute names</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> ID -&gt; feat_id</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> Name -&gt; name</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> eC_number -&gt; e_c_number</span></div><div class='output co'>#&gt; <span class='message'>Features read</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #949494;'># A tibble: 3 × 3</span></span>
-#&gt; <span class='message'>  source       type      n</span>
-#&gt; <span class='message'>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
-#&gt; <span class='message'><span style='color: #BCBCBC;'>1</span> Aragorn:1.2  tRNA     62</span>
-#&gt; <span class='message'><span style='color: #BCBCBC;'>2</span> barrnap:0.6  rRNA     10</span>
-#&gt; <span class='message'><span style='color: #BCBCBC;'>3</span> Prodigal:2.6 CDS    <span style='text-decoration: underline;'>3</span>268</span></div><div class='input'>
-<span class='co'># best hits to the PADS Arsenal database of prokaryotic defense-system genes</span>
-<span class='co'># $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \</span>
-<span class='co'>#     --greedy-best-hits</span>
-<span class='va'>f0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_feats</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg-pads-defense.o6"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Reading 'blast' with `read_blast()`:</span></div><div class='output co'>#&gt; <span class='message'>* file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span></div><div class='input'><span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='va'>f0</span> <span class='op'>%&gt;%</span>
-  <span class='co'># parser system/gene info</span>
-  <span class='fu'>separate</span><span class='op'>(</span><span class='va'>seq_id2</span>, into<span class='op'>=</span><span class='fu'>qc</span><span class='op'>(</span><span class='va'>seq_id2</span>, <span class='va'>system</span>, <span class='va'>gene</span><span class='op'>)</span>, sep<span class='op'>=</span><span class='st'>","</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span>
-    <span class='va'>evalue</span> <span class='op'>&lt;</span> <span class='fl'>1e-10</span>,  <span class='co'># get rid of some spurious hits</span>
-    <span class='co'># and let's focus just on a few systems for this example</span>
-    <span class='va'>system</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CRISPR-CAS"</span>, <span class='st'>"DISARM"</span>, <span class='st'>"GABIJA"</span>, <span class='st'>"LAMASSU"</span>, <span class='st'>"THOERIS"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># plot the distribution of hits across full genomes</span>
-<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>2e5</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_color_brewer</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>, color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='focus-1.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># hilight the regions containing hits</span>
-<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>2e5</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>locate</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='va'>feats</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/identity.html'>identity</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_color_brewer</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='va'>loci</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"plum3"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>, color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Adding 'loci' track. Plot with `geom_feat(data=feats(loci))`</span></div><div class='img'><img src='focus-2.png' alt='' width='960' height='480' /></div><div class='input'>
-<span class='co'># zoom in on loci</span>
-<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>5e4</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>focus</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='va'>feats</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='geom_feat_text.html'>geom_feat_tag</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>label<span class='op'>=</span><span class='va'>gene</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_color_brewer</span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Showing 36 loci with the following size distribution</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> min: 2500</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> q25: 6464</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> med: 9739</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> q75: 10714</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> max: 19561</span></div><div class='img'><img src='focus-3.png' alt='' width='960' height='480' /></div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># Let's hunt some defense systems in marine SAGs</span></span>
+<span class='r-in'><span class='co'># read the genomes</span></span>
+<span class='r-in'><span class='va'>s0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_seqs</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg.fna"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna]</span>
+<span class='r-in'><span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='va'>s0</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='co'># strip trailing number from contigs to get bins</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>bin_id <span class='op'>=</span> <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></span><span class='op'>(</span><span class='va'>seq_id</span>, <span class='st'>"_\\d+$"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># gene annotations from prokka</span></span>
+<span class='r-in'><span class='va'>g0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_feats</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg.gff"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff]</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Harmonizing attribute names</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> ID -&gt; feat_id</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> Name -&gt; name</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> eC_number -&gt; e_c_number</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Features read</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 3</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   source       type      n</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> Aragorn:1.2  tRNA     62</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> barrnap:0.6  rRNA     10</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> Prodigal:2.6 CDS    <span style='text-decoration: underline;'>3</span>268</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># best hits to the PADS Arsenal database of prokaryotic defense-system genes</span></span>
+<span class='r-in'><span class='co'># $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \</span></span>
+<span class='r-in'><span class='co'>#     --greedy-best-hits</span></span>
+<span class='r-in'><span class='va'>f0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_tracks.html'>read_feats</a></span><span class='op'>(</span><span class='fu'><a href='ex.html'>ex</a></span><span class='op'>(</span><span class='st'>"gorg/gorg-pads-defense.o6"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Reading 'blast' with `read_blast()`:</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> * file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span>
+<span class='r-in'><span class='va'>f1</span> <span class='op'>&lt;-</span> <span class='va'>f0</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='co'># parser system/gene info</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate</a></span><span class='op'>(</span><span class='va'>seq_id2</span>, into<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/thacklr/man/qw.html'>qc</a></span><span class='op'>(</span><span class='va'>seq_id2</span>, <span class='va'>system</span>, <span class='va'>gene</span><span class='op'>)</span>, sep<span class='op'>=</span><span class='st'>","</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='va'>evalue</span> <span class='op'>&lt;</span> <span class='fl'>1e-10</span>,  <span class='co'># get rid of some spurious hits</span></span>
+<span class='r-in'>    <span class='co'># and let's focus just on a few systems for this example</span></span>
+<span class='r-in'>    <span class='va'>system</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CRISPR-CAS"</span>, <span class='st'>"DISARM"</span>, <span class='st'>"GABIJA"</span>, <span class='st'>"LAMASSU"</span>, <span class='st'>"THOERIS"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plot the distribution of hits across full genomes</span></span>
+<span class='r-in'><span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>2e5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_color_brewer</a></span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>, color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='focus-1.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># hilight the regions containing hits</span></span>
+<span class='r-in'><span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>2e5</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'>locate</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='va'>feats</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/identity.html'>identity</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_color_brewer</a></span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='va'>loci</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"plum3"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>x</span>,y<span class='op'>=</span><span class='va'>y</span>, color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span>, data<span class='op'>=</span><span class='fu'><a href='feats.html'>feats</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Adding 'loci' track. Plot with `geom_feat(data=feats(loci))`</span>
+<span class='r-plt img'><img src='focus-2.png' alt='' width='960' height='480' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># zoom in on loci</span></span>
+<span class='r-in'><span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span><span class='va'>g0</span>, <span class='va'>s1</span>, <span class='va'>f1</span>, wrap<span class='op'>=</span><span class='fl'>5e4</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'>focus</span><span class='op'>(</span>.track_id <span class='op'>=</span> <span class='va'>feats</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_bin_label.html'>geom_bin_label</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_gene.html'>geom_gene</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_feat.html'>geom_feat</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color<span class='op'>=</span><span class='va'>system</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='geom_feat_text.html'>geom_feat_tag</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>label<span class='op'>=</span><span class='va'>gene</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>scale_color_brewer</a></span><span class='op'>(</span>palette<span class='op'>=</span><span class='st'>"Dark2"</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Showing 36 loci with the following size distribution</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> min: 2500</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> q25: 6464</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> med: 9739</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> q75: 10714</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> max: 19561</span>
+<span class='r-plt img'><img src='focus-3.png' alt='' width='960' height='480' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

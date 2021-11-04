@@ -84,7 +84,7 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ..." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
       </span>
     </div>
 
@@ -162,18 +162,20 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ...</p>
     <p>tibble with swapped query/subject columns</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>feats</span> <span class='op'>&lt;-</span> <span class='fu'>tribble</span><span class='op'>(</span>
- <span class='op'>~</span><span class='va'>seq_id</span>, <span class='op'>~</span><span class='va'>seq_id2</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>, <span class='op'>~</span><span class='va'>strand</span>, <span class='op'>~</span><span class='va'>start2</span>, <span class='op'>~</span><span class='va'>end2</span>, <span class='op'>~</span><span class='va'>evalue</span>,
- <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='fl'>100</span>, <span class='fl'>200</span>, <span class='st'>"+"</span>, <span class='fl'>10000</span>, <span class='fl'>10200</span>, <span class='fl'>1e-5</span>
-<span class='op'>)</span>
-<span class='co'># make B the query</span>
-<span class='fu'>swap_query</span><span class='op'>(</span><span class='va'>feats</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Swapping query/subject-associated columns</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> seq_id  start  end</span>
-#&gt; <span class='message'><span style='color: #00BBBB;'>•</span> seq_id2 start2 end2</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 8</span>
-#&gt;   seq_id seq_id2 start   end strand start2  end2  evalue
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> B      A       <span style='text-decoration: underline;'>10</span>000 <span style='text-decoration: underline;'>10</span>200 +         100   200 0.000<span style='text-decoration: underline;'>01</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>feats</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span></span>
+<span class='r-in'> <span class='op'>~</span><span class='va'>seq_id</span>, <span class='op'>~</span><span class='va'>seq_id2</span>, <span class='op'>~</span><span class='va'>start</span>, <span class='op'>~</span><span class='va'>end</span>, <span class='op'>~</span><span class='va'>strand</span>, <span class='op'>~</span><span class='va'>start2</span>, <span class='op'>~</span><span class='va'>end2</span>, <span class='op'>~</span><span class='va'>evalue</span>,</span>
+<span class='r-in'> <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='fl'>100</span>, <span class='fl'>200</span>, <span class='st'>"+"</span>, <span class='fl'>10000</span>, <span class='fl'>10200</span>, <span class='fl'>1e-5</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># make B the query</span></span>
+<span class='r-in'><span class='fu'>swap_query</span><span class='op'>(</span><span class='va'>feats</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> Swapping query/subject-associated columns</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> seq_id  start  end</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>•</span> seq_id2 start2 end2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1 × 8</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   seq_id seq_id2 start   end strand start2  end2  evalue</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> B      A       <span style='text-decoration: underline;'>10</span>000 <span style='text-decoration: underline;'>10</span>200 +         100   200 0.000<span style='text-decoration: underline;'>01</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

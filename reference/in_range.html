@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
       </span>
     </div>
 
@@ -159,7 +159,7 @@
       <th>closed</th>
       <td><p>wether to include (<code>TRUE</code>) or exclude (<code>FALSE</code>) the
 endpoints. Provide 2 values for different behaviors for lower and upper
-boundary, e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(TRUE, FALSE)</a></code> to include only the lower boundary.</p></td>
+boundary, e.g. <code>c(TRUE, FALSE)</code> to include only the lower boundary.</p></td>
     </tr>
     </table>
 
@@ -168,24 +168,28 @@ boundary, e.g. <code><a href='https://rdrr.io/r/base/c.html'>c(TRUE, FALSE)</a><
     <p>a logical vector of the same length as the input</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE  TRUE FALSE</div><div class='input'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, closed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># left-open</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE  TRUE FALSE</div><div class='input'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='co'># vector of boundaries, single values recycle</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE FALSE FALSE</div><div class='input'>
-
-<span class='co'># plays nicely with dplyr</span>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span>, left<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, right<span class='op'>=</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span>
-<span class='fu'>mutate</span><span class='op'>(</span><span class='va'>df</span>,
-  closed<span class='op'>=</span><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,
-  open<span class='op'>=</span><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 × 5</span>
-#&gt;       x  left right closed open 
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span>     4     1     3 FALSE  FALSE
-#&gt; <span style='color: #BCBCBC;'>2</span>     4     2     4 TRUE   FALSE
-#&gt; <span style='color: #BCBCBC;'>3</span>     4     3     5 TRUE   TRUE 
-#&gt; <span style='color: #BCBCBC;'>4</span>     4     4     6 TRUE   FALSE
-#&gt; <span style='color: #BCBCBC;'>5</span>     4     5     7 FALSE  FALSE</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE  TRUE  TRUE  TRUE FALSE</span>
+<span class='r-in'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>4</span>, closed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># left-open</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE FALSE  TRUE  TRUE FALSE</span>
+<span class='r-in'><span class='fu'>in_range</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span> <span class='co'># vector of boundaries, single values recycle</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE FALSE  TRUE FALSE FALSE</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># plays nicely with dplyr</span></span>
+<span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span>, left<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, right<span class='op'>=</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>df</span>,</span>
+<span class='r-in'>  closed<span class='op'>=</span><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, <span class='cn'>TRUE</span><span class='op'>)</span>,</span>
+<span class='r-in'>  open<span class='op'>=</span><span class='fu'>in_range</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>left</span>, <span class='va'>right</span>, <span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 5 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       x  left right closed open </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span>     4     1     3 FALSE  FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span>     4     2     4 TRUE   FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span>     4     3     5 TRUE   TRUE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span>     4     4     6 TRUE   FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span>     4     5     7 FALSE  FALSE</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

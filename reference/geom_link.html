@@ -84,7 +84,7 @@ between all genomes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
       </span>
     </div>
 
@@ -142,7 +142,7 @@ between all genomes." />
 
     <div class="ref-description">
     <p>Note that by default only links between adjacent genomes are computed and
-shown. Set <code><a href='gggenomes.html'>gggenomes(..., adjacent_only=TRUE)</a></code> to compute and show all links
+shown. Set <code>gggenomes(..., adjacent_only=TRUE)</code> to compute and show all links
 between all genomes.</p>
     </div>
 
@@ -170,16 +170,21 @@ between all genomes.</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs</span>, links <span class='op'>=</span> <span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_link-1.png' alt='' width='960' height='480' /></div><div class='input'><span class='co'># change offset from seqs</span>
-<span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>de</span>, color<span class='op'>=</span><span class='va'>de</span><span class='op'>)</span>, offset <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>scale_fill_viridis_b</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>scale_colour_viridis_b</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_link-2.png' alt='' width='960' height='480' /></div><div class='input'><span class='co'># combine with flip</span>
-<span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='flip.html'>flip</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='img'><img src='geom_link-3.png' alt='' width='960' height='480' /></div><div class='input'><span class='co'># compute &amp; show all links among all genomes (not recommended for large dataset)</span>
-<span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>links<span class='op'>=</span><span class='va'>emale_ava</span>, adjacent_only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>No seqs or feats provided, inferring seqs from links</span></div><div class='img'><img src='geom_link-4.png' alt='' width='960' height='480' /></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>seqs<span class='op'>=</span><span class='va'>emale_seqs</span>, links <span class='op'>=</span> <span class='va'>emale_ava</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_seq.html'>geom_seq</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='geom_link-1.png' alt='' width='960' height='480' /></span>
+<span class='r-in'><span class='co'># change offset from seqs</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill<span class='op'>=</span><span class='va'>de</span>, color<span class='op'>=</span><span class='va'>de</span><span class='op'>)</span>, offset <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_fill_viridis_b</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_colour_viridis_b</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='geom_link-2.png' alt='' width='960' height='480' /></span>
+<span class='r-in'><span class='co'># combine with flip</span></span>
+<span class='r-in'><span class='va'>p</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='flip.html'>flip</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='geom_link-3.png' alt='' width='960' height='480' /></span>
+<span class='r-in'><span class='co'># compute &amp; show all links among all genomes (not recommended for large dataset)</span></span>
+<span class='r-in'><span class='fu'><a href='gggenomes.html'>gggenomes</a></span><span class='op'>(</span>links<span class='op'>=</span><span class='va'>emale_ava</span>, adjacent_only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_link</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> No seqs or feats provided, inferring seqs from links</span>
+<span class='r-plt img'><img src='geom_link-4.png' alt='' width='960' height='480' /></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
