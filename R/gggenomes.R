@@ -39,7 +39,7 @@
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
 #'   developmental purposes.
-#' @import ggplot2 grid rlang
+#' @import ggplot2 grid rlang dplyr purrr
 #' @export
 #' @return gggenomes-flavored ggplot object
 #' @examples

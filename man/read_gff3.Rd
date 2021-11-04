@@ -12,7 +12,9 @@ read_gff3(
   sort_exons = TRUE,
   col_names = def_names("gff3"),
   col_types = def_types("gff3"),
-  keep_attr = FALSE
+  keep_attr = FALSE,
+  fix_augustus_cds = TRUE,
+  is_gff2 = NULL
 )
 }
 \arguments{
@@ -25,9 +27,9 @@ be automatically uncompressed. Files starting with \verb{http://},
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
-Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.
+Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with \code{I()}, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.
 
 Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
 
@@ -54,6 +56,9 @@ is less robust, but faster and allows non-canonical splicing
 
 \item{keep_attr}{keep the original attributes column also after parsing
 tag=value pairs into tidy columns.}
+
+\item{fix_augustus_cds}{If true, assume Augustus gff with bad CDS IDs that
+need fixing}
 }
 \value{
 tibble
