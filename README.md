@@ -1,4 +1,4 @@
-# gggenomes <img src="man/figures/logo-smaller.png" align="right" />
+# gggenomes <img src="man/figures/logo.svg" align="right" width="180" />
 
 ## A grammar of graphics for comparative genomics
 
