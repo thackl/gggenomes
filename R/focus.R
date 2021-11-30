@@ -112,7 +112,7 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
     loci <- mutate(.loci, seq_id = as.character(seq_id))
     if(!has_name(loci, "locus_id")){
       loci <- loci %>% group_by({{ .locus_id_group }}) %>%
-        mutate(locus_id = str_glue({{.locus_id}})) %>%
+        mutate(locus_id = {{.locus_id}}) %>%
         ungroup
     }
   }
