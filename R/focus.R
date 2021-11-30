@@ -194,6 +194,15 @@ locate_impl <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
   if(nrow(targets) <1)
     abort("Found no targets to build loci from")
 
+  # compute_loci only looks at [seq_id,start,end]-coords,
+  # not [seq_id2,start2,end2]-coords.
+  # => mirror links to seq1 to ensure seq2 links are accounted for
+  if(track_type(x, {{.track_id}}) == "links"){
+    targets2 <- dplyr::rename(targets, seq_id=seq_id2, seq_id2=seq_id,
+        start=start2, start2=start, end=end2, end2=end)
+    targets <- bind_rows(targets, targets2)
+  }
+
   loci <- targets %>%
     compute_loci(max_dist=.max_dist, locus_score={{.locus_score}}, locus_filter={{.locus_filter}},
                  locus_id={{.locus_id}}, locus_id_group={{.locus_id_group}}) %>%
@@ -203,6 +212,7 @@ locate_impl <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
       end=end + .expand[2],
       locus_length = width(start, end)
     )
+
   loci
 }
 
