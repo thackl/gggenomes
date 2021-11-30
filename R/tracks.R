@@ -36,7 +36,7 @@ track_info.gggenomes <- function(x, ...){
 
 #' @export
 track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
-  track_type <- match.arg(track_type, several.ok = TRUE)
+  track_type <- match_arg(track_type, several.ok = TRUE)
   y <- tibble(
     id = track_ids(x, track_type),
     type = track_types(x, track_type),
@@ -68,6 +68,7 @@ track_nrows <- function(x, track_type = c("seqs", "feats", "links")){
 #' @return a character string with the track type
 track_type <- function(x, track_id){
   track_ids <- track_ids(x)
+  track_id <- vars_track(x, {{track_id}})
   names(track_ids)[track_ids == track_id]
 }
 
