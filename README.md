@@ -75,8 +75,8 @@ incredibly rich [ggraph](https://github.com/thomasp85/ggraph) package.
 
 ## Installation
 
-gggenomes is at this point still in an alpha release state, and therefoe only
-available as developmental package.
+gggenomes is at this point still in an alpha release state, and therefore only
+available as a developmental package.
 
 ```R
 # install ggtree
