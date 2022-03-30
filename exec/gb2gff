@@ -331,6 +331,7 @@ sub parse_attributes{
         my $v = $f{$k};
         push @a, $k .(defined($v) ? "=".uri_escape($v) : "=true");
     }
+    tr/;/,/ for @a; # replace ; not allowed in gff fields
     return join(";", @a);
 }
 
