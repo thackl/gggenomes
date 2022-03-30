@@ -27,6 +27,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,18 +41,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/gggenomes.html">Get started</a>
 </li>
@@ -58,7 +54,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -72,7 +68,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/thackl/gggenomes/">
+  <a href="https://github.com/thackl/gggenomes/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -91,11 +87,11 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>From a few sequences to a complex map in minutes (old version)</h1>
-                        <h4 class="author">Thomas Hackl</h4>
+                        <h4 data-toc-skip class="author">Thomas Hackl</h4>
             
-            <h4 class="date">2021-11-30</h4>
+            <h4 data-toc-skip class="date">2022-03-30</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd"><code>vignettes/emales.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/HEAD/vignettes/emales.Rmd" class="external-link"><code>vignettes/emales.Rmd</code></a></small>
       <div class="hidden name"><code>emales.Rmd</code></div>
 
     </div>
@@ -105,21 +101,21 @@
 <p><strong>DISCLAIMER: I’ve created this demo with an early version of gggenomes. Not all of the code will function with current releases. However, the general workflow both with respect to the external tools and gggenomes code is still valid and this demo should therefore be understood as an hopefully inspiring guide - not as an exactly reproducible code example (Those kind of examples you can find in the examples sections of the documentation).</strong></p>
 <p>This is a real-life example demonstrating the use of <code>gggenomes</code> to explore viral genomes. We start with just a bunch of viral contigs and ask: Is there anything interesting going on here?</p>
 <p>We use a few bioinformatics commandline tools to run some analyzes, and visualize the results using <code>gggenomes</code>. By successively adding new data as new tracks we build a rich plot that ultimatly reveals novel insights into an exciting system.</p>
-<p>This example is bundled <code>data(package="gggenomes")</code> To rerun the this example including the bioinformatics analyzes download the <a href="https://github.com/thackl/gggenomes/tree/master/data-raw/emales">raw data</a> from github.</p>
+<p>This example is bundled <code>data(package="gggenomes")</code> To rerun the this example including the bioinformatics analyzes download the <a href="https://github.com/thackl/gggenomes/tree/master/data-raw/emales" class="external-link">raw data</a> from github.</p>
 <p><img src="emales/emales-p7.png"></p>
-<div id="read-in-the-genomes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#read-in-the-genomes" class="anchor"></a>Read in the genomes</h3>
+<div class="section level3">
+<h3 id="read-in-the-genomes">Read in the genomes<a class="anchor" aria-label="anchor" href="#read-in-the-genomes"></a>
+</h3>
 <p>We start with a fasta file of 33 viral genomes. We read sequence length and some metadata from the header lines using `read<sub>fai</sub>`…</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thackl/gggenomes">gggenomes</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thackl/gggenomes" class="external-link">gggenomes</a></span><span class="op">)</span>
 
 <span class="co"># parse sequence length and some metadata from fasta file</span>
-<span class="va">emale_seqs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seq_len.html">read_fai</a></span><span class="op">(</span><span class="st">"emales.fna"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract.html">extract</a></span><span class="op">(</span><span class="va">seq_desc</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"emale_type"</span>, <span class="st">"is_typespecies"</span><span class="op">)</span>, <span class="st">"=(\\S+) \\S+=(\\S+)"</span>,
-    remove<span class="op">=</span><span class="cn">F</span>, convert<span class="op">=</span><span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">emale_type</span>, <span class="va">length</span><span class="op">)</span>
+<span class="va">emale_seqs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_seq_len.html">read_fai</a></span><span class="op">(</span><span class="st">"emales.fna"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/extract.html" class="external-link">extract</a></span><span class="op">(</span><span class="va">seq_desc</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"emale_type"</span>, <span class="st">"is_typespecies"</span><span class="op">)</span>, <span class="st">"=(\\S+) \\S+=(\\S+)"</span>,
+    remove<span class="op">=</span><span class="cn">F</span>, convert<span class="op">=</span><span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">emale_type</span>, <span class="va">length</span><span class="op">)</span>
 
 <span class="co"># plot the genomes - first six only to keep it simple for this example</span>
 <span class="va">emale_seqs_6</span> <span class="op">&lt;-</span> <span class="va">emale_seqs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span>
@@ -128,9 +124,9 @@
 <span class="va">p1</span></code></pre></div>
 <p><img src="emales/emales-p1.png"></p>
 </div>
-<div id="annotate-genes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#annotate-genes" class="anchor"></a>Annotate genes</h3>
+<div class="section level3">
+<h3 id="annotate-genes">Annotate genes<a class="anchor" aria-label="anchor" href="#annotate-genes"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># https://github.com/thackl/seq-scripts</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="ex">seq-join</span> -n emales-concat <span class="op">&lt;</span> emales.fna <span class="op">&gt;</span> emales-concat.fna                       </span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Annotate genes | https://github.com/hyattpd/Prodigal</span></span>
@@ -139,20 +135,20 @@
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co"># A little help to clean up the prodigal gff | https://github.com/thackl/seq-scripts</span></span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="ex">gff-clean</span> emales-prodigal.gff <span class="op">&gt;</span> emales.gff</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">emale_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_gff.html">read_gff</a></span><span class="op">(</span><span class="st">"emales.gff"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>feature_id<span class="op">=</span><span class="va">ID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>                       <span class="co"># we'll need this later</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>gc_cont<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span>             <span class="co"># per gene GC-content</span>
+<code class="sourceCode R"><span class="va">emale_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_gff.html" class="external-link">read_gff</a></span><span class="op">(</span><span class="st">"emales.gff"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>feature_id<span class="op">=</span><span class="va">ID</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>                       <span class="co"># we'll need this later</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>gc_cont<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span>             <span class="co"># per gene GC-content</span>
 
 <span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span>
 <span class="va">p2</span></code></pre></div>
 <p><img src="emales/emales-p2.png"></p>
 </div>
-<div id="find-terminal-inverted-repeats" class="section level3">
-<h3 class="hasAnchor">
-<a href="#find-terminal-inverted-repeats" class="anchor"></a>Find terminal inverted repeats</h3>
+<div class="section level3">
+<h3 id="find-terminal-inverted-repeats">Find terminal inverted repeats<a class="anchor" aria-label="anchor" href="#find-terminal-inverted-repeats"></a>
+</h3>
 <p>It is known that these type of viruses often have linear genomes with terminal inverted repeats (TIRs). So let’s look for those next.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># split into one genome per file | https://bioinf.shenwei.me/seqkit/</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="ex">seqkit</span> split -i emales.fna  </span>
@@ -163,23 +159,23 @@
 <span id="cb4-7"><a href="#cb4-7"></a><span class="fu">cat</span> emales.fna.split/*.paf <span class="op">&gt;</span> emales-tirs.paf</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># prefilter hits by minimum length and maximum divergence</span>
-<span class="va">emale_tirs_paf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span><span class="op">(</span><span class="st">"emales-tirs.paf"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">seq_id1</span> <span class="op">==</span> <span class="va">seq_id2</span> <span class="op">&amp;</span> <span class="va">start1</span> <span class="op">&lt;</span> <span class="va">start2</span> <span class="op">&amp;</span> <span class="va">map_length</span> <span class="op">&gt;</span> <span class="fl">99</span> <span class="op">&amp;</span> <span class="va">de</span> <span class="op">&lt;</span> <span class="fl">0.1</span><span class="op">)</span>
-<span class="va">emale_tirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">emale_tirs_paf</span>, seq_id<span class="op">=</span><span class="va">seq_id1</span>, start<span class="op">=</span><span class="va">start1</span>, end<span class="op">=</span><span class="va">end1</span>, <span class="va">de</span><span class="op">)</span>,
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">emale_tirs_paf</span>, seq_id<span class="op">=</span><span class="va">seq_id2</span>, start<span class="op">=</span><span class="va">start2</span>, end<span class="op">=</span><span class="va">end2</span>, <span class="va">de</span><span class="op">)</span><span class="op">)</span>
+<span class="va">emale_tirs_paf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span><span class="op">(</span><span class="st">"emales-tirs.paf"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seq_id1</span> <span class="op">==</span> <span class="va">seq_id2</span> <span class="op">&amp;</span> <span class="va">start1</span> <span class="op">&lt;</span> <span class="va">start2</span> <span class="op">&amp;</span> <span class="va">map_length</span> <span class="op">&gt;</span> <span class="fl">99</span> <span class="op">&amp;</span> <span class="va">de</span> <span class="op">&lt;</span> <span class="fl">0.1</span><span class="op">)</span>
+<span class="va">emale_tirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">emale_tirs_paf</span>, seq_id<span class="op">=</span><span class="va">seq_id1</span>, start<span class="op">=</span><span class="va">start1</span>, end<span class="op">=</span><span class="va">end1</span>, <span class="va">de</span><span class="op">)</span>,
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">emale_tirs_paf</span>, seq_id<span class="op">=</span><span class="va">seq_id2</span>, start<span class="op">=</span><span class="va">start2</span>, end<span class="op">=</span><span class="va">end2</span>, <span class="va">de</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span>, <span class="va">emale_tirs</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_feature</span><span class="op">(</span>size<span class="op">=</span><span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span>
 <span class="va">p3</span></code></pre></div>
 <p><img src="emales/emales-p3.png"></p>
 </div>
-<div id="compare-genome-synteny" class="section level3">
-<h3 class="hasAnchor">
-<a href="#compare-genome-synteny" class="anchor"></a>Compare genome synteny</h3>
+<div class="section level3">
+<h3 id="compare-genome-synteny">Compare genome synteny<a class="anchor" aria-label="anchor" href="#compare-genome-synteny"></a>
+</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># All-vs-all alignment | https://github.com/lh3/minimap2</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="ex">minimap2</span> -X -N 50 -p 0.1 -c emales.fna emales.fna <span class="op">&gt;</span> emales.paf</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -188,103 +184,103 @@
 <span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_links</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_feature</span><span class="op">(</span>size<span class="op">=</span><span class="fl">5</span>, data<span class="op">=</span><span class="fu">use_features</span><span class="op">(</span><span class="va">features</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span>
 
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">flip_bins</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_bins</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>
 <span class="va">p4</span></code></pre></div>
 <p><img src="emales/emales-p4.png"></p>
 </div>
-<div id="gc-content" class="section level3">
-<h3 class="hasAnchor">
-<a href="#gc-content" class="anchor"></a>GC-content</h3>
+<div class="section level3">
+<h3 id="gc-content">GC-content<a class="anchor" aria-label="anchor" href="#gc-content"></a>
+</h3>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># https://github.com/thackl/seq-scripts (bedtools &amp; samtools)</span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="ex">seq-gc</span> -Nbw 50 emales.fna <span class="op">&gt;</span> emales-gc.tsv</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">emale_gc</span> <span class="op">&lt;-</span> <span class="fu">thacklr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_bed.html">read_bed</a></span><span class="op">(</span><span class="st">"emales-gc.tsv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>seq_id<span class="op">=</span><span class="va">contig_id</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">emale_gc</span> <span class="op">&lt;-</span> <span class="fu">thacklr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_bed.html" class="external-link">read_bed</a></span><span class="op">(</span><span class="st">"emales-gc.tsv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>seq_id<span class="op">=</span><span class="va">contig_id</span><span class="op">)</span>
 
-<span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>
-<span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p5</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,
     group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,
                        fill<span class="op">=</span><span class="st">"blue"</span>, alpha<span class="op">=</span><span class="fl">.5</span><span class="op">)</span>
 <span class="va">p5</span></code></pre></div>
 <p><img src="emales/emales-p5.png"></p>
 </div>
-<div id="cluster-protein-sequences-into-orthogroups" class="section level3">
-<h3 class="hasAnchor">
-<a href="#cluster-protein-sequences-into-orthogroups" class="anchor"></a>cluster protein sequences into orthogroups</h3>
+<div class="section level3">
+<h3 id="cluster-protein-sequences-into-orthogroups">cluster protein sequences into orthogroups<a class="anchor" aria-label="anchor" href="#cluster-protein-sequences-into-orthogroups"></a>
+</h3>
 <div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="ex">gff2cds</span> --aa --type CDS --source Prodigal_v2.6.3 --fna emales.fna emales.gff <span class="op">&gt;</span> emales.faa</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="ex">mmseqs</span> easy-cluster emales.faa emales-mmseqs /tmp -e 1e-5 -c 0.7<span class="kw">;</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="ex">cluster-ids</span> -t <span class="st">"cog%03d"</span> <span class="op">&lt;</span> emales-mmseqs_cluster.tsv <span class="op">&gt;</span> emales-cogs.tsv</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">emale_cogs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="st">"emales-cogs.tsv"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"feature_id"</span>, <span class="st">"cluster_id"</span>, <span class="st">"cluster_n"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">emale_cogs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-  cluster_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">cluster_id</span>, <span class="st">" ("</span>, <span class="va">cluster_n</span>, <span class="st">")"</span><span class="op">)</span>,
-  cluster_label <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_min</a></span><span class="op">(</span><span class="va">cluster_label</span>, <span class="fl">5</span>, other_level <span class="op">=</span> <span class="st">"rare"</span><span class="op">)</span>,
-  cluster_label <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump_min</a></span><span class="op">(</span><span class="va">cluster_label</span>, <span class="fl">15</span>, other_level <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span>,
-  cluster_label <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html">fct_relevel</a></span><span class="op">(</span><span class="va">cluster_label</span>, <span class="st">"rare"</span>, after<span class="op">=</span><span class="cn">Inf</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">emale_cogs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="st">"emales-cogs.tsv"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"feature_id"</span>, <span class="st">"cluster_id"</span>, <span class="st">"cluster_n"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">emale_cogs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html" class="external-link">%&lt;&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
+  cluster_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">cluster_id</span>, <span class="st">" ("</span>, <span class="va">cluster_n</span>, <span class="st">")"</span><span class="op">)</span>,
+  cluster_label <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html" class="external-link">fct_lump_min</a></span><span class="op">(</span><span class="va">cluster_label</span>, <span class="fl">5</span>, other_level <span class="op">=</span> <span class="st">"rare"</span><span class="op">)</span>,
+  cluster_label <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html" class="external-link">fct_lump_min</a></span><span class="op">(</span><span class="va">cluster_label</span>, <span class="fl">15</span>, other_level <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span>,
+  cluster_label <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_relevel.html" class="external-link">fct_relevel</a></span><span class="op">(</span><span class="va">cluster_label</span>, <span class="st">"rare"</span>, after<span class="op">=</span><span class="cn">Inf</span><span class="op">)</span><span class="op">)</span>
 <span class="va">emale_cogs</span>
 
 
-<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_links</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/add_feats.html">add_clusters</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_links</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu">flip_bins</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_feature</span><span class="op">(</span>size<span class="op">=</span><span class="fl">5</span>, data<span class="op">=</span><span class="fu">use_features</span><span class="op">(</span><span class="va">features</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_label</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_label</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,
     group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,
                        fill<span class="op">=</span><span class="st">"blue"</span>, alpha<span class="op">=</span><span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Set3"</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Set3"</span><span class="op">)</span>
 
 <span class="va">p6</span></code></pre></div>
 <p><img src="emales/emales-p6.png"></p>
 </div>
-<div id="blast-hits-and-integrated-transposons" class="section level3">
-<h3 class="hasAnchor">
-<a href="#blast-hits-and-integrated-transposons" class="anchor"></a>Blast hits and integrated transposons</h3>
+<div class="section level3">
+<h3 id="blast-hits-and-integrated-transposons">Blast hits and integrated transposons<a class="anchor" aria-label="anchor" href="#blast-hits-and-integrated-transposons"></a>
+</h3>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># mavirus.faa - published</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="ex">blastp</span> -query emales.faa -subject mavirus.faa -outfmt 7 <span class="op">&gt;</span> emales_mavirus-blastp.tsv</span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="fu">perl</span> -ne <span class="st">'if(/&gt;(\S+) gene=(\S+) product=(.+)/){print join("\t", $1, $2, $3), "\n"}'</span> \</span>
 <span id="cb12-4"><a href="#cb12-4"></a>  mavirus.faa <span class="op">&gt;</span> mavirus.tsv</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">emale_blast</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_blast.html">read_blast</a></span><span class="op">(</span><span class="st">"emales_mavirus-blastp.tsv"</span><span class="op">)</span>
-<span class="va">emale_blast</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">evalue</span> <span class="op">&lt;</span> <span class="fl">1e-3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>feature_id<span class="op">=</span><span class="va">qaccver</span>, start<span class="op">=</span><span class="va">qstart</span>, end<span class="op">=</span><span class="va">qend</span>, <span class="va">saccver</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="st">"mavirus.tsv"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"saccver"</span>, <span class="st">"blast_hit"</span>, <span class="st">"blast_desc"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">emale_blast</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html" class="external-link">%&lt;&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">evalue</span> <span class="op">&lt;</span> <span class="fl">1e-3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>feature_id<span class="op">=</span><span class="va">qaccver</span>, start<span class="op">=</span><span class="va">qstart</span>, end<span class="op">=</span><span class="va">qend</span>, <span class="va">saccver</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="st">"mavirus.tsv"</span>, col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"saccver"</span>, <span class="st">"blast_hit"</span>, <span class="st">"blast_desc"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># manual annotations by MFG</span>
-<span class="va">emale_transposons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_gff.html">read_gff</a></span><span class="op">(</span><span class="st">"emales-manual.gff"</span>, types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"mobile_element"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">emale_transposons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/read_gff.html" class="external-link">read_gff</a></span><span class="op">(</span><span class="st">"emales-manual.gff"</span>, types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mobile_element"</span><span class="op">)</span><span class="op">)</span>
 
 
-<span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_links</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/add_feats.html">add_clusters</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_transposons</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">add_subfeatures</span><span class="op">(</span><span class="va">genes</span>, <span class="va">emale_blast</span>, transform<span class="op">=</span><span class="st">"aa2nuc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+<span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span>, <span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_links</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">add_features</span><span class="op">(</span><span class="va">emale_transposons</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu">add_subfeatures</span><span class="op">(</span><span class="va">genes</span>, <span class="va">emale_blast</span>, transform<span class="op">=</span><span class="st">"aa2nuc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu">flip_bins</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_feature</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"integrated transposon"</span><span class="op">)</span>,
+  <span class="fu">geom_feature</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"integrated transposon"</span><span class="op">)</span>,
     <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_transposons</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">7</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.2</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"white"</span>, alpha<span class="op">=</span><span class="fl">.3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_feature</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"terminal inverted repeat"</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">features</span><span class="op">)</span>,
+  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.2</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"white"</span>, alpha<span class="op">=</span><span class="fl">.3</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_feature</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"terminal inverted repeat"</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">features</span><span class="op">)</span>,
     size<span class="op">=</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_label</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_feature</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">blast_desc</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_blast</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">2</span>,
+  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_label</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_feature</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">blast_desc</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_blast</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">2</span>,
     position<span class="op">=</span><span class="st">"pile"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,
     group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,
                        fill<span class="op">=</span><span class="st">"blue"</span>, alpha<span class="op">=</span><span class="fl">.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Set3"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_d</a></span><span class="op">(</span><span class="st">"Blast hits &amp; Features"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_linetype.html">scale_linetype</a></span><span class="op">(</span><span class="st">"Graphs"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Endogenous mavirus-like elements of "</span>,
-  <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html">italic</a></span><span class="op">(</span><span class="st">"C. burkhardae"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Set3"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_d</a></span><span class="op">(</span><span class="st">"Blast hits &amp; Features"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_linetype.html" class="external-link">scale_linetype</a></span><span class="op">(</span><span class="st">"Graphs"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Endogenous mavirus-like elements of "</span>,
+  <span class="fu"><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">italic</a></span><span class="op">(</span><span class="st">"C. burkhardae"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">p7</span></code></pre></div>
 <p><img src="emales/emales-p7.png"></p>
@@ -300,11 +296,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p>
+<p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -312,6 +310,8 @@
 
   
 
+
+  
 
   </body>
 </html>
