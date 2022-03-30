@@ -108,5 +108,9 @@ tidy_paf_tags <- function(.data){
     s_tags = toString(names(tag_types)), n_tags = length(tag_types),
     "\nNote: warnings about fewer than expected columns are expected for this format."))
 
+  # paf is 0-based
+  inform("Note: .paf files use 0-based coordinate starts - transforming to 1-based")
+  .data <- mutate(.data, start=start+1, start2=start2+1)
+  
   bind_cols(select(.data, -starts_with("tag_")), tag_df)
 }
