@@ -28,7 +28,7 @@ my @r;
 my $seq_reg = 0;
 
 # fasta
-if ($first =~ /^>(\S+)(?:\s(.*))?/){
+if ($first =~ /^>(\S+)(?:\s([^\n\r]*))?/){ # .* captures \r in some cases
     @r = ($1, $2 // "", 0);
     while (<>) {
         tr/\r\n//d;             # chomp() fails on \r\n;
