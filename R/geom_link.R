@@ -46,7 +46,7 @@ GeomLink <- ggproto(
       )
       polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
         poly <- link_to_poly(row$x, row$xend, row$y, row$xmin, row$xmax, row$yend, offset)
-        aes <- ggplot2:::new_data_frame(row[aesthetics])[rep(1,5), ]
+        aes <- vctrs::data_frame(row[aesthetics])[rep(1,5), ]
         GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
       })
 
@@ -65,8 +65,9 @@ link_to_poly <- function(x, xend, y, xmin, xmax, yend, offset) {
     yend <- yend - offset[1]
   }
 
-  ggplot2:::new_data_frame(list(
+  vctrs::data_frame(
+    .name_repair = "minimal",
     y = c(y, y, yend, yend, y),
     x = c(x, xend, xmax, xmin, x)
-  ))
+  )
 }

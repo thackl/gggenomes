@@ -38,7 +38,7 @@ GeomGene2 <- ggproto(
       cds <- data[data$type == cds_type,]
       cds_polys <- lapply(split(cds, seq_len(nrow(cds))), function(row) {
         poly <- gene_to_poly(row$x, row$xend, row$ymin, row$ymax)
-        aes <- ggplot2:::new_data_frame(row[aesthetics])[rep(1,nrow(poly)), ]
+        aes <- vctrs::data_frame(row[aesthetics])[rep(1,nrow(poly)), ]
         poly_aes <- cbind(poly, aes)
         GeomPolygon$draw_panel(poly_aes, panel_params, coord)
       })
@@ -71,7 +71,7 @@ GeomGene2 <- ggproto(
       gene_seg$size <- seg_size
       gene_seg$linetype <- seg_linetype
       gene_seg$alpha <- seg_alpha
-      gene_aes <- ggplot2:::new_data_frame(gene_seg)
+      gene_aes <- vctrs::data_frame(gene_seg)
       gene_segs <- GeomSegment$draw_panel(gene_aes, panel_params, coord)
       grobs <- c(list(gene_segs), cds_polys)
       ggplot2:::ggname("gene2", do.call("grobTree", grobs))
@@ -81,8 +81,9 @@ GeomGene2 <- ggproto(
 )
 
 gene_to_poly <- function(x, xend, ymin, ymax) {
-  ggplot2:::new_data_frame(list(
+  vctrs::data_frame(
+    .name_repair = "minimal",
     y = c(ymin, ymax, ymax, ymin, ymin),
     x = c(x, x, xend, xend, x)
-  ))
+  )
 }
