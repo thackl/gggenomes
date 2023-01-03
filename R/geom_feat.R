@@ -23,7 +23,7 @@ geom_feat <- function(mapping = NULL, data = feats(), stat="identity",
 ##   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)
 
 ##   # TODO: would be cleaner with GeomFeat ggproto...
-##   if (has_name(mapping, "linewidth")) aes_intersect(mapping, aes(linewidth = 3))
+##   if (has_name(mapping, "size")) aes_intersect(mapping, aes(size = 3))
 ##   if (any(has_name(mapping, c("color", "colour")))) aes_intersect(mapping, aes(color = "grey40"))
 ##   r <- list(geom_segment(mapping = mapping, data = data, ...))
 
