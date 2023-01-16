@@ -63,18 +63,18 @@ folder of gff-files with each file containing genes of a different genome.
 }
 \section{Functions}{
 \itemize{
-\item \code{read_feats}: read files as features mapping onto
+\item \code{read_feats()}: read files as features mapping onto
 sequences.
 
-\item \code{read_subfeats}: read files as subfeatures mapping onto other features
+\item \code{read_subfeats()}: read files as subfeatures mapping onto other features
 
-\item \code{read_links}: read files as links connecting sequences
+\item \code{read_links()}: read files as links connecting sequences
 
-\item \code{read_sublinks}: read files as sublinks connecting features
+\item \code{read_sublinks()}: read files as sublinks connecting features
 
-\item \code{read_seqs}: read sequence ID, description and length.
+\item \code{read_seqs()}: read sequence ID, description and length.
+
 }}
-
 \examples{
 # read genes/features from a gff file
 read_feats(ex("eden-utr.gff"))

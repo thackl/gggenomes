@@ -96,11 +96,11 @@ will have their \code{locus_id} as their new \code{seq_id}.
 }
 \section{Functions}{
 \itemize{
-\item \code{focus}: Identify regions of interest and zoom in on them
+\item \code{focus()}: Identify regions of interest and zoom in on them
 
-\item \code{locate}: Identify regions of interest and add them as new feature track
+\item \code{locate()}: Identify regions of interest and add them as new feature track
+
 }}
-
 \examples{
 
 # Let's hunt some defense systems in marine SAGs

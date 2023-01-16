@@ -32,25 +32,25 @@ Add different types of tracks
 }
 \section{Functions}{
 \itemize{
-\item \code{add_feats}: Add feature annotations to sequences
+\item \code{add_feats()}: Add feature annotations to sequences
 
-\item \code{add_links}: Add links connecting sequences, such as whole-genome
+\item \code{add_links()}: Add links connecting sequences, such as whole-genome
 alignment data.
 
-\item \code{add_subfeats}: Add features of features, such as gene/protein
+\item \code{add_subfeats()}: Add features of features, such as gene/protein
 domains, blast hits to genes/proteins, etc.
 
-\item \code{add_sublinks}: Add links that connect features, such as
+\item \code{add_sublinks()}: Add links that connect features, such as
 protein-protein alignments connecting genes.
 
-\item \code{add_clusters}: Add gene clusters or other feature groups. Takes a
+\item \code{add_clusters()}: Add gene clusters or other feature groups. Takes a
 data.frame with at least two required columns \code{cluster_id} and \code{feat_id}. The
 data.frame is converted to a link track connecting features belonging to the
 same cluster over their entire length. Additionally, the data.frame is joined
 to the parent feature track, adding \code{cluster_id} and all additional columns
 to the parent table.
-}}
 
+}}
 \examples{
 # Add some repeat annotations
 gggenomes(seqs=emale_seqs) \%>\%

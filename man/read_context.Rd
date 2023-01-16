@@ -41,6 +41,6 @@ Powers \code{\link[=read_seqs]{read_seqs()}}, \code{\link[=read_feats]{read_feat
 }
 \section{Functions}{
 \itemize{
-\item \code{read_context}: bla keywords internal
-}}
+\item \code{read_context()}: bla keywords internal
 
+}}

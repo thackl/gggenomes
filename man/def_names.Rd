@@ -20,11 +20,11 @@ Intended to be used in \code{\link[readr:read_delim]{readr::read_tsv()}}-like fu
 }
 \section{Functions}{
 \itemize{
-\item \code{def_names}: default column names for defined formats
+\item \code{def_names()}: default column names for defined formats
 
-\item \code{def_types}: default column types for defined formats
+\item \code{def_types()}: default column types for defined formats
+
 }}
-
 \section{Defined formats, column types and names}{
 
 \preformatted{

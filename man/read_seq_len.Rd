@@ -19,8 +19,8 @@ Read sequence index
 }
 \section{Functions}{
 \itemize{
-\item \code{read_seq_len}: read seqs from a single file in fasta, gbk or gff3 format.
+\item \code{read_seq_len()}: read seqs from a single file in fasta, gbk or gff3 format.
 
-\item \code{read_fai}: read seqs from a single file in seqkit/samtools fai format.
+\item \code{read_fai()}: read seqs from a single file in seqkit/samtools fai format.
+
 }}
-

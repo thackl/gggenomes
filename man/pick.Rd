@@ -39,18 +39,18 @@ the \code{.bins} argument to set the scope for positional arguments. For example
 }
 \section{Functions}{
 \itemize{
-\item \code{pick}: pick bins by bin_id, positional argument (start at top)
+\item \code{pick()}: pick bins by bin_id, positional argument (start at top)
 or select-helper.
 
-\item \code{pick_seqs}: pick individual seqs seq_id, positional argument (start at
+\item \code{pick_seqs()}: pick individual seqs seq_id, positional argument (start at
 top left) or select-helper.
 
-\item \code{pick_seqs_within}: pick individual seqs but only modify bins containing those
+\item \code{pick_seqs_within()}: pick individual seqs but only modify bins containing those
 seqs, keep rest as is.
 
-\item \code{pick_by_tree}: align bins with the leaves in a given phylogenetic tree.
-}}
+\item \code{pick_by_tree()}: align bins with the leaves in a given phylogenetic tree.
 
+}}
 \examples{
 s0 <- tibble(
 bin_id = c("A", "B", "B", "B", "C", "C", "C"),
