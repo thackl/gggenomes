@@ -46,6 +46,8 @@ jobs:
           install.packages('pkgdown')
           install.packages('devtools')
           install.packages("BiocManager")
+          install.packages("ape")
+          install.packages("tidytree")
           BiocManager::install("IRanges")
           remotes::install_dev("dplyr")
           devtools::install_github("YuLab-SMU/ggtree")
