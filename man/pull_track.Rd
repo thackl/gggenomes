@@ -80,24 +80,24 @@ track from a gggenome object. Unprefixed variants work inside \verb{geom_*} call
 }
 \section{Functions}{
 \itemize{
-\item \code{feats}: by default pulls out the first feat track not named
+\item \code{feats()}: by default pulls out the first feat track not named
 "genes".
 
-\item \code{genes}: pulls out the first feat track (genes), filtering
+\item \code{genes()}: pulls out the first feat track (genes), filtering
 for records with \code{type=="CDS"}, and adding a dummy \code{gene_id} column if missing
 to play nice with multi-exon \code{geom}s.
 
-\item \code{links}: by default pulls out the first link track.
+\item \code{links()}: by default pulls out the first link track.
 
-\item \code{seqs}: pulls out the seqs track (there is only one).
+\item \code{seqs()}: pulls out the seqs track (there is only one).
 
-\item \code{bins}: pulls out a binwise summary table of the seqs data powering
+\item \code{bins()}: pulls out a binwise summary table of the seqs data powering
 \verb{geom_bin_*()} calls. The bin table is not a real track, but recomputed
 on-the-fly.
 
-\item \code{track}: pulls from all tracks in order seqs, feats, links.
-}}
+\item \code{track()}: pulls from all tracks in order seqs, feats, links.
 
+}}
 \examples{
 
 gg <- gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava)

@@ -25,20 +25,7 @@ sequence data. Data columns:
 \item recognized: \verb{bin_id,start,end,strand}
 }}
 
-\item{genes}{A data.frame, a list of data.frames, or a character vector
-with paths to files containing gene data. Each item is added as feature
-track.
-
-For a single data.frame the track_id will be "genes" and "feats",
-respectively. For a list, track_ids are parsed from the list names, or if
-names are missing from the name of the variable containing each data.frame.
-Data columns:
-\itemize{
-\item required: \verb{seq_id,start,end}
-\item recognized: \verb{strand,bin_id,feat_id,introns}
-}}
-
-\item{feats}{A data.frame, a list of data.frames, or a character vector
+\item{genes, feats}{A data.frame, a list of data.frames, or a character vector
 with paths to files containing gene data. Each item is added as feature
 track.
 
@@ -58,34 +45,7 @@ containing link data. Each item is added as links track. Data columns:
 \item recognized: \verb{start,end,bin_id,start2,end2,bin_id2,strand}
 }}
 
-\item{infer_bin_id}{used to infer pseudo
-seqs if only feats or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feat
-or link track.
-
-By default subregions of sequences from the first to the last feat/link
-are generated. Set \code{infer_start} to 0 to show all sequences from their
-true beginning.}
-
-\item{infer_start}{used to infer pseudo
-seqs if only feats or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feat
-or link track.
-
-By default subregions of sequences from the first to the last feat/link
-are generated. Set \code{infer_start} to 0 to show all sequences from their
-true beginning.}
-
-\item{infer_end}{used to infer pseudo
-seqs if only feats or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feat
-or link track.
-
-By default subregions of sequences from the first to the last feat/link
-are generated. Set \code{infer_start} to 0 to show all sequences from their
-true beginning.}
-
-\item{infer_length}{used to infer pseudo
+\item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
 seqs if only feats or links are provided, or if no bin_id column was
 provided. The expressions are evaluated in the context of the first feat
 or link track.
