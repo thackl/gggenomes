@@ -1,7 +1,6 @@
 #' Helper to extract seqlengths from DECIPHER::FindSyntney Object
-#' @details Extracts the sequence lengths 
-#' @param synteny_obj A object produced by DECIPHER::FindSynteny
 #' @keywords internal
+#' @param synteny_obj A object produced by DECIPHER::FindSynteny
 get_seqlen <- function(synteny_obj) {
   seqlengths <- c()
   for(i in 1:ncol(synteny_obj)) {
