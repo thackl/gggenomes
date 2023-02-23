@@ -21,7 +21,7 @@ Remotes: github::thackl/thacklr, bioc::release/rtracklayer
 Depends:
     R (>= 3.4.2),
     dplyr,
-    ggplot2 (3.4.0),
+    ggplot2 (>= 3.4.0),
     vctrs,
     gggenes,
     purrr,
