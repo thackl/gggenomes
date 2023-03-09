@@ -46,12 +46,14 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
   x <- as_tibble(select(x, vars, other_vars()))
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
-  if(!has_name(x, "strand")){
-    x$strand <- strand_chr(x$start < x$end)
-  }else{
-    x$strand <- strand_chr(x$strand)
-  }
-  if(!has_name(x, "feat_id")) x$feat_id <- paste0("f", seq_len(nrow((x))))
+
+  # default columns we want to have to make some geoms run smoother
+  x <- x %>% introduce(
+    feat_id = paste0("f", seq_len(nrow((x))),
+    type = NA,
+    strand = x$start < x$end
+  ) %>%
+  mutate(strand = strand_chr(strand))
 
   x %<>% swap_if(start > end, start, end)
 
