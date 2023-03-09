@@ -12,6 +12,4 @@ get_seqlen(synteny_obj)
 \description{
 Helper to extract seqlengths from DECIPHER::FindSyntney Object
 }
-\details{
-Extracts the sequence lengths
-}
+\keyword{internal}
