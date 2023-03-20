@@ -7,7 +7,7 @@
 #' @param offset Shifts the data up/down based on the type of mutation. 
 #' By default `offset = c(Deletion=0.1, SNP=0, Insertion=-0.1)`. 
 #' The user can supply an own vector to `offset` to indicate at which offsets the different mutation types should be plotted. 
-#' No specified types of mutations will be plotted with an offset of 0
+#' *Types of mutations that have not been specified within the vector, will be plotted with an offset of 0.*
 #' @param base How to align the offsets relative to the sequence. At base = 0, plotting of the offsets starts 
 #'   from the sequence. `base` thus moves the entire feature up/down. 
 #'@export

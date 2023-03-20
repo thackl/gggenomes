@@ -13,7 +13,7 @@ position_variant(
 \item{offset}{Shifts the data up/down based on the type of mutation.
 By default \code{offset = c(Deletion=0.1, SNP=0, Insertion=-0.1)}.
 The user can supply an own vector to \code{offset} to indicate at which offsets the different mutation types should be plotted.
-No specified types of mutations will be plotted with an offset of 0}
+\emph{Types of mutations that have not been specified within the vector, will be plotted with an offset of 0.}}
 
 \item{base}{How to align the offsets relative to the sequence. At base = 0, plotting of the offsets starts
 from the sequence. \code{base} thus moves the entire feature up/down.}
@@ -49,4 +49,5 @@ p + geom_variant(aes(shape = type), position = position_variant(c(Deletion=0.4, 
 
 #Changing the base will shift all points up/down relatively from the sequence.
 p + geom_variant(aes(shape = type), position=position_variant(base = 0.5)) + geom_seq()
+
 }
