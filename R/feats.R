@@ -49,7 +49,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
 
   # default columns we want to have to make some geoms run smoother
   x <- x %>% introduce(
-    feat_id = paste0("f", seq_len(nrow((x))),
+    feat_id = paste0("f", seq_len(nrow((x)))),
     type = NA,
     strand = x$start < x$end
   ) %>%
@@ -161,3 +161,4 @@ is_marginal <- function(start, end, seq_start, seq_end, closed=FALSE){
   in_range(seq_start, start, end, closed=FALSE) |
     in_range(seq_end, start, end, closed=FALSE)
 }
+
