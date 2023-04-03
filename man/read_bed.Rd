@@ -59,6 +59,9 @@ By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
 set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).}
 }
+\value{
+tibble
+}
 \description{
 BED files use 0-based coordinate starts, while gggenomes uses 1-based start
 coordinates. BED file coordinates are therefore transformed into 1-based

@@ -20,19 +20,21 @@ gggenomes_global$def_formats <- tribble(
   "blast", qc(m8,o6,o7), qc(feats, links), qc(read_blast, read_blast),
   "paf", qc(paf), qc(feats, links), qc(read_paf, read_paf),
   "alitv", qc(json), qc(feats, seqs, links),
-     qc(read_alitv_genes, read_alitv_seqs, read_alitv_links)
+  qc(read_alitv_genes, read_alitv_seqs, read_alitv_links),
+  "vcf", qc(vcf), qc(feats), qc(read_vcf)
 )
 
 # Default column names for different formats
 gggenomes_global$def_names <- list(
   gff3 = qc(seq_id, source, type, start, end, score, strand, phase, attributes),
   paf =  qc(seq_id, length, start, end, strand, seq_id2, length2, start2, end2,
-      map_match, map_length, map_quality),
+            map_match, map_length, map_quality),
   blast = qc(seq_id, seq_id2, pident, length, mismatch, gapopen, start, end,
-      start2, end2, evalue, bitscore),
+             start2, end2, evalue, bitscore),
   bed = qc(seq_id, start, end, name, score, strand),
   fai = qc(seq_id, seq_desc, length),
-  seq_len = qc(seq_id, seq_desc, length)
+  seq_len = qc(seq_id, seq_desc, length),
+  vcf = qc(seq_id, start, feat_id, ref, alt, qual, filter, info, format)
 )
 
 gggenomes_global$def_types <- list(
@@ -41,6 +43,7 @@ gggenomes_global$def_types <- list(
   blast = "ccdiiiiiiidd",
   bed = "ciicdc",
   fai = "ci---",
-  seq_len = "cci"
+  seq_len = "cci",
+  vcf = "cicccdccc"
 )
 

@@ -10,7 +10,7 @@
 #'   combined with extra columns: `col_names = c(def_names("bed"), "more",
 #'   "things")`.
 #'
-#' @return
+#' @return tibble
 #' @export
 read_bed <- function (file, col_names = def_names("bed"),
     col_types = def_types("bed"), ...){
