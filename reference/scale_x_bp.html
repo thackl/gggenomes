@@ -18,7 +18,7 @@ ggplot2::scale_x_continuous() using label_bp() as default labeller."><meta prope
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -65,49 +65,56 @@ ggplot2::scale_x_continuous() using label_bp() as default labeller."><meta prope
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">scale_x_bp</span><span class="op">(</span><span class="va">...</span>, suffix <span class="op">=</span> <span class="st">""</span>, sep <span class="op">=</span> <span class="st">""</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="fu">label_bp</span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">""</span>, sep <span class="op">=</span> <span class="st">""</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_bp</span><span class="op">(</span><span class="va">...</span>, suffix <span class="op">=</span> <span class="st">""</span>, sep <span class="op">=</span> <span class="st">""</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">label_bp</span><span class="op">(</span>suffix <span class="op">=</span> <span class="st">""</span>, sep <span class="op">=</span> <span class="st">""</span>, accuracy <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">ggplot2::scale_x_continuous()</a></code></p></dd>
+
+
 <dt>suffix</dt>
 <dd><p>unit suffix e.g. "bp"</p></dd>
+
+
 <dt>sep</dt>
 <dd><p>between number and unit prefix+suffix</p></dd>
+
+
 <dt>accuracy</dt>
 <dd><p>A number to round to. Use (e.g.) <code>0.01</code> to show 2 decimal
 places of precision. If <code>NULL</code>, the default, uses a heuristic that should
 ensure breaks have the minimum number of digits needed to show the
 difference between adjacent values.</p>
 <p>Applied to rescaled data.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># scale_x_bp invoked by default</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># scale_x_bp invoked by default</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="scale_x_bp-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># customize labels</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">scale_x_bp</span><span class="op">(</span>suffix<span class="op">=</span><span class="st">"bp"</span>, sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># customize labels</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_x_bp</span><span class="op">(</span>suffix<span class="op">=</span><span class="st">"bp"</span>, sep<span class="op">=</span><span class="st">" "</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="scale_x_bp-2.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Note: xlim will overwrite scale_x_bp() with ggplot2::scale_x_continuous()</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3e4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Note: xlim will overwrite scale_x_bp() with ggplot2::scale_x_continuous()</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3e4</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="scale_x_bp-3.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># set limits explicitly with scale_x_bp() to avoid overwrite</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">scale_x_bp</span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3e4</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># set limits explicitly with scale_x_bp() to avoid overwrite</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">scale_x_bp</span><span class="op">(</span>limits<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3e4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="scale_x_bp-4.png" alt="" width="960" height="480"></span>
 </code></pre></div>
@@ -120,11 +127,11 @@ difference between adjacent values.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

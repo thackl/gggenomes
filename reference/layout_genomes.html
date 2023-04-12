@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,18 +63,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layout_genomes</span><span class="op">(</span>
-  seqs <span class="op">=</span> <span class="cn">NULL</span>,
-  genes <span class="op">=</span> <span class="cn">NULL</span>,
-  feats <span class="op">=</span> <span class="cn">NULL</span>,
-  links <span class="op">=</span> <span class="cn">NULL</span>,
-  infer_bin_id <span class="op">=</span> <span class="va">seq_id</span>,
-  infer_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,
-  infer_end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,
-  infer_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,
-  adjacent_only <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layout_genomes</span><span class="op">(</span></span>
+<span>  seqs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  genes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  feats <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  links <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  infer_bin_id <span class="op">=</span> <span class="va">seq_id</span>,</span>
+<span>  infer_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  infer_end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  infer_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  adjacent_only <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,7 +84,9 @@
 sequence data. Data columns:</p><ul><li><p>required: <code>seq_id,length</code></p></li>
 <li><p>recognized: <code>bin_id,start,end,strand</code></p></li>
 </ul></dd>
-<dt>genes</dt>
+
+
+<dt>genes, feats</dt>
 <dd><p>A data.frame, a list of data.frames, or a character vector
 with paths to files containing gene data. Each item is added as feature
 track.</p>
@@ -94,22 +96,16 @@ names are missing from the name of the variable containing each data.frame.
 Data columns:</p><ul><li><p>required: <code>seq_id,start,end</code></p></li>
 <li><p>recognized: <code>strand,bin_id,feat_id,introns</code></p></li>
 </ul></dd>
-<dt>feats</dt>
-<dd><p>A data.frame, a list of data.frames, or a character vector
-with paths to files containing gene data. Each item is added as feature
-track.</p>
-<p>For a single data.frame the track_id will be "genes" and "feats",
-respectively. For a list, track_ids are parsed from the list names, or if
-names are missing from the name of the variable containing each data.frame.
-Data columns:</p><ul><li><p>required: <code>seq_id,start,end</code></p></li>
-<li><p>recognized: <code>strand,bin_id,feat_id,introns</code></p></li>
-</ul></dd>
+
+
 <dt>links</dt>
 <dd><p>A data.frame or a character vector with paths to files
 containing link data. Each item is added as links track. Data columns:</p><ul><li><p>required: <code>seq_id,seq_id2</code></p></li>
 <li><p>recognized: <code>start,end,bin_id,start2,end2,bin_id2,strand</code></p></li>
 </ul></dd>
-<dt>infer_bin_id</dt>
+
+
+<dt>infer_length, infer_start, infer_end, infer_bin_id</dt>
 <dd><p>used to infer pseudo
 seqs if only feats or links are provided, or if no bin_id column was
 provided. The expressions are evaluated in the context of the first feat
@@ -117,34 +113,13 @@ or link track.</p>
 <p>By default subregions of sequences from the first to the last feat/link
 are generated. Set <code>infer_start</code> to 0 to show all sequences from their
 true beginning.</p></dd>
-<dt>infer_start</dt>
-<dd><p>used to infer pseudo
-seqs if only feats or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feat
-or link track.</p>
-<p>By default subregions of sequences from the first to the last feat/link
-are generated. Set <code>infer_start</code> to 0 to show all sequences from their
-true beginning.</p></dd>
-<dt>infer_end</dt>
-<dd><p>used to infer pseudo
-seqs if only feats or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feat
-or link track.</p>
-<p>By default subregions of sequences from the first to the last feat/link
-are generated. Set <code>infer_start</code> to 0 to show all sequences from their
-true beginning.</p></dd>
-<dt>infer_length</dt>
-<dd><p>used to infer pseudo
-seqs if only feats or links are provided, or if no bin_id column was
-provided. The expressions are evaluated in the context of the first feat
-or link track.</p>
-<p>By default subregions of sequences from the first to the last feat/link
-are generated. Set <code>infer_start</code> to 0 to show all sequences from their
-true beginning.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>gggenomes_layout object</p>
+    
+
+<p>gggenomes_layout object</p>
     </div>
 
   </div>
@@ -155,11 +130,11 @@ true beginning.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

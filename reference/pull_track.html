@@ -20,7 +20,7 @@ track from a gggenome object. Unprefixed variants work inside geom_* calls."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -69,36 +69,36 @@ track from a gggenome object. Unprefixed variants work inside <code>geom_*</code
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">feats</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="st">"genes"</span>, .geneify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">genes</span><span class="op">(</span><span class="va">...</span>, .gene_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CDS"</span>, <span class="st">"mRNA"</span>, <span class="st">"tRNA"</span>, <span class="st">"tmRNA"</span>, <span class="st">"ncRNA"</span>, <span class="st">"rRNA"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">links</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span>, .adjacent_only <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">seqs</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="fu">bins</span><span class="op">(</span><span class="va">...</span>, .group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">track</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .track_type <span class="op">=</span> <span class="cn">NULL</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">pull_feats</span><span class="op">(</span><span class="va">.x</span>, .track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="st">"genes"</span>, .geneify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">pull_genes</span><span class="op">(</span>
-  <span class="va">.x</span>,
-  <span class="va">...</span>,
-  .gene_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CDS"</span>, <span class="st">"mRNA"</span>, <span class="st">"tRNA"</span>, <span class="st">"tmRNA"</span>, <span class="st">"ncRNA"</span>, <span class="st">"rRNA"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu">pull_links</span><span class="op">(</span><span class="va">.x</span>, .track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span>, .adjacent_only <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="fu">pull_seqs</span><span class="op">(</span><span class="va">.x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">pull_bins</span><span class="op">(</span><span class="va">.x</span>, <span class="va">...</span>, .group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># S3 method for gggenomes_layout</span>
-<span class="fu">pull_bins</span><span class="op">(</span><span class="va">.x</span>, <span class="va">...</span>, .group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">pull_track</span><span class="op">(</span><span class="va">.x</span>, .track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .track_type <span class="op">=</span> <span class="cn">NULL</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">feats</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="st">"genes"</span>, .geneify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">genes</span><span class="op">(</span><span class="va">...</span>, .gene_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CDS"</span>, <span class="st">"mRNA"</span>, <span class="st">"tRNA"</span>, <span class="st">"tmRNA"</span>, <span class="st">"ncRNA"</span>, <span class="st">"rRNA"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">links</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span>, .adjacent_only <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">seqs</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bins</span><span class="op">(</span><span class="va">...</span>, .group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">track</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .track_type <span class="op">=</span> <span class="cn">NULL</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pull_feats</span><span class="op">(</span><span class="va">.x</span>, .track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="st">"genes"</span>, .geneify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pull_genes</span><span class="op">(</span></span>
+<span>  <span class="va">.x</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  .gene_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CDS"</span>, <span class="st">"mRNA"</span>, <span class="st">"tRNA"</span>, <span class="st">"tmRNA"</span>, <span class="st">"ncRNA"</span>, <span class="st">"rRNA"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pull_links</span><span class="op">(</span><span class="va">.x</span>, .track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span>, .adjacent_only <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pull_seqs</span><span class="op">(</span><span class="va">.x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pull_bins</span><span class="op">(</span><span class="va">.x</span>, <span class="va">...</span>, .group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for gggenomes_layout</span></span>
+<span><span class="fu">pull_bins</span><span class="op">(</span><span class="va">.x</span>, <span class="va">...</span>, .group <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html" class="external-link">vars</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">pull_track</span><span class="op">(</span><span class="va">.x</span>, .track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .track_type <span class="op">=</span> <span class="cn">NULL</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -106,50 +106,67 @@ track from a gggenome object. Unprefixed variants work inside <code>geom_*</code
     <dl><dt>.track_id</dt>
 <dd><p>The track to pull out, either as a literal variable name or
 as a positive/negative integer giving the position from the left/right.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Logical predicates passed on to <a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter</a>. "seqs", "feats",
 "links". Affects position-based selection.</p></dd>
+
+
 <dt>.ignore</dt>
 <dd><p>track names to ignore when selecting by position.</p></dd>
+
+
 <dt>.geneify</dt>
 <dd><p>add dummy type, introns and geom_id column to play nicely
 with geoms supporting multi-level and spliced gene models.</p></dd>
+
+
 <dt>.gene_types</dt>
 <dd><p>return only feats of this type (<code>type %in% .gene_types</code>)</p></dd>
+
+
 <dt>.adjacent_only</dt>
 <dd><p>filter for links connecting direct neighbors
 (<code>abs(y-yend)==1)</code>)</p></dd>
+
+
 <dt>.group</dt>
 <dd><p>what variables to use in grouping of bins from seqs in addition
 to <code>y</code> and <code>bin_id</code>. Use this to get additional shared variables from the
 seqs table into the bins table.</p></dd>
+
+
 <dt>.track_type</dt>
 <dd><p>restrict to these types of tracks - any combination of
 "seqs", "feats", "links".</p></dd>
+
+
 <dt>.x</dt>
 <dd><p>A gggenomes or gggenomes_layout object.</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>feats</code>: by default pulls out the first feat track not named
+<ul><li><p><code>feats()</code>: by default pulls out the first feat track not named
 "genes".</p></li>
-<li><p><code>genes</code>: pulls out the first feat track (genes), filtering
+<li><p><code>genes()</code>: pulls out the first feat track (genes), filtering
 for records with <code>type=="CDS"</code>, and adding a dummy <code>gene_id</code> column if missing
 to play nice with multi-exon <code>geom</code>s.</p></li>
-<li><p><code>links</code>: by default pulls out the first link track.</p></li>
-<li><p><code>seqs</code>: pulls out the seqs track (there is only one).</p></li>
-<li><p><code>bins</code>: pulls out a binwise summary table of the seqs data powering
+<li><p><code>links()</code>: by default pulls out the first link track.</p></li>
+<li><p><code>seqs()</code>: pulls out the seqs track (there is only one).</p></li>
+<li><p><code>bins()</code>: pulls out a binwise summary table of the seqs data powering
 <code>geom_bin_*()</code> calls. The bin table is not a real track, but recomputed
 on-the-fly.</p></li>
-<li><p><code>track</code>: pulls from all tracks in order seqs, feats, links.</p></li>
+<li><p><code>track()</code>: pulls from all tracks in order seqs, feats, links.</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="track_info.html">track_info</a></span><span class="op">(</span><span class="op">)</span>            <span class="co"># info about track ids, positions and types</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="track_info.html">track_info</a></span><span class="op">(</span><span class="op">)</span>            <span class="co"># info about track ids, positions and types</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   type [3]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   id    type      i     n</span>
@@ -158,9 +175,9 @@ on-the-fly.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> genes feats     1   143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> feats feats     2    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> links links     1    38</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get first feat track that isn't "genes" (all equivalent)</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="op">)</span>            <span class="co"># easiest</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get first feat track that isn't "genes" (all equivalent)</span></span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="op">)</span>            <span class="co"># easiest</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 20</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        y     x  xend bin_id      seq_id start   end file_id strand type  feat_id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -176,10 +193,10 @@ on-the-fly.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     1 <span style="text-decoration: underline;">26</span>856 <span style="text-decoration: underline;">26</span>398 E4-10_112   E4-10… <span style="text-decoration: underline;">26</span>399 <span style="text-decoration: underline;">26</span>856 emales… -      repe… E4-10_…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     6     0   454 RCC970_016B RCC97…     1   454 emales… +      repe… RCC970…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     6 <span style="text-decoration: underline;">20</span>152 <span style="text-decoration: underline;">19</span>698 RCC970_016B RCC97… <span style="text-decoration: underline;">19</span>699 <span style="text-decoration: underline;">20</span>152 emales… -      repe… RCC970…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   score &lt;chr&gt;, phase &lt;int&gt;, name &lt;chr&gt;, width &lt;chr&gt;, geom_id &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   .marginal &lt;lgl&gt;</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="va">feats</span><span class="op">)</span>       <span class="co"># by id</span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="va">feats</span><span class="op">)</span>       <span class="co"># by id</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 20</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        y     x  xend bin_id      seq_id start   end file_id strand type  feat_id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -195,10 +212,10 @@ on-the-fly.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     1 <span style="text-decoration: underline;">26</span>856 <span style="text-decoration: underline;">26</span>398 E4-10_112   E4-10… <span style="text-decoration: underline;">26</span>399 <span style="text-decoration: underline;">26</span>856 emales… -      repe… E4-10_…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     6     0   454 RCC970_016B RCC97…     1   454 emales… +      repe… RCC970…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     6 <span style="text-decoration: underline;">20</span>152 <span style="text-decoration: underline;">19</span>698 RCC970_016B RCC97… <span style="text-decoration: underline;">19</span>699 <span style="text-decoration: underline;">20</span>152 emales… -      repe… RCC970…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   score &lt;chr&gt;, phase &lt;int&gt;, name &lt;chr&gt;, width &lt;chr&gt;, geom_id &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   .marginal &lt;lgl&gt;</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>           <span class="co"># by position</span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>           <span class="co"># by position</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 20</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        y     x  xend bin_id      seq_id start   end file_id strand type  feat_id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -214,10 +231,10 @@ on-the-fly.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     1 <span style="text-decoration: underline;">26</span>856 <span style="text-decoration: underline;">26</span>398 E4-10_112   E4-10… <span style="text-decoration: underline;">26</span>399 <span style="text-decoration: underline;">26</span>856 emales… -      repe… E4-10_…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     6     0   454 RCC970_016B RCC97…     1   454 emales… +      repe… RCC970…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     6 <span style="text-decoration: underline;">20</span>152 <span style="text-decoration: underline;">19</span>698 RCC970_016B RCC97… <span style="text-decoration: underline;">19</span>699 <span style="text-decoration: underline;">20</span>152 emales… -      repe… RCC970…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   score &lt;chr&gt;, phase &lt;int&gt;, name &lt;chr&gt;, width &lt;chr&gt;, geom_id &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   .marginal &lt;lgl&gt;</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="fl">2</span>, .ignore<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span>  <span class="co"># default .ignore="genes"</span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_feats</span><span class="op">(</span><span class="fl">2</span>, .ignore<span class="op">=</span><span class="cn">NULL</span><span class="op">)</span>  <span class="co"># default .ignore="genes"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 20</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        y     x  xend bin_id      seq_id start   end file_id strand type  feat_id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
@@ -233,12 +250,12 @@ on-the-fly.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     1 <span style="text-decoration: underline;">26</span>856 <span style="text-decoration: underline;">26</span>398 E4-10_112   E4-10… <span style="text-decoration: underline;">26</span>399 <span style="text-decoration: underline;">26</span>856 emales… -      repe… E4-10_…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     6     0   454 RCC970_016B RCC97…     1   454 emales… +      repe… RCC970…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     6 <span style="text-decoration: underline;">20</span>152 <span style="text-decoration: underline;">19</span>698 RCC970_016B RCC97… <span style="text-decoration: underline;">19</span>699 <span style="text-decoration: underline;">20</span>152 emales… -      repe… RCC970…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: introns &lt;list&gt;, parent_ids &lt;list&gt;, source &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   score &lt;chr&gt;, phase &lt;int&gt;, name &lt;chr&gt;, width &lt;chr&gt;, geom_id &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   .marginal &lt;lgl&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get "seqs" track (always track #1)</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_seqs</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># get "seqs" track (always track #1)</span></span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">pull_seqs</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   bin_id [6]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       y     x  xend strand seq_id   bin_id length bin_offset start   end file_id</span>
@@ -249,13 +266,13 @@ on-the-fly.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     3     0 <span style="text-decoration: underline;">26</span>808 +      BVI_069  BVI_0…  <span style="text-decoration: underline;">26</span>808          0     1 <span style="text-decoration: underline;">26</span>808 emales </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     2     0 <span style="text-decoration: underline;">26</span>820 +      BVI_008A BVI_0…  <span style="text-decoration: underline;">26</span>820          0     1 <span style="text-decoration: underline;">26</span>820 emales </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     1     0 <span style="text-decoration: underline;">26</span>856 +      E4-10_1… E4-10…  <span style="text-decoration: underline;">26</span>856          0     1 <span style="text-decoration: underline;">26</span>856 emales </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: seq_desc &lt;chr&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plot integrated transposons and GC content for some viral genomes</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span>, feats<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">emale_ngaros</span>, GC<span class="op">=</span><span class="va">emale_gc</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">gg</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># defaults to data=feats()</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">+</span><span class="va">score</span><span class="op">-</span><span class="fl">.6</span>, group<span class="op">=</span><span class="va">y</span><span class="op">)</span>, data<span class="op">=</span><span class="fu">feats</span><span class="op">(</span><span class="va">GC</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"gray60"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: seq_desc &lt;chr&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot integrated transposons and GC content for some viral genomes</span></span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span>, feats<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">emale_ngaros</span>, GC<span class="op">=</span><span class="va">emale_gc</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">gg</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># defaults to data=feats()</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">+</span><span class="va">score</span><span class="op">-</span><span class="fl">.6</span>, group<span class="op">=</span><span class="va">y</span><span class="op">)</span>, data<span class="op">=</span><span class="fu">feats</span><span class="op">(</span><span class="va">GC</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"gray60"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="pull_track-1.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
@@ -267,11 +284,11 @@ on-the-fly.</p></li>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

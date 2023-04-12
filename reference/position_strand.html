@@ -21,7 +21,7 @@ frame."><meta property="og:image" content="/logo.svg"><!-- mathjax --><script sr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -71,19 +71,19 @@ frame.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">position_strand</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span>, grouped <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="va">offset</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>
-
-<span class="fu">position_pile</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.1</span>, gap <span class="op">=</span> <span class="fl">1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span>, grouped <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-
-<span class="fu">position_strandpile</span><span class="op">(</span>
-  offset <span class="op">=</span> <span class="fl">0.1</span>,
-  gap <span class="op">=</span> <span class="fl">1</span>,
-  flip <span class="op">=</span> <span class="cn">FALSE</span>,
-  grouped <span class="op">=</span> <span class="cn">NULL</span>,
-  base <span class="op">=</span> <span class="va">offset</span> <span class="op">*</span> <span class="fl">1.5</span>
-<span class="op">)</span>
-
-<span class="fu">position_sixframe</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span>, grouped <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="va">offset</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">position_strand</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span>, grouped <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="va">offset</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">position_pile</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.1</span>, gap <span class="op">=</span> <span class="fl">1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span>, grouped <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">position_strandpile</span><span class="op">(</span></span>
+<span>  offset <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  gap <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  flip <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  grouped <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  base <span class="op">=</span> <span class="va">offset</span> <span class="op">*</span> <span class="fl">1.5</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">position_sixframe</span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.1</span>, flip <span class="op">=</span> <span class="cn">FALSE</span>, grouped <span class="op">=</span> <span class="cn">NULL</span>, base <span class="op">=</span> <span class="va">offset</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -92,58 +92,67 @@ frame.</p>
 <dd><p>Shift overlapping feats up/down this much on the y-axis. The
 y-axis distance between two sequences is 1, so this is usually a small
 fraction, such as 0.1.</p></dd>
+
+
 <dt>flip</dt>
 <dd><p>stack downward, and for stranded versions reverse upward.</p></dd>
+
+
 <dt>grouped</dt>
 <dd><p>if TRUE feats in the same group are stacked as a single
 feature. Useful to move CDS and mRNA as one unit. If NULL (default) set to
 TRUE if data appears to contain gene-ish features.</p></dd>
+
+
 <dt>base</dt>
 <dd><p>How to align the stack relative to the sequence. 0 to center the
 lowest stack level on the sequence, 1 to put forward/reverse sequence one
 half offset above/below the sequence line.</p></dd>
+
+
 <dt>gap</dt>
 <dd><p>If two feats are closer together than this, they will be stacked.
 Can be negative to allow small overlaps. NA disables stacking.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="pick.html">pick</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="pick.html">pick</a></span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">f0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span class="r-in">  seq_id <span class="op">=</span> <span class="fu"><a href="pull_track.html">pull_seqs</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">$</span><span class="va">seq_id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
-<span class="r-in">  start <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">*</span><span class="fl">1000</span>,</span>
-<span class="r-in">  end <span class="op">=</span> <span class="va">start</span> <span class="op">+</span> <span class="fl">2500</span>,</span>
-<span class="r-in">  strand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="st">"-"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">start</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">sixframe</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">strand</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span><span class="fl">3</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">strand_int</span><span class="op">(</span><span class="va">strand</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="fu">position_strand</span><span class="op">(</span>flip<span class="op">=</span><span class="cn">TRUE</span>, base<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu">sixframe</span><span class="op">(</span><span class="va">x</span>,<span class="va">strand</span><span class="op">)</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"sixframe"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">f0</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">strand</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">f0</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strandpile"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span> <span class="op">+</span> <span class="va">p6</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>ncol<span class="op">=</span><span class="fl">3</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">2.5</span>,<span class="fl">0.5</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> replace the existing scale.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">f0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  seq_id <span class="op">=</span> <span class="fu"><a href="pull_track.html">pull_seqs</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">$</span><span class="va">seq_id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>  start <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">*</span><span class="fl">1000</span>,</span></span>
+<span class="r-in"><span>  end <span class="op">=</span> <span class="va">start</span> <span class="op">+</span> <span class="fl">2500</span>,</span></span>
+<span class="r-in"><span>  strand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"+"</span>, <span class="st">"-"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">start</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">sixframe</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">strand</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span><span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html" class="external-link">%%</a></span><span class="fl">3</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">strand_int</span><span class="op">(</span><span class="va">strand</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="fu">position_strand</span><span class="op">(</span>flip<span class="op">=</span><span class="cn">TRUE</span>, base<span class="op">=</span><span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu">sixframe</span><span class="op">(</span><span class="va">x</span>,<span class="va">strand</span><span class="op">)</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"sixframe"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">f0</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">strand</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">f0</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strandpile"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span> <span class="op">+</span> <span class="va">p5</span> <span class="op">+</span> <span class="va">p6</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>ncol<span class="op">=</span><span class="fl">3</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">2.5</span>,<span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Scale for <span style="color: #00BB00;">y</span> is already present.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding another scale for <span style="color: #00BB00;">y</span>, which will replace the existing scale.</span>
 <span class="r-plt img"><img src="position_strand-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -154,11 +163,11 @@ Can be negative to allow small overlaps. NA disables stacking.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

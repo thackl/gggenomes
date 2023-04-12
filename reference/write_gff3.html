@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,55 +63,76 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">write_gff3</span><span class="op">(</span>
-  <span class="va">feats</span>,
-  <span class="va">file</span>,
-  seqs <span class="op">=</span> <span class="cn">NULL</span>,
-  type <span class="op">=</span> <span class="cn">NULL</span>,
-  source <span class="op">=</span> <span class="st">"."</span>,
-  score <span class="op">=</span> <span class="st">"."</span>,
-  strand <span class="op">=</span> <span class="st">"."</span>,
-  phase <span class="op">=</span> <span class="st">"."</span>,
-  id_var <span class="op">=</span> <span class="st">"feat_id"</span>,
-  parent_var <span class="op">=</span> <span class="st">"parent_ids"</span>,
-  head <span class="op">=</span> <span class="st">"##gff-version 3"</span>,
-  ignore_attr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"introns"</span>, <span class="st">"geom_id"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_gff3</span><span class="op">(</span></span>
+<span>  <span class="va">feats</span>,</span>
+<span>  <span class="va">file</span>,</span>
+<span>  seqs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  source <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  score <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  strand <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  phase <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  id_var <span class="op">=</span> <span class="st">"feat_id"</span>,</span>
+<span>  parent_var <span class="op">=</span> <span class="st">"parent_ids"</span>,</span>
+<span>  head <span class="op">=</span> <span class="st">"##gff-version 3"</span>,</span>
+<span>  ignore_attr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"introns"</span>, <span class="st">"geom_id"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>feats</dt>
 <dd><p>tidy feat table</p></dd>
+
+
 <dt>file</dt>
 <dd><p>name of output file</p></dd>
+
+
 <dt>seqs</dt>
 <dd><p>a tidy sequence table to generate optional <code>##sequence-region</code>
 directives in the header</p></dd>
+
+
 <dt>type</dt>
 <dd><p>if no type column exists, use this as the default type</p></dd>
+
+
 <dt>source</dt>
 <dd><p>if no source column exists, use this as the default source</p></dd>
+
+
 <dt>score</dt>
 <dd><p>if no score column exists, use this as the default score</p></dd>
+
+
 <dt>phase</dt>
 <dd><p>if no phase column exists, use this as the default phase</p></dd>
+
+
 <dt>id_var</dt>
 <dd><p>the name of the column to use as the GFF3 <code>ID</code> tag</p></dd>
+
+
 <dt>parent_var</dt>
 <dd><p>the name of the column to use as GFF3 <code>Parent</code> tag</p></dd>
+
+
 <dt>head</dt>
 <dd><p>additional information to add to the header section</p></dd>
+
+
 <dt>ignore_attr</dt>
 <dd><p>attributes not to be included in GFF3 tag list. Defaults
 to internals: <code>introns, geom_id</code></p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">write_gff3</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="st">"emales.gff"</span>, <span class="va">emale_seqs</span>, id_var<span class="op">=</span><span class="st">"feat_id"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">write_gff3</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="st">"emales.gff"</span>, <span class="va">emale_seqs</span>, id_var<span class="op">=</span><span class="st">"feat_id"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -122,11 +143,11 @@ to internals: <code>introns, geom_id</code></p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@ neighboring bins."><meta property="og:image" content="/logo.svg"><!-- mathjax --
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -69,107 +69,118 @@ neighboring bins.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">flip</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .bin_track <span class="op">=</span> <span class="va">seqs</span><span class="op">)</span>
-
-<span class="fu">flip_seqs</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .bins <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, .seq_track <span class="op">=</span> <span class="va">seqs</span>, .bin_track <span class="op">=</span> <span class="va">seqs</span><span class="op">)</span>
-
-<span class="fu">flip_by_links</span><span class="op">(</span><span class="va">x</span>, link_track <span class="op">=</span> <span class="fl">1</span>, min_coverage <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">flip</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .bin_track <span class="op">=</span> <span class="va">seqs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">flip_seqs</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .bins <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, .seq_track <span class="op">=</span> <span class="va">seqs</span>, .bin_track <span class="op">=</span> <span class="va">seqs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">flip_by_links</span><span class="op">(</span><span class="va">x</span>, link_track <span class="op">=</span> <span class="fl">1</span>, min_coverage <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a gggenomes object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>bins or sequences to flip in dplyr::select like syntax (numeric
 position or unquoted expressions)</p></dd>
+
+
 <dt>.bin_track, .seq_track</dt>
 <dd><p>when using a function as selector such as
 <code><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">tidyselect::where()</a></code>, this specifies the track in which context the
 function is evaluated.</p></dd>
+
+
 <dt>.bins</dt>
 <dd><p>preselection of bins with sequences to flip. Useful if selecting
 by numeric position. It sets the context for selection, for example the
 11th sequences of the total set might more easily described as the 2nd
 sequences of the 3rd bin: <code>flip_seqs(2, .bins=3)</code>.</p></dd>
+
+
 <dt>link_track</dt>
 <dd><p>the link track to use for flipping bins nicely</p></dd>
+
+
 <dt>min_coverage</dt>
 <dd><p>at least this much of the shorter bin must be covered by
 links supporting a flip to actually carry it out.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>genes<span class="op">=</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, arrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html" class="external-link">expand_limits</a></span><span class="op">(</span>color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"not flipped"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>genes<span class="op">=</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, arrow<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html" class="external-link">expand_limits</a></span><span class="op">(</span>color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"-"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"not flipped"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># nothing flipped</span></span>
-<span class="r-in"><span class="va">p0</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_links</a></span><span class="op">(</span><span class="va">emale_ava</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip manually</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_links</a></span><span class="op">(</span><span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">flip</span><span class="op">(</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"manually"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip automatically based on genome-genome links</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_links</a></span><span class="op">(</span><span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"genome alignments"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># nothing flipped</span></span></span>
+<span class="r-in"><span><span class="va">p0</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_links</a></span><span class="op">(</span><span class="va">emale_ava</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip manually</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_links</a></span><span class="op">(</span><span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">flip</span><span class="op">(</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"manually"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip automatically based on genome-genome links</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_links</a></span><span class="op">(</span><span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"genome alignments"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: 4,5,6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip automatically based on protein-protein links</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_sublinks</a></span><span class="op">(</span><span class="va">emale_prot_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"protein alignments"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip automatically based on protein-protein links</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_sublinks</a></span><span class="op">(</span><span class="va">emale_prot_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"protein alignments"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Transforming sublinks with "aa2nuc". Disable with `.transform = "none"`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: 4,5,6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip automatically based on genes linked implicitly by belonging</span></span>
-<span class="r-in"><span class="co"># to the same clusters of orthologs (or any grouping of your choice)</span></span>
-<span class="r-in"><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"shared orthologs"</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = "feat_id"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip automatically based on genes linked implicitly by belonging</span></span></span>
+<span class="r-in"><span><span class="co"># to the same clusters of orthologs (or any grouping of your choice)</span></span></span>
+<span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption<span class="op">=</span><span class="st">"shared orthologs"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: 4,5,6</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p0</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p0</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="flip-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip seqs inside bins</span></span>
-<span class="r-in"><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span class="r-in">  bin_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"C"</span>, <span class="st">"C"</span><span class="op">)</span>,</span>
-<span class="r-in">  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a1"</span>,<span class="st">"b1"</span>,<span class="st">"b2"</span>,<span class="st">"b3"</span>,<span class="st">"c1"</span>,<span class="st">"c2"</span>,<span class="st">"c3"</span><span class="op">)</span>,</span>
-<span class="r-in">  length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e4</span>, <span class="fl">6e3</span>, <span class="fl">2e3</span>, <span class="fl">1e3</span>, <span class="fl">3e3</span>, <span class="fl">3e3</span>, <span class="fl">3e3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s0</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">bin_id</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">1</span>, arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">"pt"</span><span class="op">)</span>,</span>
-<span class="r-in">    ends <span class="op">=</span> <span class="st">"last"</span>, type <span class="op">=</span> <span class="st">"open"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html" class="external-link">expand_limits</a></span><span class="op">(</span>color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_seqs</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_seqs</span><span class="op">(</span><span class="va">c2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_seqs</span><span class="op">(</span><span class="fl">2</span>, .bins <span class="op">=</span> <span class="va">C</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip seqs inside bins</span></span></span>
+<span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  bin_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"C"</span>, <span class="st">"C"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a1"</span>,<span class="st">"b1"</span>,<span class="st">"b2"</span>,<span class="st">"b3"</span>,<span class="st">"c1"</span>,<span class="st">"c2"</span>,<span class="st">"c3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1e4</span>, <span class="fl">6e3</span>, <span class="fl">2e3</span>, <span class="fl">1e3</span>, <span class="fl">3e3</span>, <span class="fl">3e3</span>, <span class="fl">3e3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s0</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">bin_id</span><span class="op">)</span>, size<span class="op">=</span><span class="fl">1</span>, arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">10</span>, <span class="st">"pt"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    ends <span class="op">=</span> <span class="st">"last"</span>, type <span class="op">=</span> <span class="st">"open"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html" class="external-link">expand_limits</a></span><span class="op">(</span>color<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span>,<span class="st">"C"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_seqs</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_seqs</span><span class="op">(</span><span class="va">c2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_seqs</span><span class="op">(</span><span class="fl">2</span>, .bins <span class="op">=</span> <span class="va">C</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="flip-2.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># fancy flipping using tidyselect::where for dynamic selection</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>,<span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"grey70"</span>, size<span class="op">=</span><span class="fl">1</span>, arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">15</span>, <span class="st">"pt"</span><span class="op">)</span>,</span>
-<span class="r-in">    ends <span class="op">=</span> <span class="st">"last"</span>, type <span class="op">=</span> <span class="st">"open"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = "feat_id"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip all short seqs - where() applied to .bin_track=seqs</span></span>
-<span class="r-in"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">length</span> <span class="op">&lt;</span> <span class="fl">21000</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># flip all seqs with MCP on "-" - where() applied to .bin_track=genes</span></span>
-<span class="r-in"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">strand</span><span class="op">[</span><span class="va">.x</span><span class="op">$</span><span class="va">cluster_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"cog-MCP"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>, .bin_track<span class="op">=</span><span class="va">genes</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">p</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># fancy flipping using tidyselect::where for dynamic selection</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>,<span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"grey70"</span>, size<span class="op">=</span><span class="fl">1</span>, arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">15</span>, <span class="st">"pt"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    ends <span class="op">=</span> <span class="st">"last"</span>, type <span class="op">=</span> <span class="st">"open"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip all short seqs - where() applied to .bin_track=seqs</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">length</span> <span class="op">&lt;</span> <span class="fl">21000</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># flip all seqs with MCP on "-" - where() applied to .bin_track=genes</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip</span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html" class="external-link">where</a></span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">strand</span><span class="op">[</span><span class="va">.x</span><span class="op">$</span><span class="va">cluster_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"cog-MCP"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>, .bin_track<span class="op">=</span><span class="va">genes</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="flip-3.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
@@ -181,11 +192,11 @@ links supporting a flip to actually carry it out.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

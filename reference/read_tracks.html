@@ -23,7 +23,7 @@ folder of gff-files with each file containing genes of a different genome."><met
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -75,22 +75,22 @@ folder of gff-files with each file containing genes of a different genome.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_feats</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">read_subfeats</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">read_links</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">read_sublinks</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">read_seqs</span><span class="op">(</span>
-  <span class="va">files</span>,
-  .id <span class="op">=</span> <span class="st">"file_id"</span>,
-  format <span class="op">=</span> <span class="cn">NULL</span>,
-  parser <span class="op">=</span> <span class="cn">NULL</span>,
-  parse_desc <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_feats</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_subfeats</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_links</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_sublinks</span><span class="op">(</span><span class="va">files</span>, .id <span class="op">=</span> <span class="st">"file_id"</span>, format <span class="op">=</span> <span class="cn">NULL</span>, parser <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">read_seqs</span><span class="op">(</span></span>
+<span>  <span class="va">files</span>,</span>
+<span>  .id <span class="op">=</span> <span class="st">"file_id"</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parser <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parse_desc <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -100,45 +100,120 @@ folder of gff-files with each file containing genes of a different genome.</p>
 compressed files (<code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code>) are supported.
 Similarly, automatic download of remote files starting with <code>http(s)://</code> or
 <code>ftp(s)://</code> works in most cases.</p></dd>
+
+
 <dt>.id</dt>
 <dd><p>the column with the name of the file a record was read from.
 Defaults to "file_id". Set to "bin_id" if every file represents a different
 bin.</p></dd>
+
+
 <dt>format</dt>
 <dd><p>specify a format known to gggenomes, such as <code>gff3</code>, <code>gbk</code>, ...
 to overwrite automatic determination based on the file extension (see
 <code><a href="def_formats.html">def_formats()</a></code> for full list).</p></dd>
+
+
 <dt>parser</dt>
 <dd><p>specify the name of an R function to overwrite automatic
 determination based on format, e.g. <code>parser="read_tsv"</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments passed on to the format-specific read
 function called down the line.</p></dd>
+
+
 <dt>parse_desc</dt>
 <dd><p>turn <code>key=some value</code> pairs from <code>seq_desc</code> into <code>key</code>-named
 columns and remove them from <code>seq_desc</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A gggenomes-compatible sequence, feature or link tibble</p>
+    
+
+<p>A gggenomes-compatible sequence, feature or link tibble</p>
     </div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>read_feats</code>: read files as features mapping onto
+<ul><li><p><code>read_feats()</code>: read files as features mapping onto
 sequences.</p></li>
-<li><p><code>read_subfeats</code>: read files as subfeatures mapping onto other features</p></li>
-<li><p><code>read_links</code>: read files as links connecting sequences</p></li>
-<li><p><code>read_sublinks</code>: read files as sublinks connecting features</p></li>
-<li><p><code>read_seqs</code>: read sequence ID, description and length.</p></li>
+<li><p><code>read_subfeats()</code>: read files as subfeatures mapping onto other features</p></li>
+<li><p><code>read_links()</code>: read files as links connecting sequences</p></li>
+<li><p><code>read_sublinks()</code>: read files as sublinks connecting features</p></li>
+<li><p><code>read_seqs()</code>: read sequence ID, description and length.</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># read genes/features from a gff file</span></span>
-<span class="r-in"><span class="fu">read_feats</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"eden-utr.gff"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># read genes/features from a gff file</span></span></span>
+<span class="r-in"><span><span class="fu">read_feats</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"eden-utr.gff"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: eden-utr [/home/runner/work/_temp/Library/gggenomes/extdata/eden-utr.gff]</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 2 &gt; 1' in coercion to 'logical(1)'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -161,30 +236,30 @@ sequences.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>000  <span style="text-decoration: underline;">9</span>000 +      gene     gene00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>000  <span style="text-decoration: underline;">1</span>012 +      TF_bind… tfbs00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>300  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>300  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>300  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>300  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>300  <span style="text-decoration: underline;">1</span>500 +      exon     exon00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">1</span>500 +      exon     exon00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [2]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> eden-utr ctg123  <span style="text-decoration: underline;">3</span>000  <span style="text-decoration: underline;">3</span>902 +      exon     exon00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [2]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> eden-utr ctg123  <span style="text-decoration: underline;">5</span>000  <span style="text-decoration: underline;">5</span>500 +      exon     exon00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [3]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> eden-utr ctg123  <span style="text-decoration: underline;">7</span>000  <span style="text-decoration: underline;">9</span>000 +      exon     exon00… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [3]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>201  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>201  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> eden-utr ctg123  <span style="text-decoration: underline;">3</span>301  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> eden-utr ctg123  <span style="text-decoration: underline;">3</span>391  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… &lt;int&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>201  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>201  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> eden-utr ctg123  <span style="text-decoration: underline;">3</span>301  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> eden-utr ctg123  <span style="text-decoration: underline;">3</span>391  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      mRNA     mRNA00… <span style="color: #949494;">&lt;int&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">1</span>200 +      five_pr… feat_25 <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>201  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>201  <span style="text-decoration: underline;">7</span>600 +      CDS      cds000… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> eden-utr ctg123  <span style="text-decoration: underline;">7</span>601  <span style="text-decoration: underline;">9</span>000 +      three_p… feat_30 <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      cDNA_ma… match0… &lt;dbl&gt;   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: score &lt;chr&gt;, phase &lt;chr&gt;, name &lt;chr&gt;, target &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> eden-utr ctg123  <span style="text-decoration: underline;">1</span>050  <span style="text-decoration: underline;">9</span>000 +      cDNA_ma… match0… <span style="color: #949494;">&lt;dbl&gt;</span>   <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #BB0000;">NA</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 5 more variables: score &lt;chr&gt;, phase &lt;chr&gt;, name &lt;chr&gt;, target &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   geom_id &lt;chr&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read all gff files from a directory</span></span>
-<span class="r-in"><span class="fu">read_feats</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/"</span><span class="op">)</span>, <span class="st">"*.gff$"</span>, full.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read all gff files from a directory</span></span></span>
+<span class="r-in"><span><span class="fu">read_feats</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/"</span><span class="op">)</span>, <span class="st">"*.gff$"</span>, full.names<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-ngaros [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-ngaros.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
@@ -195,6 +270,30 @@ sequences.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    repeat_region     3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-tirs.gff]</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -204,6 +303,292 @@ sequences.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    repeat_region    12</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales.gff]</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -226,21 +611,22 @@ sequences.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> emales-tirs Cflag…     1  <span style="text-decoration: underline;">1</span>081 +      repe… Cflag_… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  MFG   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> emales-tirs Cflag… <span style="text-decoration: underline;">20</span>231 <span style="text-decoration: underline;">21</span>311 -      repe… Cflag_… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  MFG   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> emales-tirs E4-10…     1   319 +      repe… E4-10_… <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span>  MFG   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 148 more rows, and 7 more variables: score &lt;chr&gt;, phase &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   name &lt;chr&gt;, geom_id &lt;chr&gt;, width &lt;chr&gt;, gc_content &lt;chr&gt;, note &lt;chr&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read remote files</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">gbk_phages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span class="r-in">  PSSP7 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span>,</span>
-<span class="r-in">  PSSP3 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">read_feats</span><span class="op">(</span><span class="va">gbk_phages</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read sequences from a fasta file.</span></span>
-<span class="r-in"><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span>, parse_desc<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 148 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 7 more variables: score &lt;chr&gt;, phase &lt;chr&gt;, name &lt;chr&gt;, geom_id &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   width &lt;chr&gt;, gc_content &lt;chr&gt;, note &lt;chr&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read remote files</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">gbk_phages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  PSSP7 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span>,</span></span>
+<span class="r-in"><span>  PSSP3 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">read_feats</span><span class="op">(</span><span class="va">gbk_phages</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read sequences from a fasta file.</span></span></span>
+<span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span>, parse_desc<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
@@ -252,10 +638,10 @@ sequences.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> emales  E4-10_086   emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  <span style="text-decoration: underline;">20</span>642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> emales  E4-10_112   emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  <span style="text-decoration: underline;">26</span>856</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> emales  RCC970_016B emale_type=EMALE01 is_typespecies=FALSE has_tir=TR…  <span style="text-decoration: underline;">20</span>152</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read sequence info from a fasta file with `parse_desc=TRUE` (default). `key=value`</span></span>
-<span class="r-in"><span class="co"># pairs are removed from `seq_desc` and parsed into columns with `key` as name</span></span>
-<span class="r-in"><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read sequence info from a fasta file with `parse_desc=TRUE` (default). `key=value`</span></span></span>
+<span class="r-in"><span><span class="co"># pairs are removed from `seq_desc` and parsed into columns with `key` as name</span></span></span>
+<span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
@@ -267,9 +653,9 @@ sequences.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> emales  E4-10_086   <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">20</span>642 EMALE01    FALSE          TRUE   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> emales  E4-10_112   <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">26</span>856 EMALE01    FALSE          TRUE   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> emales  RCC970_016B <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">20</span>152 EMALE01    FALSE          TRUE   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read sequence info from samtools/seqkit style index</span></span>
-<span class="r-in"><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna.seqkit.fai"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read sequence info from samtools/seqkit style index</span></span></span>
+<span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna.seqkit.fai"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fai' with `read_fai()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales.fna.seqkit [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna.seqkit.fai]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
@@ -281,9 +667,9 @@ sequences.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> emales.fna.seqkit E4-10_086  <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">20</span>642 EMALE01    FALSE          TRUE   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> emales.fna.seqkit E4-10_112  <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">26</span>856 EMALE01    FALSE          TRUE   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> emales.fna.seqkit RCC970_01… <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">20</span>152 EMALE01    FALSE          TRUE   </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># read sequence info from multiple gff file</span></span>
-<span class="r-in"><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>, <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-tirs.gff"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># read sequence info from multiple gff file</span></span></span>
+<span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>, <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-tirs.gff"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_seq_len()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]</span>
@@ -302,7 +688,7 @@ sequences.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> emales-tirs E4-10_086   <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">20</span>642</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> emales-tirs E4-10_112   <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">26</span>856</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> emales-tirs RCC970_016B <span style="color: #BB0000;">NA</span>        <span style="text-decoration: underline;">20</span>152</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -313,11 +699,11 @@ sequences.</p></li>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

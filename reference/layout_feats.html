@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,27 +63,34 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layout_feats</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">seqs</span>,
-  keep <span class="op">=</span> <span class="st">"strand"</span>,
-  marginal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trim"</span>, <span class="st">"drop"</span>, <span class="st">"keep"</span><span class="op">)</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layout_feats</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">seqs</span>,</span>
+<span>  keep <span class="op">=</span> <span class="st">"strand"</span>,</span>
+<span>  marginal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"trim"</span>, <span class="st">"drop"</span>, <span class="st">"keep"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>feat data convertible to a feat layout</p></dd>
+
+
 <dt>seqs</dt>
 <dd><p>the sequence layout the feat map onto.</p></dd>
+
+
 <dt>marginal</dt>
 <dd><p>how to handle feats that stick out of sequences, for
 example after focusing in on a subregion. Choices are to "drop" them, "keep"
 them or "trim" them to the subregion boundaries.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used</p></dd>
+
 </dl></div>
 
   </div>
@@ -94,11 +101,11 @@ them or "trim" them to the subregion boundaries.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

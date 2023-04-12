@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,23 +63,23 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gggenomes</span><span class="op">(</span>
-  genes <span class="op">=</span> <span class="cn">NULL</span>,
-  seqs <span class="op">=</span> <span class="cn">NULL</span>,
-  feats <span class="op">=</span> <span class="cn">NULL</span>,
-  links <span class="op">=</span> <span class="cn">NULL</span>,
-  .id <span class="op">=</span> <span class="st">"file_id"</span>,
-  spacing <span class="op">=</span> <span class="fl">0.05</span>,
-  wrap <span class="op">=</span> <span class="cn">NULL</span>,
-  adjacent_only <span class="op">=</span> <span class="cn">TRUE</span>,
-  infer_bin_id <span class="op">=</span> <span class="va">seq_id</span>,
-  infer_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,
-  infer_end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,
-  infer_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,
-  theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clean"</span>, <span class="cn">NULL</span><span class="op">)</span>,
-  .layout <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gggenomes</span><span class="op">(</span></span>
+<span>  genes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  seqs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  feats <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  links <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  .id <span class="op">=</span> <span class="st">"file_id"</span>,</span>
+<span>  spacing <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  wrap <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  adjacent_only <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  infer_bin_id <span class="op">=</span> <span class="va">seq_id</span>,</span>
+<span>  infer_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  infer_end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  infer_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clean"</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>  .layout <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,25 +94,37 @@ names are missing from the name of the variable containing each data.frame.
 Data columns:</p><ul><li><p>required: <code>seq_id,start,end</code></p></li>
 <li><p>recognized: <code>strand,bin_id,feat_id,introns</code></p></li>
 </ul></dd>
+
+
 <dt>seqs</dt>
 <dd><p>A data.frame or a character vector with paths to files containing
 sequence data. Data columns:</p><ul><li><p>required: <code>seq_id,length</code></p></li>
 <li><p>recognized: <code>bin_id,start,end,strand</code></p></li>
 </ul></dd>
+
+
 <dt>links</dt>
 <dd><p>A data.frame or a character vector with paths to files
 containing link data. Each item is added as links track. Data columns:</p><ul><li><p>required: <code>seq_id,seq_id2</code></p></li>
 <li><p>recognized: <code>start,end,bin_id,start2,end2,bin_id2,strand</code></p></li>
 </ul></dd>
+
+
 <dt>.id</dt>
 <dd><p>The name of the column for file labels that are created when
 reading directly from files. Defaults to "file_id". Set to "bin_id" if
 every file represents a different bin.</p></dd>
+
+
 <dt>spacing</dt>
 <dd><p>between sequences in bases (&gt;1) or relative to longest bin (&lt;1)</p></dd>
+
+
 <dt>wrap</dt>
 <dd><p>wrap bins into multiple lines with at most this many nucleotides
 per lin.</p></dd>
+
+
 <dt>infer_length, infer_start, infer_end, infer_bin_id</dt>
 <dd><p>used to infer pseudo
 seqs if only feats or links are provided, or if no bin_id column was
@@ -121,60 +133,355 @@ or link track.</p>
 <p>By default subregions of sequences from the first to the last feat/link
 are generated. Set <code>infer_start</code> to 0 to show all sequences from their
 true beginning.</p></dd>
+
+
 <dt>theme</dt>
 <dd><p>choose a gggenomes default theme, NULL to omit.</p></dd>
+
+
 <dt>.layout</dt>
 <dd><p>a pre-computed layout from <code><a href="layout_genomes.html">layout_genomes()</a></code>. Useful for
 developmental purposes.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>gggenomes-flavored ggplot object</p>
+    
+
+<p>gggenomes-flavored ggplot object</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Compare the genomic organization of three viral elements</span></span>
-<span class="r-in"><span class="co"># EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)</span></span>
-<span class="r-in"><span class="fu">gggenomes</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                  <span class="co"># chromosomes and labels</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">8</span><span class="op">)</span> <span class="op">+</span>                              <span class="co"># terminal inverted repeats</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># genes</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span>                         <span class="co"># synteny-blocks</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Compare the genomic organization of three viral elements</span></span></span>
+<span class="r-in"><span><span class="co"># EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)</span></span></span>
+<span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                  <span class="co"># chromosomes and labels</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">8</span><span class="op">)</span> <span class="op">+</span>                              <span class="co"># terminal inverted repeats</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">strand</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># genes</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span>                         <span class="co"># synteny-blocks</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span>
 <span class="r-plt img"><img src="gggenomes-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># with some more information</span></span>
-<span class="r-in"><span class="fu">gggenomes</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span>, <span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="flip.html">flip_by_links</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.15</span>, color<span class="op">=</span><span class="st">"white"</span><span class="op">)</span> <span class="op">+</span>                        <span class="co"># synteny-blocks</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                                  <span class="co"># chromosomes and labels</span></span>
-<span class="r-in">  <span class="co"># thistle4, salmon4, burlywood4</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">6</span>, position<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span>                         <span class="co"># terminal inverted repeats</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"turquoise4"</span>, alpha<span class="op">=</span><span class="fl">.3</span>,</span>
-<span class="r-in">            position<span class="op">=</span><span class="st">"strand"</span>, size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_feat_text.html">geom_feat_note</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">type</span><span class="op">)</span>, data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>,</span>
-<span class="r-in">                 position<span class="op">=</span><span class="st">"strand"</span>, nudge_y <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># genes</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="co">#scale_fill_viridis_b() +</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,</span>
-<span class="r-in">                  group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,</span>
-<span class="r-in">              fill<span class="op">=</span><span class="st">"lavenderblush4"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span>y<span class="op">=</span><span class="op">-</span><span class="fl">.1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = "feat_id"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># with some more information</span></span></span>
+<span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span>, <span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="flip.html">flip_by_links</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.15</span>, color<span class="op">=</span><span class="st">"white"</span><span class="op">)</span> <span class="op">+</span>                        <span class="co"># synteny-blocks</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                                  <span class="co"># chromosomes and labels</span></span></span>
+<span class="r-in"><span>  <span class="co"># thistle4, salmon4, burlywood4</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">6</span>, position<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span>                         <span class="co"># terminal inverted repeats</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"turquoise4"</span>, alpha<span class="op">=</span><span class="fl">.3</span>,</span></span>
+<span class="r-in"><span>            position<span class="op">=</span><span class="st">"strand"</span>, size<span class="op">=</span><span class="fl">16</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_feat_text.html">geom_feat_note</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">type</span><span class="op">)</span>, data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                 position<span class="op">=</span><span class="st">"strand"</span>, nudge_y <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># genes</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="co">#scale_fill_viridis_b() +</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                  group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              fill<span class="op">=</span><span class="st">"lavenderblush4"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span>y<span class="op">=</span><span class="op">-</span><span class="fl">.1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: 2,3,4</span>
 <span class="r-plt img"><img src="gggenomes-2.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># initialize plot directly from files</span></span>
-<span class="r-in"><span class="fu">gggenomes</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-tirs.gff"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.paf"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># initialize plot directly from files</span></span></span>
+<span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-tirs.gff"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.paf"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 4 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 5 &gt; 1' in coercion to 'logical(1)'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -186,6 +493,30 @@ developmental purposes.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    CDS     143</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'length(x) = 3 &gt; 1' in coercion to 'logical(1)'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -204,17 +535,17 @@ developmental purposes.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_seq_len()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
 <span class="r-plt img"><img src="gggenomes-3.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># multi-contig genomes wrap to fixed width</span></span>
-<span class="r-in"><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># multi-contig genomes wrap to fixed width</span></span></span>
+<span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970 [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa]</span>
-<span class="r-in"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span> <span class="op">&gt;</span> <span class="fl">5e5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">gggenomes</span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span> <span class="op">&gt;</span> <span class="fl">5e5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="gggenomes-4.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
@@ -226,11 +557,11 @@ developmental purposes.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

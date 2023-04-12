@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,35 +63,38 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_alitv</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_alitv</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file</dt>
 <dd><p>path to json</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>list with seqs, genes, and links</p>
+    
+
+<p>list with seqs, genes, and links</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ali</span> <span class="op">&lt;-</span> <span class="fu">read_alitv</span><span class="op">(</span><span class="st">"https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">ali</span><span class="op">$</span><span class="va">genes</span>, <span class="va">ali</span><span class="op">$</span><span class="va">seqs</span>, links<span class="op">=</span><span class="va">ali</span><span class="op">$</span><span class="va">links</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ali</span> <span class="op">&lt;-</span> <span class="fu">read_alitv</span><span class="op">(</span><span class="st">"https://alitvteam.github.io/AliTV/d3/data/chloroplasts.json"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">ali</span><span class="op">$</span><span class="va">genes</span>, <span class="va">ali</span><span class="op">$</span><span class="va">seqs</span>, links<span class="op">=</span><span class="va">ali</span><span class="op">$</span><span class="va">links</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="read_alitv-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">ali</span><span class="op">$</span><span class="va">genes</span>, <span class="va">ali</span><span class="op">$</span><span class="va">seqs</span>, links<span class="op">=</span><span class="va">ali</span><span class="op">$</span><span class="va">links</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">identity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"RdYlGn"</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="flip.html">flip_seqs</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="pick.html">pick_seqs</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">8</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">ali</span><span class="op">$</span><span class="va">genes</span>, <span class="va">ali</span><span class="op">$</span><span class="va">seqs</span>, links<span class="op">=</span><span class="va">ali</span><span class="op">$</span><span class="va">links</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">class</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">identity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"RdYlGn"</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="flip.html">flip_seqs</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="pick.html">pick_seqs</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">8</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="read_alitv-2.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
@@ -103,11 +106,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

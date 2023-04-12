@@ -23,7 +23,7 @@ context read_seqs("*.gbk"), a sequence index.'><meta property="og:image" content
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -75,31 +75,40 @@ context <code>read_seqs("*.gbk")</code>, a sequence index.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">def_formats</span><span class="op">(</span>
-  file <span class="op">=</span> <span class="cn">NULL</span>,
-  ext <span class="op">=</span> <span class="cn">NULL</span>,
-  context <span class="op">=</span> <span class="cn">NULL</span>,
-  parser <span class="op">=</span> <span class="cn">NULL</span>,
-  allow_na <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">def_formats</span><span class="op">(</span></span>
+<span>  file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ext <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  context <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parser <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  allow_na <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file</dt>
 <dd><p>a vector of file names</p></dd>
+
+
 <dt>ext</dt>
 <dd><p>a vector of file extensions</p></dd>
+
+
 <dt>context</dt>
 <dd><p>a vector of file contexts defined in
 <code>gggenomes_global$def_formats</code></p></dd>
+
+
 <dt>parser</dt>
 <dd><p>a vector of file parsers defined in
 <code>gggenomes_global$def_formats</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>dictionarish vector of file formats with recognized extensions as
+    
+
+<p>dictionarish vector of file formats with recognized extensions as
 names</p>
     </div>
     <div id="defined-formats-extensions-contexts-and-parsers">
@@ -107,36 +116,37 @@ names</p>
     
 
 <div class="sourceCode"><pre><code>
-     format                           ext            context                                              parser
-1 ambigious                 txt, tsv, csv                 NA                                      read_ambigious
-2     fasta fa, fas, fasta, ffn, fna, faa               seqs                                        read_seq_len
-3       fai                           fai               seqs                                            read_fai
-4      gff3          gff, gff3, gff2, gtf        feats, seqs                             read_gff3, read_seq_len
-5       gbk           gbk, gb, gbff, gpff        feats, seqs                              read_gbk, read_seq_len
-6       bed                           bed              feats                                            read_bed
-7     blast                    m8, o6, o7       feats, links                              read_blast, read_blast
-8       paf                           paf       feats, links                                  read_paf, read_paf
-9     alitv                          json feats, seqs, links read_alitv_genes, read_alitv_seqs, read_alitv_links
+      format                           ext            context                                              parser
+1  ambigious                 txt, tsv, csv                 NA                                      read_ambigious
+2      fasta fa, fas, fasta, ffn, fna, faa               seqs                                        read_seq_len
+3        fai                           fai               seqs                                            read_fai
+4       gff3          gff, gff3, gff2, gtf        feats, seqs                             read_gff3, read_seq_len
+5        gbk           gbk, gb, gbff, gpff        feats, seqs                              read_gbk, read_seq_len
+6        bed                           bed              feats                                            read_bed
+7      blast                    m8, o6, o7       feats, links                              read_blast, read_blast
+8        paf                           paf       feats, links                                  read_paf, read_paf
+9      alitv                          json feats, seqs, links read_alitv_genes, read_alitv_seqs, read_alitv_links
+10       vcf                           vcf              feats                                            read_vcf
 </code></pre></div>
 
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># vector of defined zip formats and recognized extensions as names</span></span>
-<span class="r-in"><span class="co"># format of file</span></span>
-<span class="r-in"><span class="fu">def_formats</span><span class="op">(</span><span class="st">"foo.fa"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># vector of defined zip formats and recognized extensions as names</span></span></span>
+<span class="r-in"><span><span class="co"># format of file</span></span></span>
+<span class="r-in"><span><span class="fu">def_formats</span><span class="op">(</span><span class="st">"foo.fa"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      fa </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "fasta" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># formats associated with each extension</span></span>
-<span class="r-in"><span class="fu">def_formats</span><span class="op">(</span>ext<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/qw.html" class="external-link">qc</a></span><span class="op">(</span><span class="va">fa</span>, <span class="va">gff</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># formats associated with each extension</span></span></span>
+<span class="r-in"><span><span class="fu">def_formats</span><span class="op">(</span>ext<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/qw.html" class="external-link">qc</a></span><span class="op">(</span><span class="va">fa</span>, <span class="va">gff</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      fa     gff </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "fasta"  "gff3" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># all formats/extensions that can be read in seqs context; includes formats</span></span>
-<span class="r-in"><span class="co"># that are defined for context=NA, i.e. that can be read in any context.</span></span>
-<span class="r-in"><span class="fu">def_formats</span><span class="op">(</span>context<span class="op">=</span><span class="st">"seqs"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># all formats/extensions that can be read in seqs context; includes formats</span></span></span>
+<span class="r-in"><span><span class="co"># that are defined for context=NA, i.e. that can be read in any context.</span></span></span>
+<span class="r-in"><span><span class="fu">def_formats</span><span class="op">(</span>context<span class="op">=</span><span class="st">"seqs"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        json         txt         tsv         csv         fai          fa </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "alitv" "ambigious" "ambigious" "ambigious"       "fai"     "fasta" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         fas       fasta         ffn         fna         faa         gbk </span>
@@ -155,11 +165,11 @@ names</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

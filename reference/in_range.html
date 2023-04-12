@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,40 +63,47 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, closed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, closed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a numeric vector of values</p></dd>
+
+
 <dt>left, right</dt>
 <dd><p>boundary values or vectors of same length as x</p></dd>
+
+
 <dt>closed</dt>
 <dd><p>wether to include (<code>TRUE</code>) or exclude (<code>FALSE</code>) the
 endpoints. Provide 2 values for different behaviors for lower and upper
 boundary, e.g. <code>c(TRUE, FALSE)</code> to include only the lower boundary.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a logical vector of the same length as the input</p>
+    
+
+<p>a logical vector of the same length as the input</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">in_range</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">in_range</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE  TRUE  TRUE  TRUE FALSE</span>
-<span class="r-in"><span class="fu">in_range</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">4</span>, closed<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># left-open</span></span>
+<span class="r-in"><span><span class="fu">in_range</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">2</span>, <span class="fl">4</span>, closed<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># left-open</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE  TRUE  TRUE FALSE</span>
-<span class="r-in"><span class="fu">in_range</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># vector of boundaries, single values recycle</span></span>
+<span class="r-in"><span><span class="fu">in_range</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">6</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="co"># vector of boundaries, single values recycle</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE FALSE  TRUE FALSE FALSE</span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># plays nicely with dplyr</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, left<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, right<span class="op">=</span><span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">df</span>,</span>
-<span class="r-in">  closed<span class="op">=</span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">  open<span class="op">=</span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plays nicely with dplyr</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, left<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, right<span class="op">=</span><span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">df</span>,</span></span>
+<span class="r-in"><span>  closed<span class="op">=</span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  open<span class="op">=</span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       x  left right closed open </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
@@ -115,11 +122,11 @@ boundary, e.g. <code>c(TRUE, FALSE)</code> to include only the lower boundary.</
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,37 +63,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">add_feats</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">add_links</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .adjacent_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">add_subfeats</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .track_id <span class="op">=</span> <span class="st">"genes"</span>, .transform <span class="op">=</span> <span class="st">"aa2nuc"</span><span class="op">)</span>
-
-<span class="fu">add_sublinks</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .track_id <span class="op">=</span> <span class="st">"genes"</span>, .transform <span class="op">=</span> <span class="st">"aa2nuc"</span><span class="op">)</span>
-
-<span class="fu">add_clusters</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .track_id <span class="op">=</span> <span class="st">"genes"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_feats</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_links</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .adjacent_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_subfeats</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .track_id <span class="op">=</span> <span class="st">"genes"</span>, .transform <span class="op">=</span> <span class="st">"aa2nuc"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_sublinks</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .track_id <span class="op">=</span> <span class="st">"genes"</span>, .transform <span class="op">=</span> <span class="st">"aa2nuc"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_clusters</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .track_id <span class="op">=</span> <span class="st">"genes"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>named data.frames, i.e. genes=gene_df, snps=snp_df</p></dd>
+
+
 <dt>.track_id</dt>
 <dd><p>track_id of the feats that subfeats, sublinks or clusters map to.</p></dd>
+
+
 <dt>.transform</dt>
 <dd><p>one of "aa2nuc", "none", "nuc2aa"</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>add_feats</code>: Add feature annotations to sequences</p></li>
-<li><p><code>add_links</code>: Add links connecting sequences, such as whole-genome
+<ul><li><p><code>add_feats()</code>: Add feature annotations to sequences</p></li>
+<li><p><code>add_links()</code>: Add links connecting sequences, such as whole-genome
 alignment data.</p></li>
-<li><p><code>add_subfeats</code>: Add features of features, such as gene/protein
+<li><p><code>add_subfeats()</code>: Add features of features, such as gene/protein
 domains, blast hits to genes/proteins, etc.</p></li>
-<li><p><code>add_sublinks</code>: Add links that connect features, such as
+<li><p><code>add_sublinks()</code>: Add links that connect features, such as
 protein-protein alignments connecting genes.</p></li>
-<li><p><code>add_clusters</code>: Add gene clusters or other feature groups. Takes a
+<li><p><code>add_clusters()</code>: Add gene clusters or other feature groups. Takes a
 data.frame with at least two required columns <code>cluster_id</code> and <code>feat_id</code>. The
 data.frame is converted to a link track connecting features belonging to the
 same cluster over their entire length. Additionally, the data.frame is joined
@@ -103,48 +108,48 @@ to the parent table.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Add some repeat annotations</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">add_feats</span><span class="op">(</span>repeats<span class="op">=</span><span class="va">emale_tirs</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Add some repeat annotations</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">add_feats</span><span class="op">(</span>repeats<span class="op">=</span><span class="va">emale_tirs</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_tracks-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add all-vs-all whole-genome alignments</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">add_links</span><span class="op">(</span>links<span class="op">=</span><span class="va">emale_ava</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add all-vs-all whole-genome alignments</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">add_links</span><span class="op">(</span>links<span class="op">=</span><span class="va">emale_ava</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_tracks-2.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add domains to genes</span></span>
-<span class="r-in"><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>seq_id<span class="op">=</span><span class="st">"A"</span>, start<span class="op">=</span><span class="fl">100</span>, end<span class="op">=</span><span class="fl">200</span>, feat_id<span class="op">=</span><span class="st">"gene1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">domains</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>feat_id <span class="op">=</span> <span class="st">"gene1"</span>, start<span class="op">=</span><span class="fl">40</span>, end<span class="op">=</span><span class="fl">80</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>genes<span class="op">=</span><span class="va">genes</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_subfeats</span><span class="op">(</span><span class="va">domains</span>, .transform <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add domains to genes</span></span></span>
+<span class="r-in"><span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>seq_id<span class="op">=</span><span class="st">"A"</span>, start<span class="op">=</span><span class="fl">100</span>, end<span class="op">=</span><span class="fl">200</span>, feat_id<span class="op">=</span><span class="st">"gene1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">domains</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>feat_id <span class="op">=</span> <span class="st">"gene1"</span>, start<span class="op">=</span><span class="fl">40</span>, end<span class="op">=</span><span class="fl">80</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>genes<span class="op">=</span><span class="va">genes</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">add_subfeats</span><span class="op">(</span><span class="va">domains</span>, .transform <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="add_tracks-3.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add protein-protein alignments</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">add_sublinks</span><span class="op">(</span><span class="va">emale_prot_ava</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add protein-protein alignments</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">add_sublinks</span><span class="op">(</span><span class="va">emale_prot_ava</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Transforming sublinks with "aa2nuc". Disable with `.transform = "none"`</span>
 <span class="r-plt img"><img src="add_tracks-4.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># add clusters</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">add_clusters</span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="flip.html">flip_by_links</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>    <span class="co"># works because clusters</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>        <span class="co"># become links</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="co"># works because cluster info is joined to gene track</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">cluster_id</span><span class="op">)</span>, <span class="cn">NA</span>,</span>
-<span class="r-in">      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html" class="external-link">str_glue</a></span><span class="op">(</span><span class="st">"{cluster_id} [{cluster_size}]"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_fill_discrete</a></span><span class="op">(</span><span class="st">"COGs"</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining, by = "feat_id"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add clusters</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">add_clusters</span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="flip.html">flip_by_links</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>    <span class="co"># works because clusters</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>        <span class="co"># become links</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="co"># works because cluster info is joined to gene track</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">cluster_id</span><span class="op">)</span>, <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html" class="external-link">str_glue</a></span><span class="op">(</span><span class="st">"{cluster_id} [{cluster_size}]"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_fill_discrete</a></span><span class="op">(</span><span class="st">"COGs"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: 2,3,4</span>
 <span class="r-plt img"><img src="add_tracks-5.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -155,11 +160,11 @@ to the parent table.</p></li>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

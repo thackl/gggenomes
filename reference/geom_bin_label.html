@@ -19,7 +19,7 @@ expands the plot to the left by 20% to make labels visible."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -67,27 +67,29 @@ expands the plot to the left by 20% to make labels visible.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">geom_bin_label</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">bins</a></span><span class="op">(</span><span class="op">)</span>,
-  hjust <span class="op">=</span> <span class="fl">1</span>,
-  size <span class="op">=</span> <span class="fl">3</span>,
-  nudge_left <span class="op">=</span> <span class="fl">0.05</span>,
-  expand_left <span class="op">=</span> <span class="fl">0.2</span>,
-  expand_x <span class="op">=</span> <span class="cn">NULL</span>,
-  expand_aes <span class="op">=</span> <span class="cn">NULL</span>,
-  yjust <span class="op">=</span> <span class="fl">0</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_bin_label</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">bins</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  hjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  nudge_left <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  expand_left <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  expand_x <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  expand_aes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  yjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mapping</dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> or
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
+<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
+at the top level of the plot. You must supply <code>mapping</code> if there is no plot
+mapping.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data to be displayed in this layer. There are three
 options:</p>
@@ -100,22 +102,35 @@ data. All objects will be fortified to produce a data frame. See
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
+
+
 <dt>nudge_left</dt>
 <dd><p>by this much relative to the widest bin</p></dd>
+
+
 <dt>expand_left</dt>
 <dd><p>by this much relative to the widest bin</p></dd>
+
+
 <dt>expand_x</dt>
 <dd><p>expand the plot to include this absolute x value</p></dd>
+
+
 <dt>expand_aes</dt>
 <dd><p>provide custom aes mappings for the expansion (advanced)</p></dd>
+
+
 <dt>yjust</dt>
 <dd><p>for multiline bins set to 0.5 to center labels on bins, and 1 to
 align labels to the bottom.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -125,39 +140,39 @@ specific location</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970 [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa]</span>
-<span class="r-in"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span><span class="op">&gt;</span><span class="fl">5e5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">geom_bin_label</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span><span class="op">&gt;</span><span class="fl">5e5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_bin_label</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="geom_bin_label-1.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># make larger labels and extra room on the canvas</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">geom_bin_label</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span>, expand_left <span class="op">=</span><span class="fl">.4</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># make larger labels and extra room on the canvas</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_bin_label</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span>, expand_left <span class="op">=</span><span class="fl">.4</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="geom_bin_label-2.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># align labels for wrapped bins:</span></span>
-<span class="r-in"><span class="co"># top</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bin_label</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># align labels for wrapped bins:</span></span></span>
+<span class="r-in"><span><span class="co"># top</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bin_label</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_bin_label-3.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># center</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bin_label</span><span class="op">(</span>yjust<span class="op">=</span><span class="fl">.5</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># center</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bin_label</span><span class="op">(</span>yjust<span class="op">=</span><span class="fl">.5</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_bin_label-4.png" alt="" width="960" height="480"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># bottom</span></span>
-<span class="r-in"><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bin_label</span><span class="op">(</span>yjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># bottom</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_bin_label</span><span class="op">(</span>yjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_bin_label-5.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
@@ -169,11 +184,11 @@ specific location</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

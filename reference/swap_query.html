@@ -19,7 +19,7 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ..."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -67,27 +67,30 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ...</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">swap_query</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">swap_query</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>tibble with query and subject columns</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>tibble with swapped query/subject columns</p>
+    
+
+<p>tibble with swapped query/subject columns</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">feats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
-<span class="r-in"> <span class="op">~</span><span class="va">seq_id</span>, <span class="op">~</span><span class="va">seq_id2</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">strand</span>, <span class="op">~</span><span class="va">start2</span>, <span class="op">~</span><span class="va">end2</span>, <span class="op">~</span><span class="va">evalue</span>,</span>
-<span class="r-in"> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="st">"+"</span>, <span class="fl">10000</span>, <span class="fl">10200</span>, <span class="fl">1e-5</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># make B the query</span></span>
-<span class="r-in"><span class="fu">swap_query</span><span class="op">(</span><span class="va">feats</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">feats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="op">~</span><span class="va">seq_id</span>, <span class="op">~</span><span class="va">seq_id2</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">strand</span>, <span class="op">~</span><span class="va">start2</span>, <span class="op">~</span><span class="va">end2</span>, <span class="op">~</span><span class="va">evalue</span>,</span></span>
+<span class="r-in"><span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="st">"+"</span>, <span class="fl">10000</span>, <span class="fl">10200</span>, <span class="fl">1e-5</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># make B the query</span></span></span>
+<span class="r-in"><span><span class="fu">swap_query</span><span class="op">(</span><span class="va">feats</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Swapping query/subject-associated columns</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> seq_id  start  end</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> seq_id2 start2 end2</span>
@@ -105,11 +108,11 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ...</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

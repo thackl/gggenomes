@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,26 +63,31 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">swap_if</span><span class="op">(</span><span class="va">x</span>, <span class="va">condition</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">swap_if</span><span class="op">(</span><span class="va">x</span>, <span class="va">condition</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>a tibble</p></dd>
+
+
 <dt>condition</dt>
 <dd><p>an expression to be evaluated in data context returning a
 TRUE/FALSE vector</p></dd>
+
+
 <dt>...</dt>
 <dd><p>the two columns bewteen which values are to be swapped in
 dplyr::select-like syntax</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">100</span><span class="op">)</span>, end<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># ensure start of a range is always smaller than the end</span></span>
-<span class="r-in"><span class="fu">gggenomes</span><span class="fu">:::</span><span class="fu">swap_if</span><span class="op">(</span><span class="va">x</span>, <span class="va">start</span> <span class="op">&gt;</span> <span class="va">end</span>, <span class="va">start</span>, <span class="va">end</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">100</span><span class="op">)</span>, end<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">50</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># ensure start of a range is always smaller than the end</span></span></span>
+<span class="r-in"><span><span class="fu">gggenomes</span><span class="fu">:::</span><span class="fu">swap_if</span><span class="op">(</span><span class="va">x</span>, <span class="va">start</span> <span class="op">&gt;</span> <span class="va">end</span>, <span class="va">start</span>, <span class="va">end</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   start   end</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -98,11 +103,11 @@ dplyr::select-like syntax</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

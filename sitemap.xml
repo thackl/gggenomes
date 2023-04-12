@@ -124,7 +124,13 @@
     <loc>/reference/geom_seq_label.html</loc>
   </url>
   <url>
+    <loc>/reference/geom_variant.html</loc>
+  </url>
+  <url>
     <loc>/reference/geom_wiggle.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_seqlen.html</loc>
   </url>
   <url>
     <loc>/reference/get_seqs.html</loc>
@@ -172,6 +178,9 @@
     <loc>/reference/position_strand.html</loc>
   </url>
   <url>
+    <loc>/reference/position_variant.html</loc>
+  </url>
+  <url>
     <loc>/reference/pull_track.html</loc>
   </url>
   <url>
@@ -202,10 +211,16 @@
     <loc>/reference/read_tracks.html</loc>
   </url>
   <url>
+    <loc>/reference/read_vcf.html</loc>
+  </url>
+  <url>
     <loc>/reference/reexports.html</loc>
   </url>
   <url>
     <loc>/reference/require_vars.html</loc>
+  </url>
+  <url>
+    <loc>/reference/scale_color_variant.html</loc>
   </url>
   <url>
     <loc>/reference/scale_x_bp.html</loc>
@@ -218,6 +233,9 @@
   </url>
   <url>
     <loc>/reference/swap_query.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synteny_to_link.html</loc>
   </url>
   <url>
     <loc>/reference/theme_gggenomes_clean.html</loc>

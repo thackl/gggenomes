@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,14 +63,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_context</span><span class="op">(</span>
-  <span class="va">files</span>,
-  <span class="va">context</span>,
-  .id <span class="op">=</span> <span class="st">"file_id"</span>,
-  format <span class="op">=</span> <span class="cn">NULL</span>,
-  parser <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_context</span><span class="op">(</span></span>
+<span>  <span class="va">files</span>,</span>
+<span>  <span class="va">context</span>,</span>
+<span>  .id <span class="op">=</span> <span class="st">"file_id"</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  parser <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,28 +80,39 @@
 compressed files (<code>.gz</code>, <code>.bz2</code>, <code>.xz</code>, or <code>.zip</code>) are supported.
 Similarly, automatic download of remote files starting with <code>http(s)://</code> or
 <code>ftp(s)://</code> works in most cases.</p></dd>
+
+
 <dt>context</dt>
 <dd><p>the context ("seqs", "feats", "links") in which a given format
 should be read.</p></dd>
+
+
 <dt>.id</dt>
 <dd><p>the column with the name of the file a record was read from.
 Defaults to "file_id". Set to "bin_id" if every file represents a different
 bin.</p></dd>
+
+
 <dt>format</dt>
 <dd><p>specify a format known to gggenomes, such as <code>gff3</code>, <code>gbk</code>, ...
 to overwrite automatic determination based on the file extension (see
 <code><a href="def_formats.html">def_formats()</a></code> for full list).</p></dd>
+
+
 <dt>parser</dt>
 <dd><p>specify the name of an R function to overwrite automatic
 determination based on format, e.g. <code>parser="read_tsv"</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>additional arguments passed on to the format-specific read
 function called down the line.</p></dd>
+
 </dl></div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>read_context</code>: bla keywords internal</p></li>
+<ul><li><p><code>read_context()</code>: bla keywords internal</p></li>
 </ul></div>
 
   </div>
@@ -112,11 +123,11 @@ function called down the line.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

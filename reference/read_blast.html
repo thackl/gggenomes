@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,14 +63,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_blast</span><span class="op">(</span>
-  <span class="va">file</span>,
-  col_names <span class="op">=</span> <span class="fu"><a href="def_names.html">def_names</a></span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span>,
-  col_types <span class="op">=</span> <span class="fu"><a href="def_names.html">def_types</a></span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span>,
-  comment <span class="op">=</span> <span class="st">"#"</span>,
-  swap_query <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_blast</span><span class="op">(</span></span>
+<span>  <span class="va">file</span>,</span>
+<span>  col_names <span class="op">=</span> <span class="fu"><a href="def_names.html">def_names</a></span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span>,</span>
+<span>  col_types <span class="op">=</span> <span class="fu"><a href="def_names.html">def_types</a></span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span>,</span>
+<span>  comment <span class="op">=</span> <span class="st">"#"</span>,</span>
+<span>  swap_query <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -83,20 +83,28 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href="https://readr.tidyverse.org/reference/clipboard.html" class="external-link">clipboard()</a></code> will read from the system clipboard.</p></dd>
+
+
 <dt>col_names</dt>
 <dd><p>column names to use. Defaults to def_names("blast")
 compatible with blast tabular output (<code>--outfmt 6/7</code> in blast++ and <code>-m8</code>
 in blast-legacy). def_names("blast") can easily be combined with extra
 columns: <code>col_names = c(def_names("blast"), "more", "things")</code>.</p></dd>
+
+
 <dt>col_types</dt>
 <dd><p>column types to use. Defaults to def_types("gff3").</p></dd>
+
+
 <dt>swap_query</dt>
 <dd><p>if TRUE swap query and subject columns using <code><a href="swap_query.html">swap_query()</a></code>
 on import.</p></dd>
+
 </dl></div>
 
   </div>
@@ -107,11 +115,11 @@ on import.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

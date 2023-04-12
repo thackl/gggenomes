@@ -18,7 +18,7 @@ col_names and a col_types argument."><meta property="og:image" content="/logo.sv
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -65,21 +65,25 @@ col_names and a col_types argument."><meta property="og:image" content="/logo.sv
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">def_names</span><span class="op">(</span><span class="va">format</span><span class="op">)</span>
-
-<span class="fu">def_types</span><span class="op">(</span><span class="va">format</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">def_names</span><span class="op">(</span><span class="va">format</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">def_types</span><span class="op">(</span><span class="va">format</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="value">
     <h2>Value</h2>
-    <p>a vector with default column names for the given format
-a vector with default column types for the given format</p>
+    
+
+<p>a vector with default column names for the given format</p>
+
+
+<p>a vector with default column types for the given format</p>
     </div>
     <div id="functions">
     <h2>Functions</h2>
     
-<ul><li><p><code>def_names</code>: default column names for defined formats</p></li>
-<li><p><code>def_types</code>: default column types for defined formats</p></li>
+<ul><li><p><code>def_names()</code>: default column names for defined formats</p></li>
+<li><p><code>def_types()</code>: default column types for defined formats</p></li>
 </ul></div>
     <div id="defined-formats-column-types-and-names">
     <h2>Defined formats, column types and names</h2>
@@ -92,14 +96,15 @@ a vector with default column types for the given format</p>
   bed        ciicdc          seq_id,start,end,name,score,strand
   fai        ci---           seq_id,seq_desc,length
   seq_len    cci             seq_id,seq_desc,length
+  vcf        cicccdccc       seq_id,start,feat_id,ref,alt,qual,filter,info,format
 </code></pre></div>
 
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># read a blast-tabular file with read_tsv</span></span>
-<span class="r-in"><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-prot-ava.o6"</span><span class="op">)</span>, col_names<span class="op">=</span><span class="fu">def_names</span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># read a blast-tabular file with read_tsv</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-prot-ava.o6"</span><span class="op">)</span>, col_names<span class="op">=</span><span class="fu">def_names</span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">827</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">12</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> "\t"</span>
@@ -121,7 +126,8 @@ a vector with default column types for the given format</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E4-10_112_00… E4-10_…  1        406        0       0     1   406      1   406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E4-10_112_00… BVI_06…  0.997    406        1       0     1   406      1   406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E4-10_112_00… BVI_00…  0.987    406        5       0     1   406      1   406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 817 more rows, and 2 more variables: evalue &lt;dbl&gt;, bitscore &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 817 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: evalue &lt;dbl&gt;, bitscore &lt;dbl&gt;</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -132,11 +138,11 @@ a vector with default column types for the given format</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

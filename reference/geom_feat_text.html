@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -63,114 +63,116 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">geom_feat_text</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  position <span class="op">=</span> <span class="st">"identity"</span>,
-  <span class="va">...</span>,
-  parse <span class="op">=</span> <span class="cn">FALSE</span>,
-  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">geom_feat_tag</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  position <span class="op">=</span> <span class="st">"identity"</span>,
-  hjust <span class="op">=</span> <span class="fl">0</span>,
-  vjust <span class="op">=</span> <span class="fl">0</span>,
-  angle <span class="op">=</span> <span class="fl">45</span>,
-  nudge_y <span class="op">=</span> <span class="fl">0.03</span>,
-  xjust <span class="op">=</span> <span class="fl">0.5</span>,
-  strandwise <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>,
-  parse <span class="op">=</span> <span class="cn">FALSE</span>,
-  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">geom_feat_note</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  position <span class="op">=</span> <span class="st">"identity"</span>,
-  hjust <span class="op">=</span> <span class="fl">0</span>,
-  vjust <span class="op">=</span> <span class="fl">1</span>,
-  nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.03</span>,
-  xjust <span class="op">=</span> <span class="fl">0</span>,
-  strandwise <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>,
-  parse <span class="op">=</span> <span class="cn">FALSE</span>,
-  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">geom_gene_text</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="op">)</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  position <span class="op">=</span> <span class="st">"identity"</span>,
-  <span class="va">...</span>,
-  parse <span class="op">=</span> <span class="cn">FALSE</span>,
-  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">geom_gene_tag</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="op">)</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  position <span class="op">=</span> <span class="st">"identity"</span>,
-  hjust <span class="op">=</span> <span class="fl">0</span>,
-  vjust <span class="op">=</span> <span class="fl">0</span>,
-  angle <span class="op">=</span> <span class="fl">45</span>,
-  nudge_y <span class="op">=</span> <span class="fl">0.03</span>,
-  xjust <span class="op">=</span> <span class="fl">0.5</span>,
-  strandwise <span class="op">=</span> <span class="cn">TRUE</span>,
-  <span class="va">...</span>,
-  parse <span class="op">=</span> <span class="cn">FALSE</span>,
-  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="fu">geom_gene_note</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="op">)</span>,
-  stat <span class="op">=</span> <span class="st">"identity"</span>,
-  position <span class="op">=</span> <span class="st">"identity"</span>,
-  hjust <span class="op">=</span> <span class="fl">0</span>,
-  vjust <span class="op">=</span> <span class="fl">1</span>,
-  nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.03</span>,
-  xjust <span class="op">=</span> <span class="fl">0</span>,
-  strandwise <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>,
-  parse <span class="op">=</span> <span class="cn">FALSE</span>,
-  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,
-  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,
-  show.legend <span class="op">=</span> <span class="cn">NA</span>,
-  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_feat_text</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">geom_feat_tag</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  hjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  vjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  angle <span class="op">=</span> <span class="fl">45</span>,</span>
+<span>  nudge_y <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  strandwise <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">geom_feat_note</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  hjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  vjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.03</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  strandwise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">geom_gene_text</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">geom_gene_tag</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  hjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  vjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  angle <span class="op">=</span> <span class="fl">45</span>,</span>
+<span>  nudge_y <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  strandwise <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">geom_gene_note</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  hjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  vjust <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  nudge_y <span class="op">=</span> <span class="op">-</span><span class="fl">0.03</span>,</span>
+<span>  xjust <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  strandwise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  parse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  check_overlap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>mapping</dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> or
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
+<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
+at the top level of the plot. You must supply <code>mapping</code> if there is no plot
+mapping.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data to be displayed in this layer. There are three
 options:</p>
@@ -183,44 +185,60 @@ data. All objects will be fortified to produce a data frame. See
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
+
+
 <dt>stat</dt>
 <dd><p>The statistical transformation to use on the data for this
-layer, as a string.</p></dd>
+layer, either as a <code>ggproto</code> <code>Geom</code> subclass or as a string naming the
+stat stripped of the <code>stat_</code> prefix (e.g. <code>"count"</code> rather than
+<code>"stat_count"</code>)</p></dd>
+
+
 <dt>position</dt>
 <dd><p>Position adjustment, either as a string, or the result of
 a call to a position adjustment function. Cannot be jointy specified with
 <code>nudge_x</code> or <code>nudge_y</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></dd>
+
+
 <dt>parse</dt>
 <dd><p>If <code>TRUE</code>, the labels will be parsed into expressions and
 displayed as described in <code><a href="https://rdrr.io/r/grDevices/plotmath.html" class="external-link">?plotmath</a></code>.</p></dd>
+
+
 <dt>check_overlap</dt>
 <dd><p>If <code>TRUE</code>, text that overlaps previous text in the
 same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_label()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text()</a></code>.</p></dd>
+column before calling <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text()</a></code>. Note that this argument is not
+supported by <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_label()</a></code>.</p></dd>
+
+
 <dt>na.rm</dt>
 <dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
+
+
 <dt>show.legend</dt>
 <dd><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></dd>
+
+
 <dt>inherit.aes</dt>
 <dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href="https://ggplot2.tidyverse.org/reference/borders.html" class="external-link">borders()</a></code>.</p></dd>
-<dt>nudge_y</dt>
-<dd><p>Horizontal and vertical adjustment to nudge labels by.
-Useful for offsetting text from points, particularly on discrete scales.
-Cannot be jointly specified with <code>position</code>.</p></dd>
+
 </dl></div>
 
   </div>
@@ -231,11 +249,11 @@ Cannot be jointly specified with <code>position</code>.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -19,7 +19,7 @@ around a Perl-based gb2gff converter and read_gff3()."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.7.9000</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@ around a Perl-based <code>gb2gff</code> converter and <code><a href="read_gff3.h
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_gbk</span><span class="op">(</span><span class="va">file</span>, sources <span class="op">=</span> <span class="cn">NULL</span>, types <span class="op">=</span> <span class="cn">NULL</span>, infer_cds_parents <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_gbk</span><span class="op">(</span><span class="va">file</span>, sources <span class="op">=</span> <span class="cn">NULL</span>, types <span class="op">=</span> <span class="cn">NULL</span>, infer_cds_parents <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,14 +80,21 @@ be automatically uncompressed. Files starting with <code>http://</code>,
 <code>https://</code>, <code>ftp://</code>, or <code>ftps://</code> will be automatically
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.</p>
-<p>Literal data is most useful for examples and tests. To be recognised as a
-path, it must be wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string containing at least one
-new line, or be a vector containing at least one string with a new line.</p>
+<p>Literal data is most useful for examples and tests. To be recognised as
+literal data, the input must be either wrapped with <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, be a string
+containing at least one new line, or be a vector containing at least one
+string with a new line.</p>
 <p>Using a value of <code><a href="https://readr.tidyverse.org/reference/clipboard.html" class="external-link">clipboard()</a></code> will read from the system clipboard.</p></dd>
+
+
 <dt>sources</dt>
 <dd><p>only return features from these sources</p></dd>
+
+
 <dt>types</dt>
 <dd><p>only return features of these types, e.g. gene, CDS, ...</p></dd>
+
+
 <dt>infer_cds_parents</dt>
 <dd><p>infer the mRNA parent for CDS features based on
 overlapping coordinates. Default TRUE for gff2/gtf, FALSE for gff3. In most
@@ -96,10 +103,13 @@ Generally, this is not a problem, however, geom_gene calls parse the parent
 information to determine which CDS and mRNAs are part of the same gene
 model. Without the parent info, mRNA and CDS are plotted as individual
 features.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>tibble</p>
+    
+
+<p>tibble</p>
     </div>
 
   </div>
@@ -110,11 +120,11 @@ features.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand.</p>
+  <p></p><p>Developed by Thomas Hackl, Markus J. Ankenbrand, Bart van Adrichem.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
