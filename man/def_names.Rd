@@ -34,6 +34,7 @@ Intended to be used in \code{\link[readr:read_delim]{readr::read_tsv()}}-like fu
   bed        ciicdc          seq_id,start,end,name,score,strand
   fai        ci---           seq_id,seq_desc,length
   seq_len    cci             seq_id,seq_desc,length
+  vcf        cicccdccc       seq_id,start,feat_id,ref,alt,qual,filter,info,format
 }
 }
 
