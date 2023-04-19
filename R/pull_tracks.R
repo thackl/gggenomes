@@ -118,6 +118,10 @@ pull_feats.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore="genes",
     track <- introduce(track,
       type="CDS", introns = list(NULL),
       geom_id = paste0("geom_", row_number()))
+    if(all(is.na(track$type))){
+      inform('Only saw `type=NA` in genes and will treat everything as `type="CDS"`.')
+      track$type <- "CDS"
+    }
   }
   filter(track, ...)
 }
