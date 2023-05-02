@@ -53,6 +53,11 @@ or link track.
 By default subregions of sequences from the first to the last feat/link
 are generated. Set \code{infer_start} to 0 to show all sequences from their
 true beginning.}
+
+\item{adjacent_only}{Indicates whether links should be created between adjacent sequences/chromosomes only.
+By default it is set to \code{adjacent_only = TRUE}. If \code{FALSE}, links will be created between all sequences
+
+(\emph{not recommended for large data sets})}
 }
 \value{
 gggenomes_layout object
