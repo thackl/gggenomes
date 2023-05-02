@@ -1,15 +1,22 @@
 #' Draw feats
 #'
-#' Geom_feat allows the user to draw (additional) features to the plot/graph. 
-#' For example, specific regions within a sequence can be highlighted by color, size, etc..
-#' The function uses data from the feats' track.
+#'@description
+#' `geom_feat()` allows the user to draw (additional) features to the plot/graph. 
+#' For example, specific regions within a sequence (e.g. transposons, introns, mutation hotspots) 
+#' can be highlighted by color, size, etc.. 
 #' 
-#' geom_feat uses `ggplot2::geom_segment` under the hood. As a result, different aesthetics such as `alpha`, `linewidth`, `color`, etc. 
-#' can be called upon to modify the data visualization.
+#' @details
+#' `geom_feat` uses `ggplot2::geom_segment` under the hood. As a result, 
+#' different aesthetics such as *alpha*, *linewidth*, *color*, etc. 
+#' can be called upon to modify the visualization of the data.
 #' 
-#' @param data feat_layout
+#' *By default, the function uses the first feature track.* 
+#' 
+#' @param data feat_layout: Uses first data frame stored in the `feats` track by default.
 #' @param position describes how the position of different plotted features are adjusted. By default it uses `"pile"`, 
 #' but different ggplot2 position adjustments, such as `"identity` or `"jitter"` can be used as well. 
+#' @inheritParams ggplot2::geom_segment
+#' @importFrom ggplot2 geom_segment
 #' @export
 #' @examples 
 #' # Plotting data from the feats' track with adjusted linewidth and color

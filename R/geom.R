@@ -1,10 +1,44 @@
 #' draw seqs
 #'
-#' @param data seq_layout
+#' @description `geom_seq()` draws contigs for each sequence/chromosome supplied in the `seqs` track.
+#' If `seqs` track is empty, sequences are inferred from the `feats` or `links` track respectively.
+#' 
+#' (*The length of sequences can be deduced from the axis and is typically indicated in base pairs.*)
+#'
+#' @details
+#' `geom_seq()` uses `ggplot2::geom_segment()` under the hood. As a result, 
+#' different aesthetics such as *alpha*, *linewidth*, *color*, etc. 
+#' can be called upon to modify the visualization of the data.
+#' 
+#' Note: The `seqs` track indicates the length/region of the sequence/contigs that will be plotted.
+#' *Feats* or *links* data that falls outside of this region are ignored!
+#' @returns Sequence data drawn as contigs is added as a layer/component to the plot.
+#' 
+#' @param data seq_layout: Uses the first data frame stored in the `seqs` track, by default. 
 #' @param arrow set to non-NULL to generate default arrows
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
 #' @export
+#' @examples
+#' # Simple example of geom_seq
+#' gggenomes(seqs = emale_seqs) +
+#'  geom_seq() +               #creates contigs
+#'  geom_bin_label()           #labels bins/sequences
+#'
+#' # No sequence information supplied, will inform/warn that seqs are inferred from feats.
+#' gggenomes(genes = emale_genes) +
+#'  geom_seq() +               #creates contigs
+#'  geom_gene() +              #draws genes on top of contigs
+#'  geom_bin_label()           #labels bins/sequences
+#'
+#' # Sequence data controls what sequences and/or regions will be plotted. Here one sequence is filtered out, 
+#' # Notice that the genes of the removed sequence are silently ignored and thus not plotted.
+#' missing_seqs <- emale_seqs |> filter(seq_id != "Cflag_017B") |> arrange(seq_id) #`arrange` to restore alphabetical order.
+#' 
+#' gggenomes(seqs = missing_seqs, genes = emale_genes) +
+#'  geom_seq() +               #creates contigs
+#'  geom_gene() +              #draws genes on top of contigs
+#'  geom_bin_label()           #labels bins/sequences
 geom_seq <- function(mapping = NULL, data = seqs(),
     arrow = NULL, ...){
 

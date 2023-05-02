@@ -21,8 +21,19 @@ track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links")
 
 #' Basic info on tracks in a gggenomes object
 #'
-#' Call on a gggenomes or gggenomes_layout object to get a short tibble
-#' with ids, types, index and size of loaded tracks.
+#' Use `track_info()` to call on a gggenomes or gggenomes_layout object to return a short tibble
+#' with ids, types, index and size of the loaded tracks. 
+#' 
+#' @details The short tibble contains basic information on the tracks within the entered gggenomes object. 
+#' - **id** : Shows original name of inputted data frame (only when more than one data frames are present in a track).
+#' - **type** : The track in which the data frame is present.
+#' - **i** (index) : The chronological order of data frames in a specific track.
+#' - **n** (size) : Amount of objects **plotted** from the data frame.   
+#' (**not** the amount of objects *in* the inputted data frame)
+#' @examples 
+#' gggenomes(seqs = emale_seqs, feats= list(emale_genes, emale_tirs, emale_ngaros),  links = emale_ava) |>
+#' track_info()
+#' @return Short tibble with ids, types, index and size of loaded tracks.
 #' @export
 #' @inheritParams track_ids
 track_info <- function(x, ...){

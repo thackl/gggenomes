@@ -9,7 +9,24 @@ track_info(x, ...)
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
 }
+\value{
+Short tibble with ids, types, index and size of loaded tracks.
+}
 \description{
-Call on a gggenomes or gggenomes_layout object to get a short tibble
-with ids, types, index and size of loaded tracks.
+Use \code{track_info()} to call on a gggenomes or gggenomes_layout object to return a short tibble
+with ids, types, index and size of the loaded tracks.
+}
+\details{
+The short tibble contains basic information on the tracks within the entered gggenomes object.
+\itemize{
+\item \strong{id} : Shows original name of inputted data frame (only when more than one data frames are present in a track).
+\item \strong{type} : The track in which the data frame is present.
+\item \strong{i} (index) : The chronological order of data frames in a specific track.
+\item \strong{n} (size) : Amount of objects \strong{plotted} from the data frame.
+(\strong{not} the amount of objects \emph{in} the inputted data frame)
+}
+}
+\examples{
+gggenomes(seqs = emale_seqs, feats= list(emale_genes, emale_tirs, emale_ngaros),  links = emale_ava) |>
+track_info()
 }
