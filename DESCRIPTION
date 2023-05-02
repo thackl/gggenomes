@@ -1,9 +1,10 @@
 Package: gggenomes
 Title: A Grammar of Graphics for Comparative Genomics
-Version: 0.9.5.9000
+Version: 0.9.9.9000
 Authors@R: c(
   person("Thomas", "Hackl", email = "thackl@lim4.de", role = c("aut", "cre")),
   person("Markus J.", "Ankenbrand", email = "iimog@iimog.org", role = c("aut")),
+  person("Bart", "van Adrichem", role = c("aut")),
   person("Kristina", "Haslinger", email = "k.haslinger@rug.nl", role = c("ctb", "sad")))
 Description: gggenomes is an extension of ggplot2 for creating complex genomic
  maps. It builds on the power of ggplot2 and tidyverse adding new ggplot-style

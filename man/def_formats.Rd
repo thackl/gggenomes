@@ -39,16 +39,17 @@ context \code{read_seqs("*.gbk")}, a sequence index.
 \section{Defined formats, extensions, contexts, and parsers}{
 
 \preformatted{
-     format                           ext            context                                              parser
-1 ambigious                 txt, tsv, csv                 NA                                      read_ambigious
-2     fasta fa, fas, fasta, ffn, fna, faa               seqs                                        read_seq_len
-3       fai                           fai               seqs                                            read_fai
-4      gff3          gff, gff3, gff2, gtf        feats, seqs                             read_gff3, read_seq_len
-5       gbk           gbk, gb, gbff, gpff        feats, seqs                              read_gbk, read_seq_len
-6       bed                           bed              feats                                            read_bed
-7     blast                    m8, o6, o7       feats, links                              read_blast, read_blast
-8       paf                           paf       feats, links                                  read_paf, read_paf
-9     alitv                          json feats, seqs, links read_alitv_genes, read_alitv_seqs, read_alitv_links
+      format                           ext            context                                              parser
+1  ambigious                 txt, tsv, csv                 NA                                      read_ambigious
+2      fasta fa, fas, fasta, ffn, fna, faa               seqs                                        read_seq_len
+3        fai                           fai               seqs                                            read_fai
+4       gff3          gff, gff3, gff2, gtf        feats, seqs                             read_gff3, read_seq_len
+5        gbk           gbk, gb, gbff, gpff        feats, seqs                              read_gbk, read_seq_len
+6        bed                           bed              feats                                            read_bed
+7      blast                    m8, o6, o7       feats, links                              read_blast, read_blast
+8        paf                           paf       feats, links                                  read_paf, read_paf
+9      alitv                          json feats, seqs, links read_alitv_genes, read_alitv_seqs, read_alitv_links
+10       vcf                           vcf              feats                                            read_vcf
 }
 }
 

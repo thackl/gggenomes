@@ -20,6 +20,7 @@ reference:
     - starts_with("geom")
     - starts_with("position_")
     - scale_x_bp
+    - scale_color_variant
     - starts_with("theme_")
 - title: "Manipulate plot & data"
 - contents:
