@@ -26,6 +26,8 @@ Sequence data drawn as contigs is added as a layer/component to the plot.
 }
 \description{
 \code{geom_seq()} draws contigs for each sequence/chromosome supplied in the \code{seqs} track.
+Several sequences belonging to the same bin will be plotted next to one another.
+
 If \code{seqs} track is empty, sequences are inferred from the \code{feats} or \code{links} track respectively.
 
 (\emph{The length of sequences can be deduced from the axis and is typically indicated in base pairs.})
@@ -58,4 +60,29 @@ gggenomes(seqs = missing_seqs, genes = emale_genes) +
  geom_seq() +               #creates contigs
  geom_gene() +              #draws genes on top of contigs
  geom_bin_label()           #labels bins/sequences
+ 
+ # Several sequences belonging to the same *bin* are plotted next to one another
+seqs <- tibble(
+bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
+seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
+start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
+end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
+length = c(100, 100, 200, 50, 50, 100, 50, 300, 100))
+
+gggenomes(seqs = seqs) +
+geom_seq() +
+geom_bin_label() +  #label bins
+geom_seq_label()    #label individual sequences
+
+# Wrap bins uptill a certain amount.
+gggenomes(seqs = seqs, wrap=300) +
+geom_seq() +
+geom_bin_label() +  #label bins
+geom_seq_label()    #label individual sequences
+
+# Change the space between sequences belonging to one bin
+gggenomes(seqs = seqs, spacing = 100) +
+geom_seq() +
+geom_bin_label() +  #label bins
+geom_seq_label()    #label individual sequences
 }

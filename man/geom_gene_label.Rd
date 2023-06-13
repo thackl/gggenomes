@@ -2,7 +2,9 @@
 % Please edit documentation in R/geom.R
 \name{geom_gene_label}
 \alias{geom_gene_label}
-\title{draw feat labels}
+\alias{geom_feat_label}
+\alias{geom_link_label}
+\title{Draw feat/link labels}
 \usage{
 geom_gene_label(
   mapping = NULL,
@@ -13,7 +15,71 @@ geom_gene_label(
   size = 6,
   ...
 )
+
+geom_feat_label(
+  mapping = NULL,
+  data = feats(),
+  angle = 45,
+  hjust = 0,
+  nudge_y = 0.1,
+  size = 6,
+  ...
+)
+
+geom_link_label(
+  mapping = NULL,
+  data = links(),
+  angle = 0,
+  hjust = 0.5,
+  vjust = 0.5,
+  size = 4,
+  repel = FALSE,
+  ...
+)
+}
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{angle}{Defines the angle in which the text will be placed. *Note}
+
+\item{hjust}{Moves the text horizontally}
+
+\item{nudge_y}{Moves the text vertically an entire contig/sequence.
+(e.g. \code{nudge_y = 1} places the text to the contig above)}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
+
+\item{vjust}{Moves the text vertically}
 }
 \description{
-draw feat labels
+These \code{geom_..._label()} functions able the user to plot labels/text at individual features and/or links.
+Users have to indicate how to label the features/links by specifying \code{label = ...} or \verb{aes(label = ...}
+
+Position of labels can be adjusted with arguments such as \code{vjust}, \code{hjust}, \code{angle}, \code{nudge_y}, etc.
+Also check out \code{\link[=geom_bin_label]{geom_bin_label()}}, \code{\link[=geom_seq_label]{geom_seq_label()}} or \code{\link[=geom_feat_text]{geom_feat_text()}} given their resemblance.
+}
+\details{
+These labeling functions use \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} under the hood.
+Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
 }

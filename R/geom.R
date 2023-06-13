@@ -1,6 +1,9 @@
 #' draw seqs
 #'
-#' @description `geom_seq()` draws contigs for each sequence/chromosome supplied in the `seqs` track.
+#' @description 
+#' `geom_seq()` draws contigs for each sequence/chromosome supplied in the `seqs` track. 
+#' Several sequences belonging to the same bin will be plotted next to one another.
+#' 
 #' If `seqs` track is empty, sequences are inferred from the `feats` or `links` track respectively.
 #' 
 #' (*The length of sequences can be deduced from the axis and is typically indicated in base pairs.*)
@@ -39,6 +42,31 @@
 #'  geom_seq() +               #creates contigs
 #'  geom_gene() +              #draws genes on top of contigs
 #'  geom_bin_label()           #labels bins/sequences
+#'  
+#'  # Several sequences belonging to the same *bin* are plotted next to one another
+#' seqs <- tibble(
+#' bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
+#' seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
+#' start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
+#' end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
+#' length = c(100, 100, 200, 50, 50, 100, 50, 300, 100))
+#' 
+#' gggenomes(seqs = seqs) +
+#' geom_seq() +
+#' geom_bin_label() +  #label bins
+#' geom_seq_label()    #label individual sequences
+#' 
+#' # Wrap bins uptill a certain amount.
+#' gggenomes(seqs = seqs, wrap=300) +
+#' geom_seq() +
+#' geom_bin_label() +  #label bins
+#' geom_seq_label()    #label individual sequences
+#' 
+#' # Change the space between sequences belonging to one bin
+#' gggenomes(seqs = seqs, spacing = 100) +
+#' geom_seq() +
+#' geom_bin_label() +  #label bins
+#' geom_seq_label()    #label individual sequences
 geom_seq <- function(mapping = NULL, data = seqs(),
     arrow = NULL, ...){
 
@@ -52,8 +80,47 @@ geom_seq <- function(mapping = NULL, data = seqs(),
   geom_segment(mapping = mapping, data = data, arrow = arrow, ...)
 }
 
-#' draw feat labels
+#' Draw seq labels
+#' @description
+#' This function will put labels at each individual sequence.
+#' By default it will plot the `seq_id` as label, but users are able to change this manually.
+#' 
+#' Position of the label/text can be adjusted with the different arguments (e.g. `vjust`, `hjust`, `angle`, etc.) 
 #'
+#' @details
+#' This labeling function uses [ggplot2::geom_text()] under the hood. 
+#' Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
+#' 
+#'
+#' @inheritParams geom_gene_text
+#' @examples
+#' # example data
+#' seqs <- tibble(
+#' bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
+#' seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
+#' start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
+#' end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
+#' length = c(100, 100, 200, 50, 50, 100, 50, 300, 100))
+#' 
+#' # example plot using geom_seq_label
+#' gggenomes(seqs = seqs) +
+#' geom_seq() +
+#' geom_seq_label()
+#' 
+#' # changing default label to `length` column 
+#' gggenomes(seqs = seqs) +
+#' geom_seq() +
+#' geom_seq_label(aes(label=length))
+#' 
+#' # with horizontal adjustment 
+#' gggenomes(seqs = seqs) +
+#' geom_seq() +
+#' geom_seq_label(hjust = -5)
+#' 
+#' # with wrapping at 300
+#' gggenomes(seqs=seqs, wrap = 300) +
+#' geom_seq() +
+#' geom_seq_label()
 #' @export
 geom_seq_label <- function(mapping = NULL, data = seqs(),
     hjust = 0, vjust = 1, nudge_y = -0.15, size = 2.5, ...){
@@ -125,8 +192,20 @@ geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 3,
   }
   r
 }
-#' draw feat labels
+#' Draw feat/link labels
 #'
+#' @description 
+#' These `geom_..._label()` functions able the user to plot labels/text at individual features and/or links.
+#' Users have to indicate how to label the features/links by specifying `label = ...` or `aes(label = ...`
+#' 
+#' Position of labels can be adjusted with arguments such as `vjust`, `hjust`, `angle`, `nudge_y`, etc.  
+#' Also check out [gggenomes::geom_bin_label()], [gggenomes::geom_seq_label()] or [gggenomes::geom_feat_text()] given their resemblance.
+#' 
+#' @details
+#' These labeling functions use [ggplot2::geom_text()] under the hood. 
+#' Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
+#' 
+#' @inheritParams geom_gene_text
 #' @export
 geom_gene_label <- function(mapping = NULL, data = genes(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
@@ -137,7 +216,7 @@ geom_gene_label <- function(mapping = NULL, data = genes(),
   geom_text(mapping = mapping, data = data, angle = angle, hjust = hjust,
             nudge_y = nudge_y, size = size, ...)
 }
-#' @export
+#' @rdname geom_gene_label
 geom_feat_label <- function(mapping = NULL, data = feats(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
 
@@ -148,9 +227,7 @@ geom_feat_label <- function(mapping = NULL, data = feats(),
             nudge_y = nudge_y, size = size, ...)
 }
 
-#' draw link labels
-#'
-#' @export
+#' @rdname geom_gene_label
 geom_link_label <- function(mapping = NULL, data = links(),
     angle = 0,hjust = 0.5, vjust = 0.5, size = 4, repel=FALSE, ...){
 
