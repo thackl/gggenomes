@@ -3105,12 +3105,12 @@ different sequences</p>
 </li>
 </ul>
 <div class="section level3">
-<h3 id="the-seq-track---there-can-be-only-one">The seq track - there can be only one<a class="anchor" aria-label="anchor" href="#the-seq-track---there-can-be-only-one"></a>
+<h3 id="sequence-track---there-can-be-only-one">Sequence track - there can be only one<a class="anchor" aria-label="anchor" href="#sequence-track---there-can-be-only-one"></a>
 </h3>
 <p><strong><code>seq_id,length</code></strong> are the required
 variables and should be quite self-explanatory. It’s highly recommended
 (and might become compulsory in the future) for <code>seq_id</code>s to
-be unique within the entire dataset.</p>
+be unique within the entire data set.</p>
 <p>The optional column for seqs are:</p>
 <p><strong><code>bin_id</code></strong> to denote <strong>bins</strong>
 representing genomes or assemblies with multiple chromosomes or contigs.
@@ -3207,8 +3207,59 @@ handling might change in future versions.</p>
 <div class="section level3">
 <h3 id="link-tracks---show-me-the-synteny">Link tracks - show me the synteny<a class="anchor" aria-label="anchor" href="#link-tracks---show-me-the-synteny"></a>
 </h3>
-<p>Link tracks connect loci on two differ</p>
-<p>** WORK IN PROGRESS **</p>
+<p>The link track connects loci/regions on two adjacent
+sequences/genomes with one another. <strong>seq_id, seq_id2</strong> are
+the required variables for the link track. Once again, links with
+<code>seq_id</code>s not present in the sequence (<code>seq</code>)
+track will be silently ignored.<br>
+To correctly link specific loci/regions between sequences with one
+another, it is also highly recommend to use the following optional
+variables: <em>(Without the variables, <code>start</code>,
+start2<code>,</code>end<code>and</code>end2`, links will be made between
+two entire sequences/contigs and not between two specific
+loci/regions.)</em></p>
+<p><strong><code>start</code>, <code>start2</code></strong> indicates
+the starting position of the loci/region that will be linked between
+respectively the first sequence (seq_id) and the second sequence
+(seq_id2). <em>Note that links can and will only be created between
+adjacent sequences.</em></p>
+<p><strong><code>end</code>, <code>end2</code></strong> similar to
+<code>start</code> and <code>start2</code>, but now indicates the end of
+the loci/region that will be linked. Once again respectively for seq_id
+and seq_id2.</p>
+<p><strong><code>bin_id</code>, <code>bin_id2</code></strong> works as
+for seqs. The assignment of <code>bin_id</code>s to features is usually
+only useful, if no sequences are provided. Otherwise, bin information is
+inherited from the sequences.</p>
+<p><strong><code>strand</code></strong>, works as for feats.
+<code>strand</code> denotes the orientation of the link relative to each
+of the two sequences. If abscent, the orientation is derived from the
+start and end positions.</p>
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># some links</span></span>
+<span><span class="va">l0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>,</span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">801</span>, <span class="fl">1600</span><span class="op">)</span>,</span>
+<span>  end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">550</span>, <span class="fl">1300</span>, <span class="fl">1800</span><span class="op">)</span>,</span>
+<span>  seq_id2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"b"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
+<span>  start2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1100</span>, <span class="fl">1</span>, <span class="fl">1800</span><span class="op">)</span>,</span>
+<span>  end2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1450</span>, <span class="fl">500</span>, <span class="fl">1600</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># corresponding sequences</span></span>
+<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, </span>
+<span>  length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">2000</span><span class="op">)</span>,</span>
+<span>  start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2000</span>, <span class="fl">2000</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, links<span class="op">=</span><span class="va">l0</span><span class="op">)</span>  <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                  <span class="co"># draws contigs/chromosome lines  </span></span>
+<span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>            <span class="co"># labels each sequence</span></span>
+<span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>      <span class="co"># draws links between contigs</span></span></code></pre></div>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;"></p>
 </div>
 </div>
   </div>

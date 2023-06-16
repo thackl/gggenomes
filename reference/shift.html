@@ -80,6 +80,42 @@ same length as bins.</p></dd>
 
 </dl></div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic example plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown aesthetics: <span style="color: #00BB00;">data</span>, <span style="color: #00BB00;">layers</span>, <span style="color: #00BB00;">scales</span>, <span style="color: #00BB00;">mapping</span>, <span style="color: #00BB00;">theme</span>, <span style="color: #00BB00;">coordinates</span>,</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">facet</span>, <span style="color: #00BB00;">plot_env</span>, and <span style="color: #00BB00;">labels</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> Cannot add <span style="color: #0000BB;">&lt;ggproto&gt;</span> objects together</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to add this object to a <span style="color: #0000BB;">&lt;ggplot&gt;</span> object?</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># All bins have been shifted 10000 basepaiers</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span><span class="fu">shift</span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in geom_blank():</span> Problem while computing layer data.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Error occurred in the 1st layer.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `unrowname()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Can only remove rownames from <span style="color: #0000BB;">&lt;data.frame&gt;</span> and <span style="color: #0000BB;">&lt;matrix&gt;</span> objects</span>
+<span class="r-in"><span><span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> Cannot add <span style="color: #0000BB;">&lt;ggproto&gt;</span> objects together</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to add this object to a <span style="color: #0000BB;">&lt;ggplot&gt;</span> object?</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Only RCC970_016B bin has been shifted for 5000 basepaiers</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span><span class="fu">shift</span><span class="op">(</span>bins <span class="op">=</span> <span class="va">RCC970_016B</span>, by <span class="op">=</span> <span class="fl">5000</span>, center <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in geom_blank():</span> Problem while computing layer data.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Error occurred in the 1st layer.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `unrowname()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Can only remove rownames from <span style="color: #0000BB;">&lt;data.frame&gt;</span> and <span style="color: #0000BB;">&lt;matrix&gt;</span> objects</span>
+<span class="r-in"><span><span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> Cannot add <span style="color: #0000BB;">&lt;ggproto&gt;</span> objects together</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Did you forget to add this object to a <span style="color: #0000BB;">&lt;ggplot&gt;</span> object?</span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
