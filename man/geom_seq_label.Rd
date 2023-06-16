@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom.R
 \name{geom_seq_label}
 \alias{geom_seq_label}
-\title{draw feat labels}
+\title{Draw seq labels}
 \usage{
 geom_seq_label(
   mapping = NULL,
@@ -14,6 +14,75 @@ geom_seq_label(
   ...
 )
 }
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{hjust}{Moves the text horizontally}
+
+\item{vjust}{Moves the text vertically}
+
+\item{nudge_y}{Moves the text vertically an entire contig/sequence.
+(e.g. \code{nudge_y = 1} places the text to the contig above)}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
+}
 \description{
-draw feat labels
+This function will put labels at each individual sequence.
+By default it will plot the \code{seq_id} as label, but users are able to change this manually.
+
+Position of the label/text can be adjusted with the different arguments (e.g. \code{vjust}, \code{hjust}, \code{angle}, etc.)
+}
+\details{
+This labeling function uses \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} under the hood.
+Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
+}
+\examples{
+# example data
+seqs <- tibble(
+bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
+seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
+start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
+end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
+length = c(100, 100, 200, 50, 50, 100, 50, 300, 100))
+
+# example plot using geom_seq_label
+gggenomes(seqs = seqs) +
+geom_seq() +
+geom_seq_label()
+
+# changing default label to `length` column 
+gggenomes(seqs = seqs) +
+geom_seq() +
+geom_seq_label(aes(label=length))
+
+# with horizontal adjustment 
+gggenomes(seqs = seqs) +
+geom_seq() +
+geom_seq_label(hjust = -5)
+
+# with wrapping at 300
+gggenomes(seqs=seqs, wrap = 300) +
+geom_seq() +
+geom_seq_label()
 }

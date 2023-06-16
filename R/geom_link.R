@@ -1,17 +1,28 @@
 #' Draw links
-#'
-#' Note that by default only links between adjacent genomes are computed and
-#' shown. Set `gggenomes(..., adjacent_only=TRUE)` to compute and show all links
-#' between all genomes.
+#' 
+#' @description
+#' `geom_link()` allows the user to link loci/regions between two sequences/genomes with one another.
+#'    
+#' *Note that by default only links between adjacent sequences are computed and shown.* 
+#' *To compute and show all links between all genomes, set `gggenomes(..., adjacent_only=FALSE)`.*
+#' 
+#' @details
+#' The function calls upon the data stored within the `link` track. Data frames added to
+#' this track have `seq_id` and `seq_id2` as required variables. Optional and recommended variables include 
+#' `start`, `start2`, `end`, `end2`, `bin_id`, `bin_id2` and `strand`.     
+#'    
+#' *Keep in mind: when start/end is not specified, links will be created between the entire contigs of `seq_id` and `seq_id2`*
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
 #' @examples
 #' p <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
 #' p + geom_link()
+#' 
 #' # change offset from seqs
 #' p + geom_link(aes(fill=de, color=de), offset = 0.05) +
 #'   scale_fill_viridis_b() + scale_colour_viridis_b()
+#'   
 #' # combine with flip
 #' p %>% flip(3,4,5) + geom_link()
 #' # compute & show all links among all genomes (not recommended for large dataset)

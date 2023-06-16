@@ -178,8 +178,8 @@ As mentioned before, tracks have required columns and optional columns, which ca
 - required: `seq_id,seq_id2`
 - recognized: `start,end,bin_id,start2,end2,bin_id2,strand`
 
-## The seq track - there can be only one
-**`seq_id,length`** are the required variables and should be quite self-explanatory. It's highly recommended (and might become compulsory in the future) for `seq_id`s to be unique within the entire dataset.
+## Sequence track - there can be only one
+**`seq_id,length`** are the required variables and should be quite self-explanatory. It's highly recommended (and might become compulsory in the future) for `seq_id`s to be unique within the entire data set. 
 
  The optional column for seqs are:
  
@@ -250,7 +250,40 @@ gggenomes(g0) +
 ```
 
 ## Link tracks - show me the synteny
-Link tracks connect loci on two differ
+The link track connects loci/regions on two adjacent sequences/genomes with one another. 
+**seq_id, seq_id2** are the required variables for the link track. Once again, links with `seq_id`s not present in the sequence (`seq`) track will be silently ignored.   
+To correctly link specific loci/regions between sequences with one another, it is also highly recommend to use the following optional variables:  *(Without the variables, `start`, start2`, `end` and `end2`, links will be made between two entire sequences/contigs and not between two specific loci/regions.)*
 
-** WORK IN PROGRESS **
+**`start`, `start2`** indicates the starting position of the loci/region that will be linked between respectively the first sequence (seq_id) and the second sequence (seq_id2). *Note that links can and will only be created between adjacent sequences.*
 
+**`end`, `end2`** similar to `start` and `start2`, but now indicates the end of the loci/region that will be linked. Once again respectively for seq_id and seq_id2.
+
+**`bin_id`, `bin_id2`** works as for seqs. The assignment of `bin_id`s to features is usually only useful, if no sequences are provided. Otherwise, bin information is inherited from the sequences.
+
+**`strand`**, works as for feats. `strand` denotes the orientation of the link relative to each of the two sequences. If abscent, the orientation is derived from the start and end positions.   
+
+```{r}
+# some links
+l0 <- tibble(
+  seq_id = c("a", "a", "a"),
+  start = c(200, 801, 1600),
+  end = c(550, 1300, 1800),
+  seq_id2 = c("b", "b", "b"),
+  start2 = c(1100, 1, 1800),
+  end2 = c(1450, 500, 1600)
+)
+
+# corresponding sequences
+s1 <- tibble(
+  seq_id = c("a", "b"), 
+  length = c(2000, 2000),
+  start = c(1, 1),
+  end = c(2000, 2000)
+)
+
+
+gggenomes(seqs=s1, links=l0)  +
+  geom_seq() +                  # draws contigs/chromosome lines  
+  geom_seq_label() +            # labels each sequence
+  geom_link(offset = 0.05)      # draws links between contigs
+```

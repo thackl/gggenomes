@@ -6,6 +6,23 @@
 #' @param bins to shift left/right, select-like expression
 #' @param by shift each bin by this many bases. Single value or vector of the
 #' same length as bins.
+#' @examples
+#' # Basic example plot
+#' gggenomes(seqs = emale_seqs) |>
+#' geom_seq() +
+#' geom_bin_label() 
+#' 
+#' # All bins have been shifted 10000 basepaiers
+#' gggenomes(seqs = emale_seqs) |>
+#' shift(bins = everything(), by = 10000)
+#' geom_seq() +
+#' geom_bin_label() 
+#' 
+#' # Only RCC970_016B bin has been shifted for 5000 basepaiers
+#' gggenomes(seqs = emale_seqs) |>
+#' shift(bins = RCC970_016B, by = 5000, center = FALSE)
+#' geom_seq() +
+#' geom_bin_label() 
 #' @export
 shift <- function(x, bins=everything(), by=0, center=FALSE){
   # split by bin_id and select bins

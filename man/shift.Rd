@@ -16,3 +16,21 @@ same length as bins.}
 Shift bins along the x-axis, i.e. left or right in the default plot
 layout. This is useful to align feats of interest in different bins.
 }
+\examples{
+# Basic example plot
+gggenomes(seqs = emale_seqs) |>
+geom_seq() +
+geom_bin_label() 
+
+# All bins have been shifted 10000 basepaiers
+gggenomes(seqs = emale_seqs) |>
+shift(bins = everything(), by = 10000)
+geom_seq() +
+geom_bin_label() 
+
+# Only RCC970_016B bin has been shifted for 5000 basepaiers
+gggenomes(seqs = emale_seqs) |>
+shift(bins = RCC970_016B, by = 5000, center = FALSE)
+geom_seq() +
+geom_bin_label() 
+}

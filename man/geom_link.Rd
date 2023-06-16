@@ -21,16 +21,26 @@ geom_link(
 \verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
 }
 \description{
-Note that by default only links between adjacent genomes are computed and
-shown. Set \code{gggenomes(..., adjacent_only=TRUE)} to compute and show all links
-between all genomes.
+\code{geom_link()} allows the user to link loci/regions between two sequences/genomes with one another.
+
+\emph{Note that by default only links between adjacent sequences are computed and shown.}
+\emph{To compute and show all links between all genomes, set \code{gggenomes(..., adjacent_only=FALSE)}.}
+}
+\details{
+The function calls upon the data stored within the \code{link} track. Data frames added to
+this track have \code{seq_id} and \code{seq_id2} as required variables. Optional and recommended variables include
+\code{start}, \code{start2}, \code{end}, \code{end2}, \code{bin_id}, \code{bin_id2} and \code{strand}.
+
+\emph{Keep in mind: when start/end is not specified, links will be created between the entire contigs of \code{seq_id} and \code{seq_id2}}
 }
 \examples{
 p <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
 p + geom_link()
+
 # change offset from seqs
 p + geom_link(aes(fill=de, color=de), offset = 0.05) +
   scale_fill_viridis_b() + scale_colour_viridis_b()
+  
 # combine with flip
 p \%>\% flip(3,4,5) + geom_link()
 # compute & show all links among all genomes (not recommended for large dataset)

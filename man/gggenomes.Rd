@@ -59,6 +59,11 @@ every file represents a different bin.}
 \item{wrap}{wrap bins into multiple lines with at most this many nucleotides
 per lin.}
 
+\item{adjacent_only}{Indicates whether links should be created between adjacent sequences/chromosomes only.
+By default it is set to \code{adjacent_only = TRUE}. If \code{FALSE}, links will be created between all sequences
+
+(\emph{not recommended for large data sets})}
+
 \item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
 seqs if only feats or links are provided, or if no bin_id column was
 provided. The expressions are evaluated in the context of the first feat
@@ -77,7 +82,25 @@ developmental purposes.}
 gggenomes-flavored ggplot object
 }
 \description{
-Plot genomes, features and synteny maps
+\code{gggenomes()} initializes a gggenomes-flavored ggplot object.
+It is used to declare the input data for gggenomes' track system.
+
+(\emph{See for more details on the track system, gggenomes vignette or the Details/Arguments section})
+}
+\details{
+\code{gggenomes::gggenomes()} resembles the functionality of \code{ggplot2::ggplot()}.
+It is used to construct the initial plot object, and is often followed by "+" to add components to the plot (\emph{e.g. "+ geom_gene()"}).
+
+A big difference between the two is that gggenomes has a multi-track setup (\emph{\code{'seqs'}, \code{'feats'}, \code{'genes'} and \code{'links'}}).
+\code{gggenomes()} pre-computes a layout and adds coordinates (\verb{y,x,xend}) to each data frame prior to the actual plot construction.
+This has some implications for the usage of gggenomes:
+\itemize{
+\item \strong{Data frames for tracks have required variables.} These predefined variables are used during import
+to compute x/y coordinates (\emph{see arguments}).
+\item \strong{gggenomes' geoms can often be used without explicit \code{aes()} mappings}  This works because
+we always know the names of the plot variables ahead of time: they originate from the pre-computed layout,
+and we can use that information to set sensible default aesthetic mappings for most cases.
+}
 }
 \examples{
 # Compare the genomic organization of three viral elements

@@ -136,7 +136,7 @@ stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
 \code{"stat_count"})}
 
 \item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function. Cannot be jointy specified with
+a call to a position adjustment function. Cannot be jointly specified with
 \code{nudge_x} or \code{nudge_y}.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
@@ -166,7 +166,72 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
+\item{hjust}{Moves the text horizontally}
+
+\item{vjust}{Moves the text vertically}
+
+\item{angle}{Defines the angle in which the text will be placed. *Note}
+
+\item{nudge_y}{Moves the text vertically an entire contig/sequence.
+(e.g. \code{nudge_y = 1} places the text to the contig above)}
 }
 \description{
-Add text to genes, features, etc.
+The functions below are useful for labeling features/genes in plots.
+Users have to call on \code{aes(label = ...)} or \code{(label = ...) }to define label's text
+Based on the function, the label will be placed at a specific location:
+\itemize{
+\item \code{geom_..._text()} will plot \strong{text in the middle of the feature}.
+\item \code{geom_..._tag()}  will plot \strong{text on top of the feature, with a 45 degree angle}.
+\item \code{geom_..._note()} will plot \strong{text under the feature at the left side}.
+}
+
+\emph{The \code{...} can be either replaced with \code{feat} or \code{gene} depending on which}
+\emph{track the user wants to label.}
+
+With arguments such as \code{hjust}, \code{vjust}, \code{angle}, and \code{nudge_y}, the user
+can also manually change the position of the text.
+}
+\details{
+These labeling functions use \code{ggplot2::geom_text()} under the hood.
+Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
+}
+\examples{
+# example data
+genes <- tibble(
+seq_id = c("A", "A", "A", "B", "B", "C"),
+start = c(20, 40, 80, 30, 10, 60),
+end = c(30, 70, 85, 40, 15, 90),
+feat_id = c("A1", "A2", "A3", "B1", "B2", "C1"),
+type = c("CDS", "CDS", "CDS", "CDS", "CDS", "CDS"),
+name = c("geneA", "geneB", "geneC", "geneA", "geneC", "geneB"))
+
+seqs <- tibble(
+seq_id = c("A", "B", "C"),
+start = c(0,0,0),
+end = c(100, 100, 100),
+length = c(100, 100, 100))
+
+# basic plot creation
+plot <- gggenomes(seqs=seqs, genes=genes) +
+geom_bin_label() +
+geom_gene()
+
+# geom_..._text
+plot + geom_gene_text(aes(label=name))
+
+# geom_..._tag
+plot + geom_gene_tag(aes(label=name))
+
+# geom_..._note
+plot + geom_gene_note(aes(label=name))
+
+# with horizontal adjustment (`hjust`), vertical adjustment (`vjust`) 
+plot + geom_gene_text(aes(label=name), vjust = -2, hjust = 1)
+
+# using `nudge_y` and and `angle` adjustment
+plot + geom_gene_text(aes(label=name), nudge_y= 1, angle = 10)
+
+# labeling with manual input
+plot + geom_gene_text(label = c("This", "is", "an", "example", "test", "test"))
 }

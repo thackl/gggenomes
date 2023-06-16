@@ -16,19 +16,51 @@ geom_feat(
 )
 }
 \arguments{
-\item{data}{feat_layout}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{feat_layout: Uses first data frame stored in the \code{feats} track by default.}
+
+\item{stat}{The statistical transformation to use on the data for this
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
 
 \item{position}{describes how the position of different plotted features are adjusted. By default it uses \code{"pile"},
 but different ggplot2 position adjustments, such as \verb{"identity} or \code{"jitter"} can be used as well.}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 }
 \description{
-Geom_feat allows the user to draw (additional) features to the plot/graph.
-For example, specific regions within a sequence can be highlighted by color, size, etc..
-The function uses data from the feats' track.
+\code{geom_feat()} allows the user to draw (additional) features to the plot/graph.
+For example, specific regions within a sequence (e.g. transposons, introns, mutation hotspots)
+can be highlighted by color, size, etc..
 }
 \details{
-geom_feat uses \code{ggplot2::geom_segment} under the hood. As a result, different aesthetics such as \code{alpha}, \code{linewidth}, \code{color}, etc.
-can be called upon to modify the data visualization.
+\code{geom_feat} uses \code{ggplot2::geom_segment} under the hood. As a result,
+different aesthetics such as \emph{alpha}, \emph{linewidth}, \emph{color}, etc.
+can be called upon to modify the visualization of the data.
+
+\emph{By default, the function uses the first feature track.}
 }
 \examples{
 # Plotting data from the feats' track with adjusted linewidth and color

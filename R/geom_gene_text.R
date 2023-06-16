@@ -1,8 +1,69 @@
 #' Add text to genes, features, etc.
 #'
-#'
+#' @description
+#' The functions below are useful for labeling features/genes in plots. 
+#' Users have to call on `aes(label = ...)` or `(label = ...) `to define label's text 
+#' Based on the function, the label will be placed at a specific location:
+#' - `geom_..._text()` will plot **text in the middle of the feature**.
+#' - `geom_..._tag()`  will plot **text on top of the feature, with a 45 degree angle**.
+#' - `geom_..._note()` will plot **text under the feature at the left side**.
+#' 
+#' *The `...` can be either replaced with `feat` or `gene` depending on which* 
+#' *track the user wants to label.* 
+#' 
+#' 
+#' With arguments such as `hjust`, `vjust`, `angle`, and `nudge_y`, the user 
+#' can also manually change the position of the text. 
+#' 
+#' @details
+#' These labeling functions use `ggplot2::geom_text()` under the hood. 
+#' Any changes to the aesthetics of the text can be performed in a ggplot2 manner. 
+#' @param hjust Moves the text horizontally
+#' @param vjust Moves the text vertically
+#' @param nudge_y Moves the text vertically an entire contig/sequence. 
+#' (e.g. `nudge_y = 1` places the text to the contig above)
+#' @param angle Defines the angle in which the text will be placed. *Note
+#' 
 #' @inheritParams ggplot2::geom_text
 #' @export
+#' @examples
+#' # example data
+#' genes <- tibble(
+#' seq_id = c("A", "A", "A", "B", "B", "C"),
+#' start = c(20, 40, 80, 30, 10, 60),
+#' end = c(30, 70, 85, 40, 15, 90),
+#' feat_id = c("A1", "A2", "A3", "B1", "B2", "C1"),
+#' type = c("CDS", "CDS", "CDS", "CDS", "CDS", "CDS"),
+#' name = c("geneA", "geneB", "geneC", "geneA", "geneC", "geneB"))
+#' 
+#' seqs <- tibble(
+#' seq_id = c("A", "B", "C"),
+#' start = c(0,0,0),
+#' end = c(100, 100, 100),
+#' length = c(100, 100, 100))
+#' 
+#' # basic plot creation
+#' plot <- gggenomes(seqs=seqs, genes=genes) +
+#' geom_bin_label() +
+#' geom_gene()
+#' 
+#' # geom_..._text
+#' plot + geom_gene_text(aes(label=name))
+#' 
+#' # geom_..._tag
+#' plot + geom_gene_tag(aes(label=name))
+#' 
+#' # geom_..._note
+#' plot + geom_gene_note(aes(label=name))
+#' 
+#' # with horizontal adjustment (`hjust`), vertical adjustment (`vjust`) 
+#' plot + geom_gene_text(aes(label=name), vjust = -2, hjust = 1)
+#' 
+#' # using `nudge_y` and and `angle` adjustment
+#' plot + geom_gene_text(aes(label=name), nudge_y= 1, angle = 10)
+#' 
+#' # labeling with manual input
+#' plot + geom_gene_text(label = c("This", "is", "an", "example", "test", "test"))
 geom_feat_text <- function(mapping = NULL, data = feats(), stat="identity", position="identity",
                            ..., parse = FALSE, check_overlap = FALSE, na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE){
