@@ -184,7 +184,7 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
 
   d <- map_df(str_split(x[[9]], "; *"), function(r){
     # handle missing comments
-    if(is.na(r) || str_length(r) == 0)
+    if(all(is.na(r) | str_length(r) == 0))
       return(tibble(.rows=1)) # make sure this df has at least 1 row!
 
     # ignore empty elements caused by trailing or duplicated ";"
