@@ -143,6 +143,8 @@ gggenomes <- function(genes=NULL, seqs=NULL, feats=NULL, links=NULL,
     p <- p + do.call(paste0("theme_gggenomes_", theme), theme_args)
   }
 
+  p <- p + geom_blank(data=seqs())
+
   p
 }
 
