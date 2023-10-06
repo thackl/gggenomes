@@ -58,7 +58,7 @@ Both functions use data from the feats' track."><meta property="og:image" conten
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Draw wiggle ribbons or lines</h1>
-    <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/HEAD/R/geom_coverage.R" class="external-link"><code>R/geom_coverage.R</code></a>, <a href="https://github.com/thackl/gggenomes/blob/HEAD/R/geom_coverage.r" class="external-link"><code>R/geom_coverage.r</code></a>, <a href="https://github.com/thackl/gggenomes/blob/HEAD/R/geom_wiggle.R" class="external-link"><code>R/geom_wiggle.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/HEAD/R/geom_coverage.R" class="external-link"><code>R/geom_coverage.R</code></a>, <a href="https://github.com/thackl/gggenomes/blob/HEAD/R/geom_wiggle.R" class="external-link"><code>R/geom_wiggle.R</code></a></small>
     <div class="hidden name"><code>geom_wiggle.Rd</code></div>
     </div>
 
@@ -71,9 +71,20 @@ Both functions use data from the feats' track.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_coverage</span><span class="op">(</span>bla <span class="op">=</span> <span class="st">"foo"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">geom_coverage</span><span class="op">(</span>bla <span class="op">=</span> <span class="st">"foo"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_coverage</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"coverage"</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"ribbon"</span>,</span>
+<span>  position <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  max <span class="op">=</span> <span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">geom_wiggle</span><span class="op">(</span></span>
 <span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -101,15 +112,15 @@ Both functions use data from the feats' track.</p>
 <dd><p>distance in plot between lowest and highest point of the wiggle data.</p></dd>
 
 
+<dt>max</dt>
+<dd><p>geom_coverage uses the function base::max by default, which plots data in positive direction.
+(base::min Can also be called here when the input data )</p></dd>
+
+
 <dt>bounds</dt>
 <dd><p>geom_wiggle uses mid, low and high boundary values for plotting wiggle data. Can
 be both a function or a vector returning those three values. Defaults to
 <a href="https://rdrr.io/pkg/Hmisc/man/smean.sd.html" class="external-link">Hmisc::smedian.hilow</a>.</p></dd>
-
-
-<dt>max</dt>
-<dd><p>geom_coverage uses the function base::max by default, which plots data in positive direction.
-(base::min Can also be called here when the input data )</p></dd>
 
 </dl></div>
     <div id="aesthetics">
