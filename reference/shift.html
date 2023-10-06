@@ -94,10 +94,7 @@ same length as bins.</p></dd>
 <span class="r-in"><span><span class="co"># All bins have been shifted 10000 basepaiers</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu">shift</span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, by <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in geom_blank():</span> Problem while computing layer data.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Error occurred in the 1st layer.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `unrowname()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Can only remove rownames from <span style="color: #0000BB;">&lt;data.frame&gt;</span> and <span style="color: #0000BB;">&lt;matrix&gt;</span> objects</span>
+<span class="r-plt img"><img src="shift-1.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> </span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> Cannot add <span style="color: #0000BB;">&lt;ggproto&gt;</span> objects together</span>
@@ -106,10 +103,7 @@ same length as bins.</p></dd>
 <span class="r-in"><span><span class="co"># Only RCC970_016B bin has been shifted for 5000 basepaiers</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu">shift</span><span class="op">(</span>bins <span class="op">=</span> <span class="va">RCC970_016B</span>, by <span class="op">=</span> <span class="fl">5000</span>, center <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in geom_blank():</span> Problem while computing layer data.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Error occurred in the 1st layer.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `unrowname()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Can only remove rownames from <span style="color: #0000BB;">&lt;data.frame&gt;</span> and <span style="color: #0000BB;">&lt;matrix&gt;</span> objects</span>
+<span class="r-plt img"><img src="shift-2.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> </span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> Cannot add <span style="color: #0000BB;">&lt;ggproto&gt;</span> objects together</span>
