@@ -1,7 +1,7 @@
 #' Flip bins and sequences
 #'
 #' `flip` and `flip_seqs` reverse-complement specified bins or individual
-#' sequences and their features. `flip_by_links` automatically flips bins using a
+#' sequences and their features. `sync` automatically flips bins using a
 #' heuristic that maximizes the amount of forward strand links between
 #' neighboring bins.
 #'
@@ -33,16 +33,16 @@
 #'
 #' # flip automatically based on genome-genome links
 #' p2 <- p %>% add_links(emale_ava) %>%
-#'   flip_by_links() + labs(caption="genome alignments")
+#'   sync() + labs(caption="genome alignments")
 #'
 #' # flip automatically based on protein-protein links
 #' p3 <- p %>% add_sublinks(emale_prot_ava) %>%
-#'   flip_by_links() + labs(caption="protein alignments")
+#'   sync() + labs(caption="protein alignments")
 #'
 #' # flip automatically based on genes linked implicitly by belonging
 #' # to the same clusters of orthologs (or any grouping of your choice)
 #' p4 <- p %>% add_clusters(emale_cogs) %>%
-#'   flip_by_links() + labs(caption="shared orthologs")
+#'   sync() + labs(caption="shared orthologs")
 #'
 #' p0 + p1 + p2 + p3 + p4 + plot_layout(nrow=1, guides="collect")
 #'
@@ -99,7 +99,7 @@ flip_seqs <- function(x, ..., .bins=everything(), .seq_track=seqs, .bin_track=se
 #' @export
 flip_seqs.gggenomes <- function(x, ..., .bins=everything(), .seq_track=seqs, .bin_track=seqs){
   x$data <- flip_seqs(x$data, ..., .bins={{.bins}}, .bin_track={{.bin_track}},
-      .seq_track={{.seq_track}})
+                      .seq_track={{.seq_track}})
   x
 }
 #' @export
@@ -109,56 +109,51 @@ flip_seqs.gggenomes_layout <- function(x, ..., .bins=everything(), .seq_track=se
 }
 #' @rdname flip
 #' @param link_track the link track to use for flipping bins nicely
-#' @param min_coverage at least this much of the shorter bin must be covered by
-#'   links supporting a flip to actually carry it out.
+#' @param min_support only flip a bin if at least this many more nucleotides
+#'   support an inversion over the given orientation
 #' @export
-flip_by_links <- function(x, link_track=1, min_coverage=.2){
-  UseMethod("flip_by_links")
+sync <- function(x, link_track=1, min_support=0){
+  UseMethod("sync")
 }
 #' @export
-flip_by_links.gggenomes <- function(x, link_track=1, min_coverage=.2){
-    x$data <- flip_by_links(x$data, link_track={{link_track}}, min_coverage=min_coverage)
-    x
+sync.gggenomes <- function(x, link_track=1, min_support=0){
+  x$data <- sync(x$data, link_track={{link_track}}, min_support=min_support)
+  x
 }
 #' @export
-flip_by_links.gggenomes_layout <- function(x, link_track=1, min_coverage=.2){
- if(length(x$links) < 1)
-   rlang::abort("Links are required to `flip_by_links`")
+sync.gggenomes_layout <- function(x, link_track=1, min_support=0){
+  if(length(x$links) < 1)
+   rlang::abort("Links are required to `sync`")
   l0 <- pull_links(x, {{link_track}})
   s0 <- ungroup(pull_seqs(x))
 
-  l1 <- l0 %>% group_by(seq_id, seq_id2, strand) %>%
-    # treat a-b and b-a the same (lexical order)
-    swap_if(seq_id > seq_id2, seq_id, seq_id2) %>%
-    summarize(mapped=min(c(sum(width(start,end)), sum(width(start2, end2)))))
+  f0 <- l0 |>
+    left_join(select(s0, seq_id, seq_strand=strand), by = "seq_id") |>
+    left_join(select(s0, seq_id2=seq_id, seq_strand2=strand), by = "seq_id2") |>
+    mutate(
+      bin_id = ifelse(y<yend, bin_id, bin_id2), # chose the lower bin id
+      bin_id2 = ifelse(y<yend, bin_id2, bin_id), # chose the lower bin id
+      y = (y+yend)/2, # use mean y for sort
+      support = link_width(start, end, start2, end2) *
+        strand_int(combine_strands(strand, seq_strand, seq_strand2))) |>
+    group_by(bin_id, y) |>
+    summarize(support = sum(support)) |>
+    ungroup() |>
+    filter(abs(support) >= min_support) |>
+    arrange(-y) |>
+    mutate(needs_flip=cumprod(strand_int(support >= 0)) < 0)
 
-  l2 <- l1 %>%
-    left_join(by="seq_id", transmute(
-      s0, y=y, seq_id=seq_id, seq_width = width(start, end), seq_strand=strand)) %>%
-    left_join(by="seq_id2", transmute(
-      s0, y2=y, seq_id2=seq_id, seq_width2 = width(start, end), seq_strand2=strand)) %>%
-    mutate(coverage = mapped/pmin(seq_width, seq_width2)) %>% group_by(seq_id, seq_id2) %>%
-    arrange(-coverage, .by_group = TRUE) %>% summarize_all(first) %>%
-    ungroup() %>% select(-seq_width, -seq_width2) %>%
-    swap_if(y > y2, seq_id, seq_id2) %>%
-    swap_if(y > y2, y, y2) %>% arrange(y)
+  bins_to_flip <- f0 |> filter(needs_flip) |> pull(bin_id)
 
-  l3 <- l2 %>%
-    filter(coverage > min_coverage) %>%
-    group_by(group=y2 - row_number()) %>%
-    mutate(flip=cumprod(strand_int(combine_strands(seq_strand, seq_strand2, strand))))
-
-  y_flip <- l3 %>% filter(flip < 0) %>% pull(y2)
-
-  if(!length(y_flip)){
+  if(!length(bins_to_flip)){
     inform(str_glue("All bins appear to be flipped nicely based on the given",
                     "links. Maybe change `min_coverage` or flip manually"))
     return(x)
   }else{
-    inform(paste("Flipping:", comma(y_flip)))
+    inform(paste("Flipping:", comma(bins_to_flip)))
   }
 
-  x %>% flip(all_of(y_flip))
+  x %>% flip(all_of(bins_to_flip))
 }
 
 flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track=seqs){
@@ -180,7 +175,7 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
     seq_i <- tidyselect::eval_select(expr(!! seqs ), seq_sel_lst)
     seq_i <- flip_tbl$seq_id %in% names(seq_i)
     flip_tbl$strand[seq_i] <- flip_strand(flip_tbl$strand[seq_i])
-  # flip entire bins
+    # flip entire bins
   }else{
     flip_tbl %<>% group_by(bin_id) %>%
       mutate(strand = flip_strand(strand)) %>%
@@ -194,4 +189,8 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
 
   x <- set_seqs(x, seq_tbl)
   layout(x)
+}
+
+link_width <- function(start, end, start2, end2){
+  (width(start,end) + width(start2, end2))/2
 }

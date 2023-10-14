@@ -53,7 +53,12 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   TODO("mutate_at - if at all")
   x %<>% mutate_if(is.factor, as.character)
   if(!has_vars(x, "strand")){
-    x$strand <- "+"
+    # if strand is not given but "-" link strand is encoded as end-strand,
+    # add strand and recode start-end
+    x <- x %>%
+      mutate(x, strand = ifelse((start < end) == (start2 < end2), "+", "-")) %>%
+      swap_if(start > end, start, end) %>%
+      swap_if(start2 > end2, start2, end2)
   }else{
     x$strand <- strand_chr(x$strand)
   }
