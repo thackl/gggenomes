@@ -2,7 +2,7 @@
 
 ## A grammar of graphics for comparative genomics
 
-gggenomes is a versatile graphics package for comparative genomics. It extends the popular R visualization package[ggplot2](https://ggplot2.tidyverse.org/) by adding dedicated plot functions for genes, syntenic regions, etc. and verbs to manipulate the plot to, for example, quickly zoom in into gene neighborhoods.
+gggenomes is a versatile graphics package for comparative genomics. It extends the popular R visualization package [ggplot2](https://ggplot2.tidyverse.org/) by adding dedicated plot functions for genes, syntenic regions, etc. and verbs to manipulate the plot to, for example, quickly zoom in into gene neighborhoods.
 
 ## A realistic use case comparing six viral genomes
 
@@ -16,10 +16,11 @@ library(gggenomes)
 # to inspect the example data shipped with gggenomes
 data(package="gggenomes")
 
-gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) %>%
-  add_feats(ngaros=emale_ngaros, gc=emale_gc) %>%
-  add_sublinks(emale_prot_ava) %>%
-  flip_by_links() +
+gggenomes(
+  genes = emale_genes, seqs = emale_seqs, links = emale_ava,
+  feats = list(emale_tirs, ngaros=emale_ngaros, gc=emale_gc)) |> 
+  add_sublinks(emale_prot_ava) |>
+  sync() + # synchronize genome directions based on links
   geom_feat(position="identity", size=6) +
   geom_seq() +
   geom_link(data=links(2)) +
@@ -27,14 +28,13 @@ gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) %>%
   geom_gene(aes(fill=name)) +
   geom_gene_tag(aes(label=name), nudge_y=0.1, check_overlap = TRUE) +
   geom_feat(data=feats(ngaros), alpha=.3, size=10, position="identity") +
-  geom_feat_note(aes(label="Ngaro-transposon"), feats(ngaros),
+  geom_feat_note(aes(label="Ngaro-transposon"), data=feats(ngaros),
       nudge_y=.1, vjust=0) +
-  geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
-      group=seq_id, linetype="GC-content"), feats(gc),
-      fill="lavenderblush4", position=position_nudge(y=-.1)) +
+  geom_wiggle(aes(z=score, linetype="GC-content"), feats(gc),
+      fill="lavenderblush4", position=position_nudge(y=-.2), height = .2) +
   scale_fill_brewer("Genes", palette="Dark2", na.value="cornsilk3")
-
-ggsave("man/figures/emales.png", width=8, height=4)
+  
+ggsave("emales.png", width=8, height=4)
 ```
 
 For a reproducible recipe describing the full *evolution* of an earlier version of this plot with an older version of gggenomes starting from a mere set of contigs, and including the bioinformatics analysis workflow, have a look at [From a few sequences to a complex map in
