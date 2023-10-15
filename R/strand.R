@@ -152,7 +152,7 @@ flip_strand.character <- function(strand, na=NA){
 #' @export
 combine_strands <- function(strand, strand2, ...){
     strands <- c(list(strand, strand2), list(...))
-    reduce(strands, combine_two_strands)
+    purrr::reduce(strands, combine_two_strands)
 }
 
 combine_two_strands <- function(strand, strand2){

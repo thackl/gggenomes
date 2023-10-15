@@ -141,8 +141,8 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
 
 
   # extract for each track, for each locus
-  x$data$feats <- map(x$data$feats, focus_feats, s, bin_id)
-  x$data$orig_links <- map(x$data$orig_links, focus_links, s, bin_id)
+  x$data$feats <- purrr::map(x$data$feats, focus_feats, s, bin_id)
+  x$data$orig_links <- purrr::map(x$data$orig_links, focus_links, s, bin_id)
 
   # rename seqs/bins to loci
   s <- mutate(s, bin_id = .data[[bin_id]], orig_seq_id = seq_id, seq_id = locus_id)

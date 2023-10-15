@@ -76,7 +76,7 @@ gggenomes(emale_genes) \%>\%
 # add clusters
 gggenomes(emale_genes, emale_seqs) \%>\%
   add_clusters(emale_cogs) \%>\%
-  flip_by_links() +    # works because clusters
+  sync() +             # works because clusters
   geom_link() +        # become links
   geom_seq() +
   # works because cluster info is joined to gene track

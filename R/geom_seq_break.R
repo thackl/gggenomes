@@ -27,7 +27,7 @@
 #'   geom_seq_break(label=c("[", "]"), size=3, color="#1b9e77")
 #'
 #' # decorate manually truncated sequences
-#' s0 <- tribble(
+#' s0 <- tibble::tribble(
 #'   # start/end define regions, i.e. truncated contigs
 #'   ~bin_id, ~seq_id, ~length, ~start, ~end,
 #'   "complete_genome", "chromosome_1_long_trunc_2side", 1e5, 1e4, 2.1e4,
@@ -36,7 +36,7 @@
 #'   "fragmented_assembly", "contig_3_trunc_2sides", 2e4, 1e4, 1.4e4
 #' )
 #'
-#' l0 <- tribble(
+#' l0 <- tibble::tribble(
 #'   ~seq_id, ~start, ~end, ~seq_id2, ~start2, ~end2,
 #'   "chromosome_1_long_trunc_2side", 1.1e4, 1.4e4,
 #'   "contig_1_trunc_1side", 1e4, 1.3e4,

@@ -137,25 +137,20 @@ gggenomes(genes=emale_genes) +
  geom_gene(aes(fill=as.numeric(gc_content)),position="strand") +
  scale_fill_viridis_b()
 
-types <- c(NA, "CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA", "intron",
- "misc_RNA", "mobile_element", "operon", "...")
-g0 <- tibble(seq_id="A", start=seq_along(types)*10,
- end=seq_along(types)*10+7, type=types, introns=list(c(3,5)))
-
 gggenomes(genes=g0) +
   # all features in the "genes" regardless of type
   geom_feat(data=feats(genes)) +
-  geom_text(aes(label="geom_feat", x=-15, y=.9)) + xlim(-20, NA) +
+  annotate("text", label="geom_feat", x=-15, y=.9) + xlim(-20, NA) +
   # only features in the "genes" of geneish type (implicit `data=genes()`)
   geom_gene() +
   geom_gene_tag(aes(label=ifelse(is.na(type), "<NA>", type)), data=genes(.gene_types = NULL)) +
-  geom_text(aes(label="geom_gene", x=-15, y=1)) +
+  annotate("text", label="geom_gene", x=-15, y=1) +
   # control which types are returned from the track
   geom_gene(aes(y=1.1), data=genes(.gene_types = c("CDS", "misc_RNA"))) +
-  geom_text(aes(label="gene_types", x=-15, y=1.1)) +
+  annotate("text", label="gene_types", x=-15, y=1.1) +
   # control which types can have introns
   geom_gene(aes(y=1.2, yend=1.2), data=genes(.gene_types = c("CDS", "misc_RNA")),  intron_types = "misc_RNA") +
-  geom_text(aes(label="intron_types", x=-15, y=1.2))
+  annotate("text", label="intron_types", x=-15, y=1.2)
 
 # spliced genes
 library(patchwork)

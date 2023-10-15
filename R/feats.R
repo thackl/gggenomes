@@ -44,7 +44,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
 
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
-  TODO("mutate_at - if at all")
+  # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
 
   # default columns we want to have to make some geoms run smoother
@@ -93,7 +93,7 @@ layout_feats <- function(x, seqs, keep="strand",
 drop_feat_layout <- function(x, seqs, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
-  discard(x, names(x) %in% drop)
+  purrr::discard(x, names(x) %in% drop)
 }
 
 #' @describeIn add_tracks Add feature annotations to sequences
@@ -124,7 +124,7 @@ add_feats.gggenomes_layout <- function(x, ...){
 }
 
 add_feat_tracks <- function(x, tracks){
-  x$feats <- c(x$feats, map(tracks, as_feats, get_seqs(x)))
+  x$feats <- c(x$feats, purrr::map(tracks, as_feats, get_seqs(x)))
   x
 }
 

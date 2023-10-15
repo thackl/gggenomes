@@ -29,7 +29,7 @@ read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
 
 parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   m <- str_match_all(x, pattern) # create  list of match matrices
-  y <- map_df(m, function(.x){
+  y <- purrr::map_df(m, function(.x){
     # if x was NA, all match values are NA - return empty tibble with one row
     if(nrow(.x) < 1 || any(is.na(.x[,2]))) return(tibble(.rows=1))
     # else return tibble with keys as names

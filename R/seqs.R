@@ -116,7 +116,7 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 drop_seq_layout <- function(x, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
-  discard(x, names(x) %in% drop)
+  purrr::discard(x, names(x) %in% drop)
 }
 
 # layout contigs in rectangle

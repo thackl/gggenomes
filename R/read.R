@@ -44,7 +44,7 @@ read_context <- function(files, context, .id="file_id", format=NULL, parser=NULL
   parser <- parser %||% file_parser(files, context=context, format=format, require_unique=T)
   # map_df .id = bin_id
   inform(str_glue("Reading '{names(parser)}' with `{parser}()`:"))
-  x <- map2_df(files, names(files), .id=.id, parser=parser, ...,
+  x <- purrr::map2_df(files, names(files), .id=.id, parser=parser, ...,
                .f=function(file, name, parser, ...){
                  inform(str_glue("* {.id}: {name} [{file}]"))
                  exec(parser, file, ...)
@@ -110,7 +110,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
     ext <- c(file_ext(file), ext)
   }
 
-  ff <- filter_def_formats(context=context, parser=parser) %>% unchop(ext)
+  ff <- filter_def_formats(context=context, parser=parser) %>% tidyr::unchop(ext)
 
   format <- deframe(select(ff, ext, format))
   if(!is.null(ext))
@@ -121,7 +121,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
     names(bad) <- rep("x", length(bad))
     good <- def_formats(context=context, parser=parser) %>%
       enframe(name = "ext", value = "format") %>%
-      chop(ext) %>% mutate(ext = map_chr(ext, comma)) %>% format()
+      tidyr::chop(ext) %>% mutate(ext = purrr::map_chr(ext, comma)) %>% format()
     abort(c(str_glue('Unknown extention(s):'),
             i=str_glue("in context: {context}"),
             i=str_glue("with parser: {parser}"),
@@ -176,7 +176,7 @@ def_parser <- function(format, context=NULL){
   x <- tibble(format=format, context=context)
 
   # for each format/context combo, get parser
-  pp <- pmap_chr(x, function(format, context){
+  pp <- purrr::pmap_chr(x, function(format, context){
     r <- filter_def_formats(format=format, context=context) %>% pull(parser)
     if(!length(r) || is.na(r))
       abort(str_glue("No predefined parser for: `format={format}, context={context}`"))
@@ -236,7 +236,7 @@ filter_def_formats <- function(ff, format=NULL, context=NULL, parser=NULL){
   }
 
   if(!is.null(context) || !is.null(parser)){
-    ff <- unchop(ff, c(context, parser))
+    ff <- tidyr::unchop(ff, c(context, parser))
     if(!is.null(context)){
       # context=NA defines fallback parser which is always last in arrange
       ff <- ff %>% group_by(format) %>%
@@ -250,7 +250,7 @@ filter_def_formats <- function(ff, format=NULL, context=NULL, parser=NULL){
 }
 
 def_formats_rd <- function(){
-  str_c(collapse = "\n", c(
+  stringr::str_c(collapse = "\n", c(
     "@section Defined formats, extensions, contexts, and parsers:",
     "\\preformatted{",
     testthat::capture_output(as.data.frame(gggenomes_global$def_formats), print=TRUE, width=120),
@@ -260,10 +260,10 @@ def_formats_rd <- function(){
 def_names_rd <- function(){
   ns <- gggenomes_global$def_names
   ts <- gggenomes_global$def_types
-  str_c(sep = "\n",
+  stringr::str_c(sep = "\n",
         "@section Defined formats, column types and names:",
         "\\preformatted{",
-        paste0(map(names(ns),
+        paste0(purrr::map(names(ns),
                    ~sprintf("  %-10s %-15s %s", .x, ts[[.x]], comma(ns[[.x]]))), collapse="\n"),
         "}"
   )

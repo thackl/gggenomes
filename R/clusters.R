@@ -10,7 +10,7 @@
 #' # add clusters
 #' gggenomes(emale_genes, emale_seqs) %>%
 #'   add_clusters(emale_cogs) %>%
-#'   flip_by_links() +    # works because clusters
+#'   sync() +             # works because clusters
 #'   geom_link() +        # become links
 #'   geom_seq() +
 #'   # works because cluster info is joined to gene track
@@ -39,7 +39,7 @@ add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
   dot_exprs <- enexprs(...) # defuse before list(...)
   tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
 
-  tracks <- map(tracks, function(track){
+  tracks <- purrr::map(tracks, function(track){
     require_vars(track, c("feat_id", "cluster_id"))
 
     track <- filter(track, feat_id %in% x$feats[[pid]]$feat_id)
@@ -57,8 +57,8 @@ add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
     track
   })
 
-  sublinks <- map(tracks, cluster2sublinks, x$feats[[pid]]) %>%
-    compact # can be empty tibble of all clusters were singletons
+  sublinks <- purrr::map(tracks, cluster2sublinks, x$feats[[pid]]) %>%
+    purrr::compact() # can be empty tibble of all clusters were singletons
   if(length(sublinks) < length(tracks)){
     warn("At least one cluster table had only singletons, so no links were produced")
   }
@@ -80,8 +80,8 @@ add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
 
 cluster2sublinks <- function(x, parent_track){
   x %>% split_by(cluster_id) %>%
-    keep(~nrow(.) > 1) %>% # links need >2 members, ignore singletons
-    map_df(.id = "cluster_id", function(g){
+    purrr::keep(~nrow(.) > 1) %>% # links need >2 members, ignore singletons
+    purrr::map_df(.id = "cluster_id", function(g){
       mat <- combn(g$feat_id, 2, simplify=TRUE)
       tibble(feat_id = mat[1,], feat_id2 = mat[2,])
     })

@@ -9,7 +9,7 @@ gggenomes_global  <- new.env(parent = emptyenv())
 #
 # context=NA defines fallback parser that is used if no parser is defined for
 # the specific context
-gggenomes_global$def_formats <- tribble(
+gggenomes_global$def_formats <- tibble::tribble(
   ~format, ~ext, ~context, ~parser,
   "ambigious", qc(txt,tsv,csv), NA, "read_ambigious",
   "fasta", qc(fa,fas,fasta,ffn,fna,faa), qc(seqs), qc(read_seq_len),

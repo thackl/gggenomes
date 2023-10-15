@@ -52,25 +52,20 @@
 #'  geom_gene(aes(fill=as.numeric(gc_content)),position="strand") +
 #'  scale_fill_viridis_b()
 #'
-#' types <- c(NA, "CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA", "intron",
-#'  "misc_RNA", "mobile_element", "operon", "...")
-#' g0 <- tibble(seq_id="A", start=seq_along(types)*10,
-#'  end=seq_along(types)*10+7, type=types, introns=list(c(3,5)))
-#'
 #' gggenomes(genes=g0) +
 #'   # all features in the "genes" regardless of type
 #'   geom_feat(data=feats(genes)) +
-#'   geom_text(aes(label="geom_feat", x=-15, y=.9)) + xlim(-20, NA) +
+#'   annotate("text", label="geom_feat", x=-15, y=.9) + xlim(-20, NA) +
 #'   # only features in the "genes" of geneish type (implicit `data=genes()`)
 #'   geom_gene() +
 #'   geom_gene_tag(aes(label=ifelse(is.na(type), "<NA>", type)), data=genes(.gene_types = NULL)) +
-#'   geom_text(aes(label="geom_gene", x=-15, y=1)) +
+#'   annotate("text", label="geom_gene", x=-15, y=1) +
 #'   # control which types are returned from the track
 #'   geom_gene(aes(y=1.1), data=genes(.gene_types = c("CDS", "misc_RNA"))) +
-#'   geom_text(aes(label="gene_types", x=-15, y=1.1)) +
+#'   annotate("text", label="gene_types", x=-15, y=1.1) +
 #'   # control which types can have introns
 #'   geom_gene(aes(y=1.2, yend=1.2), data=genes(.gene_types = c("CDS", "misc_RNA")),  intron_types = "misc_RNA") +
-#'   geom_text(aes(label="intron_types", x=-15, y=1.2))
+#'   annotate("text", label="intron_types", x=-15, y=1.2)
 #'
 #' # spliced genes
 #' library(patchwork)
@@ -162,7 +157,7 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
     data <- mutate(data,
       id = row_number(),
       introns = ifelse(type %in% params$intron_types, introns, list(NULL)),
-      introns = map(introns, ~.x - c(1, 0)) # convert 1[s,e] to 0[s,e) for drawing
+      introns = purrr::map(introns, ~.x - c(1, 0)) # convert 1[s,e] to 0[s,e) for drawing
     )
 
     data <- unnest_exons(data)
@@ -188,7 +183,7 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
     # after-scale modify other aes
     data <- mutate(data,
       # convert to alpha hex color: color fill
-      across(c(fill, colour), ~map2_chr(.x, alpha, ggplot2::alpha)),
+      across(c(fill, colour), ~purrr::map2_chr(.x, alpha, ggplot2::alpha)),
       # convert to pt: stroke
       stroke = stroke * ggplot2::.pt
     )
@@ -253,7 +248,7 @@ makeContent.genetree <- function(x){
 
   # one grob per feature for feature-wise aes (all exons same)
   all_exons <- bind_rows(rna_exons, cds_exons)
-  grobs <- pmap(all_exons, function(exons, fill, colour, linetype, stroke, ...){
+  grobs <- purrr::pmap(all_exons, function(exons, fill, colour, linetype, stroke, ...){
     grid::polygonGrob(x = exons$x, y = exons$y, id = exons$id,
         gp = grid::gpar(fill = fill, col = colour, lty = linetype, lwd = stroke))
   })
@@ -273,7 +268,7 @@ makeContent.genetree <- function(x){
         stroke = stroke * ggplot2::.pt
         )
 
-    grobs <- c(pmap(rna_introns, function(introns, colour, alpha, linetype, stroke, ...){
+    grobs <- c(purrr::pmap(rna_introns, function(introns, colour, alpha, linetype, stroke, ...){
       grid::polylineGrob(
         x = introns$x,
         y = introns$y,
@@ -289,7 +284,7 @@ makeContent.genetree <- function(x){
   }
 
   if(coord_flipped){
-    grobs <- map(grobs, function(x){x[1:2] <- x[2:1]; x})
+    grobs <- purrr::map(grobs, function(x){x[1:2] <- x[2:1]; x})
   }
 
   class(grobs) <- "gList"
@@ -314,7 +309,7 @@ exon_polys <- function(x, xend, y, height, arrow_width, arrow_height){
   polys <- tibble(id="0", !!!span2arrow(x[n], xend[n], y[n], height, arrow_width, arrow_height))
   # rect polys
   if(n>1)
-    polys <- bind_rows(pmap_df(.id="id", list(x[-n], xend[-n], y[-n]), span2rect, height), polys)
+    polys <- bind_rows(purrr::pmap_df(.id="id", list(x[-n], xend[-n], y[-n]), span2rect, height), polys)
   polys
 }
 

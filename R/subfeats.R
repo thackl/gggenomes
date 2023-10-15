@@ -38,7 +38,7 @@ add_subfeats.gggenomes_layout <- function(x, ..., .track_id = "genes",
 
 add_subfeat_tracks <- function(x, parent_track_id, tracks, transform){
   feats <- pull_track(x, {{parent_track_id}})
-  x$feats <- c(x$feats, map(
+  x$feats <- c(x$feats, purrr::map(
     tracks, as_subfeats, get_seqs(x), feats, transform = transform))
   x
 }
@@ -97,7 +97,7 @@ as_subfeats.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
 
-  TODO("mutate_at - if at all")
+  # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
   if(!has_name(x, "strand")){
     x$strand <- strand_chr(x$start < x$end)

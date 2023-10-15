@@ -115,7 +115,7 @@ gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) +
 gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) \%>\%
   add_feats(emale_ngaros, emale_gc) \%>\%
   add_clusters(emale_cogs) \%>\%
-  flip_by_links() +
+  sync() +
   geom_link(offset = 0.15, color="white") +                        # synteny-blocks
   geom_seq() + geom_bin_label() +                                  # chromosomes and labels
   # thistle4, salmon4, burlywood4
@@ -125,11 +125,9 @@ gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) \%>\%
   geom_feat_note(aes(label=type), data=feats(emale_ngaros),
                  position="strand", nudge_y = .3) +
   geom_gene(aes(fill=cluster_id), position="strand") + # genes
-  scale_fill_brewer("Conserved genes", palette="Dark2", na.value = "cornsilk3") +
-  #scale_fill_viridis_b() +
-  geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
-                  group=seq_id, linetype="GC-content"), feats(emale_gc),
-              fill="lavenderblush4", position=position_nudge(y=-.1))
+  geom_wiggle(aes(z=score, linetype="GC-content"), feats(emale_gc),
+              fill="lavenderblush4", position=position_nudge(y=-.2), height = .2) +
+  scale_fill_brewer("Conserved genes", palette="Dark2", na.value = "cornsilk3")
 
 # initialize plot directly from files
 gggenomes(

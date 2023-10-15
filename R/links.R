@@ -50,7 +50,7 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
 
-  TODO("mutate_at - if at all")
+  # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
   if(!has_vars(x, "strand")){
     # if strand is not given but "-" link strand is encoded as end-strand,
@@ -128,9 +128,9 @@ add_links.gggenomes_layout <- function(x, ..., .adjacent_only=TRUE){
 }
 
 add_link_tracks <- function(x, tracks, adjacent_only=TRUE){
-  x$links <- c(x$links, map(tracks, as_links, get_seqs(x),
+  x$links <- c(x$links, purrr::map(tracks, as_links, get_seqs(x),
       adjacent_only=adjacent_only)) # this is lossy, so
-  x$orig_links <- c(x$orig_links, map(tracks, as_orig_links, get_seqs(x))) # also store orig links for re-layout
+  x$orig_links <- c(x$orig_links, purrr::map(tracks, as_orig_links, get_seqs(x))) # also store orig links for re-layout
   x
 }
 
@@ -149,7 +149,7 @@ as_orig_links <- function(links, seqs){
 drop_link_layout <- function(x, seqs, keep="strand"){
   drop <- c("y","x","xend","yend","xmin","xmax","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
-  discard(x, names(x) %in% drop)
+  purrr::discard(x, names(x) %in% drop)
 }
 
 add_link_layout_scaffold <- function(x, seqs){

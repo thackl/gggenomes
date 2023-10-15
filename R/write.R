@@ -63,7 +63,7 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
   feats <- select(feats, -all_of(ignore_attr))
   feats <- feats %>% mutate(
     across(all_of(gff3_cols), ~replace_na(.x, ".")),
-    across(where(is_list), function(l) map_chr(l, str_c, collapse=","))
+    across(where(is_list), function(l) purrr::map_chr(l, stringr::str_c, collapse=","))
   )
 
   attr <- setdiff(names(feats), c(gff3_cols, id_tag))
@@ -95,7 +95,7 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
 
 unchop_cds <- function(x){
   # expand collapsed CDS from start/end/introns to starts/ends list cols
-  coords <- pmap_df(x, function(type, start, end, introns, ...){
+  coords <- purrr::pmap_df(x, function(type, start, end, introns, ...){
     if(!type %in% c("CDS", "cDNA_match")){
       tibble(start=list(start), end=list(end))
     }else{
@@ -106,5 +106,5 @@ unchop_cds <- function(x){
     }
   })
 
-  mutate(x, coords) %>% unchop(c(start, end))
+  mutate(x, coords) %>% tidyr::unchop(c(start, end))
 }

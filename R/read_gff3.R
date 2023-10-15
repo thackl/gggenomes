@@ -84,7 +84,7 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
 
   # band aid fix for collapsed CDS/cDNA_match - set score and phase NA because
   # it differs for different spans and we don't store this as a list col
-  cds_collapsed_i <- x$type %in% c("CDS", "cDNA_match") & !map_lgl(x$introns, is.null)
+  cds_collapsed_i <- x$type %in% c("CDS", "cDNA_match") & !purrr::map_lgl(x$introns, is.null)
   if(any(cds_collapsed_i)){
     x$score[cds_collapsed_i] <- NA
     x$phase[cds_collapsed_i] <- NA
@@ -99,25 +99,25 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, type=="exon") %>%
     select(exon_id=feat_id, start, end, feat_id=parent_ids) %>%
-    unchop(feat_id) %>% group_by(feat_id) %>%
+    tidyr::unchop(feat_id) %>% group_by(feat_id) %>%
     summarize(introns = list(coords2introns(start, end, sort_exons)))
 
   # for mRNAs w/o exons: mrna_introns == cds_introns + length(five_prime_UTR)
   mrna_cds_five_prime <- filter(x, type=="five_prime_UTR") %>%
-    transmute(feat_id=parent_ids, width=width(start, end)) %>% unchop(feat_id)
+    transmute(feat_id=parent_ids, width=width(start, end)) %>% tidyr::unchop(feat_id)
 
   mrna_cds_introns <- filter(x, type=="CDS") %>%
-    select(feat_id=parent_ids, introns) %>% unchop(feat_id) %>%
+    select(feat_id=parent_ids, introns) %>% tidyr::unchop(feat_id) %>%
     filter(!feat_id %in% mrna_exon_introns$feat_id) %>%
     left_join(mrna_cds_five_prime, by="feat_id") %>% replace_na(list(width=0)) %>%
-    transmute(feat_id, introns = map2(introns, width, ~as.integer(.x+.y)))
+    transmute(feat_id, introns = purrr::map2(introns, width, ~as.integer(.x+.y)))
 
   mrna_introns <- bind_rows(mrna_exon_introns, mrna_cds_introns) %>%
     mutate(feat_id = as.character(feat_id))
 
   # unsert mRNA introns into data
   x <- left_join(x, rename(mrna_introns, mrna_introns..=introns), by="feat_id") %>%
-    mutate(introns = ifelse(map_lgl(mrna_introns.., is.null), introns, mrna_introns..)) %>%
+    mutate(introns = ifelse(purrr::map_lgl(mrna_introns.., is.null), introns, mrna_introns..)) %>%
     select(-mrna_introns..)
 
   # make one mRNA per CDS (except operons), connect with 'geom_id'
@@ -127,7 +127,7 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
   # TODO single geom_id for operon mRNAs with multiple CDS kids
   cds_geom_ids <- filter(x, type=="CDS") %>% transmute(geom_id=feat_id, feat_id=feat_id)
   mrna_geom_ids <- filter(x, type=="CDS") %>% select(geom_id=feat_id, feat_id=parent_ids) %>%
-    unchop(feat_id) %>% filter(feat_id %in% mrna_ids)
+    tidyr::unchop(feat_id) %>% filter(feat_id %in% mrna_ids)
   # multiplies mRNAs that have multiple CDS kids (intended)
   x <- left_join(x, bind_rows(cds_geom_ids, mrna_geom_ids), by="feat_id")
 
@@ -146,7 +146,7 @@ add_mrna_for_exons <- function(x, col_names){
   mrna_ids <- filter(x, type=="mRNA")[["feat_id"]]
   # orfan exons
   x2 <- mutate(x, .row_index = row_number())
-  exons <- filter(x2, type=="exon") %>% unchop(parent_ids) %>%
+  exons <- filter(x2, type=="exon") %>% tidyr::unchop(parent_ids) %>%
     filter(!parent_ids %in% mrna_ids)
 
   if(nrow(exons) == 0)
@@ -182,7 +182,7 @@ infer_cds_parent <- function(x){
 
 tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=TRUE){
 
-  d <- map_df(str_split(x[[9]], "; *"), function(r){
+  d <- purrr::map_df(str_split(x[[9]], "; *"), function(r){
     # handle missing comments
     if(all(is.na(r) | str_length(r) == 0))
       return(tibble(.rows=1)) # make sure this df has at least 1 row!
@@ -190,8 +190,8 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
     # ignore empty elements caused by trailing or duplicated ";"
     r <- r[r!=""]
     z <- str_split(r, "[= ]", 2)
-    k <- as.list(make.unique(map_chr(z,1), sep="_"))
-    v <- map(z,2)
+    k <- as.list(make.unique(purrr::map_chr(z,1), sep="_"))
+    v <- purrr::map(z,2)
     z <- as_tibble(set_names(v, k))
     return(z)
   })
@@ -230,9 +230,9 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
     x <- mutate(x,
       feat_id = ifelse(type == "mRNA" & is.na(feat_id), transcript_id, feat_id),
       feat_id = ifelse(type == "CDS" & is.na(feat_id),
-                       str_c("cds-", coalesce(transcript_id, protein_id)), feat_id),
+                       stringr::str_c("cds-", coalesce(transcript_id, protein_id)), feat_id),
       feat_id = ifelse(type == "exon" & is.na(feat_id),
-                       str_c("exon-", transcript_id, "-", row_number()), feat_id),
+                       stringr::str_c("exon-", transcript_id, "-", row_number()), feat_id),
       parent_ids = ifelse(type %in% c("CDS", "exon") & is.na(parent_ids),
                        transcript_id, parent_ids)
       ) %>% ungroup

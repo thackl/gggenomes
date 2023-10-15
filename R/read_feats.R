@@ -54,7 +54,7 @@ read_sublinks <- function(files, .id="file_id", format=NULL, parser=NULL, ...){
 #' @export
 #' @return tibble with swapped query/subject columns
 #' @examples
-#' feats <- tribble(
+#' feats <- tibble::tribble(
 #'  ~seq_id, ~seq_id2, ~start, ~end, ~strand, ~start2, ~end2, ~evalue,
 #'  "A", "B", 100, 200, "+", 10000, 10200, 1e-5
 #' )

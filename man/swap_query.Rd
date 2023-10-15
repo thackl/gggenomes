@@ -18,7 +18,7 @@ Swap query and subject columns in a table read with \code{\link[=read_feats]{rea
 name/name2, such as 'seq_id/seq_id2', 'start/start2', ...
 }
 \examples{
-feats <- tribble(
+feats <- tibble::tribble(
  ~seq_id, ~seq_id2, ~start, ~end, ~strand, ~start2, ~end2, ~evalue,
  "A", "B", 100, 200, "+", 10000, 10200, 1e-5
 )

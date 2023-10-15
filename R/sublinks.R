@@ -37,10 +37,10 @@ add_sublinks.gggenomes_layout <- function(x, ..., .track_id = "genes",
 
 add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
   feats <- pull_track(x, {{parent_track_id}})
-  links <- map(tracks, as_sublinks, get_seqs(x), feats, transform = transform,
+  links <- purrr::map(tracks, as_sublinks, get_seqs(x), feats, transform = transform,
                compute_layout=FALSE) # layout only keeps adjacent
-  x$links <- c(x$links, map(links, layout_links, get_seqs(x)))
-  x$orig_links <- c(x$orig_links, map(links, as_orig_links, get_seqs(x))) # also store orig links for re-layout
+  x$links <- c(x$links, purrr::map(links, layout_links, get_seqs(x)))
+  x$orig_links <- c(x$orig_links, purrr::map(links, as_orig_links, get_seqs(x))) # also store orig links for re-layout
   x
 }
 
