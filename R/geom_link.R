@@ -1,17 +1,21 @@
-#' Draw links
+#' Draw links between genomes
 #'
-#' @description
-#' `geom_link()` allows the user to link loci/regions between two sequences/genomes with one another.
+#' @description Draws connections between genomes, such as genome/gene/protein
+#'   alignments and gene/protein clusters. `geom_link()` draws links as filled
+#'   polygons, `geom_link_line()` draws a single connecting line.
 #'
-#' *Note that by default only links between adjacent sequences are computed and shown.*
-#' *To compute and show all links between all genomes, set `gggenomes(..., adjacent_only=FALSE)`.*
+#'   Note that by default only links between adjacent genomes are computed and
+#'   shown. To compute and show all links between all genomes, set
+#'   `gggenomes(..., adjacent_only=FALSE)`.
 #'
-#' @details
-#' The function calls upon the data stored within the `link` track. Data frames added to
-#' this track have `seq_id` and `seq_id2` as required variables. Optional and recommended variables include
-#' `start`, `start2`, `end`, `end2`, `bin_id`, `bin_id2` and `strand`.
+#' @details The function calls upon the data stored within the `link` track.
+#'   Data frames added to this track have `seq_id` and `seq_id2` as required
+#'   variables. Optional and recommended variables include `start`, `start2`,
+#'   `end`, `end2`, `bin_id`, `bin_id2` and `strand`.
 #'
-#' *Keep in mind: when start/end is not specified, links will be created between the entire contigs of `seq_id` and `seq_id2`*
+#'   Note, when start/end is not specified, links will be created between the
+#'   entire contigs of `seq_id` and `seq_id2`.
+#'
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
@@ -50,7 +54,32 @@ geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     params = list(na.rm = na.rm, offset = offset, ...)
   )
 }
+#' @rdname geom_link
+#' @export
+#' @examples
+#' q0 <- gggenomes(emale_genes, emale_seqs) |>
+#'   add_clusters(emale_cogs) +
+#'   geom_seq() + geom_gene()
+#'
+#' # link gene clusters with polygon
+#' q1 <- q0 + geom_link(aes(fill=cluster_id))
+#'
+#' # link gene clusters with lines
+#' q2 <- q0 + geom_link_line(aes(color=cluster_id))
+#'
+#' q1 + q2  + plot_layout(nrow=1, guides = "collect")
+#'
+#'
+geom_link_line <- function(mapping = NULL, data = links(), stat = "identity",
+    position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
+    ...){
+  default_aes <- aes(y=y, yend=yend, x=(x+xend)/2, xend=(xmin+xmax)/2)
+  mapping <- aes_intersect(mapping, default_aes)
 
+  layer(geom = GeomSegment, mapping = mapping, data = data, stat = stat,
+        position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+        params = list(na.rm = na.rm, ...))
+}
 
 GeomLink <- ggproto(
   "GeomLink", Geom,

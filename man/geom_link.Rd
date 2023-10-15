@@ -2,7 +2,8 @@
 % Please edit documentation in R/geom_link.R
 \name{geom_link}
 \alias{geom_link}
-\title{Draw links}
+\alias{geom_link_line}
+\title{Draw links between genomes}
 \usage{
 geom_link(
   mapping = NULL,
@@ -15,34 +16,71 @@ geom_link(
   offset = 0.15,
   ...
 )
+
+geom_link_line(
+  mapping = NULL,
+  data = links(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{offset}{distance between seq center and link start. Use two values
 \verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
 }
 \description{
-\code{geom_link()} allows the user to link loci/regions between two sequences/genomes with one another.
+Draws connections between genomes, such as genome/gene/protein
+alignments and gene/protein clusters. \code{geom_link()} draws links as filled
+polygons, \code{geom_link_line()} draws a single connecting line.
 
-\emph{Note that by default only links between adjacent sequences are computed and shown.}
-\emph{To compute and show all links between all genomes, set \code{gggenomes(..., adjacent_only=FALSE)}.}
+Note that by default only links between adjacent genomes are computed and
+shown. To compute and show all links between all genomes, set
+\code{gggenomes(..., adjacent_only=FALSE)}.
 }
 \details{
-The function calls upon the data stored within the \code{link} track. Data frames added to
-this track have \code{seq_id} and \code{seq_id2} as required variables. Optional and recommended variables include
-\code{start}, \code{start2}, \code{end}, \code{end2}, \code{bin_id}, \code{bin_id2} and \code{strand}.
+The function calls upon the data stored within the \code{link} track.
+Data frames added to this track have \code{seq_id} and \code{seq_id2} as required
+variables. Optional and recommended variables include \code{start}, \code{start2},
+\code{end}, \code{end2}, \code{bin_id}, \code{bin_id2} and \code{strand}.
 
-\emph{Keep in mind: when start/end is not specified, links will be created between the entire contigs of \code{seq_id} and \code{seq_id2}}
+Note, when start/end is not specified, links will be created between the
+entire contigs of \code{seq_id} and \code{seq_id2}.
 }
 \examples{
-p <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
-p + geom_link()
+p0 <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
 
-# change offset from seqs
-p + geom_link(aes(fill=de, color=de), offset = 0.05) +
+# default links
+p1 <- p0 + geom_link()
+
+# change offset from seqs and color
+p2 <- p0 + geom_link(aes(fill=de, color=de), offset = 0.05) +
   scale_fill_viridis_b() + scale_colour_viridis_b()
-  
+
 # combine with flip
-p \%>\% flip(3,4,5) + geom_link()
-# compute & show all links among all genomes (not recommended for large dataset)
-gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
+p3 <- p0 |> flip(3,4,5) +
+  geom_link()
+
+# compute & show all links among all genomes
+# usually not useful and not recommended for large dataset
+p4 <- gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
+
+library(patchwork) # combine plots in one figure
+p1 + p2 + p3 + p4 + plot_layout(nrow=1)
+q0 <- gggenomes(emale_genes, emale_seqs) |>
+  add_clusters(emale_cogs) +
+  geom_seq() + geom_gene()
+
+# link gene clusters with polygon
+q1 <- q0 + geom_link(aes(fill=cluster_id))
+
+# link gene clusters with lines
+q2 <- q0 + geom_link_line(aes(color=cluster_id))
+
+q1 + q2  + plot_layout(nrow=1, guides = "collect")
+
+
 }
