@@ -1,32 +1,40 @@
 #' Draw links
-#' 
+#'
 #' @description
 #' `geom_link()` allows the user to link loci/regions between two sequences/genomes with one another.
-#'    
-#' *Note that by default only links between adjacent sequences are computed and shown.* 
+#'
+#' *Note that by default only links between adjacent sequences are computed and shown.*
 #' *To compute and show all links between all genomes, set `gggenomes(..., adjacent_only=FALSE)`.*
-#' 
+#'
 #' @details
 #' The function calls upon the data stored within the `link` track. Data frames added to
-#' this track have `seq_id` and `seq_id2` as required variables. Optional and recommended variables include 
-#' `start`, `start2`, `end`, `end2`, `bin_id`, `bin_id2` and `strand`.     
-#'    
+#' this track have `seq_id` and `seq_id2` as required variables. Optional and recommended variables include
+#' `start`, `start2`, `end`, `end2`, `bin_id`, `bin_id2` and `strand`.
+#'
 #' *Keep in mind: when start/end is not specified, links will be created between the entire contigs of `seq_id` and `seq_id2`*
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
 #' @examples
-#' p <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
-#' p + geom_link()
-#' 
-#' # change offset from seqs
-#' p + geom_link(aes(fill=de, color=de), offset = 0.05) +
+#' p0 <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
+#'
+#' # default links
+#' p1 <- p0 + geom_link()
+#'
+#' # change offset from seqs and color
+#' p2 <- p0 + geom_link(aes(fill=de, color=de), offset = 0.05) +
 #'   scale_fill_viridis_b() + scale_colour_viridis_b()
-#'   
+#'
 #' # combine with flip
-#' p %>% flip(3,4,5) + geom_link()
-#' # compute & show all links among all genomes (not recommended for large dataset)
-#' gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
+#' p3 <- p0 |> flip(3,4,5) +
+#'   geom_link()
+#'
+#' # compute & show all links among all genomes
+#' # usually not useful and not recommended for large dataset
+#' p4 <- gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
+#'
+#' library(patchwork) # combine plots in one figure
+#' p1 + p2 + p3 + p4 + plot_layout(nrow=1)
 geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     offset = 0.15, ...) {
@@ -42,6 +50,7 @@ geom_link <- function(mapping = NULL, data = links(), stat = "identity",
     params = list(na.rm = na.rm, offset = offset, ...)
   )
 }
+
 
 GeomLink <- ggproto(
   "GeomLink", Geom,
