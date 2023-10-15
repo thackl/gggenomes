@@ -26,6 +26,7 @@ gggenomes knows three types of tracks:
 There are also ***genes*** tracks, those, however are just glorified feature tracks, that sometimes get special treatment for easier usage. Internally, genes are features.
 
 ```{r message=FALSE, fig.height=1.2, fig.width=7}
+library(tidyverse)
 library(gggenomes)
 
 # a minimal seq track
