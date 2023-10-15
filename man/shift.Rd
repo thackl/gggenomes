@@ -17,20 +17,21 @@ Shift bins along the x-axis, i.e. left or right in the default plot
 layout. This is useful to align feats of interest in different bins.
 }
 \examples{
-# Basic example plot
-gggenomes(seqs = emale_seqs) |>
-geom_seq() +
-geom_bin_label() 
+p0 <- gggenomes(emale_genes, emale_seqs) +
+geom_seq() + geom_gene()
 
-# All bins have been shifted 10000 basepaiers
-gggenomes(seqs = emale_seqs) |>
-shift(bins = everything(), by = 10000)
-geom_seq() +
-geom_bin_label() 
+# Slide one bin left and one bin right
+p1 <- p0 |> shift(2:3, by=c(-8000, 10000))
 
-# Only RCC970_016B bin has been shifted for 5000 basepaiers
-gggenomes(seqs = emale_seqs) |>
-shift(bins = RCC970_016B, by = 5000, center = FALSE)
-geom_seq() +
-geom_bin_label() 
+# align all bins to a target gene
+mcp <- emale_genes |>
+  filter(name == "MCP") |>
+  group_by(seq_id) |>
+  slice_head(n=1) # some have fragmented MCP gene, keep only first
+
+p2 <- p0 |> shift(all_of(mcp$seq_id), by= -mcp$start) +
+  geom_gene(data=genes(name=="MCP"), fill="#01b9af")
+
+library(patchwork)
+p0 + p1 + p2
 }
