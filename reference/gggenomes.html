@@ -19,7 +19,7 @@ It is used to declare the input data for gggenomes' track system.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.10.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
       </span>
     </div>
 
@@ -190,7 +190,7 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ava</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span>, <span class="va">emale_gc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">flip_by_links</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="flip.html">sync</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fl">0.15</span>, color<span class="op">=</span><span class="st">"white"</span><span class="op">)</span> <span class="op">+</span>                        <span class="co"># synteny-blocks</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                                  <span class="co"># chromosomes and labels</span></span></span>
 <span class="r-in"><span>  <span class="co"># thistle4, salmon4, burlywood4</span></span></span>
@@ -200,12 +200,13 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat_text.html">geom_feat_note</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">type</span><span class="op">)</span>, data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                 position<span class="op">=</span><span class="st">"strand"</span>, nudge_y <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span>, position<span class="op">=</span><span class="st">"strand"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># genes</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="co">#scale_fill_viridis_b() +</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="op">(</span><span class="va">x</span><span class="op">+</span><span class="va">xend</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span>, ymax<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.24</span>, ymin<span class="op">=</span><span class="va">y</span><span class="op">+</span><span class="fl">.38</span><span class="op">-</span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="va">score</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                  group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>              fill<span class="op">=</span><span class="st">"lavenderblush4"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span>y<span class="op">=</span><span class="op">-</span><span class="fl">.1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in flip_by_links(.):</span> could not find function "flip_by_links"</span>
+<span class="r-in"><span>  <span class="fu"><a href="geom_wiggle.html">geom_wiggle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>z<span class="op">=</span><span class="va">score</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              fill<span class="op">=</span><span class="st">"lavenderblush4"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span>y<span class="op">=</span><span class="op">-</span><span class="fl">.2</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in purrr::map(tracks, cluster2sublinks, x$feats[[pid]]):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> With name: emale_cogs.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `pull()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> could not find function "pull"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># initialize plot directly from files</span></span></span>
 <span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span></span></span>
@@ -214,49 +215,16 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-tirs.gff"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.paf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Note -&gt; note</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Features read</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   source type      n</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    CDS     143</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Features read</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   source type              n</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    repeat_region    12</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'paf' with `read_paf()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.paf]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Found tags in max_tags column, you should increase max_tags to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Read and tidied up a .paf file with 10 optional tag fields:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> NM, ms, AS, nn, tp, cm, s1, de, rl, cg</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: warnings about fewer than expected columns are expected for this format.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Note: .paf files use 0-based coordinate starts - transforming to 1-based</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_seq_len()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
-<span class="r-plt img"><img src="gggenomes-2.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(file, ext):</span> could not find function "str_remove"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># multi-contig genomes wrap to fixed width</span></span></span>
 <span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970 [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa]</span>
-<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span> <span class="op">&gt;</span> <span class="fl">5e5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(file, ext):</span> could not find function "str_remove"</span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span> <span class="op">&gt;</span> <span class="fl">5e5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 's0' not found</span>
 <span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, infer_bin_id<span class="op">=</span><span class="va">file_id</span>, wrap<span class="op">=</span><span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="gggenomes-3.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 's1' not found</span>
 </code></pre></div>
     </div>
   </div>

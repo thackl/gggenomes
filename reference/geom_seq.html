@@ -20,7 +20,7 @@ If seqs track is empty, sequences are inferred from the feats or links track res
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.10.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
       </span>
     </div>
 
@@ -129,41 +129,43 @@ can be called upon to modify the visualization of the data.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Sequence data controls what sequences and/or regions will be plotted. Here one sequence is filtered out, </span></span></span>
 <span class="r-in"><span><span class="co"># Notice that the genes of the removed sequence are silently ignored and thus not plotted.</span></span></span>
-<span class="r-in"><span><span class="va">missing_seqs</span> <span class="op">&lt;-</span> <span class="va">emale_seqs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seq_id</span> <span class="op">!=</span> <span class="st">"Cflag_017B"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">seq_id</span><span class="op">)</span> <span class="co">#`arrange` to restore alphabetical order.</span></span></span>
+<span class="r-in"><span><span class="va">missing_seqs</span> <span class="op">&lt;-</span> <span class="va">emale_seqs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seq_id</span> <span class="op">!=</span> <span class="st">"Cflag_017B"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">arrange</span><span class="op">(</span><span class="va">seq_id</span><span class="op">)</span> <span class="co">#`arrange` to restore alphabetical order.</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in arrange(filter(emale_seqs, seq_id != "Cflag_017B"), seq_id):</span> could not find function "arrange"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">missing_seqs</span>, genes <span class="op">=</span> <span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>               <span class="co">#creates contigs</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>              <span class="co">#draws genes on top of contigs</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span>           <span class="co">#labels bins/sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-3.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'missing_seqs' not found</span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span> <span class="co"># Several sequences belonging to the same *bin* are plotted next to one another</span></span></span>
-<span class="r-in"><span><span class="va">seqs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">seqs</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span></span>
 <span class="r-in"><span>bin_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"C"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"A3"</span>, <span class="st">"B1"</span>, <span class="st">"B2"</span>, <span class="st">"B3"</span>, <span class="st">"B4"</span>, <span class="st">"C1"</span>, <span class="st">"C2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">0</span>, <span class="fl">50</span>, <span class="fl">150</span>, <span class="fl">250</span>, <span class="fl">0</span>, <span class="fl">400</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">400</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">250</span>, <span class="fl">300</span>, <span class="fl">300</span>, <span class="fl">500</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">50</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">300</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tibble(bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),     seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1",         "C2"), start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),     end = c(100, 200, 400, 50, 100, 250, 300, 300, 500), length = c(100,         100, 200, 50, 50, 100, 50, 300, 100)):</span> could not find function "tibble"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">seqs</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co">#label bins</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co">#label individual sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-4.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in UseMethod("mutate"):</span> no applicable method for 'mutate' applied to an object of class "function"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Wrap bins uptill a certain amount.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">seqs</span>, wrap<span class="op">=</span><span class="fl">300</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co">#label bins</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co">#label individual sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-5.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in UseMethod("mutate"):</span> no applicable method for 'mutate' applied to an object of class "function"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Change the space between sequences belonging to one bin</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">seqs</span>, spacing <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co">#label bins</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co">#label individual sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-6.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in UseMethod("mutate"):</span> no applicable method for 'mutate' applied to an object of class "function"</span>
 </code></pre></div>
     </div>
   </div>

@@ -18,7 +18,7 @@ col_names and a col_types argument."><meta property="og:image" content="/logo.sv
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.10.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
       </span>
     </div>
 
@@ -104,30 +104,8 @@ col_names and a col_types argument."><meta property="og:image" content="/logo.sv
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># read a blast-tabular file with read_tsv</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-prot-ava.o6"</span><span class="op">)</span>, col_names<span class="op">=</span><span class="fu">def_names</span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">827</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">12</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> "\t"</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">chr</span>  (2): seq_id, seq_id2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">dbl</span> (10): pident, length, mismatch, gapopen, start, end, start2, end2, evalu...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 827 × 12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    seq_id        seq_id2 pident length mismatch gapopen start   end start2  end2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Cflag_017B_0… Cflag_…  1        119        0       0     1   119      1   119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Cflag_017B_0… RCC970…  1        119        0       0     1   119      1   119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Cflag_017B_0… E4-10_…  0.991    119        1       0     1   119      1   119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Cflag_017B_0… BVI_06…  0.991    119        1       0     1   119      1   119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Cflag_017B_0… E4-10_…  0.983    119        2       0     1   119      1   119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Cflag_017B_0… BVI_00…  0.983    119        2       0     1   119      1   119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> E4-10_112_00… E4-10_…  1        406        0       0     1   406      1   406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E4-10_112_00… E4-10_…  1        406        0       0     1   406      1   406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E4-10_112_00… BVI_06…  0.997    406        1       0     1   406      1   406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E4-10_112_00… BVI_00…  0.987    406        5       0     1   406      1   406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 817 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: evalue &lt;dbl&gt;, bitscore &lt;dbl&gt;</span></span>
+<span class="r-in"><span><span class="fu">read_tsv</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-prot-ava.o6"</span><span class="op">)</span>, col_names<span class="op">=</span><span class="fu">def_names</span><span class="op">(</span><span class="st">"blast"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in read_tsv(ex("emales/emales-prot-ava.o6"), col_names = def_names("blast")):</span> could not find function "read_tsv"</span>
 </code></pre></div>
     </div>
   </div>

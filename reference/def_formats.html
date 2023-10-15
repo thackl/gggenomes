@@ -23,7 +23,7 @@ context read_seqs("*.gbk"), a sequence index.'><meta property="og:image" content
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.10.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
       </span>
     </div>
 
@@ -136,13 +136,11 @@ names</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># vector of defined zip formats and recognized extensions as names</span></span></span>
 <span class="r-in"><span><span class="co"># format of file</span></span></span>
 <span class="r-in"><span><span class="fu">def_formats</span><span class="op">(</span><span class="st">"foo.fa"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      fa </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "fasta" </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(file, ext):</span> could not find function "str_remove"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># formats associated with each extension</span></span></span>
-<span class="r-in"><span><span class="fu">def_formats</span><span class="op">(</span>ext<span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/thacklr/man/qw.html" class="external-link">qc</a></span><span class="op">(</span><span class="va">fa</span>, <span class="va">gff</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      fa     gff </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "fasta"  "gff3" </span>
+<span class="r-in"><span><span class="fu">def_formats</span><span class="op">(</span>ext<span class="op">=</span><span class="fu">qc</span><span class="op">(</span><span class="va">fa</span>, <span class="va">gff</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in qc(fa, gff):</span> could not find function "qc"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># all formats/extensions that can be read in seqs context; includes formats</span></span></span>
 <span class="r-in"><span><span class="co"># that are defined for context=NA, i.e. that can be read in any context.</span></span></span>

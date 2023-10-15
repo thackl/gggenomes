@@ -19,7 +19,7 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ..."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.10.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
       </span>
     </div>
 
@@ -85,19 +85,13 @@ name/name2, such as 'seq_id/seq_id2', 'start/start2', ...</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">feats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">feats</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span> <span class="op">~</span><span class="va">seq_id</span>, <span class="op">~</span><span class="va">seq_id2</span>, <span class="op">~</span><span class="va">start</span>, <span class="op">~</span><span class="va">end</span>, <span class="op">~</span><span class="va">strand</span>, <span class="op">~</span><span class="va">start2</span>, <span class="op">~</span><span class="va">end2</span>, <span class="op">~</span><span class="va">evalue</span>,</span></span>
 <span class="r-in"><span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="st">"+"</span>, <span class="fl">10000</span>, <span class="fl">10200</span>, <span class="fl">1e-5</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># make B the query</span></span></span>
 <span class="r-in"><span><span class="fu">swap_query</span><span class="op">(</span><span class="va">feats</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Swapping query/subject-associated columns</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> seq_id  start  end</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> seq_id2 start2 end2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   seq_id seq_id2 start   end strand start2  end2  evalue</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> B      A       <span style="text-decoration: underline;">10</span>000 <span style="text-decoration: underline;">10</span>200 +         100   200 0.000<span style="text-decoration: underline;">01</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(., "2$"):</span> could not find function "str_remove"</span>
 </code></pre></div>
     </div>
   </div>

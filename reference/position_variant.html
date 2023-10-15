@@ -19,7 +19,7 @@ This position adjustment is most relevant for the analysis/visualization of VCF 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.10.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
       </span>
     </div>
 
@@ -88,36 +88,37 @@ from the sequence. <code>base</code> thus moves the entire feature up/down.</p><
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Creation of example data. </span></span></span>
-<span class="r-in"><span><span class="va">testposition</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">testposition</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span></span>
 <span class="r-in"><span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ins"</span>, <span class="st">"snp"</span>, <span class="st">"snp"</span>, <span class="st">"del"</span>, <span class="st">"del"</span>, <span class="st">"snp"</span>, <span class="st">"snp"</span>, <span class="st">"ins"</span>, <span class="st">"snp"</span>, <span class="st">"ins"</span>, <span class="st">"snp"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">65</span>, <span class="fl">90</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>end <span class="op">=</span> <span class="va">start</span> <span class="op">+</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">testseq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tibble(type = c("ins", "snp", "snp", "del", "del", "snp", "snp",     "ins", "snp", "ins", "snp"), start = c(10, 20, 30, 35, 40,     60, 65, 90, 90, 100, 120), end = start + 1, seq_id = c(rep("A",     11))):</span> could not find function "tibble"</span>
+<span class="r-in"><span><span class="va">testseq</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span></span>
 <span class="r-in"><span>seq_id <span class="op">=</span> <span class="st">"A"</span>,</span></span>
 <span class="r-in"><span>start <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>end <span class="op">=</span> <span class="fl">150</span>,</span></span>
 <span class="r-in"><span>length <span class="op">=</span> <span class="va">end</span><span class="op">-</span><span class="va">start</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tibble(seq_id = "A", start = 0, end = 150, length = end - start):</span> could not find function "tibble"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">testseq</span>, feats <span class="op">=</span> <span class="va">testposition</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'testposition' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#This first plot shows what is being plotted when only geom_variant is called</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="position_variant-1.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Next lets use position_variant, and change the shape aesthetic by column `type`</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, position <span class="op">=</span> <span class="fu">position_variant</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span></span>
-<span class="r-plt img"><img src="position_variant-2.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Now lets create a plot with different offsets by inserting a self-created vector.</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, position <span class="op">=</span> <span class="fu">position_variant</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>del<span class="op">=</span><span class="fl">0.4</span>, ins <span class="op">=</span><span class="op">-</span><span class="fl">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="scale_color_variant.html">scale_shape_variant</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some mutation types are not mentioned within the offset argument. These types will have an offset of 0 by default</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 11 rows containing missing values (`geom_variant()`).</span>
-<span class="r-plt img"><img src="position_variant-3.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Changing the base will shift all points up/down relatively from the sequence.</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, position<span class="op">=</span><span class="fu">position_variant</span><span class="op">(</span>base <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="position_variant-4.png" alt="" width="960" height="480"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p' not found</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
