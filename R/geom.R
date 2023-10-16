@@ -151,7 +151,7 @@ geom_seq_label <- function(mapping = NULL, data = seqs(),
 #' @export
 #' @examples
 #' s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa", full.names = TRUE))
-#' s1 <- s0 %>% filter(length>5e5)
+#' s1 <- s0 %>% dplyr::filter(length>5e5)
 #'
 #' gggenomes(emale_genes) + geom_seq() + geom_gene() +
 #'   geom_bin_label()
