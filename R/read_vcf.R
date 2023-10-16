@@ -15,13 +15,13 @@
 #' @return dataframe
 #'
 read_vcf <- function(file, parse_info=FALSE, col_names = def_names("vcf"), col_types = def_types("vcf")){
-  x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".",
+  x <- readr::read_tsv(file, col_names = col_names, col_types = col_types, na=".",
                 comment = "#")
   
   if(parse_info){
     x <- tidy_tax(x)
   }else{
-    x <- mutate(x, type = str_extract(info, "TYPE=[^;]+"), type = gsub("TYPE=", "", type))
+    x <- mutate(x, type = stringr::str_extract(info, "TYPE=[^;]+"), type = gsub("TYPE=", "", type))
   }
      
 #Add feat_id  

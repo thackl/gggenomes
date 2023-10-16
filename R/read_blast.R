@@ -11,7 +11,7 @@
 read_blast <- function (file, col_names = def_names("blast"),
     col_types = def_types("blast"), comment = "#", swap_query=FALSE, ...){
 
-  x <- read_tsv(file, col_names = col_names, col_types = col_types,
+  x <- readr::read_tsv(file, col_names = col_names, col_types = col_types,
       comment = comment, ...)
   if(swap_query)
     x <- swap_query(x)

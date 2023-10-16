@@ -28,7 +28,7 @@
 #' @export
 #' @examples
 #' # example data
-#' genes <- tibble(
+#' genes <- tibble::tibble(
 #' seq_id = c("A", "A", "A", "B", "B", "C"),
 #' start = c(20, 40, 80, 30, 10, 60),
 #' end = c(30, 70, 85, 40, 15, 90),
@@ -36,7 +36,7 @@
 #' type = c("CDS", "CDS", "CDS", "CDS", "CDS", "CDS"),
 #' name = c("geneA", "geneB", "geneC", "geneA", "geneC", "geneB"))
 #' 
-#' seqs <- tibble(
+#' seqs <- tibble::tibble(
 #' seq_id = c("A", "B", "C"),
 #' start = c(0,0,0),
 #' end = c(100, 100, 100),

@@ -6,7 +6,7 @@
 #' @param ... the two columns bewteen which values are to be swapped in
 #' dplyr::select-like syntax
 #' @examples
-#' x <- tibble(start = c(10,100), end=c(30, 50))
+#' x <- tibble::tibble(start = c(10,100), end=c(30, 50))
 #' # ensure start of a range is always smaller than the end
 #' gggenomes:::swap_if(x, start > end, start, end)
 swap_if <- function(x, condition, ...){
@@ -69,3 +69,46 @@ magrittr::`%>%`
 #' @export
 #' @importFrom magrittr %<>%
 magrittr::`%<>%`
+
+#' Split by key preserving order
+#'
+#' Split by key column while preserving order according to the first
+#' occurence. R base split converts keys to factors, changing default order to
+#' alphanumeric.
+#'
+#' @param key variable to split by
+#' @export
+#' @examples
+#' tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") %>%
+#'   split_by(x)
+split_by <- function(.data, key){
+  keys <- pull(.data, !!enquo(key))
+
+  if(length(keys) == 0) stop("no keys to index by found\n")
+
+  l <- split(.data, keys)
+  l[unique(keys)]
+}
+
+#' Create a vector from unquoted words.
+#'
+#' Similar to perls `qw()`, however, in R spaces between args in function call
+#' always cause an error, so `qw(foo bar)` wouldn't work. Workaround is either a
+#' single string split at spaces, or unquoted elements, separated by commas.
+#'
+#' Took inspiration from
+#' \href{https://stackoverflow.com/questions/520810/does-r-have-quote-like-operators-like-perls-qw}{stackoverflow/qw}
+#' and \href{https://github.com/jebyrnes/multifunc/blob/master/R/qw.R}{github/Jarrett Byrnes}
+#' 
+#' @param x A single string of elements to be split at whitespace chars.
+#' @return A vector of quoted words.
+#' @export
+#' @examples
+#' qw("foo bar") # with a strsplit
+#' qc(foo, bar) # or unquoted, but with commas
+qw <- function(x) unlist(strsplit(x, "[[:space:]]+"))
+
+#' @rdname qw
+#' @param ... Unquated words, separated by comma.
+#' @export
+qc <- function(...) sapply(match.call()[-1], deparse)

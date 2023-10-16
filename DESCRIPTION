@@ -23,15 +23,17 @@ Depends:
     R (>= 3.4.2),
     ggplot2 (>= 3.4.0),
 Imports:
-    dplyr,
     vctrs,
-    gggenes,
-    purrr,
-    readr (>= 2.0.0),
-    stringr,
+    rlang,
+    ggplot2,
+    dplyr,
     tidyr,
-    thacklr,
+    readr (>= 2.0.0),
+    purrr,
     tibble,
+    stringr,
+    grid,
+    gggenes,
     jsonlite,
     snakecase
 Suggests:

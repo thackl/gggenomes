@@ -38,7 +38,7 @@
 #' geom_feat_note(data = feats(emale_ngaros), label="repeat region", size = 4) 
 #' 
 #' # Different position adjustments with a simple dataset 
-#' exampledata <- tibble(
+#' exampledata <- tibble::tibble(
 #' seq_id = c(rep("A", 3), rep("B", 3), rep("C", 3)),
 #' start = c(0, 30, 15, 40, 80, 20, 30, 50, 70),
 #' end = c(30, 90, 60, 60, 100, 80, 60, 90, 120))

@@ -28,7 +28,7 @@
 shift <- function(x, bins=everything(), by=0, center=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
-  l <- s %>% thacklr::split_by(bin_id)
+  l <- s %>% split_by(bin_id)
   i <- tidyselect::eval_select(expr({{ bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
   if(length(by) > 1 & length(by) != length(i)){

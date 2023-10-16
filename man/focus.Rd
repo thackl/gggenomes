@@ -108,7 +108,7 @@ will have their \code{locus_id} as their new \code{seq_id}.
 s0 <- read_seqs(ex("gorg/gorg.fna"))
 s1 <- s0 \%>\%
   # strip trailing number from contigs to get bins
-  mutate(bin_id = str_remove(seq_id, "_\\\\d+$"))
+  dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\\\d+$"))
 # gene annotations from prokka
 g0 <- read_feats(ex("gorg/gorg.gff"))
 
@@ -118,7 +118,7 @@ g0 <- read_feats(ex("gorg/gorg.gff"))
 f0 <- read_feats(ex("gorg/gorg-pads-defense.o6"))
 f1 <- f0 \%>\%
   # parser system/gene info
-  separate(seq_id2, into=qc(seq_id2, system, gene), sep=",") \%>\%
+  tidyr::separate(seq_id2, into=c("seq_id2", "system", "gene"), sep=",") \%>\%
   filter(
     evalue < 1e-10,  # get rid of some spurious hits
     # and let's focus just on a few systems for this example

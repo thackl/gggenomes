@@ -52,7 +52,7 @@ seqs, keep rest as is.
 
 }}
 \examples{
-s0 <- tibble(
+s0 <- tibble::tibble(
 bin_id = c("A", "B", "B", "B", "C", "C", "C"),
 seq_id = c("a1","b1","b2","b3","c1","c2","c3"),
 length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3))
@@ -113,7 +113,7 @@ t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1,5))
 
 \dontrun{
 # no shared ids will cause an error
-  p <- gggenomes(seqs=tibble(seq_id = "foo", length=1)) +
+  p <- gggenomes(seqs=tibble::tibble(seq_id = "foo", length=1)) +
     geom_seq() + geom_seq() + geom_bin_label()
   t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1,5))
 

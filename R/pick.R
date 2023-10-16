@@ -11,7 +11,7 @@
 #' `pick_seqs(1)` will pick the first sequence from the first bin, while
 #' `pick_seqs(1, .bins=3)` will pick the first sequence from the third bin.
 #' @examples
-#' s0 <- tibble(
+#' s0 <- tibble::tibble(
 #' bin_id = c("A", "B", "B", "B", "C", "C", "C"),
 #' seq_id = c("a1","b1","b2","b3","c1","c2","c3"),
 #' length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3))
@@ -72,7 +72,7 @@
 #'
 #' \dontrun{
 #' # no shared ids will cause an error
-#'   p <- gggenomes(seqs=tibble(seq_id = "foo", length=1)) +
+#'   p <- gggenomes(seqs=tibble::tibble(seq_id = "foo", length=1)) +
 #'     geom_seq() + geom_seq() + geom_bin_label()
 #'   t + p %>% pick_by_tree(t) + plot_layout(widths = c(1,5))
 #'
@@ -160,7 +160,7 @@ pick_by_tree <- function(x, tree, infer_bin_id = label){
 pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
-  l <- s %>% thacklr::split_by(bin_id)
+  l <- s %>% split_by(bin_id)
   i <- tidyselect::eval_select(expr({{ .bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
   s <- bind_rows(l[i])
@@ -171,7 +171,7 @@ pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j,]
     if(isTRUE(.seqs_within)){ # splice modified bins into rest
-      m <- s %>% thacklr::split_by(bin_id)
+      m <- s %>% split_by(bin_id)
       l[names(m)] <- m
       s <- bind_rows(l)
     }

@@ -99,7 +99,7 @@ file_parser <- function(file, context=NULL, format=NULL, require_unique=FALSE){
 #' def_formats("foo.fa")
 #'
 #' # formats associated with each extension
-#' def_formats(ext=qc(fa, gff))
+#' def_formats(ext=c("fa", "gff"))
 #'
 #' # all formats/extensions that can be read in seqs context; includes formats
 #' # that are defined for context=NA, i.e. that can be read in any context.
@@ -112,7 +112,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
 
   ff <- filter_def_formats(context=context, parser=parser) %>% tidyr::unchop(ext)
 
-  format <- deframe(select(ff, ext, format))
+  format <- tibble::deframe(select(ff, ext, format))
   if(!is.null(ext))
     format <- format[ext]
 
@@ -120,7 +120,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
     bad <- ext[is.na(format)]
     names(bad) <- rep("x", length(bad))
     good <- def_formats(context=context, parser=parser) %>%
-      enframe(name = "ext", value = "format") %>%
+      tibble::enframe(name = "ext", value = "format") %>%
       tidyr::chop(ext) %>% mutate(ext = purrr::map_chr(ext, comma)) %>% format()
     abort(c(str_glue('Unknown extention(s):'),
             i=str_glue("in context: {context}"),
@@ -143,7 +143,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
 #' @describeIn def_names default column names for defined formats
 #' @examples
 #' # read a blast-tabular file with read_tsv
-#' read_tsv(ex("emales/emales-prot-ava.o6"), col_names=def_names("blast"))
+#' readr::read_tsv(ex("emales/emales-prot-ava.o6"), col_names=def_names("blast"))
 def_names <- function(format){
   ff <- gggenomes_global$def_names
   if(!format %in% names(ff)){
@@ -187,19 +187,19 @@ def_parser <- function(format, context=NULL){
 
 file_strip_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
   ext <- paste0("\\.", ext, "$", collapse="|")
-  str_remove(file, ext)
+  stringr::str_remove(file, ext)
 }
 
 file_ext <- function(file, pattern = "(?<=\\.)[^.]+$", ignore_zip = TRUE){
   if(ignore_zip)
     file <- file_strip_zip(file)
-  str_extract(file, pattern)
+  stringr::str_extract(file, pattern)
 }
 
 file_name <- function(file, pattern = "\\.[^.]+$", ignore_zip = TRUE){
   if(ignore_zip)
     file <- file_strip_zip(file)
-  str_remove(basename(file), pattern)
+  stringr::str_remove(basename(file), pattern)
 }
 
 file_id <- function(file){

@@ -14,7 +14,7 @@
 #'
 #'
 #' # plays nicely with dplyr
-#' df <- tibble(x=rep(4,5), left=1:5, right=3:7)
+#' df <- tibble::tibble(x=rep(4,5), left=1:5, right=3:7)
 #' mutate(df,
 #'   closed=in_range(x, left, right, TRUE),
 #'   open=in_range(x, left, right, FALSE))

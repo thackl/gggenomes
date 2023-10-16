@@ -10,7 +10,7 @@
 #' @param ... pass through to `layout_seqs()`
 #' @return an tbl_df with plot coordinates
 #' @examples
-#' chr <- tibble(
+#' chr <- tibble::tibble(
 #'   seq_id = c("a1", "b1", "b2"),
 #'   bin_id = c(rep("A", 1), rep("B",2)),
 #'   length = c(5000,3000,1400))
@@ -121,7 +121,7 @@ drop_seq_layout <- function(x, keep="strand"){
 
 # layout contigs in rectangle
 wrap <- function(.data, xmax, xpad=1000){
-  l <- .data %>% thacklr::split_by(bin_id)
+  l <- .data %>% split_by(bin_id)
   for(i in seq_along(l)){
     ystart <- if(i == 1) 1 else max(l[[i-1]]$y) +2
     xstart <- l[[i]]$bin_offset[1]

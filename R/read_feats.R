@@ -63,7 +63,7 @@ read_sublinks <- function(files, .id="file_id", format=NULL, parser=NULL, ...){
 swap_query <- function(x){
   # for every pair seq_id/seq_id2, name/name2 > name2/name
   n <- names(x)
-  m <- str_subset(n, "\\D2") %>% str_remove("2$") %>% intersect(n)
+  m <- str_subset(n, "\\D2") %>% stringr::str_remove("2$") %>% intersect(n)
   if(!length(m))
     return(x)
 

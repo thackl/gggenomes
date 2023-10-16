@@ -15,7 +15,7 @@
 read_bed <- function (file, col_names = def_names("bed"),
     col_types = def_types("bed"), ...){
 
-  x <- read_tsv(file, comment = "#", col_names = col_names, col_types = col_types, ...)
+  x <- readr::read_tsv(file, comment = "#", col_names = col_names, col_types = col_types, ...)
 
   # bed is 0-based
   inform("BED files use 0-based coordinate starts - transforming to 1-based")

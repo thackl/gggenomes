@@ -46,15 +46,15 @@ can be called upon to modify the data visualization.
 \examples{
 # Creation of example data. (Note: These are mere examples and do not fully resemble data from VCF-files)
 ## Small example data set
-f1 <- tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 30, 40, 40, 50),
+f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 30, 40, 40, 50),
             end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end-start,
               type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
               ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
               REF = c("C", "G", "C", "A", "A", "C", "G", "T"))
- s1 <- tibble(seq_id = c("A", "B"), start = c(0, 0), end = c(55, 55), length = end-start)
+ s1 <- tibble::tibble(seq_id = c("A", "B"), start = c(0, 0), end = c(55, 55), length = end-start)
  
  ## larger example data set
- f2 <- tibble(seq_id = c(rep("A", 667)), 
+ f2 <- tibble::tibble(seq_id = c(rep("A", 667)), 
               start = c(seq(from=1, to=500, by =2), seq(from=500, to =2500, by = 50), 
                         seq(from=2500, to = 4000, by=4)), end = start+1, length = end-start, 
               type = c(rep("SNP", 100), rep("Deletion", 20), rep("SNP", 180), rep("Deletion", 67), rep("SNP", 100), rep("Insertion", 50), rep("SNP", 150)),

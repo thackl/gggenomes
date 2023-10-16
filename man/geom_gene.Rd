@@ -137,6 +137,7 @@ gggenomes(genes=emale_genes) +
  geom_gene(aes(fill=as.numeric(gc_content)),position="strand") +
  scale_fill_viridis_b()
 
+g0 <- read_gff3(ex("eden-utr.gff"))
 gggenomes(genes=g0) +
   # all features in the "genes" regardless of type
   geom_feat(data=feats(genes)) +
@@ -154,7 +155,6 @@ gggenomes(genes=g0) +
 
 # spliced genes
 library(patchwork)
-g0 <- read_gff3(ex("eden-utr.gff"))
 gg <- gggenomes(genes=g0)
 gg + geom_gene(position="pile") +
 gg + geom_gene(aes(fill=type), position="pile",

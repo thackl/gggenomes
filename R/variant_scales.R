@@ -19,7 +19,7 @@
 #' @export
 #' @examples 
 #' # Creation of example data. 
-#' testposition <- tibble(
+#' testposition <- tibble::tibble(
 #' type = c("Insertion", "SNP", "SNP", "Deletion", "Deletion", "SNP", "SNP", "Insertion", "SNP", "Insertion", "SNP"),
 #' start = c(10, 20, 30, 35, 40, 60, 65, 90, 90, 100, 120),
 #' ALT = c("AT", "G", "C", ".", ".", "T", "C", "CAT", "G", "TC", "A"),
@@ -27,7 +27,7 @@
 #' end = start + 1,
 #' seq_id = c(rep("A", 11)))
 #' 
-#' testseq <- tibble(
+#' testseq <- tibble::tibble(
 #' seq_id = "A",
 #' start = 0,
 #' end = 150,

@@ -15,7 +15,7 @@
 #'   geom_seq() +
 #'   # works because cluster info is joined to gene track
 #'   geom_gene(aes(fill=ifelse(is.na(cluster_id), NA,
-#'       str_glue("{cluster_id} [{cluster_size}]")))) +
+#'       stringr::str_glue("{cluster_id} [{cluster_size}]")))) +
 #'   scale_fill_discrete("COGs")
 #' 
 add_clusters <- function(x, ..., .track_id = "genes"){

@@ -33,7 +33,7 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
 
   # there seems to be an issue with 'na="."' in readr::read_tsv
   # https://github.com/tidyverse/readr/issues/1279
-  x <- read_tsv(file, col_names = col_names, col_types = col_types, na=".",
+  x <- readr::read_tsv(file, col_names = col_names, col_types = col_types, na=".",
                 comment = "#")
 
     # ignore FASTA block - dirty fix because all seqs are read into x first and
@@ -197,7 +197,7 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
   })
 
   if(is_gff2)
-    d <- mutate(d, across(where(is.character), str_remove_all, '^"|"$'))
+    d <- mutate(d, across(where(is.character), stringr::str_remove_all, '^"|"$'))
 
   orig <- names(d)
   harmonized <- snakecase::to_any_case(orig) %>%

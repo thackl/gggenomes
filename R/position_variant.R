@@ -13,12 +13,12 @@
 #'@export
 #'@examples
 #' # Creation of example data. 
-#' testposition <- tibble(
+#' testposition <- tibble::tibble(
 #' type = c("ins", "snp", "snp", "del", "del", "snp", "snp", "ins", "snp", "ins", "snp"),
 #' start = c(10, 20, 30, 35, 40, 60, 65, 90, 90, 100, 120),
 #' end = start + 1,
 #' seq_id = c(rep("A", 11)))
-#' testseq <- tibble(
+#' testseq <- tibble::tibble(
 #' seq_id = "A",
 #' start = 0,
 #' end = 150,
@@ -54,7 +54,7 @@ PositionVariant <- ggproto("PositionVariant", Position,
                              
                            },
                            compute_panel = function(data, params, scales){
-                             offsetdf <- enframe(params$offset) 
+                             offsetdf <- tibble::enframe(params$offset) 
                              #Enframe creates a dataframe where offset values are stored in column 'value' and the type of mutation in column `name`.
                              data <- left_join(data, offsetdf, by = c("type" = "name"))
                              data <- replace_na(data, list(value = 0))

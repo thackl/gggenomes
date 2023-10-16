@@ -22,12 +22,12 @@ This position adjustment is most relevant for the analysis/visualization of VCF 
 }
 \examples{
 # Creation of example data. 
-testposition <- tibble(
+testposition <- tibble::tibble(
 type = c("ins", "snp", "snp", "del", "del", "snp", "snp", "ins", "snp", "ins", "snp"),
 start = c(10, 20, 30, 35, 40, 60, 65, 90, 90, 100, 120),
 end = start + 1,
 seq_id = c(rep("A", 11)))
-testseq <- tibble(
+testseq <- tibble::tibble(
 seq_id = "A",
 start = 0,
 end = 150,

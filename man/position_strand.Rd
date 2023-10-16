@@ -56,7 +56,7 @@ library(patchwork)
 p <- gggenomes(emale_genes) \%>\%
   pick(3:4) + geom_seq()
 
-f0 <- tibble(
+f0 <- tibble::tibble(
   seq_id = pull_seqs(p)$seq_id[1],
   start = 1:20*1000,
   end = start + 2500,

@@ -69,7 +69,7 @@ p4 <- p \%>\% add_clusters(emale_cogs) \%>\%
 p0 + p1 + p2 + p3 + p4 + plot_layout(nrow=1, guides="collect")
 
 # flip seqs inside bins
-s0 <- tibble(
+s0 <- tibble::tibble(
   bin_id = c("A", "B", "B", "B", "C", "C", "C"),
   seq_id = c("a1","b1","b2","b3","c1","c2","c3"),
   length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3))

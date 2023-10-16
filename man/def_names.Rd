@@ -40,5 +40,5 @@ Intended to be used in \code{\link[readr:read_delim]{readr::read_tsv()}}-like fu
 
 \examples{
 # read a blast-tabular file with read_tsv
-read_tsv(ex("emales/emales-prot-ava.o6"), col_names=def_names("blast"))
+readr::read_tsv(ex("emales/emales-prot-ava.o6"), col_names=def_names("blast"))
 }

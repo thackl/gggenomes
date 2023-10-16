@@ -44,7 +44,7 @@
 #'  geom_bin_label()           #labels bins/sequences
 #'  
 #'  # Several sequences belonging to the same *bin* are plotted next to one another
-#' seqs <- tibble(
+#' seqs <- tibble::tibble(
 #' bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
 #' seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
 #' start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
@@ -95,7 +95,7 @@ geom_seq <- function(mapping = NULL, data = seqs(),
 #' @inheritParams geom_gene_text
 #' @examples
 #' # example data
-#' seqs <- tibble(
+#' seqs <- tibble::tibble(
 #' bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
 #' seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
 #' start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),

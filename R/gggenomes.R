@@ -63,8 +63,9 @@
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
 #'   developmental purposes.
-#' @import ggplot2 grid rlang dplyr tibble tidyr
-#' @importFrom thacklr qc set_class split_by
+#' @import rlang
+#' @import ggplot2 dplyr tidyr stringr
+#' @import grid
 #' @export
 #' @return gggenomes-flavored ggplot object
 #' @examples

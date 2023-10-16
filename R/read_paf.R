@@ -63,7 +63,7 @@ read_paf <- function (file, max_tags = 20, col_names = def_names("paf"),
     col_types <- paste0(col_types, paste(rep("?", max_tags), collapse=""))
   }
 
-  read_tsv(file, col_names = col_names, col_types = col_types, ...) %>%
+  readr::read_tsv(file, col_names = col_names, col_types = col_types, ...) %>%
     tidy_paf_tags
 }
 

@@ -41,7 +41,7 @@ parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   names(y)[rename_i] <- paste0("seq_desc_", names(y)[rename_i])
 
   # remove key=value data from seq_desc and turn resulting emtpy "" into NA
-  z <- str_remove_all(x, pattern)
+  z <- stringr::str_remove_all(x, pattern)
   z[z==""] <- NA
 
   mutate(y, seq_desc=z, .before=1)
@@ -57,7 +57,7 @@ read_seq_len <- function(file, col_names = def_names("seq_len"),
   # as this would become toplevel after install. The exec folder and its
   # script are a special case that are always toplevel
   seq_len <- base::system.file("exec/seq-len", package="gggenomes")
-  read_tsv(pipe(str_glue("{seq_len} {file}")), col_names = col_names, col_types=col_types, ...)
+  readr::read_tsv(pipe(str_glue("{seq_len} {file}")), col_names = col_names, col_types=col_types, ...)
 
 }
 
@@ -65,7 +65,7 @@ read_seq_len <- function(file, col_names = def_names("seq_len"),
 #' @export
 read_fai <- function(file, col_names=def_names("fai"),
     col_types=def_types("fai"), ...){
-  df <- read_tsv(file, col_types, col_names=F, ...) %>%
+  df <- readr::read_tsv(file, col_types, col_names=F, ...) %>%
     separate(1, into=c("seq_id", "seq_desc"), fill="right", sep=" ", extra="merge")
   if(length(col_names) > ncol(df)){
     rlang::warn("Too many col_names, ignoring extra ones")

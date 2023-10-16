@@ -27,11 +27,11 @@ synteny_to_link <- function(synteny_obj) {
       as.data.frame() %>% 
       dplyr::mutate(strand = case_when(strand == 0 ~ "+",
                                        TRUE ~ "-"),
-                    seq_id = (seqlengths[iter,]$fasta_name %>% str_extract("[^ ]+")),
+                    seq_id = (seqlengths[iter,]$fasta_name %>% stringr::str_extract("[^ ]+")),
                     start = start1,
                     end = end1,
                     length = seqlengths[iter,]$length,
-                    seq_id2 = (seqlengths[iter+1,]$fasta_name %>% str_extract("[^ ]+")),
+                    seq_id2 = (seqlengths[iter+1,]$fasta_name %>% stringr::str_extract("[^ ]+")),
                     start2 = start2,
                     end2 = end2,
                     length2 = seqlengths[iter+1,]$length) %>% 
