@@ -22,7 +22,7 @@ gggenomes(..., adjacent_only=FALSE)."><meta property="og:image" content="/logo.s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
       </span>
     </div>
 
@@ -128,35 +128,28 @@ entire contigs of <code>seq_id</code> and <code>seq_id2</code>.</p>
 <span class="r-in"><span><span class="co"># combine with flip</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p0</span> <span class="op">|&gt;</span> <span class="fu"><a href="flip.html">flip</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_link</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in pull(.data, !!enquo(key)):</span> could not find function "pull"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># compute &amp; show all links among all genomes</span></span></span>
 <span class="r-in"><span><span class="co"># usually not useful and not recommended for large dataset</span></span></span>
 <span class="r-in"><span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>links<span class="op">=</span><span class="va">emale_ava</span>, adjacent_only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_link</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs or feats provided, inferring seqs from links</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in infer_seqs_from_links(links[[1]], {    {        infer_bin_id    }}, {    {        infer_start    }}, {    {        infer_end    }}, {    {        infer_length    }}):</span> object 'str_replace' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span> <span class="co"># combine plots in one figure</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p3' not found</span>
+<span class="r-plt img"><img src="geom_link-1.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span><span class="va">q0</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in purrr::map(tracks, cluster2sublinks, x$feats[[pid]]):</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> With name: emale_cogs.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `pull()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> could not find function "pull"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># link gene clusters with polygon</span></span></span>
 <span class="r-in"><span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="va">q0</span> <span class="op">+</span> <span class="fu">geom_link</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'q0' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># link gene clusters with lines</span></span></span>
 <span class="r-in"><span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="va">q0</span> <span class="op">+</span> <span class="fu">geom_link_line</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">cluster_id</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'q0' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">q1</span> <span class="op">+</span> <span class="va">q2</span>  <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'q1' not found</span>
+<span class="r-plt img"><img src="geom_link-2.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

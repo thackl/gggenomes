@@ -23,7 +23,7 @@ will have their locus_id as their new seq_id."><meta property="og:image" content
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
       </span>
     </div>
 
@@ -193,23 +193,36 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span><span class="co"># Let's hunt some defense systems in marine SAGs</span></span></span>
 <span class="r-in"><span><span class="co"># read the genomes</span></span></span>
 <span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg.fna"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(file, ext):</span> could not find function "str_remove"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna]</span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># strip trailing number from contigs to get bins</span></span></span>
-<span class="r-in"><span>  <span class="fu">mutate</span><span class="op">(</span>bin_id <span class="op">=</span> <span class="fu">str_remove</span><span class="op">(</span><span class="va">seq_id</span>, <span class="st">"_\\d+$"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(., bin_id = str_remove(seq_id, "_\\d+$")):</span> could not find function "mutate"</span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>bin_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">seq_id</span>, <span class="st">"_\\d+$"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># gene annotations from prokka</span></span></span>
 <span class="r-in"><span><span class="va">g0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg.gff"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(file, ext):</span> could not find function "str_remove"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> eC_number -&gt; e_c_number</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Features read</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 3</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   source       type      n</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Aragorn:1.2  tRNA     62</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Prodigal:2.6 CDS    <span style="text-decoration: underline;">3</span>268</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> barrnap:0.6  rRNA     10</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># best hits to the PADS Arsenal database of prokaryotic defense-system genes</span></span></span>
 <span class="r-in"><span><span class="co"># $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \</span></span></span>
 <span class="r-in"><span><span class="co">#     --greedy-best-hits</span></span></span>
 <span class="r-in"><span><span class="va">f0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg-pads-defense.o6"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in str_remove(file, ext):</span> could not find function "str_remove"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'blast' with `read_blast()`:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span>
 <span class="r-in"><span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="va">f0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># parser system/gene info</span></span></span>
-<span class="r-in"><span>  <span class="fu">separate</span><span class="op">(</span><span class="va">seq_id2</span>, into<span class="op">=</span><span class="fu">qc</span><span class="op">(</span><span class="va">seq_id2</span>, <span class="va">system</span>, <span class="va">gene</span><span class="op">)</span>, sep<span class="op">=</span><span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html" class="external-link">separate</a></span><span class="op">(</span><span class="va">seq_id2</span>, into<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq_id2"</span>, <span class="st">"system"</span>, <span class="st">"gene"</span><span class="op">)</span>, sep<span class="op">=</span><span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="va">evalue</span> <span class="op">&lt;</span> <span class="fl">1e-10</span>,  <span class="co"># get rid of some spurious hits</span></span></span>
 <span class="r-in"><span>    <span class="co"># and let's focus just on a few systems for this example</span></span></span>
@@ -221,7 +234,7 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span>, color<span class="op">=</span><span class="va">system</span><span class="op">)</span>, data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'g0' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'f1' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># hilight the regions containing hits</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">g0</span>, <span class="va">s1</span>, <span class="va">f1</span>, wrap<span class="op">=</span><span class="fl">2e5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -231,7 +244,7 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">loci</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"plum3"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">x</span>,y<span class="op">=</span><span class="va">y</span>, color<span class="op">=</span><span class="va">system</span><span class="op">)</span>, data<span class="op">=</span><span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'g0' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'f1' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># zoom in on loci</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">g0</span>, <span class="va">s1</span>, <span class="va">f1</span>, wrap<span class="op">=</span><span class="fl">5e4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -241,7 +254,7 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">system</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat_text.html">geom_feat_tag</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">gene</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Dark2"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'g0' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'f1' not found</span>
 </code></pre></div>
     </div>
   </div>

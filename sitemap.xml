@@ -184,6 +184,9 @@
     <loc>/reference/pull_track.html</loc>
   </url>
   <url>
+    <loc>/reference/qw.html</loc>
+  </url>
+  <url>
     <loc>/reference/read_alitv.html</loc>
   </url>
   <url>
@@ -227,6 +230,9 @@
   </url>
   <url>
     <loc>/reference/shift.html</loc>
+  </url>
+  <url>
+    <loc>/reference/split_by.html</loc>
   </url>
   <url>
     <loc>/reference/swap_if.html</loc>

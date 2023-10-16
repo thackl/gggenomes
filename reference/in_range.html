@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.11.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
       </span>
     </div>
 
@@ -100,8 +100,7 @@ boundary, e.g. <code>c(TRUE, FALSE)</code> to include only the lower boundary.</
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plays nicely with dplyr</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, left<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, right<span class="op">=</span><span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tibble(x = rep(4, 5), left = 1:5, right = 3:7):</span> could not find function "tibble"</span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, left<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, right<span class="op">=</span><span class="fl">3</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">mutate</span><span class="op">(</span><span class="va">df</span>,</span></span>
 <span class="r-in"><span>  closed<span class="op">=</span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  open<span class="op">=</span><span class="fu">in_range</span><span class="op">(</span><span class="va">x</span>, <span class="va">left</span>, <span class="va">right</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
