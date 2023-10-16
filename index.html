@@ -143,22 +143,24 @@
 <div class="section level2">
 <h2 id="inspiration">Inspiration<a class="anchor" aria-label="anchor" href="#inspiration"></a>
 </h2>
-<p>gggenomes stands on the shoulder of giants. It was born out of admiration of <a href="https://wilkox.org/" class="external-link">David Wilkins’</a> <a href="https://github.com/wilkox/gggenes" class="external-link">gggenes</a> package, draws from other ggplot2 extensions such as Guangchuang Yu’s <a href="https://guangchuangyu.github.io/software/ggtree/" class="external-link">ggtree</a>, and is fundamentally inspired by <a href="https://www.data-imaginist.com/about" class="external-link">Thomas Lin Pedersen’s</a> incredibly rich <a href="https://github.com/thomasp85/ggraph" class="external-link">ggraph</a> package.</p>
+<p>gggenomes is draws inspiration from other brilliant packages, in particular: * <a href="https://github.com/wilkox/gggenes" class="external-link">gggenes</a> by <a href="https://wilkox.org/" class="external-link">David Wilkins’</a> * <a href="https://guangchuangyu.github.io/software/ggtree/" class="external-link">ggtree</a> by Guangchuang Yu’s * <a href="https://github.com/thomasp85/ggraph" class="external-link">ggraph</a> by <a href="https://www.data-imaginist.com/about" class="external-link">Thomas Lin Pedersen’s</a></p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>gggenomes is at this point still in an alpha release state, and therefore only available as a developmental package.</p>
+<p>gggenomes is at this point still in an alpha release state, and only available as a developmental package from github.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install ggtree</span></span>
+<code class="sourceCode R"><span><span class="co"># if you don't have it</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># install gggenomes</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"thackl/gggenomes"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># optionally install ggtree to plot genomes next to trees</span></span>
 <span><span class="co"># https://bioconductor.org/packages/release/bioc/html/ggtree.html</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ggtree"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"thackl/thacklr"</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"thackl/gggenomes"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"ggtree"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
