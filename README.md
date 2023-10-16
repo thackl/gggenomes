@@ -65,28 +65,27 @@ features in the plot.
 
 ## Inspiration
 
-gggenomes stands on the shoulder of giants. It was born out of admiration of
-[David Wilkins'](https://wilkox.org/)
-[gggenes](https://github.com/wilkox/gggenes) package, draws from other ggplot2
-extensions such as Guangchuang Yu's
-[ggtree](https://guangchuangyu.github.io/software/ggtree/), and is fundamentally
-inspired by [Thomas Lin Pedersen's](https://www.data-imaginist.com/about)
-incredibly rich [ggraph](https://github.com/thomasp85/ggraph) package.
+gggenomes is draws inspiration from other brilliant packages, in particular:
+* [gggenes](https://github.com/wilkox/gggenes) by [David Wilkins'](https://wilkox.org/)
+* [ggtree](https://guangchuangyu.github.io/software/ggtree/) by Guangchuang Yu's
+* [ggraph](https://github.com/thomasp85/ggraph) by [Thomas Lin Pedersen's](https://www.data-imaginist.com/about)
 
 ## Installation
 
-gggenomes is at this point still in an alpha release state, and therefore only
-available as a developmental package.
+gggenomes is at this point still in an alpha release state, and only
+available as a developmental package from github.
 
 ```R
-# install ggtree
+# if you don't have it
+install.packages("devtools") 
+
+# install gggenomes
+devtools::install_github("thackl/gggenomes")
+
+# optionally install ggtree to plot genomes next to trees
 # https://bioconductor.org/packages/release/bioc/html/ggtree.html
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("ggtree")
-
-# install.packages("devtools")
-devtools::install_github("thackl/thacklr")
-devtools::install_github("thackl/gggenomes")
 ```
 
