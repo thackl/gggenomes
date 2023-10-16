@@ -77,7 +77,7 @@ magrittr::`%<>%`
 #' alphanumeric.
 #'
 #' @param key variable to split by
-#' @export
+#' @keywords internal
 #' @examples
 #' tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") %>%
 #'   split_by(x)
@@ -102,7 +102,7 @@ split_by <- function(.data, key){
 #' 
 #' @param x A single string of elements to be split at whitespace chars.
 #' @return A vector of quoted words.
-#' @export
+#' @keywords internal
 #' @examples
 #' qw("foo bar") # with a strsplit
 #' qc(foo, bar) # or unquoted, but with commas

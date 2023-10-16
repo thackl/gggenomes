@@ -31,3 +31,4 @@ and \href{https://github.com/jebyrnes/multifunc/blob/master/R/qw.R}{github/Jarre
 qw("foo bar") # with a strsplit
 qc(foo, bar) # or unquoted, but with commas
 }
+\keyword{internal}

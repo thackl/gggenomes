@@ -54,10 +54,12 @@ reference:
   - require_vars
   - vars_track
   - swap_if
+  - split_by
   - in_range
   - width
   - introduce
   - file_label
+  - qw
 - title: "Data sets"
 - contents:
   - starts_with("emale")

@@ -18,3 +18,4 @@ alphanumeric.
 tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") \%>\%
   split_by(x)
 }
+\keyword{internal}
