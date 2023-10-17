@@ -30,8 +30,8 @@ adding new ones. Useful to add possibly missing columns with default values.
 \examples{
 # ensure columns "y" and "z" exist
 tibble::tibble(x=1:3) \%>\%
- introduce(y="a", z=paste0(y, row_number()))
+ introduce(y="a", z=paste0(y, dplyr::row_number()))
 # ensure columns "y" and "z" exist, but do not overwrite "y"
 tibble::tibble(x=1:3, y=c("c", "d", "e")) \%>\%
- introduce(y="a", z=paste0(y, row_number()))
+ introduce(y="a", z=paste0(y, dplyr::row_number()))
 }
