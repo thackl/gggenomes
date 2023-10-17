@@ -139,7 +139,7 @@ gggenomes(
 
 # multi-contig genomes wrap to fixed width
 s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa", full.names = TRUE))
-s1 <- s0 \%>\% filter(length > 5e5)
+s1 <- s0 \%>\% dplyr::filter(length > 5e5)
 gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
   geom_seq() + geom_bin_label() + geom_seq_label()
 }

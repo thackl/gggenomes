@@ -27,7 +27,7 @@ p1 <- p0 |> shift(2:3, by=c(-8000, 10000))
 mcp <- emale_genes |>
   filter(name == "MCP") |>
   group_by(seq_id) |>
-  slice_head(n=1) # some have fragmented MCP gene, keep only first
+  dplyr::slice_head(n=1) # some have fragmented MCP gene, keep only first
 
 p2 <- p0 |> shift(all_of(mcp$seq_id), by= -mcp$start) +
   geom_gene(data=genes(name=="MCP"), fill="#01b9af")
