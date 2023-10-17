@@ -54,7 +54,7 @@ gggenomes(genes = emale_genes) +
 
 # Sequence data controls what sequences and/or regions will be plotted. Here one sequence is filtered out, 
 # Notice that the genes of the removed sequence are silently ignored and thus not plotted.
-missing_seqs <- emale_seqs |> filter(seq_id != "Cflag_017B") |> arrange(seq_id) #`arrange` to restore alphabetical order.
+missing_seqs <- emale_seqs |> dplyr::filter(seq_id != "Cflag_017B") |> dplyr::arrange(seq_id) #`arrange` to restore alphabetical order.
 
 gggenomes(seqs = missing_seqs, genes = emale_genes) +
  geom_seq() +               #creates contigs
