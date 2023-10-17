@@ -35,7 +35,8 @@ Imports:
     grid,
     gggenes,
     jsonlite,
-    snakecase
+    snakecase,
+    magrittr
 Suggests:
     testthat,
     rtracklayer,
