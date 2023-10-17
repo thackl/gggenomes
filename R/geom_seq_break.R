@@ -52,7 +52,7 @@
 #'   geom_seq_break()
 geom_seq_break <- function(mapping_start = NULL, mapping_end = NULL,
                        data_start = seqs(start > 1), data_end=seqs(end < length),
-                       label="/", size=4, hjust=.75, family="bold", stat="identity",
+                       label="/", size=4, hjust=.75, family="sans", stat="identity",
                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...){
 
   label_start <- label[1]

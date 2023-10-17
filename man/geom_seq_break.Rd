@@ -12,7 +12,7 @@ geom_seq_break(
   label = "/",
   size = 4,
   hjust = 0.75,
-  family = "bold",
+  family = "sans",
   stat = "identity",
   na.rm = FALSE,
   show.legend = NA,
