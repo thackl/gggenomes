@@ -25,7 +25,6 @@ Depends:
 Imports:
     vctrs,
     rlang,
-    ggplot2,
     dplyr,
     tidyr,
     readr (>= 2.0.0),
