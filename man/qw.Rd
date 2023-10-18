@@ -28,7 +28,7 @@ Took inspiration from
 and \href{https://github.com/jebyrnes/multifunc/blob/master/R/qw.R}{github/Jarrett Byrnes}
 }
 \examples{
-qc("foo bar") # with a strsplit
+qw("foo bar") # with a strsplit
 qc(foo, bar) # or unquoted, but with commas
 }
 \keyword{internal}

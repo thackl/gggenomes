@@ -76,10 +76,11 @@ magrittr::`%<>%`
 #' occurence. R base split converts keys to factors, changing default order to
 #' alphanumeric.
 #'
+#' @export
 #' @param key variable to split by
 #' @keywords internal
 #' @examples
-#' tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") %>%
+#' tibble::tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") %>%
 #'   split_by(x)
 split_by <- function(.data, key){
   keys <- pull(.data, !!enquo(key))
@@ -100,11 +101,12 @@ split_by <- function(.data, key){
 #' \href{https://stackoverflow.com/questions/520810/does-r-have-quote-like-operators-like-perls-qw}{stackoverflow/qw}
 #' and \href{https://github.com/jebyrnes/multifunc/blob/master/R/qw.R}{github/Jarrett Byrnes}
 #' 
+#' @export
 #' @param x A single string of elements to be split at whitespace chars.
 #' @return A vector of quoted words.
 #' @keywords internal
 #' @examples
-#' qc("foo bar") # with a strsplit
+#' qw("foo bar") # with a strsplit
 #' qc(foo, bar) # or unquoted, but with commas
 qw <- function(x) unlist(strsplit(x, "[[:space:]]+"))
 

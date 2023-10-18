@@ -15,8 +15,8 @@
 #'
 #' # align all bins to a target gene
 #' mcp <- emale_genes |>
-#'   filter(name == "MCP") |>
-#'   group_by(seq_id) |>
+#'   dplyr::filter(name == "MCP") |>
+#'   dplyr::group_by(seq_id) |>
 #'   dplyr::slice_head(n=1) # some have fragmented MCP gene, keep only first
 #'
 #' p2 <- p0 |> shift(all_of(mcp$seq_id), by= -mcp$start) +
