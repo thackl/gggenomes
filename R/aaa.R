@@ -104,7 +104,7 @@ split_by <- function(.data, key){
 #' @return A vector of quoted words.
 #' @keywords internal
 #' @examples
-#' qw("foo bar") # with a strsplit
+#' qc("foo bar") # with a strsplit
 #' qc(foo, bar) # or unquoted, but with commas
 qw <- function(x) unlist(strsplit(x, "[[:space:]]+"))
 
