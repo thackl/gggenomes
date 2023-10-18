@@ -67,7 +67,7 @@
 #' scale_shape_variant(characters=TRUE)
 #' 
 #' # Alternative way to plot nucleotides (of ALT) by using `geom=text` within `geom_variant()`
-#'  gggenomes(seqs=s1, feats=f1) +
+#'  gggenomes(seqs=testseq, feats=testposition) +
 #'  geom_seq() +
 #'  geom_variant(aes(shape=type), offset=-0.1) +
 #'  scale_shape_variant() +
