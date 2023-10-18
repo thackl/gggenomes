@@ -67,7 +67,7 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 
   # Index bins by order
   x %<>% mutate(y = match(bin_id, rev(unique(.$bin_id)))) %>%
-    group_by(bin_id)
+    dplyr::group_by(bin_id)
 
   #x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
   #  group_by(bin_id)
@@ -75,7 +75,7 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
   # infer spacing length from bin lengths
   if(spacing < 1){
     bins <- x %>%
-      group_by(bin_id) %>%
+      dplyr::group_by(bin_id) %>%
       summarize(
         bin_len=sum(width(start, end)),
         seq_n=n()) %>%

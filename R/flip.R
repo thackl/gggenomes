@@ -128,22 +128,22 @@ sync.gggenomes_layout <- function(x, link_track=1, min_support=0){
   s0 <- ungroup(pull_seqs(x))
 
   f0 <- l0 |>
-    left_join(select(s0, seq_id, seq_strand=strand), by = "seq_id") |>
-    left_join(select(s0, seq_id2=seq_id, seq_strand2=strand), by = "seq_id2") |>
-    mutate(
+    dplyr::left_join(select(s0, seq_id, seq_strand=strand), by = "seq_id") |>
+    dplyr::left_join(select(s0, seq_id2=seq_id, seq_strand2=strand), by = "seq_id2") |>
+    dplyr::mutate(
       bin_id = ifelse(y<yend, bin_id, bin_id2), # chose the lower bin id
       bin_id2 = ifelse(y<yend, bin_id2, bin_id), # chose the lower bin id
       y = (y+yend)/2, # use mean y for sort
       support = link_width(start, end, start2, end2) *
         strand_int(combine_strands(strand, seq_strand, seq_strand2))) |>
-    group_by(bin_id, y) |>
-    summarize(support = sum(support)) |>
-    ungroup() |>
-    filter(abs(support) >= min_support) |>
-    arrange(-y) |>
-    mutate(needs_flip=cumprod(strand_int(support >= 0)) < 0)
+    dplyr::group_by(bin_id, y) |>
+    dplyr::summarize(support = sum(support)) |>
+    dplyr::ungroup() |>
+    dplyr::filter(abs(support) >= min_support) |>
+    dplyr::arrange(-y) |>
+    dplyr::mutate(needs_flip=cumprod(strand_int(support >= 0)) < 0)
 
-  bins_to_flip <- f0 |> filter(needs_flip) |> pull(bin_id)
+  bins_to_flip <- f0 |> dplyr::filter(needs_flip) |> dplyr::pull(bin_id)
 
   if(!length(bins_to_flip)){
     inform(str_glue("All bins appear to be flipped nicely based on the given",
@@ -177,9 +177,9 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
     flip_tbl$strand[seq_i] <- flip_strand(flip_tbl$strand[seq_i])
     # flip entire bins
   }else{
-    flip_tbl %<>% group_by(bin_id) %>%
-      mutate(strand = flip_strand(strand)) %>%
-      arrange(-row_number(), .by_group=TRUE)
+    flip_tbl %<>% dplyr::group_by(bin_id) %>%
+      dplyr::mutate(strand = flip_strand(strand)) %>%
+      dplyr::arrange(-row_number(), .by_group=TRUE)
   }
 
   # splice modified bins back into rest

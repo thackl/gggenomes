@@ -111,9 +111,9 @@ focus <- function(x, ..., .track_id=2, .max_dist = 10e3, .expand=5e3,
     # coerce IDs to chars, so we don't get errors in join by mismatched types
     loci <- mutate(.loci, seq_id = as.character(seq_id))
     if(!has_name(loci, "locus_id")){
-      loci <- loci %>% group_by({{ .locus_id_group }}) %>%
-        mutate(locus_id = {{.locus_id}}) %>%
-        ungroup
+      loci <- loci %>% dplyr::group_by({{ .locus_id_group }}) %>%
+        dplyr::mutate(locus_id = {{.locus_id}}) %>%
+        dplyr::ungroup()
     }
   }
 
@@ -264,13 +264,13 @@ add_link_focus_scaffold <- function(track, seqs){
 
 compute_loci <- function(x, locus_id, locus_id_group, locus_score, locus_filter, ...){
   index_loci(x, ...) %>%
-    group_by(seq_id, i) %>%
-    summarize(
+    dplyr::group_by(seq_id, i) %>%
+    dplyr::summarize(
       start=min(c(start,end)), end=max(c(start,end)),
       locus_score={{ locus_score }}
     ) %>% ungroup %>% filter({{ locus_filter }}) %>%
-    group_by({{ locus_id_group }}) %>%
-    mutate(
+    dplyr::group_by({{ locus_id_group }}) %>%
+    dplyr::mutate(
       i = row_number(),
       locus_id = {{ locus_id }}
     )
@@ -278,10 +278,10 @@ compute_loci <- function(x, locus_id, locus_id_group, locus_score, locus_filter,
 
 index_loci <- function(x, max_dist = 10e3){
   x <- x %>%
-    arrange(start) %>%
-    group_by(seq_id) %>%
-    mutate(
-      i = cumsum(pmin(start,end) - lag(pmax(start, end), default=FALSE) > max_dist),
+    dplyr::arrange(start) %>%
+    dplyr::group_by(seq_id) %>%
+    dplyr::mutate(
+      i = cumsum(pmin(start,end) - dplyr::lag(pmax(start, end), default=FALSE) > max_dist),
       i = if(min(i) <1){i+1}else{i}, # this can start at 0 or 1
     )
   x

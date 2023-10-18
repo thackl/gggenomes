@@ -239,12 +239,12 @@ filter_def_formats <- function(ff, format=NULL, context=NULL, parser=NULL){
     ff <- tidyr::unchop(ff, c(context, parser))
     if(!is.null(context)){
       # context=NA defines fallback parser which is always last in arrange
-      ff <- ff %>% group_by(format) %>%
-        filter(context %in% !!context | is.na(context)) %>%
-        arrange(context, .by_group = TRUE) %>% slice_head(n=1)
+      ff <- ff %>% dplyr::group_by(format) %>%
+        dplyr::filter(context %in% !!context | is.na(context)) %>%
+        dplyr::arrange(context, .by_group = TRUE) %>% slice_head(n=1)
     }
     if(!is.null(parser))
-      ff <- filter(ff, parser %in% !!parser)
+      ff <- dplyr::filter(ff, parser %in% !!parser)
   }
   ff
 }

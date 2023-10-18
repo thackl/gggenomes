@@ -174,7 +174,7 @@ pull_seqs.gggenomes <- function(.x, ...){
 }
 #' @export
 pull_seqs.gggenomes_layout <- function(.x, ...){
-  filter(get_seqs(.x), ...)
+  dplyr::filter(get_seqs(.x), ...)
 }
 
 #' @rdname pull_track
@@ -190,7 +190,7 @@ pull_bins.gggenomes <- function(.x, ..., .group=vars()){
 #' @export
 pull_bins.gggenomes_layout <- function(.x, ..., .group=vars()){
   .group <- c(vars(bin_id), .group)
-  get_seqs(.x) %>% filter(...) %>% group_by(!!!.group) %>%
+  get_seqs(.x) %>% dplyr::filter(...) %>% dplyr::group_by(!!!.group) %>%
     summarize(ymin = min(y), ymax = max(y), y = (ymin+ymax)/2,
               x = min(x,xend), xend = max(x,xend)) %>%
     ungroup()
@@ -208,7 +208,7 @@ pull_track.gggenomes <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore
 #' @export
 pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
   track_id <- vars_track(.x, {{.track_id}}, track_type=.track_type, ignore=.ignore)
-  filter(.x[[track_type(.x, track_id)]][[track_id]], ...)
+  dplyr::filter(.x[[track_type(.x, track_id)]][[track_id]], ...)
 }
 
 #' Tidyselect track variables

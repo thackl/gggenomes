@@ -74,13 +74,13 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
       fix_augustus_cds=fix_augustus_cds)
 
   # collapse multi-line CDS (and cds_match)
-  x <- mutate(x, .row_index = row_number()) # helper for robust order
-  x <- x %>% group_by(type, feat_id) %>% summarize(
+  x <- dplyr::mutate(x, .row_index = row_number()) # helper for robust order
+  x <- x %>% dplyr::group_by(type, feat_id) %>% dplyr::summarize(
     introns = list(coords2introns(start, end, sort_exons)),
     start = min(start), end = max(end),
     parent_ids = list(first(parent_ids)), # special treat for lst_col
-    across(c(-start, -end, -introns, -parent_ids), first)
-  ) %>% ungroup %>% arrange(.row_index) %>% select(-.row_index)
+    dplyr::across(c(-start, -end, -introns, -parent_ids), first)
+  ) %>% dplyr::ungroup() %>% dplyr::arrange(.row_index) %>% dplyr::select(-.row_index)
 
   # band aid fix for collapsed CDS/cDNA_match - set score and phase NA because
   # it differs for different spans and we don't store this as a list col
@@ -99,7 +99,7 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, type=="exon") %>%
     select(exon_id=feat_id, start, end, feat_id=parent_ids) %>%
-    tidyr::unchop(feat_id) %>% group_by(feat_id) %>%
+    tidyr::unchop(feat_id) %>% dplyr::group_by(feat_id) %>%
     summarize(introns = list(coords2introns(start, end, sort_exons)))
 
   # for mRNAs w/o exons: mrna_introns == cds_introns + length(five_prime_UTR)
@@ -153,13 +153,13 @@ add_mrna_for_exons <- function(x, col_names){
     return(x)
 
   mrnas <- exons %>%
-    select(all_of(col_names[1:8]), feat_id=parent_ids, .row_index) %>%
-    group_by(feat_id) %>% summarize(
-      across(c(-start, -end), first),
+    dplyr::select(all_of(col_names[1:8]), feat_id=parent_ids, .row_index) %>%
+    dplyr::group_by(feat_id) %>% dplyr::summarize(
+      dplyr::across(c(-start, -end), first),
       start = min(start), end=max(end)
     ) %>%
-    select(all_of(col_names[1:8]), feat_id, .row_index) %>%
-    mutate(type="mRNA", parent_ids=NA_character_, name=NA_character_,
+    dplyr::select(all_of(col_names[1:8]), feat_id, .row_index) %>%
+    dplyr::mutate(type="mRNA", parent_ids=NA_character_, name=NA_character_,
       parent_ids = as.list(parent_ids))
 
   # insert mrnas right before exons
@@ -222,12 +222,12 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
   if(is_gff2 && has_vars(x, c("transcript_id"))){
     # make sure this always there
     x <- introduce(x, protein_id=NA_character_) %>%
-      group_by(type, transcript_id) # need this for numbering exons
+      dplyr::group_by(type, transcript_id) # need this for numbering exons
 
     # mRNA feat_id=transcript_id
     # CDS feat_id="cds-"transcript_id|protein_id;parent_ids=transcript_id;
     # exon feat_id="exon-"transcript_id.#;parent_ids=transcript_id;
-    x <- mutate(x,
+    x <- dplyr::mutate(x,
       feat_id = ifelse(type == "mRNA" & is.na(feat_id), transcript_id, feat_id),
       feat_id = ifelse(type == "CDS" & is.na(feat_id),
                        stringr::str_c("cds-", coalesce(transcript_id, protein_id)), feat_id),
@@ -235,7 +235,7 @@ tidy_attributes <- function(x, is_gff2=FALSE, keep_attr=FALSE, fix_augustus_cds=
                        stringr::str_c("exon-", transcript_id, "-", row_number()), feat_id),
       parent_ids = ifelse(type %in% c("CDS", "exon") & is.na(parent_ids),
                        transcript_id, parent_ids)
-      ) %>% ungroup
+      ) %>% dplyr::ungroup()
   }
 
   # make Parent a list col (one feature can have multiple parents)
