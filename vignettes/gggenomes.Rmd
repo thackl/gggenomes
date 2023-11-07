@@ -30,24 +30,23 @@ gggenomes knows three types of tracks:
 There are also ***genes*** tracks, those, however are just glorified feature tracks, that sometimes get special treatment for easier usage. Internally, genes are features.
 
 ```{r message=FALSE, fig.height=1.2, fig.width=7}
-library(tidyverse)
 library(gggenomes)
 
 # a minimal seq track
-s0 <- tibble(
+s0 <- tibble::tibble(
   seq_id = c("a", "b"),
   length = c(600, 550)
 )
 
 # a minimal gene track
-g0 <- tibble(
+g0 <- tibble::tibble(
   seq_id = c("a", "a", "b"),
   start = c(50, 350, 80),
   end = c(250, 500, 450)
 )
 
 # a simple link track
-l0 <- tibble(
+l0 <- tibble::tibble(
   seq_id = c("a", "a"),
   start = c(50, 400),
   end = c(250, 480),
@@ -125,7 +124,7 @@ b) it is very convenient if we deal with real data: It usually makes no sense to
 
 ```{r fig.height=1.5, fig.width=7}
 # some genes
-g0 <- tibble(
+g0 <- tibble::tibble(
   seq_id = c("a", "a", "b"),
   start = c(50, 350, 80),
   end = c(250, 500, 450)
@@ -192,7 +191,7 @@ As mentioned before, tracks have required columns and optional columns, which ca
 
 ```{r fig.height=1.5, fig.width=7}
 # seq track: one entry per sequence
-s0 <- tibble(
+s0 <- tibble::tibble(
   bin_id = c("A", "A", "B"),
   seq_id = c("a1","a2","b1"),
   length = c(2e5, 3e5, 5e5)
@@ -209,7 +208,7 @@ p +
 
 ```{r fig.height=1.5, fig.width=7}
 # zoom in on a longer sequence - note the scale on the x-axis
-s0 <- tibble(
+s0 <- tibble::tibble(
   seq_id = "a1",
   length = 10000,
   start = 1000,
@@ -240,7 +239,7 @@ Special variables for complex gene models:
 
 ```{r fig.height=1.5, fig.width=7}
 # some genes
-g0 <- tibble(
+g0 <- tibble::tibble(
   seq_id = c("a"),
   start = c(1, 800),
   end = c(500, 1200),
@@ -269,7 +268,7 @@ To correctly link specific loci/regions between sequences with one another, it i
 
 ```{r}
 # some links
-l0 <- tibble(
+l0 <- tibble::tibble(
   seq_id = c("a", "a", "a"),
   start = c(200, 801, 1600),
   end = c(550, 1300, 1800),
@@ -279,7 +278,7 @@ l0 <- tibble(
 )
 
 # corresponding sequences
-s1 <- tibble(
+s1 <- tibble::tibble(
   seq_id = c("a", "b"), 
   length = c(2000, 2000),
   start = c(1, 1),
