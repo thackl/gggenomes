@@ -22,6 +22,8 @@ def_formats(
 
 \item{parser}{a vector of file parsers defined in
 \code{gggenomes_global$def_formats}}
+
+\item{allow_na}{boolean}
 }
 \value{
 dictionarish vector of file formats with recognized extensions as

@@ -9,6 +9,9 @@ def_names(format)
 
 def_types(format)
 }
+\arguments{
+\item{format}{specify a format known to gggenomes, such as \code{gff3}, \code{gbk}, ...}
+}
 \value{
 a vector with default column names for the given format
 

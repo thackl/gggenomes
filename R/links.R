@@ -107,6 +107,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 #'   add_links(links=emale_ava) +
 #'   geom_seq() + geom_link()
 #'
+#' @param .adjacent_only indicate whether links should be drawn only between vertically adjacent tracks
 #' @export
 add_links <- function(x, ..., .adjacent_only=TRUE){
   UseMethod("add_links")

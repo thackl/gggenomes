@@ -90,6 +90,7 @@ file_parser <- function(file, context=NULL, format=NULL, require_unique=FALSE){
 #'   `gggenomes_global$def_formats`
 #' @param parser a vector of file parsers defined in
 #'   `gggenomes_global$def_formats`
+#' @param allow_na boolean
 #' @return dictionarish vector of file formats with recognized extensions as
 #'   names
 #' @export
@@ -138,6 +139,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
 #' `col_names` and a `col_types` argument.
 #'
 #' @export
+#' @param format specify a format known to gggenomes, such as `gff3`, `gbk`, ...
 #' @return a vector with default column names for the given format
 #' @eval def_names_rd()
 #' @describeIn def_names default column names for defined formats

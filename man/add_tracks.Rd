@@ -23,6 +23,8 @@ add_clusters(x, ..., .track_id = "genes")
 \arguments{
 \item{...}{named data.frames, i.e. genes=gene_df, snps=snp_df}
 
+\item{.adjacent_only}{indicate whether links should be drawn only between vertically adjacent tracks}
+
 \item{.track_id}{track_id of the feats that subfeats, sublinks or clusters map to.}
 
 \item{.transform}{one of "aa2nuc", "none", "nuc2aa"}
