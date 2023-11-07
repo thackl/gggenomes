@@ -10,6 +10,10 @@ resource_files:
   - emales/emales-p5.png
   - emales/emales-p6.png
   - emales/emales-p7.png
+vignette: >
+  %\VignetteIndexEntry{Emales}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 **DISCLAIMER: I've created this demo with an early  version of gggenomes. Not all of the code will function with current releases. However, the general workflow both with respect to the external tools and gggenomes code is still valid and this demo should therefore be understood as an hopefully inspiring guide - not as an exactly reproducible code example (Those kind of examples you can find in the examples sections of the documentation).**

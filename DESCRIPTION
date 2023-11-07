@@ -19,6 +19,7 @@ LazyData: true
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Remotes: bioc::release/rtracklayer
+VignetteBuilder: knitr
 Depends:
     R (>= 3.4.2),
     ggplot2 (>= 3.4.0),
@@ -41,4 +42,5 @@ Suggests:
     rtracklayer,
     ggtree,
     patchwork,
-    Hmisc
+    Hmisc,
+    knitr

@@ -7,3 +7,5 @@ R-deprecated/
 data-raw/
 tests/
 vignettes-manual-export/
+/doc/
+/Meta/

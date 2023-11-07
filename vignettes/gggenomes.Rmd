@@ -1,8 +1,12 @@
-q---
+---
 title: "gggenomes - a multi-track ggplot2 extension for comparative genomics"
 author: "Thomas Hackl"
 date: "2/23/2021"
 output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Emales}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
