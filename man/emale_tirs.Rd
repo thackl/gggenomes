@@ -20,6 +20,7 @@ A data frame with 3 rows and 14 columns
 \item{score}{score of the annotation}
 \item{phase}{For "CDS" features indicates where the next codon begins relative to the 5' start}
 \item{name}{name of the feature}
+\item{width}{end-start+1}
 \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 }
 }
