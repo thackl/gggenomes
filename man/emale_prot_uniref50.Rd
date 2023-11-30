@@ -10,7 +10,7 @@ A data frame with 509 rows and 16 columns
 \item{file_id}{name of the file the data was read from}
 \item{feat_id}{identifier of the first feature in the alignment}
 \item{feat_id2}{identifier of the second feature in the alignment}
-\item{pident, ...}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
+\item{pident, length, mismatch, gapopen, start, end, start2, end2, evalue, bitscore}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
 \item{seq_head}{full sequence header of the emale protein}
 \item{seq_head2}{full sequence header of the Uniref50 protein}
 \item{taxname}{one of the 4 most abundant taxonomic names among the Uniref50 hits or NA}

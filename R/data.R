@@ -133,7 +133,7 @@
 #'   \item{length2}{length of the sequence}
 #'   \item{start2}{start of the feature on the sequence}
 #'   \item{end2}{end of the feature on the sequence}
-#'   \item{...}{see \url{https://github.com/lh3/miniasm/blob/master/PAF.md} for additional columns}
+#'   \item{map_match, map_length, map_quality, NM, ms, AS, nn, tp, cm, s1, de, rl, cg}{see \url{https://github.com/lh3/miniasm/blob/master/PAF.md} for additional columns}
 #' }
 #' @source
 #' * Derived & bundled data: `ex("emales/emales.paf")`
@@ -148,7 +148,7 @@
 #'   \item{file_id}{name of the file the data was read from}
 #'   \item{feat_id}{identifier of the first feature in the alignment}
 #'   \item{feat_id2}{identifier of the second feature in the alignment}
-#'   \item{pident, ...}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
+#'   \item{pident, length, mismatch, gapopen, start, end, start2, end2, evalue, bitscore}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
 #' }
 #' @source
 #' * Derived & bundled data: `ex("emales/emales-prot-ava.o6")`
@@ -164,7 +164,7 @@
 #'   \item{file_id}{name of the file the data was read from}
 #'   \item{feat_id}{identifier of the first feature in the alignment}
 #'   \item{feat_id2}{identifier of the second feature in the alignment}
-#'   \item{pident, ...}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
+#'   \item{pident, length, mismatch, gapopen, start, end, start2, end2, evalue, bitscore}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
 #'   \item{seq_head}{full sequence header of the emale protein}
 #'   \item{seq_head2}{full sequence header of the Uniref50 protein}
 #'   \item{taxname}{one of the 4 most abundant taxonomic names among the Uniref50 hits or NA}
