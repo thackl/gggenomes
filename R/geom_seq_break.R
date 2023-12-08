@@ -59,10 +59,10 @@ geom_seq_break <- function(mapping_start = NULL, mapping_end = NULL,
   label_end <- label[length(label)]
 
   aes_start <- aes(x=x, y=y)
-  aes_start <- gggenomes:::aes_intersect(mapping_start, aes_start)
+  aes_start <- aes_intersect(mapping_start, aes_start)
 
   aes_end <- aes(x=xend, y=y)
-  aes_end <- gggenomes:::aes_intersect(mapping_end, aes_end)
+  aes_end <- aes_intersect(mapping_end, aes_end)
 
   list(
     geom_text(aes_start, data=data_start, label=label_start, size=size, hjust=hjust,

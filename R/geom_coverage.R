@@ -36,7 +36,7 @@ geom_coverage <- function(mapping = NULL, data = feats(), stat="coverage",
                           inherit.aes = TRUE, offset = 0, height = .2,
                           max = base::max, ...) {
     default_aes <- aes(x=(x+xend)/2, y=y, group=seq_id)
-    mapping <- gggenomes:::aes_intersect(mapping, default_aes)
+    mapping <- aes_intersect(mapping, default_aes)
     
     layer(
       geom = geom, mapping = mapping, data = data, stat = stat,

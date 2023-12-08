@@ -171,7 +171,7 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
 
   p$labels <- ggplot2:::make_labels(mapping)
 
-  ggplot2:::set_last_plot(p)
+  ggplot2::set_last_plot(p)
   p
 }
 #' Layout genomes

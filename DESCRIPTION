@@ -33,14 +33,19 @@ Imports:
     tibble,
     stringr,
     grid,
-    gggenes,
     jsonlite,
     snakecase,
-    magrittr
+    magrittr,
+    scales,
+    tidyselect,
+    colorspace
 Suggests:
     testthat,
     rtracklayer,
     ggtree,
     patchwork,
     Hmisc,
-    knitr
+    knitr,
+    ggrepel,
+    IRanges,
+    ellipsis
