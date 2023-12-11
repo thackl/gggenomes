@@ -12,7 +12,7 @@ track_ids.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links")){
+track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links"), ...){
   track_type <- match_arg(track_type, several.ok = TRUE)
   ids <- flatten_chr(unname(purrr::map(track_type, ~names(x[[.x]]))))
   names(ids) <- track_types(x, track_type)
@@ -46,7 +46,7 @@ track_info.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
+track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"), ...){
   track_type <- match_arg(track_type, several.ok = TRUE)
   y <- tibble(
     id = track_ids(x, track_type),
@@ -90,7 +90,7 @@ tracks <- function(x, ...){
 tracks.gggenomes <- function(x, ...){
   tracks(x$data)
 }
-tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
+tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"), ...){
   c(x$seqs, x$feats, x$links)
 }
 

@@ -224,7 +224,7 @@ layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
 dim.gggenomes_layout <- function(x) dim(get_seqs(x))
 
 #' @export
-print.gggenomes_layout <- function(x) track_info(x)
+print.gggenomes_layout <- function(x, ...) track_info(x)
 
 infer_seqs_from_feats <- function(feats, infer_bin_id = seq_id, infer_start = min(start,end),
     infer_end = max(start,end), infer_length = max(start,end)){

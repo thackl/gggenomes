@@ -14,7 +14,7 @@ layout.gggenomes <- function(x, ignore_seqs=FALSE, ...){
 
 #' @export
 layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
-    args_feats = list(), args_links = list()){
+    args_feats = list(), args_links = list(), ...){
   if(!ignore_seqs)
     x <- set_seqs(x, exec(layout_seqs, get_seqs(x), !!!args_seqs,
                             !!!x$args_seqs))

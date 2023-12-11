@@ -1,6 +1,6 @@
 # check strand  ------------------------------------------------------------
 #' @export
-check_strand <- function(strand, check, na){
+check_strand <- function(strand, na){
   UseMethod("check_strand")
 }
 
