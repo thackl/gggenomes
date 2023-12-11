@@ -7,8 +7,8 @@
 #' The function will extract the type of mutation. By absence, it will derive the type of mutation from the "ref" and "alt" column.
 #' 
 #' @inheritParams readr::read_tsv
-#' @param col_names column names to use. Defaults to [def_names("vcf")].
-#' @param col_types column types to use. Defaults to [def_types("vcf")].
+#' @param col_names column names to use. Defaults to `def_names("vcf")` (see [`def_names`]).
+#' @param col_types column types to use. Defaults to `def_types("vcf")` (see [`def_types`]).
 #' @param parse_info if set to 'TRUE', the read_vcf function will split all the metadata stored in the "info" column and stores it into separate columns. 
 #' By default it is set to 'FALSE'.
 #'

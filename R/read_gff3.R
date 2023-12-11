@@ -19,8 +19,8 @@
 #'   Set to FALSE to read CDS/exon order exactly as present in the file, which
 #'   is less robust, but faster and allows non-canonical splicing
 #'   (exon1-exon3-exon2).
-#' @param col_names column names to use. Defaults to [def_names("gff3")].
-#' @param col_types column types to use. Defaults to [def_types("gff3")].
+#' @param col_names column names to use. Defaults to `def_names("gff3")` (see [`def_names`]).
+#' @param col_types column types to use. Defaults to `def_types("gff3")` (see [`def_types`]).
 #' @param keep_attr keep the original attributes column also after parsing
 #'   tag=value pairs into tidy columns.
 #' @param fix_augustus_cds If true, assume Augustus gff with bad CDS IDs that

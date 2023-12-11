@@ -5,8 +5,8 @@
 #' coordinates during import.
 #'
 #' @inheritParams readr::read_tsv
-#' @param col_names column names to use. Defaults to [def_names("bed")]
-#'   compatible with canonical bed files. [def_names("bed")] can easily be
+#' @param col_names column names to use. Defaults to `def_names("bed")`
+#'   compatible with canonical bed files. [def_names()] can easily be
 #'   combined with extra columns: `col_names = c(def_names("bed"), "more",
 #'   "things")`.
 #'

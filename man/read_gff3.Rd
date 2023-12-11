@@ -51,9 +51,9 @@ Set to FALSE to read CDS/exon order exactly as present in the file, which
 is less robust, but faster and allows non-canonical splicing
 (exon1-exon3-exon2).}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("gff3")}.}
+\item{col_names}{column names to use. Defaults to \code{def_names("gff3")} (see \code{\link{def_names}}).}
 
-\item{col_types}{column types to use. Defaults to \link{def_types("gff3")}.}
+\item{col_types}{column types to use. Defaults to \code{def_types("gff3")} (see \code{\link{def_types}}).}
 
 \item{keep_attr}{keep the original attributes column also after parsing
 tag=value pairs into tidy columns.}

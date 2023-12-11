@@ -113,7 +113,7 @@ pick_seqs_within <- function(x, ..., .bins=everything()){
 }
 
 #' @describeIn pick align bins with the leaves in a given phylogenetic tree.
-#' @param tree a phylogenetic tree in [ggtree] or [ape]-"phylo" format.
+#' @param tree a phylogenetic tree in [ggtree::ggtree] or [`ape::ape-package`]-"phylo" format.
 #' @param infer_bin_id an expression to extract bin_ids from the tree data.
 #' @export
 pick_by_tree <- function(x, tree, infer_bin_id = label){

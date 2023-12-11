@@ -31,9 +31,9 @@ Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the s
 \item{parse_info}{if set to 'TRUE', the read_vcf function will split all the metadata stored in the "info" column and stores it into separate columns.
 By default it is set to 'FALSE'.}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("vcf")}.}
+\item{col_names}{column names to use. Defaults to \code{def_names("vcf")} (see \code{\link{def_names}}).}
 
-\item{col_types}{column types to use. Defaults to \link{def_types("vcf")}.}
+\item{col_types}{column types to use. Defaults to \code{def_types("vcf")} (see \code{\link{def_types}}).}
 }
 \value{
 dataframe

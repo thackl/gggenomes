@@ -23,8 +23,8 @@ string with a new line.
 
 Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("bed")}
-compatible with canonical bed files. \link{def_names("bed")} can easily be
+\item{col_names}{column names to use. Defaults to \code{def_names("bed")}
+compatible with canonical bed files. \code{\link[=def_names]{def_names()}} can easily be
 combined with extra columns: \code{col_names = c(def_names("bed"), "more", "things")}.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[readr:cols]{cols()}} specification, or

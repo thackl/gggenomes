@@ -21,7 +21,7 @@ pick_by_tree(x, tree, infer_bin_id = label)
 \item{.bins}{scope for positional arguments, select-like expression, enclose
 multiple arguments with \code{c()}!}
 
-\item{tree}{a phylogenetic tree in \link{ggtree} or \link{ape}-"phylo" format.}
+\item{tree}{a phylogenetic tree in \link[ggtree:ggtree]{ggtree::ggtree} or \code{\link[ape:ape-package]{ape::ape-package}}-"phylo" format.}
 
 \item{infer_bin_id}{an expression to extract bin_ids from the tree data.}
 }
