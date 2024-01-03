@@ -146,6 +146,8 @@ as_orig_links <- function(links, seqs){
   links
 }
 
+#' Drop a link layout
+#'
 #' @export
 drop_link_layout <- function(x, seqs, keep="strand"){
   drop <- c("y","x","xend","yend","xmin","xmax","strand", grep("^\\.", names(x), value=T))

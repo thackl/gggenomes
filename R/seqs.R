@@ -112,6 +112,8 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
     select(y, x, xend, strand, everything())
 }
 
+#' Drop a seq layout
+#'
 #' @export
 drop_seq_layout <- function(x, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
@@ -162,6 +164,8 @@ wrap_impl <- function(.data, xmax, xpad, ystart, xstart){
   .data
 }
 
+#' Add seqs
+#'
 #' @export
 add_seqs <- function(x, seqs, ...){
   UseMethod("add_seqs")

@@ -10,6 +10,7 @@
 #' @param ... Logical predicates passed on to [dplyr::filter]. "seqs", "feats",
 #'   "links". Affects position-based selection.
 #' @param .ignore track names to ignore when selecting by position.
+#'   Default is "genes", if using `feats0` this defaults to `NA`.
 #' @param .geneify add dummy type, introns and geom_id column to play nicely
 #'   with geoms supporting multi-level and spliced gene models.
 #' @param .gene_types return only feats of this type (`type %in% .gene_types`)
@@ -48,6 +49,8 @@ feats <- function(.track_id=1, ..., .ignore="genes", .geneify=FALSE){
     pull_feats(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .geneify=.geneify)
   }
 }
+
+#' @describeIn pull_track by default pulls out the first feat track.
 #' @export
 feats0 <- function(.track_id=1, ..., .ignore=NA, .geneify=FALSE){
   dots <- quos(...)

@@ -361,6 +361,8 @@ intron_polys <- function(x, xend, y, height){
   )
 }
 
+#' Unnest exons
+#'
 #' @export
 unnest_exons <- function(x){
   rowwise(x) %>%

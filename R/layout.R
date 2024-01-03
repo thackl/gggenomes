@@ -27,6 +27,8 @@ layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
   x
 }
 
+#' Drop a genome layout
+#'
 #' @export
 drop_layout <- function(data, ...){
     UseMethod("drop_layout")

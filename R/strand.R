@@ -1,4 +1,5 @@
-# check strand  ------------------------------------------------------------
+#' Check strand
+#'
 #' @export
 check_strand <- function(strand, na){
   UseMethod("check_strand")
@@ -35,7 +36,8 @@ check_strand.logical <- function(strand, na=NA){
 }
 
 
-# chr ------------------------------------------------------------
+#' Convert strand to character
+#'
 #' @export
 strand_chr <- function(strand, na=NA){
   UseMethod("strand_chr")
@@ -65,7 +67,8 @@ strand_chr.logical <- function(strand, na=NA){
 }
 
 
-# int ------------------------------------------------------------
+#' Convert strand to integer
+#'
 #' @export
 strand_int <- function(strand, na=NA){
   UseMethod("strand_int")
@@ -98,7 +101,8 @@ strand_int.factor <- function(strand, na=NA){
   strand_int(as.character(strand), na=na)
 }
 
-# lgl ------------------------------------------------------------
+#' Convert strand to logical
+#'
 #' @export
 strand_lgl <- function(strand, na=NA){
   UseMethod("strand_lgl")
@@ -124,11 +128,15 @@ strand_lgl.character <- function(strand, na=NA){
   strand
 }
 
+#' Check whether strand is reverse
+#'
 #' @export
 is_reverse <- function(strand, na=FALSE){
   !strand_lgl(strand, na=na)
 }
 
+#' Flip strand
+#'
 #' @export
 flip_strand <- function(strand, na=NA){
   UseMethod("flip_strand")
@@ -149,6 +157,8 @@ flip_strand.character <- function(strand, na=NA){
   strand_chr(!strand_lgl(strand), na=as.character(na))
 }
 
+#' Combine strands
+#'
 #' @export
 combine_strands <- function(strand, strand2, ...){
     strands <- c(list(strand, strand2), list(...))
@@ -164,6 +174,8 @@ combine_two_strands <- function(strand, strand2){
     strand * strand_int(strand2)
 }
 
+#' Vectorised if_else based on strandedness
+#'
 #' @export
 if_reverse <- function(strand, reverse, forward){
   ifelse(is_reverse(strand), reverse, forward)

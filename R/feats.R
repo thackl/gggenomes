@@ -89,6 +89,8 @@ layout_feats <- function(x, seqs, keep="strand",
   x
 }
 
+#' Drop feature layout
+#'
 #' @export
 drop_feat_layout <- function(x, seqs, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))

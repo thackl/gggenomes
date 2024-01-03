@@ -152,6 +152,7 @@ geom_gene_note <- function(mapping = NULL, data = genes(), stat="identity", posi
 
 
 
+#' Geom for feature text
 #' @export
 GeomFeatText <- ggproto("GeomFeatText", Geom,
   required_aes = c("x", "xend", "y", "label"),
