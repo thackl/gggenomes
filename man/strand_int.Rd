@@ -6,6 +6,11 @@
 \usage{
 strand_int(strand, na = NA)
 }
+\arguments{
+\item{strand}{some representation for strandedness}
+
+\item{na}{what to use for \code{NA}}
+}
 \description{
 Convert strand to integer
 }

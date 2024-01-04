@@ -21,6 +21,8 @@ add_sublinks(x, ..., .track_id = "genes", .transform = "aa2nuc")
 add_clusters(x, ..., .track_id = "genes")
 }
 \arguments{
+\item{x}{object to add the tracks to (e.g. gggenomes, gggenomes_layout)}
+
 \item{...}{named data.frames, i.e. genes=gene_df, snps=snp_df}
 
 \item{.adjacent_only}{indicate whether links should be drawn only between vertically adjacent tracks}

@@ -6,6 +6,13 @@
 \usage{
 combine_strands(strand, strand2, ...)
 }
+\arguments{
+\item{strand}{first strand}
+
+\item{strand2}{second strand}
+
+\item{...}{more strands}
+}
 \description{
 Combine strands
 }

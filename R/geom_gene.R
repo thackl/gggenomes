@@ -41,6 +41,8 @@
 #'   `aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour,
 #'   .5))` to give it a lighter appearence than the corresponding CDS but in the
 #'   same color.
+#' @param na.rm remove na values
+#' @param ... passed to layer params
 #'
 #'
 #' @export
@@ -363,6 +365,7 @@ intron_polys <- function(x, xend, y, height){
 
 #' Unnest exons
 #'
+#' @param x data
 #' @export
 unnest_exons <- function(x){
   rowwise(x) %>%

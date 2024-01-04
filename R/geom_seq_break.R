@@ -4,12 +4,17 @@
 #' `geom_seq_break()` adds decorations to the ends of truncated sequences. These
 #' could arise from zooming onto sequence loci with `focus()`, or manually
 #' annotating sequences with start > 1 and/or end < length.
+#' @param mapping_start optional start mapping
+#' @param mapping_end optional end mapping
 #' @param label the character to decorate ends with. Provide two values for
 #' different start and end decorations, e.g. `label=c("]", "[")`.
 #' @param data_start seq_layout of sequences for which to decorate the start.
 #' default: `seqs(start >1)`
 #' @param data_end seq_layout of sequences for which to decorate the end.
 #' default: `seqs(end < length)`
+#' @param size of the text
+#' @param family font family of the text
+#' @param hjust Moves the text horizontally
 #' @inheritParams ggplot2::geom_text
 #' @importFrom ggplot2 geom_text
 #' @export

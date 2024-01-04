@@ -6,6 +6,13 @@
 \usage{
 drop_feat_layout(x, seqs, keep = "strand")
 }
+\arguments{
+\item{x}{feat_layout}
+
+\item{seqs}{unused}
+
+\item{keep}{features to keep}
+}
 \description{
 Drop feature layout
 }

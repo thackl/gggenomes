@@ -89,6 +89,8 @@ geom_feat_text <- function(mapping = NULL, data = feats(), stat="identity", posi
 }
 
 #' @rdname geom_feat_text
+#' @param xjust Move text in x direction
+#' @param strandwise plotting of feature tags
 #' @export
 geom_feat_tag <- function(mapping = NULL, data = feats(), stat="identity", position="identity",
                           hjust = 0, vjust = 0, angle = 45, nudge_y = .03, xjust = 0.5, strandwise = TRUE, ...,

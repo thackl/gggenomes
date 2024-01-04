@@ -63,6 +63,7 @@
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
 #'   developmental purposes.
+#' @param ... additional parameters, passed to layout
 #' @import rlang
 #' @import ggplot2 dplyr tidyr stringr
 #' @import grid

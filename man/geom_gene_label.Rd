@@ -65,12 +65,16 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 \item{nudge_y}{Moves the text vertically an entire contig/sequence.
 (e.g. \code{nudge_y = 1} places the text to the contig above)}
 
+\item{size}{of the label}
+
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{vjust}{Moves the text vertically}
+
+\item{repel}{use ggrepel to avoid overlaps}
 }
 \description{
 These \code{geom_..._label()} functions able the user to plot labels/text at individual features and/or links.

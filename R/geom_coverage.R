@@ -7,6 +7,7 @@
 #' Geom_coverage plots the data only in positive direction. 
 #' Both functions use data from the feats' track.
 #'
+#' @inheritParams ggplot2::geom_ribbon
 #' @param bounds geom_wiggle uses mid, low and high boundary values for plotting wiggle data. Can
 #'   be both a function or a vector returning those three values. Defaults to
 #'   [Hmisc::smedian.hilow].

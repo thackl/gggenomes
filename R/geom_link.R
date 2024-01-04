@@ -16,6 +16,7 @@
 #'   Note, when start/end is not specified, links will be created between the
 #'   entire contigs of `seq_id` and `seq_id2`.
 #'
+#' @inheritParams ggplot2::geom_polygon
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export

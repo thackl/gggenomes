@@ -91,6 +91,9 @@ layout_feats <- function(x, seqs, keep="strand",
 
 #' Drop feature layout
 #'
+#' @param x feat_layout
+#' @param seqs unused
+#' @param keep features to keep
 #' @export
 drop_feat_layout <- function(x, seqs, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))

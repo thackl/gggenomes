@@ -121,6 +121,7 @@ geom_seq <- function(mapping = NULL, data = seqs(),
 #' gggenomes(seqs=seqs, wrap = 300) +
 #' geom_seq() +
 #' geom_seq_label()
+#' @param size of the label
 #' @export
 geom_seq_label <- function(mapping = NULL, data = seqs(),
     hjust = 0, vjust = 1, nudge_y = -0.15, size = 2.5, ...){
@@ -142,6 +143,8 @@ geom_seq_label <- function(mapping = NULL, data = seqs(),
 #' specific location
 #'
 #' @inheritParams ggplot2::geom_text
+#' @param hjust Moves the text horizontally
+#' @param size of the label
 #' @param nudge_left by this much relative to the widest bin
 #' @param expand_left by this much relative to the widest bin
 #' @param expand_x expand the plot to include this absolute x value
@@ -206,6 +209,7 @@ geom_bin_label <- function(mapping = NULL, data=bins(), hjust = 1, size = 3,
 #' Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
 #' 
 #' @inheritParams geom_gene_text
+#' @param size of the label
 #' @export
 geom_gene_label <- function(mapping = NULL, data = genes(),
     angle = 45,hjust = 0, nudge_y = 0.1, size = 6, ...){
@@ -228,6 +232,7 @@ geom_feat_label <- function(mapping = NULL, data = feats(),
 }
 
 #' @rdname geom_gene_label
+#' @param repel use ggrepel to avoid overlaps
 geom_link_label <- function(mapping = NULL, data = links(),
     angle = 0,hjust = 0.5, vjust = 0.5, size = 4, repel=FALSE, ...){
 

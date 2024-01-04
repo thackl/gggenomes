@@ -58,6 +58,8 @@ character represents one column:
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
 set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).}
+
+\item{...}{additional parameters, passed to \code{read_tsv}}
 }
 \value{
 tibble

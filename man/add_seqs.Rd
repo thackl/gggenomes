@@ -6,6 +6,13 @@
 \usage{
 add_seqs(x, seqs, ...)
 }
+\arguments{
+\item{x}{a gggenomes or gggenomes_layout objekt}
+
+\item{seqs}{the sequences to add}
+
+\item{...}{pass through to \code{as_seqs()}}
+}
 \description{
 Add seqs
 }

@@ -24,6 +24,8 @@ The functions \code{scale_color_variant()} and \code{scale_shape_variant()} have
 
 \item{na.value}{The aesthetic value (color/shape/etc.) to use for non matching values.}
 
+\item{...}{Additional parameters, passed to scale_color_manual}
+
 \item{characters}{When \code{TRUE}, it changes the default shapes of \code{scale_shape_variant()} to become the letters of the nucleotides.}
 }
 \description{

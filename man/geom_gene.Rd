@@ -55,6 +55,8 @@ stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
 position adjustment function. Use the latter if you need to change the
 settings of the adjustment.}
 
+\item{na.rm}{remove na values}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -93,6 +95,8 @@ gene model. For example, to change the color of introns from a hard-coded
 \code{intron_aes=aes(colour = fill)}. By default, \code{rna_aes} is remapped with
 \code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearence than the corresponding CDS but in the
 same color.}
+
+\item{...}{passed to layer params}
 }
 \description{
 Draw coding sequences, mRNAs and other non-coding features. Supports

@@ -212,6 +212,8 @@ file_id <- function(file){
 #'
 #' Given a vector of file paths, add a unique labels based on the filename as
 #' vector names
+#'
+#' @param file vector of files
 file_label <- function(file){
   i <- which(!have_name(file))
   names(file)[i] <- file_id(file[i])

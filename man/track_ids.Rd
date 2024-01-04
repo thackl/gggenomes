@@ -4,12 +4,14 @@
 \alias{track_ids}
 \title{Named vector of track ids and types}
 \usage{
-track_ids(x, ...)
+track_ids(x, track_type, ...)
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
 
 \item{track_type}{restrict to any combination of "seqs", "feats" and "links".}
+
+\item{...}{unused}
 }
 \description{
 Named vector of track ids and types

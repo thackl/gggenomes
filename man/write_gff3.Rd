@@ -33,6 +33,8 @@ directives in the header}
 
 \item{score}{if no score column exists, use this as the default score}
 
+\item{strand}{if no strand column exists, use this as the default strand}
+
 \item{phase}{if no phase column exists, use this as the default phase}
 
 \item{id_var}{the name of the column to use as the GFF3 \code{ID} tag}

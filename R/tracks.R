@@ -1,14 +1,15 @@
 #' Named vector of track ids and types
 #' @param x A gggenomes or gggenomes_layout object
 #' @param track_type restrict to any combination of "seqs", "feats" and "links".
+#' @param ... unused
 #' @export
-track_ids <- function(x, ...){
+track_ids <- function(x, track_type, ...){
   UseMethod("track_ids")
 }
 
 #' @export
-track_ids.gggenomes <- function(x, ...){
-  track_ids(x$data, ...)
+track_ids.gggenomes <- function(x, track_type=NULL, ...){
+  track_ids(x$data, track_type, ...)
 }
 
 #' @export
@@ -76,6 +77,7 @@ track_nrows <- function(x, track_type = c("seqs", "feats", "links")){
 
 #' Track type by track id
 #' @inheritParams track_ids
+#' @param track_id id for which to get the track type
 #' @return a character string with the track type
 track_type <- function(x, track_id){
   track_ids <- track_ids(x)

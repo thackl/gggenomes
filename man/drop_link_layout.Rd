@@ -6,6 +6,13 @@
 \usage{
 drop_link_layout(x, seqs, keep = "strand")
 }
+\arguments{
+\item{x}{link_layout}
+
+\item{seqs}{unused}
+
+\item{keep}{features to keep}
+}
 \description{
 Drop a link layout
 }

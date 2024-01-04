@@ -60,6 +60,8 @@ tag=value pairs into tidy columns.}
 
 \item{fix_augustus_cds}{If true, assume Augustus gff with bad CDS IDs that
 need fixing}
+
+\item{is_gff2}{set if file is in gff2 format}
 }
 \value{
 tibble

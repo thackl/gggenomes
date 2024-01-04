@@ -6,6 +6,11 @@
 \usage{
 drop_layout(data, ...)
 }
+\arguments{
+\item{data}{layout}
+
+\item{...}{additional data}
+}
 \description{
 Drop a genome layout
 }

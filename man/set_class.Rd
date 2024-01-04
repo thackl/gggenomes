@@ -16,6 +16,8 @@ strip_class(x, class)
 \item{x}{Object to assign new class to.}
 
 \item{class}{Class value to add/strip.}
+
+\item{add}{Possible values: "overwrite", "prepend", "append"}
 }
 \value{
 Object x as class value.

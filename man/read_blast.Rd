@@ -37,8 +37,12 @@ columns: \code{col_names = c(def_names("blast"), "more", "things")}.}
 
 \item{col_types}{column types to use. Defaults to \code{def_types("gff3")} (see \code{\link{def_types}}).}
 
+\item{comment}{character}
+
 \item{swap_query}{if TRUE swap query and subject columns using \code{\link[=swap_query]{swap_query()}}
 on import.}
+
+\item{...}{additional parameters, passed to \code{read_tsv}}
 }
 \description{
 Read BLAST tab-separated output

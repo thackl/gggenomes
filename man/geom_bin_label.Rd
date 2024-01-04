@@ -38,6 +38,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
+\item{hjust}{Moves the text horizontally}
+
+\item{size}{of the label}
+
 \item{nudge_left}{by this much relative to the widest bin}
 
 \item{expand_left}{by this much relative to the widest bin}

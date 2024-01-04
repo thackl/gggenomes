@@ -3,9 +3,11 @@
 #' Shift bins along the x-axis, i.e. left or right in the default plot
 #' layout. This is useful to align feats of interest in different bins.
 #'
+#' @param x gggenomes object
 #' @param bins to shift left/right, select-like expression
 #' @param by shift each bin by this many bases. Single value or vector of the
 #' same length as bins.
+#' @param center horizontal centering
 #' @examples
 #' p0 <- gggenomes(emale_genes, emale_seqs) +
 #' geom_seq() + geom_gene()

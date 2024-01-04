@@ -7,6 +7,7 @@
 #' @param type if no type column exists, use this as the default type
 #' @param source if no source column exists, use this as the default source
 #' @param score if no score column exists, use this as the default score
+#' @param strand if no strand column exists, use this as the default strand
 #' @param phase if no phase column exists, use this as the default phase
 #' @param id_var the name of the column to use as the GFF3 `ID` tag
 #' @param parent_var the name of the column to use as GFF3 `Parent` tag

@@ -50,6 +50,9 @@ parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
 #' Read sequence index
 #'
 #' @describeIn read_seq_len read seqs from a single file in fasta, gbk or gff3 format.
+#' @inheritParams readr::read_tsv
+#' @param file with sequence length information
+#' @param ... additional parameters, passed to `read_tsv`
 #' @export
 read_seq_len <- function(file, col_names = def_names("seq_len"),
     col_types = def_types("seq_len"), ...){

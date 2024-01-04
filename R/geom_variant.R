@@ -9,6 +9,7 @@
 #' #' the function `gggenomes::read_feats` is able to read VCF files and converts them into a format that is applicable within the gggenomes' track system.
 #' *Keep in mind: The function uses data from the feats' track.*     
 #'
+#' @inheritParams ggplot2::geom_point
 #' @param data Data from the first feats track is used for this function by default. When several feats tracks are present within the gggenomes track system,
 #' make sure that the wanted data is used by calling `data = feats(*df*)` within the `geom_variant` function. 
 #' @param stat Describes what statistical transformation is used for this layer. By default it uses `"identity"`, indicating no statistical transformation.

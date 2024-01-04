@@ -77,6 +77,8 @@ true beginning.}
 
 \item{.layout}{a pre-computed layout from \code{\link[=layout_genomes]{layout_genomes()}}. Useful for
 developmental purposes.}
+
+\item{...}{additional parameters, passed to layout}
 }
 \value{
 gggenomes-flavored ggplot object

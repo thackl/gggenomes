@@ -10,6 +10,7 @@
 #'   combined with extra columns: `col_names = c(def_names("bed"), "more",
 #'   "things")`.
 #'
+#' @param ... additional parameters, passed to `read_tsv`
 #' @return tibble
 #' @export
 read_bed <- function (file, col_names = def_names("bed"),

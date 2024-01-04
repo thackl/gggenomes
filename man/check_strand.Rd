@@ -6,6 +6,11 @@
 \usage{
 check_strand(strand, na)
 }
+\arguments{
+\item{strand}{some representation for strandedness}
+
+\item{na}{what to use for \code{NA}}
+}
 \description{
 Check strand
 }

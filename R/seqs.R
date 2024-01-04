@@ -53,9 +53,12 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
 
 #' Layout sequences
 #'
+#' @param x seq_layout
 #' @param spacing between sequences in bases (>1) or relative to longest bin (<1)
 #' @param wrap wrap bins into multiple lines with at most this many nucleotides
 #' per lin.
+#' @param spacing_style one of "regular", "center", "spread"
+#' @param keep keys to keep (default: "strand")
 #' @export
 layout_seqs <- function(x, spacing=0.05, wrap=NULL,
     spacing_style = c("regular", "center", "spread"), keep="strand"){
@@ -114,6 +117,8 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 
 #' Drop a seq layout
 #'
+#' @param x seq_layout
+#' @param keep features to keep
 #' @export
 drop_seq_layout <- function(x, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
@@ -166,6 +171,9 @@ wrap_impl <- function(.data, xmax, xpad, ystart, xstart){
 
 #' Add seqs
 #'
+#' @param x a gggenomes or gggenomes_layout objekt
+#' @param seqs the sequences to add
+#' @param ... pass through to `as_seqs()`
 #' @export
 add_seqs <- function(x, seqs, ...){
   UseMethod("add_seqs")
@@ -198,6 +206,7 @@ get_seqs.gggenomes_layout <- function(x){
 }
 
 #' @rdname get_seqs
+#' @param value to set vor seqs
 #' @export
 set_seqs <- function(x, value){
   UseMethod("set_seqs")

@@ -16,6 +16,7 @@
 #' The functions `scale_color_variant()` and `scale_shape_variant()` have a default setting, which can be overwritten.
 #' @param na.value The aesthetic value (color/shape/etc.) to use for non matching values.
 #' @param characters When `TRUE`, it changes the default shapes of `scale_shape_variant()` to become the letters of the nucleotides.
+#' @param ... Additional parameters, passed to scale_color_manual
 #' @export
 #' @examples 
 #' # Creation of example data. 

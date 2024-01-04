@@ -6,6 +6,7 @@
 #'
 #' @param x Object to assign new class to.
 #' @param class Class value to add/strip.
+#' @param add Possible values: "overwrite", "prepend", "append"
 #' @return Object x as class value.
 #' @export
 set_class <- function(x, class, add=c("overwrite", "prepend", "append")){

@@ -53,6 +53,7 @@
 #' @inheritParams read_gff3
 #' @importFrom readr read_tsv
 #' @param max_tags maximum number of optional fields to include
+#' @param ... additional parameters, passed to `read_tsv`
 #' @export
 #' @return tibble
 read_paf <- function (file, max_tags = 20, col_names = def_names("paf"),

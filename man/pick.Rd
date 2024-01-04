@@ -16,6 +16,8 @@ pick_seqs_within(x, ..., .bins = everything())
 pick_by_tree(x, tree, infer_bin_id = label)
 }
 \arguments{
+\item{x}{gggenomes object}
+
 \item{...}{bins/seqs to pick, select-like expression.}
 
 \item{.bins}{scope for positional arguments, select-like expression, enclose

@@ -8,6 +8,8 @@ track_info(x, ...)
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
+
+\item{...}{unused}
 }
 \value{
 Short tibble with ids, types, index and size of loaded tracks.

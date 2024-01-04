@@ -175,6 +175,10 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
 \item{nudge_y}{Moves the text vertically an entire contig/sequence.
 (e.g. \code{nudge_y = 1} places the text to the contig above)}
+
+\item{xjust}{Move text in x direction}
+
+\item{strandwise}{plotting of feature tags}
 }
 \description{
 The functions below are useful for labeling features/genes in plots.

@@ -25,6 +25,7 @@
 #'   tag=value pairs into tidy columns.
 #' @param fix_augustus_cds If true, assume Augustus gff with bad CDS IDs that
 #'   need fixing
+#' @param is_gff2 set if file is in gff2 format
 #' @export
 #' @return tibble
 read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,

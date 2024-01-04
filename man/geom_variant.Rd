@@ -18,6 +18,11 @@ geom_variant(
 )
 }
 \arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
 \item{data}{Data from the first feats track is used for this function by default. When several feats tracks are present within the gggenomes track system,
 make sure that the wanted data is used by calling \verb{data = feats(*df*)} within the \code{geom_variant} function.}
 
@@ -30,7 +35,26 @@ but different position adjustments, such as \strong{\code{position_variant()}}, 
 For larger sequences with abundant mutations/variations, it is recommended to use \code{"ticks"} (a modified geom_point object with different default shape and alpha, which plots the points as small "ticks"),
 but in theory any other ggplot2 geom can be called here as well.}
 
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
 \item{offset}{Numeric value describing how far the points will be drawn from the base/sequence. By default it is set on \code{offset = 0}.}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 }
 \description{
 geom_variant allows the user to draw points at locations where a mutation has occured.

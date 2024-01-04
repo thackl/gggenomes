@@ -7,10 +7,14 @@
 shift(x, bins = everything(), by = 0, center = FALSE)
 }
 \arguments{
+\item{x}{gggenomes object}
+
 \item{bins}{to shift left/right, select-like expression}
 
 \item{by}{shift each bin by this many bases. Single value or vector of the
 same length as bins.}
+
+\item{center}{horizontal centering}
 }
 \description{
 Shift bins along the x-axis, i.e. left or right in the default plot

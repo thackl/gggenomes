@@ -6,6 +6,9 @@
 \usage{
 unnest_exons(x)
 }
+\arguments{
+\item{x}{data}
+}
 \description{
 Unnest exons
 }

@@ -85,6 +85,7 @@
 #'
 #' @describeIn pick pick bins by bin_id, positional argument (start at top)
 #'   or select-helper.
+#' @param x gggenomes object
 #' @param ... bins/seqs to pick, select-like expression.
 #' @export
 pick <- function(x, ...){

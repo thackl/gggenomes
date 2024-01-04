@@ -6,6 +6,11 @@
 \usage{
 drop_seq_layout(x, keep = "strand")
 }
+\arguments{
+\item{x}{seq_layout}
+
+\item{keep}{features to keep}
+}
 \description{
 Drop a seq layout
 }

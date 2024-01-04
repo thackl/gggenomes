@@ -6,6 +6,11 @@
 \usage{
 flip_strand(strand, na = NA)
 }
+\arguments{
+\item{strand}{some representation for strandedness}
+
+\item{na}{what to use for \code{NA}}
+}
 \description{
 Flip strand
 }
