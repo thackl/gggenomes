@@ -60,6 +60,20 @@ reference:
   - introduce
   - file_label
   - qw
+  - GeomFeatText
+  - check_strand
+  - combine_strands
+  - drop_feat_layout
+  - drop_layout
+  - drop_link_layout
+  - drop_seq_layout
+  - flip_strand
+  - if_reverse
+  - is_reverse
+  - strand_chr
+  - strand_int
+  - strand_lgl
+  - unnest_exons
 - title: "Data sets"
 - contents:
   - starts_with("emale")
