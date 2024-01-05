@@ -34,7 +34,7 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(seq_id, seq_id2), as.character)
+  x <- mutate_at(x, vars("seq_id", "seq_id2"), as.character)
 
   if(!has_vars(x, c("start", "end", "start2", "end2"))){
     if(has_vars(x, c("start", "end", "start2", "end2"),any=TRUE)){
@@ -42,8 +42,8 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
     }
 
     x <- x %>%
-      left_join(select(ungroup(seqs), seq_id=seq_id, start=start, end = end), by="seq_id") %>%
-      left_join(select(ungroup(seqs), seq_id2=seq_id, start2=start, end2 = end), by="seq_id2")
+      left_join(select(ungroup(seqs), seq_id=.data$seq_id, start=.data$start, end = .data$end), by="seq_id") %>%
+      left_join(select(ungroup(seqs), seq_id2=.data$seq_id, start2=.data$start, end2 = .data$end), by="seq_id2")
   }
   vars <- c("seq_id", "start", "end", "seq_id2", "start2", "end2")
 
@@ -56,9 +56,9 @@ as_links.tbl_df <- function(x, seqs, ..., everything=TRUE){
     # if strand is not given but "-" link strand is encoded as end-strand,
     # add strand and recode start-end
     x <- x %>%
-      mutate(x, strand = ifelse((start < end) == (start2 < end2), "+", "-")) %>%
-      swap_if(start > end, start, end) %>%
-      swap_if(start2 > end2, start2, end2)
+      mutate(x, strand = ifelse((.data$start < .data$end) == (.data$start2 < .data$end2), "+", "-")) %>%
+      swap_if(.data$start > .data$end, .data$start, .data$end) %>%
+      swap_if(.data$start2 > .data$end2, .data$start2, .data$end2)
   }else{
     x$strand <- strand_chr(x$strand)
   }
@@ -138,9 +138,9 @@ add_link_tracks <- function(x, tracks, adjacent_only=TRUE){
 # add bin_id to orig links, required for focus
 as_orig_links <- function(links, seqs){
   if(!has_vars("bin_id", "bin_id2")){
-    links <- left_join(links, select(seqs, bin_id, seq_id),
+    links <- left_join(links, select(seqs, .data$bin_id, .data$seq_id),
         by=shared_names(links, "seq_id", "bin_id"))
-    links <- left_join(links, select(seqs, bin_id2=bin_id, seq_id2=seq_id),
+    links <- left_join(links, select(seqs, bin_id2=.data$bin_id, seq_id2=.data$seq_id),
         by=shared_names(links, "seq_id2", "bin_id2"))
   }
   links
@@ -160,11 +160,11 @@ drop_link_layout <- function(x, seqs, keep="strand"){
 
 add_link_layout_scaffold <- function(x, seqs){
   scaffold <- seqs %>% ungroup() %>% select(
-    seq_id=seq_id, bin_id=bin_id, y=y, .seq_strand=strand, .seq_x=x,
-    .seq_start=start, .seq_end=end)
+    seq_id=.data$seq_id, bin_id=.data$bin_id, y=.data$y, .seq_strand=.data$strand, .seq_x=.data$x,
+    .seq_start=.data$start, .seq_end=.data$end)
   scaffold2 <- seqs %>% ungroup() %>% select(
-    seq_id2=seq_id, bin_id2=bin_id, yend=y, .seq_strand2=strand, .seq_x2=x,
-    .seq_start2=start, .seq_end2=end)
+    seq_id2=.data$seq_id, bin_id2=.data$bin_id, yend=.data$y, .seq_strand2=.data$strand, .seq_x2=.data$x,
+    .seq_start2=.data$start, .seq_end2=.data$end)
 
   x <- inner_join(x, scaffold, by=shared_names(x, "seq_id", "bin_id"))
   x <- inner_join(x, scaffold2, by=shared_names(x, "seq_id2", "bin_id2"))

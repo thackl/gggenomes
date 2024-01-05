@@ -228,8 +228,8 @@ focus_feats <- function(track, seqs, bin_id){
 }
 
 add_feat_focus_scaffold <- function(track, seqs){
-  scaffold <- seqs %>% ungroup() %>% select(
-    seq_id, bin_id, locus_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
+  scaffold <- seqs %>% ungroup() %>% dplyr::select(
+    .data$seq_id, .data$bin_id, .data$locus_id, .data$y, .seq_strand=.data$strand, .seq_x=.data$x, .seq_start=.data$start, .seq_end=.data$end)
 
   inner_join(track, scaffold, by=shared_names(track, "seq_id", "bin_id", "locus_id"))
 }
@@ -251,11 +251,11 @@ focus_links <- function(track, seqs, bin_id){
 
 add_link_focus_scaffold <- function(track, seqs){
   scaffold <- seqs %>% ungroup() %>% select(
-    seq_id=seq_id, bin_id=bin_id, locus_id=locus_id, y=y, .seq_strand=strand, .seq_x=x,
-    .seq_start=start, .seq_end=end)
+    seq_id=.data$seq_id, bin_id=.data$bin_id, locus_id=.data$locus_id, y=.data$y, .seq_strand=.data$strand, .seq_x=.data$x,
+    .seq_start=.data$start, .seq_end=.data$end)
   scaffold2 <- seqs %>% ungroup() %>% select(
-    seq_id2=seq_id, bin_id2=bin_id, locus_id2=locus_id, yend=y, .seq_strand2=strand, .seq_x2=x,
-    .seq_start2=start, .seq_end2=end)
+    seq_id2=.data$seq_id, bin_id2=.data$bin_id, locus_id2=.data$locus_id, yend=.data$y, .seq_strand2=.data$strand, .seq_x2=.data$x,
+    .seq_start2=.data$start, .seq_end2=.data$end)
 
   track <- inner_join(track, scaffold, by=shared_names(track, "seq_id", "bin_id", "locus_id"))
   track <- inner_join(track, scaffold2, by=shared_names(track, "seq_id2", "bin_id2", "locus_id2"))

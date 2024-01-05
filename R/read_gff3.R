@@ -79,8 +79,8 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
   x <- x %>% dplyr::group_by(type, feat_id) %>% dplyr::summarize(
     introns = list(coords2introns(start, end, sort_exons)),
     start = min(start), end = max(end),
-    parent_ids = list(first(parent_ids)), # special treat for lst_col
-    dplyr::across(c(-start, -end, -introns, -parent_ids), first)
+    parent_ids = list(first(`parent_ids`)), # special treat for lst_col
+    dplyr::across(c(-"start", -"end", -"introns", -"parent_ids"), first)
   ) %>% dplyr::ungroup() %>% dplyr::arrange(.row_index) %>% dplyr::select(-.row_index)
 
   # band aid fix for collapsed CDS/cDNA_match - set score and phase NA because
@@ -133,38 +133,38 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
   x <- left_join(x, bind_rows(cds_geom_ids, mrna_geom_ids), by="feat_id")
 
   # nice order of things
-  x <- relocate(x, seq_id, start, end, strand)
+  x <- relocate(x, .data$seq_id, .data$start, .data$end, .data$strand)
 
   # print a summary of the feats
   inform("Features read")
-  x_types <- count(x, `source`, type)
+  x_types <- count(x, .data$source, .data$type)
   inform(paste0(format(x_types), collapse="\n"))
   x
 }
 
 add_mrna_for_exons <- function(x, col_names){
   # add one mRNA for each exon w/ parent_id that doesn't exist
-  mrna_ids <- filter(x, type=="mRNA")[["feat_id"]]
+  mrna_ids <- filter(x, .data$type=="mRNA")[["feat_id"]]
   # orfan exons
   x2 <- mutate(x, .row_index = row_number())
-  exons <- filter(x2, type=="exon") %>% tidyr::unchop(parent_ids) %>%
-    filter(!parent_ids %in% mrna_ids)
+  exons <- filter(x2, .data$type=="exon") %>% tidyr::unchop(.data$parent_ids) %>%
+    filter(!.data$parent_ids %in% mrna_ids)
 
   if(nrow(exons) == 0)
     return(x)
 
   mrnas <- exons %>%
-    dplyr::select(all_of(col_names[1:8]), feat_id=parent_ids, .row_index) %>%
-    dplyr::group_by(feat_id) %>% dplyr::summarize(
-      dplyr::across(c(-start, -end), first),
-      start = min(start), end=max(end)
+    dplyr::select(all_of(col_names[1:8]), feat_id=.data$parent_ids, .data$.row_index) %>%
+    dplyr::group_by(.data$feat_id) %>% dplyr::summarize(
+      dplyr::across(c(-"start", -"end"), first),
+      start = min(.data$start), end=max(.data$end)
     ) %>%
-    dplyr::select(all_of(col_names[1:8]), feat_id, .row_index) %>%
+    dplyr::select(all_of(col_names[1:8]), .data$feat_id, .data$.row_index) %>%
     dplyr::mutate(type="mRNA", parent_ids=NA_character_, name=NA_character_,
-      parent_ids = as.list(parent_ids))
+      parent_ids = as.list(.data$parent_ids))
 
   # insert mrnas right before exons
-  x2 <- bind_rows(mrnas, x2) %>% arrange(.row_index) %>% select(-.row_index)
+  x2 <- bind_rows(mrnas, x2) %>% arrange(.data$.row_index) %>% select(-.data$.row_index)
   x2
 }
 

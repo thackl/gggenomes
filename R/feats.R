@@ -35,7 +35,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(seq_id), as.character)
+  x <- mutate_at(x, vars("seq_id"), as.character)
 
   if(!any(seqs$seq_id %in% x$seq_id)){
     warn(paste("No matching seq_ids between feats and seqs.",
@@ -53,9 +53,9 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
     type = NA,
     strand = x$start < x$end
   ) %>%
-  mutate(strand = strand_chr(strand))
+  mutate(strand = strand_chr(.data$strand))
 
-  x %<>% swap_if(start > end, start, end)
+  x %<>% swap_if(.data$start > .data$end, .data$start, .data$end)
 
   layout_feats(x, seqs, ...)
 }
@@ -135,7 +135,7 @@ add_feat_tracks <- function(x, tracks){
 
 add_feat_layout_scaffold <- function(x, seqs){
   scaffold <- seqs %>% ungroup() %>% select(
-    seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
+    .data$seq_id, .data$bin_id, .data$y, .seq_strand=.data$strand, .seq_x=.data$x, .seq_start=.data$start, .seq_end=.data$end)
 
   inner_join(x, scaffold, by=shared_names(x, "seq_id", "bin_id"))
 }
