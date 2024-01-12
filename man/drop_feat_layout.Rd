@@ -4,12 +4,10 @@
 \alias{drop_feat_layout}
 \title{Drop feature layout}
 \usage{
-drop_feat_layout(x, seqs, keep = "strand")
+drop_feat_layout(x, keep = "strand")
 }
 \arguments{
 \item{x}{feat_layout}
-
-\item{seqs}{unused}
 
 \item{keep}{features to keep}
 }

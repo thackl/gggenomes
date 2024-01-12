@@ -4,12 +4,10 @@
 \alias{drop_link_layout}
 \title{Drop a link layout}
 \usage{
-drop_link_layout(x, seqs, keep = "strand")
+drop_link_layout(x, keep = "strand")
 }
 \arguments{
 \item{x}{link_layout}
-
-\item{seqs}{unused}
 
 \item{keep}{features to keep}
 }
