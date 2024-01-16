@@ -80,10 +80,10 @@ add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
 }
 
 cluster2sublinks <- function(x, parent_track){
-  x %>% split_by(cluster_id) %>%
+  x %>% split_by(.data$cluster_id) %>%
     purrr::keep(~nrow(.) > 1) %>% # links need >2 members, ignore singletons
     purrr::map_df(.id = "cluster_id", function(g){
-      mat <- combn(g$feat_id, 2, simplify=TRUE)
+      mat <- utils::combn(g$feat_id, 2, simplify=TRUE)
       tibble(feat_id = mat[1,], feat_id2 = mat[2,])
     })
 }

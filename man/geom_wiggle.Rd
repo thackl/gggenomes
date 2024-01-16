@@ -103,7 +103,8 @@ be both a function or a vector returning those three values. Defaults to
 \description{
 Visualize data that varies along sequences as ribbons, lines, lineranges,
 etc.
-
+}
+\details{
 Geom_wiggle plots the wiggle data in both directions around the median.
 Geom_coverage plots the data only in positive direction.
 Both functions use data from the feats' track.
@@ -121,19 +122,19 @@ aesthetic is:
 
 \examples{
 # Plotting data with geom_coverage with increased height.
-gggenomes(seqs=emale_seqs, feats=emale_gc) +
-geom_coverage(aes(z = score), height = 0.5) +
-geom_seq()
+gggenomes(seqs = emale_seqs, feats = emale_gc) +
+  geom_coverage(aes(z = score), height = 0.5) +
+  geom_seq()
 
 # In opposite direction by calling base::min and taking the negative values of "score"
-gggenomes(seqs=emale_seqs, feats=emale_gc) +
-geom_coverage(aes(z = -score), max = base::min, height = 0.5) +
-geom_seq()
+gggenomes(seqs = emale_seqs, feats = emale_gc) +
+  geom_coverage(aes(z = -score), max = base::min, height = 0.5) +
+  geom_seq()
 
 # GC-content plotted as points with variable color in geom_coverage
-gggenomes(seqs=emale_seqs, feats=emale_gc) +
-geom_coverage(aes(z = score, color = score), height = 0.5, geom = "point") +
-geom_seq()
+gggenomes(seqs = emale_seqs, feats = emale_gc) +
+  geom_coverage(aes(z = score, color = score), height = 0.5, geom = "point") +
+  geom_seq()
 # Plot varying GC-content along sequences as ribbon
 gggenomes(seqs=emale_seqs, feats=emale_gc) +
   geom_wiggle(aes(z=score)) +

@@ -1,5 +1,6 @@
 #' Write a gff3 file from a tidy table
 #'
+#' @importFrom stats na.omit
 #' @param feats tidy feat table
 #' @param file name of output file
 #' @param seqs a tidy sequence table to generate optional `##sequence-region`

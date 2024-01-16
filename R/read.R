@@ -179,7 +179,7 @@ def_parser <- function(format, context=NULL){
 
   # for each format/context combo, get parser
   pp <- purrr::pmap_chr(x, function(format, context){
-    r <- filter_def_formats(format=format, context=context) %>% pull(parser)
+    r <- filter_def_formats(format=format, context=context) %>% pull(.data$parser)
     if(!length(r) || is.na(r))
       abort(str_glue("No predefined parser for: `format={format}, context={context}`"))
     r
@@ -187,7 +187,7 @@ def_parser <- function(format, context=NULL){
   pp
 }
 
-file_strip_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
+file_strip_zip <- function(file, ext = c("bz2","gz","xz","zip")){
   ext <- paste0("\\.", ext, "$", collapse="|")
   stringr::str_remove(file, ext)
 }
@@ -220,7 +220,7 @@ file_label <- function(file){
   file
 }
 
-file_is_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
+file_is_zip <- function(file, ext = c("bz2","gz","xz","zip")){
   pattern <- paste0("\\.", ext, "$", collapse="|")
   str_detect(file, pattern)
 }

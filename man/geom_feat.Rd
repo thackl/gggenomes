@@ -65,29 +65,30 @@ can be called upon to modify the visualization of the data.
 \examples{
 # Plotting data from the feats' track with adjusted linewidth and color
 gggenomes(seqs = emale_seqs, feats = emale_ngaros) +
-geom_seq() +
-geom_feat(linewidth = 5, color = "darkred") 
+  geom_seq() +
+  geom_feat(linewidth = 5, color = "darkred")
 
 # Geom_feat can be called several times as well, when specified what data should be used
 gggenomes(seqs = emale_seqs, feats = list(emale_ngaros, emale_tirs)) +
-geom_seq() +
-geom_feat(linewidth = 5, color = "darkred") + #uses first feature track
-geom_feat(data = feats(emale_tirs))
+  geom_seq() +
+  geom_feat(linewidth = 5, color = "darkred") + # uses first feature track
+  geom_feat(data = feats(emale_tirs))
 
 # Additional notes to feats can be added with functions such as: geom_feat_note / geom_feat_text
 gggenomes(seqs = emale_seqs, feats = list(emale_ngaros, emale_tirs)) +
-geom_seq() +
-geom_feat(color = "darkred") +
-geom_feat(data=feats(emale_tirs), color = "darkblue") +
-geom_feat_note(data = feats(emale_ngaros), label="repeat region", size = 4) 
+  geom_seq() +
+  geom_feat(color = "darkred") +
+  geom_feat(data = feats(emale_tirs), color = "darkblue") +
+  geom_feat_note(data = feats(emale_ngaros), label = "repeat region", size = 4)
 
-# Different position adjustments with a simple dataset 
+# Different position adjustments with a simple dataset
 exampledata <- tibble::tibble(
-seq_id = c(rep("A", 3), rep("B", 3), rep("C", 3)),
-start = c(0, 30, 15, 40, 80, 20, 30, 50, 70),
-end = c(30, 90, 60, 60, 100, 80, 60, 90, 120))
+  seq_id = c(rep("A", 3), rep("B", 3), rep("C", 3)),
+  start = c(0, 30, 15, 40, 80, 20, 30, 50, 70),
+  end = c(30, 90, 60, 60, 100, 80, 60, 90, 120)
+)
 
 gggenomes(feats = exampledata) +
-geom_feat(position = "identity", alpha = 0.5, linewidth = 0.5) +
-geom_bin_label()
+  geom_feat(position = "identity", alpha = 0.5, linewidth = 0.5) +
+  geom_bin_label()
 }

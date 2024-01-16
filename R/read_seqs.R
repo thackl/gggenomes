@@ -27,6 +27,7 @@ read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
   seqs
 }
 
+#' @importFrom utils type.convert
 parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   m <- str_match_all(x, pattern) # create  list of match matrices
   y <- purrr::map_df(m, function(.x){

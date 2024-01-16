@@ -69,5 +69,5 @@ max_width <- function(..., base=1){
 
 #' @export
 as_tibble.GRanges <- function(x, ...){
-  select(as_tibble(as.data.frame(x), ...), seq_id=seqnames, start, end, strand, everything())
+  select(as_tibble(as.data.frame(x), ...), seq_id=.data$seqnames, .data$start, .data$end, .data$strand, everything())
 }
