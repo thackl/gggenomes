@@ -4,7 +4,7 @@ author: "Thomas Hackl"
 date: "2/23/2021"
 output: pdf_document
 vignette: >
-  %\VignetteIndexEntry{Emales}
+  %\VignetteIndexEntry{Basic Usage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
