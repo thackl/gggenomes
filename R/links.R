@@ -81,7 +81,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
   x <- add_link_layout_scaffold(x, seqs)
 
   if(adjacent_only){
-    x <- filter(x, abs(y-yend) == 1)
+    x <- filter(x, abs(.data$y-.data$yend) == 1)
     if(nrow(x)==0){
       warning("No links found between adjacent genomes in provided order of genomes, consider reordering genomes")
       return(tibble())
@@ -93,7 +93,7 @@ layout_links <- function(x, seqs, keep="strand", adjacent_only = TRUE,
 
   # project feats onto new layout and clean up aux vars (.seq)
   x <- project_links(x) %>%
-    select(y, x, xend, yend, xmin, xmax, everything(), -starts_with(".seq"))
+    select(.data$y, .data$x, .data$xend, .data$yend, .data$xmin, .data$xmax, everything(), -starts_with(".seq"))
   x
 }
 
@@ -175,30 +175,30 @@ trim_links_to_subseqs <- function(x, marginal){
     x <- mutate(x, .marginal = FALSE, .marginal2 = FALSE)
   }else{
     x <- mutate(x,
-      .marginal = is_marginal(start, end, .seq_start, .seq_end),
-      .marginal2 = is_marginal(start2, end2, .seq_start2, .seq_end2))
+      .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end),
+      .marginal2 = is_marginal(.data$start2, .data$end2, .data$.seq_start2, .data$.seq_end2))
   }
 
   if(marginal == "trim"){
     x %<>% mutate(
-      start = ifelse(.marginal & start < .seq_start, .seq_start, start),
-      end = ifelse(.marginal & end > .seq_end, .seq_end, end),
-      start2 = ifelse(.marginal2 & start2 < .seq_start2, .seq_start2, start2),
-      end2 = ifelse(.marginal2 & end2 > .seq_end2, .seq_end2, end2))
+      start = ifelse(.data$.marginal & .data$start < .data$.seq_start, .data$.seq_start, .data$start),
+      end = ifelse(.data$.marginal & .data$end > .data$.seq_end, .data$.seq_end, .data$end),
+      start2 = ifelse(.data$.marginal2 & .data$start2 < .data$.seq_start2, .data$.seq_start2, .data$start2),
+      end2 = ifelse(.data$.marginal2 & .data$end2 > .data$.seq_end2, .data$.seq_end2, .data$end2))
   } # marginals are now also fully contained
 
   filter(x,
-    .seq_start <= start & end <= .seq_end | .marginal,
-    .seq_start2 <= start2 & end2 <= .seq_end2 | .marginal2,
+    .data$.seq_start <= .data$start & .data$end <= .data$.seq_end | .data$.marginal,
+    .data$.seq_start2 <= .data$start2 & .data$end2 <= .data$.seq_end2 | .data$.marginal2,
   )
 }
 
 project_links <- function(x){
   dummy <- rep("+", nrow(x))
   mutate(x,
-    x =       x(start, end, dummy,  .seq_x, .seq_start, .seq_strand),
-    xend = xend(start, end, dummy,  .seq_x, .seq_start, .seq_strand),
-    xmin =    x(start2, end2, strand, .seq_x2, .seq_start2, .seq_strand2),
-    xmax = xend(start2, end2, strand, .seq_x2, .seq_start2, .seq_strand2)
+    x =       x(.data$start, .data$end, dummy,  .data$.seq_x, .data$.seq_start, .data$.seq_strand),
+    xend = xend(.data$start, .data$end, dummy,  .data$.seq_x, .data$.seq_start, .data$.seq_strand),
+    xmin =    x(.data$start2, .data$end2, .data$strand, .data$.seq_x2, .data$.seq_start2, .data$.seq_strand2),
+    xmax = xend(.data$start2, .data$end2, .data$strand, .data$.seq_x2, .data$.seq_start2, .data$.seq_strand2)
   )
 }

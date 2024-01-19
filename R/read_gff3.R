@@ -51,7 +51,7 @@ read_gff3 <- function(
   }
 
   if (!is.null(types)) {
-    x <- filter(x, type %in% types)
+    x <- filter(x, .data$type %in% types)
   }
 
   if (!is.null(sources)) {
@@ -87,16 +87,16 @@ read_gff3 <- function(
   # collapse multi-line CDS (and cds_match)
   x <- dplyr::mutate(x, .row_index = row_number()) # helper for robust order
   x <- x %>%
-    dplyr::group_by(type, feat_id) %>%
+    dplyr::group_by(.data$type, .data$feat_id) %>%
     dplyr::summarize(
       introns = list(coords2introns(start, end, sort_exons)),
       start = min(start), end = max(end),
-      parent_ids = list(first(`parent_ids`)), # special treat for lst_col
+      parent_ids = list(first(.data$parent_ids)), # special treat for lst_col
       dplyr::across(c(-"start", -"end", -"introns", -"parent_ids"), first)
     ) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.row_index) %>%
-    dplyr::select(-.row_index)
+    dplyr::arrange(.data$.row_index) %>%
+    dplyr::select(-.data$.row_index)
 
   # band aid fix for collapsed CDS/cDNA_match - set score and phase NA because
   # it differs for different spans and we don't store this as a list col
@@ -115,43 +115,43 @@ read_gff3 <- function(
   }
 
   # mRNA introns from exons
-  mrna_exon_introns <- filter(x, type == "exon") %>%
-    select(exon_id = feat_id, start, end, feat_id = parent_ids) %>%
-    tidyr::unchop(feat_id) %>%
-    dplyr::group_by(feat_id) %>%
-    summarize(introns = list(coords2introns(start, end, sort_exons)))
+  mrna_exon_introns <- filter(x, .data$type == "exon") %>%
+    select(exon_id = .data$feat_id, .data$start, .data$end, feat_id = .data$parent_ids) %>%
+    tidyr::unchop(.data$feat_id) %>%
+    dplyr::group_by(.data$feat_id) %>%
+    summarize(introns = list(coords2introns(.data$start, .data$end, sort_exons)))
 
   # for mRNAs w/o exons: mrna_introns == cds_introns + length(five_prime_UTR)
-  mrna_cds_five_prime <- filter(x, type == "five_prime_UTR") %>%
-    transmute(feat_id = parent_ids, width = width(start, end)) %>%
-    tidyr::unchop(feat_id)
+  mrna_cds_five_prime <- filter(x, .data$type == "five_prime_UTR") %>%
+    transmute(feat_id = .data$parent_ids, width = width(start, end)) %>%
+    tidyr::unchop(.data$feat_id)
 
-  mrna_cds_introns <- filter(x, type == "CDS") %>%
-    select(feat_id = parent_ids, introns) %>%
-    tidyr::unchop(feat_id) %>%
-    filter(!feat_id %in% mrna_exon_introns$feat_id) %>%
+  mrna_cds_introns <- filter(x, .data$type == "CDS") %>%
+    select(feat_id = .data$parent_ids, .data$introns) %>%
+    tidyr::unchop(.data$feat_id) %>%
+    filter(!.data$feat_id %in% mrna_exon_introns$feat_id) %>%
     left_join(mrna_cds_five_prime, by = "feat_id") %>%
     replace_na(list(width = 0)) %>%
-    transmute(feat_id, introns = (purrr::map2(introns, width, ~ as.integer(.x + .y))))
+    transmute(.data$feat_id, introns = (purrr::map2(.data$introns, width, ~ as.integer(.x + .y))))
 
   mrna_introns <- bind_rows(mrna_exon_introns, mrna_cds_introns) %>%
-    mutate(feat_id = as.character(feat_id))
+    mutate(feat_id = as.character(.data$feat_id))
 
   # unsert mRNA introns into data
-  x <- left_join(x, rename(mrna_introns, mrna_introns.. = introns), by = "feat_id") %>%
-    mutate(introns = ifelse(purrr::map_lgl(mrna_introns.., is.null), introns, mrna_introns..)) %>%
-    select(-mrna_introns..)
+  x <- left_join(x, rename(mrna_introns, mrna_introns.. = .data$introns), by = "feat_id") %>%
+    mutate(introns = ifelse(purrr::map_lgl(.data$mrna_introns.., is.null), .data$introns, .data$mrna_introns..)) %>%
+    select(-.data$mrna_introns..)
 
   # make one mRNA per CDS (except operons), connect with 'geom_id'
   # 1-1 ratio makes it easy to plot mRNA-CDS gene models
   # (reasonable requirement also enforced by NCBI GFF import)
-  mrna_ids <- filter(x, type == "mRNA" & !is.na(feat_id)) %>% pull(feat_id)
+  mrna_ids <- filter(x, .data$type == "mRNA" & !is.na(.data$feat_id)) %>% pull(.data$feat_id)
   # TODO single geom_id for operon mRNAs with multiple CDS kids
-  cds_geom_ids <- filter(x, type == "CDS") %>% transmute(geom_id = feat_id, feat_id = feat_id)
-  mrna_geom_ids <- filter(x, type == "CDS") %>%
-    select(geom_id = feat_id, feat_id = parent_ids) %>%
-    tidyr::unchop(feat_id) %>%
-    filter(feat_id %in% mrna_ids)
+  cds_geom_ids <- filter(x, .data$type == "CDS") %>% transmute(geom_id = .data$feat_id, feat_id = .data$feat_id)
+  mrna_geom_ids <- filter(x, .data$type == "CDS") %>%
+    select(geom_id = .data$feat_id, feat_id = .data$parent_ids) %>%
+    tidyr::unchop(.data$feat_id) %>%
+    filter(.data$feat_id %in% mrna_ids)
   # multiplies mRNAs that have multiple CDS kids (intended)
   x <- left_join(x, bind_rows(cds_geom_ids, mrna_geom_ids), by = "feat_id")
 
@@ -248,7 +248,7 @@ tidy_attributes <- function(x, is_gff2 = FALSE, keep_attr = FALSE, fix_augustus_
 
   # make sure these columns always exist in gff-based table
   d <- introduce(d, feat_id = NA_character_, parent_ids = NA_character_, name = NA_character_) %>%
-    relocate(feat_id, parent_ids, name)
+    relocate(.data$feat_id, .data$parent_ids, .data$name)
 
   if (keep_attr) {
     x <- bind_cols(x[, 1:8], d, x[, 9])
@@ -259,34 +259,34 @@ tidy_attributes <- function(x, is_gff2 = FALSE, keep_attr = FALSE, fix_augustus_
   if (is_gff2 && has_vars(x, c("transcript_id"))) {
     # make sure this always there
     x <- introduce(x, protein_id = NA_character_) %>%
-      dplyr::group_by(type, transcript_id) # need this for numbering exons
+      dplyr::group_by(.data$type, .data$transcript_id) # need this for numbering exons
 
     # mRNA feat_id=transcript_id
     # CDS feat_id="cds-"transcript_id|protein_id;parent_ids=transcript_id;
     # exon feat_id="exon-"transcript_id.#;parent_ids=transcript_id;
     x <- dplyr::mutate(x,
-      feat_id = ifelse(type == "mRNA" & is.na(feat_id), transcript_id, feat_id),
-      feat_id = ifelse(type == "CDS" & is.na(feat_id),
-        stringr::str_c("cds-", coalesce(transcript_id, protein_id)), feat_id
+      feat_id = ifelse(.data$type == "mRNA" & is.na(.data$feat_id), .data$transcript_id, .data$feat_id),
+      feat_id = ifelse(.data$type == "CDS" & is.na(.data$feat_id),
+        stringr::str_c("cds-", coalesce(.data$transcript_id, .data$protein_id)), .data$feat_id
       ),
-      feat_id = ifelse(type == "exon" & is.na(feat_id),
-        stringr::str_c("exon-", transcript_id, "-", row_number()), feat_id
+      feat_id = ifelse(.data$type == "exon" & is.na(.data$feat_id),
+        stringr::str_c("exon-", .data$transcript_id, "-", row_number()), .data$feat_id
       ),
-      parent_ids = ifelse(type %in% c("CDS", "exon") & is.na(parent_ids),
-        transcript_id, parent_ids
+      parent_ids = ifelse(.data$type %in% c("CDS", "exon") & is.na(.data$parent_ids),
+        .data$transcript_id, .data$parent_ids
       )
     ) %>% dplyr::ungroup()
   }
 
   # make Parent a list col (one feature can have multiple parents)
-  x <- mutate(x, parent_ids = str_split(parent_ids, ","))
+  x <- mutate(x, parent_ids = str_split(.data$parent_ids, ","))
 
   # set a dummy feat_id
-  x <- mutate(x, feat_id = coalesce(feat_id, paste0("feat_", row_number())))
+  x <- mutate(x, feat_id = coalesce(.data$feat_id, paste0("feat_", row_number())))
 
   # fix augustus CDS
   if (fix_augustus_cds) {
-    x <- mutate(x, feat_id = ifelse(type == "CDS", str_replace(feat_id, "CDS\\d+$", "CDS"), feat_id))
+    x <- mutate(x, feat_id = ifelse(.data$type == "CDS", str_replace(.data$feat_id, "CDS\\d+$", "CDS"), .data$feat_id))
   }
 
   x

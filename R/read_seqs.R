@@ -21,7 +21,7 @@ read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
   seqs <- read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
 
   if(parse_desc && has_name(seqs, "seq_desc")){
-    seqs <- mutate(seqs, parse_desc(seq_desc))
+    seqs <- mutate(seqs, parse_desc(.data$seq_desc))
   }
 
   seqs
@@ -38,7 +38,7 @@ parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   }) %>% mutate(across(everything(), type.convert, as.is=TRUE))
 
   # if key has the name of a reserved column, rename it so we don't overwrite
-  rename_i <- names(y) %in% qc(file_id, seq_id, seq_desc, length)
+  rename_i <- names(y) %in% c("file_id", "seq_id", "seq_desc", "length")
   names(y)[rename_i] <- paste0("seq_desc_", names(y)[rename_i])
 
   # remove key=value data from seq_desc and turn resulting emtpy "" into NA

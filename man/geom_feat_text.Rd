@@ -203,38 +203,40 @@ Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
 \examples{
 # example data
 genes <- tibble::tibble(
-seq_id = c("A", "A", "A", "B", "B", "C"),
-start = c(20, 40, 80, 30, 10, 60),
-end = c(30, 70, 85, 40, 15, 90),
-feat_id = c("A1", "A2", "A3", "B1", "B2", "C1"),
-type = c("CDS", "CDS", "CDS", "CDS", "CDS", "CDS"),
-name = c("geneA", "geneB", "geneC", "geneA", "geneC", "geneB"))
+  seq_id = c("A", "A", "A", "B", "B", "C"),
+  start = c(20, 40, 80, 30, 10, 60),
+  end = c(30, 70, 85, 40, 15, 90),
+  feat_id = c("A1", "A2", "A3", "B1", "B2", "C1"),
+  type = c("CDS", "CDS", "CDS", "CDS", "CDS", "CDS"),
+  name = c("geneA", "geneB", "geneC", "geneA", "geneC", "geneB")
+)
 
 seqs <- tibble::tibble(
-seq_id = c("A", "B", "C"),
-start = c(0,0,0),
-end = c(100, 100, 100),
-length = c(100, 100, 100))
+  seq_id = c("A", "B", "C"),
+  start = c(0, 0, 0),
+  end = c(100, 100, 100),
+  length = c(100, 100, 100)
+)
 
 # basic plot creation
-plot <- gggenomes(seqs=seqs, genes=genes) +
-geom_bin_label() +
-geom_gene()
+plot <- gggenomes(seqs = seqs, genes = genes) +
+  geom_bin_label() +
+  geom_gene()
 
 # geom_..._text
-plot + geom_gene_text(aes(label=name))
+plot + geom_gene_text(aes(label = name))
 
 # geom_..._tag
-plot + geom_gene_tag(aes(label=name))
+plot + geom_gene_tag(aes(label = name))
 
 # geom_..._note
-plot + geom_gene_note(aes(label=name))
+plot + geom_gene_note(aes(label = name))
 
-# with horizontal adjustment (`hjust`), vertical adjustment (`vjust`) 
-plot + geom_gene_text(aes(label=name), vjust = -2, hjust = 1)
+# with horizontal adjustment (`hjust`), vertical adjustment (`vjust`)
+plot + geom_gene_text(aes(label = name), vjust = -2, hjust = 1)
 
 # using `nudge_y` and and `angle` adjustment
-plot + geom_gene_text(aes(label=name), nudge_y= 1, angle = 10)
+plot + geom_gene_text(aes(label = name), nudge_y = 1, angle = 10)
 
 # labeling with manual input
 plot + geom_gene_text(label = c("This", "is", "an", "example", "test", "test"))

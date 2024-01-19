@@ -111,7 +111,7 @@ tidy_paf_tags <- function(.data){
 
   # paf is 0-based
   inform("Note: .paf files use 0-based coordinate starts - transforming to 1-based")
-  .data <- mutate(.data, start=start+1, start2=start2+1)
+  .data <- mutate(.data, start=.data$start+1, start2=.data$start2+1)
   
   bind_cols(select(.data, -starts_with("tag_")), tag_df)
 }

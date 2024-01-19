@@ -96,7 +96,7 @@
 focus <- function(
     x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
     .overhang = c("drop", "trim", "keep"),
-    .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = "seq_id",
+    .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
     .locus_bin = c("bin", "seq", "locus"),
     .locus_score = n(), .locus_filter = TRUE, .loci = NULL) {
   if (length(.expand == 1)) .expand <- c(.expand, .expand)
@@ -176,7 +176,7 @@ focus <- function(
 #' @param .locus_track The name of the new track containing the identified loci.
 #' @describeIn focus Identify regions of interest and add them as new feature track
 locate <- function(x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
-                   .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
+                   .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = .data$seq_id,
                    .locus_bin = c("bin", "seq", "locus"),
                    .locus_score = n(), .locus_filter = TRUE, .locus_track = "loci") {
   loci <- locate_impl(x, ...,
@@ -197,7 +197,7 @@ locate <- function(x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
 
 locate_impl <- function(
     x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
-    .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
+    .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = .data$seq_id,
     .locus_bin = c("bin", "seq", "locus"),
     .locus_score = n(), .locus_filter = TRUE, .loci = NULL) {
   if (length(.expand == 1)) .expand <- c(.expand, .expand)
@@ -213,8 +213,8 @@ locate_impl <- function(
   # => mirror links to seq1 to ensure seq2 links are accounted for
   if (track_type(x, {{ .track_id }}) == "links") {
     targets2 <- dplyr::rename(targets,
-      seq_id = seq_id2, seq_id2 = seq_id,
-      start = start2, start2 = start, end = end2, end2 = end
+      seq_id = .data$seq_id2, seq_id2 = .data$seq_id,
+      start = .data$start2, start2 = .data$start, end = .data$end2, end2 = .data$end
     )
     targets <- bind_rows(targets, targets2)
   }
@@ -224,7 +224,7 @@ locate_impl <- function(
       max_dist = .max_dist, locus_score = {{ .locus_score }}, locus_filter = {{ .locus_filter }},
       locus_id = {{ .locus_id }}, locus_id_group = {{ .locus_id_group }}
     ) %>%
-    arrange(locus_id) %>%
+    arrange(.data$locus_id) %>%
     mutate(
       start = start - .expand[1],
       end = end + .expand[2],

@@ -122,7 +122,7 @@ geom_feat_note <- function(mapping = NULL, data = feats(), stat = "identity", po
 geom_gene_text <- function(mapping = NULL, data = genes(), stat = "identity", position = "identity",
                            ..., parse = FALSE, check_overlap = FALSE, na.rm = FALSE,
                            show.legend = NA, inherit.aes = TRUE) {
-  default_aes <- aes(y = y, x = x, xend = xend, type = type, group = geom_id)
+  default_aes <- aes(y = .data$y, x = .data$x, xend = .data$xend, type = .data$type, group = .data$geom_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   geom_feat_text(

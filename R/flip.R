@@ -128,22 +128,22 @@ sync.gggenomes_layout <- function(x, link_track=1, min_support=0){
   s0 <- ungroup(pull_seqs(x))
 
   f0 <- l0 |>
-    dplyr::left_join(select(s0, seq_id, seq_strand=strand), by = "seq_id") |>
-    dplyr::left_join(select(s0, seq_id2=seq_id, seq_strand2=strand), by = "seq_id2") |>
+    dplyr::left_join(select(s0, .data$seq_id, seq_strand=.data$strand), by = "seq_id") |>
+    dplyr::left_join(select(s0, seq_id2=.data$seq_id, seq_strand2=.data$strand), by = "seq_id2") |>
     dplyr::mutate(
-      bin_id = ifelse(y<yend, bin_id, bin_id2), # chose the lower bin id
-      bin_id2 = ifelse(y<yend, bin_id2, bin_id), # chose the lower bin id
-      y = (y+yend)/2, # use mean y for sort
-      support = link_width(start, end, start2, end2) *
-        strand_int(combine_strands(strand, seq_strand, seq_strand2))) |>
-    dplyr::group_by(bin_id, y) |>
-    dplyr::summarize(support = sum(support)) |>
+      bin_id = ifelse(.data$y<.data$yend, .data$bin_id, .data$bin_id2), # chose the lower bin id
+      bin_id2 = ifelse(.data$y<.data$yend, .data$bin_id2, .data$bin_id), # chose the lower bin id
+      y = (.data$y+.data$yend)/2, # use mean y for sort
+      support = link_width(.data$start, .data$end, .data$start2, .data$end2) *
+        strand_int(combine_strands(.data$strand, .data$seq_strand, .data$seq_strand2))) |>
+    dplyr::group_by(.data$bin_id, .data$y) |>
+    dplyr::summarize(support = sum(.data$support)) |>
     dplyr::ungroup() |>
-    dplyr::filter(abs(support) >= min_support) |>
-    dplyr::arrange(-y) |>
-    dplyr::mutate(needs_flip=cumprod(strand_int(support >= 0)) < 0)
+    dplyr::filter(abs(.data$support) >= min_support) |>
+    dplyr::arrange(-.data$y) |>
+    dplyr::mutate(needs_flip=cumprod(strand_int(.data$support >= 0)) < 0)
 
-  bins_to_flip <- f0 |> dplyr::filter(needs_flip) |> dplyr::pull(bin_id)
+  bins_to_flip <- f0 |> dplyr::filter(.data$needs_flip) |> dplyr::pull(.data$bin_id)
 
   if(!length(bins_to_flip)){
     inform(str_glue("All bins appear to be flipped nicely based on the given",

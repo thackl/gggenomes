@@ -29,7 +29,7 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
       seqs <- mutate(seqs, start = 1, end = length)
     }
     seqs <- mutate(seqs, directive="##sequence-region", end=end-start+1, start=start-start+1) %>%
-      select(directive, seq_id, start, end) %>% unite(seq_reg, 1:4, sep=" ")
+      select(.data$directive, .data$seq_id, .data$start, .data$end) %>% unite(.data$seq_reg, 1:4, sep=" ")
   }
 
   require_vars(feats, c("seq_id", "start", "end"))

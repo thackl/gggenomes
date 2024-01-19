@@ -91,7 +91,7 @@ p %>% track_info
 
 # plot all tracks
 p +
-  geom_link() +  # the first link track
+#  geom_link() +  # the first link track
   geom_gene() +  # the first feat track filtered for geneish feats: CDS, mRNA, ..
   geom_feat() +  # the first feat track not named "genes", here emale_tirs
   # use an extra feat track by name
@@ -200,8 +200,8 @@ s0 <- tibble::tibble(
 p <-  gggenomes(seqs=s0) 
 p +
   geom_seq() +         # draw contig/chromosome lines
-  geom_seq_label() +   # label each sequence 
-  geom_bin_label()  # label each bin
+  geom_seq_label()    # label each sequence 
+  #geom_bin_label()  # label each bin
 ```
 
 **`start,end,strand`** in the context of a sequence denote a region or ***locus*** on that sequence. If provided, only the part of the sequence within the locus boundaries will be shown in the plot. This also will remove any features from the plot that do not fall within the locus. It's likely rare to one wants to specify these information directly, but they are important as they power manipulation functions such as `focus()`.
@@ -288,6 +288,6 @@ s1 <- tibble::tibble(
 
 gggenomes(seqs=s1, links=l0)  +
   geom_seq() +                  # draws contigs/chromosome lines  
-  geom_seq_label() +            # labels each sequence
-  geom_link(offset = 0.05)      # draws links between contigs
+  geom_seq_label()             # labels each sequence
+ # geom_link(offset = 0.05)      # draws links between contigs
 ```

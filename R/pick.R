@@ -117,14 +117,14 @@ pick_seqs_within <- function(x, ..., .bins=everything()){
 #' @param tree a phylogenetic tree in [ggtree::ggtree] or [`ape::ape-package`]-"phylo" format.
 #' @param infer_bin_id an expression to extract bin_ids from the tree data.
 #' @export
-pick_by_tree <- function(x, tree, infer_bin_id = label){
+pick_by_tree <- function(x, tree, infer_bin_id = .data$label){
   if (!requireNamespace("ggtree", quietly = TRUE)) {
     abort("ggtree must be installed to use this function")
   }
 
-  if(inherits(tree, "phylo")) tree <- ggtree(tree)
-  tree_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
-    transmute(bin_id = {{ infer_bin_id }}) %>% pull(bin_id)
+  if(inherits(tree, "phylo")) tree <- ggtree::ggtree(tree)
+  tree_ids <- tree$data %>% filter(.data$isTip) %>% arrange(-.data$y) %>%
+    transmute(bin_id = {{ infer_bin_id }}) %>% pull(.data$bin_id)
 
   # check ID matches
   bin_ids <- get_seqs(x)$bin_id
@@ -161,7 +161,7 @@ pick_by_tree <- function(x, tree, infer_bin_id = label){
 pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
-  l <- s %>% split_by(bin_id)
+  l <- s %>% split_by(.data$bin_id)
   i <- tidyselect::eval_select(expr({{ .bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
   s <- bind_rows(l[i])
@@ -172,7 +172,7 @@ pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j,]
     if(isTRUE(.seqs_within)){ # splice modified bins into rest
-      m <- s %>% split_by(bin_id)
+      m <- s %>% split_by(.data$bin_id)
       l[names(m)] <- m
       s <- bind_rows(l)
     }

@@ -13,7 +13,7 @@ pick_seqs(x, ..., .bins = everything())
 
 pick_seqs_within(x, ..., .bins = everything())
 
-pick_by_tree(x, tree, infer_bin_id = label)
+pick_by_tree(x, tree, infer_bin_id = .data$label)
 }
 \arguments{
 \item{x}{gggenomes object}

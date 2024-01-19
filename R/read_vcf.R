@@ -21,13 +21,13 @@ read_vcf <- function(file, parse_info=FALSE, col_names = def_names("vcf"), col_t
   if(parse_info){
     x <- tidy_tax(x)
   }else{
-    x <- mutate(x, type = stringr::str_extract(info, "TYPE=[^;]+"), type = gsub("TYPE=", "", type))
+    x <- mutate(x, type = stringr::str_extract(.data$info, "TYPE=[^;]+"), type = gsub("TYPE=", "", .data$type))
   }
      
 #Add feat_id  
   if(sum(is.na(x$feat_id))){x$feat_id <- paste0("f", seq_len(nrow((x))))}
 #calculate end  
-    x <- mutate(x, end = start + nchar(alt))
+    x <- mutate(x, end = start + nchar(.data$alt))
 
     
     

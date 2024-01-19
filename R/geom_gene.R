@@ -254,8 +254,8 @@ makeContent.genetree <- function(x) {
     cds_exons <- cds_data %>%
       dplyr::group_by(id) %>%
       dplyr::summarize(
-        dplyr::across(c(-x, -xend, -y), first),
-        exons = list(exon_polys(x, xend, y, height, arrow_width, arrow_height))
+        dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
+        exons = list(exon_polys(.data$x, .data$xend, .data$y, height, arrow_width, arrow_height))
       )
   }
 
@@ -266,8 +266,8 @@ makeContent.genetree <- function(x) {
     rna_exons <- rna_data %>%
       dplyr::group_by(id) %>%
       dplyr::summarize(
-        dplyr::across(c(-x, -xend, -y), first),
-        exons = list(exon_polys(x, xend, y, rna_height, rna_arrow_width, rna_arrow_height))
+        dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
+        exons = list(exon_polys(.data$x, .data$xend, .data$y, rna_height, rna_arrow_width, rna_arrow_height))
       )
   }
 
@@ -284,12 +284,12 @@ makeContent.genetree <- function(x) {
     rna_introns <- data %>%
       dplyr::group_by(.data$group) %>%
       # remove CDS if group has mRNA
-      dplyr::filter(.data$type != (if ("mRNA" %in% type) "CDS" else "!bogus")) %>%
+      dplyr::filter(.data$type != (if ("mRNA" %in% .data$type) "CDS" else "!bogus")) %>%
       dplyr::group_by(id) %>%
       dplyr::filter(n() > 1) %>%
       dplyr::summarize(
-        dplyr::across(c(-x, -xend, -y), first),
-        introns = list(intron_polys(x, xend, y, intron_height))
+        dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
+        introns = list(intron_polys(.data$x, .data$xend, .data$y, intron_height))
       )
 
     # after-scale modify intron aes

@@ -74,7 +74,7 @@
 #'  geom_bin_label()  
 #'  
 geom_variant <- function(mapping = NULL, data = feats(), stat="identity", position = "identity", geom = "variant", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, offset = 0, ...) {
-  default_aes <- aes(x=(xend+x)/2, y=y+offset, type = type)
+  default_aes <- aes(x=(.data$xend+.data$x)/2, y=.data$y+offset, type = .data$type)
   mapping <- aes_intersect(mapping, default_aes)
   
   layer(

@@ -53,12 +53,12 @@ track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "link
     id = track_ids(x, track_type),
     type = track_types(x, track_type),
     n = track_nrows(x, track_type)
-  ) %>% dplyr::group_by(type) %>%
+  ) %>% dplyr::group_by(.data$type) %>%
   dplyr::mutate(
-    .after = type,
+    .after = .data$type,
     i = row_number()
   )
-  dplyr::filter(y, type %in% track_type)
+  dplyr::filter(y, .data$type %in% track_type)
 }
 
 #' All types of all tracks

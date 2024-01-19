@@ -134,45 +134,53 @@ Use the parameter \code{intron_types} if you want to disable introns.
 }
 
 \examples{
-gggenomes(genes=emale_genes) +
- geom_gene()
+gggenomes(genes = emale_genes) +
+  geom_gene()
 
-gggenomes(genes=emale_genes) +
- geom_gene(aes(fill=as.numeric(gc_content)),position="strand") +
- scale_fill_viridis_b()
+gggenomes(genes = emale_genes) +
+  geom_gene(aes(fill = as.numeric(gc_content)), position = "strand") +
+  scale_fill_viridis_b()
 
 g0 <- read_gff3(ex("eden-utr.gff"))
-gggenomes(genes=g0) +
+gggenomes(genes = g0) +
   # all features in the "genes" regardless of type
-  geom_feat(data=feats(genes)) +
-  annotate("text", label="geom_feat", x=-15, y=.9) + xlim(-20, NA) +
+  geom_feat(data = feats(genes)) +
+  annotate("text", label = "geom_feat", x = -15, y = .9) + xlim(-20, NA) +
   # only features in the "genes" of geneish type (implicit `data=genes()`)
   geom_gene() +
-  geom_gene_tag(aes(label=ifelse(is.na(type), "<NA>", type)), data=genes(.gene_types = NULL)) +
-  annotate("text", label="geom_gene", x=-15, y=1) +
+  geom_gene_tag(aes(label = ifelse(is.na(type), "<NA>", type)), data = genes(.gene_types = NULL)) +
+  annotate("text", label = "geom_gene", x = -15, y = 1) +
   # control which types are returned from the track
-  geom_gene(aes(y=1.1), data=genes(.gene_types = c("CDS", "misc_RNA"))) +
-  annotate("text", label="gene_types", x=-15, y=1.1) +
+  geom_gene(aes(y = 1.1), data = genes(.gene_types = c("CDS", "misc_RNA"))) +
+  annotate("text", label = "gene_types", x = -15, y = 1.1) +
   # control which types can have introns
-  geom_gene(aes(y=1.2, yend=1.2), data=genes(.gene_types = c("CDS", "misc_RNA")),  intron_types = "misc_RNA") +
-  annotate("text", label="intron_types", x=-15, y=1.2)
+  geom_gene(aes(y = 1.2, yend = 1.2), data = genes(.gene_types = c("CDS", "misc_RNA")), intron_types = "misc_RNA") +
+  annotate("text", label = "intron_types", x = -15, y = 1.2)
 
 # spliced genes
 library(patchwork)
-gg <- gggenomes(genes=g0)
-gg + geom_gene(position="pile") +
-gg + geom_gene(aes(fill=type), position="pile",
-         shape = 0, intron_shape = 0, color="white") +
-# some fine-control on cds/rna/intron after_scale aesthetics
-gg + geom_gene(aes(fill=geom_id), position="pile",
-         size = 2, shape = c(4,3), rna_size = 2, intron_shape = 4, stroke=0,
-         cds_aes=aes(fill="black"), rna_aes=aes(fill=fill),
-         intron_aes=aes(colour=fill, stroke=2)) +
-     scale_fill_viridis_d() +
-# fun with introns
-gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4)) +
-gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4),
-         intron_types=c()) +
-gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4),
-         intron_types="CDS")
+gg <- gggenomes(genes = g0)
+gg + geom_gene(position = "pile") +
+  gg + geom_gene(aes(fill = type),
+    position = "pile",
+    shape = 0, intron_shape = 0, color = "white"
+  ) +
+  # some fine-control on cds/rna/intron after_scale aesthetics
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile",
+    size = 2, shape = c(4, 3), rna_size = 2, intron_shape = 4, stroke = 0,
+    cds_aes = aes(fill = "black"), rna_aes = aes(fill = fill),
+    intron_aes = aes(colour = fill, stroke = 2)
+  ) +
+  scale_fill_viridis_d() +
+  # fun with introns
+  gg + geom_gene(aes(fill = geom_id), position = "pile", size = 3, shape = c(4, 4)) +
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile", size = 3, shape = c(4, 4),
+    intron_types = c()
+  ) +
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile", size = 3, shape = c(4, 4),
+    intron_types = "CDS"
+  )
 }

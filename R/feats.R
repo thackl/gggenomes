@@ -85,7 +85,7 @@ layout_feats <- function(x, seqs, keep="strand",
 
   # project feats onto new layout and clean up aux vars (.seq)
   x <- project_feats(x) %>%
-    select(y, x, xend, bin_id, everything(), -starts_with(".seq"))
+    select(.data$y, .data$x, .data$xend, .data$bin_id, everything(), -starts_with(".seq"))
   x
 }
 
@@ -143,22 +143,22 @@ trim_feats_to_subseqs <- function(x, marginal){
   if(marginal == "drop"){
     x <- mutate(x, .marginal = FALSE)
   }else{
-    x <- mutate(x, .marginal = is_marginal(start, end, .seq_start, .seq_end))
+    x <- mutate(x, .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end))
   }
 
   if(marginal == "trim"){
     x %<>% mutate(
-      start = ifelse(.marginal & start < .seq_start, .seq_start, start),
-      end = ifelse(.marginal & end > .seq_end, .seq_end, end))
+      start = ifelse(.data$.marginal & .data$start < .data$.seq_start, .data$.seq_start, .data$start),
+      end = ifelse(.data$.marginal & .data$end > .data$.seq_end, .data$.seq_end, .data$end))
   }  # marginals are now also fully contained
 
-  filter(x, .seq_start <= start & end <= .seq_end | .marginal)
+  filter(x, .data$.seq_start <= .data$start & .data$end <= .data$.seq_end | .data$.marginal)
 }
 
 project_feats <- function(x){
   mutate(x,
-    x = x(start, end, strand, .seq_x, .seq_start, .seq_strand),
-    xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand))
+    x = x(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand),
+    xend = xend(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand))
 }
 
 is_marginal <- function(start, end, seq_start, seq_end, closed=FALSE){

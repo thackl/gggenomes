@@ -70,7 +70,7 @@
 geom_seq <- function(mapping = NULL, data = seqs(),
     arrow = NULL, ...){
 
-  default_aes <- aes(x, y, xend=xend, yend=y)
+  default_aes <- aes(.data$x, .data$y, xend=.data$xend, yend=.data$y)
   mapping <- aes_intersect(mapping, default_aes)
 
   # default arrow
@@ -126,7 +126,7 @@ geom_seq <- function(mapping = NULL, data = seqs(),
 geom_seq_label <- function(mapping = NULL, data = seqs(),
     hjust = 0, vjust = 1, nudge_y = -0.15, size = 2.5, ...){
 
-  default_aes <- aes(y=y,x=pmin(x,xend), label=seq_id)
+  default_aes <- aes(y=.data$y,x=pmin(.data$x,.data$xend), label=.data$seq_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   geom_text(mapping = mapping, data = data, hjust = hjust,

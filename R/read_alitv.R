@@ -27,24 +27,24 @@ read_alitv <- function(file){
   seqs <- tibble(seq = ali$data$karyo$chromosome) %>%
     mutate(seq_id = names(seq)) %>%
     unnest_wider(seq) %>%
-    rename(bin_id = genome_id)
+    rename(bin_id = .data$genome_id)
   genes <- tibble(feature = ali$data$feature) %>%
-    mutate(class = names(feature)) %>%
+    mutate(class = names(.data$feature)) %>%
     filter(class != "link") %>%
-    unnest(feature) %>%
-    rename(seq_id=karyo)
+    unnest(.data$feature) %>%
+    rename(seq_id=.data$karyo)
   links <- tibble(links=ali$data$links) %>% unnest(links) %>% unnest(links) %>% unnest_wider(links)
-  link_pos <- tibble(link=ali$data$features$link) %>% mutate(id=names(link)) %>% unnest_wider(link)
+  link_pos <- tibble(link=ali$data$features$link) %>% mutate(id=names(.data$link)) %>% unnest_wider(.data$link)
   links <- links %>%
     left_join(link_pos, by=c("source"="id")) %>%
     left_join(link_pos, by=c("target"="id")) %>%
     transmute(
-      seq_id=karyo.x,
-      start=start.x,
-      end=end.x,
-      seq_id2=karyo.y,
-      start2=start.y,
-      end2=end.y,
+      seq_id=.data$karyo.x,
+      start=.data$start.x,
+      end=.data$end.x,
+      seq_id2=.data$karyo.y,
+      start2=.data$start.y,
+      end2=.data$end.y,
       identity=identity
     )
   return(list(seqs=seqs,genes=genes,links=links))

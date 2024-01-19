@@ -235,13 +235,13 @@ infer_seqs_from_feats <- function(feats, infer_bin_id = seq_id, infer_start = mi
     warn("bin_id found in feats, won't overwrite")
 
   seqs <- feats %>%
-    dplyr::group_by(bin_id, seq_id) %>%
+    dplyr::group_by(.data$bin_id, .data$seq_id) %>%
     dplyr::summarize(
       length = {{ infer_length }},
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-    dplyr::rename(start=.start, end=.end) # this is necessary, so {{ infer_end }} does
+    dplyr::rename(start=.data$.start, end=.data$.end) # this is necessary, so {{ infer_end }} does
                                  # not already use the "start" from {{ infer_start }}
 
   dplyr::ungroup(seqs)
@@ -260,13 +260,13 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
 
   seqs %<>%
     dplyr::mutate(bin_id = {{ infer_bin_id }}) %>%
-    dplyr::group_by(seq_id, bin_id) %>%
+    dplyr::group_by(.data$seq_id, .data$bin_id) %>%
     dplyr::summarize(
       length = {{ infer_length }},
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-      dplyr::rename(start=.start, end=.end)
+      dplyr::rename(start=.data$.start, end=.data$.end)
 
   dplyr::ungroup(seqs)
 }
