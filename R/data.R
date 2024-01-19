@@ -13,7 +13,7 @@
 #'   \item{length}{length of the sequence}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales.fna")`
 "emale_seqs"
@@ -44,7 +44,7 @@
 #'   \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales.gff")`
 "emale_genes"
@@ -70,7 +70,7 @@
 #'   \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales-tirs.gff")`
 "emale_tirs"
@@ -95,7 +95,7 @@
 #'   \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales-ngaros.gff")`
 "emale_ngaros"
