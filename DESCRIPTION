@@ -37,7 +37,8 @@ Imports:
     magrittr,
     scales,
     tidyselect,
-    colorspace
+    colorspace,
+    methods
 Suggests:
     testthat,
     rtracklayer,

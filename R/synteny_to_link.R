@@ -13,11 +13,12 @@ get_seqlen <- function(synteny_obj) {
 }
 
 #' Format synteny-class into wide tibble This is for use with gggenomes
+#' @importFrom methods is
 #' @details This function takes a object of class synteny and converts it into a data.frame containing all synteny pairs
 #' @param synteny_obj A object produced by DECIPHER::FindSynteny
 
 synteny_to_link <- function(synteny_obj) {
-  if(class(synteny_obj) != "Synteny") {
+  if(!is(synteny_obj,"Synteny")) {
     stop("synetny_obj is not of class Synteny")
   }
   seqlengths <- get_seqlen(synteny_obj)
