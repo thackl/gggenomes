@@ -29,7 +29,7 @@ exciting system.
 
 This example is bundled `data(package="gggenomes")`
 To rerun the this example including the bioinformatics analyzes download the
-[raw data](https://github.com/thackl/gggenomes/tree/master/data-raw/emales) from
+[raw data](https://github.com/thackl/gggenomes/tree/master/data-raw/emales.tgz) from
 github.
 
 ![](emales/emales-p7.png)
