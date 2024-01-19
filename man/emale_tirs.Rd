@@ -26,7 +26,7 @@ A data frame with 3 rows and 14 columns
 }
 \source{
 \itemize{
-\item Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+\item Publication: \doi{10.1101/2020.11.30.404863}
 \item Raw data: \url{https://github.com/thackl/cb-emales}
 \item Derived & bundled data: \code{ex("emales/emales-tirs.gff")}
 }

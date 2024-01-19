@@ -67,7 +67,11 @@
 #'   geom_gene(aes(y = 1.1), data = genes(.gene_types = c("CDS", "misc_RNA"))) +
 #'   annotate("text", label = "gene_types", x = -15, y = 1.1) +
 #'   # control which types can have introns
-#'   geom_gene(aes(y = 1.2, yend = 1.2), data = genes(.gene_types = c("CDS", "misc_RNA")), intron_types = "misc_RNA") +
+#'   geom_gene(
+#'     aes(y = 1.2, yend = 1.2),
+#'     data = genes(.gene_types = c("CDS", "misc_RNA")),
+#'     intron_types = "misc_RNA"
+#'   ) +
 #'   annotate("text", label = "intron_types", x = -15, y = 1.2)
 #'
 #' # spliced genes
