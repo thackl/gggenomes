@@ -6,7 +6,7 @@ Authors@R: c(
   person("Markus J.", "Ankenbrand", email = "iimog@iimog.org", role = c("aut")),
   person("Bart", "van Adrichem", role = c("aut")),
   person("Kristina", "Haslinger", email = "k.haslinger@rug.nl", role = c("ctb", "sad")))
-Description: gggenomes is an extension of ggplot2 for creating complex genomic
+Description: an extension of ggplot2 for creating complex genomic
  maps. It builds on the power of ggplot2 and tidyverse adding new ggplot-style
  geoms & positions and dplyr-style verbs to manipulate the underlying data. It
  implements a layout concept inspired by ggraph and introduces tracks to bring
