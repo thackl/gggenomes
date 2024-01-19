@@ -91,8 +91,8 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
   }
 
   write(head, file)
-  if(!is.null(seqs)) write_tsv(seqs, file, append=T, col_names=F, quote="none", escape="none")
-  write_tsv(body, file, append=T, col_names=F, quote="none", escape="none")
+  if(!is.null(seqs)) readr::write_tsv(seqs, file, append=T, col_names=F, quote="none", escape="none")
+  readr::write_tsv(body, file, append=T, col_names=F, quote="none", escape="none")
 }
 
 unchop_cds <- function(x){

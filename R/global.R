@@ -47,4 +47,4 @@ gggenomes_global$def_types <- list(
   vcf = "cicccdccc"
 )
 
-utils::globalVariables(c("."))
+utils::globalVariables(c(".", "seq_id", "bin_id", "start", "end"))

@@ -45,7 +45,7 @@ tidy_tax <- function(x){
   ss <- str_match_all(x$info, "([^;=]+)=([^;]+)") #or maybe x[8]
   d <- tibble(.rows= length(ss))
   ii <- rep(seq_along(ss), purrr::map_int(ss, nrow))
-  mm <- list_c(ss)
+  mm <- purrr::list_c(ss)
   kk <- factor(mm[,2])
   vv <- mm[,3]
   for (k in levels(kk)){
