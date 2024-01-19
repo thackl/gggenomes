@@ -16,7 +16,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-**DISCLAIMER: I've created this demo with an early  version of gggenomes. Not all of the code will function with current releases. However, the general workflow both with respect to the external tools and gggenomes code is still valid and this demo should therefore be understood as an hopefully inspiring guide - not as an exactly reproducible code example (Those kind of examples you can find in the examples sections of the documentation).**
+**DISCLAIMER: I've created this demo with an early version of gggenomes. Not all of the code will function with current releases. However, the general workflow both with respect to the external tools and gggenomes code is still valid and this demo should therefore be understood as an hopefully inspiring guide - not as an exactly reproducible code example (Those kind of examples you can find in the examples sections of the documentation).**
 
 This is a real-life example demonstrating the use of `gggenomes` to explore
 viral genomes. We start with just a bunch of viral contigs and ask: Is there
@@ -29,8 +29,8 @@ exciting system.
 
 This example is bundled `data(package="gggenomes")`
 To rerun the this example including the bioinformatics analyzes download the
-[raw data](https://github.com/thackl/gggenomes/tree/master/data-raw/emales.tgz) from
-github.
+[raw data](https://github.com/thackl/gggenomes/raw/master/data-raw/emales.tgz)
+from github.
 
 ![](emales/emales-p7.png)
 
