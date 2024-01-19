@@ -8,3 +8,4 @@
 ^R-deprecated$
 ^data-raw$
 ^pkgdown$
+^LICENSE.md$
