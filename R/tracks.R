@@ -32,7 +32,10 @@ track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links")
 #' - **n** (size) : Amount of objects **plotted** from the data frame.   
 #' (**not** the amount of objects *in* the inputted data frame)
 #' @examples 
-#' gggenomes(seqs = emale_seqs, feats= list(emale_genes, emale_tirs, emale_ngaros),  links = emale_ava) |>
+#' gggenomes(
+#'   seqs = emale_seqs,
+#'   feats= list(emale_genes, emale_tirs, emale_ngaros),
+#'   links = emale_ava) |>
 #' track_info()
 #' @return Short tibble with ids, types, index and size of loaded tracks.
 #' @export

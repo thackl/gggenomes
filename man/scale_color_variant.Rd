@@ -43,7 +43,8 @@ By default, SNPs are diamond shaped, Deletions triangle downwards and Insertions
 \examples{
 # Creation of example data. 
 testposition <- tibble::tibble(
-type = c("Insertion", "SNP", "SNP", "Deletion", "Deletion", "SNP", "SNP", "Insertion", "SNP", "Insertion", "SNP"),
+type = c("Insertion", "SNP", "SNP", "Deletion",
+  "Deletion", "SNP", "SNP", "Insertion", "SNP", "Insertion", "SNP"),
 start = c(10, 20, 30, 35, 40, 60, 65, 90, 90, 100, 120),
 ALT = c("AT", "G", "C", ".", ".", "T", "C", "CAT", "G", "TC", "A"),
 REF = c("A", "T", "G", "A", "A", "G", "A", "C", "A", "T", "G"),
@@ -65,7 +66,9 @@ p2 <- p1 + geom_seq()
 p1 + geom_variant(aes(color=ALT)) 
 
 # Color all SNPs with default colors using scale_color_variant().
-#(SNPs are 1 nucleotide long, other mutations such as Insertions and Deletions have either more ore less nucleotides within the ALT column and are thus not plotted)
+#(SNPs are 1 nucleotide long, other mutations such as Insertions
+#and Deletions have either more ore less nucleotides within the
+#ALT column and are thus not plotted)
 p1 + geom_variant(aes(color=ALT)) +
 scale_color_variant()
 

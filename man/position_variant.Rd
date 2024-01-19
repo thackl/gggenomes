@@ -42,9 +42,15 @@ p + geom_variant()
 p + geom_variant(aes(shape = type), position = position_variant()) 
 
 #Now lets create a plot with different offsets by inserting a self-created vector.
-p + geom_variant(aes(shape = type), position = position_variant(c(del=0.4, ins =-0.4))) + scale_shape_variant()
+p + geom_variant(
+  aes(shape = type),
+  position = position_variant(c(del=0.4, ins =-0.4))
+) + scale_shape_variant()
 
 #Changing the base will shift all points up/down relatively from the sequence.
-p + geom_variant(aes(shape = type), position=position_variant(base = 0.5)) + geom_seq()
+p + geom_variant(
+  aes(shape = type),
+  position=position_variant(base = 0.5)
+) + geom_seq()
 
 }

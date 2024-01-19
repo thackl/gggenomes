@@ -80,13 +80,22 @@ f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 3
  
  ## larger example data set
  f2 <- tibble::tibble(seq_id = c(rep("A", 667)), 
-              start = c(seq(from=1, to=500, by =2), seq(from=500, to =2500, by = 50), 
-                        seq(from=2500, to = 4000, by=4)), end = start+1, length = end-start, 
-              type = c(rep("SNP", 100), rep("Deletion", 20), rep("SNP", 180), rep("Deletion", 67), rep("SNP", 100), rep("Insertion", 50), rep("SNP", 150)),
+              start = c(seq(from=1, to=500, by =2),
+                        seq(from=500, to =2500, by = 50), 
+                        seq(from=2500, to = 4000, by=4)),
+              end = start+1, length = end-start, 
+              type = c(rep("SNP", 100),
+                       rep("Deletion", 20),
+                       rep("SNP", 180),
+                       rep("Deletion", 67),
+                       rep("SNP", 100),
+                       rep("Insertion", 50),
+                       rep("SNP", 150)),
               ALT = c(sample(x=c("A", "C", "G", "T"), size = 100, replace = TRUE), 
                       rep(".", 20), sample(x=c("A", "C", "G", "T"), size = 180, replace=TRUE), 
                       rep(".", 67), sample(x=c("A", "C", "G", "T"), size = 100, replace=TRUE),  
-                      sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC", "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
+                      sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC",
+                                 "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
                       sample(x=c("A", "C", "G", "T"), size = 150, replace=TRUE)))
  
  # Basic example plot with geom_variant
@@ -104,11 +113,15 @@ f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 3
  # Positional adjustment based on type of mutation: position_variant
  gggenomes(seqs = s1, feats = f1) +
    geom_seq() +
-   geom_variant(aes(shape=type), position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))) +
+   geom_variant(
+     aes(shape=type),
+     position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))
+   ) +
    scale_shape_variant() +
    geom_bin_label()
  
- # Plotting larger example data set with Changing default geom to `geom = "ticks"` using positional adjustment based on type (`position_variant`)
+ # Plotting larger example data set with Changing default geom to
+ # `geom = "ticks"` using positional adjustment based on type (`position_variant`)
  gggenomes(feats = f2) +
    geom_variant(aes(color = type), geom = "ticks", alpha = 0.4, position = position_variant()) +
    geom_bin_label()
