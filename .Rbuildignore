@@ -5,3 +5,6 @@
 ^\.github$
 ^doc$
 ^Meta$
+^R-deprecated$
+^data-raw$
+^pkgdown$
