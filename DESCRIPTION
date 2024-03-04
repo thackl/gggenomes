@@ -1,6 +1,6 @@
 Package: gggenomes
 Title: A Grammar of Graphics for Comparative Genomics
-Version: 0.9.12.9000
+Version: 0.9.13.9000
 Authors@R: c(
   person("Thomas", "Hackl", email = "t.hackl@rug.nl", role = c("aut", "cre")),
   person("Markus J.", "Ankenbrand", email = "iimog@iimog.org", role = c("aut")),
@@ -21,7 +21,7 @@ Roxygen: list(markdown = TRUE)
 Remotes: github::thackl/thacklr, bioc::release/rtracklayer
 Depends:
     R (>= 3.4.2),
-    ggplot2 (>= 3.4.0),
+    ggplot2 (>= 3.5.0),
 Imports:
     vctrs,
     rlang,
