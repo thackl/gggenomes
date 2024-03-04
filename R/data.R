@@ -154,25 +154,6 @@
 #' * Derived & bundled data: `ex("emales/emales-prot-ava.o6")`
 "emale_prot_ava"
 
-#' Alignments of 6 EMALE proteomes against Uniref50
-#'
-#' One row per alignment. Alignments were computed with mmseqs2 (blast-like), and
-#' filtered by evalue (<1e-20).
-#'
-#' @format A data frame with 509 rows and 16 columns
-#' \describe{
-#'   \item{file_id}{name of the file the data was read from}
-#'   \item{feat_id}{identifier of the first feature in the alignment}
-#'   \item{feat_id2}{identifier of the second feature in the alignment}
-#'   \item{pident, length, mismatch, gapopen, start, end, start2, end2, evalue, bitscore}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
-#'   \item{seq_head}{full sequence header of the emale protein}
-#'   \item{seq_head2}{full sequence header of the Uniref50 protein}
-#'   \item{taxname}{one of the 4 most abundant taxonomic names among the Uniref50 hits or NA}
-#' }
-#' @source
-#' * Derived & bundled data: `ex("emales/emales-prot-uniref50.tsv")`
-"emale_prot_uniref50"
-
 #' Clusters of orthologs of 6 EMALE proteomes
 #'
 #' One row per feature. Clusters are based on manual curation.
