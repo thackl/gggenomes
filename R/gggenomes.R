@@ -1,23 +1,23 @@
 #' Plot genomes, features and synteny maps
-#' 
+#'
 #' @description
-#' `gggenomes()` initializes a gggenomes-flavored ggplot object. 
+#' `gggenomes()` initializes a gggenomes-flavored ggplot object.
 #' It is used to declare the input data for gggenomes' track system.
-#' 
+#'
 #' (*See for more details on the track system, gggenomes vignette or the Details/Arguments section*)
-#' 
-#' 
+#'
+#'
 #' @details
-#' `gggenomes::gggenomes()` resembles the functionality of `ggplot2::ggplot()`. 
+#' `gggenomes::gggenomes()` resembles the functionality of `ggplot2::ggplot()`.
 #' It is used to construct the initial plot object, and is often followed by "+" to add components to the plot (*e.g. "+ geom_gene()"*).
-#' 
+#'
 #' A big difference between the two is that gggenomes has a multi-track setup (*`'seqs'`, `'feats'`, `'genes'` and `'links'`*).
 #' `gggenomes()` pre-computes a layout and adds coordinates (`y,x,xend`) to each data frame prior to the actual plot construction.
 #' This has some implications for the usage of gggenomes:
-#' - **Data frames for tracks have required variables.** These predefined variables are used during import 
+#' - **Data frames for tracks have required variables.** These predefined variables are used during import
 #' to compute x/y coordinates (*see arguments*).
-#' - **gggenomes' geoms can often be used without explicit `aes()` mappings**  This works because 
-#' we always know the names of the plot variables ahead of time: they originate from the pre-computed layout, 
+#' - **gggenomes' geoms can often be used without explicit `aes()` mappings**  This works because
+#' we always know the names of the plot variables ahead of time: they originate from the pre-computed layout,
 #' and we can use that information to set sensible default aesthetic mappings for most cases.
 #'
 #' @param genes,feats A data.frame, a list of data.frames, or a character vector
@@ -55,9 +55,9 @@
 #' By default subregions of sequences from the first to the last feat/link
 #' are generated. Set `infer_start` to 0 to show all sequences from their
 #' true beginning.
-#' @param adjacent_only Indicates whether links should be created between adjacent sequences/chromosomes only. 
-#' By default it is set to `adjacent_only = TRUE`. If `FALSE`, links will be created between all sequences     
-#'  
+#' @param adjacent_only Indicates whether links should be created between adjacent sequences/chromosomes only.
+#' By default it is set to `adjacent_only = TRUE`. If `FALSE`, links will be created between all sequences
+#'
 #' (*not recommended for large data sets*)
 #' @inheritParams layout_seqs
 #' @param theme choose a gggenomes default theme, NULL to omit.
@@ -163,11 +163,13 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
     data = data,
     layers = list(),
     scales = ggplot2:::scales_list(),
+    guides = ggplot2:::guides_list(),
     mapping = mapping,
     theme = list(),
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
-    plot_env = environment
+    plot_env = environment,
+    layout = ggplot2:::ggproto(NULL, Layout)
   ), class = c("gg", "ggplot"))
 
   p$labels <- ggplot2:::make_labels(mapping)

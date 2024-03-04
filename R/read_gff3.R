@@ -77,6 +77,7 @@ read_gff3 <- function(
     x[[3]][x[[3]] == "transcript"] <- "mRNA"
     x[[3]][x[[3]] == "5'UTR"] <- "five_prime_UTR"
     x[[3]][x[[3]] == "3'UTR"] <- "three_prime_UTR"
+    x[[3]][x[[3]] == "cds"] <- "CDS"
   }
 
   x <- tidy_attributes(x,

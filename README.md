@@ -65,14 +65,14 @@ features in the plot.
 
 ## Inspiration
 
-gggenomes is draws inspiration from other brilliant packages, in particular:
-* [gggenes](https://github.com/wilkox/gggenes) by [David Wilkins'](https://wilkox.org/)
-* [ggtree](https://guangchuangyu.github.io/software/ggtree/) by Guangchuang Yu's
-* [ggraph](https://github.com/thomasp85/ggraph) by [Thomas Lin Pedersen's](https://www.data-imaginist.com/about)
+gggenomes is draws inspiration from some brilliant packages, in particular:
+* [gggenes](https://github.com/wilkox/gggenes) by [David Wilkins](https://wilkox.org/)
+* [ggtree](https://guangchuangyu.github.io/software/ggtree/) by Guangchuang Yu
+* [ggraph](https://github.com/thomasp85/ggraph) by [Thomas Lin Pedersen](https://www.data-imaginist.com/about)
 
 ## Installation
 
-gggenomes is at this point still in an alpha release state, and only
+gggenomes is at this point in an alpha release state, and only
 available as a developmental package from github.
 
 ```R
