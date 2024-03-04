@@ -1,6 +1,6 @@
 Package: gggenomes
 Title: A Grammar of Graphics for Comparative Genomics
-Version: 0.9.13.9000
+Version: 1.0.0
 Authors@R: c(
   person("Thomas", "Hackl", email = "t.hackl@rug.nl", role = c("aut", "cre")),
   person("Markus J.", "Ankenbrand", email = "iimog@iimog.org", role = c("aut")),
