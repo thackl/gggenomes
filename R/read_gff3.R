@@ -68,6 +68,7 @@ read_gff3 <- function(file, sources=NULL, types=NULL, infer_cds_parents=is_gff2,
     x[[3]][x[[3]] == "transcript"] <- "mRNA"
     x[[3]][x[[3]] == "5'UTR"] <- "five_prime_UTR"
     x[[3]][x[[3]] == "3'UTR"] <- "three_prime_UTR"
+    x[[3]][x[[3]] == "cds"] <- "CDS"
   }
 
   x <- tidy_attributes(x, is_gff2=is_gff2, keep_attr=keep_attr,
