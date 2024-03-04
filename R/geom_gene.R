@@ -5,7 +5,7 @@
 #' They can therefore also be positioned as a single unit using the `position`
 #' argument.
 #'
-#' @eval ggplot2:::rd_aesthetics("geom", "gene")
+#' @eval ggplot2__rd_aesthetics("geom", "gene")
 #' @section Aesthetics:
 #'
 #'   'type' and 'group' (mapped to 'type' and 'geom_id' by default) power the

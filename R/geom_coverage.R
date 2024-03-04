@@ -73,7 +73,7 @@ StatCoverage <- ggproto("StatCoverage", Stat,
 as_bounds <- function(.f, ...) {
   UseMethod("as_bounds")
 }
-as_bounds.default <- purrr:::as_mapper.default
+as_bounds.default <- purrr__as_mapper.default
 as_bounds.numeric <- function(.f) {
   function(...) .f
 }

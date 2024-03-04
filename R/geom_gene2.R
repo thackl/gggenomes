@@ -79,7 +79,7 @@ GeomGene2 <- ggproto(
       gene_aes <- vctrs::data_frame(gene_seg)
       gene_segs <- GeomSegment$draw_panel(gene_aes, panel_params, coord)
       grobs <- c(list(gene_segs), cds_polys)
-      ggplot2:::ggname("gene2", do.call("grobTree", grobs))
+      ggplot2__ggname("gene2", do.call("grobTree", grobs))
     }
   },
   draw_key = draw_key_polygon

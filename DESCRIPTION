@@ -38,7 +38,8 @@ Imports:
     scales,
     tidyselect,
     colorspace,
-    methods
+    methods,
+    utils
 Suggests:
     testthat,
     rtracklayer,

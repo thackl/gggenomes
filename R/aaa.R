@@ -1,5 +1,6 @@
 #' Swap values of two columns based on a condition
 #'
+#' @export
 #' @param x a tibble
 #' @param condition an expression to be evaluated in data context returning a
 #' TRUE/FALSE vector
@@ -8,7 +9,7 @@
 #' @examples
 #' x <- tibble::tibble(start = c(10,100), end=c(30, 50))
 #' # ensure start of a range is always smaller than the end
-#' gggenomes:::swap_if(x, start > end, start, end)
+#' swap_if(x, start > end, start, end)
 swap_if <- function(x, condition, ...){
   i <- tidyselect::eval_select(rlang::expr(c(...)), x)
   if(length(i) != 2 || length(unique(i)) != 2)
@@ -42,7 +43,7 @@ ex <- function(file = NULL) {
 
 # are there any arguments in ...
 has_dots <- function(env = parent.frame()){
-  length(ellipsis:::dots(env)) > 0
+  length(ellipsis__dots(env)) > 0
 }
 
 shared_names <- function(x, ...){
@@ -114,3 +115,14 @@ qw <- function(x) unlist(strsplit(x, "[[:space:]]+"))
 #' @param ... Unquated words, separated by comma.
 #' @export
 qc <- function(...) sapply(match.call()[-1], deparse)
+
+#' CRAN Workaround for unexported useful tidyverse internals
+#' https://stackoverflow.com/questions/32535773/using-un-exported-function-from-another-r-package
+ggplot2__ggname <- utils::getFromNamespace("ggname", "ggplot2")
+ggplot2__rd_aesthetics <- utils::getFromNamespace("rd_aesthetics", "ggplot2")
+ggplot2__scales_list <- utils::getFromNamespace("scales_list", "ggplot2")
+ggplot2__guides_list <- utils::getFromNamespace("guides_list", "ggplot2")
+ggplot2__make_labels <- utils::getFromNamespace("make_labels", "ggplot2")
+ellipsis__dots <- utils::getFromNamespace("dots", "ellipsis")
+scales__force_all <- utils::getFromNamespace("force_all", "scales")
+purrr__as_mapper.default <- utils::getFromNamespace("as_mapper.default", "purrr")

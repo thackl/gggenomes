@@ -162,17 +162,17 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
   p <- structure(list(
     data = data,
     layers = list(),
-    scales = ggplot2:::scales_list(),
-    guides = ggplot2:::guides_list(),
+    scales = ggplot2__scales_list(),
+    guides = ggplot2__guides_list(),
     mapping = mapping,
     theme = list(),
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = ggplot2:::ggproto(NULL, Layout)
+    layout = ggplot2::ggproto(NULL, Layout)
   ), class = c("gg", "ggplot"))
 
-  p$labels <- ggplot2:::make_labels(mapping)
+  p$labels <- ggplot2__make_labels(mapping)
 
   ggplot2::set_last_plot(p)
   p

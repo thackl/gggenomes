@@ -39,7 +39,7 @@ scale_x_continuous <- function(...){
 #' @export
 #' @rdname scale_x_bp
 label_bp <- function (suffix = "", sep = "", accuracy = 1) {
-  scales:::force_all(accuracy)
+  scales__force_all(accuracy)
   function(x) {
     breaks <- c(0, 10^c(k = 3, M = 6, G = 9))
     n_suffix <- cut(abs(x), breaks = c(unname(breaks), Inf),

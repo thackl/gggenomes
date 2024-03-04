@@ -100,7 +100,7 @@ GeomLink <- ggproto(
         GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
       })
 
-      ggplot2:::ggname("link", do.call("grobTree", polys))
+      ggplot2__ggname("link", do.call("grobTree", polys))
     }
   },
   draw_key = draw_key_polygon
