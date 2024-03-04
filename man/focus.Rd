@@ -105,7 +105,7 @@ will have their \code{locus_id} as their new \code{seq_id}.
 
 # Let's hunt some defense systems in marine SAGs
 # read the genomes
-s0 <- read_seqs(ex("gorg/gorg.fna"))
+s0 <- read_seqs(ex("gorg/gorg.fna.fai"))
 s1 <- s0 \%>\%
   # strip trailing number from contigs to get bins
   dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\\\d+$"))

@@ -68,7 +68,7 @@ Set \code{x} and \code{expand_x} to an absolute position to align all labels at 
 specific location
 }
 \examples{
-s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa", full.names = TRUE))
+s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa.fai$", full.names = TRUE))
 s1 <- s0 \%>\% dplyr::filter(length>5e5)
 
 gggenomes(emale_genes) + geom_seq() + geom_gene() +
