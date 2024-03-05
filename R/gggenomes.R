@@ -63,6 +63,7 @@
 #' @param theme choose a gggenomes default theme, NULL to omit.
 #' @param .layout a pre-computed layout from [layout_genomes()]. Useful for
 #'   developmental purposes.
+#' @param ... additional parameters, passed to layout
 #' @import rlang
 #' @import ggplot2 dplyr tidyr stringr
 #' @import grid
@@ -104,7 +105,7 @@
 #' ) + geom_seq() + geom_gene() + geom_feat() + geom_link()
 #'
 #' # multi-contig genomes wrap to fixed width
-#' s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa", full.names = TRUE))
+#' s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa.fai$", full.names = TRUE))
 #' s1 <- s0 %>% dplyr::filter(length > 5e5)
 #' gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
 #'   geom_seq() + geom_bin_label() + geom_seq_label()
@@ -161,19 +162,19 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
   p <- structure(list(
     data = data,
     layers = list(),
-    scales = ggplot2:::scales_list(),
-    guides = ggplot2:::guides_list(),
+    scales = ggplot2__scales_list(),
+    guides = ggplot2__guides_list(),
     mapping = mapping,
     theme = list(),
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment,
-    layout = ggplot2:::ggproto(NULL, Layout)
+    layout = ggplot2::ggproto(NULL, Layout)
   ), class = c("gg", "ggplot"))
 
-  p$labels <- ggplot2:::make_labels(mapping)
+  p$labels <- ggplot2__make_labels(mapping)
 
-  ggplot2:::set_last_plot(p)
+  ggplot2::set_last_plot(p)
   p
 }
 #' Layout genomes
@@ -226,7 +227,7 @@ layout_genomes <- function(seqs=NULL, genes=NULL, feats=NULL, links=NULL,
 dim.gggenomes_layout <- function(x) dim(get_seqs(x))
 
 #' @export
-print.gggenomes_layout <- function(x) track_info(x)
+print.gggenomes_layout <- function(x, ...) track_info(x)
 
 infer_seqs_from_feats <- function(feats, infer_bin_id = seq_id, infer_start = min(start,end),
     infer_end = max(start,end), infer_length = max(start,end)){
@@ -236,16 +237,16 @@ infer_seqs_from_feats <- function(feats, infer_bin_id = seq_id, infer_start = mi
     warn("bin_id found in feats, won't overwrite")
 
   seqs <- feats %>%
-    group_by(bin_id, seq_id) %>%
-    summarize(
+    dplyr::group_by(.data$bin_id, .data$seq_id) %>%
+    dplyr::summarize(
       length = {{ infer_length }},
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-    dplyr::rename(start=.start, end=.end) # this is necessary, so {{ infer_end }} does
+    dplyr::rename(start=.data$.start, end=.data$.end) # this is necessary, so {{ infer_end }} does
                                  # not already use the "start" from {{ infer_start }}
 
-  ungroup(seqs)
+  dplyr::ungroup(seqs)
 }
 
 infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = min(start,end),
@@ -260,16 +261,16 @@ infer_seqs_from_links <- function(links, infer_bin_id = seq_id, infer_start = mi
     seqs <- mutate(seqs, bin_id = {{ infer_bin_id }})
 
   seqs %<>%
-    mutate(bin_id = {{ infer_bin_id }}) %>%
-    group_by(seq_id, bin_id) %>%
-    summarize(
+    dplyr::mutate(bin_id = {{ infer_bin_id }}) %>%
+    dplyr::group_by(.data$seq_id, .data$bin_id) %>%
+    dplyr::summarize(
       length = {{ infer_length }},
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-      dplyr::rename(start=.start, end=.end)
+      dplyr::rename(start=.data$.start, end=.data$.end)
 
-  ungroup(seqs)
+  dplyr::ungroup(seqs)
 }
 
 #' gggenomes default theme

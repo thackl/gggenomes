@@ -1,6 +1,8 @@
 #' Re-layout a genome layout
 #'
 #' Re-layout the tracks and update the scales after seqs have been modified
+#' @param x layout
+#' @param ... additional data
 #' @export
 layout <- function(x, ...){
     UseMethod("layout")
@@ -14,7 +16,7 @@ layout.gggenomes <- function(x, ignore_seqs=FALSE, ...){
 
 #' @export
 layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
-    args_feats = list(), args_links = list()){
+    args_feats = list(), args_links = list(), ...){
   if(!ignore_seqs)
     x <- set_seqs(x, exec(layout_seqs, get_seqs(x), !!!args_seqs,
                             !!!x$args_seqs))
@@ -27,6 +29,10 @@ layout.gggenomes_layout <- function(x, ignore_seqs=FALSE, args_seqs = list(),
   x
 }
 
+#' Drop a genome layout
+#'
+#' @param data layout
+#' @param ... additional data
 #' @export
 drop_layout <- function(data, ...){
     UseMethod("drop_layout")

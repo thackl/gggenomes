@@ -21,12 +21,13 @@ read_seqs <- function(files, .id="file_id", format=NULL, parser=NULL,
   seqs <- read_context(files, "seqs", .id=.id, format=format, parser=parser, ...)
 
   if(parse_desc && has_name(seqs, "seq_desc")){
-    seqs <- mutate(seqs, parse_desc(seq_desc))
+    seqs <- mutate(seqs, parse_desc(.data$seq_desc))
   }
 
   seqs
 }
 
+#' @importFrom utils type.convert
 parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   m <- str_match_all(x, pattern) # create  list of match matrices
   y <- purrr::map_df(m, function(.x){
@@ -37,7 +38,7 @@ parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
   }) %>% mutate(across(everything(), type.convert, as.is=TRUE))
 
   # if key has the name of a reserved column, rename it so we don't overwrite
-  rename_i <- names(y) %in% qc(file_id, seq_id, seq_desc, length)
+  rename_i <- names(y) %in% c("file_id", "seq_id", "seq_desc", "length")
   names(y)[rename_i] <- paste0("seq_desc_", names(y)[rename_i])
 
   # remove key=value data from seq_desc and turn resulting emtpy "" into NA
@@ -50,6 +51,9 @@ parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
 #' Read sequence index
 #'
 #' @describeIn read_seq_len read seqs from a single file in fasta, gbk or gff3 format.
+#' @inheritParams readr::read_tsv
+#' @param file with sequence length information
+#' @param ... additional parameters, passed to `read_tsv`
 #' @export
 read_seq_len <- function(file, col_names = def_names("seq_len"),
     col_types = def_types("seq_len"), ...){

@@ -38,6 +38,10 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
+\item{hjust}{Moves the text horizontally}
+
+\item{size}{of the label}
+
 \item{nudge_left}{by this much relative to the widest bin}
 
 \item{expand_left}{by this much relative to the widest bin}
@@ -64,8 +68,8 @@ Set \code{x} and \code{expand_x} to an absolute position to align all labels at 
 specific location
 }
 \examples{
-s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa", full.names = TRUE))
-s1 <- s0 \%>\% filter(length>5e5)
+s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa.fai$", full.names = TRUE))
+s1 <- s0 \%>\% dplyr::filter(length>5e5)
 
 gggenomes(emale_genes) + geom_seq() + geom_gene() +
   geom_bin_label()

@@ -77,6 +77,8 @@ true beginning.}
 
 \item{.layout}{a pre-computed layout from \code{\link[=layout_genomes]{layout_genomes()}}. Useful for
 developmental purposes.}
+
+\item{...}{additional parameters, passed to layout}
 }
 \value{
 gggenomes-flavored ggplot object
@@ -138,8 +140,8 @@ gggenomes(
 ) + geom_seq() + geom_gene() + geom_feat() + geom_link()
 
 # multi-contig genomes wrap to fixed width
-s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa", full.names = TRUE))
-s1 <- s0 \%>\% filter(length > 5e5)
+s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa.fai$", full.names = TRUE))
+s1 <- s0 \%>\% dplyr::filter(length > 5e5)
 gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
   geom_seq() + geom_bin_label() + geom_seq_label()
 }

@@ -10,6 +10,7 @@
 #' @param ... Logical predicates passed on to [dplyr::filter]. "seqs", "feats",
 #'   "links". Affects position-based selection.
 #' @param .ignore track names to ignore when selecting by position.
+#'   Default is "genes", if using `feats0` this defaults to `NA`.
 #' @param .geneify add dummy type, introns and geom_id column to play nicely
 #'   with geoms supporting multi-level and spliced gene models.
 #' @param .gene_types return only feats of this type (`type %in% .gene_types`)
@@ -48,6 +49,8 @@ feats <- function(.track_id=1, ..., .ignore="genes", .geneify=FALSE){
     pull_feats(.x, {{.track_id}}, !!! dots, .ignore=.ignore, .geneify=.geneify)
   }
 }
+
+#' @describeIn pull_track by default pulls out the first feat track.
 #' @export
 feats0 <- function(.track_id=1, ..., .ignore=NA, .geneify=FALSE){
   dots <- quos(...)
@@ -141,7 +144,7 @@ pull_genes.gggenomes <- function(.x, ..., .gene_types=c("CDS", "mRNA", "tRNA",
 pull_genes.gggenomes_layout <- function(.x, ..., .gene_types=c("CDS", "mRNA",
     "tRNA", "tmRNA", "ncRNA", "rRNA")){
   track <- pull_feats(.x, 1, ..., .ignore=NULL, .geneify=TRUE)
-  if(length(.gene_types) > 0) track <- filter(track, type %in% .gene_types)
+  if(length(.gene_types) > 0) track <- filter(track, .data$type %in% .gene_types)
   track
 }
 
@@ -157,7 +160,7 @@ pull_links.gggenomes <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_o
 #' @export
 pull_links.gggenomes_layout <- function(.x, .track_id=1, ..., .ignore=NULL, .adjacent_only=NULL){
   track <- pull_track(.x, {{.track_id}}, ..., .track_type="links", .ignore=.ignore)
-  if(isTRUE(.adjacent_only)) track <- filter(track, abs(y-yend)==1)
+  if(isTRUE(.adjacent_only)) track <- filter(track, abs(.data$y-.data$yend)==1)
   if(isFALSE(.adjacent_only) && .x$args_links$adjacent_only)
     rlang::warn('`.adjacent_only=FALSE` here has no effect because gggenomes was invoked with `adjacent_only=TRUE`')
   track
@@ -174,7 +177,7 @@ pull_seqs.gggenomes <- function(.x, ...){
 }
 #' @export
 pull_seqs.gggenomes_layout <- function(.x, ...){
-  filter(get_seqs(.x), ...)
+  dplyr::filter(get_seqs(.x), ...)
 }
 
 #' @rdname pull_track
@@ -190,9 +193,9 @@ pull_bins.gggenomes <- function(.x, ..., .group=vars()){
 #' @export
 pull_bins.gggenomes_layout <- function(.x, ..., .group=vars()){
   .group <- c(vars(bin_id), .group)
-  get_seqs(.x) %>% filter(...) %>% group_by(!!!.group) %>%
-    summarize(ymin = min(y), ymax = max(y), y = (ymin+ymax)/2,
-              x = min(x,xend), xend = max(x,xend)) %>%
+  get_seqs(.x) %>% dplyr::filter(...) %>% dplyr::group_by(!!!.group) %>%
+    summarize(ymin = min(.data$y), ymax = max(.data$y), y = (.data$ymin+.data$ymax)/2,
+              x = min(.data$x,.data$xend), xend = max(.data$x,.data$xend)) %>%
     ungroup()
 }
 
@@ -208,7 +211,7 @@ pull_track.gggenomes <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore
 #' @export
 pull_track.gggenomes_layout <- function(.x, .track_id=1, ..., .track_type=NULL, .ignore=NULL){
   track_id <- vars_track(.x, {{.track_id}}, track_type=.track_type, ignore=.ignore)
-  filter(.x[[track_type(.x, track_id)]][[track_id]], ...)
+  dplyr::filter(.x[[track_type(.x, track_id)]][[track_id]], ...)
 }
 
 #' Tidyselect track variables

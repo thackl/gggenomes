@@ -1,5 +1,6 @@
 #' Write a gff3 file from a tidy table
 #'
+#' @importFrom stats na.omit
 #' @param feats tidy feat table
 #' @param file name of output file
 #' @param seqs a tidy sequence table to generate optional `##sequence-region`
@@ -7,6 +8,7 @@
 #' @param type if no type column exists, use this as the default type
 #' @param source if no source column exists, use this as the default source
 #' @param score if no score column exists, use this as the default score
+#' @param strand if no strand column exists, use this as the default strand
 #' @param phase if no phase column exists, use this as the default phase
 #' @param id_var the name of the column to use as the GFF3 `ID` tag
 #' @param parent_var the name of the column to use as GFF3 `Parent` tag
@@ -27,7 +29,7 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
       seqs <- mutate(seqs, start = 1, end = length)
     }
     seqs <- mutate(seqs, directive="##sequence-region", end=end-start+1, start=start-start+1) %>%
-      select(directive, seq_id, start, end) %>% unite(seq_reg, 1:4, sep=" ")
+      select(.data$directive, .data$seq_id, .data$start, .data$end) %>% unite(.data$seq_reg, 1:4, sep=" ")
   }
 
   require_vars(feats, c("seq_id", "start", "end"))
@@ -89,8 +91,8 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
   }
 
   write(head, file)
-  if(!is.null(seqs)) write_tsv(seqs, file, append=T, col_names=F, quote="none", escape="none")
-  write_tsv(body, file, append=T, col_names=F, quote="none", escape="none")
+  if(!is.null(seqs)) readr::write_tsv(seqs, file, append=T, col_names=F, quote="none", escape="none")
+  readr::write_tsv(body, file, append=T, col_names=F, quote="none", escape="none")
 }
 
 unchop_cds <- function(x){

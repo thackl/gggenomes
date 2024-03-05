@@ -13,15 +13,17 @@ pick_seqs(x, ..., .bins = everything())
 
 pick_seqs_within(x, ..., .bins = everything())
 
-pick_by_tree(x, tree, infer_bin_id = label)
+pick_by_tree(x, tree, infer_bin_id = .data$label)
 }
 \arguments{
+\item{x}{gggenomes object}
+
 \item{...}{bins/seqs to pick, select-like expression.}
 
 \item{.bins}{scope for positional arguments, select-like expression, enclose
 multiple arguments with \code{c()}!}
 
-\item{tree}{a phylogenetic tree in \link{ggtree} or \link{ape}-"phylo" format.}
+\item{tree}{a phylogenetic tree in \link[ggtree:ggtree]{ggtree::ggtree} or \code{\link[ape:ape-package]{ape::ape-package}}-"phylo" format.}
 
 \item{infer_bin_id}{an expression to extract bin_ids from the tree data.}
 }
@@ -89,7 +91,7 @@ library(ggtree)     # plot phylogenetic trees
 
 # load and plot a phylogenetic tree
 emale_mcp_tree <- read.tree(ex("emales/emales-MCP.nwk"))
-t <- ggtree(emale_mcp_tree) + geom_tiplab(align=T, size=3) +
+t <- ggtree(emale_mcp_tree) + geom_tiplab(align=TRUE, size=3) +
   xlim(0,0.05) # make room for labels
 
 p <- gggenomes(seqs=emale_seqs, genes=emale_genes) +

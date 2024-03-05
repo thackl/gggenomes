@@ -2,6 +2,7 @@
 % Please edit documentation in R/pull_tracks.R
 \name{feats}
 \alias{feats}
+\alias{feats0}
 \alias{genes}
 \alias{links}
 \alias{seqs}
@@ -17,6 +18,8 @@
 \title{Use tracks inside and outside \verb{geom_*} calls}
 \usage{
 feats(.track_id = 1, ..., .ignore = "genes", .geneify = FALSE)
+
+feats0(.track_id = 1, ..., .ignore = NA, .geneify = FALSE)
 
 genes(..., .gene_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA"))
 
@@ -53,7 +56,8 @@ as a positive/negative integer giving the position from the left/right.}
 \item{...}{Logical predicates passed on to \link[dplyr:filter]{dplyr::filter}. "seqs", "feats",
 "links". Affects position-based selection.}
 
-\item{.ignore}{track names to ignore when selecting by position.}
+\item{.ignore}{track names to ignore when selecting by position.
+Default is "genes", if using \code{feats0} this defaults to \code{NA}.}
 
 \item{.geneify}{add dummy type, introns and geom_id column to play nicely
 with geoms supporting multi-level and spliced gene models.}
@@ -82,6 +86,8 @@ track from a gggenome object. Unprefixed variants work inside \verb{geom_*} call
 \itemize{
 \item \code{feats()}: by default pulls out the first feat track not named
 "genes".
+
+\item \code{feats0()}: by default pulls out the first feat track.
 
 \item \code{genes()}: pulls out the first feat track (genes), filtering
 for records with \code{type=="CDS"}, and adding a dummy \code{gene_id} column if missing

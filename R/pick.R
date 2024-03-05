@@ -48,7 +48,7 @@
 #'
 #' # load and plot a phylogenetic tree
 #' emale_mcp_tree <- read.tree(ex("emales/emales-MCP.nwk"))
-#' t <- ggtree(emale_mcp_tree) + geom_tiplab(align=T, size=3) +
+#' t <- ggtree(emale_mcp_tree) + geom_tiplab(align=TRUE, size=3) +
 #'   xlim(0,0.05) # make room for labels
 #'
 #' p <- gggenomes(seqs=emale_seqs, genes=emale_genes) +
@@ -85,6 +85,7 @@
 #'
 #' @describeIn pick pick bins by bin_id, positional argument (start at top)
 #'   or select-helper.
+#' @param x gggenomes object
 #' @param ... bins/seqs to pick, select-like expression.
 #' @export
 pick <- function(x, ...){
@@ -113,17 +114,17 @@ pick_seqs_within <- function(x, ..., .bins=everything()){
 }
 
 #' @describeIn pick align bins with the leaves in a given phylogenetic tree.
-#' @param tree a phylogenetic tree in [ggtree] or [ape]-"phylo" format.
+#' @param tree a phylogenetic tree in [ggtree::ggtree] or [`ape::ape-package`]-"phylo" format.
 #' @param infer_bin_id an expression to extract bin_ids from the tree data.
 #' @export
-pick_by_tree <- function(x, tree, infer_bin_id = label){
+pick_by_tree <- function(x, tree, infer_bin_id = .data$label){
   if (!requireNamespace("ggtree", quietly = TRUE)) {
     abort("ggtree must be installed to use this function")
   }
 
-  if(inherits(tree, "phylo")) tree <- ggtree(tree)
-  tree_ids <- tree$data %>% filter(isTip) %>% arrange(-y) %>%
-    transmute(bin_id = {{ infer_bin_id }}) %>% pull(bin_id)
+  if(inherits(tree, "phylo")) tree <- ggtree::ggtree(tree)
+  tree_ids <- tree$data %>% filter(.data$isTip) %>% arrange(-.data$y) %>%
+    transmute(bin_id = {{ infer_bin_id }}) %>% pull(.data$bin_id)
 
   # check ID matches
   bin_ids <- get_seqs(x)$bin_id
@@ -160,7 +161,7 @@ pick_by_tree <- function(x, tree, infer_bin_id = label){
 pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
-  l <- s %>% split_by(bin_id)
+  l <- s %>% split_by(.data$bin_id)
   i <- tidyselect::eval_select(expr({{ .bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
   s <- bind_rows(l[i])
@@ -171,7 +172,7 @@ pick_impl <- function(x, ..., .bins=everything(), .seqs_within=FALSE){
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j,]
     if(isTRUE(.seqs_within)){ # splice modified bins into rest
-      m <- s %>% split_by(bin_id)
+      m <- s %>% split_by(.data$bin_id)
       l[names(m)] <- m
       s <- bind_rows(l)
     }

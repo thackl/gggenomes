@@ -12,7 +12,7 @@ read_gbk <- function(file, sources=NULL, types=NULL, infer_cds_parents=TRUE){
 
   gb2gff <- base::system.file("exec/gb2gff", package="gggenomes")
 
-  if(file_is_zip(file) && file_suffix(file, ignore_zip = FALSE) != "gz")
+  if(file_is_zip(file) && file_ext(file, ignore_zip = FALSE) != "gz")
     abort(str_glue("Decompressing for genbank only works with gzipped files, not `{suf}`"))
 
   if(file_is_url(file) && file_is_zip(file)){
@@ -20,7 +20,7 @@ read_gbk <- function(file, sources=NULL, types=NULL, infer_cds_parents=TRUE){
   }else if(file_is_url(file)){
     file <- pipe(str_glue("curl {file} | {gb2gff} -S"))
   }else if(file_is_zip(file)){
-    suf <- file_suffix(file, ignore_zip = FALSE)
+    suf <- file_ext(file, ignore_zip = FALSE)
     if(suf != "gz")
       abort(str_glue("Decompressing for genbank only works with gzipped files, not `{suf}`"))
     file <- pipe(str_glue("gzip -cd {file} | {gb2gff} -S"))

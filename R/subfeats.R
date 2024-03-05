@@ -92,7 +92,7 @@ as_subfeats.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(feat_id), as.character)
+  x <- mutate_at(x, vars("feat_id"), as.character)
 
   other_vars <- if(everything) tidyselect::everything else function() NULL;
   x <- as_tibble(select(x, vars, other_vars()))
@@ -105,15 +105,15 @@ as_subfeats.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
     x$strand <- strand_chr(x$strand)
   }
 
-  x <- x %>% swap_if(start > end, start, end)
-  if(transform == "aa2nuc") x <- mutate(x, start = 3*start-2, end = 3*end-2)
-  if(transform == "nuc2aa") x <- mutate(x, start = (start+2)/3, end = (end+2)/3)
+  x <- x %>% swap_if(.data$start > .data$end, .data$start, .data$end)
+  if(transform == "aa2nuc") x <- mutate(x, start = 3*.data$start-2, end = 3*.data$end-2)
+  if(transform == "nuc2aa") x <- mutate(x, start = (.data$start+2)/3, end = (.data$end+2)/3)
 
-  x <- x %>% left_join(select(feats, feat_id, seq_id, .feat_start=start,
-      .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
+  x <- x %>% left_join(select(feats, .data$feat_id, .data$seq_id, .feat_start=.data$start,
+      .feat_end = .data$end, .feat_strand = .data$strand), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
     mutate(
-      start = ifelse(is_reverse(.feat_strand), .feat_end-start, .feat_start+start),
-      end = ifelse(is_reverse(.feat_strand), .feat_end-end, .feat_start+end),
+      start = ifelse(is_reverse(.data$.feat_strand), .data$.feat_end-.data$start, .data$.feat_start+.data$start),
+      end = ifelse(is_reverse(.data$.feat_strand), .data$.feat_end-.data$end, .data$.feat_start+.data$end),
       .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
 
   layout_feats(x, seqs, ...)

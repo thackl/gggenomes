@@ -8,6 +8,8 @@ track_type(x, track_id)
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
+
+\item{track_id}{id for which to get the track type}
 }
 \value{
 a character string with the track type

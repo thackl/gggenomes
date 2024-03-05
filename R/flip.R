@@ -128,22 +128,22 @@ sync.gggenomes_layout <- function(x, link_track=1, min_support=0){
   s0 <- ungroup(pull_seqs(x))
 
   f0 <- l0 |>
-    left_join(select(s0, seq_id, seq_strand=strand), by = "seq_id") |>
-    left_join(select(s0, seq_id2=seq_id, seq_strand2=strand), by = "seq_id2") |>
-    mutate(
-      bin_id = ifelse(y<yend, bin_id, bin_id2), # chose the lower bin id
-      bin_id2 = ifelse(y<yend, bin_id2, bin_id), # chose the lower bin id
-      y = (y+yend)/2, # use mean y for sort
-      support = link_width(start, end, start2, end2) *
-        strand_int(combine_strands(strand, seq_strand, seq_strand2))) |>
-    group_by(bin_id, y) |>
-    summarize(support = sum(support)) |>
-    ungroup() |>
-    filter(abs(support) >= min_support) |>
-    arrange(-y) |>
-    mutate(needs_flip=cumprod(strand_int(support >= 0)) < 0)
+    dplyr::left_join(select(s0, .data$seq_id, seq_strand=.data$strand), by = "seq_id") |>
+    dplyr::left_join(select(s0, seq_id2=.data$seq_id, seq_strand2=.data$strand), by = "seq_id2") |>
+    dplyr::mutate(
+      bin_id = ifelse(.data$y<.data$yend, .data$bin_id, .data$bin_id2), # chose the lower bin id
+      bin_id2 = ifelse(.data$y<.data$yend, .data$bin_id2, .data$bin_id), # chose the lower bin id
+      y = (.data$y+.data$yend)/2, # use mean y for sort
+      support = link_width(.data$start, .data$end, .data$start2, .data$end2) *
+        strand_int(combine_strands(.data$strand, .data$seq_strand, .data$seq_strand2))) |>
+    dplyr::group_by(.data$bin_id, .data$y) |>
+    dplyr::summarize(support = sum(.data$support)) |>
+    dplyr::ungroup() |>
+    dplyr::filter(abs(.data$support) >= min_support) |>
+    dplyr::arrange(-.data$y) |>
+    dplyr::mutate(needs_flip=cumprod(strand_int(.data$support >= 0)) < 0)
 
-  bins_to_flip <- f0 |> filter(needs_flip) |> pull(bin_id)
+  bins_to_flip <- f0 |> dplyr::filter(.data$needs_flip) |> dplyr::pull(.data$bin_id)
 
   if(!length(bins_to_flip)){
     inform(str_glue("All bins appear to be flipped nicely based on the given",
@@ -159,9 +159,9 @@ sync.gggenomes_layout <- function(x, link_track=1, min_support=0){
 flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track=seqs){
   # split by bin_id and select bins
   seq_tbl <- pull_seqs(x)
-  seq_lst <- split_by(seq_tbl, bin_id)
+  seq_lst <- split_by(seq_tbl, .data$bin_id)
   # in case we want to compute selections based on a track other than seqs
-  bin_sel_lst <- split_by(pull_track(x, {{bin_track}}), bin_id)
+  bin_sel_lst <- split_by(pull_track(x, {{bin_track}}), .data$bin_id)
   bin_i <- tidyselect::eval_select(expr({{ bins }}), bin_sel_lst)
   if(length(bin_i) == 0) rlang::abort("no bins selected")
   # select bins to operate on
@@ -170,20 +170,20 @@ flip_impl <- function(x, bins=everything(), seqs=NULL, bin_track=seqs, seq_track
   # flip seqs in bins
   seqs <- enquo(seqs)
   if(!quo_is_null(seqs)){
-    seq_sel_lst <- split_by(pull_track(x, {{seq_track}}), seq_id)
+    seq_sel_lst <- split_by(pull_track(x, {{seq_track}}), .data$seq_id)
     seq_sel_lst <- seq_sel_lst[names(seq_sel_lst) %in% flip_tbl$seq_id]
     seq_i <- tidyselect::eval_select(expr(!! seqs ), seq_sel_lst)
     seq_i <- flip_tbl$seq_id %in% names(seq_i)
     flip_tbl$strand[seq_i] <- flip_strand(flip_tbl$strand[seq_i])
     # flip entire bins
   }else{
-    flip_tbl %<>% group_by(bin_id) %>%
-      mutate(strand = flip_strand(strand)) %>%
-      arrange(-row_number(), .by_group=TRUE)
+    flip_tbl %<>% dplyr::group_by(.data$bin_id) %>%
+      dplyr::mutate(strand = flip_strand(.data$strand)) %>%
+      dplyr::arrange(-row_number(), .by_group=TRUE)
   }
 
   # splice modified bins back into rest
-  flip_lst <- flip_tbl %>% split_by(bin_id)
+  flip_lst <- flip_tbl %>% split_by(.data$bin_id)
   seq_lst[names(flip_lst)] <- flip_lst
   seq_tbl <- bind_rows(seq_lst)
 

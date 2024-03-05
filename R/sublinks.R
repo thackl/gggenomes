@@ -93,23 +93,23 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
   require_vars(feats, "feat_id")
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(feat_id, feat_id2), as.character)
+  x <- mutate_at(x, vars("feat_id", "feat_id2"), as.character)
   if(!has_vars(x, c("start", "end", "start2", "end2"))){
     if(has_vars(x, c("start", "end", "start2", "end2"),any=TRUE)){
       abort("Need either all of start,fend1,start2,end2 or none!")
     }
 
     x <- x %>%
-      left_join(select(feats, feat_id=feat_id, seq_id=seq_id, .feat_start=start,
-        .feat_end = end, .feat_strand = strand), by = shared_names(x, "seq_id", "feat_id")) %>%
+      left_join(select(feats, feat_id=.data$feat_id, seq_id=.data$seq_id, .feat_start=.data$start,
+        .feat_end = .data$end, .feat_strand = .data$strand), by = shared_names(x, "seq_id", "feat_id")) %>%
       mutate(
-        start = .feat_start, end = .feat_end,
+        start = .data$.feat_start, end = .data$.feat_end,
         .feat_start=NULL, .feat_end=NULL) %>%
-      left_join(select(feats, feat_id2=feat_id, seq_id2=seq_id, .feat_start=start,
-        .feat_end = end, .feat_strand2 = strand), by = shared_names(x, "seq_id2", "feat_id2")) %>%
+      left_join(select(feats, feat_id2=.data$feat_id, seq_id2=.data$seq_id, .feat_start=.data$start,
+        .feat_end = .data$end, .feat_strand2 = .data$strand), by = shared_names(x, "seq_id2", "feat_id2")) %>%
       mutate(
-        start2 = .feat_start, end2 = .feat_end,
-        strand = strand_chr(.feat_strand == .feat_strand2),
+        start2 = .data$.feat_start, end2 = .data$.feat_end,
+        strand = strand_chr(.data$.feat_strand == .data$.feat_strand2),
         .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL, .feat_strand2=NULL)
 
     vars <- c("feat_id", "start", "end", "feat_id2", "start2", "end2")
@@ -128,32 +128,32 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
       x$strand <- strand_chr(x$strand)
     }
 
-    x <- x %>% swap_if(start > end, start, end)
-    x <- x %>% swap_if(start2 > end2, start2, end2)
+    x <- x %>% swap_if(.data$start > .data$end, .data$start, .data$end)
+    x <- x %>% swap_if(.data$start2 > .data$end2, .data$start2, .data$end2)
 
     if(transform != "none"){
       transform <-  switch(transform,
           aa2nuc = ~3*.x-2,
           nuc2aa = ~(.x+2)/3)
-      x <- mutate(x, across(c(start, end, start2, end2), transform))
+      x <- mutate(x, across(c("start", "end", "start2", "end2"), transform))
     }
 
     # map start/end from features to seqs
-    feats <- select(feats, feat_id, seq_id, bin_id,
-        .feat_start=start, .feat_end=end, .feat_strand=strand)
+    feats <- select(feats, .data$feat_id, .data$seq_id, .data$bin_id,
+        .feat_start=.data$start, .feat_end=.data$end, .feat_strand=.data$strand)
     x <- x %>%
       inner_join(feats, by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
       mutate(
-        start = if_reverse(.feat_strand, .feat_end-start, .feat_start+start),
-        end = if_reverse(.feat_strand, .feat_end-end, .feat_start+end),
+        start = if_reverse(.data$.feat_strand, .data$.feat_end-.data$start, .data$.feat_start+.data$start),
+        end = if_reverse(.data$.feat_strand, .data$.feat_end-.data$end, .data$.feat_start+.data$end),
         .feat_start=NULL, .feat_end=NULL, .feat_strand=NULL)
 
     feats <- rename_with(feats, ~paste0(.x,"2"))
     x <- x %>%
       inner_join(feats, by = shared_names(x, "seq_id2", "bin_id2", "feat_id2")) %>%
       mutate(
-        start2 = if_reverse(.feat_strand2, .feat_end2-start2, .feat_start2+start2),
-        end2 = if_reverse(.feat_strand2, .feat_end2-end2, .feat_start2+end2),
+        start2 = if_reverse(.data$.feat_strand2, .data$.feat_end2-.data$start2, .data$.feat_start2+.data$start2),
+        end2 = if_reverse(.data$.feat_strand2, .data$.feat_end2-.data$end2, .data$.feat_start2+.data$end2),
         .feat_start2=NULL, .feat_end2=NULL, .feat_strand2=NULL)
 
     # this seems redundant but it works - that's because initially strand
@@ -161,8 +161,8 @@ as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
     # from here on out it has a new meaning - the actual strand of the
     # sublink-converted-link - which is a combo of link, feature, and seq strands...
     x$strand <- strand_chr((x$start < x$end) == (x$start2 < x$end2))
-    x <- x %>% swap_if(start > end, start, end)
-    x <- x %>% swap_if(start2 > end2, start2, end2)
+    x <- x %>% swap_if(.data$start > .data$end, .data$start, .data$end)
+    x <- x %>% swap_if(.data$start2 > .data$end2, .data$start2, .data$end2)
   }
   if(compute_layout)
       layout_links(x, seqs, ...)

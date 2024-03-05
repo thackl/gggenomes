@@ -20,12 +20,13 @@ A data frame with 3 rows and 14 columns
 \item{score}{score of the annotation}
 \item{phase}{For "CDS" features indicates where the next codon begins relative to the 5' start}
 \item{name}{name of the feature}
+\item{width}{end-start+1}
 \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 }
 }
 \source{
 \itemize{
-\item Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+\item Publication: \doi{10.1101/2020.11.30.404863}
 \item Raw data: \url{https://github.com/thackl/cb-emales}
 \item Derived & bundled data: \code{ex("emales/emales-tirs.gff")}
 }

@@ -15,7 +15,7 @@
 #'
 #' # plays nicely with dplyr
 #' df <- tibble::tibble(x=rep(4,5), left=1:5, right=3:7)
-#' mutate(df,
+#' dplyr::mutate(df,
 #'   closed=in_range(x, left, right, TRUE),
 #'   open=in_range(x, left, right, FALSE))
 in_range <- function(x, left, right, closed = TRUE){
@@ -68,6 +68,6 @@ max_width <- function(..., base=1){
 }
 
 #' @export
-as_tibble.GRanges <- function(data){
-  select(as_tibble(as.data.frame(data)), seq_id=seqnames, start, end, strand, everything())
+as_tibble.GRanges <- function(x, ...){
+  select(as_tibble(as.data.frame(x), ...), seq_id=.data$seqnames, .data$start, .data$end, .data$strand, everything())
 }

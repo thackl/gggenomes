@@ -7,8 +7,8 @@
 #' The function will extract the type of mutation. By absence, it will derive the type of mutation from the "ref" and "alt" column.
 #' 
 #' @inheritParams readr::read_tsv
-#' @param col_names column names to use. Defaults to [def_names("vcf")].
-#' @param col_types column types to use. Defaults to [def_types("vcf")].
+#' @param col_names column names to use. Defaults to `def_names("vcf")` (see [`def_names`]).
+#' @param col_types column types to use. Defaults to `def_types("vcf")` (see [`def_types`]).
 #' @param parse_info if set to 'TRUE', the read_vcf function will split all the metadata stored in the "info" column and stores it into separate columns. 
 #' By default it is set to 'FALSE'.
 #'
@@ -21,13 +21,13 @@ read_vcf <- function(file, parse_info=FALSE, col_names = def_names("vcf"), col_t
   if(parse_info){
     x <- tidy_tax(x)
   }else{
-    x <- mutate(x, type = stringr::str_extract(info, "TYPE=[^;]+"), type = gsub("TYPE=", "", type))
+    x <- mutate(x, type = stringr::str_extract(.data$info, "TYPE=[^;]+"), type = gsub("TYPE=", "", .data$type))
   }
      
 #Add feat_id  
   if(sum(is.na(x$feat_id))){x$feat_id <- paste0("f", seq_len(nrow((x))))}
 #calculate end  
-    x <- mutate(x, end = start + nchar(alt))
+    x <- mutate(x, end = start + nchar(.data$alt))
 
     
     
@@ -45,7 +45,7 @@ tidy_tax <- function(x){
   ss <- str_match_all(x$info, "([^;=]+)=([^;]+)") #or maybe x[8]
   d <- tibble(.rows= length(ss))
   ii <- rep(seq_along(ss), purrr::map_int(ss, nrow))
-  mm <- list_c(ss)
+  mm <- purrr::list_c(ss)
   kk <- factor(mm[,2])
   vv <- mm[,3]
   for (k in levels(kk)){

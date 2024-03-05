@@ -90,6 +90,7 @@ file_parser <- function(file, context=NULL, format=NULL, require_unique=FALSE){
 #'   `gggenomes_global$def_formats`
 #' @param parser a vector of file parsers defined in
 #'   `gggenomes_global$def_formats`
+#' @param allow_na boolean
 #' @return dictionarish vector of file formats with recognized extensions as
 #'   names
 #' @export
@@ -138,6 +139,7 @@ def_formats <- function(file=NULL, ext=NULL, context=NULL, parser=NULL, allow_na
 #' `col_names` and a `col_types` argument.
 #'
 #' @export
+#' @param format specify a format known to gggenomes, such as `gff3`, `gbk`, ...
 #' @return a vector with default column names for the given format
 #' @eval def_names_rd()
 #' @describeIn def_names default column names for defined formats
@@ -177,7 +179,7 @@ def_parser <- function(format, context=NULL){
 
   # for each format/context combo, get parser
   pp <- purrr::pmap_chr(x, function(format, context){
-    r <- filter_def_formats(format=format, context=context) %>% pull(parser)
+    r <- filter_def_formats(format=format, context=context) %>% pull(.data$parser)
     if(!length(r) || is.na(r))
       abort(str_glue("No predefined parser for: `format={format}, context={context}`"))
     r
@@ -185,7 +187,7 @@ def_parser <- function(format, context=NULL){
   pp
 }
 
-file_strip_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
+file_strip_zip <- function(file, ext = c("bz2","gz","xz","zip")){
   ext <- paste0("\\.", ext, "$", collapse="|")
   stringr::str_remove(file, ext)
 }
@@ -210,13 +212,15 @@ file_id <- function(file){
 #'
 #' Given a vector of file paths, add a unique labels based on the filename as
 #' vector names
+#'
+#' @param file vector of files
 file_label <- function(file){
   i <- which(!have_name(file))
   names(file)[i] <- file_id(file[i])
   file
 }
 
-file_is_zip <- function(file, ext = qc(bz2,gz,xz,zip)){
+file_is_zip <- function(file, ext = c("bz2","gz","xz","zip")){
   pattern <- paste0("\\.", ext, "$", collapse="|")
   str_detect(file, pattern)
 }
@@ -239,12 +243,12 @@ filter_def_formats <- function(ff, format=NULL, context=NULL, parser=NULL){
     ff <- tidyr::unchop(ff, c(context, parser))
     if(!is.null(context)){
       # context=NA defines fallback parser which is always last in arrange
-      ff <- ff %>% group_by(format) %>%
-        filter(context %in% !!context | is.na(context)) %>%
-        arrange(context, .by_group = TRUE) %>% slice_head(n=1)
+      ff <- ff %>% dplyr::group_by(format) %>%
+        dplyr::filter(context %in% !!context | is.na(context)) %>%
+        dplyr::arrange(context, .by_group = TRUE) %>% slice_head(n=1)
     }
     if(!is.null(parser))
-      ff <- filter(ff, parser %in% !!parser)
+      ff <- dplyr::filter(ff, parser %in% !!parser)
   }
   ff
 }

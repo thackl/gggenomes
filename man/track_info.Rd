@@ -8,6 +8,8 @@ track_info(x, ...)
 }
 \arguments{
 \item{x}{A gggenomes or gggenomes_layout object}
+
+\item{...}{unused}
 }
 \value{
 Short tibble with ids, types, index and size of loaded tracks.
@@ -27,6 +29,9 @@ The short tibble contains basic information on the tracks within the entered ggg
 }
 }
 \examples{
-gggenomes(seqs = emale_seqs, feats= list(emale_genes, emale_tirs, emale_ngaros),  links = emale_ava) |>
+gggenomes(
+  seqs = emale_seqs,
+  feats= list(emale_genes, emale_tirs, emale_ngaros),
+  links = emale_ava) |>
 track_info()
 }

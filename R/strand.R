@@ -1,6 +1,9 @@
-# check strand  ------------------------------------------------------------
+#' Check strand
+#'
+#' @param strand some representation for strandedness
+#' @param na what to use for `NA`
 #' @export
-check_strand <- function(strand, check, na){
+check_strand <- function(strand, na){
   UseMethod("check_strand")
 }
 
@@ -35,7 +38,10 @@ check_strand.logical <- function(strand, na=NA){
 }
 
 
-# chr ------------------------------------------------------------
+#' Convert strand to character
+#'
+#' @param strand some representation for strandedness
+#' @param na what to use for `NA`
 #' @export
 strand_chr <- function(strand, na=NA){
   UseMethod("strand_chr")
@@ -65,7 +71,10 @@ strand_chr.logical <- function(strand, na=NA){
 }
 
 
-# int ------------------------------------------------------------
+#' Convert strand to integer
+#'
+#' @param strand some representation for strandedness
+#' @param na what to use for `NA`
 #' @export
 strand_int <- function(strand, na=NA){
   UseMethod("strand_int")
@@ -98,7 +107,10 @@ strand_int.factor <- function(strand, na=NA){
   strand_int(as.character(strand), na=na)
 }
 
-# lgl ------------------------------------------------------------
+#' Convert strand to logical
+#'
+#' @param strand some representation for strandedness
+#' @param na what to use for `NA`
 #' @export
 strand_lgl <- function(strand, na=NA){
   UseMethod("strand_lgl")
@@ -124,11 +136,19 @@ strand_lgl.character <- function(strand, na=NA){
   strand
 }
 
+#' Check whether strand is reverse
+#'
+#' @param strand some representation for strandedness
+#' @param na what to use for `NA`
 #' @export
 is_reverse <- function(strand, na=FALSE){
   !strand_lgl(strand, na=na)
 }
 
+#' Flip strand
+#'
+#' @param strand some representation for strandedness
+#' @param na what to use for `NA`
 #' @export
 flip_strand <- function(strand, na=NA){
   UseMethod("flip_strand")
@@ -149,6 +169,11 @@ flip_strand.character <- function(strand, na=NA){
   strand_chr(!strand_lgl(strand), na=as.character(na))
 }
 
+#' Combine strands
+#'
+#' @param strand first strand
+#' @param strand2 second strand
+#' @param ... more strands
 #' @export
 combine_strands <- function(strand, strand2, ...){
     strands <- c(list(strand, strand2), list(...))
@@ -164,6 +189,11 @@ combine_two_strands <- function(strand, strand2){
     strand * strand_int(strand2)
 }
 
+#' Vectorised if_else based on strandedness
+#'
+#' @param strand vector with strandedness information
+#' @param reverse value to use for reverse elements
+#' @param forward value to use for forward elements
 #' @export
 if_reverse <- function(strand, reverse, forward){
   ifelse(is_reverse(strand), reverse, forward)

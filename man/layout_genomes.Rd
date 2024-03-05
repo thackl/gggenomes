@@ -58,6 +58,8 @@ true beginning.}
 By default it is set to \code{adjacent_only = TRUE}. If \code{FALSE}, links will be created between all sequences
 
 (\emph{not recommended for large data sets})}
+
+\item{...}{additional parameters, passed to layout}
 }
 \value{
 gggenomes_layout object

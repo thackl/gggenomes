@@ -13,7 +13,7 @@
 #'   \item{length}{length of the sequence}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales.fna")`
 "emale_seqs"
@@ -44,7 +44,7 @@
 #'   \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales.gff")`
 "emale_genes"
@@ -66,10 +66,11 @@
 #'   \item{score}{score of the annotation}
 #'   \item{phase}{For "CDS" features indicates where the next codon begins relative to the 5' start}
 #'   \item{name}{name of the feature}
+#'   \item{width}{end-start+1}
 #'   \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales-tirs.gff")`
 "emale_tirs"
@@ -94,7 +95,7 @@
 #'   \item{geom_id}{an identifier telling the which features should be plotted as on items (usually CDS and mRNA of same gene)}
 #' }
 #' @source
-#' * Publication: \url{http://dx.doi.org/10.1101/2020.11.30.404863}
+#' * Publication: \doi{10.1101/2020.11.30.404863}
 #' * Raw data: \url{https://github.com/thackl/cb-emales}
 #' * Derived & bundled data: `ex("emales/emales-ngaros.gff")`
 "emale_ngaros"
@@ -132,7 +133,7 @@
 #'   \item{length2}{length of the sequence}
 #'   \item{start2}{start of the feature on the sequence}
 #'   \item{end2}{end of the feature on the sequence}
-#'   \item{...}{see \url{https://github.com/lh3/miniasm/blob/master/PAF.md} for additional columns}
+#'   \item{map_match, map_length, map_quality, NM, ms, AS, nn, tp, cm, s1, de, rl, cg}{see \url{https://github.com/lh3/miniasm/blob/master/PAF.md} for additional columns}
 #' }
 #' @source
 #' * Derived & bundled data: `ex("emales/emales.paf")`
@@ -147,30 +148,11 @@
 #'   \item{file_id}{name of the file the data was read from}
 #'   \item{feat_id}{identifier of the first feature in the alignment}
 #'   \item{feat_id2}{identifier of the second feature in the alignment}
-#'   \item{pident, ...}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
+#'   \item{pident, length, mismatch, gapopen, start, end, start2, end2, evalue, bitscore}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
 #' }
 #' @source
 #' * Derived & bundled data: `ex("emales/emales-prot-ava.o6")`
 "emale_prot_ava"
-
-#' Alignments of 6 EMALE proteomes against Uniref50
-#'
-#' One row per alignment. Alignments were computed with mmseqs2 (blast-like), and
-#' filtered by evalue (<1e-20).
-#'
-#' @format A data frame with 509 rows and 16 columns
-#' \describe{
-#'   \item{file_id}{name of the file the data was read from}
-#'   \item{feat_id}{identifier of the first feature in the alignment}
-#'   \item{feat_id2}{identifier of the second feature in the alignment}
-#'   \item{pident, ...}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
-#'   \item{seq_head}{full sequence header of the emale protein}
-#'   \item{seq_head2}{full sequence header of the Uniref50 protein}
-#'   \item{taxname}{one of the 4 most abundant taxonomic names among the Uniref50 hits or NA}
-#' }
-#' @source
-#' * Derived & bundled data: `ex("emales/emales-prot-uniref50.tsv")`
-"emale_prot_uniref50"
 
 #' Clusters of orthologs of 6 EMALE proteomes
 #'

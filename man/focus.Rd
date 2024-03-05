@@ -27,7 +27,7 @@ locate(
   .max_dist = 10000,
   .expand = 5000,
   .locus_id = str_glue("{seq_id}_lc{row_number()}"),
-  .locus_id_group = seq_id,
+  .locus_id_group = .data$seq_id,
   .locus_bin = c("bin", "seq", "locus"),
   .locus_score = n(),
   .locus_filter = TRUE,
@@ -105,7 +105,7 @@ will have their \code{locus_id} as their new \code{seq_id}.
 
 # Let's hunt some defense systems in marine SAGs
 # read the genomes
-s0 <- read_seqs(ex("gorg/gorg.fna"))
+s0 <- read_seqs(ex("gorg/gorg.fna.fai"))
 s1 <- s0 \%>\%
   # strip trailing number from contigs to get bins
   dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\\\d+$"))
@@ -118,33 +118,34 @@ g0 <- read_feats(ex("gorg/gorg.gff"))
 f0 <- read_feats(ex("gorg/gorg-pads-defense.o6"))
 f1 <- f0 \%>\%
   # parser system/gene info
-  tidyr::separate(seq_id2, into=c("seq_id2", "system", "gene"), sep=",") \%>\%
-  filter(
-    evalue < 1e-10,  # get rid of some spurious hits
+  tidyr::separate(seq_id2, into = c("seq_id2", "system", "gene"), sep = ",") \%>\%
+  dplyr::filter(
+    evalue < 1e-10, # get rid of some spurious hits
     # and let's focus just on a few systems for this example
-    system \%in\% c("CRISPR-CAS", "DISARM", "GABIJA", "LAMASSU", "THOERIS"))
+    system \%in\% c("CRISPR-CAS", "DISARM", "GABIJA", "LAMASSU", "THOERIS")
+  )
 
 # plot the distribution of hits across full genomes
-gggenomes(g0, s1, f1, wrap=2e5) +
+gggenomes(g0, s1, f1, wrap = 2e5) +
   geom_seq() + geom_bin_label() +
-  scale_color_brewer(palette="Dark2") +
-  geom_point(aes(x=x,y=y, color=system), data=feats())
+  scale_color_brewer(palette = "Dark2") +
+  geom_point(aes(x = x, y = y, color = system), data = feats())
 
 # hilight the regions containing hits
-gggenomes(g0, s1, f1, wrap=2e5) \%>\%
+gggenomes(g0, s1, f1, wrap = 2e5) \%>\%
   locate(.track_id = feats) \%>\%
   identity() +
   geom_seq() + geom_bin_label() +
-  scale_color_brewer(palette="Dark2") +
-  geom_feat(data=feats(loci), color="plum3") +
-  geom_point(aes(x=x,y=y, color=system), data=feats())
+  scale_color_brewer(palette = "Dark2") +
+  geom_feat(data = feats(loci), color = "plum3") +
+  geom_point(aes(x = x, y = y, color = system), data = feats())
 
 # zoom in on loci
-gggenomes(g0, s1, f1, wrap=5e4) \%>\%
+gggenomes(g0, s1, f1, wrap = 5e4) \%>\%
   focus(.track_id = feats) +
   geom_seq() + geom_bin_label() +
   geom_gene() +
-  geom_feat(aes(color=system)) +
-  geom_feat_tag(aes(label=gene)) +
-  scale_color_brewer(palette="Dark2")
+  geom_feat(aes(color = system)) +
+  geom_feat_tag(aes(label = gene)) +
+  scale_color_brewer(palette = "Dark2")
 }

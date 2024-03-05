@@ -29,7 +29,7 @@ in_range(1:5, 6:2, 3) # vector of boundaries, single values recycle
 
 # plays nicely with dplyr
 df <- tibble::tibble(x=rep(4,5), left=1:5, right=3:7)
-mutate(df,
+dplyr::mutate(df,
   closed=in_range(x, left, right, TRUE),
   open=in_range(x, left, right, FALSE))
 }

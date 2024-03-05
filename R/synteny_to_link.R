@@ -4,7 +4,7 @@
 get_seqlen <- function(synteny_obj) {
   seqlengths <- c()
   for(i in 1:ncol(synteny_obj)) {
-    seqlengths <- c(seqlengths,unlist(synteny[i,i]))
+    seqlengths <- c(seqlengths,unlist(.data$synteny[i,i]))
   }
   seqlength_df <- data.frame(length = seqlengths,
              fasta_name = names(seqlengths)) %>%
@@ -13,11 +13,12 @@ get_seqlen <- function(synteny_obj) {
 }
 
 #' Format synteny-class into wide tibble This is for use with gggenomes
+#' @importFrom methods is
 #' @details This function takes a object of class synteny and converts it into a data.frame containing all synteny pairs
 #' @param synteny_obj A object produced by DECIPHER::FindSynteny
 
 synteny_to_link <- function(synteny_obj) {
-  if(class(synteny_obj) != "Synteny") {
+  if(!is(synteny_obj,"Synteny")) {
     stop("synetny_obj is not of class Synteny")
   }
   seqlengths <- get_seqlen(synteny_obj)
@@ -28,14 +29,14 @@ synteny_to_link <- function(synteny_obj) {
       dplyr::mutate(strand = case_when(strand == 0 ~ "+",
                                        TRUE ~ "-"),
                     seq_id = (seqlengths[iter,]$fasta_name %>% stringr::str_extract("[^ ]+")),
-                    start = start1,
-                    end = end1,
+                    start = .data$start1,
+                    end = .data$end1,
                     length = seqlengths[iter,]$length,
                     seq_id2 = (seqlengths[iter+1,]$fasta_name %>% stringr::str_extract("[^ ]+")),
-                    start2 = start2,
-                    end2 = end2,
+                    start2 = .data$start2,
+                    end2 = .data$end2,
                     length2 = seqlengths[iter+1,]$length) %>% 
-      dplyr::select(seq_id, start, end,length, strand, seq_id2, start2, end2, length2)
+      dplyr::select(.data$seq_id, .data$start, .data$end,.data$length, .data$strand, .data$seq_id2, .data$start2, .data$end2, .data$length2)
   out_df <- bind_rows(out_df, tmp_df)
   }
   out_df 

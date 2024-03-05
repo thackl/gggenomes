@@ -6,6 +6,9 @@
 \usage{
 file_label(file)
 }
+\arguments{
+\item{file}{vector of files}
+}
 \description{
 Given a vector of file paths, add a unique labels based on the filename as
 vector names

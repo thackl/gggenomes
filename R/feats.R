@@ -35,7 +35,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(seq_id), as.character)
+  x <- mutate_at(x, vars("seq_id"), as.character)
 
   if(!any(seqs$seq_id %in% x$seq_id)){
     warn(paste("No matching seq_ids between feats and seqs.",
@@ -53,9 +53,9 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
     type = NA,
     strand = x$start < x$end
   ) %>%
-  mutate(strand = strand_chr(strand))
+  mutate(strand = strand_chr(.data$strand))
 
-  x %<>% swap_if(start > end, start, end)
+  x %<>% swap_if(.data$start > .data$end, .data$start, .data$end)
 
   layout_feats(x, seqs, ...)
 }
@@ -85,12 +85,16 @@ layout_feats <- function(x, seqs, keep="strand",
 
   # project feats onto new layout and clean up aux vars (.seq)
   x <- project_feats(x) %>%
-    select(y, x, xend, bin_id, everything(), -starts_with(".seq"))
+    select(.data$y, .data$x, .data$xend, .data$bin_id, everything(), -starts_with(".seq"))
   x
 }
 
+#' Drop feature layout
+#'
+#' @param x feat_layout
+#' @param keep features to keep
 #' @export
-drop_feat_layout <- function(x, seqs, keep="strand"){
+drop_feat_layout <- function(x, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
   drop <- drop[!drop %in% keep]
   purrr::discard(x, names(x) %in% drop)
@@ -130,7 +134,7 @@ add_feat_tracks <- function(x, tracks){
 
 add_feat_layout_scaffold <- function(x, seqs){
   scaffold <- seqs %>% ungroup() %>% select(
-    seq_id, bin_id, y, .seq_strand=strand, .seq_x=x, .seq_start=start, .seq_end=end)
+    .data$seq_id, .data$bin_id, .data$y, .seq_strand=.data$strand, .seq_x=.data$x, .seq_start=.data$start, .seq_end=.data$end)
 
   inner_join(x, scaffold, by=shared_names(x, "seq_id", "bin_id"))
 }
@@ -139,22 +143,22 @@ trim_feats_to_subseqs <- function(x, marginal){
   if(marginal == "drop"){
     x <- mutate(x, .marginal = FALSE)
   }else{
-    x <- mutate(x, .marginal = is_marginal(start, end, .seq_start, .seq_end))
+    x <- mutate(x, .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end))
   }
 
   if(marginal == "trim"){
     x %<>% mutate(
-      start = ifelse(.marginal & start < .seq_start, .seq_start, start),
-      end = ifelse(.marginal & end > .seq_end, .seq_end, end))
+      start = ifelse(.data$.marginal & .data$start < .data$.seq_start, .data$.seq_start, .data$start),
+      end = ifelse(.data$.marginal & .data$end > .data$.seq_end, .data$.seq_end, .data$end))
   }  # marginals are now also fully contained
 
-  filter(x, .seq_start <= start & end <= .seq_end | .marginal)
+  filter(x, .data$.seq_start <= .data$start & .data$end <= .data$.seq_end | .data$.marginal)
 }
 
 project_feats <- function(x){
   mutate(x,
-    x = x(start, end, strand, .seq_x, .seq_start, .seq_strand),
-    xend = xend(start, end, strand, .seq_x, .seq_start, .seq_strand))
+    x = x(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand),
+    xend = xend(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand))
 }
 
 is_marginal <- function(start, end, seq_start, seq_end, closed=FALSE){

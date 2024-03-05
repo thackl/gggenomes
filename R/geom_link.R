@@ -16,6 +16,7 @@
 #'   Note, when start/end is not specified, links will be created between the
 #'   entire contigs of `seq_id` and `seq_id2`.
 #'
+#' @inheritParams ggplot2::geom_polygon
 #' @param offset distance between seq center and link start. Use two values
 #'   `c(<offset_top>, <offset_bottom>)` for different top and bottom offsets
 #' @export
@@ -45,7 +46,7 @@ geom_link <- function(mapping = NULL, data = links(), stat = "identity",
 
   if(length(offset) == 1) offset <- offset[c(1,1)]
 
-  default_aes <- aes(y=y,x=x,xend=xend,yend=yend,xmin=xmin,xmax=xmax)
+  default_aes <- aes(y=.data$y,x=.data$x,xend=.data$xend,yend=.data$yend,xmin=.data$xmin,xmax=.data$xmax)
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(
@@ -73,7 +74,7 @@ geom_link <- function(mapping = NULL, data = links(), stat = "identity",
 geom_link_line <- function(mapping = NULL, data = links(), stat = "identity",
     position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
     ...){
-  default_aes <- aes(y=y, yend=yend, x=(x+xend)/2, xend=(xmin+xmax)/2)
+  default_aes <- aes(y=.data$y, yend=.data$yend, x=(.data$x+.data$xend)/2, xend=(.data$xmin+.data$xmax)/2)
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(geom = GeomSegment, mapping = mapping, data = data, stat = stat,
@@ -99,7 +100,7 @@ GeomLink <- ggproto(
         GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
       })
 
-      ggplot2:::ggname("link", do.call("grobTree", polys))
+      ggplot2__ggname("link", do.call("grobTree", polys))
     }
   },
   draw_key = draw_key_polygon

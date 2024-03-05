@@ -23,8 +23,8 @@ string with a new line.
 
 Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("bed")}
-compatible with canonical bed files. \link{def_names("bed")} can easily be
+\item{col_names}{column names to use. Defaults to \code{def_names("bed")}
+compatible with canonical bed files. \code{\link[=def_names]{def_names()}} can easily be
 combined with extra columns: \code{col_names = c(def_names("bed"), "more", "things")}.}
 
 \item{col_types}{One of \code{NULL}, a \code{\link[readr:cols]{cols()}} specification, or
@@ -58,6 +58,8 @@ character represents one column:
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
 set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).}
+
+\item{...}{additional parameters, passed to \code{read_tsv}}
 }
 \value{
 tibble

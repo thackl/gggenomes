@@ -18,6 +18,11 @@ geom_variant(
 )
 }
 \arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
 \item{data}{Data from the first feats track is used for this function by default. When several feats tracks are present within the gggenomes track system,
 make sure that the wanted data is used by calling \verb{data = feats(*df*)} within the \code{geom_variant} function.}
 
@@ -30,7 +35,26 @@ but different position adjustments, such as \strong{\code{position_variant()}}, 
 For larger sequences with abundant mutations/variations, it is recommended to use \code{"ticks"} (a modified geom_point object with different default shape and alpha, which plots the points as small "ticks"),
 but in theory any other ggplot2 geom can be called here as well.}
 
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
 \item{offset}{Numeric value describing how far the points will be drawn from the base/sequence. By default it is set on \code{offset = 0}.}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 }
 \description{
 geom_variant allows the user to draw points at locations where a mutation has occured.
@@ -44,24 +68,34 @@ can be called upon to modify the data visualization.
 \emph{Keep in mind: The function uses data from the feats' track.}
 }
 \examples{
-# Creation of example data. (Note: These are mere examples and do not fully resemble data from VCF-files)
+# Creation of example data.
+# (Note: These are mere examples and do not fully resemble data from VCF-files)
 ## Small example data set
 f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 30, 40, 40, 50),
-            end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end-start,
-              type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
-              ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
-              REF = c("C", "G", "C", "A", "A", "C", "G", "T"))
+        end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end-start,
+        type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
+        ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
+        REF = c("C", "G", "C", "A", "A", "C", "G", "T"))
  s1 <- tibble::tibble(seq_id = c("A", "B"), start = c(0, 0), end = c(55, 55), length = end-start)
  
  ## larger example data set
  f2 <- tibble::tibble(seq_id = c(rep("A", 667)), 
-              start = c(seq(from=1, to=500, by =2), seq(from=500, to =2500, by = 50), 
-                        seq(from=2500, to = 4000, by=4)), end = start+1, length = end-start, 
-              type = c(rep("SNP", 100), rep("Deletion", 20), rep("SNP", 180), rep("Deletion", 67), rep("SNP", 100), rep("Insertion", 50), rep("SNP", 150)),
+              start = c(seq(from=1, to=500, by =2),
+                        seq(from=500, to =2500, by = 50), 
+                        seq(from=2500, to = 4000, by=4)),
+              end = start+1, length = end-start, 
+              type = c(rep("SNP", 100),
+                       rep("Deletion", 20),
+                       rep("SNP", 180),
+                       rep("Deletion", 67),
+                       rep("SNP", 100),
+                       rep("Insertion", 50),
+                       rep("SNP", 150)),
               ALT = c(sample(x=c("A", "C", "G", "T"), size = 100, replace = TRUE), 
                       rep(".", 20), sample(x=c("A", "C", "G", "T"), size = 180, replace=TRUE), 
                       rep(".", 67), sample(x=c("A", "C", "G", "T"), size = 100, replace=TRUE),  
-                      sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC", "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
+                      sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC",
+                                 "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
                       sample(x=c("A", "C", "G", "T"), size = 150, replace=TRUE)))
  
  # Basic example plot with geom_variant
@@ -79,11 +113,15 @@ f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 3
  # Positional adjustment based on type of mutation: position_variant
  gggenomes(seqs = s1, feats = f1) +
    geom_seq() +
-   geom_variant(aes(shape=type), position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))) +
+   geom_variant(
+     aes(shape=type),
+     position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))
+   ) +
    scale_shape_variant() +
    geom_bin_label()
  
- # Plotting larger example data set with Changing default geom to `geom = "ticks"` using positional adjustment based on type (`position_variant`)
+ # Plotting larger example data set with Changing default geom to
+ # `geom = "ticks"` using positional adjustment based on type (`position_variant`)
  gggenomes(feats = f2) +
    geom_variant(aes(color = type), geom = "ticks", alpha = 0.4, position = position_variant()) +
    geom_bin_label()

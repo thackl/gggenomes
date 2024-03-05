@@ -1,18 +1,19 @@
 #' Named vector of track ids and types
 #' @param x A gggenomes or gggenomes_layout object
 #' @param track_type restrict to any combination of "seqs", "feats" and "links".
+#' @param ... unused
 #' @export
-track_ids <- function(x, ...){
+track_ids <- function(x, track_type, ...){
   UseMethod("track_ids")
 }
 
 #' @export
-track_ids.gggenomes <- function(x, ...){
-  track_ids(x$data, ...)
+track_ids.gggenomes <- function(x, track_type=NULL, ...){
+  track_ids(x$data, track_type, ...)
 }
 
 #' @export
-track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links")){
+track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links"), ...){
   track_type <- match_arg(track_type, several.ok = TRUE)
   ids <- flatten_chr(unname(purrr::map(track_type, ~names(x[[.x]]))))
   names(ids) <- track_types(x, track_type)
@@ -31,7 +32,10 @@ track_ids.gggenomes_layout <- function(x, track_type=c("seqs", "feats", "links")
 #' - **n** (size) : Amount of objects **plotted** from the data frame.   
 #' (**not** the amount of objects *in* the inputted data frame)
 #' @examples 
-#' gggenomes(seqs = emale_seqs, feats= list(emale_genes, emale_tirs, emale_ngaros),  links = emale_ava) |>
+#' gggenomes(
+#'   seqs = emale_seqs,
+#'   feats= list(emale_genes, emale_tirs, emale_ngaros),
+#'   links = emale_ava) |>
 #' track_info()
 #' @return Short tibble with ids, types, index and size of loaded tracks.
 #' @export
@@ -46,18 +50,18 @@ track_info.gggenomes <- function(x, ...){
 }
 
 #' @export
-track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
+track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"), ...){
   track_type <- match_arg(track_type, several.ok = TRUE)
   y <- tibble(
     id = track_ids(x, track_type),
     type = track_types(x, track_type),
     n = track_nrows(x, track_type)
-  ) %>% group_by(type) %>%
-  mutate(
-    .after = type,
+  ) %>% dplyr::group_by(.data$type) %>%
+  dplyr::mutate(
+    .after = .data$type,
     i = row_number()
   )
-  filter(y, type %in% track_type)
+  dplyr::filter(y, .data$type %in% track_type)
 }
 
 #' All types of all tracks
@@ -76,6 +80,7 @@ track_nrows <- function(x, track_type = c("seqs", "feats", "links")){
 
 #' Track type by track id
 #' @inheritParams track_ids
+#' @param track_id id for which to get the track type
 #' @return a character string with the track type
 track_type <- function(x, track_id){
   track_ids <- track_ids(x)
@@ -90,7 +95,7 @@ tracks <- function(x, ...){
 tracks.gggenomes <- function(x, ...){
   tracks(x$data)
 }
-tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links")){
+tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"), ...){
   c(x$seqs, x$feats, x$links)
 }
 

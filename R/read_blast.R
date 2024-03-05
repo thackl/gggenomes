@@ -2,12 +2,14 @@
 #'
 #' @importFrom readr read_tsv
 #' @inheritParams read_gff3
-#' @param col_names column names to use. Defaults to [def_names("blast")]
+#' @param col_names column names to use. Defaults to `def_names("blast")`
 #'   compatible with blast tabular output (`--outfmt 6/7` in blast++ and `-m8`
-#'   in blast-legacy). [def_names("blast")] can easily be combined with extra
+#'   in blast-legacy). [def_names()] can easily be combined with extra
 #'   columns: `col_names = c(def_names("blast"), "more", "things")`.
+#' @param comment character
 #' @param swap_query if TRUE swap query and subject columns using [swap_query()]
 #'   on import.
+#' @param ... additional parameters, passed to `read_tsv`
 read_blast <- function (file, col_names = def_names("blast"),
     col_types = def_types("blast"), comment = "#", swap_query=FALSE, ...){
 

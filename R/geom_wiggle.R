@@ -38,7 +38,7 @@ geom_wiggle <- function(mapping = NULL, data = feats(), stat="wiggle",
     geom="ribbon", position = "identity", na.rm = FALSE, show.legend = NA,
     inherit.aes = TRUE, offset = 0, height = .8,
     bounds = Hmisc::smedian.hilow, ...) {
-  default_aes <- aes(x=(x+xend)/2, y=y, group=seq_id)
+  default_aes <- aes(x=(.data$x+.data$xend)/2, y=.data$y, group=.data$seq_id)
   mapping <- aes_intersect(mapping, default_aes)
 
   layer(
@@ -75,7 +75,7 @@ StatWiggle <- ggproto("StatWiggle", Stat,
 as_bounds <- function(.f, ...) {
   UseMethod("as_bounds")
 }
-as_bounds.default <- purrr:::as_mapper.default
+as_bounds.default <- purrr__as_mapper.default
 as_bounds.numeric <- function(.f){
   function(...) .f
 }

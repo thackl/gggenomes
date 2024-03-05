@@ -28,6 +28,7 @@ add_clusters.gggenomes <- function(x, ..., .track_id = "genes"){
   x
 }
 
+#' @importFrom rlang .data
 #' @export
 add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
   if(!has_dots()){
@@ -42,7 +43,7 @@ add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
   tracks <- purrr::map(tracks, function(track){
     require_vars(track, c("feat_id", "cluster_id"))
 
-    track <- filter(track, feat_id %in% x$feats[[pid]]$feat_id)
+    track <- dplyr::filter(track, .data$feat_id %in% x$feats[[pid]]$feat_id)
     if(nrow(track) < 1){
       warn(str_glue("No matches between clusters and parent track based on ",
           "`track_id`. Check your IDs and arguments"))
@@ -79,10 +80,10 @@ add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes"){
 }
 
 cluster2sublinks <- function(x, parent_track){
-  x %>% split_by(cluster_id) %>%
+  x %>% split_by(.data$cluster_id) %>%
     purrr::keep(~nrow(.) > 1) %>% # links need >2 members, ignore singletons
     purrr::map_df(.id = "cluster_id", function(g){
-      mat <- combn(g$feat_id, 2, simplify=TRUE)
+      mat <- utils::combn(g$feat_id, 2, simplify=TRUE)
       tibble(feat_id = mat[1,], feat_id2 = mat[2,])
     })
 }

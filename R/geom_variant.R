@@ -9,6 +9,7 @@
 #' #' the function `gggenomes::read_feats` is able to read VCF files and converts them into a format that is applicable within the gggenomes' track system.
 #' *Keep in mind: The function uses data from the feats' track.*     
 #'
+#' @inheritParams ggplot2::geom_point
 #' @param data Data from the first feats track is used for this function by default. When several feats tracks are present within the gggenomes track system,
 #' make sure that the wanted data is used by calling `data = feats(*df*)` within the `geom_variant` function. 
 #' @param stat Describes what statistical transformation is used for this layer. By default it uses `"identity"`, indicating no statistical transformation.
@@ -20,24 +21,34 @@
 #' @param offset Numeric value describing how far the points will be drawn from the base/sequence. By default it is set on `offset = 0`.
 #' @export
 #' @examples 
-#' # Creation of example data. (Note: These are mere examples and do not fully resemble data from VCF-files)
+#' # Creation of example data.
+#' # (Note: These are mere examples and do not fully resemble data from VCF-files)
 #' ## Small example data set
 #' f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 30, 40, 40, 50),
-#'             end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end-start,
-#'               type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
-#'               ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
-#'               REF = c("C", "G", "C", "A", "A", "C", "G", "T"))
+#'         end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end-start,
+#'         type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
+#'         ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
+#'         REF = c("C", "G", "C", "A", "A", "C", "G", "T"))
 #'  s1 <- tibble::tibble(seq_id = c("A", "B"), start = c(0, 0), end = c(55, 55), length = end-start)
 #'  
 #'  ## larger example data set
 #'  f2 <- tibble::tibble(seq_id = c(rep("A", 667)), 
-#'               start = c(seq(from=1, to=500, by =2), seq(from=500, to =2500, by = 50), 
-#'                         seq(from=2500, to = 4000, by=4)), end = start+1, length = end-start, 
-#'               type = c(rep("SNP", 100), rep("Deletion", 20), rep("SNP", 180), rep("Deletion", 67), rep("SNP", 100), rep("Insertion", 50), rep("SNP", 150)),
+#'               start = c(seq(from=1, to=500, by =2),
+#'                         seq(from=500, to =2500, by = 50), 
+#'                         seq(from=2500, to = 4000, by=4)),
+#'               end = start+1, length = end-start, 
+#'               type = c(rep("SNP", 100),
+#'                        rep("Deletion", 20),
+#'                        rep("SNP", 180),
+#'                        rep("Deletion", 67),
+#'                        rep("SNP", 100),
+#'                        rep("Insertion", 50),
+#'                        rep("SNP", 150)),
 #'               ALT = c(sample(x=c("A", "C", "G", "T"), size = 100, replace = TRUE), 
 #'                       rep(".", 20), sample(x=c("A", "C", "G", "T"), size = 180, replace=TRUE), 
 #'                       rep(".", 67), sample(x=c("A", "C", "G", "T"), size = 100, replace=TRUE),  
-#'                       sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC", "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
+#'                       sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC",
+#'                                  "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
 #'                       sample(x=c("A", "C", "G", "T"), size = 150, replace=TRUE)))
 #'  
 #'  # Basic example plot with geom_variant
@@ -55,11 +66,15 @@
 #'  # Positional adjustment based on type of mutation: position_variant
 #'  gggenomes(seqs = s1, feats = f1) +
 #'    geom_seq() +
-#'    geom_variant(aes(shape=type), position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))) +
+#'    geom_variant(
+#'      aes(shape=type),
+#'      position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))
+#'    ) +
 #'    scale_shape_variant() +
 #'    geom_bin_label()
 #'  
-#'  # Plotting larger example data set with Changing default geom to `geom = "ticks"` using positional adjustment based on type (`position_variant`)
+#'  # Plotting larger example data set with Changing default geom to
+#'  # `geom = "ticks"` using positional adjustment based on type (`position_variant`)
 #'  gggenomes(feats = f2) +
 #'    geom_variant(aes(color = type), geom = "ticks", alpha = 0.4, position = position_variant()) +
 #'    geom_bin_label()
@@ -73,7 +88,7 @@
 #'  geom_bin_label()  
 #'  
 geom_variant <- function(mapping = NULL, data = feats(), stat="identity", position = "identity", geom = "variant", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, offset = 0, ...) {
-  default_aes <- aes(x=(xend+x)/2, y=y+offset, type = type)
+  default_aes <- aes(x=(.data$xend+.data$x)/2, y=.data$y+offset, type = .data$type)
   mapping <- aes_intersect(mapping, default_aes)
   
   layer(

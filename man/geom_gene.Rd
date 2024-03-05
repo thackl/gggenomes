@@ -55,6 +55,8 @@ stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
 position adjustment function. Use the latter if you need to change the
 settings of the adjustment.}
 
+\item{na.rm}{remove na values}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -93,6 +95,8 @@ gene model. For example, to change the color of introns from a hard-coded
 \code{intron_aes=aes(colour = fill)}. By default, \code{rna_aes} is remapped with
 \code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearence than the corresponding CDS but in the
 same color.}
+
+\item{...}{passed to layer params}
 }
 \description{
 Draw coding sequences, mRNAs and other non-coding features. Supports
@@ -104,15 +108,15 @@ argument.
 
 \code{geom_gene()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{xend}}
-\item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
-\item \code{fill}
-\item \code{group}
+\item \strong{\code{\link[=aes_position]{x}}}
+\item \strong{\code{\link[=aes_position]{xend}}}
+\item \strong{\code{\link[=aes_position]{y}}}
+\item \code{\link[=aes_colour_fill_alpha]{alpha}}
+\item \code{\link[=aes_colour_fill_alpha]{colour}}
+\item \code{\link[=aes_colour_fill_alpha]{fill}}
+\item \code{\link[=aes_group_order]{group}}
 \item \code{introns}
-\item \code{linetype}
+\item \code{\link[=aes_linetype_size_shape]{linetype}}
 \item \code{stroke}
 \item \code{type}
 }
@@ -130,45 +134,57 @@ Use the parameter \code{intron_types} if you want to disable introns.
 }
 
 \examples{
-gggenomes(genes=emale_genes) +
- geom_gene()
+gggenomes(genes = emale_genes) +
+  geom_gene()
 
-gggenomes(genes=emale_genes) +
- geom_gene(aes(fill=as.numeric(gc_content)),position="strand") +
- scale_fill_viridis_b()
+gggenomes(genes = emale_genes) +
+  geom_gene(aes(fill = as.numeric(gc_content)), position = "strand") +
+  scale_fill_viridis_b()
 
 g0 <- read_gff3(ex("eden-utr.gff"))
-gggenomes(genes=g0) +
+gggenomes(genes = g0) +
   # all features in the "genes" regardless of type
-  geom_feat(data=feats(genes)) +
-  annotate("text", label="geom_feat", x=-15, y=.9) + xlim(-20, NA) +
+  geom_feat(data = feats(genes)) +
+  annotate("text", label = "geom_feat", x = -15, y = .9) + xlim(-20, NA) +
   # only features in the "genes" of geneish type (implicit `data=genes()`)
   geom_gene() +
-  geom_gene_tag(aes(label=ifelse(is.na(type), "<NA>", type)), data=genes(.gene_types = NULL)) +
-  annotate("text", label="geom_gene", x=-15, y=1) +
+  geom_gene_tag(aes(label = ifelse(is.na(type), "<NA>", type)), data = genes(.gene_types = NULL)) +
+  annotate("text", label = "geom_gene", x = -15, y = 1) +
   # control which types are returned from the track
-  geom_gene(aes(y=1.1), data=genes(.gene_types = c("CDS", "misc_RNA"))) +
-  annotate("text", label="gene_types", x=-15, y=1.1) +
+  geom_gene(aes(y = 1.1), data = genes(.gene_types = c("CDS", "misc_RNA"))) +
+  annotate("text", label = "gene_types", x = -15, y = 1.1) +
   # control which types can have introns
-  geom_gene(aes(y=1.2, yend=1.2), data=genes(.gene_types = c("CDS", "misc_RNA")),  intron_types = "misc_RNA") +
-  annotate("text", label="intron_types", x=-15, y=1.2)
+  geom_gene(
+    aes(y = 1.2, yend = 1.2),
+    data = genes(.gene_types = c("CDS", "misc_RNA")),
+    intron_types = "misc_RNA"
+  ) +
+  annotate("text", label = "intron_types", x = -15, y = 1.2)
 
 # spliced genes
 library(patchwork)
-gg <- gggenomes(genes=g0)
-gg + geom_gene(position="pile") +
-gg + geom_gene(aes(fill=type), position="pile",
-         shape = 0, intron_shape = 0, color="white") +
-# some fine-control on cds/rna/intron after_scale aesthetics
-gg + geom_gene(aes(fill=geom_id), position="pile",
-         size = 2, shape = c(4,3), rna_size = 2, intron_shape = 4, stroke=0,
-         cds_aes=aes(fill="black"), rna_aes=aes(fill=fill),
-         intron_aes=aes(colour=fill, stroke=2)) +
-     scale_fill_viridis_d() +
-# fun with introns
-gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4)) +
-gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4),
-         intron_types=c()) +
-gg + geom_gene(aes(fill=geom_id), position="pile", size = 3, shape=c(4,4),
-         intron_types="CDS")
+gg <- gggenomes(genes = g0)
+gg + geom_gene(position = "pile") +
+  gg + geom_gene(aes(fill = type),
+    position = "pile",
+    shape = 0, intron_shape = 0, color = "white"
+  ) +
+  # some fine-control on cds/rna/intron after_scale aesthetics
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile",
+    size = 2, shape = c(4, 3), rna_size = 2, intron_shape = 4, stroke = 0,
+    cds_aes = aes(fill = "black"), rna_aes = aes(fill = fill),
+    intron_aes = aes(colour = fill, stroke = 2)
+  ) +
+  scale_fill_viridis_d() +
+  # fun with introns
+  gg + geom_gene(aes(fill = geom_id), position = "pile", size = 3, shape = c(4, 4)) +
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile", size = 3, shape = c(4, 4),
+    intron_types = c()
+  ) +
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile", size = 3, shape = c(4, 4),
+    intron_types = "CDS"
+  )
 }

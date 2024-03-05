@@ -31,9 +31,11 @@ Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the s
 
 \item{max_tags}{maximum number of optional fields to include}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("gff3")}.}
+\item{col_names}{column names to use. Defaults to \code{def_names("gff3")} (see \code{\link{def_names}}).}
 
-\item{col_types}{column types to use. Defaults to \link{def_types("gff3")}.}
+\item{col_types}{column types to use. Defaults to \code{def_types("gff3")} (see \code{\link{def_types}}).}
+
+\item{...}{additional parameters, passed to \code{read_tsv}}
 }
 \value{
 tibble

@@ -15,7 +15,7 @@ occurence. R base split converts keys to factors, changing default order to
 alphanumeric.
 }
 \examples{
-tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") \%>\%
+tibble::tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") \%>\%
   split_by(x)
 }
 \keyword{internal}

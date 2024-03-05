@@ -3,9 +3,11 @@
 #' Shift bins along the x-axis, i.e. left or right in the default plot
 #' layout. This is useful to align feats of interest in different bins.
 #'
+#' @param x gggenomes object
 #' @param bins to shift left/right, select-like expression
 #' @param by shift each bin by this many bases. Single value or vector of the
 #' same length as bins.
+#' @param center horizontal centering
 #' @examples
 #' p0 <- gggenomes(emale_genes, emale_seqs) +
 #' geom_seq() + geom_gene()
@@ -15,8 +17,8 @@
 #'
 #' # align all bins to a target gene
 #' mcp <- emale_genes |>
-#'   filter(name == "MCP") |>
-#'   group_by(seq_id) |>
+#'   dplyr::filter(name == "MCP") |>
+#'   dplyr::group_by(seq_id) |>
 #'   dplyr::slice_head(n=1) # some have fragmented MCP gene, keep only first
 #'
 #' p2 <- p0 |> shift(all_of(mcp$seq_id), by= -mcp$start) +
@@ -28,7 +30,7 @@
 shift <- function(x, bins=everything(), by=0, center=FALSE){
   # split by bin_id and select bins
   s <- get_seqs(x)
-  l <- s %>% split_by(bin_id)
+  l <- s %>% split_by(.data$bin_id)
   i <- tidyselect::eval_select(expr({{ bins }}), l)
   if(length(i) == 0) rlang::abort("no bins selected")
   if(length(by) > 1 & length(by) != length(i)){

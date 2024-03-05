@@ -34,7 +34,7 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
-  x <- mutate_at(x, vars(seq_id, bin_id), as.character)
+  x <- mutate_at(x, vars("seq_id", "bin_id"), as.character)
 
   vars <- c(vars, "strand", "bin_offset", "start", "end")
   if(has_name(x, "strand")){
@@ -53,9 +53,12 @@ as_seqs.tbl_df <- function(x, everything=TRUE, ...){
 
 #' Layout sequences
 #'
+#' @param x seq_layout
 #' @param spacing between sequences in bases (>1) or relative to longest bin (<1)
 #' @param wrap wrap bins into multiple lines with at most this many nucleotides
 #' per lin.
+#' @param spacing_style one of "regular", "center", "spread"
+#' @param keep keys to keep (default: "strand")
 #' @export
 layout_seqs <- function(x, spacing=0.05, wrap=NULL,
     spacing_style = c("regular", "center", "spread"), keep="strand"){
@@ -66,8 +69,8 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
   x <- drop_seq_layout(x, keep=keep)
 
   # Index bins by order
-  x %<>% mutate(y = match(bin_id, rev(unique(.$bin_id)))) %>%
-    group_by(bin_id)
+  x %<>% mutate(y = match(.data$bin_id, rev(unique(.$bin_id)))) %>%
+    dplyr::group_by(.data$bin_id)
 
   #x %<>% mutate(y = match(bin_id, unique(.$bin_id))) %>%
   #  group_by(bin_id)
@@ -75,14 +78,14 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
   # infer spacing length from bin lengths
   if(spacing < 1){
     bins <- x %>%
-      group_by(bin_id) %>%
+      dplyr::group_by(.data$bin_id) %>%
       summarize(
-        bin_len=sum(width(start, end)),
+        bin_len=sum(width(.data$start, .data$end)),
         seq_n=n()) %>%
       ungroup() %>%
       summarize(
         max_bin_len = max(bin_len),
-        max_seq_n = max(seq_n))
+        max_seq_n = max(.data$seq_n))
 
     if(is.null(wrap)){
       seq_row <- bins$max_seq_n
@@ -99,19 +102,23 @@ layout_seqs <- function(x, spacing=0.05, wrap=NULL,
 
   # compute seq starts in layout
   if(is.null(wrap)){
-    x %<>% mutate(x = bin_offset + lag(cumsum(end-start+1 + spacing), default=0))
+    x %<>% mutate(x = .data$bin_offset + lag(cumsum(end-start+1 + spacing), default=0))
   }else{
     x %<>% wrap(wrap, spacing)
   }
 
   # fix strands
   x %<>% mutate(
-    xend = ifelse(is_reverse(strand), x, x+end-start+1),
-    x = ifelse(is_reverse(strand), x+end-start+1, x)
+    xend = ifelse(is_reverse(.data$strand), .data$x, .data$x+.data$end-.data$start+1),
+    x = ifelse(is_reverse(.data$strand), .data$x+.data$end-.data$start+1, x)
   ) %>%
-    select(y, x, xend, strand, everything())
+    select(.data$y, .data$x, .data$xend, .data$strand, everything())
 }
 
+#' Drop a seq layout
+#'
+#' @param x seq_layout
+#' @param keep features to keep
 #' @export
 drop_seq_layout <- function(x, keep="strand"){
   drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
@@ -121,7 +128,7 @@ drop_seq_layout <- function(x, keep="strand"){
 
 # layout contigs in rectangle
 wrap <- function(.data, xmax, xpad=1000){
-  l <- .data %>% split_by(bin_id)
+  l <- .data %>% split_by(.data$bin_id)
   for(i in seq_along(l)){
     ystart <- if(i == 1) 1 else max(l[[i-1]]$y) +2
     xstart <- l[[i]]$bin_offset[1]
@@ -162,6 +169,11 @@ wrap_impl <- function(.data, xmax, xpad, ystart, xstart){
   .data
 }
 
+#' Add seqs
+#'
+#' @param x a gggenomes or gggenomes_layout objekt
+#' @param seqs the sequences to add
+#' @param ... pass through to `as_seqs()`
 #' @export
 add_seqs <- function(x, seqs, ...){
   UseMethod("add_seqs")
@@ -194,6 +206,7 @@ get_seqs.gggenomes_layout <- function(x){
 }
 
 #' @rdname get_seqs
+#' @param value to set vor seqs
 #' @export
 set_seqs <- function(x, value){
   UseMethod("set_seqs")

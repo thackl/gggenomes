@@ -17,7 +17,7 @@ A data frame with 125 rows and 23 columns
 \item{length2}{length of the sequence}
 \item{start2}{start of the feature on the sequence}
 \item{end2}{end of the feature on the sequence}
-\item{...}{see \url{https://github.com/lh3/miniasm/blob/master/PAF.md} for additional columns}
+\item{map_match, map_length, map_quality, NM, ms, AS, nn, tp, cm, s1, de, rl, cg}{see \url{https://github.com/lh3/miniasm/blob/master/PAF.md} for additional columns}
 }
 }
 \source{

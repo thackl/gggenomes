@@ -30,15 +30,19 @@ string with a new line.
 
 Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
 
-\item{col_names}{column names to use. Defaults to \link{def_names("blast")}
+\item{col_names}{column names to use. Defaults to \code{def_names("blast")}
 compatible with blast tabular output (\verb{--outfmt 6/7} in blast++ and \code{-m8}
-in blast-legacy). \link{def_names("blast")} can easily be combined with extra
+in blast-legacy). \code{\link[=def_names]{def_names()}} can easily be combined with extra
 columns: \code{col_names = c(def_names("blast"), "more", "things")}.}
 
-\item{col_types}{column types to use. Defaults to \link{def_types("gff3")}.}
+\item{col_types}{column types to use. Defaults to \code{def_types("gff3")} (see \code{\link{def_types}}).}
+
+\item{comment}{character}
 
 \item{swap_query}{if TRUE swap query and subject columns using \code{\link[=swap_query]{swap_query()}}
 on import.}
+
+\item{...}{additional parameters, passed to \code{read_tsv}}
 }
 \description{
 Read BLAST tab-separated output

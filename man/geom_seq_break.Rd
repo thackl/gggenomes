@@ -12,7 +12,7 @@ geom_seq_break(
   label = "/",
   size = 4,
   hjust = 0.75,
-  family = "bold",
+  family = "sans",
   stat = "identity",
   na.rm = FALSE,
   show.legend = NA,
@@ -21,6 +21,10 @@ geom_seq_break(
 )
 }
 \arguments{
+\item{mapping_start}{optional start mapping}
+
+\item{mapping_end}{optional end mapping}
+
 \item{data_start}{seq_layout of sequences for which to decorate the start.
 default: \code{seqs(start >1)}}
 
@@ -29,6 +33,12 @@ default: \code{seqs(end < length)}}
 
 \item{label}{the character to decorate ends with. Provide two values for
 different start and end decorations, e.g. \code{label=c("]", "[")}.}
+
+\item{size}{of the text}
+
+\item{hjust}{Moves the text horizontally}
+
+\item{family}{font family of the text}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the

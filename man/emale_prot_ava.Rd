@@ -10,7 +10,7 @@ A data frame with 827 rows and 13 columns
 \item{file_id}{name of the file the data was read from}
 \item{feat_id}{identifier of the first feature in the alignment}
 \item{feat_id2}{identifier of the second feature in the alignment}
-\item{pident, ...}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
+\item{pident, length, mismatch, gapopen, start, end, start2, end2, evalue, bitscore}{see \url{https://github.com/seqan/lambda/wiki/BLAST-Output-Formats} for BLAST-tabular format columns}
 }
 }
 \source{

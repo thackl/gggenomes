@@ -13,10 +13,16 @@ layout_seqs(
 )
 }
 \arguments{
+\item{x}{seq_layout}
+
 \item{spacing}{between sequences in bases (>1) or relative to longest bin (<1)}
 
 \item{wrap}{wrap bins into multiple lines with at most this many nucleotides
 per lin.}
+
+\item{spacing_style}{one of "regular", "center", "spread"}
+
+\item{keep}{keys to keep (default: "strand")}
 }
 \description{
 Layout sequences
