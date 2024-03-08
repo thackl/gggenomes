@@ -57,8 +57,6 @@ jobs:
 
       - name: Session Info
         run: |
-          library(tidyverse)
-          library(IRanges)
           library(gggenomes)
           print(sessionInfo())
         shell: Rscript {0}
