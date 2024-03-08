@@ -20,7 +20,7 @@ tidyselect::starts_with() are supported. Renaming is not supported."><meta prope
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -75,12 +75,16 @@ arguments and <a href="https://tidyselect.r-lib.org/reference/language.html" cla
 <span></span>
 <span><span class="fu">pick_seqs_within</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, .bins <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">pick_by_tree</span><span class="op">(</span><span class="va">x</span>, <span class="va">tree</span>, infer_bin_id <span class="op">=</span> <span class="va">label</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pick_by_tree</span><span class="op">(</span><span class="va">x</span>, <span class="va">tree</span>, infer_bin_id <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">label</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>...</dt>
+    <dl><dt>x</dt>
+<dd><p>gggenomes object</p></dd>
+
+
+<dt>...</dt>
 <dd><p>bins/seqs to pick, select-like expression.</p></dd>
 
 
@@ -90,7 +94,7 @@ multiple arguments with <code><a href="https://rdrr.io/r/base/c.html" class="ext
 
 
 <dt>tree</dt>
-<dd><p>a phylogenetic tree in <a href="https://rdrr.io/pkg/ggtree/man/ggtree.html" class="external-link">ggtree</a> or ape-"phylo" format.</p></dd>
+<dd><p>a phylogenetic tree in <a href="https://rdrr.io/pkg/ggtree/man/ggtree.html" class="external-link">ggtree::ggtree</a> or <code><a href="https://rdrr.io/pkg/ape/man/ape-package.html" class="external-link">ape::ape-package</a></code>-"phylo" format.</p></dd>
 
 
 <dt>infer_bin_id</dt>
@@ -160,7 +164,7 @@ seqs, keep rest as is.</p></li>
 <span class="r-in"><span><span class="co"># Align sequences with and plot next to a phylogenetic tree</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span>  <span class="co"># arrange multiple plots</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/" class="external-link">ggtree</a></span><span class="op">)</span>     <span class="co"># plot phylogenetic trees</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">ggtree v3.8.2 For help: https://yulab-smu.top/treedata-book/</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">ggtree v3.10.1 For help: https://yulab-smu.top/treedata-book/</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> If you use the ggtree package suite in published research, please cite</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> the appropriate paper(s):</span>
@@ -170,16 +174,14 @@ seqs, keep rest as is.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> trees with their covariates and other associated data. Methods in</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu. treeio: an R package</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> for phylogenetic tree input and output with richly annotated and</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> associated data. Molecular Biology and Evolution. 2020, 37(2):599-603.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> doi: 10.1093/molbev/msz240</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> visualization of richly annotated phylogenetic data. Molecular Biology</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166 </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Guangchuang Yu. Using ggtree to visualize data on tree-like structures.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Attaching package: ‘ggtree’</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> The following object is masked from ‘package:gggenomes’:</span>
@@ -188,7 +190,7 @@ seqs, keep rest as is.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load and plot a phylogenetic tree</span></span></span>
 <span class="r-in"><span><span class="va">emale_mcp_tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-MCP.nwk"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtree/man/ggtree.html" class="external-link">ggtree</a></span><span class="op">(</span><span class="va">emale_mcp_tree</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtree/man/geom_tiplab.html" class="external-link">geom_tiplab</a></span><span class="op">(</span>align<span class="op">=</span><span class="cn">T</span>, size<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtree/man/ggtree.html" class="external-link">ggtree</a></span><span class="op">(</span><span class="va">emale_mcp_tree</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/ggtree/man/geom_tiplab.html" class="external-link">geom_tiplab</a></span><span class="op">(</span>align<span class="op">=</span><span class="cn">TRUE</span>, size<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.05</span><span class="op">)</span> <span class="co"># make room for labels</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">emale_seqs</span>, genes<span class="op">=</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span></span></span>

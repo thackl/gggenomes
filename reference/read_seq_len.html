@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -73,6 +73,58 @@
 <span><span class="fu">read_fai</span><span class="op">(</span><span class="va">file</span>, col_names <span class="op">=</span> <span class="fu"><a href="def_names.html">def_names</a></span><span class="op">(</span><span class="st">"fai"</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="fu"><a href="def_names.html">def_types</a></span><span class="op">(</span><span class="st">"fai"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>file</dt>
+<dd><p>with sequence length information</p></dd>
+
+
+<dt>col_names</dt>
+<dd><p>Either <code>TRUE</code>, <code>FALSE</code> or a character vector
+of column names.</p>
+<p>If <code>TRUE</code>, the first row of the input will be used as the column
+names, and will not be included in the data frame. If <code>FALSE</code>, column
+names will be generated automatically: X1, X2, X3 etc.</p>
+<p>If <code>col_names</code> is a character vector, the values will be used as the
+names of the columns, and the first row of the input will be read into
+the first row of the output data frame.</p>
+<p>Missing (<code>NA</code>) column names will generate a warning, and be filled
+in with dummy names <code>...1</code>, <code>...2</code> etc. Duplicate column names
+will generate a warning and be made unique, see <code>name_repair</code> to control
+how this is done.</p></dd>
+
+
+<dt>col_types</dt>
+<dd><p>One of <code>NULL</code>, a <code><a href="https://readr.tidyverse.org/reference/cols.html" class="external-link">cols()</a></code> specification, or
+a string. See <code>vignette("readr")</code> for more details.</p>
+<p>If <code>NULL</code>, all column types will be inferred from <code>guess_max</code> rows of the
+input, interspersed throughout the file. This is convenient (and fast),
+but not robust. If the guessed types are wrong, you'll need to increase
+<code>guess_max</code> or supply the correct types yourself.</p>
+<p>Column specifications created by <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> or <code><a href="https://readr.tidyverse.org/reference/cols.html" class="external-link">cols()</a></code> must contain
+one column specification for each column. If you only want to read a
+subset of the columns, use <code><a href="https://readr.tidyverse.org/reference/cols.html" class="external-link">cols_only()</a></code>.</p>
+<p>Alternatively, you can use a compact string representation where each
+character represents one column:</p><ul><li><p>c = character</p></li>
+<li><p>i = integer</p></li>
+<li><p>n = number</p></li>
+<li><p>d = double</p></li>
+<li><p>l = logical</p></li>
+<li><p>f = factor</p></li>
+<li><p>D = date</p></li>
+<li><p>T = date time</p></li>
+<li><p>t = time</p></li>
+<li><p>? = guess</p></li>
+<li><p>_ or - = skip</p></li>
+</ul><p>By default, reading a file without a column specification will print a
+message showing what <code>readr</code> guessed they were. To remove this message,
+set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>additional parameters, passed to <code>read_tsv</code></p></dd>
+
+</dl></div>
     <div id="functions">
     <h2>Functions</h2>
     

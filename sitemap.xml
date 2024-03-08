@@ -7,6 +7,9 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>/articles/emales.html</loc>
   </url>
   <url>
@@ -20,6 +23,12 @@
   </url>
   <url>
     <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GeomFeatText.html</loc>
+  </url>
+  <url>
+    <loc>/reference/add_seqs.html</loc>
   </url>
   <url>
     <loc>/reference/add_tracks.html</loc>
@@ -46,6 +55,12 @@
     <loc>/reference/as_tracks.html</loc>
   </url>
   <url>
+    <loc>/reference/check_strand.html</loc>
+  </url>
+  <url>
+    <loc>/reference/combine_strands.html</loc>
+  </url>
+  <url>
     <loc>/reference/comma.html</loc>
   </url>
   <url>
@@ -56,6 +71,18 @@
   </url>
   <url>
     <loc>/reference/dim.gggenomes_layout.html</loc>
+  </url>
+  <url>
+    <loc>/reference/drop_feat_layout.html</loc>
+  </url>
+  <url>
+    <loc>/reference/drop_layout.html</loc>
+  </url>
+  <url>
+    <loc>/reference/drop_link_layout.html</loc>
+  </url>
+  <url>
+    <loc>/reference/drop_seq_layout.html</loc>
   </url>
   <url>
     <loc>/reference/emale_ava.html</loc>
@@ -76,9 +103,6 @@
     <loc>/reference/emale_prot_ava.html</loc>
   </url>
   <url>
-    <loc>/reference/emale_prot_uniref50.html</loc>
-  </url>
-  <url>
     <loc>/reference/emale_seqs.html</loc>
   </url>
   <url>
@@ -92,6 +116,9 @@
   </url>
   <url>
     <loc>/reference/flip.html</loc>
+  </url>
+  <url>
+    <loc>/reference/flip_strand.html</loc>
   </url>
   <url>
     <loc>/reference/focus.html</loc>
@@ -145,6 +172,9 @@
     <loc>/reference/has_vars.html</loc>
   </url>
   <url>
+    <loc>/reference/if_reverse.html</loc>
+  </url>
+  <url>
     <loc>/reference/in_range.html</loc>
   </url>
   <url>
@@ -152,6 +182,9 @@
   </url>
   <url>
     <loc>/reference/introduce.html</loc>
+  </url>
+  <url>
+    <loc>/reference/is_reverse.html</loc>
   </url>
   <url>
     <loc>/reference/layout.html</loc>
@@ -229,10 +262,22 @@
     <loc>/reference/scale_x_bp.html</loc>
   </url>
   <url>
+    <loc>/reference/set_class.html</loc>
+  </url>
+  <url>
     <loc>/reference/shift.html</loc>
   </url>
   <url>
     <loc>/reference/split_by.html</loc>
+  </url>
+  <url>
+    <loc>/reference/strand_chr.html</loc>
+  </url>
+  <url>
+    <loc>/reference/strand_int.html</loc>
+  </url>
+  <url>
+    <loc>/reference/strand_lgl.html</loc>
   </url>
   <url>
     <loc>/reference/swap_if.html</loc>
@@ -260,6 +305,9 @@
   </url>
   <url>
     <loc>/reference/track_types.html</loc>
+  </url>
+  <url>
+    <loc>/reference/unnest_exons.html</loc>
   </url>
   <url>
     <loc>/reference/vars_track.html</loc>

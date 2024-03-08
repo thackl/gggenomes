@@ -18,7 +18,7 @@ optional fields will be parsed into a tidy format, one column per tag."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -96,11 +96,15 @@ string with a new line.</p>
 
 
 <dt>col_names</dt>
-<dd><p>column names to use. Defaults to def_names("gff3").</p></dd>
+<dd><p>column names to use. Defaults to <code>def_names("gff3")</code> (see <code><a href="def_names.html">def_names</a></code>).</p></dd>
 
 
 <dt>col_types</dt>
-<dd><p>column types to use. Defaults to def_types("gff3").</p></dd>
+<dd><p>column types to use. Defaults to <code>def_types("gff3")</code> (see <code><a href="def_names.html">def_types</a></code>).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>additional parameters, passed to <code>read_tsv</code></p></dd>
 
 </dl></div>
     <div id="value">

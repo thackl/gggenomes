@@ -19,7 +19,7 @@ coordinates during import."><meta property="og:image" content="/logo.svg"><!-- m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -88,8 +88,8 @@ string with a new line.</p>
 
 
 <dt>col_names</dt>
-<dd><p>column names to use. Defaults to def_names("bed")
-compatible with canonical bed files. def_names("bed") can easily be
+<dd><p>column names to use. Defaults to <code>def_names("bed")</code>
+compatible with canonical bed files. <code><a href="def_names.html">def_names()</a></code> can easily be
 combined with extra columns: <code>col_names = c(def_names("bed"), "more", "things")</code>.</p></dd>
 
 
@@ -118,6 +118,10 @@ character represents one column:</p><ul><li><p>c = character</p></li>
 </ul><p>By default, reading a file without a column specification will print a
 message showing what <code>readr</code> guessed they were. To remove this message,
 set <code>show_col_types = FALSE</code> or set `options(readr.show_col_types = FALSE).</p></dd>
+
+
+<dt>...</dt>
+<dd><p>additional parameters, passed to <code>read_tsv</code></p></dd>
 
 </dl></div>
     <div id="value">

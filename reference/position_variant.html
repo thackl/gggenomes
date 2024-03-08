@@ -19,7 +19,7 @@ This position adjustment is most relevant for the analysis/visualization of VCF 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -110,13 +110,24 @@ from the sequence. <code>base</code> thus moves the entire feature up/down.</p><
 <span class="r-plt img"><img src="position_variant-2.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Now lets create a plot with different offsets by inserting a self-created vector.</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, position <span class="op">=</span> <span class="fu">position_variant</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>del<span class="op">=</span><span class="fl">0.4</span>, ins <span class="op">=</span><span class="op">-</span><span class="fl">0.4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="scale_color_variant.html">scale_shape_variant</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  position <span class="op">=</span> <span class="fu">position_variant</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>del<span class="op">=</span><span class="fl">0.4</span>, ins <span class="op">=</span><span class="op">-</span><span class="fl">0.4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="scale_color_variant.html">scale_shape_variant</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some mutation types are not mentioned within the offset argument. These types will have an offset of 0 by default</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 11 rows containing missing values (`geom_variant()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No shared levels found between `names(values)` of the manual scale and the</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> data's <span style="color: #00BB00;">shape</span> values.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No shared levels found between `names(values)` of the manual scale and the</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> data's <span style="color: #00BB00;">shape</span> values.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 11 rows containing missing values or values outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_variant()`).</span>
 <span class="r-plt img"><img src="position_variant-3.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Changing the base will shift all points up/down relatively from the sequence.</span></span></span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, position<span class="op">=</span><span class="fu">position_variant</span><span class="op">(</span>base <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">type</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  position<span class="op">=</span><span class="fu">position_variant</span><span class="op">(</span>base <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="position_variant-4.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

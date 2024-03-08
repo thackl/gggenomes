@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -91,19 +91,27 @@ string with a new line.</p>
 
 
 <dt>col_names</dt>
-<dd><p>column names to use. Defaults to def_names("blast")
+<dd><p>column names to use. Defaults to <code>def_names("blast")</code>
 compatible with blast tabular output (<code>--outfmt 6/7</code> in blast++ and <code>-m8</code>
-in blast-legacy). def_names("blast") can easily be combined with extra
+in blast-legacy). <code><a href="def_names.html">def_names()</a></code> can easily be combined with extra
 columns: <code>col_names = c(def_names("blast"), "more", "things")</code>.</p></dd>
 
 
 <dt>col_types</dt>
-<dd><p>column types to use. Defaults to def_types("gff3").</p></dd>
+<dd><p>column types to use. Defaults to <code>def_types("gff3")</code> (see <code><a href="def_names.html">def_types</a></code>).</p></dd>
+
+
+<dt>comment</dt>
+<dd><p>character</p></dd>
 
 
 <dt>swap_query</dt>
 <dd><p>if TRUE swap query and subject columns using <code><a href="swap_query.html">swap_query()</a></code>
 on import.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>additional parameters, passed to <code>read_tsv</code></p></dd>
 
 </dl></div>
 

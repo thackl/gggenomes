@@ -19,7 +19,7 @@ annotating sequences with start &amp;gt; 1 and/or end &amp;lt; length."><meta pr
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@ annotating sequences with start &gt; 1 and/or end &lt; length.</p>
 <span>  label <span class="op">=</span> <span class="st">"/"</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  hjust <span class="op">=</span> <span class="fl">0.75</span>,</span>
-<span>  family <span class="op">=</span> <span class="st">"bold"</span>,</span>
+<span>  family <span class="op">=</span> <span class="st">"sans"</span>,</span>
 <span>  stat <span class="op">=</span> <span class="st">"identity"</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -86,7 +86,15 @@ annotating sequences with start &gt; 1 and/or end &lt; length.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>data_start</dt>
+    <dl><dt>mapping_start</dt>
+<dd><p>optional start mapping</p></dd>
+
+
+<dt>mapping_end</dt>
+<dd><p>optional end mapping</p></dd>
+
+
+<dt>data_start</dt>
 <dd><p>seq_layout of sequences for which to decorate the start.
 default: <code>seqs(start &gt;1)</code></p></dd>
 
@@ -99,6 +107,18 @@ default: <code>seqs(end &lt; length)</code></p></dd>
 <dt>label</dt>
 <dd><p>the character to decorate ends with. Provide two values for
 different start and end decorations, e.g. <code>label=c("]", "[")</code>.</p></dd>
+
+
+<dt>size</dt>
+<dd><p>of the text</p></dd>
+
+
+<dt>hjust</dt>
+<dd><p>Moves the text horizontally</p></dd>
+
+
+<dt>family</dt>
+<dd><p>font family of the text</p></dd>
 
 
 <dt>stat</dt>

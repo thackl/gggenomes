@@ -20,7 +20,7 @@ If seqs track is empty, sequences are inferred from the feats or links track res
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -127,16 +127,18 @@ can be called upon to modify the visualization of the data.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
 <span class="r-plt img"><img src="geom_seq-2.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Sequence data controls what sequences and/or regions will be plotted. Here one sequence is filtered out, </span></span></span>
-<span class="r-in"><span><span class="co"># Notice that the genes of the removed sequence are silently ignored and thus not plotted.</span></span></span>
-<span class="r-in"><span><span class="va">missing_seqs</span> <span class="op">&lt;-</span> <span class="va">emale_seqs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seq_id</span> <span class="op">!=</span> <span class="st">"Cflag_017B"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">arrange</span><span class="op">(</span><span class="va">seq_id</span><span class="op">)</span> <span class="co">#`arrange` to restore alphabetical order.</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in arrange(filter(emale_seqs, seq_id != "Cflag_017B"), seq_id):</span> could not find function "arrange"</span>
+<span class="r-in"><span><span class="co"># Sequence data controls what sequences and/or regions will be plotted.</span></span></span>
+<span class="r-in"><span><span class="co"># Here one sequence is filtered out, Notice that the genes of the removed</span></span></span>
+<span class="r-in"><span><span class="co"># sequence are silently ignored and thus not plotted.</span></span></span>
+<span class="r-in"><span><span class="va">missing_seqs</span> <span class="op">&lt;-</span> <span class="va">emale_seqs</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">seq_id</span> <span class="op">!=</span> <span class="st">"Cflag_017B"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">seq_id</span><span class="op">)</span> <span class="co">#`arrange` to restore alphabetical order.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">missing_seqs</span>, genes <span class="op">=</span> <span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>               <span class="co">#creates contigs</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>              <span class="co">#draws genes on top of contigs</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span>           <span class="co">#labels bins/sequences</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'missing_seqs' not found</span>
+<span class="r-plt img"><img src="geom_seq-3.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span> <span class="co"># Several sequences belonging to the same *bin* are plotted next to one another</span></span></span>
 <span class="r-in"><span><span class="va">seqs</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
@@ -150,21 +152,21 @@ can be called upon to modify the visualization of the data.</p>
 <span class="r-in"><span><span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co">#label bins</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co">#label individual sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-3.png" alt="" width="960" height="480"></span>
+<span class="r-plt img"><img src="geom_seq-4.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Wrap bins uptill a certain amount.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">seqs</span>, wrap<span class="op">=</span><span class="fl">300</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co">#label bins</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co">#label individual sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-4.png" alt="" width="960" height="480"></span>
+<span class="r-plt img"><img src="geom_seq-5.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Change the space between sequences belonging to one bin</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">seqs</span>, spacing <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">geom_seq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co">#label bins</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co">#label individual sequences</span></span></span>
-<span class="r-plt img"><img src="geom_seq-5.png" alt="" width="960" height="480"></span>
+<span class="r-plt img"><img src="geom_seq-6.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
   </div>

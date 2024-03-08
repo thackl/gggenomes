@@ -20,7 +20,7 @@ track from a gggenome object. Unprefixed variants work inside geom_* calls."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -71,6 +71,8 @@ track from a gggenome object. Unprefixed variants work inside <code>geom_*</code
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">feats</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="st">"genes"</span>, .geneify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">feats0</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="cn">NA</span>, .geneify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">genes</span><span class="op">(</span><span class="va">...</span>, .gene_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CDS"</span>, <span class="st">"mRNA"</span>, <span class="st">"tRNA"</span>, <span class="st">"tmRNA"</span>, <span class="st">"ncRNA"</span>, <span class="st">"rRNA"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">links</span><span class="op">(</span>.track_id <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, .ignore <span class="op">=</span> <span class="cn">NULL</span>, .adjacent_only <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
@@ -114,7 +116,8 @@ as a positive/negative integer giving the position from the left/right.</p></dd>
 
 
 <dt>.ignore</dt>
-<dd><p>track names to ignore when selecting by position.</p></dd>
+<dd><p>track names to ignore when selecting by position.
+Default is "genes", if using <code>feats0</code> this defaults to <code>NA</code>.</p></dd>
 
 
 <dt>.geneify</dt>
@@ -151,6 +154,7 @@ seqs table into the bins table.</p></dd>
     
 <ul><li><p><code>feats()</code>: by default pulls out the first feat track not named
 "genes".</p></li>
+<li><p><code>feats0()</code>: by default pulls out the first feat track.</p></li>
 <li><p><code>genes()</code>: pulls out the first feat track (genes), filtering
 for records with <code>type=="CDS"</code>, and adding a dummy <code>gene_id</code> column if missing
 to play nice with multi-exon <code>geom</code>s.</p></li>

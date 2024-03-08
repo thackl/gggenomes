@@ -18,7 +18,7 @@ with ids, types, index and size of the loaded tracks."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -73,6 +73,10 @@ with ids, types, index and size of the loaded tracks.</p>
     <dl><dt>x</dt>
 <dd><p>A gggenomes or gggenomes_layout object</p></dd>
 
+
+<dt>...</dt>
+<dd><p>unused</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -91,7 +95,10 @@ with ids, types, index and size of the loaded tracks.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span>, feats<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ngaros</span><span class="op">)</span>,  links <span class="op">=</span> <span class="va">emale_ava</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  seqs <span class="op">=</span> <span class="va">emale_seqs</span>,</span></span>
+<span class="r-in"><span>  feats<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">emale_genes</span>, <span class="va">emale_tirs</span>, <span class="va">emale_ngaros</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  links <span class="op">=</span> <span class="va">emale_ava</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu">track_info</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   type [3]</span></span>

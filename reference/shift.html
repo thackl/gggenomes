@@ -18,7 +18,7 @@ layout. This is useful to align feats of interest in different bins."><meta prop
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -70,13 +70,21 @@ layout. This is useful to align feats of interest in different bins.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>bins</dt>
+    <dl><dt>x</dt>
+<dd><p>gggenomes object</p></dd>
+
+
+<dt>bins</dt>
 <dd><p>to shift left/right, select-like expression</p></dd>
 
 
 <dt>by</dt>
 <dd><p>shift each bin by this many bases. Single value or vector of the
 same length as bins.</p></dd>
+
+
+<dt>center</dt>
+<dd><p>horizontal centering</p></dd>
 
 </dl></div>
 
@@ -90,20 +98,16 @@ same length as bins.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># align all bins to a target gene</span></span></span>
 <span class="r-in"><span><span class="va">mcp</span> <span class="op">&lt;-</span> <span class="va">emale_genes</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">name</span> <span class="op">==</span> <span class="st">"MCP"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">seq_id</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">slice_head</span><span class="op">(</span>n<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># some have fragmented MCP gene, keep only first</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in slice_head(group_by(filter(emale_genes, name == "MCP"), seq_id),     n = 1):</span> could not find function "slice_head"</span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">name</span> <span class="op">==</span> <span class="st">"MCP"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">seq_id</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># some have fragmented MCP gene, keep only first</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p0</span> <span class="op">|&gt;</span> <span class="fu">shift</span><span class="op">(</span><span class="fu">all_of</span><span class="op">(</span><span class="va">mcp</span><span class="op">$</span><span class="va">seq_id</span><span class="op">)</span>, by<span class="op">=</span> <span class="op">-</span><span class="va">mcp</span><span class="op">$</span><span class="va">start</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="pull_track.html">genes</a></span><span class="op">(</span><span class="va">name</span><span class="op">==</span><span class="st">"MCP"</span><span class="op">)</span>, fill<span class="op">=</span><span class="st">"#01b9af"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in shift(p0, all_of(mcp$seq_id), by = -mcp$start):</span> Problem while evaluating `all_of(mcp$seq_id)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 'mcp' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p0</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'p2' not found</span>
+<span class="r-plt img"><img src="shift-1.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>
   </div>

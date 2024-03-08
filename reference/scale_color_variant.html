@@ -25,7 +25,7 @@ By default, SNPs are diamond shaped, Deletions triangle downwards and Insertions
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gggenomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.12.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -104,6 +104,10 @@ The functions <code>scale_color_variant()</code> and <code>scale_shape_variant()
 <dd><p>The aesthetic value (color/shape/etc.) to use for non matching values.</p></dd>
 
 
+<dt>...</dt>
+<dd><p>Additional parameters, passed to scale_color_manual</p></dd>
+
+
 <dt>characters</dt>
 <dd><p>When <code>TRUE</code>, it changes the default shapes of <code>scale_shape_variant()</code> to become the letters of the nucleotides.</p></dd>
 
@@ -113,7 +117,8 @@ The functions <code>scale_color_variant()</code> and <code>scale_shape_variant()
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Creation of example data. </span></span></span>
 <span class="r-in"><span><span class="va">testposition</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Insertion"</span>, <span class="st">"SNP"</span>, <span class="st">"SNP"</span>, <span class="st">"Deletion"</span>, <span class="st">"Deletion"</span>, <span class="st">"SNP"</span>, <span class="st">"SNP"</span>, <span class="st">"Insertion"</span>, <span class="st">"SNP"</span>, <span class="st">"Insertion"</span>, <span class="st">"SNP"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Insertion"</span>, <span class="st">"SNP"</span>, <span class="st">"SNP"</span>, <span class="st">"Deletion"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Deletion"</span>, <span class="st">"SNP"</span>, <span class="st">"SNP"</span>, <span class="st">"Insertion"</span>, <span class="st">"SNP"</span>, <span class="st">"Insertion"</span>, <span class="st">"SNP"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">65</span>, <span class="fl">90</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>ALT <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AT"</span>, <span class="st">"G"</span>, <span class="st">"C"</span>, <span class="st">"."</span>, <span class="st">"."</span>, <span class="st">"T"</span>, <span class="st">"C"</span>, <span class="st">"CAT"</span>, <span class="st">"G"</span>, <span class="st">"TC"</span>, <span class="st">"A"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>REF <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"T"</span>, <span class="st">"G"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"G"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"T"</span>, <span class="st">"G"</span><span class="op">)</span>,</span></span>
@@ -136,7 +141,9 @@ The functions <code>scale_color_variant()</code> and <code>scale_shape_variant()
 <span class="r-plt img"><img src="scale_color_variant-1.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Color all SNPs with default colors using scale_color_variant().</span></span></span>
-<span class="r-in"><span><span class="co">#(SNPs are 1 nucleotide long, other mutations such as Insertions and Deletions have either more ore less nucleotides within the ALT column and are thus not plotted)</span></span></span>
+<span class="r-in"><span><span class="co">#(SNPs are 1 nucleotide long, other mutations such as Insertions</span></span></span>
+<span class="r-in"><span><span class="co">#and Deletions have either more ore less nucleotides within the</span></span></span>
+<span class="r-in"><span><span class="co">#ALT column and are thus not plotted)</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">ALT</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">scale_color_variant</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="scale_color_variant-2.png" alt="" width="960" height="480"></span>
@@ -164,25 +171,28 @@ The functions <code>scale_color_variant()</code> and <code>scale_shape_variant()
 <span class="r-in"><span><span class="co"># Plotting (nucleotides) characters instead of shapes</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape<span class="op">=</span><span class="va">ALT</span><span class="op">)</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>, size<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">scale_shape_variant</span><span class="op">(</span>characters<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (`geom_variant()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_variant()`).</span>
 <span class="r-plt img"><img src="scale_color_variant-7.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Alternative way to plot nucleotides (of ALT) by using `geom=text` within `geom_variant()`</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, feats<span class="op">=</span><span class="va">f1</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">testseq</span>, feats<span class="op">=</span><span class="va">testposition</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape<span class="op">=</span><span class="va">type</span><span class="op">)</span>, offset<span class="op">=</span><span class="op">-</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu">scale_shape_variant</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">ALT</span><span class="op">)</span>, geom<span class="op">=</span><span class="st">"text"</span>, offset<span class="op">=</span><span class="op">-</span><span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span>  </span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'f1' not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Ignoring unknown aesthetics: <span style="color: #00BB00;">type</span></span>
+<span class="r-plt img"><img src="scale_color_variant-8.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Combining scale_color_variant() and scale_shape_variant()</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>shape<span class="op">=</span><span class="va">ALT</span>, color <span class="op">=</span> <span class="va">ALT</span><span class="op">)</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span>, size <span class="op">=</span> <span class="fl">3</span>, show.legend<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="geom_variant.html">geom_variant</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color<span class="op">=</span><span class="va">ALT</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">scale_color_variant</span><span class="op">(</span>na.value <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span><span class="fu">scale_shape_variant</span><span class="op">(</span>characters<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (`geom_variant()`).</span>
-<span class="r-plt img"><img src="scale_color_variant-8.png" alt="" width="960" height="480"></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_variant()`).</span>
+<span class="r-plt img"><img src="scale_color_variant-9.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
