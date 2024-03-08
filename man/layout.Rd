@@ -6,6 +6,11 @@
 \usage{
 layout(x, ...)
 }
+\arguments{
+\item{x}{layout}
+
+\item{...}{additional data}
+}
 \description{
 Re-layout the tracks and update the scales after seqs have been modified
 }

@@ -1,8 +1,22 @@
 ---
-title: "From a few sequences to a complex map in minutes"
-author: Thomas Hackl
+title: "From a few sequences to a complex map in minutes (old version)"
+author: "Thomas Hackl"
 date: "`r format(Sys.Date())`"
+resource_files:
+  - emales/emales-p1.png
+  - emales/emales-p2.png
+  - emales/emales-p3.png
+  - emales/emales-p4.png
+  - emales/emales-p5.png
+  - emales/emales-p6.png
+  - emales/emales-p7.png
+vignette: >
+  %\VignetteIndexEntry{Emales}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
+**DISCLAIMER: I've created this demo with an early version of gggenomes. Not all of the code will function with current releases. However, the general workflow both with respect to the external tools and gggenomes code is still valid and this demo should therefore be understood as an hopefully inspiring guide - not as an exactly reproducible code example (Those kind of examples you can find in the examples sections of the documentation).**
 
 This is a real-life example demonstrating the use of `gggenomes` to explore
 viral genomes. We start with just a bunch of viral contigs and ask: Is there
@@ -15,12 +29,8 @@ exciting system.
 
 This example is bundled `data(package="gggenomes")`
 To rerun the this example including the bioinformatics analyzes download the
-[raw data](https://github.com/thackl/gggenomes/tree/master/data-raw/emales) from
-github.
-
-TODO Teaser (plot preview)
-
-TODO Which tools I used
+[raw data](https://github.com/thackl/gggenomes/raw/master/data-raw/emales.tgz)
+from github.
 
 ![](emales/emales-p7.png)
 
@@ -30,14 +40,13 @@ We start with a fasta file of 33 viral genomes. We read sequence length
 and some metadata from the header lines using \`read~fai~\`...
 
 ``` {r eval=FALSE}
-library(tidyverse)
 library(gggenomes)
 
 # parse sequence length and some metadata from fasta file
 emale_seqs <- read_fai("emales.fna") %>%
-  extract(seq_desc, into = c("emale_type", "is_typespecies"), "=(\\S+) \\S+=(\\S+)",
+  tidyr::extract(seq_desc, into = c("emale_type", "is_typespecies"), "=(\\S+) \\S+=(\\S+)",
     remove=F, convert=T) %>%
-  arrange(emale_type, length)
+  dplyr::arrange(emale_type, length)
 
 # plot the genomes - first six only to keep it simple for this example
 emale_seqs_6 <- emale_seqs[1:6,]
@@ -62,8 +71,8 @@ gff-clean emales-prodigal.gff > emales.gff
 
 ``` {r eval=FALSE}
 emale_genes <- read_gff("emales.gff") %>%
-  rename(feature_id=ID) %>%                       # we'll need this later
-  mutate(gc_cont=as.numeric(gc_cont))             # per gene GC-content
+  dplyr::rename(feature_id=ID) %>%                       # we'll need this later
+  dplyr::mutate(gc_cont=as.numeric(gc_cont))             # per gene GC-content
 
 p2 <- gggenomes(emale_seqs_6, emale_genes) +
   geom_seq() + geom_bin_label() +
@@ -92,10 +101,10 @@ cat emales.fna.split/*.paf > emales-tirs.paf
 ``` {r eval=FALSE}
 # prefilter hits by minimum length and maximum divergence
 emale_tirs_paf <- read_paf("emales-tirs.paf") %>%
-  filter(seq_id1 == seq_id2 & start1 < start2 & map_length > 99 & de < 0.1)
+  dplyr::filter(seq_id1 == seq_id2 & start1 < start2 & map_length > 99 & de < 0.1)
 emale_tirs <- bind_rows(
-  select(emale_tirs_paf, seq_id=seq_id1, start=start1, end=end1, de),
-  select(emale_tirs_paf, seq_id=seq_id2, start=start2, end=end2, de))
+  dplyr::select(emale_tirs_paf, seq_id=seq_id1, start=start1, end=end1, de),
+  dplyr::select(emale_tirs_paf, seq_id=seq_id2, start=start2, end=end2, de))
 
 p3 <- gggenomes(emale_seqs_6, emale_genes, emale_tirs) +
   geom_seq() + geom_bin_label() +
@@ -139,7 +148,7 @@ seq-gc -Nbw 50 emales.fna > emales-gc.tsv
 
 ``` {r eval=FALSE}
 emale_gc <- thacklr::read_bed("emales-gc.tsv") %>%
-  rename(seq_id=contig_id)
+  dplyr::rename(seq_id=contig_id)
 
 p5 <- p4 %>% add_features(emale_gc)
 p5 <- p5 + geom_ribbon(aes(x=(x+xend)/2, ymax=y+.24, ymin=y+.38-(.4*score),
@@ -160,7 +169,7 @@ cluster-ids -t "cog%03d" < emales-mmseqs_cluster.tsv > emales-cogs.tsv
 
 ``` {r eval=FALSE}
 emale_cogs <- read_tsv("emales-cogs.tsv", col_names = c("feature_id", "cluster_id", "cluster_n"))
-emale_cogs %<>% mutate(
+emale_cogs %<>% dplyr::mutate(
   cluster_label = paste0(cluster_id, " (", cluster_n, ")"),
   cluster_label = fct_lump_min(cluster_label, 5, other_level = "rare"),
   cluster_label = fct_lump_min(cluster_label, 15, other_level = "medium"),
@@ -198,9 +207,9 @@ perl -ne 'if(/>(\S+) gene=(\S+) product=(.+)/){print join("\t", $1, $2, $3), "\n
 ``` {r eval=FALSE}
 emale_blast <- read_blast("emales_mavirus-blastp.tsv")
 emale_blast %<>%
-  filter(evalue < 1e-3) %>%
-  select(feature_id=qaccver, start=qstart, end=qend, saccver) %>%
-  left_join(read_tsv("mavirus.tsv", col_names = c("saccver", "blast_hit", "blast_desc")))
+  dplyr::filter(evalue < 1e-3) %>%
+  dplyr::select(feature_id=qaccver, start=qstart, end=qend, saccver) %>%
+  dplyr::left_join(read_tsv("mavirus.tsv", col_names = c("saccver", "blast_hit", "blast_desc")))
 
 # manual annotations by MFG
 emale_transposons <- read_gff("emales-manual.gff", types = c("mobile_element"))

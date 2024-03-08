@@ -2,17 +2,134 @@
 % Please edit documentation in R/geom_link.R
 \name{geom_link}
 \alias{geom_link}
-\title{Draw links}
+\alias{geom_link_line}
+\title{Draw links between genomes}
 \usage{
-geom_link(mapping = NULL, data = use_links(1, abs(y - yend) == 1),
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, offset = 0.1, ...)
+geom_link(
+  mapping = NULL,
+  data = links(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  offset = 0.15,
+  ...
+)
+
+geom_link_line(
+  mapping = NULL,
+  data = links(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{stat}{The statistical transformation to use on the data for this
+layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
+stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
+\code{"stat_count"})}
+
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
 \item{offset}{distance between seq center and link start. Use two values
-`c(<offset_top>, <offset_bottom>)` for different top and bottom offsets}
+\verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 }
 \description{
-use(links, abs(y-yend)==1) - this is somewhat redundant with
-layout_links(adjacent_only =TRUE), which currently is always set to TRUE
+Draws connections between genomes, such as genome/gene/protein
+alignments and gene/protein clusters. \code{geom_link()} draws links as filled
+polygons, \code{geom_link_line()} draws a single connecting line.
+
+Note that by default only links between adjacent genomes are computed and
+shown. To compute and show all links between all genomes, set
+\code{gggenomes(..., adjacent_only=FALSE)}.
+}
+\details{
+The function calls upon the data stored within the \code{link} track.
+Data frames added to this track have \code{seq_id} and \code{seq_id2} as required
+variables. Optional and recommended variables include \code{start}, \code{start2},
+\code{end}, \code{end2}, \code{bin_id}, \code{bin_id2} and \code{strand}.
+
+Note, when start/end is not specified, links will be created between the
+entire contigs of \code{seq_id} and \code{seq_id2}.
+}
+\examples{
+p0 <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
+
+# default links
+p1 <- p0 + geom_link()
+
+# change offset from seqs and color
+p2 <- p0 + geom_link(aes(fill=de, color=de), offset = 0.05) +
+  scale_fill_viridis_b() + scale_colour_viridis_b()
+
+# combine with flip
+p3 <- p0 |> flip(3,4,5) +
+  geom_link()
+
+# compute & show all links among all genomes
+# usually not useful and not recommended for large dataset
+p4 <- gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
+
+library(patchwork) # combine plots in one figure
+p1 + p2 + p3 + p4 + plot_layout(nrow=1)
+q0 <- gggenomes(emale_genes, emale_seqs) |>
+  add_clusters(emale_cogs) +
+  geom_seq() + geom_gene()
+
+# link gene clusters with polygon
+q1 <- q0 + geom_link(aes(fill=cluster_id))
+
+# link gene clusters with lines
+q2 <- q0 + geom_link_line(aes(color=cluster_id))
+
+q1 + q2  + plot_layout(nrow=1, guides = "collect")
+
+
 }

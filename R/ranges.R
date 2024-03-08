@@ -6,6 +6,7 @@
 #' endpoints. Provide 2 values for different behaviors for lower and upper
 #' boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.
 #' @return a logical vector of the same length as the input
+#' @export
 #' @examples
 #' in_range(1:5, 2, 4)
 #' in_range(1:5, 2, 4, closed=c(FALSE, TRUE)) # left-open
@@ -13,8 +14,8 @@
 #'
 #'
 #' # plays nicely with dplyr
-#' df <- tibble(x=rep(4,5), left=1:5, right=3:7)
-#' mutate(df,
+#' df <- tibble::tibble(x=rep(4,5), left=1:5, right=3:7)
+#' dplyr::mutate(df,
 #'   closed=in_range(x, left, right, TRUE),
 #'   open=in_range(x, left, right, FALSE))
 in_range <- function(x, left, right, closed = TRUE){
@@ -67,6 +68,6 @@ max_width <- function(..., base=1){
 }
 
 #' @export
-as_tibble.GRanges <- function(data){
-  select(as_tibble(as.data.frame(data)), seq_id=seqnames, start, end, strand, everything())
+as_tibble.GRanges <- function(x, ...){
+  select(as_tibble(as.data.frame(x), ...), seq_id=.data$seqnames, .data$start, .data$end, .data$strand, everything())
 }
