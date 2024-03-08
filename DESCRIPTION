@@ -39,7 +39,8 @@ Imports:
     tidyselect,
     colorspace,
     methods,
-    utils
+    utils,
+    ellipsis
 Suggests:
     testthat,
     rtracklayer,
@@ -49,4 +50,3 @@ Suggests:
     knitr,
     ggrepel,
     IRanges,
-    ellipsis
