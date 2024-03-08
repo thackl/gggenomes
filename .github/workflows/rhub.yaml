@@ -77,6 +77,7 @@ jobs:
 
     steps:
       - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-tinytex@v2
       - uses: r-hub/rhub2/actions/rhub-checkout@v1
       - uses: r-hub/rhub2/actions/rhub-setup-r@v1
         with:
