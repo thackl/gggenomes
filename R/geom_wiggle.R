@@ -78,6 +78,6 @@ as_bounds <- function(.f, ...) {
 #' @export
 as_bounds.default <- purrr__as_mapper.default
 #' @export
-as_bounds.numeric <- function(.f){
+as_bounds.numeric <- function(.f, ...){
   function(...) .f
 }
