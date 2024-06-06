@@ -92,9 +92,11 @@ track_type <- function(x, track_id){
 tracks <- function(x, ...){
   UseMethod("tracks")
 }
+#' @export
 tracks.gggenomes <- function(x, ...){
   tracks(x$data)
 }
+#' @export
 tracks.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"), ...){
   c(x$seqs, x$feats, x$links)
 }

@@ -75,7 +75,9 @@ StatWiggle <- ggproto("StatWiggle", Stat,
 as_bounds <- function(.f, ...) {
   UseMethod("as_bounds")
 }
+#' @export
 as_bounds.default <- purrr__as_mapper.default
+#' @export
 as_bounds.numeric <- function(.f){
   function(...) .f
 }
