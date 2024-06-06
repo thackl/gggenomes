@@ -50,19 +50,56 @@ parse_desc <- function(x, pattern="\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"){
 
 #' Read sequence index
 #'
-#' @describeIn read_seq_len read seqs from a single file in fasta, gbk or gff3 format.
-#' @inheritParams readr::read_tsv
+#' @describeIn read_seq_len read seqs from a single file_name in fasta, gbk or gff3 format.
 #' @param file with sequence length information
-#' @param ... additional parameters, passed to `read_tsv`
 #' @export
-read_seq_len <- function(file, col_names = def_names("seq_len"),
-    col_types = def_types("seq_len"), ...){
-  # Note base::system.file b/c devtools::system.file looks at "package/inst"
-  # as this would become toplevel after install. The exec folder and its
-  # script are a special case that are always toplevel
-  seq_len <- base::system.file("exec/seq-len", package="gggenomes")
-  readr::read_tsv(pipe(str_glue("{seq_len} {file}")), col_names = col_names, col_types=col_types, ...)
+read_seq_len <- function(file) {
+  # Read the first line to determine format
+  first <- readr::read_lines(file, n_max=1)
 
+  # Initialize output
+  output <- NULL
+
+  # fasta
+  if (stringr::str_starts(first, ">")) {
+    output <- tibble::tibble(raw=readr::read_lines(file)) %>%
+                # seq_number is only there to maintain order of the sequences (this might not be relevant)
+                dplyr::mutate(
+                  header=dplyr::if_else(stringr::str_starts(.data$raw, ">"), stringr::str_remove(.data$raw,">"), NA_character_),
+                  seq_number=cumsum(!is.na(.data$header)),
+                  bp=str_length(.data$raw)
+                ) %>%
+                tidyr::fill(.data$header, .direction="down") %>%
+                dplyr::filter(!stringr::str_starts(.data$raw,">")) %>%
+                dplyr::group_by(.data$seq_number, .data$header) %>%
+                dplyr::summarize(length=sum(.data$bp)) %>%
+                tidyr::separate(.data$header, into=c("seq_id","seq_desc"), sep=" ", extra="merge", fill = "right") %>%
+                dplyr::ungroup() %>%
+                dplyr::select(-.data$seq_number)
+  }
+
+  # gbk
+  else if (stringr::str_starts(first, "LOCUS")) {
+    output <- tibble::tibble(raw=readr::read_lines(file)) %>%
+                dplyr::filter(stringr::str_starts(.data$raw, "LOCUS")) %>%
+                tidyr::separate(.data$raw, into=c("tag", "seq_id", "length"), extra="drop", convert=TRUE) %>%
+                dplyr::transmute(.data$seq_id, seq_desc=NA_character_, .data$length)
+  }
+
+  # gff
+  else if (stringr::str_starts(first, "##gff")) {
+    output <- tibble::tibble(raw=readr::read_lines(file)) %>%
+                dplyr::filter(stringr::str_starts(.data$raw, "##sequence-region")) %>%
+                tidyr::separate(.data$raw, into=c("_", "seq_id", "start", "end"), sep=" ", convert=TRUE) %>%
+                dplyr::transmute(.data$seq_id, seq_desc=NA_character_, length=.data$end-.data$start+1)
+  }
+
+  # Unknown format
+  else {
+    stop("Unknown format, can read fasta, gbk and gff with proper ##gff-version and ##sequence-region directives\n")
+  }
+
+  return(output)
 }
 
 #' @describeIn read_seq_len read seqs from a single file in seqkit/samtools fai format.
