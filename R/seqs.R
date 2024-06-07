@@ -6,7 +6,6 @@
 #' Obligatory columns are `seq_id`, `bin_id` and `length`.
 #'
 #' @param x an object convertible to a sequence layout
-#' @param everything set to FALSE to drop optional columns
 #' @param ... pass through to `layout_seqs()`
 #' @return an tbl_df with plot coordinates
 #' @examples
@@ -29,7 +28,9 @@ as_seqs.default <- function(x, ...) {
 }
 
 #' @export
-as_seqs.tbl_df <- function(x, everything=TRUE, ...){
+#' @describeIn as_seqs Convert a list of tibbles into a seq layout
+#' @param everything set to FALSE to drop optional columns
+as_seqs.tbl_df <- function(x, everything = TRUE, ...){
   vars <- c("seq_id","bin_id","length")
   require_vars(x, vars)
 

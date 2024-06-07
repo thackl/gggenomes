@@ -104,6 +104,8 @@ read_seq_len <- function(file) {
 
 #' @describeIn read_seq_len read seqs from a single file in seqkit/samtools fai format.
 #' @export
+#' @inheritParams readr::read_tsv
+#' @param ... additional parameters, passed to `read_tsv`
 read_fai <- function(file, col_names=def_names("fai"),
     col_types=def_types("fai"), ...){
   df <- readr::read_tsv(file, col_types, col_names=F, ...) %>%

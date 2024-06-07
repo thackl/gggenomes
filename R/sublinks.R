@@ -66,7 +66,6 @@ add_sublink_tracks <- function(x, parent_track_id, tracks, transform){
 #' @param feats the feats the sublinks map onto.
 #' @param everything set to FALSE to drop optional columns
 #' @param ... passed on to `layout_seqs()`
-#' @param transform use if feats and sublinks are in different coordinate
 #' spaces, i.e. if matching nucleotide-level annotations to protein level
 #' annotations, e.g. genes and protein blast results.
 #' @return a tbl_df with plot coordinates
@@ -83,6 +82,9 @@ as_sublinks.default <- function(x, seqs, feats, ..., everything=TRUE) {
 }
 
 #' @export
+#' @describeIn as_sublinks Convert a list of tibbles into a link layout
+#' @param transform use if feats and sublinks are in different coordinate
+#' @param compute_layout set to FALSE to skip layout computation
 as_sublinks.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
     transform = c("none", "aa2nuc", "nuc2aa"), compute_layout=TRUE){
   transform <- match.arg(transform)

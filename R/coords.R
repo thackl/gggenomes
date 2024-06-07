@@ -8,7 +8,6 @@ anchor <- function(x, start, strand){
 
 #' Project feat coordinates into layout space
 #'
-#' @param seq_anchor the virtual x-start of the full length sequence in plot
 #' space
 #' @keywords internal
 x <- function(start, end, strand, seq_x, seq_start, seq_strand){

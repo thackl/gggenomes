@@ -11,3 +11,4 @@ vignettes-manual-export/
 /Meta/
 gggenomes.Rcheck
 .vscode
+gggenomes_*.tar.gz

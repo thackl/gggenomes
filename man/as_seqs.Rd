@@ -2,9 +2,12 @@
 % Please edit documentation in R/seqs.R
 \name{as_seqs}
 \alias{as_seqs}
+\alias{as_seqs.tbl_df}
 \title{Compute a layout for sequence data}
 \usage{
 as_seqs(x, ...)
+
+\method{as_seqs}{tbl_df}(x, everything = TRUE, ...)
 }
 \arguments{
 \item{x}{an object convertible to a sequence layout}
@@ -23,6 +26,11 @@ tidy dataframe and augment it with layout information necessary for plotting.
 \details{
 Obligatory columns are \code{seq_id}, \code{bin_id} and \code{length}.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{as_seqs(tbl_df)}: Convert a list of tibbles into a seq layout
+
+}}
 \examples{
 chr <- tibble::tibble(
   seq_id = c("a1", "b1", "b2"),

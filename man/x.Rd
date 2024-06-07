@@ -6,11 +6,7 @@
 \usage{
 x(start, end, strand, seq_x, seq_start, seq_strand)
 }
-\arguments{
-\item{seq_anchor}{the virtual x-start of the full length sequence in plot
-space}
-}
 \description{
-Project feat coordinates into layout space
+space
 }
 \keyword{internal}

@@ -66,7 +66,6 @@ add_subfeat_tracks <- function(x, parent_track_id, tracks, transform){
 #' @param feats the parent feats the subfeats map onto.
 #' @param everything set to FALSE to drop optional columns
 #' @param ... passed on to `layout_seqs()`
-#' @param transform use if feats and subfeats are in different coordinate
 #' spaces, i.e. if matching nucleotide-level annotations to protein level
 #' annotations, e.g. genes and protein blast results.
 #' @return a tbl_df with plot coordinates
@@ -83,6 +82,8 @@ as_subfeats.default <- function(x, seqs, feats, ..., everything=TRUE) {
 }
 
 #' @export
+#' @describeIn as_subfeats Convert a list of tibbles into a feat layout
+#' @param transform use if feats and subfeats are in different coordinate
 as_subfeats.tbl_df <- function(x, seqs, feats, ..., everything=TRUE,
     transform = c("none", "aa2nuc", "nuc2aa")){
   transform <- match_arg(transform)

@@ -2,9 +2,20 @@
 % Please edit documentation in R/sublinks.R
 \name{as_sublinks}
 \alias{as_sublinks}
+\alias{as_sublinks.tbl_df}
 \title{Compute a layout for links linking feats}
 \usage{
 as_sublinks(x, seqs, feats, ..., everything = TRUE)
+
+\method{as_sublinks}{tbl_df}(
+  x,
+  seqs,
+  feats,
+  ...,
+  everything = TRUE,
+  transform = c("none", "aa2nuc", "nuc2aa"),
+  compute_layout = TRUE
+)
 }
 \arguments{
 \item{x}{sublink data convertible to a link layout}
@@ -13,13 +24,15 @@ as_sublinks(x, seqs, feats, ..., everything = TRUE)
 
 \item{feats}{the feats the sublinks map onto.}
 
-\item{...}{passed on to \code{layout_seqs()}}
+\item{...}{passed on to \code{layout_seqs()}
+spaces, i.e. if matching nucleotide-level annotations to protein level
+annotations, e.g. genes and protein blast results.}
 
 \item{everything}{set to FALSE to drop optional columns}
 
-\item{transform}{use if feats and sublinks are in different coordinate
-spaces, i.e. if matching nucleotide-level annotations to protein level
-annotations, e.g. genes and protein blast results.}
+\item{transform}{use if feats and sublinks are in different coordinate}
+
+\item{compute_layout}{set to FALSE to skip layout computation}
 }
 \value{
 a tbl_df with plot coordinates
@@ -40,4 +53,9 @@ records that initially had \verb{start < end == start2 < end2} and "-"
 otherwise. If \code{strand} was provided, \code{start} and \code{end} will be reorganized to
 conform with \code{start < end} without any additional effect.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{as_sublinks(tbl_df)}: Convert a list of tibbles into a link layout
+
+}}
 \keyword{internal}
