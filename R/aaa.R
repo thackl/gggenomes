@@ -127,3 +127,11 @@ ggplot2__make_labels <- utils::getFromNamespace("make_labels", "ggplot2")
 ellipsis__dots <- utils::getFromNamespace("dots", "ellipsis")
 scales__force_all <- utils::getFromNamespace("force_all", "scales")
 purrr__as_mapper.default <- utils::getFromNamespace("as_mapper.default", "purrr")
+
+# Additional fix for seamingly unused package in imports due to the workaround above
+# https://forum.posit.co/t/new-r-cmd-check-note-in-r-4-2-0-for-imports-field/143153/4
+#' @import ellipsis
+#' @noRd
+dummy <- function() {
+  ellipsis::safe_median
+}
