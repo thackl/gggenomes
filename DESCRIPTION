@@ -43,7 +43,6 @@ Imports:
     ellipsis
 Suggests:
     testthat,
-    rtracklayer,
     ggtree,
     patchwork,
     Hmisc,
