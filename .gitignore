@@ -12,3 +12,4 @@ vignettes-manual-export/
 gggenomes.Rcheck
 .vscode
 gggenomes_*.tar.gz
+vignettes/gggenomes_cache
