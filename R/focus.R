@@ -54,7 +54,7 @@
 #'   # strip trailing number from contigs to get bins
 #'   dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\d+$"))
 #' # gene annotations from prokka
-#' g0 <- read_feats(ex("gorg/gorg.gff"))
+#' g0 <- read_feats(ex("gorg/gorg.gff.xz"))
 #'
 #' # best hits to the PADS Arsenal database of prokaryotic defense-system genes
 #' # $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \
