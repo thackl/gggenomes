@@ -56,43 +56,43 @@
 #' @param ... additional parameters, passed to `read_tsv`
 #' @export
 #' @return tibble
-read_paf <- function (file, max_tags = 20, col_names = def_names("paf"),
-    col_types = def_types("paf"), ...){
-
-  if(max_tags > 0){
+read_paf <- function(
+    file, max_tags = 20, col_names = def_names("paf"),
+    col_types = def_types("paf"), ...) {
+  if (max_tags > 0) {
     col_names <- c(col_names, paste0("tag_", seq_len(max_tags)))
-    col_types <- paste0(col_types, paste(rep("?", max_tags), collapse=""))
+    col_types <- paste0(col_types, paste(rep("?", max_tags), collapse = ""))
   }
 
   readr::read_tsv(file, col_names = col_names, col_types = col_types, ...) %>%
-    tidy_paf_tags
+    tidy_paf_tags()
 }
 
-tidy_paf_tags <- function(.data){
-  tag_df <- tibble(.rows=nrow(.data))
+tidy_paf_tags <- function(.data) {
+  tag_df <- tibble(.rows = nrow(.data))
   tag_types <- c()
   seen_empty_tag_col <- FALSE
 
-  for (x in select(.data, starts_with("tag_"))){
-    tag_mx <- str_split(x, ":", 3, simplify=T)
-    tag_mx_nr <- na.omit(unique(tag_mx[,1:2]))
-    if(nrow(tag_mx_nr) == 0){
+  for (x in select(.data, starts_with("tag_"))) {
+    tag_mx <- str_split(x, ":", 3, simplify = T)
+    tag_mx_nr <- na.omit(unique(tag_mx[, 1:2]))
+    if (nrow(tag_mx_nr) == 0) {
       seen_empty_tag_col <- TRUE
-      break; # empty col -> seen all tags
+      break # empty col -> seen all tags
     }
-    tags <- tag_mx_nr[,1]
-    tag_type <- tag_mx_nr[,2]
+    tags <- tag_mx_nr[, 1]
+    tag_type <- tag_mx_nr[, 2]
     names(tag_type) <- tags
     # add to global tag_type vec
     tag_types <- c(tag_types, tag_type)
     tag_types <- tag_types[unique(names(tag_types))]
     # sort tag values into tidy tag tibble
-    for (tag in tags){
-      if(!has_name(tag_df, tag)){ # init tag
+    for (tag in tags) {
+      if (!has_name(tag_df, tag)) { # init tag
         tag_df[[tag]] <- NA
       }
-      tag_idx <- tag_mx[,1] %in% tag
-      tag_df[[tag]][tag_idx] <- tag_mx[tag_idx,3]
+      tag_idx <- tag_mx[, 1] %in% tag
+      tag_df[[tag]][tag_idx] <- tag_mx[tag_idx, 3]
     }
   }
 
@@ -100,18 +100,22 @@ tidy_paf_tags <- function(.data){
     mutate_at(names(tag_types)[tag_types == "i"], as.integer) %>%
     mutate_at(names(tag_types)[tag_types == "f"], as.numeric)
 
-  if(!seen_empty_tag_col)
-    rlang::warn("Found tags in max_tags column, you should increase max_tags to",
-                " ensure all tags for all entries got included")
+  if (!seen_empty_tag_col) {
+    rlang::warn(
+      "Found tags in max_tags column, you should increase max_tags to",
+      " ensure all tags for all entries got included"
+    )
+  }
 
   rlang::inform(str_glue(
     "Read and tidied up a .paf file with {n_tags} optional tag fields:\n{s_tags}",
     s_tags = toString(names(tag_types)), n_tags = length(tag_types),
-    "\nNote: warnings about fewer than expected columns are expected for this format."))
+    "\nNote: warnings about fewer than expected columns are expected for this format."
+  ))
 
   # paf is 0-based
   inform("Note: .paf files use 0-based coordinate starts - transforming to 1-based")
-  .data <- mutate(.data, start=.data$start+1, start2=.data$start2+1)
-  
+  .data <- mutate(.data, start = .data$start + 1, start2 = .data$start2 + 1)
+
   bind_cols(select(.data, -starts_with("tag_")), tag_df)
 }

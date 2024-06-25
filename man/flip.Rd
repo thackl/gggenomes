@@ -44,31 +44,35 @@ For more details see the help vignette:
 }
 \examples{
 library(patchwork)
-p <- gggenomes(genes=emale_genes) +
-  geom_seq(aes(color=strand), arrow=TRUE) +
-  geom_link(aes(fill=strand)) +
-  expand_limits(color=c("-")) +
-  labs(caption="not flipped")
+p <- gggenomes(genes = emale_genes) +
+  geom_seq(aes(color = strand), arrow = TRUE) +
+  geom_link(aes(fill = strand)) +
+  expand_limits(color = c("-")) +
+  labs(caption = "not flipped")
 
 # nothing flipped
 p0 <- p \%>\% add_links(emale_ava)
 
 # flip manually
-p1 <- p \%>\% add_links(emale_ava) \%>\%
-  flip(4:6) + labs(caption="manually")
+p1 <- p \%>\%
+  add_links(emale_ava) \%>\%
+  flip(4:6) + labs(caption = "manually")
 
 # flip automatically based on genome-genome links
-p2 <- p \%>\% add_links(emale_ava) \%>\%
-  sync() + labs(caption="genome alignments")
+p2 <- p \%>\%
+  add_links(emale_ava) \%>\%
+  sync() + labs(caption = "genome alignments")
 
 # flip automatically based on protein-protein links
-p3 <- p \%>\% add_sublinks(emale_prot_ava) \%>\%
-  sync() + labs(caption="protein alignments")
+p3 <- p \%>\%
+  add_sublinks(emale_prot_ava) \%>\%
+  sync() + labs(caption = "protein alignments")
 
 # flip automatically based on genes linked implicitly by belonging
 # to the same clusters of orthologs (or any grouping of your choice)
-p4 <- p \%>\% add_clusters(emale_cogs) \%>\%
-  sync() + labs(caption="shared orthologs")
+p4 <- p \%>\%
+  add_clusters(emale_cogs) \%>\%
+  sync() + labs(caption = "shared orthologs")
 
-p0 + p1 + p2 + p3 + p4 + plot_layout(nrow=1, guides="collect")
+p0 + p1 + p2 + p3 + p4 + plot_layout(nrow = 1, guides = "collect")
 }

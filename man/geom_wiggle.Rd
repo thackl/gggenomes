@@ -187,24 +187,24 @@ gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_coverage(aes(z = score, color = score), height = 0.5, geom = "point") +
   geom_seq()
 # Plot varying GC-content along sequences as ribbon
-gggenomes(seqs=emale_seqs, feats=emale_gc) +
-  geom_wiggle(aes(z=score)) +
+gggenomes(seqs = emale_seqs, feats = emale_gc) +
+  geom_wiggle(aes(z = score)) +
   geom_seq()
 
 # customize color and position
-gggenomes(genes=emale_genes, seqs=emale_seqs, feats=emale_gc) +
-  geom_wiggle(aes(z=score), fill="lavenderblush3", offset=-.3, height=.5) +
+gggenomes(genes = emale_genes, seqs = emale_seqs, feats = emale_gc) +
+  geom_wiggle(aes(z = score), fill = "lavenderblush3", offset = -.3, height = .5) +
   geom_seq() + geom_gene()
 
 # GC-content as line and with variable color
-gggenomes(seqs=emale_seqs, feats=emale_gc) +
-  geom_wiggle(aes(z=score, color=score), geom="line", bounds=c(.5,0,1)) +
+gggenomes(seqs = emale_seqs, feats = emale_gc) +
+  geom_wiggle(aes(z = score, color = score), geom = "line", bounds = c(.5, 0, 1)) +
   geom_seq() +
-  scale_colour_viridis_b(option="A")
+  scale_colour_viridis_b(option = "A")
 
 # or as lineranges
-gggenomes(seqs=emale_seqs, feats=emale_gc) +
-  geom_wiggle(aes(z=score, color=score), geom="linerange") +
+gggenomes(seqs = emale_seqs, feats = emale_gc) +
+  geom_wiggle(aes(z = score, color = score), geom = "linerange") +
   geom_seq() +
-  scale_colour_viridis_b(option="A")
+  scale_colour_viridis_b(option = "A")
 }

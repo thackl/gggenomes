@@ -67,9 +67,9 @@ gggenomes(seqs = emale_seqs) \%>\%
   geom_seq() + geom_link()
 
 # Add domains to genes
-genes <- tibble::tibble(seq_id="A", start=100, end=200, feat_id="gene1")
-domains <- tibble::tibble(feat_id = "gene1", start=40, end=80)
-gggenomes(genes=genes) \%>\% add_subfeats(domains, .transform = "none") +
+genes <- tibble::tibble(seq_id = "A", start = 100, end = 200, feat_id = "gene1")
+domains <- tibble::tibble(feat_id = "gene1", start = 40, end = 80)
+gggenomes(genes = genes) \%>\% add_subfeats(domains, .transform = "none") +
   geom_gene() + geom_feat()
 
 # Add protein-protein alignments
@@ -80,12 +80,13 @@ gggenomes(emale_genes) \%>\%
 # add clusters
 gggenomes(emale_genes, emale_seqs) \%>\%
   add_clusters(emale_cogs) \%>\%
-  sync() +             # works because clusters
-  geom_link() +        # become links
+  sync() + # works because clusters
+  geom_link() + # become links
   geom_seq() +
   # works because cluster info is joined to gene track
-  geom_gene(aes(fill=ifelse(is.na(cluster_id), NA,
-      stringr::str_glue("{cluster_id} [{cluster_size}]")))) +
+  geom_gene(aes(fill = ifelse(is.na(cluster_id), NA,
+    stringr::str_glue("{cluster_id} [{cluster_size}]")
+  ))) +
   scale_fill_discrete("COGs")
 
 }
