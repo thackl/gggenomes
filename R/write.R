@@ -16,44 +16,51 @@
 #'   to internals: `introns, geom_id`
 #' @param head additional information to add to the header section
 #' @examples
-#' \dontrun{
-#' write_gff3(emale_genes, "emales.gff", emale_seqs, id_var="feat_id")
-#' }
+#' filename <- tempfile(fileext = ".gff")
+#' write_gff3(emale_genes, filename, emale_seqs, id_var = "feat_id")
 #' @export
-write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".", strand=".", phase=".",
-  id_var="feat_id", parent_var="parent_ids", head="##gff-version 3", ignore_attr=c("introns", "geom_id")){
-  if(!is.null(seqs)){
-    if(!all(has_name(seqs, c("start", "end")))){
-      if(!has_name(seqs, "length"))
+write_gff3 <- function(
+    feats, file, seqs = NULL, type = NULL, source = ".", score = ".", strand = ".", phase = ".",
+    id_var = "feat_id", parent_var = "parent_ids", head = "##gff-version 3", ignore_attr = c("introns", "geom_id")) {
+  if (!is.null(seqs)) {
+    if (!all(has_name(seqs, c("start", "end")))) {
+      if (!has_name(seqs, "length")) {
         rlang::abort("eigher start/end or length required")
+      }
       seqs <- mutate(seqs, start = 1, end = length)
     }
-    seqs <- mutate(seqs, directive="##sequence-region", end=end-start+1, start=start-start+1) %>%
-      select(.data$directive, .data$seq_id, .data$start, .data$end) %>% unite(.data$seq_reg, 1:4, sep=" ")
+    seqs <- mutate(seqs, directive = "##sequence-region", end = .data$end - .data$start + 1, start = .data$start - .data$start + 1) %>%
+      select("directive", "seq_id", "start", "end") %>%
+      unite("seq_reg", 1:4, sep = " ")
   }
 
   require_vars(feats, c("seq_id", "start", "end"))
-  if(!has_name(feats, "type")){
-    if(is.null(type)) rlang::abort("type required")
+  if (!has_name(feats, "type")) {
+    if (is.null(type)) rlang::abort("type required")
     feats$type <- type
   }
-  if(!has_name(feats, "score")) feats$score <- score
-  if(!has_name(feats, "phase")) feats$phase <- phase
-  if(!has_name(feats, "source")) feats$source <- source
-  if(!has_name(feats, "strand")) feats$strand <- strand
-  else feats$strand <- strand_chr(feats$strand, na=".")
-
-  # arrange so that predefined gff attributes come first and in fixed order
-  if(id_var %in% names(feats)){
-    names(feats)[names(feats) == id_var] <- "ID"
-    id_tag <- "ID"
-  }else{
-    id_tag <- NULL
-    rlang::warn(paste("No ID variable detected. An ID tag is not required, but recommended.",
-                      "Use `id_var` to specify an ID column with a different name", sep="\n"))
+  if (!has_name(feats, "score")) feats$score <- score
+  if (!has_name(feats, "phase")) feats$phase <- phase
+  if (!has_name(feats, "source")) feats$source <- source
+  if (!has_name(feats, "strand")) {
+    feats$strand <- strand
+  } else {
+    feats$strand <- strand_chr(feats$strand, na = ".")
   }
 
-  if(parent_var %in% names(feats)){
+  # arrange so that predefined gff attributes come first and in fixed order
+  if (id_var %in% names(feats)) {
+    names(feats)[names(feats) == id_var] <- "ID"
+    id_tag <- "ID"
+  } else {
+    id_tag <- NULL
+    rlang::warn(paste("No ID variable detected. An ID tag is not required, but recommended.",
+      "Use `id_var` to specify an ID column with a different name",
+      sep = "\n"
+    ))
+  }
+
+  if (parent_var %in% names(feats)) {
     names(feats)[names(feats) == parent_var] <- "Parent"
   }
 
@@ -64,13 +71,13 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
   feats <- unchop_cds(feats)
   feats <- select(feats, -all_of(ignore_attr))
   feats <- feats %>% mutate(
-    across(all_of(gff3_cols), ~replace_na(.x, ".")),
-    across(where(is_list), function(l) purrr::map_chr(l, stringr::str_c, collapse=","))
+    across(all_of(gff3_cols), ~ replace_na(.x, ".")),
+    across(where(is_list), function(l) purrr::map_chr(l, stringr::str_c, collapse = ","))
   )
 
   attr <- setdiff(names(feats), c(gff3_cols, id_tag))
 
-  if(!is.null(id_tag) || length(attr)){
+  if (!is.null(id_tag) || length(attr)) {
     # convert attributes tags to title case, gff convention
     attr_predef <- attr[na.omit(match(gff3_attr, str_to_title(attr)))]
     attr_predef_ii <- names(feats) %in% attr_predef
@@ -78,33 +85,35 @@ write_gff3 <- function(feats, file, seqs=NULL, type=NULL, source=".", score=".",
     attr_custom <- setdiff(attr, attr_predef)
     attr <- c(id_tag, str_to_title(attr_predef), attr_custom)
 
-    for(att in attr){
+    for (att in attr) {
       feats[[att]] <- ifelse(
         is.na(feats[[att]]) | !length(feats[[att]]),
-          NA, paste0(att, "=", feats[[att]]))
+        NA, paste0(att, "=", feats[[att]])
+      )
     }
 
-    feats <- unite(feats, "attr", all_of(attr), sep=";", na.rm=TRUE)
-    body <- feats[,c(gff3_cols, "attr")]
-  }else{
-    body <- feats[,gff3_cols]
+    feats <- unite(feats, "attr", all_of(attr), sep = ";", na.rm = TRUE)
+    body <- feats[, c(gff3_cols, "attr")]
+  } else {
+    body <- feats[, gff3_cols]
   }
 
   write(head, file)
-  if(!is.null(seqs)) readr::write_tsv(seqs, file, append=T, col_names=F, quote="none", escape="none")
-  readr::write_tsv(body, file, append=T, col_names=F, quote="none", escape="none")
+  if (!is.null(seqs)) readr::write_tsv(seqs, file, append = T, col_names = F, quote = "none", escape = "none")
+  readr::write_tsv(body, file, append = T, col_names = F, quote = "none", escape = "none")
 }
 
-unchop_cds <- function(x){
+unchop_cds <- function(x) {
   # expand collapsed CDS from start/end/introns to starts/ends list cols
-  coords <- purrr::pmap_df(x, function(type, start, end, introns, ...){
-    if(!type %in% c("CDS", "cDNA_match")){
-      tibble(start=list(start), end=list(end))
-    }else{
-      se <- c(start, start+introns-c(2,0), end)
+  coords <- purrr::pmap_df(x, function(type, start, end, introns, ...) {
+    if (!type %in% c("CDS", "cDNA_match")) {
+      tibble(start = list(start), end = list(end))
+    } else {
+      se <- c(start, start + introns - c(2, 0), end)
       tibble(
-        start=list(se[c(TRUE, FALSE)]),
-        end=list(se[c(FALSE, TRUE)]))
+        start = list(se[c(TRUE, FALSE)]),
+        end = list(se[c(FALSE, TRUE)])
+      )
     }
   })
 

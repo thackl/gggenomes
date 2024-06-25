@@ -50,7 +50,6 @@ to internals: \verb{introns, geom_id}}
 Write a gff3 file from a tidy table
 }
 \examples{
-\dontrun{
-write_gff3(emale_genes, "emales.gff", emale_seqs, id_var="feat_id")
-}
+filename <- tempfile(fileext = ".gff")
+write_gff3(emale_genes, filename, emale_seqs, id_var = "feat_id")
 }
