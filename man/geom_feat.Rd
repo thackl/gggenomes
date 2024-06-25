@@ -81,6 +81,9 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 }
+\value{
+A ggplot2 layer with features.
+}
 \description{
 \code{geom_feat()} allows the user to draw (additional) features to the plot/graph.
 For example, specific regions within a sequence (e.g. transposons, introns, mutation hotspots)

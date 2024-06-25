@@ -99,6 +99,9 @@ lists which parameters it can accept.
 
 \item{repel}{use ggrepel to avoid overlaps}
 }
+\value{
+Gene labels are added as a text layer/component to the plot.
+}
 \description{
 These \code{geom_..._label()} functions able the user to plot labels/text at individual features and/or links.
 Users have to indicate how to label the features/links by specifying \code{label = ...} or \verb{aes(label = ...}

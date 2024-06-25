@@ -114,6 +114,9 @@ same color.}
 
 \item{...}{passed to layer params}
 }
+\value{
+A ggplot2 layer with genes.
+}
 \description{
 Draw coding sequences, mRNAs and other non-coding features. Supports
 multi-exon features. CDS and mRNAs in the same group are plotted together.

@@ -57,13 +57,13 @@ to the parent table.
 }}
 \examples{
 # Add some repeat annotations
-gggenomes(seqs=emale_seqs) \%>\%
-  add_feats(repeats=emale_tirs) +
+gggenomes(seqs = emale_seqs) \%>\%
+  add_feats(repeats = emale_tirs) +
   geom_seq() + geom_feat()
 
 # Add all-vs-all whole-genome alignments
-gggenomes(seqs=emale_seqs) \%>\%
-  add_links(links=emale_ava) +
+gggenomes(seqs = emale_seqs) \%>\%
+  add_links(links = emale_ava) +
   geom_seq() + geom_link()
 
 # Add domains to genes

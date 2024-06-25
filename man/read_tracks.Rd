@@ -51,6 +51,16 @@ columns and remove them from \code{seq_desc}.}
 }
 \value{
 A gggenomes-compatible sequence, feature or link tibble
+
+tibble with features
+
+tibble with features
+
+tibble with links
+
+tibble with links
+
+tibble with sequence information
 }
 \description{
 Convenience functions to read sequences, features or links from various
@@ -102,7 +112,7 @@ read_feats(gbk_phages)
 }
 
 # read sequences from a fasta file.
-read_seqs(ex("emales/emales.fna"), parse_desc=FALSE)
+read_seqs(ex("emales/emales.fna"), parse_desc = FALSE)
 
 # read sequence info from a fasta file with `parse_desc=TRUE` (default). `key=value`
 # pairs are removed from `seq_desc` and parsed into columns with `key` as name

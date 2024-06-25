@@ -88,6 +88,7 @@
 #'   or select-helper.
 #' @param x gggenomes object
 #' @param ... bins/seqs to pick, select-like expression.
+#' @return gggenomes object with selected bins and seqs.
 #' @export
 pick <- function(x, ...) {
   if (!has_dots()) {
@@ -100,6 +101,7 @@ pick <- function(x, ...) {
 #'   top left) or select-helper.
 #' @param .bins scope for positional arguments, select-like expression, enclose
 #'   multiple arguments with `c()`!.
+#' @return gggenomes object with selected seqs.
 #' @export
 pick_seqs <- function(x, ..., .bins = everything()) {
   if (!has_dots()) {
@@ -112,6 +114,7 @@ pick_seqs <- function(x, ..., .bins = everything()) {
 #'   seqs, keep rest as is.
 #' @param .bins scope for positional arguments, select-like expression, enclose
 #'   multiple arguments with `c()`!
+#' @return gggenomes object with selected seqs.
 #' @export
 pick_seqs_within <- function(x, ..., .bins = everything()) {
   if (!has_dots()) {
@@ -123,6 +126,7 @@ pick_seqs_within <- function(x, ..., .bins = everything()) {
 #' @describeIn pick align bins with the leaves in a given phylogenetic tree.
 #' @param tree a phylogenetic tree in [ggtree::ggtree] or [`ape::ape-package`]-"phylo" format.
 #' @param infer_bin_id an expression to extract bin_ids from the tree data.
+#' @return gggenomes object with seqs selected by tree order.
 #' @export
 pick_by_tree <- function(x, tree, infer_bin_id = .data$label) {
   if (!requireNamespace("ggtree", quietly = TRUE)) {

@@ -61,9 +61,9 @@ context \code{read_seqs("*.gbk")}, a sequence index.
 def_formats("foo.fa")
 
 # formats associated with each extension
-def_formats(ext=c("fa", "gff"))
+def_formats(ext = c("fa", "gff"))
 
 # all formats/extensions that can be read in seqs context; includes formats
 # that are defined for context=NA, i.e. that can be read in any context.
-def_formats(context="seqs")
+def_formats(context = "seqs")
 }

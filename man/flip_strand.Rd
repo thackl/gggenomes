@@ -11,6 +11,9 @@ flip_strand(strand, na = NA)
 
 \item{na}{what to use for \code{NA}}
 }
+\value{
+the strand flipped
+}
 \description{
 Flip strand
 }

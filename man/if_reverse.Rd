@@ -13,6 +13,9 @@ if_reverse(strand, reverse, forward)
 
 \item{forward}{value to use for forward elements}
 }
+\value{
+vector with values based on strandedness
+}
 \description{
 Vectorised if_else based on strandedness
 }

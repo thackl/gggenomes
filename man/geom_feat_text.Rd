@@ -220,6 +220,19 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
 \item{strandwise}{plotting of feature tags}
 }
+\value{
+A ggplot2 layer with gene text.
+
+A ggplot2 layer with feature tags.
+
+A ggplot2 layer with feature notes.
+
+A ggplot2 layer with gene text.
+
+A ggplot2 layer with gene tags.
+
+A ggplot2 layer with gene notes.
+}
 \description{
 The functions below are useful for labeling features/genes in plots.
 Users have to call on \code{aes(label = ...)} or \code{(label = ...) }to define label's text

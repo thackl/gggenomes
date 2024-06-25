@@ -9,6 +9,9 @@ unnest_exons(x)
 \arguments{
 \item{x}{data}
 }
+\value{
+data with unnested exons
+}
 \description{
 Unnest exons
 }

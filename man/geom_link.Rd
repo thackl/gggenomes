@@ -120,6 +120,9 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 }
+\value{
+A ggplot2 layer with links.
+}
 \description{
 Draws connections between genomes, such as genome/gene/protein
 alignments and gene/protein clusters. \code{geom_link()} draws links as filled
@@ -139,36 +142,35 @@ Note, when start/end is not specified, links will be created between the
 entire contigs of \code{seq_id} and \code{seq_id2}.
 }
 \examples{
-p0 <- gggenomes(seqs=emale_seqs, links = emale_ava) + geom_seq()
+p0 <- gggenomes(seqs = emale_seqs, links = emale_ava) + geom_seq()
 
 # default links
 p1 <- p0 + geom_link()
 
 # change offset from seqs and color
-p2 <- p0 + geom_link(aes(fill=de, color=de), offset = 0.05) +
+p2 <- p0 + geom_link(aes(fill = de, color = de), offset = 0.05) +
   scale_fill_viridis_b() + scale_colour_viridis_b()
 
 # combine with flip
-p3 <- p0 |> flip(3,4,5) +
+p3 <- p0 |> flip(3, 4, 5) +
   geom_link()
 
 # compute & show all links among all genomes
 # usually not useful and not recommended for large dataset
-p4 <- gggenomes(links=emale_ava, adjacent_only = FALSE) + geom_link()
+p4 <- gggenomes(links = emale_ava, adjacent_only = FALSE) + geom_link()
 
 library(patchwork) # combine plots in one figure
-p1 + p2 + p3 + p4 + plot_layout(nrow=1)
+p1 + p2 + p3 + p4 + plot_layout(nrow = 1)
 q0 <- gggenomes(emale_genes, emale_seqs) |>
   add_clusters(emale_cogs) +
   geom_seq() + geom_gene()
 
 # link gene clusters with polygon
-q1 <- q0 + geom_link(aes(fill=cluster_id))
+q1 <- q0 + geom_link(aes(fill = cluster_id))
 
 # link gene clusters with lines
-q2 <- q0 + geom_link_line(aes(color=cluster_id))
+q2 <- q0 + geom_link_line(aes(color = cluster_id))
 
-q1 + q2  + plot_layout(nrow=1, guides = "collect")
-
+q1 + q2 + plot_layout(nrow = 1, guides = "collect")
 
 }

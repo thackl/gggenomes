@@ -148,6 +148,9 @@ lists which parameters it can accept.
 be both a function or a vector returning those three values. Defaults to
 \link[Hmisc:smean.sd]{Hmisc::smedian.hilow}.}
 }
+\value{
+A ggplot2 layer with coverage information.
+}
 \description{
 Visualize data that varies along sequences as ribbons, lines, lineranges,
 etc.

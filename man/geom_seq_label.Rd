@@ -72,6 +72,9 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 }
+\value{
+Sequence labels are added as a text layer/component to the plot.
+}
 \description{
 This function will put labels at each individual sequence.
 By default it will plot the \code{seq_id} as label, but users are able to change this manually.
@@ -85,29 +88,30 @@ Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
 \examples{
 # example data
 seqs <- tibble::tibble(
-bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
-seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
-start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
-end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
-length = c(100, 100, 200, 50, 50, 100, 50, 300, 100))
+  bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
+  seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
+  start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
+  end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
+  length = c(100, 100, 200, 50, 50, 100, 50, 300, 100)
+)
 
 # example plot using geom_seq_label
 gggenomes(seqs = seqs) +
-geom_seq() +
-geom_seq_label()
+  geom_seq() +
+  geom_seq_label()
 
-# changing default label to `length` column 
+# changing default label to `length` column
 gggenomes(seqs = seqs) +
-geom_seq() +
-geom_seq_label(aes(label=length))
+  geom_seq() +
+  geom_seq_label(aes(label = length))
 
-# with horizontal adjustment 
+# with horizontal adjustment
 gggenomes(seqs = seqs) +
-geom_seq() +
-geom_seq_label(hjust = -5)
+  geom_seq() +
+  geom_seq_label(hjust = -5)
 
 # with wrapping at 300
-gggenomes(seqs=seqs, wrap = 300) +
-geom_seq() +
-geom_seq_label()
+gggenomes(seqs = seqs, wrap = 300) +
+  geom_seq() +
+  geom_seq_label()
 }

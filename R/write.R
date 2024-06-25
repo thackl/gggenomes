@@ -15,6 +15,7 @@
 #' @param ignore_attr attributes not to be included in GFF3 tag list. Defaults
 #'   to internals: `introns, geom_id`
 #' @param head additional information to add to the header section
+#' @return No return value, writes to file
 #' @examples
 #' filename <- tempfile(fileext = ".gff")
 #' write_gff3(emale_genes, filename, emale_seqs, id_var = "feat_id")

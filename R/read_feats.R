@@ -1,6 +1,7 @@
 #' @export
 #' @describeIn read_tracks read files as features mapping onto
 #'   sequences.
+#' @return tibble with features
 #' @examples
 #' # read genes/features from a gff file
 #' read_feats(ex("eden-utr.gff"))
@@ -32,6 +33,7 @@ read_feats <- function(files, .id = "file_id", format = NULL, parser = NULL, ...
 }
 
 #' @export
+#' @return tibble with features
 #' @describeIn read_tracks read files as subfeatures mapping onto other features
 read_subfeats <- function(files, .id = "file_id", format = NULL, parser = NULL, ...) {
   feats <- read_context(files, "feats", .id = .id, format = format, parser = parser, ...)
@@ -39,6 +41,7 @@ read_subfeats <- function(files, .id = "file_id", format = NULL, parser = NULL, 
 }
 
 #' @export
+#' @return tibble with links
 #' @describeIn read_tracks read files as links connecting sequences
 read_links <- function(files, .id = "file_id", format = NULL, parser = NULL, ...) {
   feats <- read_context(files, "links", .id = .id, format = format, parser = parser, ...)
@@ -46,6 +49,7 @@ read_links <- function(files, .id = "file_id", format = NULL, parser = NULL, ...
 }
 
 #' @export
+#' @return tibble with links
 #' @describeIn read_tracks read files as sublinks connecting features
 read_sublinks <- function(files, .id = "file_id", format = NULL, parser = NULL, ...) {
   feats <- read_context(files, "links", .id = .id, format = format, parser = parser, ...)

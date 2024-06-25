@@ -15,6 +15,7 @@
 #'   ([base::min] Can also be called here when the input data )
 #' @param height distance in plot between lowest and highest point of the wiggle data.
 #' @param offset distance between seq center and wiggle mid/start.
+#' @return A ggplot2 layer with coverage information.
 #' @export
 #' @examples
 #' # Plotting data with geom_coverage with increased height.

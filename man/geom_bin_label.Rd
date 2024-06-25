@@ -81,6 +81,9 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 }
+\value{
+Bin labels are added as a text layer/component to the plot.
+}
 \description{
 Put bin labels left of the sequences. \code{nudge_left} adds space relative to the
 total bin width between the label and the seqs, by default 5\%. \code{expand_left}
@@ -92,25 +95,25 @@ specific location
 }
 \examples{
 s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa.fai$", full.names = TRUE))
-s1 <- s0 \%>\% dplyr::filter(length>5e5)
+s1 <- s0 \%>\% dplyr::filter(length > 5e5)
 
 gggenomes(emale_genes) + geom_seq() + geom_gene() +
   geom_bin_label()
 
 # make larger labels and extra room on the canvas
 gggenomes(emale_genes) + geom_seq() + geom_gene() +
-  geom_bin_label(size = 7, expand_left =.4)
+  geom_bin_label(size = 7, expand_left = .4)
 
 # align labels for wrapped bins:
 # top
-gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+gggenomes(seqs = s1, infer_bin_id = file_id, wrap = 5e6) +
   geom_seq() + geom_bin_label() + geom_seq_label()
 
 # center
-gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
-  geom_seq() + geom_bin_label(yjust=.5) + geom_seq_label()
+gggenomes(seqs = s1, infer_bin_id = file_id, wrap = 5e6) +
+  geom_seq() + geom_bin_label(yjust = .5) + geom_seq_label()
 
 # bottom
-gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
-  geom_seq() + geom_bin_label(yjust=1) + geom_seq_label()
+gggenomes(seqs = s1, infer_bin_id = file_id, wrap = 5e6) +
+  geom_seq() + geom_bin_label(yjust = 1) + geom_seq_label()
 }

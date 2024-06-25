@@ -11,6 +11,9 @@ drop_seq_layout(x, keep = "strand")
 
 \item{keep}{features to keep}
 }
+\value{
+seq_layout without unwanted features
+}
 \description{
 Drop a seq layout
 }

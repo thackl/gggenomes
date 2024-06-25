@@ -44,6 +44,7 @@
 #'   at least 3 target features.
 #' @param .loci A data.frame specifying loci directly. Required columns are
 #'   `seq_id,start,end`. Supersedes `...`.
+#' @return A gggenomes object focused on the desired loci
 #' @export
 #' @examples
 #'
@@ -174,6 +175,7 @@ focus <- function(
 
 #' @export
 #' @param .locus_track The name of the new track containing the identified loci.
+#' @return A gggenomes object with the new loci track added
 #' @describeIn focus Identify regions of interest and add them as new feature track
 locate <- function(x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
                    .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = .data$seq_id,

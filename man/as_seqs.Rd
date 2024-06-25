@@ -34,8 +34,9 @@ Obligatory columns are \code{seq_id}, \code{bin_id} and \code{length}.
 \examples{
 chr <- tibble::tibble(
   seq_id = c("a1", "b1", "b2"),
-  bin_id = c(rep("A", 1), rep("B",2)),
-  length = c(5000,3000,1400))
+  bin_id = c(rep("A", 1), rep("B", 2)),
+  length = c(5000, 3000, 1400)
+)
 
 as_seqs(chr)
 }

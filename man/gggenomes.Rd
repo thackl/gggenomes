@@ -108,28 +108,33 @@ and we can use that information to set sensible default aesthetic mappings for m
 # Compare the genomic organization of three viral elements
 # EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
 gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) +
-  geom_seq() + geom_bin_label() +                  # chromosomes and labels
-  geom_feat(size=8) +                              # terminal inverted repeats
-  geom_gene(aes(fill=strand), position="strand") + # genes
-  geom_link(offset = 0.15)                         # synteny-blocks
+  geom_seq() + geom_bin_label() + # chromosomes and labels
+  geom_feat(size = 8) + # terminal inverted repeats
+  geom_gene(aes(fill = strand), position = "strand") + # genes
+  geom_link(offset = 0.15) # synteny-blocks
 
 # with some more information
 gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) \%>\%
   add_feats(emale_ngaros, emale_gc) \%>\%
   add_clusters(emale_cogs) \%>\%
   sync() +
-  geom_link(offset = 0.15, color="white") +                        # synteny-blocks
-  geom_seq() + geom_bin_label() +                                  # chromosomes and labels
+  geom_link(offset = 0.15, color = "white") + # synteny-blocks
+  geom_seq() + geom_bin_label() + # chromosomes and labels
   # thistle4, salmon4, burlywood4
-  geom_feat(size=6, position="identity") +                         # terminal inverted repeats
-  geom_feat(data=feats(emale_ngaros), color="turquoise4", alpha=.3,
-            position="strand", size=16) +
-  geom_feat_note(aes(label=type), data=feats(emale_ngaros),
-                 position="strand", nudge_y = .3) +
-  geom_gene(aes(fill=cluster_id), position="strand") + # genes
-  geom_wiggle(aes(z=score, linetype="GC-content"), feats(emale_gc),
-              fill="lavenderblush4", position=position_nudge(y=-.2), height = .2) +
-  scale_fill_brewer("Conserved genes", palette="Dark2", na.value = "cornsilk3")
+  geom_feat(size = 6, position = "identity") + # terminal inverted repeats
+  geom_feat(
+    data = feats(emale_ngaros), color = "turquoise4", alpha = .3,
+    position = "strand", size = 16
+  ) +
+  geom_feat_note(aes(label = type),
+    data = feats(emale_ngaros),
+    position = "strand", nudge_y = .3
+  ) +
+  geom_gene(aes(fill = cluster_id), position = "strand") + # genes
+  geom_wiggle(aes(z = score, linetype = "GC-content"), feats(emale_gc),
+    fill = "lavenderblush4", position = position_nudge(y = -.2), height = .2
+  ) +
+  scale_fill_brewer("Conserved genes", palette = "Dark2", na.value = "cornsilk3")
 
 # initialize plot directly from files
 gggenomes(
@@ -142,6 +147,6 @@ gggenomes(
 # multi-contig genomes wrap to fixed width
 s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\\\.fa.fai$", full.names = TRUE))
 s1 <- s0 \%>\% dplyr::filter(length > 5e5)
-gggenomes(seqs=s1, infer_bin_id=file_id, wrap=5e6) +
+gggenomes(seqs = s1, infer_bin_id = file_id, wrap = 5e6) +
   geom_seq() + geom_bin_label() + geom_seq_label()
 }

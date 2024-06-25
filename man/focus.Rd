@@ -85,6 +85,11 @@ at least 3 target features.}
 
 \item{.locus_track}{The name of the new track containing the identified loci.}
 }
+\value{
+A gggenomes object focused on the desired loci
+
+A gggenomes object with the new loci track added
+}
 \description{
 Show loci containing features of interest. Loci can either be provided
 as predefined regions directly (\verb{loci=}), or are constructed automatically

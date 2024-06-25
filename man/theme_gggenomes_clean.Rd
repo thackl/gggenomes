@@ -20,6 +20,9 @@ theme_gggenomes_clean(
 
 \item{base_rect_size}{base size for rect elements}
 }
+\value{
+ggplot2 theme with gggenomes defaults
+}
 \description{
 gggenomes default theme
 }

@@ -27,6 +27,15 @@ multiple arguments with \code{c()}!}
 
 \item{infer_bin_id}{an expression to extract bin_ids from the tree data.}
 }
+\value{
+gggenomes object with selected bins and seqs.
+
+gggenomes object with selected seqs.
+
+gggenomes object with selected seqs.
+
+gggenomes object with seqs selected by tree order.
+}
 \description{
 Pick which bins and seqs to show and in what order. Uses
 \code{\link[dplyr:select]{dplyr::select()}}-like syntax, which means unquoted genome names, positional

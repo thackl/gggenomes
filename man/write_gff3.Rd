@@ -46,6 +46,9 @@ directives in the header}
 \item{ignore_attr}{attributes not to be included in GFF3 tag list. Defaults
 to internals: \verb{introns, geom_id}}
 }
+\value{
+No return value, writes to file
+}
 \description{
 Write a gff3 file from a tidy table
 }

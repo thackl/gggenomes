@@ -23,15 +23,18 @@ if ungrouped).
 \item A data frame or tibble, to create multiple columns in the output.
 }}
 }
+\value{
+a tibble with new columns
+}
 \description{
 Works like \code{\link[dplyr:mutate]{dplyr::mutate()}} but without changing existing columns, but only
 adding new ones. Useful to add possibly missing columns with default values.
 }
 \examples{
 # ensure columns "y" and "z" exist
-tibble::tibble(x=1:3) \%>\%
- introduce(y="a", z=paste0(y, dplyr::row_number()))
+tibble::tibble(x = 1:3) \%>\%
+  introduce(y = "a", z = paste0(y, dplyr::row_number()))
 # ensure columns "y" and "z" exist, but do not overwrite "y"
-tibble::tibble(x=1:3, y=c("c", "d", "e")) \%>\%
- introduce(y="a", z=paste0(y, dplyr::row_number()))
+tibble::tibble(x = 1:3, y = c("c", "d", "e")) \%>\%
+  introduce(y = "a", z = paste0(y, dplyr::row_number()))
 }

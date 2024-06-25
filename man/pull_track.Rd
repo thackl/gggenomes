@@ -76,6 +76,21 @@ seqs table into the bins table.}
 
 \item{.x}{A gggenomes or gggenomes_layout object.}
 }
+\value{
+A function that pulls the specified track from a gggenomes object.
+
+A function that pulls the specified track from a gggenomes object.
+
+A function that pulls the specified track from a gggenomes object.
+
+A function that pulls the specified track from a gggenomes object.
+
+A function that pulls the specified track from a gggenomes object.
+
+A function that pulls the specified track from a gggenomes object.
+
+A function that pulls the specified track from a gggenomes object.
+}
 \description{
 Track selection works like \code{\link[dplyr:pull]{dplyr::pull()}} and supports unquoted ids and
 positional arguments. \code{...} can be used to subset the data in
@@ -107,20 +122,20 @@ on-the-fly.
 \examples{
 
 gg <- gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava)
-gg \%>\% track_info()            # info about track ids, positions and types
+gg \%>\% track_info() # info about track ids, positions and types
 
 # get first feat track that isn't "genes" (all equivalent)
-gg \%>\% pull_feats()            # easiest
-gg \%>\% pull_feats(feats)       # by id
-gg \%>\% pull_feats(1)           # by position
-gg \%>\% pull_feats(2, .ignore=NULL)  # default .ignore="genes"
+gg \%>\% pull_feats() # easiest
+gg \%>\% pull_feats(feats) # by id
+gg \%>\% pull_feats(1) # by position
+gg \%>\% pull_feats(2, .ignore = NULL) # default .ignore="genes"
 
 # get "seqs" track (always track #1)
 gg \%>\% pull_seqs()
 
 # plot integrated transposons and GC content for some viral genomes
-gg <- gggenomes(seqs=emale_seqs, feats=list(emale_ngaros, GC=emale_gc))
+gg <- gggenomes(seqs = emale_seqs, feats = list(emale_ngaros, GC = emale_gc))
 gg + geom_seq() +
-  geom_feat(color="skyblue") + # defaults to data=feats()
-  geom_line(aes(x, y+score-.6, group=y), data=feats(GC), color="gray60")
+  geom_feat(color = "skyblue") + # defaults to data=feats()
+  geom_line(aes(x, y + score - .6, group = y), data = feats(GC), color = "gray60")
 }

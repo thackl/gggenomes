@@ -36,6 +36,9 @@ determination based on format, e.g. \code{parser="read_tsv"}.}
 \item{...}{additional arguments passed on to the format-specific read
 function called down the line.}
 }
+\value{
+a tibble with the combined data from all files
+}
 \description{
 Powers \code{\link[=read_seqs]{read_seqs()}}, \code{\link[=read_feats]{read_feats()}}, \code{\link[=read_links]{read_links()}}
 }

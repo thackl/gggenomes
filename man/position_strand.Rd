@@ -44,6 +44,9 @@ half offset above/below the sequence line.}
 \item{gap}{If two feats are closer together than this, they will be stacked.
 Can be negative to allow small overlaps. NA disables stacking.}
 }
+\value{
+A ggproto object to be used in \code{geom_gene()}.
+}
 \description{
 \code{position_strand()} offsets forward feats upward and reverse feats downward.
 \code{position_pile()} stacks overlapping feats upward. \code{position_strandpile()}
@@ -58,20 +61,20 @@ p <- gggenomes(emale_genes) \%>\%
 
 f0 <- tibble::tibble(
   seq_id = pull_seqs(p)$seq_id[1],
-  start = 1:20*1000,
+  start = 1:20 * 1000,
   end = start + 2500,
-  strand = rep(c("+", "-"), length(start)/2)
+  strand = rep(c("+", "-"), length(start) / 2)
 )
 
-sixframe <- function(x, strand) as.character((x\%\%3 + 1) * strand_int(strand))
+sixframe <- function(x, strand) as.character((x \%\% 3 + 1) * strand_int(strand))
 
 p1 <- p + geom_gene()
-p2 <- p + geom_gene(aes(fill=strand), position="strand")
-p3 <- p + geom_gene(aes(fill=strand), position=position_strand(flip=TRUE, base=0.2))
-p4 <- p + geom_gene(aes(fill=sixframe(x,strand)), position="sixframe")
-p5 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand))
-p6 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand), position="strandpile")
-p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol=3, guides="collect") & ylim(2.5,0.5)
+p2 <- p + geom_gene(aes(fill = strand), position = "strand")
+p3 <- p + geom_gene(aes(fill = strand), position = position_strand(flip = TRUE, base = 0.2))
+p4 <- p + geom_gene(aes(fill = sixframe(x, strand)), position = "sixframe")
+p5 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color = strand))
+p6 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color = strand), position = "strandpile")
+p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 3, guides = "collect") & ylim(2.5, 0.5)
 
 }
 \keyword{datasets}

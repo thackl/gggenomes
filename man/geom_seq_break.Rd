@@ -95,6 +95,9 @@ lists which parameters it can accept.
 \link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 }
+\value{
+A ggplot2 layer with sequence breaks.
+}
 \description{
 \code{geom_seq_break()} adds decorations to the ends of truncated sequences. These
 could arise from zooming onto sequence loci with \code{focus()}, or manually
@@ -103,15 +106,15 @@ annotating sequences with start > 1 and/or end < length.
 \examples{
 # decorate breaks created with focus()
 gggenomes(emale_genes, emale_seqs) |>
-  focus(.expand=1e3, .max_dist = 1e3) +
+  focus(.expand = 1e3, .max_dist = 1e3) +
   geom_seq() + geom_gene() +
   geom_seq_break()
 
 # customize decorations
 gggenomes(emale_genes, emale_seqs) |>
-  focus(.expand=1e3, .max_dist = 1e3) +
+  focus(.expand = 1e3, .max_dist = 1e3) +
   geom_seq() + geom_gene() +
-  geom_seq_break(label=c("[", "]"), size=3, color="#1b9e77")
+  geom_seq_break(label = c("[", "]"), size = 3, color = "#1b9e77")
 
 # decorate manually truncated sequences
 s0 <- tibble::tribble(
@@ -133,8 +136,8 @@ l0 <- tibble::tribble(
   "contig_3_trunc_2sides", 1e4, 1.3e4
 )
 
-gggenomes(seqs=s0, links=l0) +
+gggenomes(seqs = s0, links = l0) +
   geom_seq() + geom_link() +
-  geom_seq_label(nudge_y=-.05) +
+  geom_seq_label(nudge_y = -.05) +
   geom_seq_break()
 }

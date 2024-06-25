@@ -62,6 +62,11 @@ set \code{show_col_types = FALSE} or set \code{options(readr.show_col_types = FA
 
 \item{...}{additional parameters, passed to \code{read_tsv}}
 }
+\value{
+tibble with sequence information
+
+tibble with sequence information
+}
 \description{
 Read sequence index
 }

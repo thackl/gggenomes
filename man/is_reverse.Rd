@@ -11,6 +11,9 @@ is_reverse(strand, na = FALSE)
 
 \item{na}{what to use for \code{NA}}
 }
+\value{
+logical vector indicating whether the strand is reverse
+}
 \description{
 Check whether strand is reverse
 }
