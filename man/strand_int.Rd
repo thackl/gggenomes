@@ -11,6 +11,9 @@ strand_int(strand, na = NA)
 
 \item{na}{what to use for \code{NA}}
 }
+\value{
+strand vector as integer
+}
 \description{
 Convert strand to integer
 }

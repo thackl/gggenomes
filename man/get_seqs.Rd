@@ -12,7 +12,7 @@ set_seqs(x, value)
 \arguments{
 \item{x}{a gggenomes or gggenomes_layout objekt}
 
-\item{value}{to set vor seqs}
+\item{value}{to set for seqs}
 }
 \value{
 a gggenomes_layout track tibble

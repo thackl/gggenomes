@@ -16,6 +16,7 @@
 #'
 #' @param x link data convertible to a link layout
 #' @inheritParams as_feats
+#' @return a link layout
 #' @export
 #' @keywords internal
 as_links <- function(x, seqs, ..., everything = TRUE) {

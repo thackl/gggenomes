@@ -32,6 +32,9 @@ sequences of the 3rd bin: \code{flip_seqs(2, .bins=3)}.}
 \item{min_support}{only flip a bin if at least this many more nucleotides
 support an inversion over the given orientation}
 }
+\value{
+a gggenomes object with flipped bins or sequences
+}
 \description{
 \code{flip} and \code{flip_seqs} reverse-complement specified bins or individual
 sequences and their features. \code{sync} automatically flips bins using a

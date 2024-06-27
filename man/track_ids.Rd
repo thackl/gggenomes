@@ -13,6 +13,9 @@ track_ids(x, track_type, ...)
 
 \item{...}{unused}
 }
+\value{
+a named vector of track ids and types
+}
 \description{
 Named vector of track ids and types
 }

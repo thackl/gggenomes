@@ -11,6 +11,9 @@ layout(x, ...)
 
 \item{...}{additional data}
 }
+\value{
+layout with updated scales
+}
 \description{
 Re-layout the tracks and update the scales after seqs have been modified
 }

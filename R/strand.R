@@ -2,6 +2,7 @@
 #'
 #' @param strand some representation for strandedness
 #' @param na what to use for `NA`
+#' @return strand vector with unknown values replaced by `na`
 #' @export
 check_strand <- function(strand, na) {
   UseMethod("check_strand")
@@ -44,6 +45,7 @@ check_strand.logical <- function(strand, na = NA) {
 #'
 #' @param strand some representation for strandedness
 #' @param na what to use for `NA`
+#' @return strand vector as character
 #' @export
 strand_chr <- function(strand, na = NA) {
   UseMethod("strand_chr")
@@ -77,6 +79,7 @@ strand_chr.logical <- function(strand, na = NA) {
 #'
 #' @param strand some representation for strandedness
 #' @param na what to use for `NA`
+#' @return strand vector as integer
 #' @export
 strand_int <- function(strand, na = NA) {
   UseMethod("strand_int")
@@ -113,6 +116,7 @@ strand_int.factor <- function(strand, na = NA) {
 #'
 #' @param strand some representation for strandedness
 #' @param na what to use for `NA`
+#' @return strand vector as logical
 #' @export
 strand_lgl <- function(strand, na = NA) {
   UseMethod("strand_lgl")

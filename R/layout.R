@@ -3,6 +3,7 @@
 #' Re-layout the tracks and update the scales after seqs have been modified
 #' @param x layout
 #' @param ... additional data
+#' @return layout with updated scales
 #' @export
 layout <- function(x, ...) {
   UseMethod("layout")
@@ -41,6 +42,7 @@ layout.gggenomes_layout <- function(
 #'
 #' @param data layout
 #' @param ... additional data
+#' @return gggenomes object without layout
 #' @export
 drop_layout <- function(data, ...) {
   UseMethod("drop_layout")

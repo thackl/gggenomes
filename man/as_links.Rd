@@ -15,6 +15,9 @@ as_links(x, seqs, ..., everything = TRUE)
 
 \item{everything}{set to FALSE to drop optional columns}
 }
+\value{
+a link layout
+}
 \description{
 Read link data of pairwise sequence or feat comparisons, such as
 similarity searches into a tidy dataframe and augment it with layout

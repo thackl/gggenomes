@@ -180,6 +180,7 @@ wrap_impl <- function(.data, xmax, xpad, ystart, xstart) {
 #' @param x a gggenomes or gggenomes_layout objekt
 #' @param seqs the sequences to add
 #' @param ... pass through to `as_seqs()`
+#' @return a gggenomes or gggenomes_layout object with added seqs
 #' @export
 add_seqs <- function(x, seqs, ...) {
   UseMethod("add_seqs")
@@ -212,7 +213,7 @@ get_seqs.gggenomes_layout <- function(x) {
 }
 
 #' @rdname get_seqs
-#' @param value to set vor seqs
+#' @param value to set for seqs
 #' @export
 set_seqs <- function(x, value) {
   UseMethod("set_seqs")

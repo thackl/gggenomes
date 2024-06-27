@@ -11,6 +11,9 @@ drop_layout(data, ...)
 
 \item{...}{additional data}
 }
+\value{
+gggenomes object without layout
+}
 \description{
 Drop a genome layout
 }

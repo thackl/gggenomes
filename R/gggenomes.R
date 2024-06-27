@@ -160,6 +160,7 @@ gggenomes <- function(
 #' ggplot.default tries to `fortify(data)` and we don't want that here
 #'
 #' @export
+#' @return ggplot object
 #' @keywords internal
 ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
                                     environment = parent.frame()) {
@@ -236,9 +237,10 @@ layout_genomes <- function(
 }
 
 #' `ggplot2::facet_null` checks data with `empty(df)` using `dim`. This causes
-#' and error because dim(gggenome_layout) is undefined. Return dim of primary
+#' an error because dim(gggenome_layout) is undefined. Return dim of primary
 #' table instead
 #' @export
+#' @return dim of primary table
 #' @keywords internal
 dim.gggenomes_layout <- function(x) dim(get_seqs(x))
 

@@ -18,6 +18,7 @@
 #' @param .bin_track,.seq_track when using a function as selector such as
 #'   [tidyselect::where()], this specifies the track in which context the
 #'   function is evaluated.
+#' @return a gggenomes object with flipped bins or sequences
 #'
 #' @examples
 #' library(patchwork)

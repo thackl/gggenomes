@@ -2,6 +2,7 @@
 #' @param x A gggenomes or gggenomes_layout object
 #' @param track_type restrict to any combination of "seqs", "feats" and "links".
 #' @param ... unused
+#' @return a named vector of track ids and types
 #' @export
 track_ids <- function(x, track_type, ...) {
   UseMethod("track_ids")

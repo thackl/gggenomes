@@ -13,6 +13,9 @@ add_seqs(x, seqs, ...)
 
 \item{...}{pass through to \code{as_seqs()}}
 }
+\value{
+a gggenomes or gggenomes_layout object with added seqs
+}
 \description{
 Add seqs
 }

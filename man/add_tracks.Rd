@@ -31,6 +31,9 @@ add_clusters(x, ..., .track_id = "genes")
 
 \item{.transform}{one of "aa2nuc", "none", "nuc2aa"}
 }
+\value{
+gggenomes object with added features
+}
 \description{
 Add different types of tracks
 }

@@ -108,6 +108,7 @@ drop_feat_layout <- function(x, keep = "strand") {
 
 #' @describeIn add_tracks Add feature annotations to sequences
 #' @order 1
+#' @return gggenomes object with added features
 #' @export
 #' @examples
 #' # Add some repeat annotations
