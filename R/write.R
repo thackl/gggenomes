@@ -30,7 +30,7 @@ write_gff3 <- function(
       }
       seqs <- mutate(seqs, start = 1, end = length)
     }
-    seqs <- mutate(seqs, directive = "##sequence-region", end = .data$end - .data$start + 1, start = .data$start - .data$start + 1) %>%
+    seqs <- mutate(seqs, directive = "##sequence-region", end = .data$end - .data$start + 1, start = 1) %>%
       select("directive", "seq_id", "start", "end") %>%
       unite("seq_reg", 1:4, sep = " ")
   }
