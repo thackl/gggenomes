@@ -13,6 +13,9 @@
     <loc>/articles/emales.html</loc>
   </url>
   <url>
+    <loc>/articles/flip.html</loc>
+  </url>
+  <url>
     <loc>/articles/gggenomes.html</loc>
   </url>
   <url>
@@ -34,9 +37,6 @@
     <loc>/reference/add_tracks.html</loc>
   </url>
   <url>
-    <loc>/reference/anchor.html</loc>
-  </url>
-  <url>
     <loc>/reference/as_feats.html</loc>
   </url>
   <url>
@@ -52,16 +52,10 @@
     <loc>/reference/as_sublinks.html</loc>
   </url>
   <url>
-    <loc>/reference/as_tracks.html</loc>
-  </url>
-  <url>
     <loc>/reference/check_strand.html</loc>
   </url>
   <url>
     <loc>/reference/combine_strands.html</loc>
-  </url>
-  <url>
-    <loc>/reference/comma.html</loc>
   </url>
   <url>
     <loc>/reference/def_formats.html</loc>
@@ -112,9 +106,6 @@
     <loc>/reference/ex.html</loc>
   </url>
   <url>
-    <loc>/reference/file_label.html</loc>
-  </url>
-  <url>
     <loc>/reference/flip.html</loc>
   </url>
   <url>
@@ -157,9 +148,6 @@
     <loc>/reference/geom_wiggle.html</loc>
   </url>
   <url>
-    <loc>/reference/get_seqlen.html</loc>
-  </url>
-  <url>
     <loc>/reference/get_seqs.html</loc>
   </url>
   <url>
@@ -190,19 +178,10 @@
     <loc>/reference/layout.html</loc>
   </url>
   <url>
-    <loc>/reference/layout_feats.html</loc>
-  </url>
-  <url>
     <loc>/reference/layout_genomes.html</loc>
   </url>
   <url>
-    <loc>/reference/layout_links.html</loc>
-  </url>
-  <url>
     <loc>/reference/layout_seqs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/match_arg.html</loc>
   </url>
   <url>
     <loc>/reference/pick.html</loc>
@@ -286,9 +265,6 @@
     <loc>/reference/swap_query.html</loc>
   </url>
   <url>
-    <loc>/reference/synteny_to_link.html</loc>
-  </url>
-  <url>
     <loc>/reference/theme_gggenomes_clean.html</loc>
   </url>
   <url>
@@ -298,30 +274,15 @@
     <loc>/reference/track_info.html</loc>
   </url>
   <url>
-    <loc>/reference/track_nrows.html</loc>
-  </url>
-  <url>
-    <loc>/reference/track_type.html</loc>
-  </url>
-  <url>
-    <loc>/reference/track_types.html</loc>
-  </url>
-  <url>
     <loc>/reference/unnest_exons.html</loc>
   </url>
   <url>
     <loc>/reference/vars_track.html</loc>
   </url>
   <url>
-    <loc>/reference/vars_track_error.html</loc>
-  </url>
-  <url>
     <loc>/reference/width.html</loc>
   </url>
   <url>
     <loc>/reference/write_gff3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/x.html</loc>
   </url>
 </urlset>
