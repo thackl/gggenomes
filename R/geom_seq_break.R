@@ -17,19 +17,20 @@
 #' @param hjust Moves the text horizontally
 #' @inheritParams ggplot2::geom_text
 #' @importFrom ggplot2 geom_text
+#' @return A ggplot2 layer with sequence breaks.
 #' @export
 #' @examples
 #' # decorate breaks created with focus()
 #' gggenomes(emale_genes, emale_seqs) |>
-#'   focus(.expand=1e3, .max_dist = 1e3) +
+#'   focus(.expand = 1e3, .max_dist = 1e3) +
 #'   geom_seq() + geom_gene() +
 #'   geom_seq_break()
 #'
 #' # customize decorations
 #' gggenomes(emale_genes, emale_seqs) |>
-#'   focus(.expand=1e3, .max_dist = 1e3) +
+#'   focus(.expand = 1e3, .max_dist = 1e3) +
 #'   geom_seq() + geom_gene() +
-#'   geom_seq_break(label=c("[", "]"), size=3, color="#1b9e77")
+#'   geom_seq_break(label = c("[", "]"), size = 3, color = "#1b9e77")
 #'
 #' # decorate manually truncated sequences
 #' s0 <- tibble::tribble(
@@ -51,29 +52,31 @@
 #'   "contig_3_trunc_2sides", 1e4, 1.3e4
 #' )
 #'
-#' gggenomes(seqs=s0, links=l0) +
+#' gggenomes(seqs = s0, links = l0) +
 #'   geom_seq() + geom_link() +
-#'   geom_seq_label(nudge_y=-.05) +
+#'   geom_seq_label(nudge_y = -.05) +
 #'   geom_seq_break()
 geom_seq_break <- function(mapping_start = NULL, mapping_end = NULL,
-                       data_start = seqs(start > 1), data_end=seqs(end < length),
-                       label="/", size=4, hjust=.75, family="sans", stat="identity",
-                       na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...){
-
+                           data_start = seqs(start > 1), data_end = seqs(end < length),
+                           label = "/", size = 4, hjust = .75, family = "sans", stat = "identity",
+                           na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
   label_start <- label[1]
   label_end <- label[length(label)]
 
-  aes_start <- aes(x=x, y=.data$y)
+  aes_start <- aes(x = x, y = .data$y)
   aes_start <- aes_intersect(mapping_start, aes_start)
 
-  aes_end <- aes(x=xend, y=.data$y)
+  aes_end <- aes(x = xend, y = .data$y)
   aes_end <- aes_intersect(mapping_end, aes_end)
 
   list(
-    geom_text(aes_start, data=data_start, label=label_start, size=size, hjust=hjust,
-              family=family, ...),
-    geom_text(aes_end, data=data_end, label=label_end, size=size, hjust=1-hjust,
-              family=family, ...)
+    geom_text(aes_start,
+      data = data_start, label = label_start, size = size, hjust = hjust,
+      family = family, ...
+    ),
+    geom_text(aes_end,
+      data = data_end, label = label_end, size = size, hjust = 1 - hjust,
+      family = family, ...
+    )
   )
 }
-

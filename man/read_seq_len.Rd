@@ -5,12 +5,7 @@
 \alias{read_fai}
 \title{Read sequence index}
 \usage{
-read_seq_len(
-  file,
-  col_names = def_names("seq_len"),
-  col_types = def_types("seq_len"),
-  ...
-)
+read_seq_len(file)
 
 read_fai(file, col_names = def_names("fai"), col_types = def_types("fai"), ...)
 }
@@ -63,16 +58,21 @@ character represents one column:
 
 By default, reading a file without a column specification will print a
 message showing what \code{readr} guessed they were. To remove this message,
-set \code{show_col_types = FALSE} or set `options(readr.show_col_types = FALSE).}
+set \code{show_col_types = FALSE} or set \code{options(readr.show_col_types = FALSE)}.}
 
 \item{...}{additional parameters, passed to \code{read_tsv}}
+}
+\value{
+tibble with sequence information
+
+tibble with sequence information
 }
 \description{
 Read sequence index
 }
 \section{Functions}{
 \itemize{
-\item \code{read_seq_len()}: read seqs from a single file in fasta, gbk or gff3 format.
+\item \code{read_seq_len()}: read seqs from a single file_name in fasta, gbk or gff3 format.
 
 \item \code{read_fai()}: read seqs from a single file in seqkit/samtools fai format.
 

@@ -2,9 +2,19 @@
 % Please edit documentation in R/subfeats.R
 \name{as_subfeats}
 \alias{as_subfeats}
+\alias{as_subfeats.tbl_df}
 \title{Compute a layout for subfeat data}
 \usage{
 as_subfeats(x, seqs, feats, ..., everything = TRUE)
+
+\method{as_subfeats}{tbl_df}(
+  x,
+  seqs,
+  feats,
+  ...,
+  everything = TRUE,
+  transform = c("none", "aa2nuc", "nuc2aa")
+)
 }
 \arguments{
 \item{x}{subfeat data convertible to a feat layout}
@@ -13,13 +23,13 @@ as_subfeats(x, seqs, feats, ..., everything = TRUE)
 
 \item{feats}{the parent feats the subfeats map onto.}
 
-\item{...}{passed on to \code{layout_seqs()}}
+\item{...}{passed on to \code{layout_seqs()}
+spaces, i.e. if matching nucleotide-level annotations to protein level
+annotations, e.g. genes and protein blast results.}
 
 \item{everything}{set to FALSE to drop optional columns}
 
-\item{transform}{use if feats and subfeats are in different coordinate
-spaces, i.e. if matching nucleotide-level annotations to protein level
-annotations, e.g. genes and protein blast results.}
+\item{transform}{use if feats and subfeats are in different coordinate}
 }
 \value{
 a tbl_df with plot coordinates
@@ -41,4 +51,9 @@ records that initially had \code{start < end} and "-" for \code{end < start} inp
 \code{strand} was provided, \code{start} and \code{end} will be reorganized to conform with
 \code{start < end} without any additional effect.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{as_subfeats(tbl_df)}: Convert a list of tibbles into a feat layout
+
+}}
 \keyword{internal}

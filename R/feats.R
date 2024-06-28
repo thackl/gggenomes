@@ -19,41 +19,44 @@
 #' @return a tbl_df with plot coordinates
 #' @export
 #' @keywords internal
-as_feats <- function(x, seqs, ..., everything=TRUE){
+as_feats <- function(x, seqs, ..., everything = TRUE) {
   UseMethod("as_feats")
 }
 
 #' @export
-as_feats.default <- function(x, seqs, ..., everything=TRUE) {
+as_feats.default <- function(x, seqs, ..., everything = TRUE) {
   # try to coerce into tbl
-  as_feats(as_tibble(x), seqs, ..., everything=everything)
+  as_feats(as_tibble(x), seqs, ..., everything = everything)
 }
 
 #' @export
-as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
-  vars <- c("seq_id","start","end")
+as_feats.tbl_df <- function(x, seqs, ..., everything = TRUE) {
+  vars <- c("seq_id", "start", "end")
   require_vars(x, vars)
 
   # coerce IDs to chars, so we don't get errors in join by mismatched types
   x <- mutate_at(x, vars("seq_id"), as.character)
 
-  if(!any(seqs$seq_id %in% x$seq_id)){
-    warn(paste("No matching seq_ids between feats and seqs.",
-         "Maybe you are trying to add subfeats"))
+  if (!any(seqs$seq_id %in% x$seq_id)) {
+    warn(paste(
+      "No matching seq_ids between feats and seqs.",
+      "Maybe you are trying to add subfeats"
+    ))
   }
 
-  other_vars <- if(everything) tidyselect::everything else function() NULL;
+  other_vars <- if (everything) tidyselect::everything else function() NULL
   x <- as_tibble(select(x, vars, other_vars()))
   # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
 
   # default columns we want to have to make some geoms run smoother
-  x <- x %>% introduce(
-    feat_id = paste0("f", seq_len(nrow((x)))),
-    type = NA,
-    strand = x$start < x$end
-  ) %>%
-  mutate(strand = strand_chr(.data$strand))
+  x <- x %>%
+    introduce(
+      feat_id = paste0("f", seq_len(nrow((x)))),
+      type = NA,
+      strand = x$start < x$end
+    ) %>%
+    mutate(strand = strand_chr(.data$strand))
 
   x %<>% swap_if(.data$start > .data$end, .data$start, .data$end)
 
@@ -70,8 +73,10 @@ as_feats.tbl_df <- function(x, seqs, ..., everything=TRUE){
 #' them or "trim" them to the subregion boundaries.
 #' @param ... not used
 #' @keywords internal
-layout_feats <- function(x, seqs, keep="strand",
-  marginal=c("trim", "drop", "keep"), ...){
+#' @noRd
+layout_feats <- function(
+    x, seqs, keep = "strand",
+    marginal = c("trim", "drop", "keep"), ...) {
   marginal <- match.arg(marginal)
 
   # get rid of old layout
@@ -93,76 +98,85 @@ layout_feats <- function(x, seqs, keep="strand",
 #'
 #' @param x feat_layout
 #' @param keep features to keep
+#' @return feat_layout without unwanted features
 #' @export
-drop_feat_layout <- function(x, keep="strand"){
-  drop <- c("y","x","xend","strand", grep("^\\.", names(x), value=T))
+drop_feat_layout <- function(x, keep = "strand") {
+  drop <- c("y", "x", "xend", "strand", grep("^\\.", names(x), value = T))
   drop <- drop[!drop %in% keep]
   purrr::discard(x, names(x) %in% drop)
 }
 
 #' @describeIn add_tracks Add feature annotations to sequences
 #' @order 1
+#' @return gggenomes object with added features
 #' @export
 #' @examples
 #' # Add some repeat annotations
-#' gggenomes(seqs=emale_seqs) %>%
-#'   add_feats(repeats=emale_tirs) +
+#' gggenomes(seqs = emale_seqs) %>%
+#'   add_feats(repeats = emale_tirs) +
 #'   geom_seq() + geom_feat()
-#' 
-add_feats <- function(x, ...){
+#'
+add_feats <- function(x, ...) {
   UseMethod("add_feats")
 }
 
 #' @export
-add_feats.gggenomes <- function(x, ...){
+add_feats.gggenomes <- function(x, ...) {
   x$data <- add_feats(x$data, ...)
   x
 }
 
 #' @export
-add_feats.gggenomes_layout <- function(x, ...){
-  if(!has_dots()) return(x)
+add_feats.gggenomes_layout <- function(x, ...) {
+  if (!has_dots()) {
+    return(x)
+  }
   dot_exprs <- enexprs(...) # defuse before list(...)
   tracks <- as_tracks(list(...), dot_exprs, track_ids(x))
   add_feat_tracks(x, tracks)
 }
 
-add_feat_tracks <- function(x, tracks){
+add_feat_tracks <- function(x, tracks) {
   x$feats <- c(x$feats, purrr::map(tracks, as_feats, get_seqs(x)))
   x
 }
 
-add_feat_layout_scaffold <- function(x, seqs){
-  scaffold <- seqs %>% ungroup() %>% select(
-    .data$seq_id, .data$bin_id, .data$y, .seq_strand=.data$strand, .seq_x=.data$x, .seq_start=.data$start, .seq_end=.data$end)
+add_feat_layout_scaffold <- function(x, seqs) {
+  scaffold <- seqs %>%
+    ungroup() %>%
+    select(
+      .data$seq_id, .data$bin_id, .data$y,
+      .seq_strand = .data$strand, .seq_x = .data$x, .seq_start = .data$start, .seq_end = .data$end
+    )
 
-  inner_join(x, scaffold, by=shared_names(x, "seq_id", "bin_id"))
+  inner_join(x, scaffold, by = shared_names(x, "seq_id", "bin_id"))
 }
 
-trim_feats_to_subseqs <- function(x, marginal){
-  if(marginal == "drop"){
+trim_feats_to_subseqs <- function(x, marginal) {
+  if (marginal == "drop") {
     x <- mutate(x, .marginal = FALSE)
-  }else{
+  } else {
     x <- mutate(x, .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end))
   }
 
-  if(marginal == "trim"){
+  if (marginal == "trim") {
     x %<>% mutate(
       start = ifelse(.data$.marginal & .data$start < .data$.seq_start, .data$.seq_start, .data$start),
-      end = ifelse(.data$.marginal & .data$end > .data$.seq_end, .data$.seq_end, .data$end))
-  }  # marginals are now also fully contained
+      end = ifelse(.data$.marginal & .data$end > .data$.seq_end, .data$.seq_end, .data$end)
+    )
+  } # marginals are now also fully contained
 
   filter(x, .data$.seq_start <= .data$start & .data$end <= .data$.seq_end | .data$.marginal)
 }
 
-project_feats <- function(x){
+project_feats <- function(x) {
   mutate(x,
     x = x(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand),
-    xend = xend(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand))
+    xend = xend(.data$start, .data$end, .data$strand, .data$.seq_x, .data$.seq_start, .data$.seq_strand)
+  )
 }
 
-is_marginal <- function(start, end, seq_start, seq_end, closed=FALSE){
-  in_range(seq_start, start, end, closed=FALSE) |
-    in_range(seq_end, start, end, closed=FALSE)
+is_marginal <- function(start, end, seq_start, seq_end, closed = FALSE) {
+  in_range(seq_start, start, end, closed = FALSE) |
+    in_range(seq_end, start, end, closed = FALSE)
 }
-

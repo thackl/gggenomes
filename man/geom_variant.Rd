@@ -51,10 +51,36 @@ the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
 \item{offset}{Numeric value describing how far the points will be drawn from the base/sequence. By default it is set on \code{offset = 0}.}
 
-\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
+}
+\value{
+A ggplot2 layer with variant information.
 }
 \description{
 geom_variant allows the user to draw points at locations where a mutation has occured.
@@ -71,67 +97,79 @@ can be called upon to modify the data visualization.
 # Creation of example data.
 # (Note: These are mere examples and do not fully resemble data from VCF-files)
 ## Small example data set
-f1 <- tibble::tibble(seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 30, 40, 40, 50),
-        end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end-start,
-        type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
-        ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
-        REF = c("C", "G", "C", "A", "A", "C", "G", "T"))
- s1 <- tibble::tibble(seq_id = c("A", "B"), start = c(0, 0), end = c(55, 55), length = end-start)
- 
- ## larger example data set
- f2 <- tibble::tibble(seq_id = c(rep("A", 667)), 
-              start = c(seq(from=1, to=500, by =2),
-                        seq(from=500, to =2500, by = 50), 
-                        seq(from=2500, to = 4000, by=4)),
-              end = start+1, length = end-start, 
-              type = c(rep("SNP", 100),
-                       rep("Deletion", 20),
-                       rep("SNP", 180),
-                       rep("Deletion", 67),
-                       rep("SNP", 100),
-                       rep("Insertion", 50),
-                       rep("SNP", 150)),
-              ALT = c(sample(x=c("A", "C", "G", "T"), size = 100, replace = TRUE), 
-                      rep(".", 20), sample(x=c("A", "C", "G", "T"), size = 180, replace=TRUE), 
-                      rep(".", 67), sample(x=c("A", "C", "G", "T"), size = 100, replace=TRUE),  
-                      sample(x=c("AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC",
-                                 "GG", "GT", "TA", "TC", "TG", "TT"), size = 50, replace = TRUE), 
-                      sample(x=c("A", "C", "G", "T"), size = 150, replace=TRUE)))
- 
- # Basic example plot with geom_variant
- gggenomes(seqs = s1, feats = f1) +
-   geom_seq() +
-   geom_variant() 
- 
- # Improving plot elements, by changing shape and adding bin_label
- gggenomes(seqs = s1, feats = f1) +
-   geom_seq() +
-   geom_variant(aes(shape=type), offset = -0.1) +
-   scale_shape_variant() +
-   geom_bin_label()
- 
- # Positional adjustment based on type of mutation: position_variant
- gggenomes(seqs = s1, feats = f1) +
-   geom_seq() +
-   geom_variant(
-     aes(shape=type),
-     position = position_variant(offset = c(Insertion=-0.2, Deletion=-0.2, SNP=0))
-   ) +
-   scale_shape_variant() +
-   geom_bin_label()
- 
- # Plotting larger example data set with Changing default geom to
- # `geom = "ticks"` using positional adjustment based on type (`position_variant`)
- gggenomes(feats = f2) +
-   geom_variant(aes(color = type), geom = "ticks", alpha = 0.4, position = position_variant()) +
-   geom_bin_label()
-   
- # Changing geom to `"text"`, to plot ALT nucleotides
- gggenomes(seqs=s1, feats=f1) +
- geom_seq() +
- geom_variant(aes(shape=type), offset=-0.1) +
- scale_shape_variant() +
- geom_variant(aes(label=ALT), geom="text", offset=-0.25) +
- geom_bin_label()  
- 
+f1 <- tibble::tibble(
+  seq_id = c(rep(c("A", "B"), 4)), start = c(1, 10, 15, 15, 30, 40, 40, 50),
+  end = c(2, 11, 20, 16, 31, 41, 50, 51), length = end - start,
+  type = c("SNP", "SNP", "Insertion", "Deletion", "Deletion", "SNP", "Insertion", "SNP"),
+  ALT = c("A", "T", "CAT", ".", ".", "G", "GG", "G"),
+  REF = c("C", "G", "C", "A", "A", "C", "G", "T")
+)
+s1 <- tibble::tibble(seq_id = c("A", "B"), start = c(0, 0), end = c(55, 55), length = end - start)
+
+## larger example data set
+f2 <- tibble::tibble(
+  seq_id = c(rep("A", 667)),
+  start = c(
+    seq(from = 1, to = 500, by = 2),
+    seq(from = 500, to = 2500, by = 50),
+    seq(from = 2500, to = 4000, by = 4)
+  ),
+  end = start + 1, length = end - start,
+  type = c(
+    rep("SNP", 100),
+    rep("Deletion", 20),
+    rep("SNP", 180),
+    rep("Deletion", 67),
+    rep("SNP", 100),
+    rep("Insertion", 50),
+    rep("SNP", 150)
+  ),
+  ALT = c(
+    sample(x = c("A", "C", "G", "T"), size = 100, replace = TRUE),
+    rep(".", 20), sample(x = c("A", "C", "G", "T"), size = 180, replace = TRUE),
+    rep(".", 67), sample(x = c("A", "C", "G", "T"), size = 100, replace = TRUE),
+    sample(x = c(
+      "AA", "AC", "AG", "AT", "CA", "CC", "CG", "CT", "GA", "GC",
+      "GG", "GT", "TA", "TC", "TG", "TT"
+    ), size = 50, replace = TRUE),
+    sample(x = c("A", "C", "G", "T"), size = 150, replace = TRUE)
+  )
+)
+
+# Basic example plot with geom_variant
+gggenomes(seqs = s1, feats = f1) +
+  geom_seq() +
+  geom_variant()
+
+# Improving plot elements, by changing shape and adding bin_label
+gggenomes(seqs = s1, feats = f1) +
+  geom_seq() +
+  geom_variant(aes(shape = type), offset = -0.1) +
+  scale_shape_variant() +
+  geom_bin_label()
+
+# Positional adjustment based on type of mutation: position_variant
+gggenomes(seqs = s1, feats = f1) +
+  geom_seq() +
+  geom_variant(
+    aes(shape = type),
+    position = position_variant(offset = c(Insertion = -0.2, Deletion = -0.2, SNP = 0))
+  ) +
+  scale_shape_variant() +
+  geom_bin_label()
+
+# Plotting larger example data set with Changing default geom to
+# `geom = "ticks"` using positional adjustment based on type (`position_variant`)
+gggenomes(feats = f2) +
+  geom_variant(aes(color = type), geom = "ticks", alpha = 0.4, position = position_variant()) +
+  geom_bin_label()
+
+# Changing geom to `"text"`, to plot ALT nucleotides
+gggenomes(seqs = s1, feats = f1) +
+  geom_seq() +
+  geom_variant(aes(shape = type), offset = -0.1) +
+  scale_shape_variant() +
+  geom_variant(aes(label = ALT), geom = "text", offset = -0.25) +
+  geom_bin_label()
+
 }

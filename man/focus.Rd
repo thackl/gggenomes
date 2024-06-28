@@ -85,6 +85,11 @@ at least 3 target features.}
 
 \item{.locus_track}{The name of the new track containing the identified loci.}
 }
+\value{
+A gggenomes object focused on the desired loci
+
+A gggenomes object with the new loci track added
+}
 \description{
 Show loci containing features of interest. Loci can either be provided
 as predefined regions directly (\verb{loci=}), or are constructed automatically
@@ -110,7 +115,7 @@ s1 <- s0 \%>\%
   # strip trailing number from contigs to get bins
   dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\\\d+$"))
 # gene annotations from prokka
-g0 <- read_feats(ex("gorg/gorg.gff"))
+g0 <- read_feats(ex("gorg/gorg.gff.xz"))
 
 # best hits to the PADS Arsenal database of prokaryotic defense-system genes
 # $ mmseqs easy-search gorg.fna pads-arsenal-v1-prf gorg-pads-defense.o6 /tmp \

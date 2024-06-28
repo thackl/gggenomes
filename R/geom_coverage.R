@@ -15,6 +15,7 @@
 #'   ([base::min] Can also be called here when the input data )
 #' @param height distance in plot between lowest and highest point of the wiggle data.
 #' @param offset distance between seq center and wiggle mid/start.
+#' @return A ggplot2 layer with coverage information.
 #' @export
 #' @examples
 #' # Plotting data with geom_coverage with increased height.
@@ -73,7 +74,9 @@ StatCoverage <- ggproto("StatCoverage", Stat,
 as_bounds <- function(.f, ...) {
   UseMethod("as_bounds")
 }
+#' @export
 as_bounds.default <- purrr__as_mapper.default
+#' @export
 as_bounds.numeric <- function(.f) {
   function(...) .f
 }

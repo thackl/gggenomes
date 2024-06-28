@@ -11,6 +11,9 @@ check_strand(strand, na)
 
 \item{na}{what to use for \code{NA}}
 }
+\value{
+strand vector with unknown values replaced by \code{na}
+}
 \description{
 Check strand
 }

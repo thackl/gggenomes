@@ -40,10 +40,18 @@ different start and end decorations, e.g. \code{label=c("]", "[")}.}
 
 \item{family}{font family of the text}
 
-\item{stat}{The statistical transformation to use on the data for this
-layer, either as a \code{ggproto} \code{Geom} subclass or as a string naming the
-stat stripped of the \code{stat_} prefix (e.g. \code{"count"} rather than
-\code{"stat_count"})}
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used the override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
+}}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -59,10 +67,36 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
 
-\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{colour = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
+}
+\value{
+A ggplot2 layer with sequence breaks.
 }
 \description{
 \code{geom_seq_break()} adds decorations to the ends of truncated sequences. These
@@ -72,15 +106,15 @@ annotating sequences with start > 1 and/or end < length.
 \examples{
 # decorate breaks created with focus()
 gggenomes(emale_genes, emale_seqs) |>
-  focus(.expand=1e3, .max_dist = 1e3) +
+  focus(.expand = 1e3, .max_dist = 1e3) +
   geom_seq() + geom_gene() +
   geom_seq_break()
 
 # customize decorations
 gggenomes(emale_genes, emale_seqs) |>
-  focus(.expand=1e3, .max_dist = 1e3) +
+  focus(.expand = 1e3, .max_dist = 1e3) +
   geom_seq() + geom_gene() +
-  geom_seq_break(label=c("[", "]"), size=3, color="#1b9e77")
+  geom_seq_break(label = c("[", "]"), size = 3, color = "#1b9e77")
 
 # decorate manually truncated sequences
 s0 <- tibble::tribble(
@@ -102,8 +136,8 @@ l0 <- tibble::tribble(
   "contig_3_trunc_2sides", 1e4, 1.3e4
 )
 
-gggenomes(seqs=s0, links=l0) +
+gggenomes(seqs = s0, links = l0) +
   geom_seq() + geom_link() +
-  geom_seq_label(nudge_y=-.05) +
+  geom_seq_label(nudge_y = -.05) +
   geom_seq_break()
 }

@@ -25,6 +25,7 @@
 #' @param angle Defines the angle in which the text will be placed. *Note
 #'
 #' @inheritParams ggplot2::geom_text
+#' @return A ggplot2 layer with gene text.
 #' @export
 #' @examples
 #' # example data
@@ -92,6 +93,7 @@ geom_feat_text <- function(mapping = NULL, data = feats(), stat = "identity", po
 #' @rdname geom_feat_text
 #' @param xjust Move text in x direction
 #' @param strandwise plotting of feature tags
+#' @return A ggplot2 layer with feature tags.
 #' @export
 geom_feat_tag <- function(mapping = NULL, data = feats(), stat = "identity", position = "identity",
                           hjust = 0, vjust = 0, angle = 45, nudge_y = .03, xjust = 0.5, strandwise = TRUE, ...,
@@ -105,6 +107,7 @@ geom_feat_tag <- function(mapping = NULL, data = feats(), stat = "identity", pos
 }
 
 #' @rdname geom_feat_text
+#' @return A ggplot2 layer with feature notes.
 #' @export
 geom_feat_note <- function(mapping = NULL, data = feats(), stat = "identity", position = "identity",
                            hjust = 0, vjust = 1, nudge_y = -.03, xjust = 0, strandwise = FALSE, ...,
@@ -118,6 +121,7 @@ geom_feat_note <- function(mapping = NULL, data = feats(), stat = "identity", po
 }
 
 #' @rdname geom_feat_text
+#' @return A ggplot2 layer with gene text.
 #' @export
 geom_gene_text <- function(mapping = NULL, data = genes(), stat = "identity", position = "identity",
                            ..., parse = FALSE, check_overlap = FALSE, na.rm = FALSE,
@@ -133,6 +137,7 @@ geom_gene_text <- function(mapping = NULL, data = genes(), stat = "identity", po
 }
 
 #' @rdname geom_feat_text
+#' @return A ggplot2 layer with gene tags.
 #' @export
 geom_gene_tag <- function(
     mapping = NULL, data = genes(), stat = "identity", position = "identity",
@@ -147,6 +152,7 @@ geom_gene_tag <- function(
 }
 
 #' @rdname geom_feat_text
+#' @return A ggplot2 layer with gene notes.
 #' @export
 geom_gene_note <- function(
     mapping = NULL, data = genes(), stat = "identity", position = "identity",

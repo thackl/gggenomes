@@ -18,6 +18,7 @@
 #' @param base How to align the stack relative to the sequence. 0 to center the
 #'   lowest stack level on the sequence, 1 to put forward/reverse sequence one
 #'   half offset above/below the sequence line.
+#' @return A ggproto object to be used in `geom_gene()`.
 #' @export
 #' @examples
 #' library(patchwork)
@@ -26,46 +27,57 @@
 #'
 #' f0 <- tibble::tibble(
 #'   seq_id = pull_seqs(p)$seq_id[1],
-#'   start = 1:20*1000,
+#'   start = 1:20 * 1000,
 #'   end = start + 2500,
-#'   strand = rep(c("+", "-"), length(start)/2)
+#'   strand = rep(c("+", "-"), length(start) / 2)
 #' )
 #'
-#' sixframe <- function(x, strand) as.character((x%%3 + 1) * strand_int(strand))
+#' sixframe <- function(x, strand) as.character((x %% 3 + 1) * strand_int(strand))
 #'
 #' p1 <- p + geom_gene()
-#' p2 <- p + geom_gene(aes(fill=strand), position="strand")
-#' p3 <- p + geom_gene(aes(fill=strand), position=position_strand(flip=TRUE, base=0.2))
-#' p4 <- p + geom_gene(aes(fill=sixframe(x,strand)), position="sixframe")
-#' p5 <- p %>% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand))
-#' p6 <- p %>% add_feats(f0) + geom_gene() + geom_feat(aes(color=strand), position="strandpile")
-#' p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol=3, guides="collect") & ylim(2.5,0.5)
+#' p2 <- p + geom_gene(aes(fill = strand), position = "strand")
+#' p3 <- p + geom_gene(aes(fill = strand), position = position_strand(flip = TRUE, base = 0.2))
+#' p4 <- p + geom_gene(aes(fill = sixframe(x, strand)), position = "sixframe")
+#' p5 <- p %>% add_feats(f0) + geom_gene() + geom_feat(aes(color = strand))
+#' p6 <- p %>% add_feats(f0) + geom_gene() + geom_feat(aes(color = strand), position = "strandpile")
+#' p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 3, guides = "collect") & ylim(2.5, 0.5)
 #'
 position_strand <- function(offset = 0.1, flip = FALSE, grouped = NULL,
-                            base = offset/2){
-  ggproto(NULL, PositionStrand, offset = offset, flip = flip,
-          grouped = grouped, base = base)
+                            base = offset / 2) {
+  ggproto(NULL, PositionStrand,
+    offset = offset, flip = flip,
+    grouped = grouped, base = base
+  )
 }
 #' @rdname position_strand
 #' @export
-position_pile <- function(offset = 0.1, gap=1, flip = FALSE,
-    grouped = NULL, base = 0){
-  ggproto(NULL, PositionPile, offset = offset, gap = gap,
-          flip = flip, grouped = grouped, base = base)
+position_pile <- function(
+    offset = 0.1, gap = 1, flip = FALSE,
+    grouped = NULL, base = 0) {
+  ggproto(NULL, PositionPile,
+    offset = offset, gap = gap,
+    flip = flip, grouped = grouped, base = base
+  )
 }
 #' @rdname position_strand
 #' @export
-position_strandpile <- function(offset = 0.1, gap=1, flip = FALSE,
-    grouped = NULL, base = offset*1.5){
-  ggproto(NULL, PositionStrandpile, offset = offset, gap = gap,
-          flip = flip, grouped = grouped, base = base)
+position_strandpile <- function(
+    offset = 0.1, gap = 1, flip = FALSE,
+    grouped = NULL, base = offset * 1.5) {
+  ggproto(NULL, PositionStrandpile,
+    offset = offset, gap = gap,
+    flip = flip, grouped = grouped, base = base
+  )
 }
 #' @rdname position_strand
 #' @export
-position_sixframe <- function(offset = 0.1, flip = FALSE, grouped = NULL,
-    base = offset/2){
-  ggproto(NULL, PositionSixframe, offset = offset, flip = flip,
-          grouped = grouped, base = base, framewise=TRUE)
+position_sixframe <- function(
+    offset = 0.1, flip = FALSE, grouped = NULL,
+    base = offset / 2) {
+  ggproto(NULL, PositionSixframe,
+    offset = offset, flip = flip,
+    grouped = grouped, base = base, framewise = TRUE
+  )
 }
 #' @rdname position_strand
 #' @format NULL
@@ -79,66 +91,73 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
   flip = FALSE,
   grouped = NULL,
   framewise = FALSE,
-  required_aes = c("x","xend","y"),
+  required_aes = c("x", "xend", "y"),
   optional_aes = c("yend"),
-  setup_params = function(self, data){
+  setup_params = function(self, data) {
     # DO NOT OVERWRITE self$grouped - it will propagate to subsequent
     # instanciations in other plots!
-    if(is.null(self$grouped)) # assume grouped for geneish geoms
+    if (is.null(self$grouped)) { # assume grouped for geneish geoms
       grouped <- has_vars(data, c("type"))
-    else
+    } else {
       grouped <- self$grouped
+    }
 
-    list(offset = self$offset, strandwise = self$strandwise, base=self$base,
-         gap=self$gap, flip = self$flip,
-         grouped = grouped, framewise = self$framewise)
+    list(
+      offset = self$offset, strandwise = self$strandwise, base = self$base,
+      gap = self$gap, flip = self$flip,
+      grouped = grouped, framewise = self$framewise
+    )
   },
   compute_panel = function(data, params, scales) {
-    if(!params$strandwise && !params$framewise && is.na(params$gap)){
+    if (!params$strandwise && !params$framewise && is.na(params$gap)) {
       return(data) # nothing to do
     }
-    if(params$framewise){
+    if (params$framewise) {
       data <- data %>% mutate(
-        is_reverse =  xor(x>xend, params$flip),
-        yoff = (params$base + params$offset * x %% 3) * ifelse(is_reverse, -1,1)
+        is_reverse = xor(x > xend, params$flip),
+        yoff = (params$base + params$offset * x %% 3) * ifelse(is_reverse, -1, 1)
       )
-    }else if(is.na(params$gap)){ # strand only
+    } else if (is.na(params$gap)) { # strand only
       data <- data %>% mutate(
-        is_reverse =  xor(x>xend, params$flip),
-        yoff = params$base * ifelse(is_reverse, -1,1)
+        is_reverse = xor(x > xend, params$flip),
+        yoff = params$base * ifelse(is_reverse, -1, 1)
       )
-    }else if(params$grouped){ # i.e. multi-exon as one unit
+    } else if (params$grouped) { # i.e. multi-exon as one unit
       # not pretty, but works for now
       data_grouped <- data %>%
-        dplyr::group_by(y,group) %>%
+        dplyr::group_by(y, group) %>%
         dplyr::summarize(
-          start=min(x,xend)+1, end=max(x,xend), is_reverse=ifelse(params$strandwise,
-              xor(min(x)>max(xend), params$flip), params$flip))
+          start = min(x, xend) + 1, end = max(x, xend), is_reverse = ifelse(params$strandwise,
+            xor(min(x) > max(xend), params$flip), params$flip
+          )
+        )
 
-      data_grouped <- data_grouped %>% dplyr::group_by(y,is_reverse) %>%
+      data_grouped <- data_grouped %>%
+        dplyr::group_by(y, is_reverse) %>%
         dplyr::mutate(yoff = (params$base + params$offset *
-          stack_pos(start,end,params$gap)) *
-          ifelse(is_reverse, -1,1)) %>%
+          stack_pos(start, end, params$gap)) *
+          ifelse(is_reverse, -1, 1)) %>%
         dplyr::ungroup()
 
-      data <- left_join(data, select(data_grouped, y, group, yoff), by=c("y", "group"))
-
-    }else{
+      data <- left_join(data, select(data_grouped, y, group, yoff), by = c("y", "group"))
+    } else {
       data <- data %>%
         dplyr::mutate(
-          start=pmin(x,xend)+1, end=pmax(x,xend),
-          is_reverse=if(params$strandwise) xor(x>xend, params$flip) else params$flip) %>%
-        dplyr::group_by(y,is_reverse) %>%
+          start = pmin(x, xend) + 1, end = pmax(x, xend),
+          is_reverse = if (params$strandwise) xor(x > xend, params$flip) else params$flip
+        ) %>%
+        dplyr::group_by(y, is_reverse) %>%
         dplyr::mutate(yoff = (params$base + params$offset *
-           stack_pos(start,end,params$gap)) *
-           ifelse(is_reverse, -1,1)) %>%
+          stack_pos(start, end, params$gap)) *
+          ifelse(is_reverse, -1, 1)) %>%
         dplyr::ungroup()
     }
 
-    if("yend" %in% names(data))
-      data <- mutate(data, y = y + yoff, yend = yend + yoff, is_reverse=NULL, yoff=NULL)
-    else
-      data <- mutate(data, y = y + yoff, is_reverse=NULL, yoff=NULL)
+    if ("yend" %in% names(data)) {
+      data <- mutate(data, y = y + yoff, yend = yend + yoff, is_reverse = NULL, yoff = NULL)
+    } else {
+      data <- mutate(data, y = y + yoff, is_reverse = NULL, yoff = NULL)
+    }
     data
   }
 )
@@ -159,14 +178,14 @@ PositionStrand <- ggproto("PositionStrand", PositionStrandpile, gap = NA, base =
 PositionSixframe <- ggproto("PositionSixframe", PositionStrand, framewise = TRUE, base = 0.05)
 
 
-stack_pos <- function(start,end,gap=0){
-  if(!is.na(gap)){
-    end <- end+gap
-    i <- end< start  # set negtive width feats to zero width
-    start[i] <- (start[i] + end[i])/2
+stack_pos <- function(start, end, gap = 0) {
+  if (!is.na(gap)) {
+    end <- end + gap
+    i <- end < start # set negtive width feats to zero width
+    start[i] <- (start[i] + end[i]) / 2
     end[i] <- start[i]
-    y <- IRanges::disjointBins(IRanges::IRanges(start=start, end=end)) -1
-  }else{
+    y <- IRanges::disjointBins(IRanges::IRanges(start = start, end = end)) - 1
+  } else {
     y <- rep(0, length(start))
   }
   y

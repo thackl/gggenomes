@@ -23,6 +23,11 @@ difference between adjacent values.
 
 Applied to rescaled data.}
 }
+\value{
+A ggplot2 scale object with bp labels
+
+A labeller function for genomic data
+}
 \description{
 \code{scale_x_bp()} is the default scale for genomic x-axis. It wraps
 \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}} using \code{label_bp()} as default labeller.
@@ -33,7 +38,7 @@ gggenomes(emale_genes) + geom_gene()
 
 # customize labels
 gggenomes(emale_genes) + geom_gene() +
-  scale_x_bp(suffix="bp", sep=" ")
+  scale_x_bp(suffix = "bp", sep = " ")
 
 # Note: xlim will overwrite scale_x_bp() with ggplot2::scale_x_continuous()
 gggenomes(emale_genes) + geom_gene() +
@@ -41,5 +46,5 @@ gggenomes(emale_genes) + geom_gene() +
 
 # set limits explicitly with scale_x_bp() to avoid overwrite
 gggenomes(emale_genes) + geom_gene() +
-  scale_x_bp(limits=c(0, 3e4))
+  scale_x_bp(limits = c(0, 3e4))
 }

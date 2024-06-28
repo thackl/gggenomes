@@ -43,6 +43,7 @@
 #'   same color.
 #' @param na.rm remove na values
 #' @param ... passed to layer params
+#' @return A ggplot2 layer with genes.
 #'
 #'
 #' @export
@@ -406,6 +407,7 @@ intron_polys <- function(x, xend, y, height) {
 #' Unnest exons
 #'
 #' @param x data
+#' @return data with unnested exons
 #' @export
 unnest_exons <- function(x) {
   rowwise(x) %>%

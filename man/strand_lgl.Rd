@@ -11,6 +11,9 @@ strand_lgl(strand, na = NA)
 
 \item{na}{what to use for \code{NA}}
 }
+\value{
+strand vector as logical
+}
 \description{
 Convert strand to logical
 }

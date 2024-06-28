@@ -9,3 +9,4 @@
 ^data-raw$
 ^pkgdown$
 ^LICENSE.md$
+^\.vscode$

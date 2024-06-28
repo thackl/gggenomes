@@ -1,0 +1,372 @@
+LOCUS       Z92525                  1111 bp    DNA     linear   BCT 10-MAY-1999
+DEFINITION  Prochlorococcus marinus ppeC gene for phycoerythrin class III gamma
+            chain.
+ACCESSION   Z92525
+VERSION     Z92525.1
+KEYWORDS    phycoerythrin class III gamma chain; ppeC gene.
+SOURCE      Prochlorococcus marinus
+  ORGANISM  Prochlorococcus marinus
+            Bacteria; Cyanobacteriota; Cyanophyceae; Synechococcales;
+            Prochlorococcaceae; Prochlorococcus.
+REFERENCE   1
+  AUTHORS   Hess,W.R. and Partensky,F.
+  TITLE     Analysis of a phycobiliprotein gene cluster in Prochlorococcus
+            marinus CCMP 1375: Identification of a putative linker polypeptide
+            and the phylogeny of Prochlorococcus phycoerythrins
+  JOURNAL   (in) Peschek,A., Loffelhardt,W. and Schmetterer,G. (Eds.);
+            THE PHOTOSYNTHETIC PROKARYOTES: 751-761;
+            Plenum Press New York, USA (1999)
+REFERENCE   2
+  AUTHORS   Hess,W.R., Steglich,C., Lichtle and Partensky,F.
+  TITLE     Phycoerythrins of the oxyphotobacterium Prochlorococcus marinus are
+            associated to the thylakoid membranes and are encoded by a single
+            large gene cluster
+  JOURNAL   Unpublished
+REFERENCE   3  (bases 1 to 1111)
+  AUTHORS   Hess,W.R.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (03-MAR-1997) Hess W. R., Humboldt-University,
+            Biology/Genetics, Chausseestr: 117, Berlin D-10115, Germany
+FEATURES             Location/Qualifiers
+     source          1..1111
+                     /organism="Prochlorococcus marinus"
+                     /mol_type="genomic DNA"
+                     /strain="CCMP 1375"
+                     /type_material="type strain of Prochlorococcus marinus"
+                     /db_xref="taxon:1219"
+                     /clone="CSSG10 and CSSG6"
+                     /clone_lib="cosmid library in Supercos 1"
+     gene            243..1055
+                     /gene="ppeC"
+     CDS             243..1055
+                     /gene="ppeC"
+                     /function="linker polypeptide"
+                     /note="putative rod linker polypeptide associates with
+                     class III phycoerythrin alpha and beta chains"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="phycoerythrin class III gamma chain"
+                     /protein_id="CAB06827.2"
+                     /db_xref="GOA:O06838"
+                     /db_xref="InterPro:IPR001297"
+                     /db_xref="InterPro:IPR016470"
+                     /db_xref="UniProtKB/TrEMBL:O06838"
+                     /translation="MKTSKADFISRHSLEVKLSDISKRESFSYGKTRVSGSKQTTYIM
+                     HSRSVYMPGQEKLFTSNYPANPNQVIDKEMIQLRNIYKRKNYINSKQPIGSKTIHRSQ
+                     DAFTYKRFAPISDEALEIAVVAAYKQIFGNLNPMESERPKELERRLRNGDIPIREFIR
+                     SLAKSEFYSRHFIERVSQIRSVELRFMHLLGRPLKDESELINNINFIREKGFESHIDS
+                     LMNSLEYEEHFGEDIVPFQRHWNSPCGSTTSSFIKTALFRKGFASSDNVIYK"
+ORIGIN      
+        1 aagctttgtc aagagcaatg ggtaaattaa ttggtggtgg attgttagac ttaggaagaa
+       61 ttataggggg gaacgataac tctctatttg cattttcttt tgtattctca atagaaataa
+      121 tcataattat aatctctata tttatactta ataaagtgag tataagtaaa ttcaagaatg
+      181 aaacatctgc taaaatgagc gagatcctaa tgtctgacct agacaattga taatctttta
+      241 aaatgaagac tagcaaagca gactttattt ctagacattc cctagaagtt aaactttctg
+      301 atatatcgaa aagagaatca tttagctacg gcaaaacacg cgtttctggt agcaagcaaa
+      361 ccacttatat aatgcactct agaagcgttt atatgcccgg ccaggaaaaa ctttttacca
+      421 gcaattatcc tgcaaaccct aatcaagtaa tcgacaaaga aatgattcag ctaagaaata
+      481 tttataagcg aaagaattat ataaactcaa agcaacctat tggctccaaa acaattcata
+      541 gatctcaaga tgcatttact tataagaggt ttgcccctat cagtgatgaa gcacttgaga
+      601 ttgctgttgt agcagcatat aaacaaatct ttggcaactt aaatccaatg gaaagcgaac
+      661 gtcctaaaga attagaaaga agattaagaa atggggacat cccaattaga gaatttattc
+      721 gatcacttgc taagtcagaa ttttatagtc gtcattttat tgaaagagta agtcaaataa
+      781 gatctgtcga gcttagattt atgcatctat tagggcgacc acttaaggat gagtcagaac
+      841 taatcaataa tataaatttt ataagagaaa aaggctttga atctcatatt gattccttaa
+      901 tgaattcttt agagtatgaa gaacactttg gagaagacat agtgccattt caaaggcact
+      961 ggaattcacc ctgtggcagt acaacatcaa gctttataaa gacagcttta ttcagaaaag
+     1021 gttttgcttc cagtgataac gtaatttata agtagagctt gtctattatg actataaaaa
+     1081 ggcctccttc taacgaaagc ccaggtgatc a
+//
+
+LOCUS       PMU44977                5304 bp    DNA     linear   BCT 05-MAY-1998
+DEFINITION  Prochlorococcus marinus DnaA (dnaA) gene, complete cds.
+ACCESSION   U44977
+VERSION     U44977.1
+KEYWORDS    DnaA.
+SOURCE      Prochlorococcus marinus
+  ORGANISM  Prochlorococcus marinus
+            Bacteria; Cyanobacteriota; Cyanophyceae; Synechococcales;
+            Prochlorococcaceae; Prochlorococcus.
+REFERENCE   1  (bases 1 to 5304)
+  AUTHORS   Richter,S., Hess,W.R., Krause,M. and Messer,W.
+  TITLE     Unique organization of the dnaA region from Prochlorococcus marinus
+            CCMP1375, a marine cyanobacterium
+  JOURNAL   Mol. Gen. Genet. 257 (5), 534-541 (1998)
+   PUBMED   9563839
+REFERENCE   2  (bases 1 to 5304)
+  AUTHORS   Richter,S.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (02-JAN-1996) Stefan Richter, Max-Planck-Institut fuer
+            molekulare Genetik, Ihnestr. 73, Berlin D-14195, Germany
+FEATURES             Location/Qualifiers
+     source          1..5304
+                     /organism="Prochlorococcus marinus"
+                     /mol_type="genomic DNA"
+                     /strain="CCMP1375"
+                     /type_material="type strain of Prochlorococcus marinus"
+                     /db_xref="taxon:1219"
+     CDS             248..790
+                     /note="orf180"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="unknown"
+                     /protein_id="AAC15819.1"
+                     /translation="MIKKIGERKISFSGWSNGRSGSNDFREMYGSDACECISSNDQYT
+                     FVFSQVRTLDLIELEQLLQSVGWSRRPIRRVKKALDNSLLKVGVWQHDPKFPRLIGFA
+                     RCTGDEVIQATIWDVAIHPVYQGFGLGKELMSYVLRSLKDKGIERVVLFADPGVISFY
+                     QSQGWTLEPKGNRCAFWYAN"
+     CDS             complement(809..1519)
+                     /note="orf236"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="unknown"
+                     /protein_id="AAC15820.1"
+                     /translation="MEHIKKDNKLSIIIPTINEARNLPILLADIRSYTQCLEVIVIDC
+                     GSTDSTTLVAKIGGAKVIAMTNKNRGEQLHTGAMSANGNWLFFLHADSRLKYNWKSKI
+                     INLISNPLSKQYAWYFNFKTEKKGFIWFILELAVYIRSNLFNSPYGDQGLLLSKELYS
+                     RIGGYKEIPIMEDLDLITRLKQITTLRSLGSGIETNSRKYLGSNIIKNAIKNALLRYQ
+                     WRKGANINELAKRYYAEN"
+     CDS             complement(1507..2151)
+                     /note="orf214"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="unknown"
+                     /protein_id="AAC15821.1"
+                     /translation="MLKPILVLMTRWPAPSRCKTRLAKDIGPYRAALIQQRLIHHTIA
+                     VAKAIKLKGLIETKLAIDGIGNQRVSAWARNEGFSLACSQGSGNLGLKMKRQLVLAQR
+                     KSTSKSQSSRDTILIGTDVPSLCTSDIDSALNSLKNNDLVIGPANDGGYWLIGFSKNI
+                     LSPVISWPFSGIKWGTTSVFKETLRKAKEEGVNYKLLNRKDDLDFITDLSLWNI"
+     gene            2406..3791
+                     /gene="dnaA"
+     CDS             2406..3791
+                     /gene="dnaA"
+                     /function="replication initiation"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="DnaA"
+                     /protein_id="AAC15822.1"
+                     /translation="MLEASWEKVQSSLKQNLSKPSYETWIRPTEFSGFKNGELTLIAP
+                     NSFSSAWLKNNYSQTIQETAEEIFGEPVTVHVKVKANAESSDEHYSSAPITPPLEASP
+                     GSVDSSGSSLRLSKKTLPLLNLRYVFNRFVVGPNSRMAHAAAMAVAESPGREFNPLFI
+                     CGGVGLGKTHLMQAIGHYRLEIDPGAKVSYVSTETFTNDLILAIRQDRMQAFRDRYRA
+                     ADLILVDDIQFIEGKEYTQEEFFHTFNALHDAGSQIVLASDRPPSQIPRLQERLMSRF
+                     SMGLIADVQAPDLETRMAILQKKAEHERVGLPRDLIQFIAGRFTSNIRELEGALTRAI
+                     AFASITGLPMTVDSIAPMLDPNGQGVEVTPKQVLDKVAEVFKVTPDEMRSASRRRPVS
+                     QARQVGMYLMRQGTNLSLPRIGDTFGGKDHTTVMYAIEQVEKKLSSDPQIASQVQKIR
+                     DLLQIDSRRKR"
+     CDS             complement(3807..5057)
+                     /note="orf416"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="unknown"
+                     /protein_id="AAC15823.1"
+                     /translation="MKEAIAALSWEELTKFAHNQSDLINGPNNSYSLLRLFGQNKSSI
+                     RVVFFRDKHAWCPYCQKVWLWLELKKIPYAVKKVTMRCYGEKEKWYLKKVPSGLFPAI
+                     EIDQELITESDKILLHLEKTFGPLGMQMEHPKIIDLRNLERNLFRSWCIWLCNPSFSK
+                     VQSIEREKQFKFIAKEVDNRLSQTNSPWIDPSISNSLESLPGSIDVAFVPYLERMNAS
+                     LAYYKGIKIRKEFPNIDRWFKSLEILPEYRGTQGDFHTHSHDLPPQMGGCWLDKNVLQ
+                     ETFSNQIDIGNGLGENETTFEPSTKTLPSAIALTRVLKHREGIKAVNPLGPESFDQPL
+                     RAALSYMISKQDFIPTQGSAVGLRYLRDRVSVPRDMPLLAAREFRKALEKTAQIDGSE
+                     KGAPLPTRHRFDQNPIYFSKAIDN"
+ORIGIN      
+        1 ggatccttct acggaggcaa ctttgcaaag agatttaaat agagttcttg agaaaaggac
+       61 agcattagtt atcgctcatc gcctggcaac aattgaatca tctgatcgaa ttttagtgat
+      121 gaaaaaaggt gagctaatag aacaaggaag tcaccaagag cttcgctccc taggagggtt
+      181 gtactctcaa ttagcaaaat tgcaggaaca agggctagcc aaattttaat gggggtagtt
+      241 ttttaatatg atcaagaaga ttggagaaag aaagataagt ttctctgggt ggtcaaatgg
+      301 ccgttcgggt agtaatgatt ttcgagaaat gtatggctca gatgcatgtg aatgtatctc
+      361 ttctaatgat caatatacgt ttgtttttag ccaggttaga actttagatt taatagaact
+      421 ggaacagtta cttcaatcag ttggatggag cagaagacca attagaagag ttaaaaaagc
+      481 attagataat agtttgttaa aagttggggt gtggcagcat gatccaaagt ttccccgttt
+      541 aataggcttt gcaagatgta caggtgatga ggttattcaa gcaactattt gggacgttgc
+      601 catacaccct gtttaccaag gctttggctt aggaaaagaa cttatgtcat atgttcttcg
+      661 cagtcttaag gacaagggaa tagaaagagt tgttttgttt gcagacccag gagtaataag
+      721 tttttatcag agtcaaggct ggactcttga gccaaaaggc aatcgttgtg ctttttggta
+      781 tgcgaactag tttgaaaatg cttttgattt aattttctgc ataatacctt ttggccaatt
+      841 cattaatatt tgcacctttt ctccattgat acctgagtag agcattttta attgcatttt
+      901 taataatatt actaccaaga tattttcttg aatttgtttc aataccactt cccaaagatc
+      961 gaagggttgt tatttgttta agacgtgtaa ttagatccag gtcttccatt ataggaattt
+     1021 ctttatagcc tccaattcgt gaataaagct ctttacttaa taatagccct tgatctccat
+     1081 aagggctatt aaataaatta cttctgatat aaactgccaa ttccaatata aaccatataa
+     1141 agcctttctt ctctgtctta aaattaaaat accaggcgta ttgcttgctt aaaggattac
+     1201 ttattaaatt aataattttg gatttccagt tatattttaa tcggctatct gcatgtaaaa
+     1261 aaaacagcca attaccattg gctgacatag cacctgtatg cagttgttcg cctctattct
+     1321 tattggtcat tgcaataacc tttgctccgc caatttttgc taccagtgtg gttgagtcag
+     1381 tacttccaca atcgataaca atcacctcta aacattgagt atatgatctt atatctgcta
+     1441 gtagaatagg taaatttctc gcctcgttaa ttgttggtat gattatgcta agtttgttat
+     1501 ctttttttat atgttccata ggcttaagtc tgttataaag tctaagtcat cttttctatt
+     1561 tagcaattta tagttaactc cttcttcttt tgctttccga agagtttctt taaaaacaga
+     1621 agtagtgccc catttaattc cagagaaagg ccaagaaatg actggggaaa ggatgttctt
+     1681 tgaaaaccct attaaccaat acccgccatc atttgcaggt ccaattacta ggtcattatt
+     1741 tttcaaggaa tttaaagcag aatctatatc tgatgtgcaa aggcttggga catctgttcc
+     1801 aattaaaatc gtatcccttg atgattgtga tttggatgta ctttttcttt gagctaaaac
+     1861 taattgtctt ttcattttaa gtcctaggtt cccagatcct tgagagcaag ccaatgaaaa
+     1921 cccttcattt ctcgcccaag cagaaactct ttgattgcca atgccatcga tagctaattt
+     1981 ggtttctatt agccctttta atttgattgc ttttgctacg gcaattgtgt gatgaataag
+     2041 cctttgttgt attaaagctg ctctgtaagg tccaatgtct ttggcaagtc ttgttttgca
+     2101 tcgacttggt gctggccatc gggtcattaa gacaaggatg ggcttaagca tggattgttt
+     2161 tttagtgggt tatttttgtt gttacgggga ttgctgaaag attttcattg catcctgtat
+     2221 agctttaata agcttcatta cacaactatc ttagtcgctt tgctctaatc cctctgaatg
+     2281 acttggtggt tggaaagaag ttgagtaata ataattaaaa acctgatttt ctgatttaac
+     2341 actgctttat cctttaacca tgcttagatt caacctctag ctcttcaacg tgaaaaggtg
+     2401 gactaatgct tgaagcgtct tgggaaaaag ttcagagttc tctaaaacaa aatctaagta
+     2461 agccatcata tgaaacttgg atacgtccta ctgagttcag tggttttaaa aatggagagc
+     2521 tgactttaat tgctccaaat agcttttcca gtgcatggtt gaaaaataat tattctcaga
+     2581 caattcaaga gactgctgaa gaaatttttg gagaacctgt aactgttcat gtaaaggtga
+     2641 aagccaatgc agagagttca gatgaacatt attcttctgc tcccatcacc cctcccttag
+     2701 aggcttcgcc tgggtcagtt gactcttcag gctcttcttt gcgattatct aaaaagaccc
+     2761 tcccgttact taatttaaga tatgttttca atcgatttgt tgtaggacct aatagtcgca
+     2821 tggctcatgc agcagctatg gctgtagcag agtctccagg acgcgaattt aatccattgt
+     2881 tcatatgtgg cggtgttggt ttaggtaaga cacatttgat gcaagcaatt ggccattatc
+     2941 gcttagaaat tgatccaggt gcaaaagtct cttatgtgtc tactgaaact tttaccaatg
+     3001 atttgatctt ggcgattagg caagatcgaa tgcaggcttt tagagataga tatagagctg
+     3061 cagatttgat acttgttgat gatattcaat ttattgaagg aaaagaatat acccaagaag
+     3121 agttttttca tacttttaat gccttgcatg atgcaggaag tcaaattgtt cttgctagtg
+     3181 acagacctcc tagccagata ccacgacttc aagaacgttt aatgtcaaga ttttcaatgg
+     3241 ggttgattgc tgatgttcaa gcacctgatt tagagacaag gatggcgata ttgcagaaga
+     3301 aagctgaaca tgaacgcgta ggacttccaa gagatttgat tcaatttatt gcaggccgat
+     3361 ttacttcaaa tattcgtgaa ttagaaggag cacttaccag ggctattgca tttgcatcta
+     3421 ttacaggcct tccaatgaca gtagattcaa ttgcaccaat gttagatcca aacggtcaag
+     3481 gtgtagaagt aactccaaag caggtactag ataaagttgc agaagtcttt aaggttactc
+     3541 ctgatgaaat gagaagtgca agtagacgta gacctgtaag ccaggctagg caagtaggta
+     3601 tgtatttaat gcgtcaaggt actaatttaa gtttgccaag aattggtgat acgtttggag
+     3661 gaaaagatca cacaactgtg atgtatgcaa ttgagcaagt agaaaagaaa ttgtctagtg
+     3721 accctcagat tgcaagccaa gttcaaaaaa tcagagattt gttgcagata gactctcgcc
+     3781 gtaaacgtta gctaatttga gctatttcaa ttatcaatag ctttagaaaa ataaatggga
+     3841 ttttgatcaa agcgatgtct cgttgggaga ggagctcctt tttcggatcc atctatttga
+     3901 gcagtctttt caagtgcttt gcggaattct ctggctgcaa gtagaggcat gtctctaggg
+     3961 actgataccc tgtcccttaa atatcttaat cccacagcac tgccttgagt ggggatgaaa
+     4021 tcttgcttgg agatcatata gctaagagct gctcttaatg gctgatcaaa agattctggc
+     4081 ccaagaggat taacggcttt gatgccttct cgatgtttta atacacgtgt taaagcaatt
+     4141 gcagaaggaa gagttttcgt tgaaggttcg aaggttgttt cattttctcc aagcccgtta
+     4201 ccaatatcga tttgatttga gaaagtttct tgaaggacat ttttgtctaa ccaacaccct
+     4261 cccatttgag gaggcagatc atgggaatgg gtgtggaagt caccttgagt gcccctatac
+     4321 tctggaagta tttctagcga tttgaaccat ctgtcaatat tgggaaattc tttccttatc
+     4381 tttattcctt tgtagtaggc taaagaggca ttcattcgtt ctaaataggg tacaaaagca
+     4441 acgtctatac ttcctggcaa agattctaga gaattactaa ttgatgggtc tatccaaggg
+     4501 gaatttgttt gagataatcg attatctact tcttttgcaa taaatttgaa ttgcttttct
+     4561 ctttctattg attggacttt gctaaatgat ggattacaca accatatgca ccaagatcta
+     4621 aaaagatttc tttcaagatt ccgcaaatca attattttag gatgctccat ttgcatccct
+     4681 aacgggccaa aagttttttc taagtgcaaa agaattttat cgctttcagt tatgagctct
+     4741 tgatctattt ctatcgctgg gaaaaggcca gagggaactt tttttagata ccatttttct
+     4801 ttttctccat aacaccgcat ggttactttc ttgactgcat aaggtatttt cttcaattcc
+     4861 aaccacaacc atactttttg acaatatgga caccatgcat gcttatctct aaaaaacact
+     4921 actcttatcg aagacttgtt ctggccaaat agtctgagca aagagtatga attgttaggg
+     4981 ccatttatta gatctgattg attgtgagcg aattttgtaa gctcttccca actgagtgcg
+     5041 gctatagctt ctttcatgaa tgagtaggag aatgaagtga gagatcccta ggattatttt
+     5101 gaattattct tttgacttaa ttgtattagg tgctggttca ggtggattag ctgctgctaa
+     5161 aagagcagca agttatggag ccagagttgc aatcgtagaa ggagatcgtg ttggaggtac
+     5221 atgtgttata agaggttgcg tccctaaaaa gttgctggta tatgggtctc aatatggtga
+     5281 atatctaaag aatgccccaa gctt
+//
+
+LOCUS       AF354644                2567 bp    DNA     linear   BCT 01-JUL-2001
+DEFINITION  Prochlorococcus marinus psb operon, complete sequence.
+ACCESSION   AF354644
+VERSION     AF354644.1
+KEYWORDS    .
+SOURCE      Prochlorococcus marinus
+  ORGANISM  Prochlorococcus marinus
+            Bacteria; Cyanobacteriota; Cyanophyceae; Synechococcales;
+            Prochlorococcaceae; Prochlorococcus.
+REFERENCE   1  (bases 1 to 2567)
+  AUTHORS   Garczarek,L., van der Staay,G.W.M., Hess,W.R., Le Gall,F. and
+            Partensky,F.
+  TITLE     Expression and phylogeny of the multiple antenna genes of the
+            low-light adapted strain Prochlorococcus marinus SS120
+            (Oxyphotobacteria)
+  JOURNAL   Unpublished
+REFERENCE   2  (bases 1 to 2567)
+  AUTHORS   Garczarek,L., van der Staay,G.W.M., Hess,W.R., Le Gall,F. and
+            Partensky,F.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (01-MAR-2001) Station Biologique, CNRS et Universite
+            Paris 6, Place Georges Teissier, BP74, Roscoff 29 682, France
+FEATURES             Location/Qualifiers
+     source          1..2567
+                     /organism="Prochlorococcus marinus"
+                     /mol_type="genomic DNA"
+                     /strain="SS120; CCMP1375"
+                     /type_material="type strain of Prochlorococcus marinus"
+                     /db_xref="taxon:1219"
+     gene            65..2507
+                     /gene="psb operon"
+     gene            65..1141
+                     /gene="psbD"
+     CDS             65..1141
+                     /gene="psbD"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="photosystem II reaction center D2"
+                     /protein_id="AAK69278.1"
+                     /translation="MTIAVGSAQDRRWFDVLDDWLKRDRFVFVGWSGLLLFPTAYLAI
+                     GGWFLGTTFVTSWYTHGVASSYLEGCNFLTAAVSTPGDAMGHSLLFLWGPEAQGSLVR
+                     WLQLGGLWNFVVLHGAFSLIGFMLRQFEIARLVGIRPYNALAFSAVIAVFTACFLIYP
+                     LGQHSWFFAPSFGVAAIFRFILFIQGFHNITLNPFHMMGVAGILGGALLCAIHGATVQ
+                     NTLYEDTSVYSGGKAQSTTFRAFDPTQEEETYSMITANRFWSQIFGIAFSNKRFLHFL
+                     MLFVPVMGMWCAAIGIVGLALNLRAYDFVSQEIRAAEDPEFETFYTKNILLNEGMRAW
+                     MSSVDQPHENFVFPEEVLPRGNAL"
+     gene            1125..2507
+                     /gene="psbC"
+     CDS             1125..2507
+                     /gene="psbC"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="photosystem II chlorophyll a-binding protein
+                     CP43"
+                     /protein_id="AAK69277.1"
+                     /translation="METPFNNLLKAPNQSIEETGYAWYVGNARLINLSGKLLGAHIAH
+                     TGLMVFWAGAMMLYEVSHFTFDKPMWEQGLILLPHVAMFGYGIGPGGEVIDVMPYFQA
+                     GVIHLIASAVLGFGGIYHSLAGPEKLEEEFPFFSTDWRDKDQMTTILGRHLCVLGLGA
+                     VAFAVNWQFLGGLYDTWAPGGGEVRLITPTTDPGIIFGYLFQTPWGGGGNMVGVNSVE
+                     DIVGGHYYLGIIELIGGHFHMQTKPFGWARRAFIWNGEALLSYALGGLCVASFYASVF
+                     VWFNNTAYPSEFYGPTNAEASQAQSFTFLVRDQRIGANVGTTMGPTGLGKYLMRSPTG
+                     EIIFGGETMRFWDFRGPWLEPLRGENGLSLDKIQNDIQPWQVRRAAEYMTHAPNASIN
+                     SVGGIITEPNAVNFVNLRQWLASAHFFLGWFTFVGHLWHAGRARAAAGGFEKGIDRRT
+                     EPALSMSDLD"
+ORIGIN      
+        1 ccgacttggt tcttgaattg ttaaagtctc aggcgtatac caaaagctca gcaacgttgc
+       61 tctcatgacg atagctgttg gtagcgccca agatagaaga tggtttgacg tccttgatga
+      121 ctggcttaag cgcgaccgat tcgtatttgt tggttggtct ggtctccttc tgttccctac
+      181 tgcctatctg gctatcggtg gatggttttt aggcacaacc ttcgtaacct cctggtacac
+      241 ccatggtgta gccagttctt acctagaagg atgtaatttc cttactgccg ctgttagtac
+      301 ccctggcgac gctatggggc acagtctttt attcctatgg ggaccagagg cacaaggcag
+      361 tcttgttcgt tggcttcaac taggcggact atggaatttt gtagtccttc atggtgcttt
+      421 cagcctgatt ggcttcatgc tgcgtcagtt tgaaatcgca agacttgttg gtatcaggcc
+      481 ttacaacgca cttgcttttt ctgcagttat agctgttttc acagcatgtt tccttatcta
+      541 tccgttaggg caacacagct ggttttttgc tccttctttt ggggttgcag ctattttcag
+      601 attcatacta tttattcaag gtttccacaa catcacattg aatccttttc acatgatggg
+      661 tgttgcagga attcttggtg gtgctcttct atgtgctatt cacggtgcaa ccgtccaaaa
+      721 tacactttat gaagacacca gtgtttattc aggtggtaaa gctcaaagta caactttcag
+      781 agcttttgat cctacccagg aagaagagac gtactcaatg attacggcta atagattctg
+      841 gagtcagatc tttggaatag ctttttctaa caagcgcttc cttcacttct taatgctctt
+      901 tgtacctgta atgggtatgt ggtgcgccgc aattggcatt gttggtcttg ctcttaatct
+      961 aagagcatat gacttcgtta gccaagagat tagagctgct gaagacccag agtttgaaac
+     1021 gttctataca aaaaacatac ttttgaatga aggtatgaga gcctggatgt cttctgtgga
+     1081 tcaaccacac gaaaactttg tattcccaga ggaggtactc ccacgtggaa acgcccttta
+     1141 ataatctttt aaaagctcct aaccaaagta ttgaagaaac tggttatgcc tggtatgtag
+     1201 gcaatgctcg tttaattaat ctttctggaa aactacttgg agcccacatt gcacatacag
+     1261 gactaatggt gttctgggct ggagcaatga tgctttatga agtgagtcat ttcacttttg
+     1321 ataagccaat gtgggagcag ggcttaatac ttcttcccca tgtagccatg tttggctatg
+     1381 gcataggccc aggtggagaa gttattgacg taatgccata ttttcaggct ggagttattc
+     1441 acctaattgc ttcagcagtt cttggatttg gaggaattta tcattctctt gcaggtccag
+     1501 agaaattaga agaagaattt cctttcttct caactgattg gcgagataag gaccaaatga
+     1561 caaccatcct tggtcgtcat ttatgtgttc ttgggctagg tgcagtagct tttgctgtca
+     1621 actggcaatt ccttggcggt ctttatgaca catgggctcc aggcggtggt gaagttcgct
+     1681 tgattacacc aactacagat ccaggaatta tttttggata ccttttccaa accccatggg
+     1741 gtggaggagg aaatatggta ggtgttaact cagttgaaga cattgtaggc gggcactatt
+     1801 acctaggaat tattgaactc ataggtggac atttccatat gcaaaccaag ccatttggct
+     1861 gggctcgcag ggcttttatt tggaatggag aagctttgct ctcttatgcc cttggtggtt
+     1921 tatgtgtagc aagcttttac gcctcagtat tcgtttggtt caataacact gcttacccat
+     1981 cagagttcta cggaccaact aatgcagaag catctcaggc acaaagtttt actttccttg
+     2041 taagagacca aagaataggt gcaaatgtcg ggactaccat gggaccaact ggtttaggta
+     2101 aatacctaat gagatcacca acaggagaaa tcatctttgg tggtgaaaca atgcgtttct
+     2161 gggacttccg tggaccttgg ctagaacctc taagaggaga gaatggatta agtctggata
+     2221 aaatccaaaa cgatattcag ccttggcaag ttcgccgcgc tgctgaatat atgactcatg
+     2281 ctccaaatgc ttctatcaac tctgttggtg gaatcattac tgagcctaat gctgtcaatt
+     2341 tcgttaacct tcgtcagtgg cttgcatcag ctcatttctt cttaggatgg tttacatttg
+     2401 taggtcatct ttggcatgct ggtcgtgcta gagctgcagc cggtggtttt gagaaaggaa
+     2461 ttgatcgcag aactgagcct gctctttcca tgtctgatct agactaagac taagttaata
+     2521 tttagttttt tcttaaaaga aaagccctca atgaaaattg agggctt
+//
+

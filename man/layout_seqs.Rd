@@ -24,6 +24,9 @@ per lin.}
 
 \item{keep}{keys to keep (default: "strand")}
 }
+\value{
+a tbl_df with plot coordinates
+}
 \description{
 Layout sequences
 }

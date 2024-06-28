@@ -10,12 +10,17 @@
 #' @param swap_query if TRUE swap query and subject columns using [swap_query()]
 #'   on import.
 #' @param ... additional parameters, passed to `read_tsv`
-read_blast <- function (file, col_names = def_names("blast"),
-    col_types = def_types("blast"), comment = "#", swap_query=FALSE, ...){
-
-  x <- readr::read_tsv(file, col_names = col_names, col_types = col_types,
-      comment = comment, ...)
-  if(swap_query)
+#' @return a tibble with the BLAST output
+#' @export
+read_blast <- function(
+    file, col_names = def_names("blast"),
+    col_types = def_types("blast"), comment = "#", swap_query = FALSE, ...) {
+  x <- readr::read_tsv(file,
+    col_names = col_names, col_types = col_types,
+    comment = comment, ...
+  )
+  if (swap_query) {
     x <- swap_query(x)
+  }
   x
 }

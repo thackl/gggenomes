@@ -6,6 +6,9 @@
 \usage{
 \method{ggplot}{gggenomes_layout}(data, mapping = aes(), ..., environment = parent.frame())
 }
+\value{
+ggplot object
+}
 \description{
 ggplot.default tries to \code{fortify(data)} and we don't want that here
 }

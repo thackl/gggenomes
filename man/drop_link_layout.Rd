@@ -11,6 +11,9 @@ drop_link_layout(x, keep = "strand")
 
 \item{keep}{features to keep}
 }
+\value{
+link_layout without unwanted features
+}
 \description{
 Drop a link layout
 }

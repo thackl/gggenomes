@@ -9,13 +9,16 @@ split_by(.data, key)
 \arguments{
 \item{key}{variable to split by}
 }
+\value{
+a list of tibbles
+}
 \description{
 Split by key column while preserving order according to the first
 occurence. R base split converts keys to factors, changing default order to
 alphanumeric.
 }
 \examples{
-tibble::tibble(x=c(1,1,1,2), y=c("B", "A", "B", "B"), z="foo") \%>\%
+tibble::tibble(x = c(1, 1, 1, 2), y = c("B", "A", "B", "B"), z = "foo") \%>\%
   split_by(x)
 }
 \keyword{internal}

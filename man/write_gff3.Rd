@@ -46,11 +46,13 @@ directives in the header}
 \item{ignore_attr}{attributes not to be included in GFF3 tag list. Defaults
 to internals: \verb{introns, geom_id}}
 }
+\value{
+No return value, writes to file
+}
 \description{
 Write a gff3 file from a tidy table
 }
 \examples{
-\dontrun{
-write_gff3(emale_genes, "emales.gff", emale_seqs, id_var="feat_id")
-}
+filename <- tempfile(fileext = ".gff")
+write_gff3(emale_genes, filename, emale_seqs, id_var = "feat_id")
 }

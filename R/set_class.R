@@ -9,25 +9,27 @@
 #' @param add Possible values: "overwrite", "prepend", "append"
 #' @return Object x as class value.
 #' @export
-set_class <- function(x, class, add=c("overwrite", "prepend", "append")){
-  add = match.arg(add)
+set_class <- function(x, class, add = c("overwrite", "prepend", "append")) {
+  add <- match.arg(add)
   class <- switch(add,
-                  overwrite = class,
-                  prepend = unique(c(class, class(x))),
-                  append = unique(c(class(x), class)))
-  if(length(class) == 0) # for class == ""
+    overwrite = class,
+    prepend = unique(c(class, class(x))),
+    append = unique(c(class(x), class))
+  )
+  if (length(class) == 0) { # for class == ""
     unclass(x)
-  else
+  } else {
     `class<-`(x, class)
+  }
 }
 #' @export
 #' @rdname set_class
-add_class <- function(x, class){
+add_class <- function(x, class) {
   set_class(x, class, "prepend")
 }
 #' @export
 #' @rdname set_class
-strip_class <- function(x, class){
+strip_class <- function(x, class) {
   classes <- class(x)[!class(x) %in% class]
   set_class(x, classes)
 }

@@ -15,42 +15,47 @@ The user can supply an own vector to \code{offset} to indicate at which offsets 
 \item{base}{How to align the offsets relative to the sequence. At base = 0, plotting of the offsets starts
 from the sequence. \code{base} thus moves the entire feature up/down.}
 }
+\value{
+A ggproto object to be used in \code{geom_variant()}.
+}
 \description{
 \code{position_variant()} allows the user to plot the different mutation types (e.g. del, ins, snps) at different offsets from the base.
 This can especially be useful to highlight in which regions certain types of mutations have higher prevalence.
 This position adjustment is most relevant for the analysis/visualization of VCF files with the function \code{geom_variant()}.
 }
 \examples{
-# Creation of example data. 
+# Creation of example data.
 testposition <- tibble::tibble(
-type = c("ins", "snp", "snp", "del", "del", "snp", "snp", "ins", "snp", "ins", "snp"),
-start = c(10, 20, 30, 35, 40, 60, 65, 90, 90, 100, 120),
-end = start + 1,
-seq_id = c(rep("A", 11)))
+  type = c("ins", "snp", "snp", "del", "del", "snp", "snp", "ins", "snp", "ins", "snp"),
+  start = c(10, 20, 30, 35, 40, 60, 65, 90, 90, 100, 120),
+  end = start + 1,
+  seq_id = c(rep("A", 11))
+)
 testseq <- tibble::tibble(
-seq_id = "A",
-start = 0,
-end = 150,
-length = end-start)
+  seq_id = "A",
+  start = 0,
+  end = 150,
+  length = end - start
+)
 
 p <- gggenomes(seqs = testseq, feats = testposition)
 
-#This first plot shows what is being plotted when only geom_variant is called
+# This first plot shows what is being plotted when only geom_variant is called
 p + geom_variant()
 
-#Next lets use position_variant, and change the shape aesthetic by column `type`
-p + geom_variant(aes(shape = type), position = position_variant()) 
+# Next lets use position_variant, and change the shape aesthetic by column `type`
+p + geom_variant(aes(shape = type), position = position_variant())
 
-#Now lets create a plot with different offsets by inserting a self-created vector.
+# Now lets create a plot with different offsets by inserting a self-created vector.
 p + geom_variant(
   aes(shape = type),
-  position = position_variant(c(del=0.4, ins =-0.4))
+  position = position_variant(c(del = 0.4, ins = -0.4))
 ) + scale_shape_variant()
 
-#Changing the base will shift all points up/down relatively from the sequence.
+# Changing the base will shift all points up/down relatively from the sequence.
 p + geom_variant(
   aes(shape = type),
-  position=position_variant(base = 0.5)
+  position = position_variant(base = 0.5)
 ) + geom_seq()
 
 }

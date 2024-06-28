@@ -9,6 +9,9 @@ ex(file = NULL)
 \arguments{
 \item{file}{name of example file}
 }
+\value{
+path to example file
+}
 \description{
 Get path to gggenomes example files
 }

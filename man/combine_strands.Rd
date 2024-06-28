@@ -13,6 +13,9 @@ combine_strands(strand, strand2, ...)
 
 \item{...}{more strands}
 }
+\value{
+the combined strand
+}
 \description{
 Combine strands
 }

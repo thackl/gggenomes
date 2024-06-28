@@ -10,3 +10,6 @@ vignettes-manual-export/
 /doc/
 /Meta/
 gggenomes.Rcheck
+.vscode
+gggenomes_*.tar.gz
+vignettes/gggenomes_cache

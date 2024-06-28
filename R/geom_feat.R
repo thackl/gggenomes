@@ -17,6 +17,7 @@
 #' but different ggplot2 position adjustments, such as `"identity` or `"jitter"` can be used as well.
 #' @inheritParams ggplot2::geom_segment
 #' @importFrom ggplot2 geom_segment
+#' @return A ggplot2 layer with features.
 #' @export
 #' @examples
 #' # Plotting data from the feats' track with adjusted linewidth and color

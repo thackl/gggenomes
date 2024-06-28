@@ -11,6 +11,9 @@ drop_feat_layout(x, keep = "strand")
 
 \item{keep}{features to keep}
 }
+\value{
+feat_layout without unwanted features
+}
 \description{
 Drop feature layout
 }

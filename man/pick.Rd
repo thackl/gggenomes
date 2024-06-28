@@ -27,6 +27,15 @@ multiple arguments with \code{c()}!}
 
 \item{infer_bin_id}{an expression to extract bin_ids from the tree data.}
 }
+\value{
+gggenomes object with selected bins and seqs.
+
+gggenomes object with selected seqs.
+
+gggenomes object with selected seqs.
+
+gggenomes object with seqs selected by tree order.
+}
 \description{
 Pick which bins and seqs to show and in what order. Uses
 \code{\link[dplyr:select]{dplyr::select()}}-like syntax, which means unquoted genome names, positional
@@ -55,13 +64,14 @@ seqs, keep rest as is.
 }}
 \examples{
 s0 <- tibble::tibble(
-bin_id = c("A", "B", "B", "B", "C", "C", "C"),
-seq_id = c("a1","b1","b2","b3","c1","c2","c3"),
-length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3))
+  bin_id = c("A", "B", "B", "B", "C", "C", "C"),
+  seq_id = c("a1", "b1", "b2", "b3", "c1", "c2", "c3"),
+  length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3)
+)
 
-p <- gggenomes(seqs=s0) + geom_seq(aes(color=bin_id), size=3) +
+p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), size = 3) +
   geom_bin_label() + geom_seq_label() +
-  expand_limits(color=c("A","B","C"))
+  expand_limits(color = c("A", "B", "C"))
 p
 
 # remove
@@ -77,53 +87,53 @@ p \%>\% pick(starts_with("B"))
 p \%>\% pick_seqs(1, c3)
 
 # pick with .bin scope
-p \%>\% pick_seqs(3:1, .bins=C)
+p \%>\% pick_seqs(3:1, .bins = C)
 
 # change seqs in some bins, but keep rest as is
-p \%>\% pick_seqs_within(3:1, .bins=B)
+p \%>\% pick_seqs_within(3:1, .bins = B)
 
 # same w/o scope, unaffected bins remain as is
 p \%>\% pick_seqs_within(b3, b2, b1)
 
 # Align sequences with and plot next to a phylogenetic tree
-library(patchwork)  # arrange multiple plots
-library(ggtree)     # plot phylogenetic trees
+library(patchwork) # arrange multiple plots
+library(ggtree) # plot phylogenetic trees
 
 # load and plot a phylogenetic tree
 emale_mcp_tree <- read.tree(ex("emales/emales-MCP.nwk"))
-t <- ggtree(emale_mcp_tree) + geom_tiplab(align=TRUE, size=3) +
-  xlim(0,0.05) # make room for labels
+t <- ggtree(emale_mcp_tree) + geom_tiplab(align = TRUE, size = 3) +
+  xlim(0, 0.05) # make room for labels
 
-p <- gggenomes(seqs=emale_seqs, genes=emale_genes) +
+p <- gggenomes(seqs = emale_seqs, genes = emale_genes) +
   geom_seq() + geom_seq() + geom_bin_label()
 
 # plot next to each other, but with
 # different order in tree and genomes
-t + p + plot_layout(widths = c(1,5))
+t + p + plot_layout(widths = c(1, 5))
 
 # reorder genomes to match tree order
 # with a warning caused by mismatch in y-scale expansions
-t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1,5))
+t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
 # extra genomes are dropped with a notification
 emale_seqs_more <- emale_seqs
-emale_seqs_more[7,] <- emale_seqs_more[6,]
+emale_seqs_more[7, ] <- emale_seqs_more[6, ]
 emale_seqs_more$seq_id[7] <- "One more genome"
-p <- gggenomes(seqs=emale_seqs_more, genes=emale_genes) +
+p <- gggenomes(seqs = emale_seqs_more, genes = emale_genes) +
   geom_seq() + geom_seq() + geom_bin_label()
-t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1,5))
+t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
-\dontrun{
-# no shared ids will cause an error
-  p <- gggenomes(seqs=tibble::tibble(seq_id = "foo", length=1)) +
+try({
+  # no shared ids will cause an error
+  p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
     geom_seq() + geom_seq() + geom_bin_label()
-  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1,5))
+  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
-# extra leafs in tree will cause an error
-  emale_seqs_fewer <- slice_head(emale_seqs, n=4)
-  p <- gggenomes(seqs=emale_seqs_fewer, genes=emale_genes) +
+  # extra leafs in tree will cause an error
+  emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
+  p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
     geom_seq() + geom_seq() + geom_bin_label()
-  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1,5))
-}
+  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+})
 
 }

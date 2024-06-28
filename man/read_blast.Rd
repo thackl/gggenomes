@@ -44,6 +44,9 @@ on import.}
 
 \item{...}{additional parameters, passed to \code{read_tsv}}
 }
+\value{
+a tibble with the BLAST output
+}
 \description{
 Read BLAST tab-separated output
 }
