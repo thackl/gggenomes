@@ -35,7 +35,6 @@ reference:
     - read_seqs
     - read_feats
     - starts_with("read_")
-    - synteny_to_link
     - swap_query
     - ex
     - def_formats
@@ -58,7 +57,6 @@ reference:
   - in_range
   - width
   - introduce
-  - file_label
   - qw
   - GeomFeatText
   - check_strand
