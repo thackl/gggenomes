@@ -12,7 +12,7 @@ Description: An extension of 'ggplot2' for creating complex genomic
  implements a layout concept inspired by 'ggraph' and introduces tracks to bring
  tidiness to the mess that is genomics data.
 License: MIT + file LICENSE
-URL: https://github.com/thackl/gggenomes
+URL: https://thackl.github.io/gggenomes/, https://github.com/thackl/gggenomes
 BugReports: https://github.com/thackl/gggenomes/issues
 Encoding: UTF-8
 LazyData: true
