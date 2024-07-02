@@ -39,8 +39,7 @@ Imports:
     tidyselect,
     colorspace,
     methods,
-    utils,
-    ellipsis
+    utils
 Suggests:
     testthat,
     ggtree,

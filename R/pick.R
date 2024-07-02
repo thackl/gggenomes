@@ -91,7 +91,7 @@
 #' @return gggenomes object with selected bins and seqs.
 #' @export
 pick <- function(x, ...) {
-  if (!has_dots()) {
+  if (length(...) == 0) {
     return(x)
   }
   pick_impl(x, .bins = c(...))
@@ -104,7 +104,7 @@ pick <- function(x, ...) {
 #' @return gggenomes object with selected seqs.
 #' @export
 pick_seqs <- function(x, ..., .bins = everything()) {
-  if (!has_dots()) {
+  if (length(...) == 0) {
     return(x)
   }
   pick_impl(x, ..., .bins = {{ .bins }}, .seqs_within = FALSE)
@@ -117,7 +117,7 @@ pick_seqs <- function(x, ..., .bins = everything()) {
 #' @return gggenomes object with selected seqs.
 #' @export
 pick_seqs_within <- function(x, ..., .bins = everything()) {
-  if (!has_dots()) {
+  if (length(...) == 0) {
     return(x)
   }
   pick_impl(x, ..., .bins = {{ .bins }}, .seqs_within = TRUE)
@@ -188,7 +188,7 @@ pick_impl <- function(x, ..., .bins = everything(), .seqs_within = FALSE) {
   s <- bind_rows(l[i])
 
   # pick seqs from bins
-  if (has_dots()) {
+  if (length(...) > 0) {
     seq_ids <- s$seq_id %>% set_names(.)
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j, ]

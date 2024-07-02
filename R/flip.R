@@ -64,7 +64,7 @@ flip.gggenomes <- function(x, ..., .bin_track = seqs) {
 }
 #' @export
 flip.gggenomes_layout <- function(x, ..., .bin_track = seqs) {
-  if (!has_dots()) {
+  if (length(...) == 0) {
     return(x)
   }
   flip_impl(x, bins = c(...), bin_track = {{ .bin_track }})
@@ -84,7 +84,7 @@ flip_seqs.gggenomes <- function(x, ..., .bins = everything(), .seq_track = seqs,
 }
 #' @export
 flip_seqs.gggenomes_layout <- function(x, ..., .bins = everything(), .seq_track = seqs, .bin_track = seqs) {
-  if (!has_dots()) {
+  if (length(...)  == 0) {
     return(x)
   }
   flip_impl(x, bins = {{ .bins }}, seqs = c(...), bin_track = {{ .bin_track }}, seq_track = {{ .seq_track }})

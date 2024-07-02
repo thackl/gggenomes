@@ -128,7 +128,7 @@ add_feats.gggenomes <- function(x, ...) {
 
 #' @export
 add_feats.gggenomes_layout <- function(x, ...) {
-  if (!has_dots()) {
+  if (length(...) == 0) {
     return(x)
   }
   dot_exprs <- enexprs(...) # defuse before list(...)

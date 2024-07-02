@@ -45,11 +45,6 @@ ex <- function(file = NULL) {
   }
 }
 
-# are there any arguments in ...
-has_dots <- function(env = parent.frame()) {
-  length(ellipsis__dots(env)) > 0
-}
-
 shared_names <- function(x, ...) {
   names <- c(...)
   names[names %in% names2(x)]
@@ -127,18 +122,10 @@ qc <- function(...) sapply(match.call()[-1], deparse)
 # CRAN Workaround for unexported useful tidyverse internals
 # https://stackoverflow.com/questions/32535773/using-un-exported-function-from-another-r-package
 ggplot2__ggname <- utils::getFromNamespace("ggname", "ggplot2")
-ggplot2__rd_aesthetics <- \(x, y) utils::getFromNamespace("rd_aesthetics", "ggplot2")(x, y) |> stringr::str_replace(stringr::fixed("link[="), "link[ggplot2:")
+ggplot2__rd_aesthetics <- function(x, y) utils::getFromNamespace("rd_aesthetics", "ggplot2")(x, y) |> stringr::str_replace(stringr::fixed("link[="), "link[ggplot2:")
 ggplot2__scales_list <- utils::getFromNamespace("scales_list", "ggplot2")
 ggplot2__guides_list <- utils::getFromNamespace("guides_list", "ggplot2")
 ggplot2__make_labels <- utils::getFromNamespace("make_labels", "ggplot2")
-ellipsis__dots <- utils::getFromNamespace("dots", "ellipsis")
 scales__force_all <- utils::getFromNamespace("force_all", "scales")
 purrr__as_mapper.default <- utils::getFromNamespace("as_mapper.default", "purrr")
 
-# Additional fix for seamingly unused package in imports due to the workaround above
-# https://forum.posit.co/t/new-r-cmd-check-note-in-r-4-2-0-for-imports-field/143153/4
-#' @import ellipsis
-#' @noRd
-dummy <- function() {
-  ellipsis::safe_median
-}

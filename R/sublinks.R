@@ -27,7 +27,7 @@ add_sublinks.gggenomes <- function(
 add_sublinks.gggenomes_layout <- function(
     x, ..., .track_id = "genes",
     .transform = c("aa2nuc", "none", "nuc2aa")) {
-  if (!has_dots()) {
+  if (length(...) == 0) {
     return(x)
   }
   dot_exprs <- enexprs(...) # defuse before list(...)
