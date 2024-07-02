@@ -45,7 +45,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything = TRUE) {
   }
 
   other_vars <- if (everything) tidyselect::everything else function() NULL
-  x <- as_tibble(select(x, vars, other_vars()))
+  x <- as_tibble(select(x, dplyr::all_of(vars), other_vars()))
   # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
 
@@ -90,7 +90,7 @@ layout_feats <- function(
 
   # project feats onto new layout and clean up aux vars (.seq)
   x <- project_feats(x) %>%
-    select(.data$y, .data$x, .data$xend, .data$bin_id, everything(), -starts_with(".seq"))
+    select("y", "x", "xend", "bin_id", everything(), -starts_with(".seq"))
   x
 }
 
@@ -145,8 +145,8 @@ add_feat_layout_scaffold <- function(x, seqs) {
   scaffold <- seqs %>%
     ungroup() %>%
     select(
-      .data$seq_id, .data$bin_id, .data$y,
-      .seq_strand = .data$strand, .seq_x = .data$x, .seq_start = .data$start, .seq_end = .data$end
+      "seq_id", "bin_id", "y",
+      .seq_strand = "strand", .seq_x = "x", .seq_start = "start", .seq_end = "end"
     )
 
   inner_join(x, scaffold, by = shared_names(x, "seq_id", "bin_id"))

@@ -29,12 +29,12 @@ read_alitv <- function(file) {
   seqs <- tibble(seq = ali$data$karyo$chromosome) %>%
     mutate(seq_id = names(seq)) %>%
     unnest_wider(seq) %>%
-    rename(bin_id = .data$genome_id)
+    rename(bin_id = "genome_id")
   genes <- tibble(feature = ali$data$feature) %>%
     mutate(class = names(.data$feature)) %>%
     filter(class != "link") %>%
     unnest(.data$feature) %>%
-    rename(seq_id = .data$karyo)
+    rename(seq_id = "karyo")
   links <- tibble(links = ali$data$links) %>%
     unnest(links) %>%
     unnest(links) %>%

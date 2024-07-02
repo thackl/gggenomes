@@ -43,13 +43,13 @@ as_links.tbl_df <- function(x, seqs, ..., everything = TRUE) {
     }
 
     x <- x %>%
-      left_join(select(ungroup(seqs), seq_id = .data$seq_id, start = .data$start, end = .data$end), by = "seq_id") %>%
-      left_join(select(ungroup(seqs), seq_id2 = .data$seq_id, start2 = .data$start, end2 = .data$end), by = "seq_id2")
+      left_join(select(ungroup(seqs), seq_id = "seq_id", start = "start", end = "end"), by = "seq_id") %>%
+      left_join(select(ungroup(seqs), seq_id2 = "seq_id", start2 = "start", end2 = "end"), by = "seq_id2")
   }
   vars <- c("seq_id", "start", "end", "seq_id2", "start2", "end2")
 
   other_vars <- if (everything) tidyselect::everything else function() NULL
-  x <- as_tibble(select(x, vars, other_vars()))
+  x <- as_tibble(select(x, all_of(vars), other_vars()))
 
   # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
@@ -96,7 +96,7 @@ layout_links <- function(
 
   # project feats onto new layout and clean up aux vars (.seq)
   x <- project_links(x) %>%
-    select(.data$y, .data$x, .data$xend, .data$yend, .data$xmin, .data$xmax, everything(), -starts_with(".seq"))
+    select("y", "x", "xend", "yend", "xmin", "xmax", everything(), -starts_with(".seq"))
   x
 }
 
@@ -144,10 +144,10 @@ add_link_tracks <- function(x, tracks, adjacent_only = TRUE) {
 # add bin_id to orig links, required for focus
 as_orig_links <- function(links, seqs) {
   if (!has_vars("bin_id", "bin_id2")) {
-    links <- left_join(links, select(seqs, .data$bin_id, .data$seq_id),
+    links <- left_join(links, select(seqs, "bin_id", "seq_id"),
       by = shared_names(links, "seq_id", "bin_id")
     )
-    links <- left_join(links, select(seqs, bin_id2 = .data$bin_id, seq_id2 = .data$seq_id),
+    links <- left_join(links, select(seqs, bin_id2 = "bin_id", seq_id2 = "seq_id"),
       by = shared_names(links, "seq_id2", "bin_id2")
     )
   }
@@ -170,14 +170,14 @@ add_link_layout_scaffold <- function(x, seqs) {
   scaffold <- seqs %>%
     ungroup() %>%
     select(
-      seq_id = .data$seq_id, bin_id = .data$bin_id, y = .data$y, .seq_strand = .data$strand, .seq_x = .data$x,
-      .seq_start = .data$start, .seq_end = .data$end
+      seq_id = "seq_id", bin_id = "bin_id", y = "y", .seq_strand = "strand", .seq_x = "x",
+      .seq_start = "start", .seq_end = "end"
     )
   scaffold2 <- seqs %>%
     ungroup() %>%
     select(
-      seq_id2 = .data$seq_id, bin_id2 = .data$bin_id, yend = .data$y, .seq_strand2 = .data$strand, .seq_x2 = .data$x,
-      .seq_start2 = .data$start, .seq_end2 = .data$end
+      seq_id2 = "seq_id", bin_id2 = "bin_id", yend = "y", .seq_strand2 = "strand", .seq_x2 = "x",
+      .seq_start2 = "start", .seq_end2 = "end"
     )
 
   x <- inner_join(x, scaffold, by = shared_names(x, "seq_id", "bin_id"))

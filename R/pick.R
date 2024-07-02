@@ -138,7 +138,7 @@ pick_by_tree <- function(x, tree, infer_bin_id = .data$label) {
     filter(.data$isTip) %>%
     arrange(-.data$y) %>%
     transmute(bin_id = {{ infer_bin_id }}) %>%
-    pull(.data$bin_id)
+    pull("bin_id")
 
   # check ID matches
   bin_ids <- get_seqs(x)$bin_id
