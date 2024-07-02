@@ -124,7 +124,7 @@ add_links.gggenomes <- function(x, ..., .adjacent_only = TRUE) {
 
 #' @export
 add_links.gggenomes_layout <- function(x, ..., .adjacent_only = TRUE) {
-  if (length(...) == 0) {
+  if (...length() == 0) {
     return(x)
   }
   dot_exprs <- enexprs(...) # defuse before list(...)

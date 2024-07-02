@@ -28,7 +28,7 @@ add_subfeats.gggenomes <- function(
 add_subfeats.gggenomes_layout <- function(
     x, ..., .track_id = "genes",
     .transform = c("none", "aa2nuc", "nuc2aa")) {
-  if (length(...) == 0) {
+  if (...length() == 0) {
     return(x)
   }
   dot_exprs <- enexprs(...) # defuse before list(...)

@@ -20,7 +20,7 @@ RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Depends:
-    R (>= 3.4.2),
+    R (>= 3.5.0),
     ggplot2 (>= 3.5.0),
 Imports:
     vctrs,

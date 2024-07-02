@@ -32,7 +32,7 @@ add_clusters.gggenomes <- function(x, ..., .track_id = "genes") {
 #' @importFrom rlang .data
 #' @export
 add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes") {
-  if (length(...) == 0) {
+  if (...length() == 0) {
     warn("No clusters data provided - check your arguments")
     return(x)
   }
