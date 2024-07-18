@@ -1,9 +1,8 @@
 pandoc: 3.1.11
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   emales: emales.html
   flip: flip.html
   gggenomes: gggenomes.html
-last_built: 2024-06-28T11:41Z
-
+last_built: 2024-07-18T13:51Z
