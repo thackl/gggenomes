@@ -65,7 +65,7 @@ features in the plot.
 
 ## Inspiration
 
-gggenomes is draws inspiration from some brilliant packages, in particular:
+gggenomes draws inspiration from some brilliant packages, in particular:
 * [gggenes](https://github.com/wilkox/gggenes) by [David Wilkins](https://wilkox.org/)
 * [ggtree](https://guangchuangyu.github.io/software/ggtree/) by Guangchuang Yu
 * [ggraph](https://github.com/thomasp85/ggraph) by [Thomas Lin Pedersen](https://www.data-imaginist.com/about)
