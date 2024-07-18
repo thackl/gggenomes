@@ -2,13 +2,208 @@
 % Please edit documentation in R/geom_gene.R
 \name{geom_gene}
 \alias{geom_gene}
-\title{Draw genes}
+\title{Draw gene models}
 \usage{
-geom_gene(mapping = NULL, data = use_genes(1, type == "CDS"),
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, arrow_size = c(3, 3, 3),
-  chevrons = NULL, ...)
+geom_gene(
+  mapping = NULL,
+  data = genes(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  size = 2,
+  rna_size = size,
+  shape = size,
+  rna_shape = shape,
+  intron_shape = size,
+  intron_types = c("CDS", "mRNA", "tRNA", "tmRNA", "ncRNA", "rRNA"),
+  cds_aes = NULL,
+  rna_aes = NULL,
+  intron_aes = NULL,
+  ...
+)
+}
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used the override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
+}}
+
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[ggplot2:layer_positions]{layer position} documentation.
+}}
+
+\item{na.rm}{remove na values}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
+\item{size, rna_size}{the size of the gene model, aka the height of the
+polygons. \code{rna_size} only applies to non-coding parts of the gene model,
+defaults to size.}
+
+\item{shape, rna_shape}{vector of height and width of the arrow tip, defaults
+to size. If only one value is provided it is recycled. Set '0' to
+deactivates arrow-shaped tips. \code{rna_shape} only applies to non-coding parts
+of the gene model, defaults to shape.}
+
+\item{intron_shape}{single value controlling the kink of the intron line.
+Defaults to size. Set 0 for straight lines between exons.}
+
+\item{intron_types}{introns will only be computed/drawn for features with
+types listed here. Set to "CDS" to plot mRNAs as continous features, and
+set to NA to completely ignore introns.}
+
+\item{cds_aes, rna_aes, intron_aes}{overwrite aesthetics for different model
+parts. Need to be wrapped in \code{\link[ggplot2:aes]{ggplot2::aes()}}. NOTE: These remappings are
+applied after the data has been transformed and mapped by the plot scales
+(see \code{\link[ggplot2:aes_eval]{ggplot2::after_scale()}}). So you need to map between aesthetic names
+(not data columns) and with standardized names, i.e. British English
+spelling. These mappings can be used to dynamically change parts of the
+gene model. For example, to change the color of introns from a hard-coded
+"black" to the same color used to fill the CDS you could specify
+\code{intron_aes=aes(colour = fill)}. By default, \code{rna_aes} is remapped with
+\code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearence than the corresponding CDS but in the
+same color.}
+
+\item{...}{passed to layer params}
+}
+\value{
+A ggplot2 layer with genes.
 }
 \description{
-Draw genes
+Draw coding sequences, mRNAs and other non-coding features. Supports
+multi-exon features. CDS and mRNAs in the same group are plotted together.
+They can therefore also be positioned as a single unit using the \code{position}
+argument.
+}
+\section{Aesthetics}{
+
+\code{geom_gene()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{\link[ggplot2:aes_position]{x}}}
+\item \strong{\code{\link[ggplot2:aes_position]{xend}}}
+\item \strong{\code{\link[ggplot2:aes_position]{y}}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{alpha}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{colour}}
+\item \code{\link[ggplot2:aes_colour_fill_alpha]{fill}}
+\item \code{\link[ggplot2:aes_group_order]{group}}
+\item \code{introns}
+\item \code{\link[ggplot2:aes_linetype_size_shape]{linetype}}
+\item \code{stroke}
+\item \code{type}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+
+'type' and 'group' (mapped to 'type' and 'geom_id' by default) power the
+proper recognition of CDS and their corresponding mRNAs so that they can be
+drawn as one composite object. Overwrite 'group' to plot CDS and mRNAs
+independently.
+
+'introns' (mapped to 'introns') is used to compute intron/exon boundaries.
+Use the parameter \code{intron_types} if you want to disable introns.
+}
+
+\examples{
+gggenomes(genes = emale_genes) +
+  geom_gene()
+
+gggenomes(genes = emale_genes) +
+  geom_gene(aes(fill = as.numeric(gc_content)), position = "strand") +
+  scale_fill_viridis_b()
+
+g0 <- read_gff3(ex("eden-utr.gff"))
+gggenomes(genes = g0) +
+  # all features in the "genes" regardless of type
+  geom_feat(data = feats(genes)) +
+  annotate("text", label = "geom_feat", x = -15, y = .9) + xlim(-20, NA) +
+  # only features in the "genes" of geneish type (implicit `data=genes()`)
+  geom_gene() +
+  geom_gene_tag(aes(label = ifelse(is.na(type), "<NA>", type)), data = genes(.gene_types = NULL)) +
+  annotate("text", label = "geom_gene", x = -15, y = 1) +
+  # control which types are returned from the track
+  geom_gene(aes(y = 1.1), data = genes(.gene_types = c("CDS", "misc_RNA"))) +
+  annotate("text", label = "gene_types", x = -15, y = 1.1) +
+  # control which types can have introns
+  geom_gene(
+    aes(y = 1.2, yend = 1.2),
+    data = genes(.gene_types = c("CDS", "misc_RNA")),
+    intron_types = "misc_RNA"
+  ) +
+  annotate("text", label = "intron_types", x = -15, y = 1.2)
+
+# spliced genes
+library(patchwork)
+gg <- gggenomes(genes = g0)
+gg + geom_gene(position = "pile") +
+  gg + geom_gene(aes(fill = type),
+    position = "pile",
+    shape = 0, intron_shape = 0, color = "white"
+  ) +
+  # some fine-control on cds/rna/intron after_scale aesthetics
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile",
+    size = 2, shape = c(4, 3), rna_size = 2, intron_shape = 4, stroke = 0,
+    cds_aes = aes(fill = "black"), rna_aes = aes(fill = fill),
+    intron_aes = aes(colour = fill, stroke = 2)
+  ) +
+  scale_fill_viridis_d() +
+  # fun with introns
+  gg + geom_gene(aes(fill = geom_id), position = "pile", size = 3, shape = c(4, 4)) +
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile", size = 3, shape = c(4, 4),
+    intron_types = c()
+  ) +
+  gg + geom_gene(aes(fill = geom_id),
+    position = "pile", size = 3, shape = c(4, 4),
+    intron_types = "CDS"
+  )
 }

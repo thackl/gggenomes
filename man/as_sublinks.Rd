@@ -2,42 +2,60 @@
 % Please edit documentation in R/sublinks.R
 \name{as_sublinks}
 \alias{as_sublinks}
-\title{Compute a layout for links linking features}
+\alias{as_sublinks.tbl_df}
+\title{Compute a layout for links linking feats}
 \usage{
-as_sublinks(x, seqs, features, ..., everything = TRUE)
+as_sublinks(x, seqs, feats, ..., everything = TRUE)
+
+\method{as_sublinks}{tbl_df}(
+  x,
+  seqs,
+  feats,
+  ...,
+  everything = TRUE,
+  transform = c("none", "aa2nuc", "nuc2aa"),
+  compute_layout = TRUE
+)
 }
 \arguments{
 \item{x}{sublink data convertible to a link layout}
 
-\item{seqs}{the sequence layout the linked features map onto.}
+\item{seqs}{the sequence layout the linked feats map onto.}
 
-\item{features}{the features the sublinks map onto.}
+\item{feats}{the feats the sublinks map onto.}
 
-\item{...}{passed on to `layout_seqs()`}
+\item{...}{passed on to \code{layout_seqs()}
+spaces, i.e. if matching nucleotide-level annotations to protein level
+annotations, e.g. genes and protein blast results.}
 
 \item{everything}{set to FALSE to drop optional columns}
 
-\item{transform}{use if features and sublinks are in different coordinate
-spaces, i.e. if matching nucleotide-level annotations to protein level
-annotations, e.g. genes and protein blast results.}
+\item{transform}{use if feats and sublinks are in different coordinate}
+
+\item{compute_layout}{set to FALSE to skip layout computation}
 }
 \value{
 a tbl_df with plot coordinates
 }
 \description{
-Reads sublinks connecting features such as all-vs-all protein blasts into a
-tidy dataframe. sublinks need to be associated with an already added feature
+Reads sublinks connecting feats such as all-vs-all protein blasts into a
+tidy dataframe. sublinks need to be associated with an already added feat
 track. The sublinks are internally converted into a regular link track by
-mapping the feature-based `start` and `end` coordinates to coordinates
-relative to the sequences underlying the linked features.
+mapping the feat-based \code{start} and \code{end} coordinates to coordinates
+relative to the sequences underlying the linked feats.
 }
 \details{
-The only obligatory columns are `feature_id1` & `feature_id2`. Also
-recognized are `start1/end1`, `start2/end2` and `strand`.
+The only obligatory columns are \code{feat_id} & \code{feat_id2}. Also
+recognized are \code{start/end}, \code{start2/end2} and \code{strand}.
 
-Note `start` and `end` for every record will be coerced so that `start <
-end`. If no `strand` was provided, `strand` will be added and set to "+" for
-records that initially had `start1 < end1 == start2 < end2` and "-"
-otherwise. If `strand` was provided, `start` and `end` will be reorganized to
-conform with `start < end` without any additional effect.
+Note \code{start} and \code{end} for every record will be coerced so that \code{start < end}. If no \code{strand} was provided, \code{strand} will be added and set to "+" for
+records that initially had \verb{start < end == start2 < end2} and "-"
+otherwise. If \code{strand} was provided, \code{start} and \code{end} will be reorganized to
+conform with \code{start < end} without any additional effect.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{as_sublinks(tbl_df)}: Convert a list of tibbles into a link layout
+
+}}
+\keyword{internal}
