@@ -97,7 +97,7 @@ read_gff3 <- function(
     ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$.row_index) %>%
-    dplyr::select(-.data$.row_index)
+    dplyr::select(-".row_index")
 
   # band aid fix for collapsed CDS/cDNA_match - set score and phase NA because
   # it differs for different spans and we don't store this as a list col
@@ -117,7 +117,7 @@ read_gff3 <- function(
 
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, .data$type == "exon") %>%
-    select(exon_id = .data$feat_id, .data$start, .data$end, feat_id = .data$parent_ids) %>%
+    select(exon_id = "feat_id", "start", "end", feat_id = "parent_ids") %>%
     tidyr::unchop(.data$feat_id) %>%
     dplyr::group_by(.data$feat_id) %>%
     summarize(introns = list(coords2introns(.data$start, .data$end, sort_exons)))
@@ -128,7 +128,7 @@ read_gff3 <- function(
     tidyr::unchop(.data$feat_id)
 
   mrna_cds_introns <- filter(x, .data$type == "CDS") %>%
-    select(feat_id = .data$parent_ids, .data$introns) %>%
+    select(feat_id = "parent_ids", "introns") %>%
     tidyr::unchop(.data$feat_id) %>%
     filter(!.data$feat_id %in% mrna_exon_introns$feat_id) %>%
     left_join(mrna_cds_five_prime, by = "feat_id") %>%
@@ -139,9 +139,9 @@ read_gff3 <- function(
     mutate(feat_id = as.character(.data$feat_id))
 
   # unsert mRNA introns into data
-  x <- left_join(x, rename(mrna_introns, mrna_introns.. = .data$introns), by = "feat_id") %>%
+  x <- left_join(x, rename(mrna_introns, mrna_introns.. = "introns"), by = "feat_id") %>%
     mutate(introns = ifelse(purrr::map_lgl(.data$mrna_introns.., is.null), .data$introns, .data$mrna_introns..)) %>%
-    select(-.data$mrna_introns..)
+    select(-"mrna_introns..")
 
   # make one mRNA per CDS (except operons), connect with 'geom_id'
   # 1-1 ratio makes it easy to plot mRNA-CDS gene models
@@ -150,14 +150,14 @@ read_gff3 <- function(
   # TODO single geom_id for operon mRNAs with multiple CDS kids
   cds_geom_ids <- filter(x, .data$type == "CDS") %>% transmute(geom_id = .data$feat_id, feat_id = .data$feat_id)
   mrna_geom_ids <- filter(x, .data$type == "CDS") %>%
-    select(geom_id = .data$feat_id, feat_id = .data$parent_ids) %>%
+    select(geom_id = "feat_id", feat_id = "parent_ids") %>%
     tidyr::unchop(.data$feat_id) %>%
     filter(.data$feat_id %in% mrna_ids)
   # multiplies mRNAs that have multiple CDS kids (intended)
   x <- left_join(x, bind_rows(cds_geom_ids, mrna_geom_ids), by = "feat_id")
 
   # nice order of things
-  x <- relocate(x, .data$seq_id, .data$start, .data$end, .data$strand)
+  x <- relocate(x, "seq_id", "start", "end", "strand")
 
   # print a summary of the feats
   inform("Features read")
@@ -180,13 +180,13 @@ add_mrna_for_exons <- function(x, col_names) {
   }
 
   mrnas <- exons %>%
-    dplyr::select(all_of(col_names[1:8]), feat_id = .data$parent_ids, .data$.row_index) %>%
+    dplyr::select(all_of(col_names[1:8]), feat_id = "parent_ids", ".row_index") %>%
     dplyr::group_by(.data$feat_id) %>%
     dplyr::summarize(
       dplyr::across(c(-"start", -"end"), first),
       start = min(.data$start), end = max(.data$end)
     ) %>%
-    dplyr::select(all_of(col_names[1:8]), .data$feat_id, .data$.row_index) %>%
+    dplyr::select(all_of(col_names[1:8]), "feat_id", ".row_index") %>%
     dplyr::mutate(
       type = "mRNA", parent_ids = NA_character_, name = NA_character_,
       parent_ids = as.list(.data$parent_ids)
@@ -195,7 +195,7 @@ add_mrna_for_exons <- function(x, col_names) {
   # insert mrnas right before exons
   x2 <- bind_rows(mrnas, x2) %>%
     arrange(.data$.row_index) %>%
-    select(-.data$.row_index)
+    select(-".row_index")
   x2
 }
 
@@ -249,7 +249,7 @@ tidy_attributes <- function(x, is_gff2 = FALSE, keep_attr = FALSE, fix_augustus_
 
   # make sure these columns always exist in gff-based table
   d <- introduce(d, feat_id = NA_character_, parent_ids = NA_character_, name = NA_character_) %>%
-    relocate(.data$feat_id, .data$parent_ids, .data$name)
+    relocate("feat_id", "parent_ids", "name")
 
   if (keep_attr) {
     x <- bind_cols(x[, 1:8], d, x[, 9])

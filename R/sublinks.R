@@ -27,7 +27,7 @@ add_sublinks.gggenomes <- function(
 add_sublinks.gggenomes_layout <- function(
     x, ..., .track_id = "genes",
     .transform = c("aa2nuc", "none", "nuc2aa")) {
-  if (!has_dots()) {
+  if (...length() == 0) {
     return(x)
   }
   dot_exprs <- enexprs(...) # defuse before list(...)
@@ -115,16 +115,16 @@ as_sublinks.tbl_df <- function(
 
     x <- x %>%
       left_join(select(feats,
-        feat_id = .data$feat_id, seq_id = .data$seq_id, .feat_start = .data$start,
-        .feat_end = .data$end, .feat_strand = .data$strand
+         "feat_id", "seq_id", .feat_start = "start",
+        .feat_end = "end", .feat_strand = "strand"
       ), by = shared_names(x, "seq_id", "feat_id")) %>%
       mutate(
         start = .data$.feat_start, end = .data$.feat_end,
         .feat_start = NULL, .feat_end = NULL
       ) %>%
       left_join(select(feats,
-        feat_id2 = .data$feat_id, seq_id2 = .data$seq_id, .feat_start = .data$start,
-        .feat_end = .data$end, .feat_strand2 = .data$strand
+        feat_id2 = "feat_id", seq_id2 = "seq_id", .feat_start = "start",
+        .feat_end = "end", .feat_strand2 = "strand"
       ), by = shared_names(x, "seq_id2", "feat_id2")) %>%
       mutate(
         start2 = .data$.feat_start, end2 = .data$.feat_end,
@@ -134,11 +134,11 @@ as_sublinks.tbl_df <- function(
 
     vars <- c("feat_id", "start", "end", "feat_id2", "start2", "end2")
     other_vars <- if (everything) tidyselect::everything else function() NULL
-    x <- as_tibble(select(x, vars, other_vars()))
+    x <- as_tibble(select(x, all_of(vars), other_vars()))
   } else {
     vars <- c("feat_id", "start", "end", "feat_id2", "start2", "end2")
     other_vars <- if (everything) tidyselect::everything else function() NULL
-    x <- as_tibble(select(x, vars, other_vars()))
+    x <- as_tibble(select(x, all_of(vars), other_vars()))
 
     x %<>% mutate_if(is.factor, as.character)
     if (!has_name(x, "strand")) {
@@ -159,8 +159,8 @@ as_sublinks.tbl_df <- function(
     }
 
     # map start/end from features to seqs
-    feats <- select(feats, .data$feat_id, .data$seq_id, .data$bin_id,
-      .feat_start = .data$start, .feat_end = .data$end, .feat_strand = .data$strand
+    feats <- select(feats, "feat_id", "seq_id", "bin_id",
+      .feat_start = "start", .feat_end = "end", .feat_strand = "strand"
     )
     x <- x %>%
       inner_join(feats, by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%

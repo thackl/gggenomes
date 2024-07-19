@@ -44,7 +44,7 @@ synteny_to_link <- function(synteny_obj) {
         end2 = .data$end2,
         length2 = seqlengths[iter + 1, ]$length
       ) %>%
-      dplyr::select(.data$seq_id, .data$start, .data$end, .data$length, .data$strand, .data$seq_id2, .data$start2, .data$end2, .data$length2)
+      dplyr::select("seq_id", "start", "end", "length", "strand", "seq_id2", "start2", "end2", "length2")
     out_df <- bind_rows(out_df, tmp_df)
   }
   out_df
