@@ -79,5 +79,6 @@ figures:
   fig.width: 10
   fig.height: 5
 template:
+  bootstrap: 5
   params:
     bootswatch: cosmo
