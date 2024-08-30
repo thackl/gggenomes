@@ -37,7 +37,7 @@ read_feats <- function(files, .id = "file_id", format = NULL, parser = NULL, ...
 #' @describeIn read_tracks read files as subfeatures mapping onto other features
 read_subfeats <- function(files, .id = "file_id", format = NULL, parser = NULL, ...) {
   feats <- read_context(files, "feats", .id = .id, format = format, parser = parser, ...)
-  rename(feats, feat_id = .data$seq_id, feat_id2 = .data$seq_id2)
+  rename(feats, feat_id = "seq_id", feat_id2 = "seq_id2")
 }
 
 #' @export
@@ -45,7 +45,7 @@ read_subfeats <- function(files, .id = "file_id", format = NULL, parser = NULL, 
 #' @describeIn read_tracks read files as links connecting sequences
 read_links <- function(files, .id = "file_id", format = NULL, parser = NULL, ...) {
   feats <- read_context(files, "links", .id = .id, format = format, parser = parser, ...)
-  rename(feats, seq_id = .data$seq_id, start = .data$start, end = .data$end)
+  rename(feats, seq_id = "seq_id", start = "start", end = "end")
 }
 
 #' @export
@@ -53,7 +53,7 @@ read_links <- function(files, .id = "file_id", format = NULL, parser = NULL, ...
 #' @describeIn read_tracks read files as sublinks connecting features
 read_sublinks <- function(files, .id = "file_id", format = NULL, parser = NULL, ...) {
   feats <- read_context(files, "links", .id = .id, format = format, parser = parser, ...)
-  rename(feats, feat_id = .data$seq_id, start = .data$start, end = .data$end, feat_id2 = .data$seq_id2)
+  rename(feats, feat_id = "seq_id", start = "start", end = "end", feat_id2 = "seq_id2")
 }
 
 #' Swap query and subject in blast-like feature tables

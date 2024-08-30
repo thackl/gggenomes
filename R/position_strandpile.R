@@ -139,7 +139,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
           ifelse(is_reverse, -1, 1)) %>%
         dplyr::ungroup()
 
-      data <- left_join(data, select(data_grouped, y, group, yoff), by = c("y", "group"))
+      data <- left_join(data, select(data_grouped, "y", "group", "yoff"), by = c("y", "group"))
     } else {
       data <- data %>%
         dplyr::mutate(

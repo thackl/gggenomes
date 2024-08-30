@@ -238,7 +238,7 @@ makeContent.genetree <- function(x) {
   coord_flipped <- FALSE
   if (names(data)[1] == "x") {
     coord_flipped <- TRUE
-    data <- rename(data, y = .data$x, x = .data$y, xend = .data$yend)
+    data <- rename(data, y = "x", x = "y", xend = "yend")
   }
 
   s <- x$sizes
