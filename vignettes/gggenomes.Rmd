@@ -159,8 +159,11 @@ gggenomes(ex("emales/emales.gff")) + geom_gene()
 gbk_phages <- c(
   PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
   PSSP3 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz")
+
+try( # capture unavailable web resources gracefully for CRAN https://github.com/thackl/gggenomes/issues/197
 gggenomes(gbk_phages) + geom_gene() +
   geom_seq_label()
+)
 ```
 
 
