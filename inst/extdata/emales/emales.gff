@@ -1,0 +1,150 @@
+##gff-version 3
+##sequence-region BVI_008A 1 26820
+##sequence-region BVI_069 1 26808
+##sequence-region Cflag_017B 1 21311
+##sequence-region E4-10_086 1 20642
+##sequence-region E4-10_112 1 26856
+##sequence-region RCC970_016B 1 20152
+BVI_008A	MFG	CDS	568	822	.	+	0	ID=BVI_008A_0001;width=255;gc_content=0.294118
+BVI_008A	MFG	CDS	1040	2668	.	-	0	ID=BVI_008A_0002;Name=MV19;Note=putative protease;width=1629;gc_content=0.397176
+BVI_008A	MFG	CDS	2768	3028	.	-	0	ID=BVI_008A_0003;width=261;gc_content=0.325671
+BVI_008A	MFG	CDS	3139	4776	.	-	0	ID=BVI_008A_0004;width=1638;gc_content=0.399267
+BVI_008A	MFG	CDS	4810	5370	.	-	0	ID=BVI_008A_0005;Name=Pro;Note=cysteine protease;width=561;gc_content=0.404635
+BVI_008A	MFG	CDS	5397	6065	.	-	0	ID=BVI_008A_0006;Name=MV13_2;Note=putative lipase;width=669;gc_content=0.38864
+BVI_008A	MFG	CDS	6075	6683	.	-	0	ID=BVI_008A_0007;Name=YSLV5_13;width=609;gc_content=0.410509
+BVI_008A	MFG	CDS	6541	6867	.	-	0	ID=BVI_008A_0008;width=327;gc_content=0.397554
+BVI_008A	MFG	CDS	6955	7788	.	+	0	ID=BVI_008A_0009;Name=MV14;Note=MV14, V21;width=834;gc_content=0.382494
+BVI_008A	MFG	CDS	7998	9026	.	+	0	ID=BVI_008A_0010;Name=ATPase;Note=packaging ATPase;width=1029;gc_content=0.378037
+BVI_008A	MFG	CDS	9096	10937	.	-	0	ID=BVI_008A_0011;Name=MCP;Note=major capsid protein;width=1842;gc_content=0.408795
+BVI_008A	MFG	CDS	17148	18020	.	-	0	ID=BVI_008A_0015;Name=penton;width=873;gc_content=0.396334
+BVI_008A	MFG	CDS	18121	18741	.	-	0	ID=BVI_008A_0016;Name=MV12;Note=MV12;width=621;gc_content=0.388084
+BVI_008A	MFG	CDS	18832	19893	.	+	0	ID=BVI_008A_0017;Name=rve-int;Note=rve super family integrase;width=1062;gc_content=0.383239
+BVI_008A	MFG	CDS	19895	21115	.	-	0	ID=BVI_008A_0018;Name=pPolB;Note=protein-primed B-family DNA polymerase;width=1221;gc_content=0.387387
+BVI_008A	MFG	CDS	21176	21535	.	-	0	ID=BVI_008A_0019;width=360;gc_content=0.363889
+BVI_008A	MFG	CDS	21587	22408	.	-	0	ID=BVI_008A_0020;Name=pri-hel;width=822;gc_content=0.351582
+BVI_008A	MFG	CDS	22395	23975	.	-	0	ID=BVI_008A_0021;Name=pri-hel;Note=helicase;width=1581;gc_content=0.296015
+BVI_008A	MFG	CDS	24079	24288	.	-	0	ID=BVI_008A_0022;width=210;gc_content=0.314286
+BVI_008A	MFG	CDS	24342	24965	.	-	0	ID=BVI_008A_0023;width=624;gc_content=0.415064
+BVI_008A	MFG	CDS	24997	25248	.	-	0	ID=BVI_008A_0024;width=252;gc_content=0.384921
+BVI_008A	MFG	CDS	25274	25609	.	-	0	ID=BVI_008A_0025;Name=Tlr6F;Note=Tlr 6F-like protein;width=336;gc_content=0.383929
+BVI_008A	MFG	CDS	25654	25803	.	-	0	ID=BVI_008A_0026;width=150;gc_content=0.32
+BVI_008A	MFG	CDS	25910	26308	.	-	0	ID=BVI_008A_0027;width=399;gc_content=0.373434
+BVI_069	MFG	CDS	545	799	.	+	0	ID=BVI_069_0001;width=255;gc_content=0.294118
+BVI_069	MFG	CDS	1014	2642	.	-	0	ID=BVI_069_0002;Name=MV19;Note=putative protease;width=1629;gc_content=0.398404
+BVI_069	MFG	CDS	2741	3001	.	-	0	ID=BVI_069_0003;width=261;gc_content=0.325671
+BVI_069	MFG	CDS	3113	4750	.	-	0	ID=BVI_069_0004;width=1638;gc_content=0.397436
+BVI_069	MFG	CDS	4784	5344	.	-	0	ID=BVI_069_0005;Name=Pro;Note=cysteine protease;width=561;gc_content=0.406417
+BVI_069	MFG	CDS	5371	6039	.	-	0	ID=BVI_069_0006;Name=MV13_2;Note=putative lipase;width=669;gc_content=0.38864
+BVI_069	MFG	CDS	6049	6840	.	-	0	ID=BVI_069_0007;Name=YSLV5_13;width=792;gc_content=0.401515
+BVI_069	MFG	CDS	6928	7821	.	+	0	ID=BVI_069_0008;Name=MV14;Note=MV14, V21;width=894;gc_content=0.380313
+BVI_069	MFG	CDS	14355	15122	.	+	0	ID=BVI_069_0012;Name=ATPase;Note=packaging ATPase;width=768;gc_content=0.38151
+BVI_069	MFG	CDS	15043	15384	.	+	0	ID=BVI_069_0013;width=342;gc_content=0.365497
+BVI_069	MFG	CDS	15454	17274	.	-	0	ID=BVI_069_0014;Name=MCP;Note=major capsid protein;width=1821;gc_content=0.410763
+BVI_069	MFG	CDS	17444	17887	.	-	0	ID=BVI_069_0015;Name=penton;Note=penton;width=444;gc_content=0.38964
+BVI_069	MFG	CDS	17987	18229	.	-	0	ID=BVI_069_0016;width=243;gc_content=0.374486
+BVI_069	MFG	CDS	18331	18684	.	-	0	ID=BVI_069_0017;Name=MV12;Note=MV12;width=354;gc_content=0.378531
+BVI_069	MFG	CDS	18539	18949	.	-	0	ID=BVI_069_0018;Name=MV12;Note=MV12;width=411;gc_content=0.386861
+BVI_069	MFG	CDS	19076	19231	.	+	0	ID=BVI_069_0019;width=156;gc_content=0.25641
+BVI_069	MFG	CDS	19240	19518	.	+	0	ID=BVI_069_0020;width=279;gc_content=0.301075
+BVI_069	MFG	CDS	19554	20234	.	-	0	ID=BVI_069_0021;Name=endo;width=681;gc_content=0.305433
+BVI_069	MFG	CDS	20376	21437	.	+	0	ID=BVI_069_0022;Name=rve-int;Note=rve super family integrase;width=1062;gc_content=0.382298
+BVI_069	MFG	CDS	21439	22659	.	-	0	ID=BVI_069_0023;Name=pPolB;Note=protein-primed B-family DNA polymerase;width=1221;gc_content=0.382473
+BVI_069	MFG	CDS	22720	23079	.	-	0	ID=BVI_069_0024;width=360;gc_content=0.355556
+BVI_069	MFG	CDS	23129	25123	.	-	0	ID=BVI_069_0025;Name=pri-hel;Note=helicase;width=1995;gc_content=0.417043
+BVI_069	MFG	CDS	25229	25438	.	-	0	ID=BVI_069_0026;width=210;gc_content=0.404762
+BVI_069	MFG	CDS	25472	25777	.	-	0	ID=BVI_069_0027;width=306;gc_content=0.366013
+BVI_069	MFG	CDS	25771	26115	.	-	0	ID=BVI_069_0028;Name=Tnp;Note=IS3 family transposase;width=345;gc_content=0.298551
+BVI_069	MFG	CDS	26203	26391	.	+	0	ID=BVI_069_0029;width=189;gc_content=0.433862
+Cflag_017B	MFG	CDS	538	867	.	+	0	ID=Cflag_017B_0001;width=330;gc_content=0.30303
+Cflag_017B	MFG	CDS	1215	1634	.	+	0	ID=Cflag_017B_0002;width=420;gc_content=0.32619
+Cflag_017B	MFG	CDS	2129	3667	.	-	0	ID=Cflag_017B_0003;Name=MV19;Note=putative protease;width=1539;gc_content=0.40026
+Cflag_017B	MFG	CDS	3766	4026	.	-	0	ID=Cflag_017B_0004;width=261;gc_content=0.325671
+Cflag_017B	MFG	CDS	4137	5774	.	-	0	ID=Cflag_017B_0005;width=1638;gc_content=0.396825
+Cflag_017B	MFG	CDS	5808	6368	.	-	0	ID=Cflag_017B_0006;Name=Pro;Note=cysteine protease;width=561;gc_content=0.406417
+Cflag_017B	MFG	CDS	6395	7063	.	-	0	ID=Cflag_017B_0007;Name=MV13_2;Note=putative lipase;width=669;gc_content=0.38864
+Cflag_017B	MFG	CDS	7073	7864	.	-	0	ID=Cflag_017B_0008;Name=YSLV5_13;width=792;gc_content=0.402778
+Cflag_017B	MFG	CDS	7952	8845	.	+	0	ID=Cflag_017B_0009;Name=MV14;Note=MV14, V21;width=894;gc_content=0.38255
+Cflag_017B	MFG	CDS	8992	10020	.	+	0	ID=Cflag_017B_0010;Name=ATPase;Note=packaging ATPase;width=1029;gc_content=0.376093
+Cflag_017B	MFG	CDS	10090	11955	.	-	0	ID=Cflag_017B_0011;Name=MCP;Note=major capsid protein;width=1866;gc_content=0.410504
+Cflag_017B	MFG	CDS	12103	12975	.	-	0	ID=Cflag_017B_0012;Name=penton;Note=penton;width=873;gc_content=0.396334
+Cflag_017B	MFG	CDS	13076	13693	.	-	0	ID=Cflag_017B_0013;Name=MV12;width=618;gc_content=0.389968
+Cflag_017B	MFG	CDS	13815	14429	.	-	0	ID=Cflag_017B_0014;width=615;gc_content=0.268293
+Cflag_017B	MFG	CDS	14795	15856	.	+	0	ID=Cflag_017B_0015;Name=rve-int;Note=rve super family integrase;width=1062;gc_content=0.382298
+Cflag_017B	MFG	CDS	15858	17078	.	-	0	ID=Cflag_017B_0016;Name=pPolB;Note=protein-primed B-family DNA polymerase;width=1221;gc_content=0.386568
+Cflag_017B	MFG	CDS	17139	17498	.	-	0	ID=Cflag_017B_0017;width=360;gc_content=0.358333
+Cflag_017B	MFG	CDS	17549	19495	.	-	0	ID=Cflag_017B_0018;Name=pri-hel;Note=primase-helicase;width=1947;gc_content=0.382126
+Cflag_017B	MFG	CDS	19606	19815	.	-	0	ID=Cflag_017B_0019;width=210;gc_content=0.338095
+Cflag_017B	MFG	CDS	19860	20195	.	-	0	ID=Cflag_017B_0020;Name=Tlr6F;Note=Tlr 6F-like protein;width=336;gc_content=0.392857
+Cflag_017B	MFG	CDS	20282	20578	.	+	0	ID=Cflag_017B_0021;width=297;gc_content=0.309764
+Cflag_017B	MFG	CDS	20445	20774	.	-	0	ID=Cflag_017B_0022;width=330;gc_content=0.30303
+E4-10_086	MFG	CDS	543	941	.	+	0	ID=E4-10_086_0001;width=399;gc_content=0.368421
+E4-10_086	MFG	CDS	1242	1577	.	+	0	ID=E4-10_086_0002;Name=Tlr6F;Note=Tlr 6F-like protein;width=336;gc_content=0.39881
+E4-10_086	MFG	CDS	1622	1831	.	+	0	ID=E4-10_086_0003;width=210;gc_content=0.338095
+E4-10_086	MFG	CDS	1942	3933	.	+	0	ID=E4-10_086_0004;Name=pri-hel;Note=helicase;width=1992;gc_content=0.378514
+E4-10_086	MFG	CDS	3985	4344	.	+	0	ID=E4-10_086_0005;width=360;gc_content=0.363889
+E4-10_086	MFG	CDS	4405	5625	.	+	0	ID=E4-10_086_0006;Name=pPolB;Note=protein-primed B-family DNA polymerase;width=1221;gc_content=0.384111
+E4-10_086	MFG	CDS	5627	6688	.	-	0	ID=E4-10_086_0007;Name=rve-int;Note=rve super family integrase;width=1062;gc_content=0.383239
+E4-10_086	MFG	CDS	7054	7668	.	+	0	ID=E4-10_086_0008;width=615;gc_content=0.263415
+E4-10_086	MFG	CDS	7789	8406	.	+	0	ID=E4-10_086_0009;Name=MV12;Note=MV12;width=618;gc_content=0.389968
+E4-10_086	MFG	CDS	8507	9379	.	+	0	ID=E4-10_086_0010;Name=penton;Note=penton;width=873;gc_content=0.394044
+E4-10_086	MFG	CDS	9527	11392	.	+	0	ID=E4-10_086_0011;Name=MCP;Note=major capsid protein;width=1866;gc_content=0.41104
+E4-10_086	MFG	CDS	11462	12490	.	-	0	ID=E4-10_086_0012;Name=ATPase;Note=packaging ATPase;width=1029;gc_content=0.378037
+E4-10_086	MFG	CDS	12637	13530	.	-	0	ID=E4-10_086_0013;Name=MV14;Note=MV14, V21;width=894;gc_content=0.381432
+E4-10_086	MFG	CDS	13618	14409	.	+	0	ID=E4-10_086_0014;Name=YSLV5_13;width=792;gc_content=0.401515
+E4-10_086	MFG	CDS	14419	15087	.	+	0	ID=E4-10_086_0015;Name=MV13_2;Note=putative lipase;width=669;gc_content=0.38864
+E4-10_086	MFG	CDS	15114	15674	.	+	0	ID=E4-10_086_0016;Name=Pro;Note=cysteine protease;width=561;gc_content=0.4082
+E4-10_086	MFG	CDS	15708	17345	.	+	0	ID=E4-10_086_0017;width=1638;gc_content=0.397436
+E4-10_086	MFG	CDS	17456	17716	.	+	0	ID=E4-10_086_0018;width=261;gc_content=0.325671
+E4-10_086	MFG	CDS	17815	18294	.	+	0	ID=E4-10_086_0019;Name=MV19;Note=putative protease;width=480;gc_content=0.36875
+E4-10_086	MFG	CDS	18221	19444	.	+	0	ID=E4-10_086_0020;Name=MV19;Note=putative protease;width=1224;gc_content=0.409314
+E4-10_086	MFG	CDS	19658	19912	.	-	0	ID=E4-10_086_0021;width=255;gc_content=0.294118
+E4-10_112	MFG	CDS	535	1158	.	+	0	ID=E4-10_112_0001;width=624;gc_content=0.415064
+E4-10_112	MFG	CDS	1212	1421	.	+	0	ID=E4-10_112_0002;width=210;gc_content=0.319048
+E4-10_112	MFG	CDS	1525	2853	.	+	0	ID=E4-10_112_0003;Name=pri-hel;Note=primase-helicase;width=1329;gc_content=0.297968
+E4-10_112	MFG	CDS	9511	10332	.	+	0	ID=E4-10_112_0007;Name=pri-hel;width=822;gc_content=0.349148
+E4-10_112	MFG	CDS	10382	10741	.	+	0	ID=E4-10_112_0008;width=360;gc_content=0.355556
+E4-10_112	MFG	CDS	10802	12022	.	+	0	ID=E4-10_112_0009;Name=pPolB;Note=protein-primed B-family DNA polymerase;width=1221;gc_content=0.384111
+E4-10_112	MFG	CDS	12024	13085	.	-	0	ID=E4-10_112_0010;Name=rve-int;Note=rve super family integrase;width=1062;gc_content=0.383239
+E4-10_112	MFG	CDS	13451	14026	.	+	0	ID=E4-10_112_0011;width=576;gc_content=0.262153
+E4-10_112	MFG	CDS	14187	14804	.	+	0	ID=E4-10_112_0012;Name=MV12;Note=MV12;width=618;gc_content=0.389968
+E4-10_112	MFG	CDS	14905	15777	.	+	0	ID=E4-10_112_0013;Name=penton;Note=penton;width=873;gc_content=0.394044
+E4-10_112	MFG	CDS	15925	17766	.	+	0	ID=E4-10_112_0014;Name=MCP;Note=major capsid protein;width=1842;gc_content=0.408252
+E4-10_112	MFG	CDS	17836	18477	.	-	0	ID=E4-10_112_0015;Name=ATPase;width=642;gc_content=0.361371
+E4-10_112	MFG	CDS	18479	18865	.	-	0	ID=E4-10_112_0016;Name=ATPase;width=387;gc_content=0.400517
+E4-10_112	MFG	CDS	19013	19906	.	-	0	ID=E4-10_112_0017;Name=MV14;Note=MV14, V21;width=894;gc_content=0.381432
+E4-10_112	MFG	CDS	19994	20359	.	+	0	ID=E4-10_112_0018;width=366;gc_content=0.393443
+E4-10_112	MFG	CDS	20301	20786	.	+	0	ID=E4-10_112_0019;Name=YSLV5_13;width=486;gc_content=0.409465
+E4-10_112	MFG	CDS	20796	21275	.	+	0	ID=E4-10_112_0020;Name=MV13_2;Note=putative lipase;width=480;gc_content=0.3875
+E4-10_112	MFG	CDS	21136	21465	.	+	0	ID=E4-10_112_0021;Name=MV13_2;Note=putative lipase;width=330;gc_content=0.378788
+E4-10_112	MFG	CDS	21492	22052	.	+	0	ID=E4-10_112_0022;Name=Pro;Note=cysteine protease;width=561;gc_content=0.409982
+E4-10_112	MFG	CDS	22086	23723	.	+	0	ID=E4-10_112_0023;width=1638;gc_content=0.397436
+E4-10_112	MFG	CDS	23834	24094	.	+	0	ID=E4-10_112_0024;width=261;gc_content=0.325671
+E4-10_112	MFG	CDS	24193	25821	.	+	0	ID=E4-10_112_0025;Name=MV19;Note=putative protease;width=1629;gc_content=0.394107
+E4-10_112	MFG	CDS	26036	26290	.	-	0	ID=E4-10_112_0026;width=255;gc_content=0.294118
+RCC970_016B	MFG	CDS	538	867	.	+	0	ID=RCC970_016B_0001;width=330;gc_content=0.30303
+RCC970_016B	MFG	CDS	923	1072	.	+	0	ID=RCC970_016B_0002;width=150;gc_content=0.326667
+RCC970_016B	MFG	CDS	1117	1452	.	+	0	ID=RCC970_016B_0003;Name=Tlr6F;Note=Tlr 6F-like protein;width=336;gc_content=0.392857
+RCC970_016B	MFG	CDS	1497	1706	.	+	0	ID=RCC970_016B_0004;width=210;gc_content=0.338095
+RCC970_016B	MFG	CDS	1817	2323	.	+	0	ID=RCC970_016B_0005;Name=pri-hel;Note=helicase;width=507;gc_content=0.378698
+RCC970_016B	MFG	CDS	2324	3763	.	+	0	ID=RCC970_016B_0006;Name=pri-hel;Note=primase-helicase;width=1440;gc_content=0.382639
+RCC970_016B	MFG	CDS	3814	4173	.	+	0	ID=RCC970_016B_0007;width=360;gc_content=0.358333
+RCC970_016B	MFG	CDS	4234	5454	.	+	0	ID=RCC970_016B_0008;Name=pPolB;Note=protein-primed B-family DNA polymerase;width=1221;gc_content=0.385749
+RCC970_016B	MFG	CDS	5456	6517	.	-	0	ID=RCC970_016B_0009;Name=rve-int;Note=rve super family integrase;width=1062;gc_content=0.382298
+RCC970_016B	MFG	CDS	6883	7497	.	+	0	ID=RCC970_016B_0010;width=615;gc_content=0.268293
+RCC970_016B	MFG	CDS	7619	8236	.	+	0	ID=RCC970_016B_0011;Name=MV12;width=618;gc_content=0.389968
+RCC970_016B	MFG	CDS	8337	9209	.	+	0	ID=RCC970_016B_0012;Name=penton;Note=penton;width=873;gc_content=0.396334
+RCC970_016B	MFG	CDS	9357	9953	.	+	0	ID=RCC970_016B_0013;Name=MCP;Note=major capsid protein;width=597;gc_content=0.407035
+RCC970_016B	MFG	CDS	9953	10270	.	+	0	ID=RCC970_016B_0014;Name=MCP;Note=major capsid protein;width=318;gc_content=0.399371
+RCC970_016B	MFG	CDS	10270	11223	.	+	0	ID=RCC970_016B_0015;Name=MCP;Note=major capsid protein;width=954;gc_content=0.418239
+RCC970_016B	MFG	CDS	11293	11838	.	-	0	ID=RCC970_016B_0016;Name=ATPase;Note=packaging ATPase;width=546;gc_content=0.3663
+RCC970_016B	MFG	CDS	11878	12324	.	-	0	ID=RCC970_016B_0017;Name=ATPase;Note=packaging ATPase;width=447;gc_content=0.389262
+RCC970_016B	MFG	CDS	12471	13364	.	-	0	ID=RCC970_016B_0018;Name=MV14;Note=MV14, V21;width=894;gc_content=0.38255
+RCC970_016B	MFG	CDS	13452	14165	.	+	0	ID=RCC970_016B_0019;Name=YSLV5_13;width=714;gc_content=0.403361
+RCC970_016B	MFG	CDS	14203	14433	.	-	0	ID=RCC970_016B_0020;width=231;gc_content=0.393939
+RCC970_016B	MFG	CDS	14460	14879	.	+	0	ID=RCC970_016B_0021;Name=MV13_2;Note=putative lipase;width=420;gc_content=0.378571
+RCC970_016B	MFG	CDS	14999	15244	.	+	0	ID=RCC970_016B_0022;width=246;gc_content=0.390244
+RCC970_016B	MFG	CDS	15540	15992	.	+	0	ID=RCC970_016B_0023;width=453;gc_content=0.377483
+RCC970_016B	MFG	CDS	17287	17547	.	+	0	ID=RCC970_016B_0024;width=261;gc_content=0.325671
+RCC970_016B	MFG	CDS	17646	18032	.	+	0	ID=RCC970_016B_0025;Name=MV19;Note=putative protease;width=387;gc_content=0.366925
+RCC970_016B	MFG	CDS	17884	18804	.	+	0	ID=RCC970_016B_0026;Name=MV19;Note=putative protease;width=921;gc_content=0.411509
+RCC970_016B	MFG	CDS	18767	19273	.	+	0	ID=RCC970_016B_0027;Name=MV19;Note=putative protease;width=507;gc_content=0.404339

@@ -3,3 +3,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^doc$
+^Meta$
+^R-deprecated$
+^data-raw$
+^pkgdown$
+^LICENSE.md$
+^\.vscode$

@@ -2,11 +2,116 @@
 % Please edit documentation in R/geom.R
 \name{geom_seq_label}
 \alias{geom_seq_label}
-\title{draw feature labels}
+\title{Draw seq labels}
 \usage{
-geom_seq_label(mapping = NULL, data = use_seqs(), hjust = 0,
-  nudge_y = -0.1, size = 6, ...)
+geom_seq_label(
+  mapping = NULL,
+  data = seqs(),
+  hjust = 0,
+  vjust = 1,
+  nudge_y = -0.15,
+  size = 2.5,
+  ...
+)
+}
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{hjust}{Moves the text horizontally}
+
+\item{vjust}{Moves the text vertically}
+
+\item{nudge_y}{Moves the text vertically an entire contig/sequence.
+(e.g. \code{nudge_y = 1} places the text to the contig above)}
+
+\item{size}{of the label}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
+}
+\value{
+Sequence labels are added as a text layer/component to the plot.
 }
 \description{
-draw feature labels
+This function will put labels at each individual sequence.
+By default it will plot the \code{seq_id} as label, but users are able to change this manually.
+
+Position of the label/text can be adjusted with the different arguments (e.g. \code{vjust}, \code{hjust}, \code{angle}, etc.)
+}
+\details{
+This labeling function uses \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} under the hood.
+Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
+}
+\examples{
+# example data
+seqs <- tibble::tibble(
+  bin_id = c("A", "A", "A", "B", "B", "B", "B", "C", "C"),
+  seq_id = c("A1", "A2", "A3", "B1", "B2", "B3", "B4", "C1", "C2"),
+  start = c(0, 100, 200, 0, 50, 150, 250, 0, 400),
+  end = c(100, 200, 400, 50, 100, 250, 300, 300, 500),
+  length = c(100, 100, 200, 50, 50, 100, 50, 300, 100)
+)
+
+# example plot using geom_seq_label
+gggenomes(seqs = seqs) +
+  geom_seq() +
+  geom_seq_label()
+
+# changing default label to `length` column
+gggenomes(seqs = seqs) +
+  geom_seq() +
+  geom_seq_label(aes(label = length))
+
+# with horizontal adjustment
+gggenomes(seqs = seqs) +
+  geom_seq() +
+  geom_seq_label(hjust = -5)
+
+# with wrapping at 300
+gggenomes(seqs = seqs, wrap = 300) +
+  geom_seq() +
+  geom_seq_label()
 }
