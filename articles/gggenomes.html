@@ -339,8 +339,11 @@ to convert your data into a table that works with gggenomes.</p>
 <span><span class="va">gbk_phages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  PSSP7 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span>,</span>
 <span>  PSSP3 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span> <span class="co"># capture unavailable web resources gracefully for CRAN https://github.com/thackl/gggenomes/issues/197</span></span>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">gbk_phages</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="gggenomes_files/figure-html/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
