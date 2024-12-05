@@ -1,0 +1,14 @@
+citEntry(entry="article",
+         title = "gggenomes: effective and versatile visualizations for comparative genomics",
+         author = personList( as.person("Thomas Hackl"),
+                              as.person("Markus Ankenbrand"),
+                              as.person("Bart van Adrichem"),
+                              as.person("David Wilkins"),
+                              as.person("Kristina Haslinger")),
+         year = 2024,
+         journal = "arXiv",
+         doi = "10.48550/arXiv.2411.13556",
+         textVersion = 
+         paste("Hackl, T., Ankenbrand, M., van Adrichem, B., Wilkins, D., & Haslinger, K. (2024).",
+               "gggenomes: effective and versatile visualizations for comparative genomics.",
+               "arXiv preprint arXiv:2411.13556." ) )
