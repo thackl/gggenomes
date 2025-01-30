@@ -82,4 +82,4 @@ figures:
   fig.height: 5
 template:
   bootstrap: 5
-  bootswatch: sketchy
+  bootswatch: minty
