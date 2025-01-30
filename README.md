@@ -66,26 +66,26 @@ features in the plot.
 ## Inspiration
 
 gggenomes draws inspiration from some brilliant packages, in particular:
-* [gggenes](https://github.com/wilkox/gggenes) by [David Wilkins](https://wilkox.org/)
-* [ggtree](https://guangchuangyu.github.io/software/ggtree/) by Guangchuang Yu
-* [ggraph](https://github.com/thomasp85/ggraph) by [Thomas Lin Pedersen](https://www.data-imaginist.com/about)
+
+- [gggenes](https://github.com/wilkox/gggenes) by [David Wilkins](https://wilkox.org/)
+- [ggtree](https://guangchuangyu.github.io/software/ggtree/) by Guangchuang Yu
+- [ggraph](https://github.com/thomasp85/ggraph) by [Thomas Lin Pedersen](https://www.data-imaginist.com/about)
 
 ## Installation
 
-gggenomes is at this point in an alpha release state, and only
-available as a developmental package from github.
+gggenomes is available as stable release on CRAN (from v1.0.1). The lastest developmental versions are available on github.
 
 ```R
-# if you don't have it
-install.packages("devtools") 
-
-# install gggenomes
-devtools::install_github("thackl/gggenomes")
+# Install from CRAN
+install.packages("gggenomes") 
 
 # optionally install ggtree to plot genomes next to trees
 # https://bioconductor.org/packages/release/bioc/html/ggtree.html
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("ggtree")
+
+# Install latest developmental version from github
+devtools::install_github("thackl/gggenomes")
 ```
 
