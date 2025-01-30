@@ -2,11 +2,114 @@
 % Please edit documentation in R/geom.R
 \name{geom_gene_label}
 \alias{geom_gene_label}
-\title{draw feature labels}
+\alias{geom_feat_label}
+\alias{geom_link_label}
+\title{Draw feat/link labels}
 \usage{
-geom_gene_label(mapping = NULL, data = use_genes(), angle = 45,
-  hjust = 0, nudge_y = 0.1, size = 6, ...)
+geom_gene_label(
+  mapping = NULL,
+  data = genes(),
+  angle = 45,
+  hjust = 0,
+  nudge_y = 0.1,
+  size = 6,
+  ...
+)
+
+geom_feat_label(
+  mapping = NULL,
+  data = feats(),
+  angle = 45,
+  hjust = 0,
+  nudge_y = 0.1,
+  size = 6,
+  ...
+)
+
+geom_link_label(
+  mapping = NULL,
+  data = links(),
+  angle = 0,
+  hjust = 0.5,
+  vjust = 0.5,
+  size = 4,
+  repel = FALSE,
+  ...
+)
+}
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{angle}{Defines the angle in which the text will be placed. *Note}
+
+\item{hjust}{Moves the text horizontally}
+
+\item{nudge_y}{Moves the text vertically an entire contig/sequence.
+(e.g. \code{nudge_y = 1} places the text to the contig above)}
+
+\item{size}{of the label}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
+
+\item{vjust}{Moves the text vertically}
+
+\item{repel}{use ggrepel to avoid overlaps}
+}
+\value{
+Gene labels are added as a text layer/component to the plot.
 }
 \description{
-draw feature labels
+These \code{geom_..._label()} functions able the user to plot labels/text at individual features and/or links.
+Users have to indicate how to label the features/links by specifying \code{label = ...} or \verb{aes(label = ...}
+
+Position of labels can be adjusted with arguments such as \code{vjust}, \code{hjust}, \code{angle}, \code{nudge_y}, etc.
+Also check out \code{\link[=geom_bin_label]{geom_bin_label()}}, \code{\link[=geom_seq_label]{geom_seq_label()}} or \code{\link[=geom_feat_text]{geom_feat_text()}} given their resemblance.
+}
+\details{
+These labeling functions use \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} under the hood.
+Any changes to the aesthetics of the text can be performed in a ggplot2 manner.
 }

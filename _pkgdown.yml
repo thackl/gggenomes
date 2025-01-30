@@ -1,47 +1,85 @@
+url: https://thackl.github.io/gggenomes/
+
 reference:
-- title: "Plot construction"
+- title: "Set up a plot"
   desc: >
     Construct a plot combining multiple tracks
 - contents:
     - gggenomes
-- title: "Tracks & layouts"
+- title: "Handle tracks"
 - contents:
-    - gggenomes
+    - track_info
     - starts_with("add_")
     - pull_seqs
-    - layout
-    - layout_features
-    - layout_links
-- title: "Geoms & positions"
+- title: "Draw geoms & positions"
 - contents:
-    - starts_with("geom_")
+    - geom_seq
+    - geom_gene
+    - geom_feat
+    - geom_link
+    - geom_wiggle
+    - ends_with("_text|_tag|_note")
+    - starts_with("geom")
     - starts_with("position_")
-    - starts_with("use_")
-- title: "Layout manipulation"
+    - scale_x_bp
+    - scale_color_variant
+    - starts_with("theme_")
+- title: "Manipulate plot & data"
 - contents:
     - pick
     - flip
     - shift
     - focus
-- title: "Read in data"
+- title: "Read data"
   desc: >
     Read common bioinformatics file types
 - contents:
+    - read_seqs
+    - read_feats
     - starts_with("read_")
+    - swap_query
+    - ex
+    - def_formats
+    - def_names
+    - def_types
+    - starts_with("write")
 - title: "Under the hood"
   desc: >
     Functions that power gggenomes under the hood. Useful for developers and power-users.
 - contents:
-  - starts_with("as_")
+  - layout
+  - layout_genomes
+  - layout_seqs
+  - get_seqs
+  - starts_with("track_")
+  - require_vars
+  - vars_track
   - swap_if
+  - split_by
   - in_range
-  - anchor
   - width
-  - x
+  - introduce
+  - qw
+  - GeomFeatText
+  - check_strand
+  - combine_strands
+  - drop_feat_layout
+  - drop_layout
+  - drop_link_layout
+  - drop_seq_layout
+  - flip_strand
+  - if_reverse
+  - is_reverse
+  - strand_chr
+  - strand_int
+  - strand_lgl
+  - unnest_exons
+- title: "Data sets"
+- contents:
+  - starts_with("emale")
 figures:
-  fig.width: 12
-  dev.args:
-    type: "cairo"
+  fig.width: 10
+  fig.height: 5
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bootswatch: minty

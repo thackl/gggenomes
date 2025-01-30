@@ -15,10 +15,14 @@ TRUE/FALSE vector}
 \item{...}{the two columns bewteen which values are to be swapped in
 dplyr::select-like syntax}
 }
+\value{
+a tibble with conditionally swapped start and end
+}
 \description{
 Swap values of two columns based on a condition
 }
 \examples{
-x <- tibble(start = c(10,100), end=c(30, 50))
-swap_if(start > end, start, end) # ensure start of a range is always smaller than the end
+x <- tibble::tibble(start = c(10, 100), end = c(30, 50))
+# ensure start of a range is always smaller than the end
+swap_if(x, start > end, start, end)
 }

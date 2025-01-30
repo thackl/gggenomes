@@ -1,0 +1,28 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region Z92525.1 1 1111
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1219
+Z92525.1	EMBL	region	1	1111	.	+	.	ID=Z92525.1:1..1111;Dbxref=taxon:1219;clone=CSSG10 and CSSG6;clone-lib=cosmid library in Supercos 1;gbkey=Src;mol_type=genomic DNA;strain=CCMP 1375;type-material=type strain of Prochlorococcus marinus
+Z92525.1	EMBL	gene	243	1055	.	+	.	ID=gene-ppeC;Name=ppeC;gbkey=Gene;gene=ppeC;gene_biotype=protein_coding
+Z92525.1	EMBL	CDS	243	1055	.	+	0	ID=cds-CAB06827.2;Parent=gene-ppeC;Dbxref=GOA:O06838,InterPro:IPR001297,InterPro:IPR016470,UniProtKB/TrEMBL:O06838,NCBI_GP:CAB06827.2;Name=CAB06827.2;Note=putative rod linker polypeptide associates with class III phycoerythrin alpha and beta chains;gbkey=CDS;gene=ppeC;product=phycoerythrin class III gamma chain;protein_id=CAB06827.2;transl_table=11
+
+##sequence-region U44977.1 1 5304
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1219
+U44977.1	Genbank	region	1	5304	.	+	.	ID=U44977.1:1..5304;Dbxref=taxon:1219;gbkey=Src;mol_type=genomic DNA;strain=CCMP1375;type-material=type strain of Prochlorococcus marinus
+U44977.1	Genbank	CDS	248	790	.	+	0	ID=cds-AAC15819.1;Dbxref=NCBI_GP:AAC15819.1;Name=AAC15819.1;Note=orf180;gbkey=CDS;product=unknown;protein_id=AAC15819.1;transl_table=11
+U44977.1	Genbank	CDS	809	1519	.	-	0	ID=cds-AAC15820.1;Dbxref=NCBI_GP:AAC15820.1;Name=AAC15820.1;Note=orf236;gbkey=CDS;product=unknown;protein_id=AAC15820.1;transl_table=11
+U44977.1	Genbank	CDS	1507	2151	.	-	0	ID=cds-AAC15821.1;Dbxref=NCBI_GP:AAC15821.1;Name=AAC15821.1;Note=orf214;gbkey=CDS;product=unknown;protein_id=AAC15821.1;transl_table=11
+U44977.1	Genbank	gene	2406	3791	.	+	.	ID=gene-dnaA;Name=dnaA;gbkey=Gene;gene=dnaA;gene_biotype=protein_coding
+U44977.1	Genbank	CDS	2406	3791	.	+	0	ID=cds-AAC15822.1;Parent=gene-dnaA;Dbxref=NCBI_GP:AAC15822.1;Name=AAC15822.1;gbkey=CDS;gene=dnaA;product=DnaA;protein_id=AAC15822.1;transl_table=11
+U44977.1	Genbank	CDS	3807	5057	.	-	0	ID=cds-AAC15823.1;Dbxref=NCBI_GP:AAC15823.1;Name=AAC15823.1;Note=orf416;gbkey=CDS;product=unknown;protein_id=AAC15823.1;transl_table=11
+
+##sequence-region AF354644.1 1 2567
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=1219
+AF354644.1	Genbank	region	1	2567	.	+	.	ID=AF354644.1:1..2567;Dbxref=taxon:1219;gbkey=Src;genome=genomic;mol_type=genomic DNA;strain=SS120%3B CCMP1375;type-material=type strain of Prochlorococcus marinus
+AF354644.1	Genbank	gene	65	2507	.	+	.	ID=gene-psb operon;Name=psb operon;gbkey=Gene;gene=psb operon;gene_biotype=other
+AF354644.1	Genbank	gene	65	1141	.	+	.	ID=gene-psbD;Name=psbD;gbkey=Gene;gene=psbD;gene_biotype=protein_coding
+AF354644.1	Genbank	CDS	65	1141	.	+	0	ID=cds-AAK69278.1;Parent=gene-psbD;Dbxref=NCBI_GP:AAK69278.1;Name=AAK69278.1;gbkey=CDS;gene=psbD;product=photosystem II reaction center D2;protein_id=AAK69278.1;transl_table=11
+AF354644.1	Genbank	gene	1125	2507	.	+	.	ID=gene-psbC;Name=psbC;gbkey=Gene;gene=psbC;gene_biotype=protein_coding
+AF354644.1	Genbank	CDS	1125	2507	.	+	0	ID=cds-AAK69277.1;Parent=gene-psbC;Dbxref=NCBI_GP:AAK69277.1;Name=AAK69277.1;gbkey=CDS;gene=psbC;product=photosystem II chlorophyll a-binding protein CP43;protein_id=AAK69277.1;transl_table=11
+
