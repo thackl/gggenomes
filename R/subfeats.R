@@ -28,7 +28,7 @@ add_subfeats.gggenomes <- function(
 add_subfeats.gggenomes_layout <- function(
     x, ..., .track_id = "genes",
     .transform = c("none", "aa2nuc", "nuc2aa")) {
-  if (!has_dots()) {
+  if (...length() == 0) {
     return(x)
   }
   dot_exprs <- enexprs(...) # defuse before list(...)
@@ -123,9 +123,9 @@ as_subfeats.tbl_df <- function(
   if (transform == "nuc2aa") x <- mutate(x, start = (.data$start + 2) / 3, end = (.data$end + 2) / 3)
 
   x <- x %>%
-    left_join(select(feats, .data$feat_id, .data$seq_id,
-      .feat_start = .data$start,
-      .feat_end = .data$end, .feat_strand = .data$strand
+    left_join(select(feats, "feat_id", "seq_id",
+      .feat_start = "start",
+      .feat_end = "end", .feat_strand = "strand"
     ), by = shared_names(x, "seq_id", "bin_id", "feat_id")) %>%
     mutate(
       start = ifelse(is_reverse(.data$.feat_strand), .data$.feat_end - .data$start, .data$.feat_start + .data$start),

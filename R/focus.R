@@ -215,8 +215,8 @@ locate_impl <- function(
   # => mirror links to seq1 to ensure seq2 links are accounted for
   if (track_type(x, {{ .track_id }}) == "links") {
     targets2 <- dplyr::rename(targets,
-      seq_id = .data$seq_id2, seq_id2 = .data$seq_id,
-      start = .data$start2, start2 = .data$start, end = .data$end2, end2 = .data$end
+      seq_id = "seq_id2", seq_id2 = "seq_id",
+      start = "start2", start2 = "start", end = "end2", end2 = "end"
     )
     targets <- bind_rows(targets, targets2)
   }
@@ -250,9 +250,9 @@ focus_feats <- function(track, seqs, bin_id) {
 add_feat_focus_scaffold <- function(track, seqs) {
   scaffold <- seqs %>%
     ungroup() %>%
-    dplyr::select(
-      .data$seq_id, .data$bin_id, .data$locus_id, .data$y,
-      .seq_strand = .data$strand, .seq_x = .data$x, .seq_start = .data$start, .seq_end = .data$end
+    select(
+      "seq_id", "bin_id", "locus_id", "y",
+      .seq_strand = "strand", .seq_x = "x", .seq_start = "start", .seq_end = "end"
     )
 
   inner_join(track, scaffold, by = shared_names(track, "seq_id", "bin_id", "locus_id"))
@@ -278,14 +278,14 @@ add_link_focus_scaffold <- function(track, seqs) {
   scaffold <- seqs %>%
     ungroup() %>%
     select(
-      seq_id = .data$seq_id, bin_id = .data$bin_id, locus_id = .data$locus_id, y = .data$y, .seq_strand = .data$strand, .seq_x = .data$x,
-      .seq_start = .data$start, .seq_end = .data$end
+      seq_id = "seq_id", bin_id = "bin_id", locus_id = "locus_id", y = "y", .seq_strand = "strand", .seq_x = "x",
+      .seq_start = "start", .seq_end = "end"
     )
   scaffold2 <- seqs %>%
     ungroup() %>%
     select(
-      seq_id2 = .data$seq_id, bin_id2 = .data$bin_id, locus_id2 = .data$locus_id, yend = .data$y, .seq_strand2 = .data$strand, .seq_x2 = .data$x,
-      .seq_start2 = .data$start, .seq_end2 = .data$end
+      seq_id2 = "seq_id", bin_id2 = "bin_id", locus_id2 = "locus_id", yend = "y", .seq_strand2 = "strand", .seq_x2 = "x",
+      .seq_start2 = "start", .seq_end2 = "end"
     )
 
   track <- inner_join(track, scaffold, by = shared_names(track, "seq_id", "bin_id", "locus_id"))

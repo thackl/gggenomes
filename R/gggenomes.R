@@ -263,7 +263,7 @@ infer_seqs_from_feats <- function(
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-    dplyr::rename(start = .data$.start, end = .data$.end) # this is necessary, so {{ infer_end }} does
+    dplyr::rename(start = ".start", end = ".end") # this is necessary, so {{ infer_end }} does
   # not already use the "start" from {{ infer_start }}
 
   dplyr::ungroup(seqs)
@@ -289,7 +289,7 @@ infer_seqs_from_links <- function(
       .start = {{ infer_start }},
       .end = {{ infer_end }}
     ) %>%
-    dplyr::rename(start = .data$.start, end = .data$.end)
+    dplyr::rename(start = ".start", end = ".end")
 
   dplyr::ungroup(seqs)
 }

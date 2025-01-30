@@ -64,7 +64,7 @@ flip.gggenomes <- function(x, ..., .bin_track = seqs) {
 }
 #' @export
 flip.gggenomes_layout <- function(x, ..., .bin_track = seqs) {
-  if (!has_dots()) {
+  if (...length() == 0) {
     return(x)
   }
   flip_impl(x, bins = c(...), bin_track = {{ .bin_track }})
@@ -84,7 +84,7 @@ flip_seqs.gggenomes <- function(x, ..., .bins = everything(), .seq_track = seqs,
 }
 #' @export
 flip_seqs.gggenomes_layout <- function(x, ..., .bins = everything(), .seq_track = seqs, .bin_track = seqs) {
-  if (!has_dots()) {
+  if (...length()  == 0) {
     return(x)
   }
   flip_impl(x, bins = {{ .bins }}, seqs = c(...), bin_track = {{ .bin_track }}, seq_track = {{ .seq_track }})
@@ -111,8 +111,8 @@ sync.gggenomes_layout <- function(x, link_track = 1, min_support = 0) {
   s0 <- ungroup(pull_seqs(x))
 
   f0 <- l0 |>
-    dplyr::left_join(select(s0, .data$seq_id, seq_strand = .data$strand), by = "seq_id") |>
-    dplyr::left_join(select(s0, seq_id2 = .data$seq_id, seq_strand2 = .data$strand), by = "seq_id2") |>
+    dplyr::left_join(select(s0, "seq_id", seq_strand = "strand"), by = "seq_id") |>
+    dplyr::left_join(select(s0, seq_id2 = "seq_id", seq_strand2 = "strand"), by = "seq_id2") |>
     dplyr::mutate(
       bin_id = ifelse(.data$y < .data$yend, .data$bin_id, .data$bin_id2), # chose the lower bin id
       bin_id2 = ifelse(.data$y < .data$yend, .data$bin_id2, .data$bin_id), # chose the lower bin id
@@ -129,7 +129,7 @@ sync.gggenomes_layout <- function(x, link_track = 1, min_support = 0) {
 
   bins_to_flip <- f0 |>
     dplyr::filter(.data$needs_flip) |>
-    dplyr::pull(.data$bin_id)
+    dplyr::pull("bin_id")
 
   if (!length(bins_to_flip)) {
     inform(str_glue(

@@ -78,13 +78,13 @@ read_seq_len <- function(file) {
         seq_number = cumsum(!is.na(.data$header)),
         bp = str_length(.data$raw)
       ) %>%
-      tidyr::fill(.data$header, .direction = "down") %>%
+      tidyr::fill("header", .direction = "down") %>%
       dplyr::filter(!stringr::str_starts(.data$raw, ">")) %>%
       dplyr::group_by(.data$seq_number, .data$header) %>%
       dplyr::summarize(length = sum(.data$bp)) %>%
       tidyr::separate(.data$header, into = c("seq_id", "seq_desc"), sep = " ", extra = "merge", fill = "right") %>%
       dplyr::ungroup() %>%
-      dplyr::select(-.data$seq_number)
+      dplyr::select(-"seq_number")
   }
 
   # gbk

@@ -117,7 +117,7 @@ layout_seqs <- function(
     xend = ifelse(is_reverse(.data$strand), .data$x, .data$x + .data$end - .data$start + 1),
     x = ifelse(is_reverse(.data$strand), .data$x + .data$end - .data$start + 1, x)
   ) %>%
-    select(.data$y, .data$x, .data$xend, .data$strand, everything())
+    select("y", "x", "xend", "strand", everything())
 }
 
 #' Drop a seq layout
