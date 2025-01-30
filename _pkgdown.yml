@@ -80,5 +80,4 @@ figures:
   fig.height: 5
 template:
   bootstrap: 5
-  params:
-    bootswatch: cosmo
+  bootswatch: sketchy
