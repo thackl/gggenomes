@@ -168,20 +168,29 @@ ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
   }
 
-  p <- structure(list(
-    data = data,
-    layers = list(),
-    scales = ggplot2__scales_list(),
-    guides = ggplot2__guides_list(),
-    mapping = mapping,
-    theme = list(),
-    coordinates = coord_cartesian(default = TRUE),
-    facet = facet_null(),
-    plot_env = environment,
-    layout = ggplot2::ggproto(NULL, Layout)
-  ), class = c("gg", "ggplot"))
-
-  p$labels <- ggplot2__make_labels(mapping)
+  class_ggplot <- get0("class_ggplot", asNamespace("ggplot2"))
+  if (is.function(class_ggplot)) {
+    p <- class_ggplot(
+      data = data,
+      mapping = mapping,
+      plot_env = environment
+    )
+    class(p) <- union(union(c("ggplot2::ggplot", "ggplot"), class(p)), "gg")
+  } else {
+    p <- structure(list(
+      data = data,
+      layers = list(),
+      scales = ggplot2__scales_list(),
+      guides = ggplot2__guides_list(),
+      mapping = mapping,
+      theme = list(),
+      coordinates = coord_cartesian(default = TRUE),
+      facet = facet_null(),
+      plot_env = environment,
+      layout = ggplot2::ggproto(NULL, Layout)
+    ), class = c("gg", "ggplot"))
+    p$labels <- ggplot2__make_labels(mapping)
+  }
 
   ggplot2::set_last_plot(p)
   p
