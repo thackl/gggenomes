@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>From a few sequences to a complex map in minutes (old version) • gggenomes</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -67,7 +66,7 @@
                         <h4 data-toc-skip class="author">Thomas
 Hackl</h4>
             
-            <h4 data-toc-skip class="date">2025-01-30</h4>
+            <h4 data-toc-skip class="date">2025-07-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/emales.Rmd" class="external-link"><code>vignettes/emales.Rmd</code></a></small>
       <div class="d-none name"><code>emales.Rmd</code></div>
@@ -94,7 +93,7 @@ reveals novel insights into an exciting system.</p>
 rerun the this example including the bioinformatics analyzes download
 the <a href="https://github.com/thackl/gggenomes/raw/master/data-raw/emales.tgz" class="external-link">raw
 data</a> from github.</p>
-<p><img src="emales%2Females-p7.png"></p>
+<p><img src="emales/emales-p7.png"></p>
 <div class="section level3">
 <h3 id="read-in-the-genomes">Read in the genomes<a class="anchor" aria-label="anchor" href="#read-in-the-genomes"></a>
 </h3>
@@ -115,7 +114,7 @@ length and some metadata from the header lines using
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_seqs_6</span><span class="op">)</span> <span class="op">+</span></span>
 <span> <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p1</span></span></code></pre></div>
-<p><img src="emales%2Females-p1.png"></p>
+<p><img src="emales/emales-p1.png"></p>
 </div>
 <div class="section level3">
 <h3 id="annotate-genes">Annotate genes<a class="anchor" aria-label="anchor" href="#annotate-genes"></a>
@@ -137,7 +136,7 @@ length and some metadata from the header lines using
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span></span>
 <span><span class="va">p2</span></span></code></pre></div>
-<p><img src="emales%2Females-p2.png"></p>
+<p><img src="emales/emales-p2.png"></p>
 </div>
 <div class="section level3">
 <h3 id="find-terminal-inverted-repeats">Find terminal inverted repeats<a class="anchor" aria-label="anchor" href="#find-terminal-inverted-repeats"></a>
@@ -165,7 +164,7 @@ terminal inverted repeats (TIRs). So let’s look for those next.</p>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette<span class="op">=</span><span class="st">"Spectral"</span><span class="op">)</span></span>
 <span><span class="va">p3</span></span></code></pre></div>
-<p><img src="emales%2Females-p3.png"></p>
+<p><img src="emales/emales-p3.png"></p>
 </div>
 <div class="section level3">
 <h3 id="compare-genome-synteny">Compare genome synteny<a class="anchor" aria-label="anchor" href="#compare-genome-synteny"></a>
@@ -184,7 +183,7 @@ terminal inverted repeats (TIRs). So let’s look for those next.</p>
 <span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">flip_bins</span><span class="op">(</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">p4</span></span></code></pre></div>
-<p><img src="emales%2Females-p4.png"></p>
+<p><img src="emales/emales-p4.png"></p>
 </div>
 <div class="section level3">
 <h3 id="gc-content">GC-content<a class="anchor" aria-label="anchor" href="#gc-content"></a>
@@ -200,7 +199,7 @@ terminal inverted repeats (TIRs). So let’s look for those next.</p>
 <span>    group<span class="op">=</span><span class="va">seq_id</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu">use_features</span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span>,</span>
 <span>                       fill<span class="op">=</span><span class="st">"blue"</span>, alpha<span class="op">=</span><span class="fl">.5</span><span class="op">)</span></span>
 <span><span class="va">p5</span></span></code></pre></div>
-<p><img src="emales%2Females-p5.png"></p>
+<p><img src="emales/emales-p5.png"></p>
 </div>
 <div class="section level3">
 <h3 id="cluster-protein-sequences-into-orthogroups">cluster protein sequences into orthogroups<a class="anchor" aria-label="anchor" href="#cluster-protein-sequences-into-orthogroups"></a>
@@ -232,7 +231,7 @@ terminal inverted repeats (TIRs). So let’s look for those next.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette<span class="op">=</span><span class="st">"Set3"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p6</span></span></code></pre></div>
-<p><img src="emales%2Females-p6.png"></p>
+<p><img src="emales/emales-p6.png"></p>
 </div>
 <div class="section level3">
 <h3 id="blast-hits-and-integrated-transposons">Blast hits and integrated transposons<a class="anchor" aria-label="anchor" href="#blast-hits-and-integrated-transposons"></a>
@@ -277,7 +276,7 @@ terminal inverted repeats (TIRs). So let’s look for those next.</p>
 <span>  <span class="fu">italic</span><span class="op">(</span><span class="st">"C. burkhardae"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p7</span></span></code></pre></div>
-<p><img src="emales%2Females-p7.png"></p>
+<p><img src="emales/emales-p7.png"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -290,7 +289,7 @@ terminal inverted repeats (TIRs). So let’s look for those next.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

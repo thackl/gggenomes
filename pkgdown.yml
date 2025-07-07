@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   emales: emales.html
   flip: flip.html
   gggenomes: gggenomes.html
-last_built: 2025-01-30T19:25Z
+last_built: 2025-07-07T09:30Z
 urls:
   reference: https://thackl.github.io/gggenomes/reference
   article: https://thackl.github.io/gggenomes/articles
