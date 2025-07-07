@@ -13,6 +13,9 @@ require_vars(x, vars, warn_only = FALSE)
 
 \item{warn_only}{don't die on missing vars}
 }
+\value{
+the original tibble if all vars are present or warning only
+}
 \description{
 Require variables in an object
 }

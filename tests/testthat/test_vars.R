@@ -1,4 +1,3 @@
-library(gggenomes)
 context("checking object vars")
 test_that("require variables in object", {
   x <- tibble(a=1)

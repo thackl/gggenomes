@@ -2,14 +2,18 @@
 % Please edit documentation in R/gggenomes.R
 \name{dim.gggenomes_layout}
 \alias{dim.gggenomes_layout}
-\title{`ggplot2::facet_null` checks data with `empty(df)` using `dim`. This causes
-and error because dim(gggenome_layout) is undefined. Return dim of primary
+\title{\code{ggplot2::facet_null} checks data with \code{empty(df)} using \code{dim}. This causes
+an error because dim(gggenome_layout) is undefined. Return dim of primary
 table instead}
 \usage{
 \method{dim}{gggenomes_layout}(x)
 }
+\value{
+dim of primary table
+}
 \description{
-`ggplot2::facet_null` checks data with `empty(df)` using `dim`. This causes
-and error because dim(gggenome_layout) is undefined. Return dim of primary
+\code{ggplot2::facet_null} checks data with \code{empty(df)} using \code{dim}. This causes
+an error because dim(gggenome_layout) is undefined. Return dim of primary
 table instead
 }
+\keyword{internal}

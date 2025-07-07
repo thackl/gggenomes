@@ -2,17 +2,175 @@
 % Please edit documentation in R/geom_link.R
 \name{geom_link}
 \alias{geom_link}
-\title{Draw links}
+\alias{geom_link_line}
+\title{Draw links between genomes}
 \usage{
-geom_link(mapping = NULL, data = use_links(1, abs(y - yend) == 1),
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, offset = 0.1, ...)
+geom_link(
+  mapping = NULL,
+  data = links(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  offset = 0.15,
+  ...
+)
+
+geom_link_line(
+  mapping = NULL,
+  data = links(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used the override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
+\itemize{
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
+}}
+
+\item{position}{A position adjustment to use on the data for this layer. This
+can be used in various ways, including to prevent overplotting and
+improving the display. The \code{position} argument accepts the following:
+\itemize{
+\item The result of calling a position function, such as \code{position_jitter()}.
+This method allows for passing extra arguments to the position.
+\item A string naming the position adjustment. To give the position as a
+string, strip the function name of the \code{position_} prefix. For example,
+to use \code{position_jitter()}, give the position as \code{"jitter"}.
+\item For more information and other ways to specify the position, see the
+\link[ggplot2:layer_positions]{layer position} documentation.
+}}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+
 \item{offset}{distance between seq center and link start. Use two values
-`c(<offset_top>, <offset_bottom>)` for different top and bottom offsets}
+\verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
+arguments broadly fall into one of 4 categories below. Notably, further
+arguments to the \code{position} argument, or aesthetics that are required
+can \emph{not} be passed through \code{...}. Unknown arguments that are not part
+of the 4 categories below are ignored.
+\itemize{
+\item Static aesthetics that are not mapped to a scale, but are at a fixed
+value and apply to the layer as a whole. For example, \code{colour = "red"}
+or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
+section that lists the available options. The 'required' aesthetics
+cannot be passed on to the \code{params}. Please note that while passing
+unmapped aesthetics as vectors is technically possible, the order and
+required length is not guaranteed to be parallel to the input data.
+\item When constructing a layer using
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on
+parameters to the \code{geom} part of the layer. An example of this is
+\code{stat_density(geom = "area", outline.type = "both")}. The geom's
+documentation lists which parameters it can accept.
+\item Inversely, when constructing a layer using a
+\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{stat} part of the layer. An example of this is
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
+lists which parameters it can accept.
+\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
+\code{...}. This can be one of the functions described as
+\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+}}
+}
+\value{
+A ggplot2 layer with links.
 }
 \description{
-use(links, abs(y-yend)==1) - this is somewhat redundant with
-layout_links(adjacent_only =TRUE), which currently is always set to TRUE
+Draws connections between genomes, such as genome/gene/protein
+alignments and gene/protein clusters. \code{geom_link()} draws links as filled
+polygons, \code{geom_link_line()} draws a single connecting line.
+
+Note that by default only links between adjacent genomes are computed and
+shown. To compute and show all links between all genomes, set
+\code{gggenomes(..., adjacent_only=FALSE)}.
+}
+\details{
+The function calls upon the data stored within the \code{link} track.
+Data frames added to this track have \code{seq_id} and \code{seq_id2} as required
+variables. Optional and recommended variables include \code{start}, \code{start2},
+\code{end}, \code{end2}, \code{bin_id}, \code{bin_id2} and \code{strand}.
+
+Note, when start/end is not specified, links will be created between the
+entire contigs of \code{seq_id} and \code{seq_id2}.
+}
+\examples{
+p0 <- gggenomes(seqs = emale_seqs, links = emale_ava) + geom_seq()
+
+# default links
+p1 <- p0 + geom_link()
+
+# change offset from seqs and color
+p2 <- p0 + geom_link(aes(fill = de, color = de), offset = 0.05) +
+  scale_fill_viridis_b() + scale_colour_viridis_b()
+
+# combine with flip
+p3 <- p0 |> flip(3, 4, 5) +
+  geom_link()
+
+# compute & show all links among all genomes
+# usually not useful and not recommended for large dataset
+p4 <- gggenomes(links = emale_ava, adjacent_only = FALSE) + geom_link()
+
+library(patchwork) # combine plots in one figure
+p1 + p2 + p3 + p4 + plot_layout(nrow = 1)
+q0 <- gggenomes(emale_genes, emale_seqs) |>
+  add_clusters(emale_cogs) +
+  geom_seq() + geom_gene()
+
+# link gene clusters with polygon
+q1 <- q0 + geom_link(aes(fill = cluster_id))
+
+# link gene clusters with lines
+q2 <- q0 + geom_link_line(aes(color = cluster_id))
+
+q1 + q2 + plot_layout(nrow = 1, guides = "collect")
+
 }

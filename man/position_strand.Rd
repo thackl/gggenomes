@@ -12,40 +12,69 @@
 \alias{PositionSixframe}
 \title{Stack features}
 \usage{
-position_strand(offset = 0.1, flip = FALSE, grouped = FALSE,
-  base = offset/2)
+position_strand(offset = 0.1, flip = FALSE, grouped = NULL, base = offset/2)
 
-position_pile(offset = 0.1, gap = 1, flip = FALSE, grouped = FALSE,
-  base = offset)
+position_pile(offset = 0.1, gap = 1, flip = FALSE, grouped = NULL, base = 0)
 
-position_strandpile(offset = 0.1, gap = 1, flip = FALSE,
-  grouped = FALSE, base = offset * 1.5)
+position_strandpile(
+  offset = 0.1,
+  gap = 1,
+  flip = FALSE,
+  grouped = NULL,
+  base = offset * 1.5
+)
 
-position_sixframe(offset = 0.1, flip = FALSE, grouped = FALSE,
-  base = offset/2)
+position_sixframe(offset = 0.1, flip = FALSE, grouped = NULL, base = offset/2)
 }
 \arguments{
-\item{offset}{Shift overlapping features up/down this much on the y-axis. The
+\item{offset}{Shift overlapping feats up/down this much on the y-axis. The
 y-axis distance between two sequences is 1, so this is usually a small
 fraction, such as 0.1.}
 
 \item{flip}{stack downward, and for stranded versions reverse upward.}
 
-\item{grouped}{set TRUE to stack features in same aestetics group as if they
-are one feature. Useful for stacking multi-exon genes as a single unit.}
+\item{grouped}{if TRUE feats in the same group are stacked as a single
+feature. Useful to move CDS and mRNA as one unit. If NULL (default) set to
+TRUE if data appears to contain gene-ish features.}
 
 \item{base}{How to align the stack relative to the sequence. 0 to center the
 lowest stack level on the sequence, 1 to put forward/reverse sequence one
 half offset above/below the sequence line.}
 
-\item{gap}{If two features are closer together than this, they will be
-stacked. Can be negative to allow small overlaps. NA disables stacking.}
+\item{gap}{If two feats are closer together than this, they will be stacked.
+Can be negative to allow small overlaps. NA disables stacking.}
+}
+\value{
+A ggproto object to be used in \code{geom_gene()}.
 }
 \description{
-`position_strand()` offsets forward features upward and reverse features
-downward. `position_pile()` stacks overlapping features upward.
-`position_strandpile()` stacks overlapping features up-/downward based on
-their strand. `position_sixframe()` offsets the features based on their
-strand and reading frame.
+\code{position_strand()} offsets forward feats upward and reverse feats downward.
+\code{position_pile()} stacks overlapping feats upward. \code{position_strandpile()}
+stacks overlapping feats up-/downward based on their strand.
+\code{position_sixframe()} offsets the feats based on their strand and reading
+frame.
+}
+\examples{
+library(patchwork)
+p <- gggenomes(emale_genes) \%>\%
+  pick(3:4) + geom_seq()
+
+f0 <- tibble::tibble(
+  seq_id = pull_seqs(p)$seq_id[1],
+  start = 1:20 * 1000,
+  end = start + 2500,
+  strand = rep(c("+", "-"), length(start) / 2)
+)
+
+sixframe <- function(x, strand) as.character((x \%\% 3 + 1) * strand_int(strand))
+
+p1 <- p + geom_gene()
+p2 <- p + geom_gene(aes(fill = strand), position = "strand")
+p3 <- p + geom_gene(aes(fill = strand), position = position_strand(flip = TRUE, base = 0.2))
+p4 <- p + geom_gene(aes(fill = sixframe(x, strand)), position = "sixframe")
+p5 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color = strand))
+p6 <- p \%>\% add_feats(f0) + geom_gene() + geom_feat(aes(color = strand), position = "strandpile")
+p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 3, guides = "collect") & ylim(2.5, 0.5)
+
 }
 \keyword{datasets}

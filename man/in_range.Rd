@@ -11,9 +11,9 @@ in_range(x, left, right, closed = TRUE)
 
 \item{left, right}{boundary values or vectors of same length as x}
 
-\item{closed}{wether to include (`TRUE`) or exclude (`FALSE`) the
+\item{closed}{wether to include (\code{TRUE}) or exclude (\code{FALSE}) the
 endpoints. Provide 2 values for different behaviors for lower and upper
-boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.}
+boundary, e.g. \code{c(TRUE, FALSE)} to include only the lower boundary.}
 }
 \value{
 a logical vector of the same length as the input
@@ -23,13 +23,14 @@ Do numeric values fall into specified ranges?
 }
 \examples{
 in_range(1:5, 2, 4)
-in_range(1:5, 2, 4, closed=c(FALSE, TRUE)) # left-open
+in_range(1:5, 2, 4, closed = c(FALSE, TRUE)) # left-open
 in_range(1:5, 6:2, 3) # vector of boundaries, single values recycle
 
 
 # plays nicely with dplyr
-df <- tibble(x=rep(4,5), left=1:5, right=3:7)
-mutate(df,
-  closed=in_range(x, left, right, TRUE),
-  open=in_range(x, left, right, FALSE))
+df <- tibble::tibble(x = rep(4, 5), left = 1:5, right = 3:7)
+dplyr::mutate(df,
+  closed = in_range(x, left, right, TRUE),
+  open = in_range(x, left, right, FALSE)
+)
 }

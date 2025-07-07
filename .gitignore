@@ -1,3 +1,15 @@
 .Rproj.user
 .Rhistory
 .RData
+docs/
+org/
+R-deprecated/
+data-raw/
+tests/
+vignettes-manual-export/
+/doc/
+/Meta/
+gggenomes.Rcheck
+.vscode
+gggenomes_*.tar.gz
+vignettes/gggenomes_cache
