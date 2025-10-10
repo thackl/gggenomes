@@ -10,3 +10,4 @@
 ^pkgdown$
 ^LICENSE.md$
 ^\.vscode$
+^issues$
