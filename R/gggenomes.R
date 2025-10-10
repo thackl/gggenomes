@@ -141,7 +141,8 @@ gggenomes <- function(
     infer_end = {{ infer_end }}, infer_length = {{ infer_length }}, ...
   )
 
-  p <- ggplot(data = layout)
+  p <- ggplot()
+  p$data <- layout
   class(p) <- c("gggenomes", class(p))
 
   p <- p + scale_y_continuous(expand = expansion(add = .7, mult = 0.01))
@@ -157,35 +158,6 @@ gggenomes <- function(
   p
 }
 
-#' ggplot.default tries to `fortify(data)` and we don't want that here
-#'
-#' @export
-#' @return ggplot object
-#' @keywords internal
-ggplot.gggenomes_layout <- function(data, mapping = aes(), ...,
-                                    environment = parent.frame()) {
-  if (!missing(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
-  }
-
-  p <- structure(list(
-    data = data,
-    layers = list(),
-    scales = ggplot2__scales_list(),
-    guides = ggplot2__guides_list(),
-    mapping = mapping,
-    theme = list(),
-    coordinates = coord_cartesian(default = TRUE),
-    facet = facet_null(),
-    plot_env = environment,
-    layout = ggplot2::ggproto(NULL, Layout)
-  ), class = c("gg", "ggplot"))
-
-  p$labels <- ggplot2__make_labels(mapping)
-
-  ggplot2::set_last_plot(p)
-  p
-}
 #' Layout genomes
 #' @inheritParams gggenomes
 #' @keywords internal
