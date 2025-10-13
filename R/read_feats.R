@@ -15,12 +15,12 @@
 #' \donttest{
 #' gbk_phages <- c(
 #'   PSSP7 = paste0(
-#'     "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/",
+#'     "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/",
 #'     "000/858/745/GCF_000858745.1_ViralProj15134/",
 #'     "GCF_000858745.1_ViralProj15134_genomic.gff.gz"
 #'   ),
 #'   PSSP3 = paste0(
-#'     "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/",
+#'     "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/",
 #'     "000/904/555/GCF_000904555.1_ViralProj195517/",
 #'     "GCF_000904555.1_ViralProj195517_genomic.gff.gz"
 #'   )
