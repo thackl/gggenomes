@@ -29,6 +29,7 @@ reference:
     - pick
     - flip
     - shift
+    - align
     - focus
 - title: "Read data"
   desc: >

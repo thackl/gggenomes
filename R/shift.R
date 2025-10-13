@@ -9,6 +9,7 @@
 #' same length as bins.
 #' @param center horizontal centering
 #' @return gggenomes object with shifted seqs
+#' @export
 #' @examples
 #' p0 <- gggenomes(emale_genes, emale_seqs) +
 #'   geom_seq() + geom_gene()
@@ -27,7 +28,6 @@
 #'
 #' library(patchwork)
 #' p0 + p1 + p2
-#' @export
 shift <- function(x, bins = everything(), by = 0, center = FALSE) {
   # split by bin_id and select bins
   s <- get_seqs(x)
