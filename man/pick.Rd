@@ -104,6 +104,8 @@ emale_mcp_tree <- read.tree(ex("emales/emales-MCP.nwk"))
 t <- ggtree(emale_mcp_tree) + geom_tiplab(align = TRUE, size = 3) +
   xlim(0, 0.05) # make room for labels
 
+try({ # can fail on older systems with older ggtree versions
+
 p <- gggenomes(seqs = emale_seqs, genes = emale_genes) +
   geom_seq() + geom_seq() + geom_bin_label()
 
@@ -123,17 +125,17 @@ p <- gggenomes(seqs = emale_seqs_more, genes = emale_genes) +
   geom_seq() + geom_seq() + geom_bin_label()
 t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
-try({
-  # no shared ids will cause an error
-  p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
-    geom_seq() + geom_seq() + geom_bin_label()
-  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+# no shared ids will cause an error
+p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
+  geom_seq() + geom_seq() + geom_bin_label()
+t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
-  # extra leafs in tree will cause an error
-  emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
-  p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
-    geom_seq() + geom_seq() + geom_bin_label()
-  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+# extra leafs in tree will cause an error
+emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
+p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
+  geom_seq() + geom_seq() + geom_bin_label()
+t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+
 })
 
 }
