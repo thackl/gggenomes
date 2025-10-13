@@ -18,7 +18,7 @@ layout_seqs(
 \item{spacing}{between sequences in bases (>1) or relative to longest bin (<1)}
 
 \item{wrap}{wrap bins into multiple lines with at most this many nucleotides
-per lin.}
+per line.}
 
 \item{spacing_style}{one of "regular", "center", "spread"}
 

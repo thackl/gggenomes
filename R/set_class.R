@@ -1,4 +1,4 @@
-#' Modify object class attriutes
+#' Modify object class attributes
 #'
 #' Set class of an object. Optionally append or prepend to exiting class
 #' attributes. `add_class` is short for `set_class(x, class, "prepend")`.

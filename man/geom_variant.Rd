@@ -42,12 +42,14 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 
 \item{offset}{Numeric value describing how far the points will be drawn from the base/sequence. By default it is set on \code{offset = 0}.}
 
@@ -83,7 +85,7 @@ lists which parameters it can accept.
 A ggplot2 layer with variant information.
 }
 \description{
-geom_variant allows the user to draw points at locations where a mutation has occured.
+geom_variant allows the user to draw points at locations where a mutation has occurred.
 Data on SNPs, Insertions, Deletions and more (often stored in a variant call format (VCF)) can easily be visualized this way.
 }
 \details{

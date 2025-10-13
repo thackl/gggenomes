@@ -1,6 +1,6 @@
 Package: gggenomes
 Title: A Grammar of Graphics for Comparative Genomics
-Version: 1.0.1
+Version: 1.1.0
 Authors@R: c(
   person("Thomas", "Hackl", email = "t.hackl@rug.nl", role = c("aut", "cre")),
   person("Markus J.", "Ankenbrand", email = "iimog@iimog.org", role = c("aut")),
@@ -16,11 +16,11 @@ URL: https://thackl.github.io/gggenomes/, https://github.com/thackl/gggenomes
 BugReports: https://github.com/thackl/gggenomes/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Depends:
-    R (>= 3.5.0),
+    R (>= 4.1.0),
     ggplot2 (>= 3.5.0),
 Imports:
     vctrs,
@@ -48,3 +48,4 @@ Suggests:
     knitr,
     ggrepel,
     IRanges,
+    rmarkdown

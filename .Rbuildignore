@@ -10,3 +10,7 @@
 ^pkgdown$
 ^LICENSE.md$
 ^\.vscode$
+^issues(/|$)
+^vignettes-manual-export$
+^cran-comments.md$
+^CRAN-SUBMISSION$

@@ -14,7 +14,7 @@ a list of tibbles
 }
 \description{
 Split by key column while preserving order according to the first
-occurence. R base split converts keys to factors, changing default order to
+occurrence. R base split converts keys to factors, changing default order to
 alphanumeric.
 }
 \examples{

@@ -12,13 +12,13 @@ qc(...)
 \arguments{
 \item{x}{A single string of elements to be split at whitespace chars.}
 
-\item{...}{Unquated words, separated by comma.}
+\item{...}{Unquoted words, separated by comma.}
 }
 \value{
 A vector of quoted words.
 }
 \description{
-Similar to perls \code{qw()}, however, in R spaces between args in function call
+Similar to perl's \code{qw()}, however, in R spaces between args in function call
 always cause an error, so \verb{qw(foo bar)} wouldn't work. Workaround is either a
 single string split at spaces, or unquoted elements, separated by commas.
 }

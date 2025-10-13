@@ -27,7 +27,7 @@
 #' @param intron_shape single value controlling the kink of the intron line.
 #'   Defaults to size. Set 0 for straight lines between exons.
 #' @param intron_types introns will only be computed/drawn for features with
-#'   types listed here. Set to "CDS" to plot mRNAs as continous features, and
+#'   types listed here. Set to "CDS" to plot mRNAs as continuous features, and
 #'   set to NA to completely ignore introns.
 #' @param cds_aes,rna_aes,intron_aes overwrite aesthetics for different model
 #'   parts. Need to be wrapped in [ggplot2::aes()]. NOTE: These remappings are
@@ -39,7 +39,7 @@
 #'   "black" to the same color used to fill the CDS you could specify
 #'   `intron_aes=aes(colour = fill)`. By default, `rna_aes` is remapped with
 #'   `aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour,
-#'   .5))` to give it a lighter appearence than the corresponding CDS but in the
+#'   .5))` to give it a lighter appearance than the corresponding CDS but in the
 #'   same color.
 #' @param na.rm remove na values
 #' @param ... passed to layer params

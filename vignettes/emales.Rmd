@@ -24,7 +24,7 @@ anything interesting going on here?
 
 We use a few bioinformatics commandline tools to run some analyzes, and
 visualize the results using `gggenomes`. By successively adding new data as new
-tracks we build a rich plot that ultimatly reveals novel insights into an
+tracks we build a rich plot that ultimately reveals novel insights into an
 exciting system.
 
 This example is bundled `data(package="gggenomes")`

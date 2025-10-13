@@ -4,7 +4,7 @@
 #' @param x a tibble
 #' @param condition an expression to be evaluated in data context returning a
 #' TRUE/FALSE vector
-#' @param ... the two columns bewteen which values are to be swapped in
+#' @param ... the two columns between which values are to be swapped in
 #' dplyr::select-like syntax
 #' @return a tibble with conditionally swapped start and end
 #' @examples
@@ -75,7 +75,7 @@ magrittr::`%<>%`
 #' Split by key preserving order
 #'
 #' Split by key column while preserving order according to the first
-#' occurence. R base split converts keys to factors, changing default order to
+#' occurrence. R base split converts keys to factors, changing default order to
 #' alphanumeric.
 #'
 #' @export
@@ -96,7 +96,7 @@ split_by <- function(.data, key) {
 
 #' Create a vector from unquoted words.
 #'
-#' Similar to perls `qw()`, however, in R spaces between args in function call
+#' Similar to perl's `qw()`, however, in R spaces between args in function call
 #' always cause an error, so `qw(foo bar)` wouldn't work. Workaround is either a
 #' single string split at spaces, or unquoted elements, separated by commas.
 #'
@@ -114,7 +114,7 @@ split_by <- function(.data, key) {
 qw <- function(x) unlist(strsplit(x, "[[:space:]]+"))
 
 #' @rdname qw
-#' @param ... Unquated words, separated by comma.
+#' @param ... Unquoted words, separated by comma.
 #' @export
 qc <- function(...) sapply(match.call()[-1], deparse)
 

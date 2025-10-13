@@ -1,6 +1,6 @@
 #' Draw place of mutation
 #'
-#' geom_variant allows the user to draw points at locations where a mutation has occured.
+#' geom_variant allows the user to draw points at locations where a mutation has occurred.
 #' Data on SNPs, Insertions, Deletions and more (often stored in a variant call format (VCF)) can easily be visualized this way.
 #'
 #' geom_variant uses `ggplot2::geom_point` under the hood. As a result, different aesthetics such as `alpha`, `size`, `color`, etc.

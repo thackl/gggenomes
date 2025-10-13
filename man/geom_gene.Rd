@@ -47,7 +47,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -77,12 +77,14 @@ to use \code{position_jitter()}, give the position as \code{"jitter"}.
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 
 \item{size, rna_size}{the size of the gene model, aka the height of the
 polygons. \code{rna_size} only applies to non-coding parts of the gene model,
@@ -97,7 +99,7 @@ of the gene model, defaults to shape.}
 Defaults to size. Set 0 for straight lines between exons.}
 
 \item{intron_types}{introns will only be computed/drawn for features with
-types listed here. Set to "CDS" to plot mRNAs as continous features, and
+types listed here. Set to "CDS" to plot mRNAs as continuous features, and
 set to NA to completely ignore introns.}
 
 \item{cds_aes, rna_aes, intron_aes}{overwrite aesthetics for different model
@@ -109,7 +111,7 @@ spelling. These mappings can be used to dynamically change parts of the
 gene model. For example, to change the color of introns from a hard-coded
 "black" to the same color used to fill the CDS you could specify
 \code{intron_aes=aes(colour = fill)}. By default, \code{rna_aes} is remapped with
-\code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearence than the corresponding CDS but in the
+\code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearance than the corresponding CDS but in the
 same color.}
 
 \item{...}{passed to layer params}
@@ -125,19 +127,19 @@ argument.
 }
 \section{Aesthetics}{
 
-\code{geom_gene()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[ggplot2:aes_position]{x}}}
-\item \strong{\code{\link[ggplot2:aes_position]{xend}}}
-\item \strong{\code{\link[ggplot2:aes_position]{y}}}
-\item \code{\link[ggplot2:aes_colour_fill_alpha]{alpha}}
-\item \code{\link[ggplot2:aes_colour_fill_alpha]{colour}}
-\item \code{\link[ggplot2:aes_colour_fill_alpha]{fill}}
-\item \code{\link[ggplot2:aes_group_order]{group}}
-\item \code{introns}
-\item \code{\link[ggplot2:aes_linetype_size_shape]{linetype}}
-\item \code{stroke}
-\item \code{type}
+\code{geom_gene()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+• \tab \strong{\code{\link[ggplot2:aes_position]{x}}} \tab   \cr
+• \tab \strong{\code{\link[ggplot2:aes_position]{xend}}} \tab   \cr
+• \tab \strong{\code{\link[ggplot2:aes_position]{y}}} \tab   \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{alpha}} \tab → \code{1} \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{colour}} \tab → \code{"black"} \cr
+• \tab \code{\link[ggplot2:aes_colour_fill_alpha]{fill}} \tab → \code{"cornsilk3"} \cr
+• \tab \code{\link[ggplot2:aes_group_order]{group}} \tab → inferred \cr
+• \tab \code{introns} \tab → \code{NULL} \cr
+• \tab \code{\link[ggplot2:aes_linetype_size_shape]{linetype}} \tab → \code{1} \cr
+• \tab \code{stroke} \tab → \code{0.4} \cr
+• \tab \code{type} \tab → \code{"CDS"} \cr
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 

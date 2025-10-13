@@ -2,7 +2,7 @@
 .Rhistory
 .RData
 docs/
-org/
+issues/
 R-deprecated/
 data-raw/
 tests/

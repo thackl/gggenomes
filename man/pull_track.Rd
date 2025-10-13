@@ -95,7 +95,7 @@ A function that pulls the specified track from a gggenomes object.
 Track selection works like \code{\link[dplyr:pull]{dplyr::pull()}} and supports unquoted ids and
 positional arguments. \code{...} can be used to subset the data in
 \code{\link[dplyr:filter]{dplyr::filter()}} fashion. \code{pull}-prefixed variants return the specified
-track from a gggenome object. Unprefixed variants work inside \verb{geom_*} calls.
+track from a gggenomes object. Unprefixed variants work inside \verb{geom_*} calls.
 }
 \section{Functions}{
 \itemize{
