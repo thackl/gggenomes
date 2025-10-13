@@ -10,5 +10,5 @@
 ^pkgdown$
 ^LICENSE.md$
 ^\.vscode$
-^issues$
+^issues(/|$)
 ^vignettes-manual-export$
