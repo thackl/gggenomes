@@ -43,7 +43,8 @@ parse_desc <- function(x, pattern = "\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"
       as.list() %>%
       set_names(.x[, 2]) %>%
       as_tibble()
-  }) %>% mutate(across(everything(), type.convert, as.is = TRUE))
+  }) %>%
+    mutate(across(everything(), \(x) type.convert(x, as.is = TRUE)))
 
   # if key has the name of a reserved column, rename it so we don't overwrite
   rename_i <- names(y) %in% c("file_id", "seq_id", "seq_desc", "length")

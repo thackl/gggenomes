@@ -16,7 +16,7 @@ track_ids.gggenomes <- function(x, track_type = NULL, ...) {
 #' @export
 track_ids.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "links"), ...) {
   track_type <- match_arg(track_type, several.ok = TRUE)
-  ids <- flatten_chr(unname(purrr::map(track_type, ~ names(x[[.x]]))))
+  ids <- unlist(purrr::map(track_type, ~ names(x[[.x]])))
   names(ids) <- track_types(x, track_type)
   ids
 }
@@ -61,7 +61,7 @@ track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "link
   ) %>%
     dplyr::group_by(.data$type) %>%
     dplyr::mutate(
-      .after = .data$type,
+      .after = type,
       i = row_number()
     )
   dplyr::filter(y, .data$type %in% track_type)
@@ -72,7 +72,7 @@ track_info.gggenomes_layout <- function(x, track_type = c("seqs", "feats", "link
 #' @return a vector of all types of all selected tracks
 #' @noRd
 track_types <- function(x, track_type = c("seqs", "feats", "links")) {
-  flatten_chr(unname(purrr::map(track_type, ~ rep(.x, length(x[[.x]])))))
+  unlist(purrr::map(track_type, ~ rep(.x, length(x[[.x]]))))
 }
 
 #' Number of rows of all tracks tables
@@ -80,7 +80,7 @@ track_types <- function(x, track_type = c("seqs", "feats", "links")) {
 #' @return a vector of number of rows all selected tracks tables
 #' @noRd
 track_nrows <- function(x, track_type = c("seqs", "feats", "links")) {
-  flatten_int(unname(purrr::map(track_type, ~ purrr::map_int(x[[.x]], nrow))))
+  as.numeric(unlist(purrr::map(track_type, ~ purrr::map_int(x[[.x]], nrow))))
 }
 
 #' Track type by track id

@@ -69,7 +69,7 @@ s0 <- tibble::tibble(
   length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3)
 )
 
-p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), size = 3) +
+p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), linewidth = 3) +
   geom_bin_label() + geom_seq_label() +
   expand_limits(color = c("A", "B", "C"))
 p
@@ -95,6 +95,8 @@ p \%>\% pick_seqs_within(3:1, .bins = B)
 # same w/o scope, unaffected bins remain as is
 p \%>\% pick_seqs_within(b3, b2, b1)
 
+try({ # can fail on older systems with older ggtree versions
+
 # Align sequences with and plot next to a phylogenetic tree
 library(patchwork) # arrange multiple plots
 library(ggtree) # plot phylogenetic trees
@@ -103,8 +105,6 @@ library(ggtree) # plot phylogenetic trees
 emale_mcp_tree <- read.tree(ex("emales/emales-MCP.nwk"))
 t <- ggtree(emale_mcp_tree) + geom_tiplab(align = TRUE, size = 3) +
   xlim(0, 0.05) # make room for labels
-
-try({ # can fail on older systems with older ggtree versions
 
 p <- gggenomes(seqs = emale_seqs, genes = emale_genes) +
   geom_seq() + geom_seq() + geom_bin_label()

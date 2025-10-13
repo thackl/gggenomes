@@ -90,6 +90,6 @@ gggenomes(emale_genes, emale_seqs) \%>\%
   geom_gene(aes(fill = ifelse(is.na(cluster_id), NA,
     stringr::str_glue("{cluster_id} [{cluster_size}]")
   ))) +
-  scale_fill_discrete("COGs")
+  scale_fill_discrete(name="COGs")
 
 }

@@ -147,8 +147,8 @@ as_sublinks.tbl_df <- function(
       x$strand <- strand_chr(x$strand)
     }
 
-    x <- x %>% swap_if(.data$start > .data$end, .data$start, .data$end)
-    x <- x %>% swap_if(.data$start2 > .data$end2, .data$start2, .data$end2)
+    x <- x %>% swap_if(start > end, start, end)
+    x <- x %>% swap_if(start2 > end2, start2, end2)
 
     if (transform != "none") {
       transform <- switch(transform,
@@ -184,8 +184,8 @@ as_sublinks.tbl_df <- function(
     # from here on out it has a new meaning - the actual strand of the
     # sublink-converted-link - which is a combo of link, feature, and seq strands...
     x$strand <- strand_chr((x$start < x$end) == (x$start2 < x$end2))
-    x <- x %>% swap_if(.data$start > .data$end, .data$start, .data$end)
-    x <- x %>% swap_if(.data$start2 > .data$end2, .data$start2, .data$end2)
+    x <- x %>% swap_if(start > end, start, end)
+    x <- x %>% swap_if(start2 > end2, start2, end2)
   }
   if (compute_layout) {
     layout_links(x, seqs, ...)

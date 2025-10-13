@@ -49,7 +49,7 @@ as_seqs.tbl_df <- function(x, everything = TRUE, ...) {
   if (!has_name(x, "end")) x$end <- x$length
 
   other_vars <- if (everything) tidyselect::everything else function() NULL
-  x <- select(x, vars, other_vars())
+  x <- select(x, all_of(vars), other_vars())
   layout_seqs(x, ...)
 }
 

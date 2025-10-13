@@ -89,7 +89,7 @@
 #'   geom_feat(linewidth= 6, position = "identity") + # terminal inverted repeats
 #'   geom_feat(
 #'     data = feats(emale_ngaros), color = "turquoise4", alpha = .3,
-#'     position = "strand", size = 16
+#'     position = "strand", linewidth = 16
 #'   ) +
 #'   geom_feat_note(aes(label = type),
 #'     data = feats(emale_ngaros),

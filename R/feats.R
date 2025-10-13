@@ -58,7 +58,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything = TRUE) {
     ) %>%
     mutate(strand = strand_chr(.data$strand))
 
-  x %<>% swap_if(.data$start > .data$end, .data$start, .data$end)
+  x %<>% swap_if(start > end, start, end)
 
   layout_feats(x, seqs, ...)
 }
