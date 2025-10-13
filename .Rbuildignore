@@ -12,3 +12,4 @@
 ^\.vscode$
 ^issues(/|$)
 ^vignettes-manual-export$
+^cran-comments.md$
