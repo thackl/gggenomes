@@ -147,7 +147,8 @@ as_tracks <- function(tracks, tracks_exprs, reserved_ids = NULL, context = NULL)
     abort(paste("track ids need to be unique: ", dups))
   }
 
-  tracks
+  # ensure all tracks are tibbles
+  purrr::map(tracks, as_tibble)
 }
 
 name_unnamed_from_template <- function(x, prefix, offset = 0) {
