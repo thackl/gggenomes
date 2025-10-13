@@ -19,7 +19,7 @@ folder of gff-files with each file containing genes of a different genome."><met
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@ folder of gff-files with each file containing genes of a different genome."><met
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Read files in various standard formats (FASTA, GFF3, GBK, BED, BLAST, ...) into track tables</h1>
-      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/R/read.R" class="external-link"><code>R/read.R</code></a>, <a href="https://github.com/thackl/gggenomes/blob/master/R/read_feats.R" class="external-link"><code>R/read_feats.R</code></a>, <a href="https://github.com/thackl/gggenomes/blob/master/R/read_seqs.R" class="external-link"><code>R/read_seqs.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/R/read.R" class="external-link"><code>R/read.R</code></a>, <a href="https://github.com/thackl/gggenomes/blob/main/R/read_feats.R" class="external-link"><code>R/read_feats.R</code></a>, <a href="https://github.com/thackl/gggenomes/blob/main/R/read_seqs.R" class="external-link"><code>R/read_seqs.R</code></a></small>
       <div class="d-none name"><code>read_tracks.Rd</code></div>
     </div>
 
@@ -239,19 +239,19 @@ sequences.</p></li>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="va">gbk_phages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  PSSP7 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/"</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"000/858/745/GCF_000858745.1_ViralProj15134/"</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  PSSP3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/"</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"000/904/555/GCF_000904555.1_ViralProj195517/"</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"GCF_000904555.1_ViralProj195517_genomic.gff.gz"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">read_feats</span><span class="op">(</span><span class="va">gbk_phages</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: PSSP7 [ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: PSSP7 [https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Dbxref -&gt; dbxref</span>
@@ -267,7 +267,7 @@ sequences.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> RefSeq gene                58</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> RefSeq region               1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> RefSeq sequence_feature     1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: PSSP3 [ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: PSSP3 [https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/904/555/GCF_000904555.1_ViralProj195517/GCF_000904555.1_ViralProj195517_genomic.gff.gz]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Dbxref -&gt; dbxref</span>

@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@ Hackl</h4>
             
             <h4 data-toc-skip class="date">2/23/2021</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/master/vignettes/gggenomes.Rmd" class="external-link"><code>vignettes/gggenomes.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/vignettes/gggenomes.Rmd" class="external-link"><code>vignettes/gggenomes.Rmd</code></a></small>
       <div class="d-none name"><code>gggenomes.Rmd</code></div>
     </div>
 
@@ -137,6 +137,13 @@ for easier usage. Internally, genes are features.</p>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   <span class="co"># label each sequence </span></span>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>        <span class="co"># draw genes as arrow</span></span>
 <span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span>          <span class="co"># draw some connections between syntenic regions</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Using the `size` aesthetic with geom_polygon was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use the `linewidth` aesthetic instead.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">gggenomes</span> package.</span></span>
+<span><span class="co">##   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/thackl/gggenomes/issues&gt;</span>.</span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="gggenomes_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="section level2">
 <h2 id="geoms-and-tracks">Geoms and tracks<a class="anchor" aria-label="anchor" href="#geoms-and-tracks"></a>
@@ -171,7 +178,7 @@ geom calls using names or positional arguments. Like most gggenomes
 functions the track accessory functions use tidyverse-style non-standard
 evaluation, which means you can refer to tracks either by unquoted names
 or by numeric position.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Let's use some of the bundled example data here</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"gggenomes"</span><span class="op">)</span></span>
 <span></span>
@@ -193,7 +200,7 @@ or by numeric position.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> emale_tirs   feats     2    12</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> emale_ngaros feats     3     3</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> links        links     1    38</span></span></code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot all tracks</span></span>
 <span><span class="va">p</span> <span class="op">+</span></span>
 <span><span class="co">#  geom_link() +  # the first link track</span></span>
@@ -227,7 +234,7 @@ plot variables ahead of time: they originate from the pre-computed
 layout, and we can use that information to set sensible default
 aesthetic mappings for most cases.</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># inspect seqs track with layout vars - note y,x,xend</span></span>
 <span><span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">pull_seqs</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 12</span></span></span>
@@ -241,7 +248,7 @@ aesthetic mappings for most cases.</li>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span>     2     0 <span style="text-decoration: underline;">26</span>820 +      BVI_008A BVI_0…  <span style="text-decoration: underline;">26</span>820          0     1 <span style="text-decoration: underline;">26</span>820 emales </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>     1     0 <span style="text-decoration: underline;">26</span>856 +      E4-10_1… E4-10…  <span style="text-decoration: underline;">26</span>856          0     1 <span style="text-decoration: underline;">26</span>856 emales </span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: seq_desc &lt;chr&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># inspect genes track with layout vars - note y,x,xend, but also other</span></span>
 <span><span class="co"># columns such as strand, feat_id or type, that are added automatically</span></span>
 <span><span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">pull_genes</span></span></code></pre></div>
@@ -281,7 +288,7 @@ sense that for inferred sequence we only know the start
 feature, and b) it is very convenient if we deal with real data: It
 usually makes no sense to plot all 5000 genes of a bacterial genome. In
 most cases we will want to focus on specific regions.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># some genes</span></span>
 <span><span class="va">g0</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,</span>
@@ -291,7 +298,7 @@ most cases we will want to focus on specific regions.</p>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">g0</span><span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">## No seqs provided, inferring seqs from feats</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>         <span class="co"># draw contig/chromosome lines</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   <span class="co"># label each sequence </span></span>
@@ -321,7 +328,7 @@ that it is in a somewhat tidy table, and that it has some of the
 required variables (see below). Even if you have data that is not
 directly supported by gggenomes read functions, it should be very easy
 to convert your data into a table that works with gggenomes.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># note: ex() is just a helper to get stable paths to gggenomes example data</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="../reference/ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">g0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="../reference/ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span><span class="op">)</span></span>
@@ -329,11 +336,11 @@ to convert your data into a table that works with gggenomes.</p>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">g0</span>, <span class="va">s0</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gggenomes_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># for lazy people</span></span>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="fu"><a href="../reference/ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="gggenomes_files/figure-html/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># and really fancy: multiple remote files, all at once</span></span>
 <span><span class="va">gbk_phages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  PSSP7 <span class="op">=</span> <span class="st">"ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz"</span>,</span>
@@ -389,7 +396,7 @@ layout, as opposed to sequence from different bins which will occupy
 different rows. If omitted, the default is to set
 <code>bin_id=seq_id</code>, which means, every sequence gets its own
 row.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># seq track: one entry per sequence</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  bin_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
@@ -402,7 +409,7 @@ row.</p>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>         <span class="co"># draw contig/chromosome lines</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co"># label each sequence </span></span></code></pre></div>
 <p><img src="gggenomes_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co">#geom_bin_label()  # label each bin</span></span></code></pre></div>
 <p><strong><code>start,end,strand</code></strong> in the context of a
 sequence denote a region or <strong><em>locus</em></strong> on that
@@ -411,7 +418,7 @@ boundaries will be shown in the plot. This also will remove any features
 from the plot that do not fall within the locus. It’s likely rare to one
 wants to specify these information directly, but they are important as
 they power manipulation functions such as <code><a href="../reference/focus.html">focus()</a></code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># zoom in on a longer sequence - note the scale on the x-axis</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  seq_id <span class="op">=</span> <span class="st">"a1"</span>,</span>
@@ -457,7 +464,7 @@ contain a list of numeric vectors that denote intron start and end
 coordinates within a given feature. The support of introns is something
 I just very recently added. It’s still experimental and some of the
 handling might change in future versions.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># some genes</span></span>
 <span><span class="va">g0</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>,</span>
@@ -504,9 +511,9 @@ only useful, if no sequences are provided. Otherwise, bin information is
 inherited from the sequences.</p>
 <p><strong><code>strand</code></strong>, works as for feats.
 <code>strand</code> denotes the orientation of the link relative to each
-of the two sequences. If abscent, the orientation is derived from the
+of the two sequences. If absent, the orientation is derived from the
 start and end positions.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># some links</span></span>
 <span><span class="va">l0</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  seq_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>,</span>
@@ -530,7 +537,7 @@ start and end positions.</p>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                  <span class="co"># draws contigs/chromosome lines  </span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>             <span class="co"># labels each sequence</span></span></code></pre></div>
 <p><img src="gggenomes_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="co"># geom_link(offset = 0.05)      # draws links between contigs</span></span></code></pre></div>
 </div>
 </div>
