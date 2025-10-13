@@ -66,7 +66,7 @@ p + p1 + p2 + p3 + plot_layout(nrow=1, guides="collect")
 ``` {r dpi=36, out.width="720px"}
 # fancy flipping using tidyselect::where for dynamic selection
 p <- gggenomes(emale_genes,emale_seqs) %>% add_clusters(emale_cogs) +
-  geom_seq(color="grey70", size=1, arrow = arrow(angle = 30, length = unit(15, "pt"),
+  geom_seq(color="grey70", linewidth=1, arrow = arrow(angle = 30, length = unit(15, "pt"),
     ends = "last", type = "open")) +
   geom_gene(aes(fill=cluster_id))
 

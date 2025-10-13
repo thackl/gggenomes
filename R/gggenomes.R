@@ -74,7 +74,7 @@
 #' # EMALEs: endogenous mavirus-like elements (example data shipped with gggenomes)
 #' gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava) +
 #'   geom_seq() + geom_bin_label() + # chromosomes and labels
-#'   geom_feat(size = 8) + # terminal inverted repeats
+#'   geom_feat(linewidth= 8) + # terminal inverted repeats
 #'   geom_gene(aes(fill = strand), position = "strand") + # genes
 #'   geom_link(offset = 0.15) # synteny-blocks
 #'
@@ -86,7 +86,7 @@
 #'   geom_link(offset = 0.15, color = "white") + # synteny-blocks
 #'   geom_seq() + geom_bin_label() + # chromosomes and labels
 #'   # thistle4, salmon4, burlywood4
-#'   geom_feat(size = 6, position = "identity") + # terminal inverted repeats
+#'   geom_feat(linewidth= 6, position = "identity") + # terminal inverted repeats
 #'   geom_feat(
 #'     data = feats(emale_ngaros), color = "turquoise4", alpha = .3,
 #'     position = "strand", size = 16
@@ -282,7 +282,7 @@ theme_gggenomes_clean <- function(base_size = 12, base_family = "", base_line_si
     panel.grid.minor = element_blank(),
     panel.background = element_rect(fill = "white"),
     # x-axis
-    axis.line.x = element_line(color = "black", size = .4),
+    axis.line.x = element_line(color = "black", linewidth= .4),
     axis.title.x = element_blank(),
     axis.text.x = element_text(color = "black", size = 7),
     axis.ticks.length.x = unit(.7, "mm"),
