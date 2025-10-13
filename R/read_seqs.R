@@ -91,7 +91,7 @@ read_seq_len <- function(file) {
   else if (stringr::str_starts(first, "LOCUS")) {
     output <- tibble::tibble(raw = readr::read_lines(file)) %>%
       dplyr::filter(stringr::str_starts(.data$raw, "LOCUS")) %>%
-      tidyr::separate(.data$raw, into = c("tag", "seq_id", "length"), extra = "drop", convert = TRUE) %>%
+      tidyr::separate(.data$raw, into = c("tag", "seq_id", "length"), sep = "\\s+", extra = "drop", convert = TRUE) %>%
       dplyr::transmute(.data$seq_id, seq_desc = NA_character_, .data$length)
   }
 
