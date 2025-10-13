@@ -88,7 +88,7 @@ geom_link_line <- function(
 GeomLink <- ggproto(
   "GeomLink", Geom,
   default_aes = aes(
-    colour = "honeydew3", fill = "honeydew3", size = 0.5, linetype = 1,
+    colour = "honeydew3", fill = "honeydew3", linewidth = 0.5, linetype = 1,
     alpha = 0.7
   ),
   required_aes = c("x", "xend", "y", "xmin", "xmax", "yend"),
