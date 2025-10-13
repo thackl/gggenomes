@@ -7,7 +7,7 @@
 add_seqs(x, seqs, ...)
 }
 \arguments{
-\item{x}{a gggenomes or gggenomes_layout objekt}
+\item{x}{a gggenomes or gggenomes_layout object}
 
 \item{seqs}{the sequences to add}
 

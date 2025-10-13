@@ -10,7 +10,7 @@ get_seqs(x)
 set_seqs(x, value)
 }
 \arguments{
-\item{x}{a gggenomes or gggenomes_layout objekt}
+\item{x}{a gggenomes or gggenomes_layout object}
 
 \item{value}{to set for seqs}
 }

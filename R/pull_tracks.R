@@ -3,7 +3,7 @@
 #' Track selection works like [dplyr::pull()] and supports unquoted ids and
 #' positional arguments. `...` can be used to subset the data in
 #' [dplyr::filter()] fashion. `pull`-prefixed variants return the specified
-#' track from a gggenome object. Unprefixed variants work inside `geom_*` calls.
+#' track from a gggenomes object. Unprefixed variants work inside `geom_*` calls.
 #' @param .x A gggenomes or gggenomes_layout object.
 #' @param .track_id The track to pull out, either as a literal variable name or
 #'   as a positive/negative integer giving the position from the left/right.

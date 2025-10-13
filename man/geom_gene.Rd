@@ -99,7 +99,7 @@ of the gene model, defaults to shape.}
 Defaults to size. Set 0 for straight lines between exons.}
 
 \item{intron_types}{introns will only be computed/drawn for features with
-types listed here. Set to "CDS" to plot mRNAs as continous features, and
+types listed here. Set to "CDS" to plot mRNAs as continuous features, and
 set to NA to completely ignore introns.}
 
 \item{cds_aes, rna_aes, intron_aes}{overwrite aesthetics for different model
@@ -111,7 +111,7 @@ spelling. These mappings can be used to dynamically change parts of the
 gene model. For example, to change the color of introns from a hard-coded
 "black" to the same color used to fill the CDS you could specify
 \code{intron_aes=aes(colour = fill)}. By default, \code{rna_aes} is remapped with
-\code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearence than the corresponding CDS but in the
+\code{aes(fill=colorspace::lighten(fill, .5), colour=colorspace::lighten(colour, .5))} to give it a lighter appearance than the corresponding CDS but in the
 same color.}
 
 \item{...}{passed to layer params}

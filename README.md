@@ -73,7 +73,7 @@ gggenomes draws inspiration from some brilliant packages, in particular:
 
 ## Installation
 
-gggenomes is available as stable release on CRAN (from v1.0.1). The lastest developmental versions are available on github.
+gggenomes is available as stable release on CRAN (from v1.0.1). The latest developmental versions are available on github.
 
 ```R
 # Install from CRAN

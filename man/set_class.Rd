@@ -4,7 +4,7 @@
 \alias{set_class}
 \alias{add_class}
 \alias{strip_class}
-\title{Modify object class attriutes}
+\title{Modify object class attributes}
 \usage{
 set_class(x, class, add = c("overwrite", "prepend", "append"))
 

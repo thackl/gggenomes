@@ -58,7 +58,7 @@ as_seqs.tbl_df <- function(x, everything = TRUE, ...) {
 #' @param x seq_layout
 #' @param spacing between sequences in bases (>1) or relative to longest bin (<1)
 #' @param wrap wrap bins into multiple lines with at most this many nucleotides
-#' per lin.
+#' per line.
 #' @param spacing_style one of "regular", "center", "spread"
 #' @param keep keys to keep (default: "strand")
 #' @return a tbl_df with plot coordinates
@@ -177,7 +177,7 @@ wrap_impl <- function(.data, xmax, xpad, ystart, xstart) {
 
 #' Add seqs
 #'
-#' @param x a gggenomes or gggenomes_layout objekt
+#' @param x a gggenomes or gggenomes_layout object
 #' @param seqs the sequences to add
 #' @param ... pass through to `as_seqs()`
 #' @return a gggenomes or gggenomes_layout object with added seqs
@@ -197,7 +197,7 @@ add_seqs.gggenomes_layout <- function(x, seqs, ...) {
 
 #' Get/set the seqs track
 #'
-#' @param x a gggenomes or gggenomes_layout objekt
+#' @param x a gggenomes or gggenomes_layout object
 #' @return a gggenomes_layout track tibble
 #' @export
 get_seqs <- function(x) {

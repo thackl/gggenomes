@@ -12,7 +12,7 @@ swap_if(x, condition, ...)
 \item{condition}{an expression to be evaluated in data context returning a
 TRUE/FALSE vector}
 
-\item{...}{the two columns bewteen which values are to be swapped in
+\item{...}{the two columns between which values are to be swapped in
 dplyr::select-like syntax}
 }
 \value{

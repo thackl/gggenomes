@@ -85,7 +85,7 @@ lists which parameters it can accept.
 A ggplot2 layer with variant information.
 }
 \description{
-geom_variant allows the user to draw points at locations where a mutation has occured.
+geom_variant allows the user to draw points at locations where a mutation has occurred.
 Data on SNPs, Insertions, Deletions and more (often stored in a variant call format (VCF)) can easily be visualized this way.
 }
 \details{
