@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a></li>
     <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/thackl/gggenomes/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -36,9 +37,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="set-up-a-plot">Set up a plot<a class="anchor" aria-label="anchor" href="#set-up-a-plot"></a></h2>
+      <h2 id="manipulate-your-plot-data">Manipulate your plot &amp; data<a class="anchor" aria-label="anchor" href="#manipulate-your-plot-data"></a></h2>
 
-      <div class="section-desc"><p>Construct a plot combining multiple tracks</p></div>
+      <div class="section-desc"><p>Set up the plot, rearrange stuff, zoom in on what matters</p></div>
 
 
     </div><div class="section level2">
@@ -52,49 +53,38 @@
 
         </dt>
         <dd>Plot genomes, features and synteny maps</dd>
+      </dl><dl><dt>
+
+          <code><a href="pick.html">pick()</a></code> <code><a href="pick.html">pick_seqs()</a></code> <code><a href="pick.html">pick_seqs_within()</a></code> <code><a href="pick.html">pick_by_tree()</a></code>
+
+        </dt>
+        <dd>Pick bins and seqs by name or position</dd>
+      </dl><dl><dt>
+
+          <code><a href="flip.html">flip()</a></code> <code><a href="flip.html">flip_seqs()</a></code> <code><a href="flip.html">sync()</a></code>
+
+        </dt>
+        <dd>Flip bins and sequences</dd>
+      </dl><dl><dt>
+
+          <code><a href="shift.html">shift()</a></code>
+
+        </dt>
+        <dd>Shift bins left/right</dd>
+      </dl><dl><dt>
+
+          <code><a href="align.html">align()</a></code>
+
+        </dt>
+        <dd>Align genomes relative to target genes, feats, seqs, etc.</dd>
+      </dl><dl><dt>
+
+          <code><a href="focus.html">focus()</a></code> <code><a href="focus.html">locate()</a></code>
+
+        </dt>
+        <dd>Show features and regions of interest</dd>
       </dl></div><div class="section level2">
-      <h2 id="handle-tracks">Handle tracks<a class="anchor" aria-label="anchor" href="#handle-tracks"></a></h2>
-
-
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="track_info.html">track_info()</a></code>
-
-        </dt>
-        <dd>Basic info on tracks in a gggenomes object</dd>
-      </dl><dl><dt>
-
-          <code><a href="add_seqs.html">add_seqs()</a></code>
-
-        </dt>
-        <dd>Add seqs</dd>
-      </dl><dl><dt>
-
-          <code><a href="add_tracks.html">add_feats()</a></code> <code><a href="add_tracks.html">add_links()</a></code> <code><a href="add_tracks.html">add_subfeats()</a></code> <code><a href="add_tracks.html">add_sublinks()</a></code> <code><a href="add_tracks.html">add_clusters()</a></code>
-
-        </dt>
-        <dd>Add different types of tracks</dd>
-      </dl><dl><dt>
-
-          <code><a href="set_class.html">set_class()</a></code> <code><a href="set_class.html">add_class()</a></code> <code><a href="set_class.html">strip_class()</a></code>
-
-        </dt>
-        <dd>Modify object class attributes</dd>
-      </dl><dl><dt>
-
-          <code><a href="pull_track.html">feats()</a></code> <code><a href="pull_track.html">feats0()</a></code> <code><a href="pull_track.html">genes()</a></code> <code><a href="pull_track.html">links()</a></code> <code><a href="pull_track.html">seqs()</a></code> <code><a href="pull_track.html">bins()</a></code> <code><a href="pull_track.html">track()</a></code> <code><a href="pull_track.html">pull_feats()</a></code> <code><a href="pull_track.html">pull_genes()</a></code> <code><a href="pull_track.html">pull_links()</a></code> <code><a href="pull_track.html">pull_seqs()</a></code> <code><a href="pull_track.html">pull_bins()</a></code> <code><a href="pull_track.html">pull_track()</a></code>
-
-        </dt>
-        <dd>Use tracks inside and outside <code>geom_*</code> calls</dd>
-      </dl></div><div class="section level2">
-      <h2 id="draw-geoms-positions">Draw geoms &amp; positions<a class="anchor" aria-label="anchor" href="#draw-geoms-positions"></a></h2>
+      <h2 id="draw-all-those-pretty-things">Draw all those pretty things<a class="anchor" aria-label="anchor" href="#draw-all-those-pretty-things"></a></h2>
 
 
 
@@ -124,7 +114,7 @@
         <dd>Draw feats</dd>
       </dl><dl><dt>
 
-          <code><a href="geom_link.html">geom_link()</a></code> <code><a href="geom_link.html">geom_link_line()</a></code>
+          <code><a href="geom_link.html">geom_link()</a></code> <code><a href="geom_link.html">geom_link_curved()</a></code> <code><a href="geom_link.html">geom_link_line()</a></code>
 
         </dt>
         <dd>Draw links between genomes</dd>
@@ -201,44 +191,9 @@
         </dt>
         <dd>gggenomes default theme</dd>
       </dl></div><div class="section level2">
-      <h2 id="manipulate-plot-data">Manipulate plot &amp; data<a class="anchor" aria-label="anchor" href="#manipulate-plot-data"></a></h2>
+      <h2 id="read-data-from-common-files">Read data from common files<a class="anchor" aria-label="anchor" href="#read-data-from-common-files"></a></h2>
 
 
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="pick.html">pick()</a></code> <code><a href="pick.html">pick_seqs()</a></code> <code><a href="pick.html">pick_seqs_within()</a></code> <code><a href="pick.html">pick_by_tree()</a></code>
-
-        </dt>
-        <dd>Pick bins and seqs by name or position</dd>
-      </dl><dl><dt>
-
-          <code><a href="flip.html">flip()</a></code> <code><a href="flip.html">flip_seqs()</a></code> <code><a href="flip.html">sync()</a></code>
-
-        </dt>
-        <dd>Flip bins and sequences</dd>
-      </dl><dl><dt>
-
-          <code><a href="shift.html">shift()</a></code>
-
-        </dt>
-        <dd>Shift bins left/right</dd>
-      </dl><dl><dt>
-
-          <code><a href="focus.html">focus()</a></code> <code><a href="focus.html">locate()</a></code>
-
-        </dt>
-        <dd>Show features and regions of interest</dd>
-      </dl></div><div class="section level2">
-      <h2 id="read-data">Read data<a class="anchor" aria-label="anchor" href="#read-data"></a></h2>
-
-      <div class="section-desc"><p>Read common bioinformatics file types</p></div>
 
 
     </div><div class="section level2">
@@ -337,7 +292,42 @@
         </dt>
         <dd>Write a gff3 file from a tidy table</dd>
       </dl></div><div class="section level2">
-      <h2 id="under-the-hood">Under the hood<a class="anchor" aria-label="anchor" href="#under-the-hood"></a></h2>
+      <h2 id="work-with-gggenomes-data-tracks">Work with gggenomes’ data tracks<a class="anchor" aria-label="anchor" href="#work-with-gggenomes-data-tracks"></a></h2>
+
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="track_info.html">track_info()</a></code>
+
+        </dt>
+        <dd>Basic info on tracks in a gggenomes object</dd>
+      </dl><dl><dt>
+
+          <code><a href="add_seqs.html">add_seqs()</a></code>
+
+        </dt>
+        <dd>Add seqs</dd>
+      </dl><dl><dt>
+
+          <code><a href="add_tracks.html">add_feats()</a></code> <code><a href="add_tracks.html">add_links()</a></code> <code><a href="add_tracks.html">add_subfeats()</a></code> <code><a href="add_tracks.html">add_sublinks()</a></code> <code><a href="add_tracks.html">add_clusters()</a></code>
+
+        </dt>
+        <dd>Add different types of tracks</dd>
+      </dl><dl><dt>
+
+          <code><a href="pull_track.html">feats()</a></code> <code><a href="pull_track.html">feats0()</a></code> <code><a href="pull_track.html">genes()</a></code> <code><a href="pull_track.html">links()</a></code> <code><a href="pull_track.html">seqs()</a></code> <code><a href="pull_track.html">bins()</a></code> <code><a href="pull_track.html">track()</a></code> <code><a href="pull_track.html">pull_feats()</a></code> <code><a href="pull_track.html">pull_genes()</a></code> <code><a href="pull_track.html">pull_links()</a></code> <code><a href="pull_track.html">pull_seqs()</a></code> <code><a href="pull_track.html">pull_bins()</a></code> <code><a href="pull_track.html">pull_track()</a></code>
+
+        </dt>
+        <dd>Use tracks inside and outside <code>geom_*</code> calls</dd>
+      </dl></div><div class="section level2">
+      <h2 id="take-a-look-under-the-hood">Take a look under the hood<a class="anchor" aria-label="anchor" href="#take-a-look-under-the-hood"></a></h2>
 
       <div class="section-desc"><p>Functions that power gggenomes under the hood. Useful for developers and power-users.</p></div>
 
@@ -515,6 +505,12 @@
 
         </dt>
         <dd>Unnest exons</dd>
+      </dl><dl><dt>
+
+          <code><a href="set_class.html">set_class()</a></code> <code><a href="set_class.html">add_class()</a></code> <code><a href="set_class.html">strip_class()</a></code>
+
+        </dt>
+        <dd>Modify object class attributes</dd>
       </dl></div><div class="section level2">
       <h2 id="data-sets">Data sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
 

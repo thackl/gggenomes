@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a></li>
     <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/thackl/gggenomes/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -112,10 +113,6 @@ to the parent table.</p></li>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">add_links</span><span class="op">(</span>links <span class="op">=</span> <span class="va">emale_ava</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Using the `size` aesthetic with geom_polygon was deprecated in ggplot2 3.4.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use the `linewidth` aesthetic instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">gggenomes</span> package.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/thackl/gggenomes/issues&gt;</span>.</span>
 <span class="r-plt img"><img src="add_tracks-2.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Add domains to genes</span></span></span>
@@ -145,10 +142,10 @@ to the parent table.</p></li>
 <span class="r-in"><span>  <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">cluster_id</span><span class="op">)</span>, <span class="cn">NA</span>,</span></span>
 <span class="r-in"><span>    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_glue.html" class="external-link">str_glue</a></span><span class="op">(</span><span class="st">"{cluster_id} [{cluster_size}]"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_fill_discrete</a></span><span class="op">(</span><span class="st">"COGs"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_discrete.html" class="external-link">scale_fill_discrete</a></span><span class="op">(</span>name<span class="op">=</span><span class="st">"COGs"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: Cflag_017B,BVI_069,BVI_008A</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in grid.Call(C_convert, x, as.integer(whatfrom), as.integer(whatto),     valid.units(unitTo)):</span> Viewport has zero dimension(s)</span>
+<span class="r-plt img"><img src="add_tracks-5.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

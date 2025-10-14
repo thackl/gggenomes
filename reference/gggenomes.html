@@ -11,7 +11,7 @@ It is used to declare the input data for gggenomes' track system.
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +26,7 @@ It is used to declare the input data for gggenomes' track system.
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a></li>
     <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/thackl/gggenomes/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -181,7 +182,7 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>linewidth<span class="op">=</span> <span class="fl">6</span>, position <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> <span class="co"># terminal inverted repeats</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"turquoise4"</span>, alpha <span class="op">=</span> <span class="fl">.3</span>,</span></span>
-<span class="r-in"><span>    position <span class="op">=</span> <span class="st">"strand"</span>, size <span class="op">=</span> <span class="fl">16</span></span></span>
+<span class="r-in"><span>    position <span class="op">=</span> <span class="st">"strand"</span>, linewidth <span class="op">=</span> <span class="fl">16</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat_text.html">geom_feat_note</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>,</span></span>
@@ -194,8 +195,6 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette <span class="op">=</span> <span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: Cflag_017B,BVI_069,BVI_008A</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> wiggle bounds</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> mid:  0.38</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> low:  0.2</span>
