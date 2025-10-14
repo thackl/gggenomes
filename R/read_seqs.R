@@ -43,7 +43,8 @@ parse_desc <- function(x, pattern = "\\s*\\[?(\\S+)=\\{?([^=]+?)(\\s|\\}|\\]|$)"
       as.list() %>%
       set_names(.x[, 2]) %>%
       as_tibble()
-  }) %>% mutate(across(everything(), type.convert, as.is = TRUE))
+  }) %>%
+    mutate(across(everything(), \(x) type.convert(x, as.is = TRUE)))
 
   # if key has the name of a reserved column, rename it so we don't overwrite
   rename_i <- names(y) %in% c("file_id", "seq_id", "seq_desc", "length")
@@ -91,7 +92,7 @@ read_seq_len <- function(file) {
   else if (stringr::str_starts(first, "LOCUS")) {
     output <- tibble::tibble(raw = readr::read_lines(file)) %>%
       dplyr::filter(stringr::str_starts(.data$raw, "LOCUS")) %>%
-      tidyr::separate(.data$raw, into = c("tag", "seq_id", "length"), extra = "drop", convert = TRUE) %>%
+      tidyr::separate(.data$raw, into = c("tag", "seq_id", "length"), sep = "\\s+", extra = "drop", convert = TRUE) %>%
       dplyr::transmute(.data$seq_id, seq_desc = NA_character_, .data$length)
   }
 

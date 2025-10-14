@@ -189,10 +189,17 @@ geom_bin_label <- function(
     mapping = NULL, data = bins(), hjust = 1, size = 3,
     nudge_left = 0.05, expand_left = 0.20, expand_x = NULL, expand_aes = NULL,
     yjust = 0, ...) {
-  default_aes <- aes_(
-    y = ~ ymin * yjust + ymax * (1 - yjust),
-    x = ~ pmin(x, xend) - max_width(x, xend) * nudge_left, label = ~bin_id
+#  default_aes <- aes_(
+#    y = ~ ymin * yjust + ymax * (1 - yjust),
+#    x = ~ pmin(x, xend) - max_width(x, xend) * nudge_left, label = ~bin_id
+#  )
+
+  default_aes <- aes(
+    y = ymin * yjust + ymax * (1 - yjust),
+    x = pmin(x, xend) - max_width(x, xend) * nudge_left,
+    label = bin_id
   )
+  
   mapping <- aes_intersect(mapping, default_aes)
   r <- list(geom_text(
     mapping = mapping, data = data,
@@ -203,7 +210,7 @@ geom_bin_label <- function(
     r[[2]] <- expand_limits(x = expand_x)
   } else if (!is.na(expand_left)) {
     expand_aes <- NULL
-    default_expand_aes <- aes_(y = ~y, x = ~ x - abs(min(x) - max(xend)) * expand_left)
+    default_expand_aes <- aes(y = y, x = x - abs(min(x) - max(xend)) * expand_left)
     expand_aes <- aes_intersect(expand_aes, default_expand_aes)
     r[[2]] <- geom_blank(mapping = expand_aes, data = data)
   }

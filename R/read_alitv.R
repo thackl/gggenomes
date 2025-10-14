@@ -33,7 +33,7 @@ read_alitv <- function(file) {
   genes <- tibble(feature = ali$data$feature) %>%
     mutate(class = names(.data$feature)) %>%
     filter(class != "link") %>%
-    unnest(.data$feature) %>%
+    unnest(feature) %>%
     rename(seq_id = "karyo")
   links <- tibble(links = ali$data$links) %>%
     unnest(links) %>%
@@ -41,7 +41,7 @@ read_alitv <- function(file) {
     unnest_wider(links)
   link_pos <- tibble(link = ali$data$features$link) %>%
     mutate(id = names(.data$link)) %>%
-    unnest_wider(.data$link)
+    unnest_wider(link)
   links <- links %>%
     left_join(link_pos, by = c("source" = "id")) %>%
     left_join(link_pos, by = c("target" = "id")) %>%

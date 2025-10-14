@@ -259,7 +259,7 @@ makeContent.genetree <- function(x) {
     cds_exons <- cds_data %>%
       dplyr::group_by(id) %>%
       dplyr::summarize(
-        dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
+        dplyr::across(c(-x, -xend, -y), first),
         exons = list(exon_polys(.data$x, .data$xend, .data$y, height, arrow_width, arrow_height))
       )
   }
@@ -271,7 +271,7 @@ makeContent.genetree <- function(x) {
     rna_exons <- rna_data %>%
       dplyr::group_by(id) %>%
       dplyr::summarize(
-        dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
+        dplyr::across(c(-x, -xend, -y), first),
         exons = list(exon_polys(.data$x, .data$xend, .data$y, rna_height, rna_arrow_width, rna_arrow_height))
       )
   }
@@ -293,7 +293,7 @@ makeContent.genetree <- function(x) {
       dplyr::group_by(id) %>%
       dplyr::filter(n() > 1) %>%
       dplyr::summarize(
-        dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
+        dplyr::across(c(-x, -xend, -y), first),
         introns = list(intron_polys(.data$x, .data$xend, .data$y, intron_height))
       )
 
@@ -415,5 +415,5 @@ unnest_exons <- function(x) {
       exons = list(exon_spans(x, xend, .data$introns)),
       x = NULL, xend = NULL, introns = NULL
     ) %>%
-    unnest(.data$exons)
+    unnest(exons)
 }

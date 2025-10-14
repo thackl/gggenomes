@@ -108,7 +108,7 @@ as_subfeats.tbl_df <- function(
   x <- mutate_at(x, vars("feat_id"), as.character)
 
   other_vars <- if (everything) tidyselect::everything else function() NULL
-  x <- as_tibble(select(x, vars, other_vars()))
+  x <- as_tibble(select(x, all_of(vars), other_vars()))
 
   # TODO: mutate_at - if at all
   x %<>% mutate_if(is.factor, as.character)
@@ -118,7 +118,7 @@ as_subfeats.tbl_df <- function(
     x$strand <- strand_chr(x$strand)
   }
 
-  x <- x %>% swap_if(.data$start > .data$end, .data$start, .data$end)
+  x <- x %>% swap_if(start > end, start, end)
   if (transform == "aa2nuc") x <- mutate(x, start = 3 * .data$start - 2, end = 3 * .data$end - 2)
   if (transform == "nuc2aa") x <- mutate(x, start = (.data$start + 2) / 3, end = (.data$end + 2) / 3)
 

@@ -118,18 +118,18 @@ read_gff3 <- function(
   # mRNA introns from exons
   mrna_exon_introns <- filter(x, .data$type == "exon") %>%
     select(exon_id = "feat_id", "start", "end", feat_id = "parent_ids") %>%
-    tidyr::unchop(.data$feat_id) %>%
+    tidyr::unchop(feat_id) %>%
     dplyr::group_by(.data$feat_id) %>%
     summarize(introns = list(coords2introns(.data$start, .data$end, sort_exons)))
 
   # for mRNAs w/o exons: mrna_introns == cds_introns + length(five_prime_UTR)
   mrna_cds_five_prime <- filter(x, .data$type == "five_prime_UTR") %>%
     transmute(feat_id = .data$parent_ids, width = width(start, end)) %>%
-    tidyr::unchop(.data$feat_id)
+    tidyr::unchop(feat_id)
 
   mrna_cds_introns <- filter(x, .data$type == "CDS") %>%
     select(feat_id = "parent_ids", "introns") %>%
-    tidyr::unchop(.data$feat_id) %>%
+    tidyr::unchop(feat_id) %>%
     filter(!.data$feat_id %in% mrna_exon_introns$feat_id) %>%
     left_join(mrna_cds_five_prime, by = "feat_id") %>%
     replace_na(list(width = 0)) %>%
@@ -151,7 +151,7 @@ read_gff3 <- function(
   cds_geom_ids <- filter(x, .data$type == "CDS") %>% transmute(geom_id = .data$feat_id, feat_id = .data$feat_id)
   mrna_geom_ids <- filter(x, .data$type == "CDS") %>%
     select(geom_id = "feat_id", feat_id = "parent_ids") %>%
-    tidyr::unchop(.data$feat_id) %>%
+    tidyr::unchop(feat_id) %>%
     filter(.data$feat_id %in% mrna_ids)
   # multiplies mRNAs that have multiple CDS kids (intended)
   x <- left_join(x, bind_rows(cds_geom_ids, mrna_geom_ids), by = "feat_id")
@@ -172,7 +172,7 @@ add_mrna_for_exons <- function(x, col_names) {
   # orfan exons
   x2 <- mutate(x, .row_index = row_number())
   exons <- filter(x2, .data$type == "exon") %>%
-    tidyr::unchop(.data$parent_ids) %>%
+    tidyr::unchop(parent_ids) %>%
     filter(!.data$parent_ids %in% mrna_ids)
 
   if (nrow(exons) == 0) {

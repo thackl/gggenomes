@@ -58,8 +58,8 @@ as_links.tbl_df <- function(x, seqs, ..., everything = TRUE) {
     # add strand and recode start-end
     x <- x %>%
       mutate(x, strand = ifelse((.data$start < .data$end) == (.data$start2 < .data$end2), "+", "-")) %>%
-      swap_if(.data$start > .data$end, .data$start, .data$end) %>%
-      swap_if(.data$start2 > .data$end2, .data$start2, .data$end2)
+      swap_if(start > end, start, end) %>%
+      swap_if(start2 > end2, start2, end2)
   } else {
     x$strand <- strand_chr(x$strand)
   }

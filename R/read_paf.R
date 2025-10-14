@@ -75,7 +75,7 @@ tidy_paf_tags <- function(.data) {
 
   for (x in select(.data, starts_with("tag_"))) {
     tag_mx <- str_split(x, ":", 3, simplify = T)
-    tag_mx_nr <- na.omit(unique(tag_mx[, 1:2]))
+    tag_mx_nr <- na.omit(unique(tag_mx[, 1:2, drop = FALSE]))
     if (nrow(tag_mx_nr) == 0) {
       seen_empty_tag_col <- TRUE
       break # empty col -> seen all tags
