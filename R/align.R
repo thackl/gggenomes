@@ -59,7 +59,7 @@
 #'   p |> align(.track_id = "seqs", .justify = .5) +
 #'   # right-align on contig ending in "2"
 #'   # NOTE: there is no 2nd contig in bin A, so nothing is aligned there
-#'   p |> align(str_detect(seq_id, "2"), .track_id = "seqs", .justify = "right")
+#'   p |> align(stringr::str_detect(seq_id, "2"), .track_id = "seqs", .justify = "right")
 #' 
 #' pp + plot_layout(guides = "collect") & geom_vline(xintercept = 0, linetype = 2)
 align <- function(x, ..., .track_id = "genes", .justify = "left"){
