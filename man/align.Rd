@@ -29,6 +29,7 @@ The genomes will be shifted so that the anchors align according to the
 \code{.align}.
 }
 \examples{
+library(patchwork)
 p <- gggenomes(emale_genes, links = emale_ava) +
   geom_link() +
   geom_gene(aes(fill = name)) +
@@ -46,7 +47,7 @@ pp <-
   p |> sync() |> align(name \%in\% c("MCP", "pri-hel"), .align = "center") |>
     # and highlight the feature block we are aligning to
     locate(name \%in\% c("MCP", "pri-hel"), .expand = 0, .max_dist = 1e6) +
-    geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5) +
+    geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5)
   # center-align by fraction on MCP and pri-hel gene (hjust-like behaviour)
   p |> align(name \%in\% c("MCP", "pri-hel"), .align = .5) +
   # right-align by fraction after flipping
