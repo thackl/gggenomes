@@ -1,17 +1,17 @@
 url: https://thackl.github.io/gggenomes/
 
 reference:
-- title: "Set up a plot"
-  desc: >
-    Construct a plot combining multiple tracks
+- title: "Manipulate your plot & data"
+  desc: >-
+    Set up the plot, rearrange stuff, zoom in on what matters
 - contents:
     - gggenomes
-- title: "Handle tracks"
-- contents:
-    - track_info
-    - starts_with("add_")
-    - pull_seqs
-- title: "Draw geoms & positions"
+    - pick
+    - flip
+    - shift
+    - align
+    - focus
+- title: "Draw all those pretty things"
 - contents:
     - geom_seq
     - geom_gene
@@ -24,16 +24,7 @@ reference:
     - scale_x_bp
     - scale_color_variant
     - starts_with("theme_")
-- title: "Manipulate plot & data"
-- contents:
-    - pick
-    - flip
-    - shift
-    - align
-    - focus
-- title: "Read data"
-  desc: >
-    Read common bioinformatics file types
+- title: "Read data from common files"
 - contents:
     - read_seqs
     - read_feats
@@ -44,7 +35,13 @@ reference:
     - def_names
     - def_types
     - starts_with("write")
-- title: "Under the hood"
+- title: "Work with gggenomes' data tracks"
+- contents:
+    - track_info
+    - starts_with("add_")
+    - -ends_with("_class")
+    - pull_seqs
+- title: "Take a look under the hood"
   desc: >
     Functions that power gggenomes under the hood. Useful for developers and power-users.
 - contents:
@@ -75,6 +72,7 @@ reference:
   - strand_int
   - strand_lgl
   - unnest_exons
+  - ends_with("_class")
 - title: "Data sets"
 - contents:
   - starts_with("emale")
