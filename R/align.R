@@ -33,7 +33,7 @@
 #'   p |> sync() |> align(name %in% c("MCP", "pri-hel"), .justify = "center") |>
 #'     # and highlight the feature block we are aligning to
 #'     locate(name %in% c("MCP", "pri-hel"), .expand = 0, .max_dist = 1e6) +
-#'     geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5)
+#'     geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5) +
 #'   # center-align by fraction on MCP and pri-hel gene (hjust-like behaviour)
 #'   p |> align(name %in% c("MCP", "pri-hel"), .justify = .5) +
 #'   # right-align by fraction after flipping
