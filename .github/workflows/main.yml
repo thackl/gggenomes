@@ -53,22 +53,13 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
       
-      - name: use Bioconductor devel only for r-devel
+      - name: use bioc devel for r-devel
         if: matrix.config.r == 'devel'
         run: |
           Rscript -e 'install.packages("BiocManager", repos = "https://cran.r-project.org")'
           Rscript -e 'cat("options(repos = BiocManager::repositories(version = \"devel\"))\n", file = ".Rprofile", append = TRUE)'
           Rscript -e 'BiocManager::version(); print(BiocManager::repositories())'
-
-      - name: Show active repos
-        run: Rscript -e 'print(getOption("repos"))'
-
-      - name: Probe Bioc with pak
-        if: matrix.config.r == 'devel'
-        run: |
-          Rscript -e 'install.packages("pak", repos = getOption("repos"))'
-          Rscript -e 'pak::repo_add(bioconductor = BiocManager::repositories(version="devel")[["BioCsoft"]]); pak::pkg_install("bioc::IRanges")'
-
+          Rscript -e 'BiocManager::install("IRanges", ask=FALSE, update=FALSE)'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
