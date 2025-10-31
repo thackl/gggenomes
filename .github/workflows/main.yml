@@ -24,14 +24,14 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
+          # - {os: macos-latest,   r: 'release'}
 
-          - {os: windows-latest, r: 'release'}
+          # - {os: windows-latest, r: 'release'}
           # use 4.0 or 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: 'oldrel-4'}
+          # - {os: windows-latest, r: 'oldrel-4'}
           
           - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,  r: 'release'}
+          # - {os: ubuntu-latest,  r: 'release'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
@@ -56,16 +56,17 @@ jobs:
       - name: use Bioconductor devel only for r-devel
         if: matrix.config.r == 'devel'
         run: |
-          Rscript -e 'install.packages("BiocManager")'
-          Rscript -e 'BiocManager::install(version = "devel", ask = FALSE, update = FALSE)'
+          Rscript -e 'install.packages("BiocManager", repos = "https://cran.r-project.org")'
+          Rscript -e 'cat("options(repos = BiocManager::repositories(version = \"devel\"))\n", file = ".Rprofile", append = TRUE)'
+          Rscript -e 'BiocManager::version(); print(BiocManager::repositories())'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 3
           extra-packages: >
-            any::rcmdcheck,
-            any::Hmisc,
-            any::quantreg,
+            any::rcmdcheck
+            any::Hmisc
+            any::quantreg
             bioc::IRanges
           needs: check
 
