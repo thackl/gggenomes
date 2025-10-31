@@ -52,6 +52,12 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+      
+      - name: use Bioconductor devel only for r-devel
+        if: matrix.config.r == 'devel'
+        run: |
+          Rscript -e 'install.packages("BiocManager")'
+          Rscript -e 'BiocManager::install(version = "devel", ask = FALSE, update = FALSE)'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
