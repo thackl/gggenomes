@@ -63,6 +63,13 @@ jobs:
       - name: Show active repos
         run: Rscript -e 'print(getOption("repos"))'
 
+      - name: Probe Bioc with pak
+        if: matrix.config.r == 'devel'
+        run: |
+          Rscript -e 'install.packages("pak", repos = getOption("repos"))'
+          Rscript -e 'pak::repo_add(bioconductor = BiocManager::repositories(version="devel")[["BioCsoft"]]); pak::pkg_install("bioc::IRanges")'
+
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 3
