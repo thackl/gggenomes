@@ -60,13 +60,17 @@ jobs:
           Rscript -e 'cat("options(repos = BiocManager::repositories(version = \"devel\"))\n", file = ".Rprofile", append = TRUE)'
           Rscript -e 'BiocManager::version(); print(BiocManager::repositories())'
 
+      - name: Show active repos
+        run: Rscript -e 'print(getOption("repos"))'
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 3
-          extra-packages: >
+          extra-packages: |
             any::rcmdcheck
             any::Hmisc
             any::quantreg
+            any::BiocManager
             bioc::IRanges
           needs: check
 
