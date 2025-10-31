@@ -112,7 +112,12 @@ read_gff3 <- function(
   }
 
   if (infer_cds_parents) {
-    x <- infer_cds_parent(x)
+    # this is a fallback primarily to pass tests in r-devel where IRanges is not always available
+    if (!requireNamespace("IRanges", quietly = TRUE)) {
+      warn("Bioconductor IRanges missing but required for CDS parent inference. Skipping inference.")
+    }else{
+      x <- infer_cds_parent(x)
+    }
   }
 
   # mRNA introns from exons

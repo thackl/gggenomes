@@ -30,7 +30,7 @@ jobs:
           # use 4.0 or 4.1 to check with rtools40's older compiler
           - {os: windows-latest, r: 'oldrel-4'}
           
-          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,  r: 'devel'}
           - {os: ubuntu-latest,  r: 'release'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -52,13 +52,13 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
-
+      
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 3
-          extra-packages: >
-            any::rcmdcheck,
-            any::Hmisc,
+          extra-packages: |
+            any::rcmdcheck
+            any::Hmisc
             any::quantreg
           needs: check
 
