@@ -60,7 +60,7 @@ jobs:
             any::rcmdcheck,
             any::Hmisc,
             any::quantreg,
-            any::IRanges
+            bioc::IRanges
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
