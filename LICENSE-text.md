@@ -1,0 +1,4 @@
+# License
+
+    YEAR: 2018
+    COPYRIGHT HOLDER: Thomas Hackl
