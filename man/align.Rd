@@ -36,24 +36,16 @@ p <- gggenomes(emale_genes, links = emale_ava) +
   scale_fill_brewer(palette = "Dark2", na.value = "cornsilk3") +
   geom_bin_label()
 
-p_synced <- p |> sync()
-
 pp <-
   # left-align on MCP gene
   p |> align(name == "MCP") +
-  # left-align on MCP gene after flipping bins
-  p_synced |> align(name == "MCP") +
   # right-align on MCP gene
   p |> align(name == "MCP", .justify = "right") +
-  # center-align on MCP + pri-hel gene
-  p_synced |> align(name \%in\% c("MCP", "pri-hel"), .justify = "center") |>
+  # center-align on MCP + pri-hel gene after flipping bins
+  p |> sync() |> align(name \%in\% c("MCP", "pri-hel"), .justify = "center") |>
     # and highlight the feature block we are aligning to
     locate(name \%in\% c("MCP", "pri-hel"), .expand = 0, .max_dist = 1e6) +
-    geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5) +
-  # center-align by fraction on MCP and pri-hel gene (hjust-like behaviour)
-  p |> align(name \%in\% c("MCP", "pri-hel"), .justify = .5) +
-  # right-align by fraction after flipping
-  p_synced |> align(name \%in\% c("MCP", "pri-hel"), .justify = 1)
+    geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5)
 
 pp + plot_layout(guides = "collect") & geom_vline(xintercept = 0, linetype = 2)
 
