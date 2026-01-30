@@ -257,7 +257,7 @@ makeContent.genetree <- function(x) {
   cds_data <- data %>% filter(.data$type == "CDS")
   if (nrow(cds_data) > 0) {
     cds_exons <- cds_data %>%
-      dplyr::group_by(id) %>%
+      dplyr::group_by(.data$id) %>%
       dplyr::summarize(
         dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
         exons = list(exon_polys(.data$x, .data$xend, .data$y, height, arrow_width, arrow_height))
@@ -269,7 +269,7 @@ makeContent.genetree <- function(x) {
   rna_data <- data %>% filter(.data$type != "CDS")
   if (nrow(rna_data) > 0) {
     rna_exons <- rna_data %>%
-      dplyr::group_by(id) %>%
+      dplyr::group_by(.data$id) %>%
       dplyr::summarize(
         dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
         exons = list(exon_polys(.data$x, .data$xend, .data$y, rna_height, rna_arrow_width, rna_arrow_height))
@@ -290,7 +290,7 @@ makeContent.genetree <- function(x) {
       dplyr::group_by(.data$group) %>%
       # remove CDS if group has mRNA
       dplyr::filter(.data$type != (if ("mRNA" %in% .data$type) "CDS" else "!bogus")) %>%
-      dplyr::group_by(id) %>%
+      dplyr::group_by(.data$id) %>%
       dplyr::filter(n() > 1) %>%
       dplyr::summarize(
         dplyr::across(c(-.data$x, -.data$xend, -.data$y), first),
