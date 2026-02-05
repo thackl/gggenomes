@@ -258,7 +258,7 @@ filter_def_formats <- function(ff, format = NULL, context = NULL, parser = NULL)
     if (!is.null(context)) {
       # context=NA defines fallback parser which is always last in arrange
       ff <- ff %>%
-        dplyr::group_by(format) %>%
+        dplyr::group_by(.data$format) %>%
         dplyr::filter(context %in% !!context | is.na(context)) %>%
         dplyr::arrange(context, .by_group = TRUE) %>%
         slice_head(n = 1)

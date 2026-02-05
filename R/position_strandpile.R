@@ -125,7 +125,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
     } else if (params$grouped) { # i.e. multi-exon as one unit
       # not pretty, but works for now
       data_grouped <- data %>%
-        dplyr::group_by(y, group) %>%
+        dplyr::group_by(.data$y, .data$group) %>%
         dplyr::summarize(
           start = min(x, xend) + 1, end = max(x, xend), is_reverse = ifelse(params$strandwise,
             xor(min(x) > max(xend), params$flip), params$flip
@@ -133,7 +133,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
         )
 
       data_grouped <- data_grouped %>%
-        dplyr::group_by(y, is_reverse) %>%
+        dplyr::group_by(.data$y, .data$is_reverse) %>%
         dplyr::mutate(yoff = (params$base + params$offset *
           stack_pos(start, end, params$gap)) *
           ifelse(is_reverse, -1, 1)) %>%
@@ -146,7 +146,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
           start = pmin(x, xend) + 1, end = pmax(x, xend),
           is_reverse = if (params$strandwise) xor(x > xend, params$flip) else params$flip
         ) %>%
-        dplyr::group_by(y, is_reverse) %>%
+        dplyr::group_by(.data$y, .data$is_reverse) %>%
         dplyr::mutate(yoff = (params$base + params$offset *
           stack_pos(start, end, params$gap)) *
           ifelse(is_reverse, -1, 1)) %>%
