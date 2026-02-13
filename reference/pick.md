@@ -163,7 +163,7 @@ p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
 t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
 })
-#> ggtree v4.0.1 Learn more at https://yulab-smu.top/contribution-tree-data/
+#> ggtree v4.0.4 Learn more at https://yulab-smu.top/contribution-tree-data/
 #> 
 #> Please cite:
 #> 

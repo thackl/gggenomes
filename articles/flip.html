@@ -67,7 +67,7 @@
                         <h4 data-toc-skip class="author">Thomas
 Hackl</h4>
             
-            <h4 data-toc-skip class="date">2025-11-13</h4>
+            <h4 data-toc-skip class="date">2026-02-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/vignettes/flip.Rmd" class="external-link"><code>vignettes/flip.Rmd</code></a></small>
       <div class="d-none name"><code>flip.Rmd</code></div>
@@ -127,7 +127,7 @@ Hackl</h4>
 <span><span class="co">## Flipping: E4-10_086,E4-10_112,RCC970_016B</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p0</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flip_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="720px"></p>
+<p><img src="flip_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="720px"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># flip seqs inside bins</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
@@ -144,7 +144,7 @@ Hackl</h4>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">gggenomes</span> package.</span></span>
 <span><span class="co">##   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/thackl/gggenomes/issues&gt;</span>.</span></span>
-<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -153,7 +153,7 @@ Hackl</h4>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/flip.html">flip_seqs</a></span><span class="op">(</span><span class="fl">2</span>, .bins <span class="op">=</span> <span class="va">C</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="va">p3</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flip_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" width="720px"></p>
+<p><img src="flip_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="720px"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># fancy flipping using tidyselect::where for dynamic selection</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span>,<span class="va">emale_seqs</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/add_tracks.html">add_clusters</a></span><span class="op">(</span><span class="va">emale_cogs</span><span class="op">)</span> <span class="op">+</span></span>
@@ -169,7 +169,7 @@ Hackl</h4>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/flip.html">flip</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="va">.x</span><span class="op">$</span><span class="va">strand</span><span class="op">[</span><span class="va">.x</span><span class="op">$</span><span class="va">cluster_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"cog-MCP"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span>, .bin_track<span class="op">=</span><span class="va">genes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>nrow<span class="op">=</span><span class="fl">1</span>, guides<span class="op">=</span><span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="flip_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" width="720px"></p>
+<p><img src="flip_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="720px"></p>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

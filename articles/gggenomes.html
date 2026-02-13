@@ -138,7 +138,7 @@ for easier usage. Internally, genes are features.</p>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   <span class="co"># label each sequence </span></span>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>        <span class="co"># draw genes as arrow</span></span>
 <span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span>          <span class="co"># draw some connections between syntenic regions</span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="section level2">
 <h2 id="geoms-and-tracks">Geoms and tracks<a class="anchor" aria-label="anchor" href="#geoms-and-tracks"></a>
 </h2>
@@ -202,7 +202,7 @@ or by numeric position.</p>
 <span>  <span class="fu"><a href="../reference/geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># the first feat track not named "genes", here emale_tirs</span></span>
 <span>  <span class="co"># use an extra feat track by name</span></span>
 <span>  <span class="fu"><a href="../reference/geom_feat.html">geom_feat</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="../reference/pull_track.html">feats</a></span><span class="op">(</span><span class="va">emale_ngaros</span><span class="op">)</span>, color<span class="op">=</span><span class="st">"plum3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="960" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="960" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="one-layout-to-rule-them-all">One layout to rule them all<a class="anchor" aria-label="anchor" href="#one-layout-to-rule-them-all"></a>
@@ -298,7 +298,7 @@ most cases we will want to focus on specific regions.</p>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>   <span class="co"># label each sequence </span></span>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span>          <span class="co"># draw genes as arrow</span></span></code></pre></div>
 <pre><code><span><span class="co">## Only saw `type=NA` in genes and will treat everything as `type="CDS"`.</span></span></code></pre>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="plotting-from-files">Plotting from files<a class="anchor" aria-label="anchor" href="#plotting-from-files"></a>
@@ -329,11 +329,11 @@ to convert your data into a table that works with gggenomes.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">g0</span>, <span class="va">s0</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># for lazy people</span></span>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="fu"><a href="../reference/ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-5-2.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-5-2.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># and really fancy: multiple remote files, all at once</span></span>
 <span><span class="va">gbk_phages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -344,7 +344,7 @@ to convert your data into a table that works with gggenomes.</p>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">gbk_phages</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-5-3.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-5-3.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="inside-gggenomes-tracks">Inside gggenomes tracks<a class="anchor" aria-label="anchor" href="#inside-gggenomes-tracks"></a>
@@ -402,7 +402,7 @@ row.</p>
 <span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>         <span class="co"># draw contig/chromosome lines</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>    <span class="co"># label each sequence </span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="co">#geom_bin_label()  # label each bin</span></span></code></pre></div>
 <p><strong><code>start,end,strand</code></strong> in the context of a
@@ -421,7 +421,7 @@ they power manipulation functions such as <code><a href="../reference/focus.html
 <span>  end <span class="op">=</span> <span class="fl">3000</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s0</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="feature-tracks---what-maps-onto-sequences">Feature tracks - what maps onto sequences<a class="anchor" aria-label="anchor" href="#feature-tracks---what-maps-onto-sequences"></a>
@@ -474,7 +474,7 @@ handling might change in future versions.</p>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span>          <span class="co"># draw genes as arrow</span></span></code></pre></div>
 <pre><code><span><span class="co">## No seqs provided, inferring seqs from feats</span></span>
 <span><span class="co">## Only saw `type=NA` in genes and will treat everything as `type="CDS"`.</span></span></code></pre>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="link-tracks---show-me-the-synteny">Link tracks - show me the synteny<a class="anchor" aria-label="anchor" href="#link-tracks---show-me-the-synteny"></a>
@@ -530,7 +530,7 @@ start and end positions.</p>
 <span><span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs<span class="op">=</span><span class="va">s1</span>, links<span class="op">=</span><span class="va">l0</span><span class="op">)</span>  <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>                  <span class="co"># draws contigs/chromosome lines  </span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span>             <span class="co"># labels each sequence</span></span></code></pre></div>
-<p><img src="gggenomes_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" width="960" style="display: block; margin: auto;"></p>
+<p><img src="gggenomes_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="960" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="co"># geom_link(offset = 0.05)      # draws links between contigs</span></span></code></pre></div>
 </div>
