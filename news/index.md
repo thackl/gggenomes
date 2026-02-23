@@ -1,6 +1,12 @@
 # Changelog
 
-## gggenomes 1.1.1
+## gggenomes 1.1.3
+
+- make “id” global variable for compatibility with dplyr 1.2.0
+
+## gggenomes 1.1.2
+
+CRAN release: 2025-11-14
 
 - new [`align()`](https://thackl.github.io/gggenomes/reference/align.md)
   function to arrange genomes relative to genes/regions of interest

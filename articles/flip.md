@@ -6,7 +6,7 @@ library(gggenomes)
 
     ## Loading required package: ggplot2
 
-    ## gggenomes v1.1.2
+    ## gggenomes v1.1.3
     ## 
     ## If you use 'gggenomes' in published research, please cite:
     ## 
