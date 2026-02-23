@@ -1,4 +1,7 @@
-# gggenomes 1.1.1
+# gggenomes 1.1.3
+* make "id" global variable for compatibility with dplyr 1.2.0
+
+# gggenomes 1.1.2
 
 * new `align()` function to arrange genomes relative to genes/regions of interest (#204)
 * new `geom_link_curved()` for bezier-style connectores (#104)

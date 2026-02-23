@@ -1,5 +1,5 @@
 ## Test environments
-- Local: Ubuntu 22.04.4 LTS, R 4.5.1
+- Local: Ubuntu 24.04.4 LTS, R 4.5.2
 - GitHub Actions own workflows: 
   - macos-release, windows-release/oldrel4, ubuntu-release
 - R-hub v2 via GitHub Actions: 

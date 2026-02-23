@@ -7,21 +7,18 @@
 read_bed(file, col_names = def_names("bed"), col_types = def_types("bed"), ...)
 }
 \arguments{
-\item{file}{Either a path to a file, a connection, or literal data
-(either a single string or a raw vector).
+\item{file}{Either a path to a file, a connection, or literal data (either a
+single string or a raw vector). \code{file} can also be a character vector
+containing multiple filepaths or a list containing multiple connections.
 
-Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will
-be automatically uncompressed. Files starting with \verb{http://},
-\verb{https://}, \verb{ftp://}, or \verb{ftps://} will be automatically
-downloaded. Remote gz files can also be automatically downloaded and
+Files ending in \code{.gz}, \code{.bz2}, \code{.xz}, or \code{.zip} will be automatically
+decompressed. Files starting with \verb{http://}, \verb{https://}, \verb{ftp://}, or
+\verb{ftps://} will be automatically downloaded. Remote compressed files
+(\code{.gz}, \code{.bz2}, \code{.xz}, \code{.zip}) will be automatically downloaded and
 decompressed.
 
 Literal data is most useful for examples and tests. To be recognised as
-literal data, the input must be either wrapped with \code{I()}, be a string
-containing at least one new line, or be a vector containing at least one
-string with a new line.
-
-Using a value of \code{\link[readr:clipboard]{clipboard()}} will read from the system clipboard.}
+literal data, wrap the input with \code{I()}.}
 
 \item{col_names}{column names to use. Defaults to \code{def_names("bed")}
 compatible with canonical bed files. \code{\link[=def_names]{def_names()}} can easily be
