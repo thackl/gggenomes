@@ -231,6 +231,13 @@ native_width <- function(x) {
   as.numeric(grid::convertWidth(grid::unit(x, "mm"), "native")) / 2
 }
 
+# default gene-body polygon grob; ignores the tooltip/data_id/onclick params
+# that geom_gene_interactive() feeds in when it swaps in ggiraph's interactive
+# polygon grob via the gTree's `polygon_grob` field
+gene_polygon_grob <- function(..., tooltip = NULL, data_id = NULL, onclick = NULL) {
+  grid::polygonGrob(...)
+}
+
 #' @export
 makeContent.genetree <- function(x) {
   data <- x$data
@@ -278,10 +285,14 @@ makeContent.genetree <- function(x) {
 
   # one grob per feature for feature-wise aes (all exons same)
   all_exons <- bind_rows(rna_exons, cds_exons)
-  grobs <- purrr::pmap(all_exons, function(exons, fill, colour, linetype, stroke, ...) {
-    grid::polygonGrob(
+  # allow geom_gene_interactive() to plug in ggiraph::interactive_polygon_grob
+  polygon_grob <- x$polygon_grob %||% gene_polygon_grob
+  grobs <- purrr::pmap(all_exons, function(exons, fill, colour, linetype, stroke,
+                                            tooltip = NULL, data_id = NULL, onclick = NULL, ...) {
+    polygon_grob(
       x = exons$x, y = exons$y, id = exons$id,
-      gp = grid::gpar(fill = fill, col = colour, lty = linetype, lwd = stroke)
+      gp = grid::gpar(fill = fill, col = colour, lty = linetype, lwd = stroke),
+      tooltip = tooltip, data_id = data_id, onclick = onclick
     )
   })
 

@@ -47,5 +47,6 @@ Suggests:
     Hmisc,
     knitr,
     ggrepel,
+    ggiraph,
     IRanges,
     rmarkdown
