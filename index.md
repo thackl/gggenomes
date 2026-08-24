@@ -19,6 +19,7 @@ heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
 ![](reference/figures/emales.png)
 
 ``` r
+
 library(gggenomes)
 
 # to inspect the example data shipped with gggenomes
@@ -93,6 +94,7 @@ gggenomes is available as stable release on CRAN (from v1.0.1). The
 latest developmental versions are available on github.
 
 ``` r
+
 # Install from CRAN
 install.packages("gggenomes") 
 

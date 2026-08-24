@@ -32,6 +32,7 @@ feature tracks, that sometimes get special treatment for easier usage.
 Internally, genes are features.
 
 ``` r
+
 library(gggenomes)
 
 # a minimal seq track
@@ -99,6 +100,7 @@ use tidyverse-style non-standard evaluation, which means you can refer
 to tracks either by unquoted names or by numeric position.
 
 ``` r
+
 # Let's use some of the bundled example data here
 data(package="gggenomes")
 
@@ -124,6 +126,7 @@ p %>% track_info
     ## 5 links        links     1    38
 
 ``` r
+
 # plot all tracks
 p +
 #  geom_link() +  # the first link track
@@ -158,6 +161,7 @@ gggenomes:
     for most cases.
 
 ``` r
+
 # inspect seqs track with layout vars - note y,x,xend
 p %>% pull_seqs
 ```
@@ -175,6 +179,7 @@ p %>% pull_seqs
     ## # ℹ 1 more variable: seq_desc <chr>
 
 ``` r
+
 # inspect genes track with layout vars - note y,x,xend, but also other
 # columns such as strand, feat_id or type, that are added automatically
 p %>% pull_genes
@@ -219,6 +224,7 @@ all 5000 genes of a bacterial genome. In most cases we will want to
 focus on specific regions.
 
 ``` r
+
 # some genes
 g0 <- tibble::tibble(
   seq_id = c("a", "a", "b"),
@@ -232,6 +238,7 @@ p <- gggenomes(g0)
     ## No seqs provided, inferring seqs from feats
 
 ``` r
+
 p +
   geom_seq() +         # draw contig/chromosome lines
   geom_seq_label() +   # label each sequence 
@@ -267,6 +274,7 @@ directly supported by gggenomes read functions, it should be very easy
 to convert your data into a table that works with gggenomes.
 
 ``` r
+
 # note: ex() is just a helper to get stable paths to gggenomes example data
 s0 <- read_seqs(ex("emales/emales.fna"))
 g0 <- read_feats(ex("emales/emales.gff"))
@@ -278,6 +286,7 @@ gggenomes(g0, s0) +
 ![](gggenomes_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
+
 # for lazy people
 gggenomes(ex("emales/emales.gff")) + geom_gene() 
 ```
@@ -285,6 +294,7 @@ gggenomes(ex("emales/emales.gff")) + geom_gene()
 ![](gggenomes_files/figure-html/unnamed-chunk-5-2.png)
 
 ``` r
+
 # and really fancy: multiple remote files, all at once
 gbk_phages <- c(
   PSSP7 = "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/858/745/GCF_000858745.1_ViralProj15134/GCF_000858745.1_ViralProj15134_genomic.gff.gz",
@@ -333,6 +343,7 @@ different bins which will occupy different rows. If omitted, the default
 is to set `bin_id=seq_id`, which means, every sequence gets its own row.
 
 ``` r
+
 # seq track: one entry per sequence
 s0 <- tibble::tibble(
   bin_id = c("A", "A", "B"),
@@ -349,6 +360,7 @@ p +
 ![](gggenomes_files/figure-html/unnamed-chunk-6-1.png)
 
 ``` r
+
   #geom_bin_label()  # label each bin
 ```
 
@@ -361,6 +373,7 @@ they are important as they power manipulation functions such as
 [`focus()`](https://thackl.github.io/gggenomes/reference/focus.md).
 
 ``` r
+
 # zoom in on a longer sequence - note the scale on the x-axis
 s0 <- tibble::tibble(
   seq_id = "a1",
@@ -413,6 +426,7 @@ It’s still experimental and some of the handling might change in future
 versions.
 
 ``` r
+
 # some genes
 g0 <- tibble::tibble(
   seq_id = c("a"),
@@ -463,6 +477,7 @@ the link relative to each of the two sequences. If absent, the
 orientation is derived from the start and end positions.
 
 ``` r
+
 # some links
 l0 <- tibble::tibble(
   seq_id = c("a", "a", "a"),
@@ -490,5 +505,6 @@ gggenomes(seqs=s1, links=l0)  +
 ![](gggenomes_files/figure-html/unnamed-chunk-9-1.png)
 
 ``` r
+
  # geom_link(offset = 0.05)      # draws links between contigs
 ```

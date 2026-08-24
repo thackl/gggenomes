@@ -2,6 +2,8 @@
 
 ## gggenomes 1.1.3
 
+CRAN release: 2026-02-23
+
 - make “id” global variable for compatibility with dplyr 1.2.0
 
 ## gggenomes 1.1.2

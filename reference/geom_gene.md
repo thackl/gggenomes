@@ -173,19 +173,19 @@ A ggplot2 layer with genes.
 are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                    |                 |
-|-----|------------------------------------------------------------------------------------|-----------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/reference/aes_position.html)**               |                 |
-| •   | **[`xend`](https://ggplot2.tidyverse.org/reference/aes_position.html)**            |                 |
-| •   | **[`y`](https://ggplot2.tidyverse.org/reference/aes_position.html)**               |                 |
-| •   | [`alpha`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html)      | → `1`           |
-| •   | [`colour`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html)     | → `"black"`     |
-| •   | [`fill`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html)       | → `"cornsilk3"` |
-| •   | [`group`](https://ggplot2.tidyverse.org/reference/aes_group_order.html)            | → inferred      |
-| •   | `introns`                                                                          | → `NULL`        |
-| •   | [`linetype`](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html) | → `1`           |
-| •   | `stroke`                                                                           | → `0.4`         |
-| •   | `type`                                                                             | → `"CDS"`       |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/reference/aes_position.html)** |  |
+| • | **[`xend`](https://ggplot2.tidyverse.org/reference/aes_position.html)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/reference/aes_position.html)** |  |
+| • | [`alpha`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html) | → `1` |
+| • | [`colour`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html) | → `"black"` |
+| • | [`fill`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html) | → `"cornsilk3"` |
+| • | [`group`](https://ggplot2.tidyverse.org/reference/aes_group_order.html) | → inferred |
+| • | `introns` | → `NULL` |
+| • | [`linetype`](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html) | → `1` |
+| • | `stroke` | → `0.4` |
+| • | `type` | → `"CDS"` |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html).

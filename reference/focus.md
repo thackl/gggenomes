@@ -134,6 +134,7 @@ A gggenomes object with the new loci track added
 ## Examples
 
 ``` r
+
 # Let's hunt some defense systems in marine SAGs
 # read the genomes
 s0 <- read_seqs(ex("gorg/gorg.fna.fai"))

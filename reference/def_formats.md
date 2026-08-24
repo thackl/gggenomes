@@ -48,6 +48,7 @@ dictionarish vector of file formats with recognized extensions as names
 
 ## Defined formats, extensions, contexts, and parsers
 
+
           format                           ext            context                                              parser
     1  ambigious                 txt, tsv, csv                 NA                                      read_ambigious
     2      fasta fa, fas, fasta, ffn, fna, faa               seqs                                        read_seq_len

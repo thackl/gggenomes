@@ -163,13 +163,14 @@ p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
 t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
 })
-#> ggtree v4.0.4 Learn more at https://yulab-smu.top/contribution-tree-data/
+#> ggtree v4.2.0 Learn more at https://yulab-smu.top/contribution-tree-data/
 #> 
 #> Please cite:
 #> 
-#> Guangchuang Yu.  Data Integration, Manipulation and Visualization of
-#> Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,
-#> doi:10.1201/9781003279242, ISBN: 9781032233574
+#> S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L
+#> Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact
+#> visualization of richly annotated phylogenetic data. Molecular Biology
+#> and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166
 #> 
 #> Attaching package: ‘ggtree’
 #> The following object is masked from ‘package:gggenomes’:

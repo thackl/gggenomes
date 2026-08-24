@@ -1,6 +1,7 @@
 # Advanced flip examples
 
 ``` r
+
 library(gggenomes)
 ```
 
@@ -23,10 +24,12 @@ library(gggenomes)
     ##     layout
 
 ``` r
+
 library(patchwork)
 ```
 
 ``` r
+
 p <- gggenomes(genes=emale_genes) +
   geom_seq(aes(color=strand), arrow=TRUE) +
   geom_link(aes(fill=strand)) +
@@ -37,6 +40,7 @@ p <- gggenomes(genes=emale_genes) +
     ## No seqs provided, inferring seqs from feats
 
 ``` r
+
 # nothing flipped
 p0 <- p %>% add_links(emale_ava)
 
@@ -52,6 +56,7 @@ p2 <- p %>% add_links(emale_ava) %>%
     ## Flipping: E4-10_086,E4-10_112,RCC970_016B
 
 ``` r
+
 # flip automatically based on protein-protein links
 p3 <- p %>% add_sublinks(emale_prot_ava) %>%
   sync() + labs(caption="protein alignments")
@@ -61,6 +66,7 @@ p3 <- p %>% add_sublinks(emale_prot_ava) %>%
     ## Flipping: E4-10_086,E4-10_112,RCC970_016B
 
 ``` r
+
 # flip automatically based on genes linked implicitly by belonging
 # to the same clusters of orthologs (or any grouping of your choice)
 p4 <- p %>% add_clusters(emale_cogs) %>%
@@ -71,12 +77,14 @@ p4 <- p %>% add_clusters(emale_cogs) %>%
     ## Flipping: E4-10_086,E4-10_112,RCC970_016B
 
 ``` r
+
 p0 + p1 + p2 + p3 + p4 + plot_layout(nrow=1, guides="collect")
 ```
 
 ![](flip_files/figure-html/unnamed-chunk-2-1.png)
 
 ``` r
+
 # flip seqs inside bins
 s0 <- tibble::tibble(
   bin_id = c("A", "B", "B", "B", "C", "C", "C"),
@@ -99,6 +107,7 @@ p <- gggenomes(seqs=s0) +
     ## generated.
 
 ``` r
+
 p1 <- p %>% flip_seqs(6)
 p2 <- p %>% flip_seqs(c2)
 p3 <- p %>% flip_seqs(2, .bins = C)
@@ -109,6 +118,7 @@ p + p1 + p2 + p3 + plot_layout(nrow=1, guides="collect")
 ![](flip_files/figure-html/unnamed-chunk-3-1.png)
 
 ``` r
+
 # fancy flipping using tidyselect::where for dynamic selection
 p <- gggenomes(emale_genes,emale_seqs) %>% add_clusters(emale_cogs) +
   geom_seq(color="grey70", linewidth=1, arrow = arrow(angle = 30, length = unit(15, "pt"),
@@ -119,6 +129,7 @@ p <- gggenomes(emale_genes,emale_seqs) %>% add_clusters(emale_cogs) +
     ## Joining with `by = join_by(feat_id)`
 
 ``` r
+
 # flip all short seqs - where() applied to .bin_track=seqs
 p1 <- p %>% flip(where(~.x$length < 21000))
 

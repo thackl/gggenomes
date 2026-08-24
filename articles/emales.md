@@ -30,6 +30,7 @@ We start with a fasta file of 33 viral genomes. We read sequence length
 and some metadata from the header lines using \`read_(fai)\`…
 
 ``` r
+
 library(gggenomes)
 
 # parse sequence length and some metadata from fasta file
@@ -60,6 +61,7 @@ gff-clean emales-prodigal.gff > emales.gff
 ```
 
 ``` r
+
 emale_genes <- read_gff("emales.gff") %>%
   dplyr::rename(feature_id=ID) %>%                       # we'll need this later
   dplyr::mutate(gc_cont=as.numeric(gc_cont))             # per gene GC-content
@@ -89,6 +91,7 @@ cat emales.fna.split/*.paf > emales-tirs.paf
 ```
 
 ``` r
+
 # prefilter hits by minimum length and maximum divergence
 emale_tirs_paf <- read_paf("emales-tirs.paf") %>%
   dplyr::filter(seq_id1 == seq_id2 & start1 < start2 & map_length > 99 & de < 0.1)
@@ -114,6 +117,7 @@ minimap2 -X -N 50 -p 0.1 -c emales.fna emales.fna > emales.paf
 ```
 
 ``` r
+
 emale_links <- read_paf("emales.paf")
 
 p4 <- gggenomes(emale_seqs_6, emale_genes, emale_tirs, emale_links) +
@@ -137,6 +141,7 @@ seq-gc -Nbw 50 emales.fna > emales-gc.tsv
 ```
 
 ``` r
+
 emale_gc <- thacklr::read_bed("emales-gc.tsv") %>%
   dplyr::rename(seq_id=contig_id)
 
@@ -158,6 +163,7 @@ cluster-ids -t "cog%03d" < emales-mmseqs_cluster.tsv > emales-cogs.tsv
 ```
 
 ``` r
+
 emale_cogs <- read_tsv("emales-cogs.tsv", col_names = c("feature_id", "cluster_id", "cluster_n"))
 emale_cogs %<>% dplyr::mutate(
   cluster_label = paste0(cluster_id, " (", cluster_n, ")"),
@@ -195,6 +201,7 @@ perl -ne 'if(/>(\S+) gene=(\S+) product=(.+)/){print join("\t", $1, $2, $3), "\n
 ```
 
 ``` r
+
 emale_blast <- read_blast("emales_mavirus-blastp.tsv")
 emale_blast %<>%
   dplyr::filter(evalue < 1e-3) %>%

@@ -131,6 +131,7 @@ A function that pulls the specified track from a gggenomes object.
 ## Examples
 
 ``` r
+
 gg <- gggenomes(emale_genes, emale_seqs, emale_tirs, emale_ava)
 gg %>% track_info() # info about track ids, positions and types
 #> # A tibble: 4 × 4
