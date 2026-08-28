@@ -3,13 +3,11 @@
 .RData
 docs/
 issues/
-R-deprecated/
-data-raw/
+assets/
 tests/
-vignettes-manual-export/
-/doc/
-/Meta/
 gggenomes.Rcheck
-.vscode
 gggenomes_*.tar.gz
 vignettes/gggenomes_cache
+vignettes/.Rhistor
+vignettes/.RData
+.vscode
