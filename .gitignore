@@ -4,7 +4,6 @@
 docs/
 issues/
 assets/
-tests/
 gggenomes.Rcheck
 gggenomes_*.tar.gz
 vignettes/gggenomes_cache
