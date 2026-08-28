@@ -7,6 +7,8 @@ assets/
 gggenomes.Rcheck
 gggenomes_*.tar.gz
 vignettes/gggenomes_cache
-vignettes/.Rhistor
+vignettes/.Rhistory
 vignettes/.RData
+vignettes/bin
+vignettes/data
 .vscode
