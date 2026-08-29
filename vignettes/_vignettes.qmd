@@ -1,0 +1,25 @@
+
+These are internal notes. `_`-prefixed vignettes are not rendered by pkgdown
+
+# General notes
+
+My goal is to have reproducible vignettes that can be easily run by users. The main issue is that I cannot bundle the raw data files with the package because they are too big for CRAN. Therefore, I have to prerender the figures in the vignette and make the raw data available as assets on the github repo.
+
+- Figures in the vignette are prerendered because we render html with pkgdown from non-bundled sources. 
+- Raw data files cannot be bundled because it would be to slow/big for CRAN. 
+- Raw data are made available as assets on the github repo.
+- The vignette rmd files and figures, however, still need to be under version control, while raw data needs to be .gitignored. That makes it tricky to set up a good directory structure.
+
+```{zsh}
+# to upload the raw data to github as an asset, run the following command in the terminal:
+tar --dereference -czf ../assets/vignettes.tar.gz .
+gh release upload v1.1.3 ../assets/vignettes.tar.gz
+```
+
+# EMALES vignette - demonstrating main functionality of the package
+
+2026-08-28 (for Nature Methods revision):
+- [x] package raw data for bash stuff for easy download with somewhat perm link,
+ maybe github asset?
+- [x] consider packaging binaries for prodigal, minimap2, seqkit, mmseqs2, blastp,
+ gff-clean, gff2cds, cluster-ids, seq-gc. Maybe switch to diamond, which comes in single bin as well. Or maybe just provide a docker image with all of that installed.

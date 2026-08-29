@@ -27,8 +27,9 @@ jobs:
           - {os: macos-latest,   r: 'release'}
 
           - {os: windows-latest, r: 'release'}
-          # use 4.0 or 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: 'oldrel-4'}
+          # switched to oldrel-1 b/c -4 has compatibility issues with bioconductor
+          # used 4.0 or 4.1 to check with rtools40's older compiler
+          - {os: windows-latest, r: 'oldrel-1'}
           
           - {os: ubuntu-latest,  r: 'devel'}
           - {os: ubuntu-latest,  r: 'release'}
