@@ -188,7 +188,7 @@ gggenomes(
   ex("emales/emales.paf")
 ) + geom_seq() + geom_gene() + geom_feat() + geom_link()
 #> Reading 'gff3' with `read_gff3()`:
-#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]
+#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.gff]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -199,7 +199,7 @@ gggenomes(
 #>   <chr>  <chr> <int>
 #> 1 MFG    CDS     143
 #> Reading 'gff3' with `read_gff3()`:
-#> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]
+#> * file_id: emales-tirs [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales-tirs.gff]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -209,23 +209,23 @@ gggenomes(
 #>   <chr>  <chr>         <int>
 #> 1 MFG    repeat_region    12
 #> Reading 'paf' with `read_paf()`:
-#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.paf]
+#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.paf]
 #> Warning: Found tags in max_tags column, you should increase max_tags to
 #> Read and tidied up a .paf file with 10 optional tag fields:
 #> NM, ms, AS, nn, tp, cm, s1, de, rl, cg
 #> Note: warnings about fewer than expected columns are expected for this format.
 #> Note: .paf files use 0-based coordinate starts - transforming to 1-based
 #> Reading 'gff3' with `read_seq_len()`:
-#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]
+#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.gff]
 
 
 # multi-contig genomes wrap to fixed width
 s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa.fai$", full.names = TRUE))
 #> Reading 'fai' with `read_fai()`:
-#> * file_id: CrBVI.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa.fai]
-#> * file_id: CrCflag.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa.fai]
-#> * file_id: CrE410P.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa.fai]
-#> * file_id: CrRCC970.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]
+#> * file_id: CrBVI.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrBVI.fa.fai]
+#> * file_id: CrCflag.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrCflag.fa.fai]
+#> * file_id: CrE410P.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrE410P.fa.fai]
+#> * file_id: CrRCC970.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]
 s1 <- s0 %>% dplyr::filter(length > 5e5)
 gggenomes(seqs = s1, infer_bin_id = file_id, wrap = 5e6) +
   geom_seq() + geom_bin_label() + geom_seq_label()

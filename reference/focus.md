@@ -139,14 +139,14 @@ A gggenomes object with the new loci track added
 # read the genomes
 s0 <- read_seqs(ex("gorg/gorg.fna.fai"))
 #> Reading 'fai' with `read_fai()`:
-#> * file_id: gorg.fna [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna.fai]
+#> * file_id: gorg.fna [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.fna.fai]
 s1 <- s0 %>%
   # strip trailing number from contigs to get bins
   dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\d+$"))
 # gene annotations from prokka
 g0 <- read_feats(ex("gorg/gorg.gff.xz"))
 #> Reading 'gff3' with `read_gff3()`:
-#> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff.xz]
+#> * file_id: gorg [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.gff.xz]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -164,7 +164,7 @@ g0 <- read_feats(ex("gorg/gorg.gff.xz"))
 #     --greedy-best-hits
 f0 <- read_feats(ex("gorg/gorg-pads-defense.o6"))
 #> Reading 'blast' with `read_blast()`:
-#> * file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]
+#> * file_id: gorg-pads-defense [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg-pads-defense.o6]
 f1 <- f0 %>%
   # parser system/gene info
   tidyr::separate(seq_id2, into = c("seq_id2", "system", "gene"), sep = ",") %>%

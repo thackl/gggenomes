@@ -11,7 +11,7 @@ expands the plot to the left by 20% to make labels visible."><meta property="og:
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,7 +23,7 @@ expands the plot to the left by 20% to make labels visible."><meta property="og:
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
     <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -38,7 +38,7 @@ expands the plot to the left by 20% to make labels visible."><meta property="og:
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Draw bin labels</h1>
-      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/v1.1.3/R/geom.R" class="external-link"><code>R/geom.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/R/geom.R" class="external-link"><code>R/geom.R</code></a></small>
       <div class="d-none name"><code>geom_bin_label.Rd</code></div>
     </div>
 
@@ -160,10 +160,10 @@ specific location</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa.fai$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fai' with `read_fai()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa.fai]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa.fai]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa.fai]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrBVI.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrCflag.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrE410P.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]</span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span> <span class="op">&gt;</span> <span class="fl">5e5</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span><span class="va">emale_genes</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>

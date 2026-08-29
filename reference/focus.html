@@ -19,7 +19,7 @@ will have their locus_id as their new seq_id."><meta property="og:image" content
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@ will have their locus_id as their new seq_id."><meta property="og:image" content
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">From a few sequences to a complex map in minutes (old version)</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
     <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -46,7 +46,7 @@ will have their locus_id as their new seq_id."><meta property="og:image" content
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Show features and regions of interest</h1>
-      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/v1.1.3/R/focus.R" class="external-link"><code>R/focus.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/R/focus.R" class="external-link"><code>R/focus.R</code></a></small>
       <div class="d-none name"><code>focus.Rd</code></div>
     </div>
 
@@ -188,14 +188,14 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span><span class="co"># read the genomes</span></span></span>
 <span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg.fna.fai"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fai' with `read_fai()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg.fna [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg.fna [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.fna.fai]</span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># strip trailing number from contigs to get bins</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>bin_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">seq_id</span>, <span class="st">"_\\d+$"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># gene annotations from prokka</span></span></span>
 <span class="r-in"><span><span class="va">g0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg.gff.xz"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff.xz]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.gff.xz]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -213,7 +213,7 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span><span class="co">#     --greedy-best-hits</span></span></span>
 <span class="r-in"><span><span class="va">f0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg-pads-defense.o6"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'blast' with `read_blast()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg-pads-defense [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span>
 <span class="r-in"><span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="va">f0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># parser system/gene info</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html" class="external-link">separate</a></span><span class="op">(</span><span class="va">seq_id2</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq_id2"</span>, <span class="st">"system"</span>, <span class="st">"gene"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>

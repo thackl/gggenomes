@@ -131,10 +131,10 @@ specific location
 ``` r
 s0 <- read_seqs(list.files(ex("cafeteria"), "Cr.*\\.fa.fai$", full.names = TRUE))
 #> Reading 'fai' with `read_fai()`:
-#> * file_id: CrBVI.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa.fai]
-#> * file_id: CrCflag.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa.fai]
-#> * file_id: CrE410P.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa.fai]
-#> * file_id: CrRCC970.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]
+#> * file_id: CrBVI.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrBVI.fa.fai]
+#> * file_id: CrCflag.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrCflag.fa.fai]
+#> * file_id: CrE410P.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrE410P.fa.fai]
+#> * file_id: CrRCC970.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]
 s1 <- s0 %>% dplyr::filter(length > 5e5)
 
 gggenomes(emale_genes) + geom_seq() + geom_gene() +
