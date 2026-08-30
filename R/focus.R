@@ -24,10 +24,12 @@
 #' @param .expand The amount to nucleotides to expand the focus around the
 #'   target features. Default 2kb. Give two values for different up- and
 #'   downstream expansions.
-#' @param .overhang How to handle features overlapping the locus boundaries
-#'   (including expand). Options are to "keep" them, "trim" them exactly at the
-#'   boundaries, or "drop" all features not fully included within the
-#'   boundaries.
+#' @param .marginal_feats,.marginal_links How to handle feats/genes and links
+#' overlapping edges of sequence regions, for example, after focusing in on a
+#' subregion. Choices are to "drop" them, "keep" them or "trim" them to the
+#' subregion boundaries. By default, genes/feats are dropped and links are
+#' trimmed. See \code{vignette("marginal", package = "gggenomes")}
+#' for more details.
 #' @param .locus_id,.locus_id_group How to generate the ids for the new loci
 #'   which will eventually become their new `seq_id`s.
 #' @param .locus_bin What bin to assign new locus to. Defaults to keeping the
@@ -96,12 +98,14 @@
 #' @describeIn focus Identify regions of interest and zoom in on them
 focus <- function(
     x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
-    .overhang = c("drop", "trim", "keep"),
+    .marginal_feats = c("drop", "trim", "keep"),
+    .marginal_links = c("trim", "drop", "keep"),
     .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
     .locus_bin = c("bin", "seq", "locus"),
     .locus_score = n(), .locus_filter = TRUE, .loci = NULL) {
   if (length(.expand == 1)) .expand <- c(.expand, .expand)
-  marginal <- match.arg(.overhang)
+  marginal_feats <- match.arg(.marginal_feats)
+  marginal_links <- match.arg(.marginal_links)
   bin_id <- paste0(match.arg(.locus_bin), "_id")
 
   # construct loci from predicate hits
@@ -170,7 +174,8 @@ focus <- function(
   }
 
   x <- set_seqs(x, s)
-  layout(x, args_feats = list(marginal = marginal))
+  layout(x, args_feats = list(marginal = marginal_feats),
+         args_links = list(marginal = marginal_links))
 }
 
 #' @export
