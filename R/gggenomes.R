@@ -61,12 +61,12 @@
 #' is *not recommended for large data sets* as it slow and plots become
 #' way to cluttered to be legible.
 #'
-#' @param marginal_feats,marginal_links How to handle feats/genes and links
-#' overlapping edges of sequence regions, for example, after focusing in on a
-#' subregion. Choices are to "drop" them, "keep" them or "trim" them to the
-#' subregion boundaries. By default, genes/feats are dropped and links are
-#' trimmed. See \code{vignette("marginal", package = "gggenomes")}
-#' for more details.
+#' @param marginal How to handle feats/genes and links overlapping edges
+#' of sequence regions when providing sequence start/end or after zooming
+#' in with `focus()`. Choices are to "drop", "keep" or "trim", with "drop"
+#' as the default. You can provide two values to specify different behavior
+#' for feats/genes and links.
+#' See \code{vignette("marginal", package = "gggenomes")} for more details.
 #'
 #' @inheritParams layout_seqs
 #' @param theme choose a gggenomes default theme, NULL to omit.
@@ -126,8 +126,7 @@
 gggenomes <- function(
     genes = NULL, seqs = NULL, feats = NULL, links = NULL,
     .id = "file_id", spacing = 0.05, wrap = NULL, adjacent_only = TRUE,
-    infer_bin_id = seq_id, infer_start = min(start, end),
-    marginal_feats = "drop", marginal_links = "trim",
+    infer_bin_id = seq_id, infer_start = min(start, end), marginal = "drop",
     infer_end = max(start, end), infer_length = max(start, end),
     theme = c("clean", NULL), .layout = NULL, ...) {
   # parse track_args to tracks - some magic for a convenient api
@@ -147,7 +146,7 @@ gggenomes <- function(
   layout <- .layout %||% layout_genomes(
     seqs = seqs, genes = genes, feats = feats, links = links,
     spacing = spacing, wrap = wrap, adjacent_only = adjacent_only,
-    marginal_feats = marginal_feats, marginal_links = marginal_links,
+    marginal = marginal,
     infer_bin_id = {{ infer_bin_id }}, infer_start = {{ infer_start }},
     infer_end = {{ infer_end }}, infer_length = {{ infer_length }}, ...
   )
@@ -179,7 +178,7 @@ layout_genomes <- function(
     infer_bin_id = seq_id, infer_start = min(start, end),
     infer_end = max(start, end), infer_length = max(start, end),
     adjacent_only = TRUE,
-    marginal_feats = "drop", marginal_links = "trim", ...) {
+    marginal = "drop", ...) {
   # check seqs / infer seqs if not provided
   if (!is.null(seqs)) {
     if (!has_name(seqs, "bin_id")) {
@@ -209,17 +208,17 @@ layout_genomes <- function(
   # init the gggenomes_layout object
   x <- list(
     seqs = NULL, feats = list(), links = list(), orig_links = list(),
-    args_seqs = list(...), args_feats = list(marginal = marginal_feats),
-    args_links = list(adjacent_only = adjacent_only, marginal = marginal_links)
+    args_seqs = list(...), args_feats = list(marginal = marginal[1]),
+    args_links = list(adjacent_only = adjacent_only, marginal = rev(marginal)[1])
   )
   x %<>% set_class("gggenomes_layout", "prepend")
 
   # add track data to layout
   x %<>% add_seqs(seqs, ...) # layout seqs
   if (!is.null(feats)) x <- add_feat_tracks(x, feats,
-    marginal = marginal_feats)
+    marginal = marginal[1])
   if (!is.null(links)) x <- add_link_tracks(x, links,
-    adjacent_only = adjacent_only, marginal = marginal_links)
+    adjacent_only = adjacent_only, marginal = rev(marginal)[1])
 
   x
 }

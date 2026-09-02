@@ -53,15 +53,16 @@ check_layout_outside <- function(x, y) {
     rlang::inform(
       message = function(...) {
         cli::format_message(c(
-          "i" = paste(
-            "Items outside plot detected:",
+          "i" = "Items outside plot detected",
+          paste(
             "Some of your feats, genes or links are not plotted because they",
             "fall outside your given sequence set. This is expected if you",
             "zoomed in or picked a subset of sequences. But it could also",
             "indicate a data mismatch. So we show this note once in a while.",
+            "Examples of dropped items are:",
             sep = " "),
-          "Examples of dropped items are:",
-          # put this inside inform, so it's only computed if message is actually needed
+          # put this inside inform, so it's only computed if message is
+          # actually needed
           get_missing(x, y, n=3, cols = 1:7)
         ))
       },
@@ -73,19 +74,18 @@ check_layout_outside <- function(x, y) {
 
 
 check_layout_marginal <- function(x) {
+
   if (sum(x[[".marginal"]], x[[".marginal2"]])){
     rlang::inform(
       message = c(
-        "i" = paste(
-          "Marginal items detected:",
+        "i" = "Marginal items detected",
+        paste(
           "Some of your feats, genes or links extend across the edges of your",
-          "specified sequence loci and into the margins. These marginal items",
-          "get special treatment. By default, marginal feats/genes are dropped",
-          "while marginal links are trimmed to fit the plot area. Make sure",
-          "to adjust marginal case handling to what fits your scenario best.",
+          "specified sequence loci and into the margins. By default, these",
+          "marginal items are dropped. Adjust with:",
           sep = " "),
-        "*" = "`gggenomes(marginal_feats/links = c('drop', 'trim', 'keep'))`",
-        "*" = "`focus(.marginal_feats/links = c('drop', 'trim', 'keep'))`.",
+        "*" = "`gggenomes(marginal = c('drop', 'keep', 'trim'))`",
+        "*" = "`focus(.marginal = c('drop', 'keep', 'trim'))``.",
         "See `vignette('marginal', package = 'gggenomes')` for details."
       ),
       .frequency = "regularly",
@@ -101,8 +101,6 @@ get_missing <- function(x, y, n=5, cols=1:7) {
     anti_join(y, by = intersect(names(x), names(y))) |>
     slice_head(n = n) |> select(cols)
 
-  msg <- paste(
-    capture.output(print(missing, n = 5, width = Inf)),
-    collapse = "\n"
-  )
+  msg <- capture.output(print(missing, n = 5, width = Inf))
+  msg[-1:-3]
 }

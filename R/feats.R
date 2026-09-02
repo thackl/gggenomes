@@ -76,7 +76,7 @@ as_feats.tbl_df <- function(x, seqs, ..., everything = TRUE) {
 #' @noRd
 layout_feats <- function(
     x, seqs, keep = "strand",
-    marginal = c("trim", "drop", "keep"), ...) {
+    marginal = c("drop", "keep", "trim"), ...) {
   marginal <- match.arg(marginal)
 
   # get rid of old layout

@@ -75,7 +75,7 @@ as_links.tbl_df <- function(x, seqs, ..., everything = TRUE) {
 #' @noRd
 layout_links <- function(
     x, seqs, keep = "strand", adjacent_only = TRUE,
-    marginal = c("trim", "drop", "keep"), ...) {
+    marginal = c("drop", "keep", "trim"), ...) {
   marginal <- match.arg(marginal)
 
   # get rid of old layout
