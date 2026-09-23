@@ -181,7 +181,12 @@ PositionSixframe <- ggproto("PositionSixframe", PositionStrand, framewise = TRUE
 stack_pos <- function(start, end, gap = 0) {
   # this is a fallback primarily to pass tests in r-devel where IRanges is not always available
   if (!requireNamespace("IRanges", quietly = TRUE)) {
-    warn("Bioconductor IRanges required for stacking features. Defaulting to no stacking")
+    cli::cli_warn(c(
+      "{.pkg IRanges} is required for stacking features.",
+      "i" = "Install it with {.code pak::pkg_install(\"bioc::IRanges\")}.",
+      "i" = "Alternatively, use {.code BiocManager::install(\"IRanges\")}.",
+      "*" = "Skipping stacking for now, which means overlapping features are drawn on top of each other."
+    ))
     gap <- NA
   }
 
