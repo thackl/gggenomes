@@ -102,5 +102,5 @@ p1 <- p0 + scale_x_genomic("base pairs", guide = "axis", unit = "", sep = "")
 p2 <- p1 + scale_x_genomic(limits=c(-1000, 5000)) + theme_minimal()
 p3 <- p0 + scale_x_continuous("regular x-axis")
 p0 + p1 + p2 + p3 + plot_layout(ncol=2)
-format_bp(c(0, 5e5, 1e6, 1.5e6, 2e6), digits=3, scientific=T)
+format_bp(c(0, 5e5, 1e6, 1.5e6, 2e6), digits=3, scientific=TRUE)
 }

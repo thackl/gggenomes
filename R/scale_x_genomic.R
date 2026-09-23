@@ -35,7 +35,7 @@ scale_x_genomic <- function(..., guide = "scalebar", unit = "bp", sep = " ",
 #' @return Character scalar.
 #' @export
 #' @examples
-#' format_bp(c(0, 5e5, 1e6, 1.5e6, 2e6), digits=3, scientific=T)
+#' format_bp(c(0, 5e5, 1e6, 1.5e6, 2e6), digits=3, scientific=TRUE)
 format_bp <- function(x, unit = "bp", sep = " ", digits = 3, 
     prefixes = c("k" = 1e3, "M" = 1e6, "G" = 1e9), trim = TRUE,
     scientific = FALSE, ...) {

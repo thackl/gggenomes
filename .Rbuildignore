@@ -3,10 +3,13 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^\.quarto$
 ^doc$
 ^Meta$
 ^R-deprecated$
-^data-raw$
+^assets$
+^vignettes/data$
+^vignettes/bin$
 ^pkgdown$
 ^LICENSE.md$
 ^\.vscode$

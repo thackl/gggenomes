@@ -85,7 +85,7 @@ as_bounds.numeric <- function(.f, ...) {
 
 # Hmisc::smedian.hilow
 hmisc_smedian_hilow <- function (x, conf.int = 0.95, na.rm = TRUE) {
-  quant <- quantile(x, probs = c(0.5, (1 - conf.int)/2,
+  quant <- stats::quantile(x, probs = c(0.5, (1 - conf.int)/2,
     (1 + conf.int)/2), na.rm = na.rm)
   names(quant) <- c("Median", "Lower", "Upper")
   quant
