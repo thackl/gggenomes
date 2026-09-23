@@ -13,7 +13,9 @@
 #' @export
 #' @examples
 #' # gggenomes' options for representing the x-axis scaling are:
-# 1. The default `axis_scalebar` with short ...
+#' library(patchwork) # to combine plots in same figure
+#'
+#' # 1. The default `axis_scalebar` with short ...
 #' p1 <- gggenomes(genes = emale_genes) |> pick(1:2) + # two short genomes
 #'   geom_seq() + geom_gene()
 #'
@@ -149,12 +151,13 @@ guide_scalebar <- function(
 #' arguments directly because ggplot2 3.5.x does not pass the plot theme to
 #' Geom$draw_panel().
 #'
-#' @param linewidth,colour,linetype,lineend Scalebar line/tick styling.
-#' @param text_size,text_colour,family,fontface Scalebar label styling.
+#' @param linewidth,color,colour,linetype,lineend Scalebar line/tick styling.
+#' @param text_size,text_color,text_colour,family,fontface Scalebar label styling.
 #' @param tick_height Total physical length of each centered end tick. Numeric
 #'   values are interpreted as points.
 #' @param label_offset Physical spacing between bar and label. Numeric values
 #'   are interpreted as points.
+#' @inheritParams ggplot2::theme
 #' @return a ggplot2 theme object
 #' @export
 theme_scalebar <- function(
@@ -215,7 +218,7 @@ theme_scalebar <- function(
 }
 
 #' @describeIn axis_scalebar draw a flexible scalebar inside the gggenomes panel
-#' @inheritParams geom_seq
+#' @inheritParams geom_feat
 #' @inheritParams guide_scalebar
 #' @inheritParams theme_scalebar
 #' @param x,y Scalebar coordinates. Values between 0 and 1 are interpreted as
@@ -316,7 +319,6 @@ geom_scalebar <- function(
 
 
 #' @noRd
-#' @export
 GuideScalebar <- ggplot2::ggproto(
   "GuideScalebar",
   ggplot2::GuideAxis,
@@ -517,7 +519,6 @@ GuideScalebar <- ggplot2::ggproto(
 
 
 #' @noRd
-#' @export
 GeomScalebar <- ggplot2::ggproto(
   "GeomScalebar",
   ggplot2::Geom,

@@ -101,6 +101,6 @@ get_missing <- function(x, y, n=5, cols=1:7) {
     anti_join(y, by = intersect(names(x), names(y))) |>
     slice_head(n = n) |> select(cols)
 
-  msg <- capture.output(print(missing, n = 5, width = Inf))
+  msg <- utils::capture.output(print(missing, n = 5, width = Inf))
   msg[-1:-3]
 }

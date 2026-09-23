@@ -31,6 +31,9 @@ label_bp(unit = "bp", sep = " ", digits = 3)
 \arguments{
 \item{...}{Arguments passed on to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}}
 
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[ggplot2:guides]{guides()}} for more information.}
+
 \item{unit}{unit suffix}
 
 \item{sep}{separator between number and unit prefix+suffix}
@@ -44,6 +47,20 @@ label_bp(unit = "bp", sep = " ", digits = 3)
     (For more, notably the interpretation for complex numbers see
     \code{\link[base]{signif}}.)}
 
+\item{labels}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
+\item A function that takes the breaks as input and returns labels
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
+
 \item{x}{numeric base-pair value.}
 
 \item{trim}{logical; if \code{FALSE}, logical, numeric and complex
@@ -54,6 +71,8 @@ label_bp(unit = "bp", sep = " ", digits = 3)
     elements of a real or complex vector should be encoded in scientific
     format, or an integer penalty (see \code{\link[base]{options}("scipen")}).
     Missing values correspond to the current default penalty.}
+
+\item{SI}{prefixes per thousands.}
 }
 \value{
 A ggplot2 scale object with bp labels
@@ -78,8 +97,8 @@ powers \code{label_bp()}, the default \code{scale_x_genomic()} labelling functio
 \examples{
 library(patchwork)
 
-p0 <- gggenomes(genes = emale_genes) |> pick(1:2) + geom_gene() 
-p1 <- p0 + scale_x_genomic("position in base-pairs", guide = "axis", unit = "", sep = "")
+p0 <- gggenomes(genes = emale_genes) |> pick(1:2) + geom_gene()
+p1 <- p0 + scale_x_genomic("base pairs", guide = "axis", unit = "", sep = "")
 p2 <- p1 + scale_x_genomic(limits=c(-1000, 5000)) + theme_minimal()
 p3 <- p0 + scale_x_continuous("regular x-axis")
 p0 + p1 + p2 + p3 + plot_layout(ncol=2)

@@ -96,9 +96,9 @@ left, or right.}
 
 \item{label_position}{Draw the label above or below the bar.}
 
-\item{linewidth, colour, linetype, lineend}{Scalebar line/tick styling.}
+\item{linewidth, color, colour, linetype, lineend}{Scalebar line/tick styling.}
 
-\item{text_size, text_colour, family, fontface}{Scalebar label styling.}
+\item{text_size, text_color, text_colour, family, fontface}{Scalebar label styling.}
 
 \item{tick_height}{Total physical length of each centered end tick. Numeric
 values are interpreted as points.}
@@ -120,7 +120,7 @@ the order is determined by a secret algorithm.}
 at the top level of the plot. You must supply \code{mapping} if there is no plot
 mapping.}
 
-\item{data}{seq_layout: Uses the first data frame stored in the \code{seqs} track, by default.}
+\item{data}{feat_layout: Uses first data frame stored in the \code{feats} track by default.}
 
 \item{x, y}{Scalebar coordinates. Values between 0 and 1 are interpreted as
 panel-relative, values >= 1 and < 0 as absolute coordinates. Also
@@ -131,33 +131,37 @@ supports the keywords "right", "left", "bottom", "top" and "center".
 in-panel scalebar replaces the axis guide. Use \code{NULL} to leave the existing
 x guide untouched.}
 
-\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the \code{position} argument, or aesthetics that are required
-can \emph{not} be passed through \code{...}. Unknown arguments that are not part
-of the 4 categories below are ignored.
+\item{stat}{The statistical transformation to use on the data for this layer.
+When using a \verb{geom_*()} function to construct a layer, the \code{stat}
+argument can be used to override the default coupling between geoms and
+stats. The \code{stat} argument accepts the following:
 \itemize{
-\item Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, \code{colour = "red"}
-or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.
-\item When constructing a layer using
-a \verb{stat_*()} function, the \code{...} argument can be used to pass on
-parameters to the \code{geom} part of the layer. An example of this is
-\code{stat_density(geom = "area", outline.type = "both")}. The geom's
-documentation lists which parameters it can accept.
-\item Inversely, when constructing a layer using a
-\verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
-to the \code{stat} part of the layer. An example of this is
-\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
-lists which parameters it can accept.
-\item The \code{key_glyph} argument of \code{\link[ggplot2:layer]{layer()}} may also be passed on through
-\code{...}. This can be one of the functions described as
-\link[ggplot2:draw_key]{key glyphs}, to change the display of the layer in the legend.
+\item A \code{Stat} ggproto subclass, for example \code{StatCount}.
+\item A string naming the stat. To give the stat as a string, strip the
+function name of the \code{stat_} prefix. For example, to use \code{stat_count()},
+give the stat as \code{"count"}.
+\item For more information and other ways to specify the stat, see the
+\link[ggplot2:layer_stats]{layer stat} documentation.
 }}
+
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+rather than combining with them. This is most useful for helper functions
+that define both data and aesthetics and shouldn't inherit behaviour from
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
+
+\item{...}{additional element specifications not part of base ggplot2. In general,
+these should also be defined in the \verb{element tree} argument. \link[rlang:splice]{Splicing} a list is also supported.}
 }
 \value{
 a list with a ggplot2 guide and a ggplot theme object
@@ -192,6 +196,9 @@ Geom$draw_panel().
 }}
 \examples{
 # gggenomes' options for representing the x-axis scaling are:
+library(patchwork) # to combine plots in same figure
+
+# 1. The default `axis_scalebar` with short ...
 p1 <- gggenomes(genes = emale_genes) |> pick(1:2) + # two short genomes
   geom_seq() + geom_gene()
 

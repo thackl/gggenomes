@@ -25,6 +25,7 @@ Depends:
 Imports:
     vctrs,
     rlang,
+    cli,
     dplyr (>= 1.1.0),
     tidyr,
     readr (>= 2.0.0),

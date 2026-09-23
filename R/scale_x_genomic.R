@@ -6,9 +6,10 @@
 #' default guide. See [axis_scalebar()] for convenient configuration and styling
 #' of the scalebar. `format_bp()` formats numbers as base-pair quantities, and
 #' powers `label_bp()`, the default `scale_x_genomic()` labelling function.
-#' @inheritParams label_bp
 #' @param ... Arguments passed on to [ggplot2::scale_x_continuous()]
 #' @return A ggplot2 scale object with bp labels
+#' @inheritParams ggplot2::scale_x_continuous
+#' @inheritParams label_bp
 #' @export
 #' @examples
 #' library(patchwork)
@@ -30,6 +31,7 @@ scale_x_genomic <- function(..., guide = "scalebar", unit = "bp", sep = " ",
 #' @param x numeric base-pair value.
 #' @param unit unit suffix
 #' @param sep separator between number and unit prefix+suffix
+#' @param SI prefixes per thousands.
 #' @return Character scalar.
 #' @examples
 #' format_bp(c(0, 5e5, 1e6, 1.5e6, 2e6), digits=3, scientific=T)
