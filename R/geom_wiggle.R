@@ -58,8 +58,8 @@ StatWiggle <- ggproto("StatWiggle", Stat,
     bs <- bf(data$z)
 
     if (length(bs) != 3) abort("Bounds need to return exactly three numbers: mid, low, high")
-    inform(c("wiggle bounds", paste(c("mid: ", "low: ", "high:"), unname(bs))))
-
+    cli::cli_inform(c("i" = "using wiggle bounds:  mid={bs[1]}, low={bs[2]}, high={bs[3]}"))
+    
     params$rescale <- params$height / diff(bs[2:3])
     params$mid <- bs[1] * params$rescale
     params

@@ -58,8 +58,8 @@ emale_seqs <- read_seqs("data/emales.fna")
 
 # Initialize a plot with one genome ("bin") per sequence
 p1 <- gggenomes(seqs = emale_seqs) +
-  geom_seq() +       # draw the sequence backbone
-  geom_bin_label()   # label each genome
+  geom_seq() + # draw the sequence backbone
+  geom_bin_label() # label each genome
 
 p1
 
@@ -170,16 +170,22 @@ p4 <- gggenomes(
   geom_link() +
   scale_fill_distiller(palette = "Spectral")
 
+ggsave("emales-p4a.png", p4, width = 10, height = 3, dpi = 100)
+```
+
+![](emales-p4a.png)
+
+The links reveal shared regions and their relative orientation across genomes. `flip()` changes how selected genomes are displayed, making the syntenic structure easier to follow.
+
+``` {r eval=FALSE}
 # Flip genomes 4-6 so that shared regions are easier to compare visually
 p4 <- p4 |> flip(4:6)
 p4
 
-ggsave("emales-p4.png", p4, width = 10, height = 3, dpi = 100)
+ggsave("emales-p4b.png", p4, width = 10, height = 3, dpi = 100)
 ```
 
-![](emales-p4.png)
-
-The links reveal shared regions and their relative orientation across genomes. `flip()` changes only how selected genomes are displayed, making the syntenic structure easier to follow.
+![](emales-p4b.png)
 
 
 ### Add genome-wide GC content
@@ -196,15 +202,12 @@ The output is a simple table of window IDs and GC content. We extract the sequen
 
 ``` {r eval=FALSE}
 emale_gc <- readr::read_tsv(
-  "data/emales-gc.tsv",
-  col_names = c("window_id", "gc_content")
+   "data/emales-gc.tsv",
+   col_names = c("window_id", "gc_content")
 ) |>
-  # Window IDs have the form "seq_id_sliding:start-end"
-  dplyr::mutate(
-    seq_id = stringr::str_remove(window_id, "_sliding:.*"),
-    start = as.integer(stringr::str_extract(window_id, "(?<=_sliding:)\\d+")),
-    end = as.integer(stringr::str_extract(window_id, "\\d+$"))
-  )
+   # Window IDs have the form "seq_id_sliding:start-end"
+   tidyr::separate(window_id, "_sliding:", into=c("seq_id","range")) |>
+   tidyr::separate(range, "-", into=c("start","end"), convert = TRUE)
 
 # Register the GC windows as an additional feature set
 p5 <- p4 |> add_feats(emale_gc)
@@ -217,7 +220,6 @@ p5 <- p5 +
     fill = "blue",
     alpha = .5
   )
-
 p5
 
 ggsave("emales-p5.png", p5, width = 10, height = 3, dpi = 100)
@@ -254,7 +256,8 @@ emale_clusters <- emale_clusters |>
     cluster_label = paste0(cluster_id, " (", cluster_n, ")"),
     # Highlight only clusters with at least six members
     cluster_label = forcats::fct_lump_min(
-      cluster_label, 6, other_level = NA_character_
+      cluster_label, 6,
+      other_level = NA_character_
     )
   )
 
@@ -284,7 +287,7 @@ p6 <- gggenomes(
   ) +
   geom_seq() +
   geom_bin_label() +
-  geom_feat(size = 5, data = feats()) +
+  geom_feat(linewidth = 5, data = feats()) +
   geom_gene(aes(fill = cluster_label)) +
   geom_link()
 
@@ -350,7 +353,7 @@ p7 <- gggenomes(
   # Leave some extra space around genome tracks for the annotations below
   geom_link(offset = c(0.3, 0.2)) +
   # geom_feat(aes(color = "integrated transposon"),
-  #   feats(emale_transposons), size = 7) +
+  #   feats(emale_transposons), linewidth = 7) +
   geom_gene(aes(fill = product)) +
   geom_gene_tag(aes(label = gene), size = 3, nudge_y = 0.1) +
   # Mark genes with significant mavirus protein hits
@@ -370,7 +373,8 @@ p7 <- gggenomes(
   ) +
 
   scale_fill_brewer(
-    "Conserved genes", palette = "Dark2", na.value = "cornsilk3"
+    "Conserved genes",
+    palette = "Dark2", na.value = "cornsilk3"
   ) +
   scale_color_viridis_d("Blast hits & Features", direction = -1) +
   scale_linetype("Graphs") +
