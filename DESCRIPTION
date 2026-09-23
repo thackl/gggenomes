@@ -45,7 +45,6 @@ Suggests:
     testthat,
     ggtree,
     patchwork,
-    Hmisc,
     knitr,
     ggrepel,
     IRanges,

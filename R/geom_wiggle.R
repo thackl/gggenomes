@@ -13,10 +13,6 @@
 #'   * **z**
 #' @export
 #' @examples
-#' 
-#' # wiggle's default bounds function requires Hmisc
-#' if (requireNamespace("Hmisc", quietly = TRUE)) {
-#' 
 #' # Plot varying GC-content along sequences as ribbon
 #' gggenomes(seqs = emale_seqs, feats = emale_gc) +
 #'   geom_wiggle(aes(z = score)) +
@@ -38,13 +34,13 @@
 #'   geom_wiggle(aes(z = score, color = score), geom = "linerange") +
 #'   geom_seq() +
 #'   scale_colour_viridis_b(option = "A")
-#' 
-#' }
+#'
+#'
 geom_wiggle <- function(
     mapping = NULL, data = feats(), stat = "wiggle",
     geom = "ribbon", position = "identity", na.rm = FALSE, show.legend = NA,
     inherit.aes = TRUE, offset = 0, height = .8,
-    bounds = Hmisc::smedian.hilow, ...) {
+    bounds = hmisc_smedian_hilow, ...) {
   default_aes <- aes(x = (.data$x + .data$xend) / 2, y = .data$y, group = .data$seq_id)
   mapping <- aes_intersect(mapping, default_aes)
 
@@ -59,9 +55,6 @@ StatWiggle <- ggproto("StatWiggle", Stat,
   setup_params = function(data, params) {
     # make sure this is a function even if a vector was supplied
     bf <- as_bounds(params$bounds)
-    if (environmentName(environment(bf)) == "Hmisc" && !requireNamespace("Hmisc", quietly = TRUE)) {
-      abort("Hmisc package required for default wiggle bounds. Overwrite with custom bounds or bounds-function")
-    }
     bs <- bf(data$z)
 
     if (length(bs) != 3) abort("Bounds need to return exactly three numbers: mid, low, high")
@@ -88,4 +81,12 @@ as_bounds.default <- purrr__as_mapper.default
 #' @export
 as_bounds.numeric <- function(.f, ...) {
   function(...) .f
+}
+
+# Hmisc::smedian.hilow
+hmisc_smedian_hilow <- function (x, conf.int = 0.95, na.rm = TRUE) {
+  quant <- quantile(x, probs = c(0.5, (1 - conf.int)/2,
+    (1 + conf.int)/2), na.rm = na.rm)
+  names(quant) <- c("Median", "Lower", "Upper")
+  quant
 }
