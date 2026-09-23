@@ -155,7 +155,9 @@ gggenomes <- function(
   p$data <- layout
   class(p) <- c("gggenomes", class(p))
 
-  p <- p + scale_y_continuous(expand = expansion(add = .7, mult = 0.01))
+  p <- p +
+    scale_y_continuous(expand = expansion(add = .7, mult = 0.01)) +
+    scale_x_genomic()
 
   theme_name <- theme[[1]] %||% match.arg(theme[[1]], c("clean"))
   if (!is.null(theme_name)) { # add theme
@@ -298,7 +300,7 @@ theme_gggenomes_clean <- function(base_size = 12, base_family = "", base_line_si
     panel.background = element_rect(fill = "white"),
     # x-axis
     axis.line.x = element_line(color = "black", linewidth= .4),
-    axis.title.x = element_blank(),
+    # axis.title.x = element_blank(),
     axis.text.x = element_text(color = "black", size = 7),
     axis.ticks.length.x = unit(.7, "mm"),
     # y-axis

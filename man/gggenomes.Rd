@@ -15,6 +15,7 @@ gggenomes(
   adjacent_only = TRUE,
   infer_bin_id = seq_id,
   infer_start = min(start, end),
+  marginal = "drop",
   infer_end = max(start, end),
   infer_length = max(start, end),
   theme = c("clean", NULL),
@@ -59,10 +60,18 @@ every file represents a different bin.}
 \item{wrap}{wrap bins into multiple lines with at most this many nucleotides
 per line.}
 
-\item{adjacent_only}{Indicates whether links should be created between adjacent sequences/chromosomes only.
-By default it is set to \code{adjacent_only = TRUE}. If \code{FALSE}, links will be created between all sequences
+\item{adjacent_only}{Indicates whether links should be created between
+adjacent sequences/chromosomes only. By default it is set to \code{TRUE}.
+If set to \code{FALSE}, links will be created between all sequences. This
+is \emph{not recommended for large data sets} as it slow and plots become
+way to cluttered to be legible.}
 
-(\emph{not recommended for large data sets})}
+\item{marginal}{How to handle feats/genes and links overlapping edges
+of sequence regions when providing sequence start/end or after zooming
+in with \code{focus()}. Choices are to "drop", "keep" or "trim", with "drop"
+as the default. You can provide two values to specify different behavior
+for feats/genes and links.
+See \code{vignette("marginal", package = "gggenomes")} for more details.}
 
 \item{infer_length, infer_start, infer_end, infer_bin_id}{used to infer pseudo
 seqs if only feats or links are provided, or if no bin_id column was

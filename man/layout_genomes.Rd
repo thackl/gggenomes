@@ -14,6 +14,7 @@ layout_genomes(
   infer_end = max(start, end),
   infer_length = max(start, end),
   adjacent_only = TRUE,
+  marginal = "drop",
   ...
 )
 }
@@ -54,10 +55,18 @@ By default subregions of sequences from the first to the last feat/link
 are generated. Set \code{infer_start} to 0 to show all sequences from their
 true beginning.}
 
-\item{adjacent_only}{Indicates whether links should be created between adjacent sequences/chromosomes only.
-By default it is set to \code{adjacent_only = TRUE}. If \code{FALSE}, links will be created between all sequences
+\item{adjacent_only}{Indicates whether links should be created between
+adjacent sequences/chromosomes only. By default it is set to \code{TRUE}.
+If set to \code{FALSE}, links will be created between all sequences. This
+is \emph{not recommended for large data sets} as it slow and plots become
+way to cluttered to be legible.}
 
-(\emph{not recommended for large data sets})}
+\item{marginal}{How to handle feats/genes and links overlapping edges
+of sequence regions when providing sequence start/end or after zooming
+in with \code{focus()}. Choices are to "drop", "keep" or "trim", with "drop"
+as the default. You can provide two values to specify different behavior
+for feats/genes and links.
+See \code{vignette("marginal", package = "gggenomes")} for more details.}
 
 \item{...}{additional parameters, passed to layout}
 }
