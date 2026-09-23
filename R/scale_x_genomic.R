@@ -31,8 +31,9 @@ scale_x_genomic <- function(..., guide = "scalebar", unit = "bp", sep = " ",
 #' @param x numeric base-pair value.
 #' @param unit unit suffix
 #' @param sep separator between number and unit prefix+suffix
-#' @param SI prefixes per thousands.
+#' @param prefixes SI prefixes per thousands.
 #' @return Character scalar.
+#' @export
 #' @examples
 #' format_bp(c(0, 5e5, 1e6, 1.5e6, 2e6), digits=3, scientific=T)
 format_bp <- function(x, unit = "bp", sep = " ", digits = 3, 
