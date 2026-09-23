@@ -36,7 +36,6 @@ Imports:
     jsonlite,
     snakecase,
     magrittr,
-    scales,
     tidyselect,
     colorspace,
     methods,

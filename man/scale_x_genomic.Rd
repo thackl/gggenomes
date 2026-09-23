@@ -63,6 +63,8 @@ notation.
 
 \item{x}{numeric base-pair value.}
 
+\item{prefixes}{SI prefixes per thousands.}
+
 \item{trim}{logical; if \code{FALSE}, logical, numeric and complex
     values are right-justified to a common width: if \code{TRUE} the
     leading blanks for justification are suppressed.}
@@ -71,8 +73,6 @@ notation.
     elements of a real or complex vector should be encoded in scientific
     format, or an integer penalty (see \code{\link[base]{options}("scipen")}).
     Missing values correspond to the current default penalty.}
-
-\item{SI}{prefixes per thousands.}
 }
 \value{
 A ggplot2 scale object with bp labels
