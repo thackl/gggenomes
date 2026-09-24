@@ -9,8 +9,3 @@
 
 ## R CMD check results
 0 errors | 0 warnings | 0 notes
-
-## Additional comments
-- The package passes cleanly on R-release across Windows, macOS, and Linux.
-- R-devel checks fail only due to temporary unavailability of Bioconductor package ‘IRanges’ for Bioconductor 3.23.
-- The package includes fallbacks that gracefully skip IRanges-dependent functionality when it is unavailable.
