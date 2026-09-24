@@ -16,7 +16,6 @@ Let's try this out with some data. We use set of six viral genomes with sequence
 #| fig-height: 4
 #| fig-dpi: 100
 
-library(tidyverse)
 library(patchwork)
 library(gggenomes)
 
@@ -69,7 +68,7 @@ p4 <- gggenomes(seqs = emale_seqs, genes = emale_genes, links = emale_ava) +
   geom_seq() +
   geom_link(aes(fill=if_else(.marginal, "marginal", NA))) +
   geom_gene(aes(fill=case_when(
-    str_detect(feat_id, "10$") ~ "target",
+    stringr::str_detect(feat_id, "10$") ~ "target",
     .marginal ~ "marginal",
     .default = NA
   ))) +
@@ -80,23 +79,23 @@ p4 <- gggenomes(seqs = emale_seqs, genes = emale_genes, links = emale_ava) +
 
 # zoom in on the neighborhood of all genes ending with "10"
 p5 <- p4 |> 
-  focus(str_detect(feat_id, "10$"), .expand = 1200) +
+  focus(stringr::str_detect(feat_id, "10$"), .expand = 1200) +
   labs(title = "Focus on targets with marginal genes and links dropped",
     subtitle = "clean, but can obscure existence of genes at edges")
 
 p6 <- p4 |>
-  focus(str_detect(feat_id, "10$"), .expand = 1200,
+  focus(stringr::str_detect(feat_id, "10$"), .expand = 1200,
   .marginal = "trim") +
   labs(title = "Marginal genes and links trimmed exactly at locus boundaries",
     subtitle = "good fit, but trimmed genes can be misinterpreted as short genes")
 
 p7 <- p4 |>
-  focus(str_detect(feat_id, "10$"), .expand = 1200,
+  focus(stringr::str_detect(feat_id, "10$"), .expand = 1200,
   .marginal = "keep") +
   labs(title = "Marginal genes and links kept at locus boundaries",
     subtitle = "odd because of links extending way beyond locus")
 
-p8 <- p4 |> focus(str_detect(feat_id, "10$"), .expand = 1200,
+p8 <- p4 |> focus(stringr::str_detect(feat_id, "10$"), .expand = 1200,
   .marginal = c("keep", "trim")) +
   labs(title = "Marginal genes kept and links trimmed",
     subtitle = "combines pros and cons from above")
