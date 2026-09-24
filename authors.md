@@ -13,7 +13,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/thackl/gggenomes/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/thackl/gggenomes/blob/v1.2.0/inst/CITATION)
 
 Hackl, T., Ankenbrand, M., van Adrichem, B., Wilkins, D., & Haslinger,
 K. (2024). gggenomes: effective and versatile visualizations for
