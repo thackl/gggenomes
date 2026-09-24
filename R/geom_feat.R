@@ -63,26 +63,7 @@ geom_feat <- function(
   )
 }
 
-## deprecatedx
-## geom_feat <- function(mapping = NULL, data = feats(),
-##     arrow = NULL, nudge_by_strand = NULL, ...){
-
-##   mapping <- aes_nudge_by_strand(mapping, nudge_by_strand)
-
-##   # TODO: would be cleaner with GeomFeat ggproto...
-##   if (has_name(mapping, "size")) aes_intersect(mapping, aes(size = 3))
-##   if (any(has_name(mapping, c("color", "colour")))) aes_intersect(mapping, aes(color = "grey40"))
-##   r <- list(geom_segment(mapping = mapping, data = data, ...))
-
-##   if (!rlang::is_null(arrow)){
-##     if(!inherits(arrow, "arrow")) arrow <- grid::arrow(length = unit(2, "mm"))
-##     r <- c(r, list(
-##       geom_segment(aes(x=ifelse(x<xend, xend-1, xend+1), y, xend=xend, yend=y), data=data,
-##                    arrow=arrow, size=0.5, color="grey85")))
-##   }
-##   r
-## }
-
+#' @noRd
 GeomFeat <- ggproto(
   "GeomFeat", GeomSegment,
   default_aes = aes(colour = "paleturquoise4", linewidth = 2, linetype = 1, alpha = NA)
