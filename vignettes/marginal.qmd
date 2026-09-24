@@ -1,6 +1,10 @@
-# Edge cases: handling plotting in the margins
+---
+title: "Edge cases: handling plotting in the margins"
+author: "Thomas Hackl"
+date: "`r format(Sys.Date())`"
+---
 
-## Feats, genes and links not matching a sequence are dropped
+# Feats, genes and links not matching a sequence are dropped
 By default, `gggenomes` arranges the plotting area around the specified sequence set. It matches all provided feats, genes and links against the sequences and drops everything that doesn't match. This makes it easy to manipulate what is shown on the plot by selecting/rearranging sequences of interest.
 
 Because feats, genes or links not matching sequences could also be the result of a data mismatch rather then a intentional selection (e.g. misformatted IDs), `gggenomes` issues a notification about this behavior every once in a while.
@@ -12,10 +16,11 @@ Let's try this out with some data. We use set of six viral genomes with sequence
 #| fig-height: 4
 #| fig-dpi: 100
 
-library(gggenomes)
+library(tidyverse)
 library(patchwork)
+library(gggenomes)
 
-# This message usually only trigger once in a time. Let's reset its counter here
+# This message only triggers once in a while. Let's reset its counter here
 # to ensure it triggers for this tutorial
 rlang::reset_message_verbosity("gggenomes-layout-outside")
 
@@ -37,7 +42,7 @@ p1 + p2 + p3 + plot_annotation(title="Genes, feats and links mapping to dropped 
 When using `gggenomes` with a sequence set that does not cover all provided genes, links etc., you receive a notification about items not matching the sequence set. When plotting, we can also directly see that only genes and links matching the specified sequence set are shown.
 
 
-## When zooming in, edge case handling can be customized
+# When zooming in, edge case handling can be customized
 With `gggenomes`, we cannot only subset sequences, but also zoom in on specific regions or *loci*. This is done either by explicitly providing `start` and `end` coordinates for sequences or by using functions like `focus()`. As a result, only the parts of the orginial sequences within the specified loci will be plotted.
 
 Genes, feats or links falling outside these new loci are dropped, similar to items not matching any sequence. However, there is a special case here: items that sit right at the edge of sequence loci and extend into the plot margins.
@@ -52,7 +57,7 @@ Let's look at some examples to showcase the different behaviors and options.
 
 ```{r}
 #| fig-width: 6
-#| fig-height: 12
+#| fig-height: 15
 #| fig-dpi: 100
 
 # This message usually only trigger once in a time. Let's reset its counter here
@@ -82,7 +87,7 @@ p5 <- p4 |>
 p6 <- p4 |>
   focus(str_detect(feat_id, "10$"), .expand = 1200,
   .marginal = "trim") +
-  labs(title = "Marginal genesa and links trimmed exactly at locus boundaries",
+  labs(title = "Marginal genes and links trimmed exactly at locus boundaries",
     subtitle = "good fit, but trimmed genes can be misinterpreted as short genes")
 
 p7 <- p4 |>
