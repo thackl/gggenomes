@@ -662,7 +662,7 @@ GeomScalebar <- ggplot2::ggproto(
 
 
 .scalebar_defaults <- list(
-  linewidth = 1.5,
+  linewidth = 1,
   colour = "black",
   linetype = 1,
   lineend = "butt",
