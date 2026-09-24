@@ -37,9 +37,21 @@ jobs:
             any::pkgdown
             any::quarto
           needs: website
+          install-quarto: true
+          quarto-version: release
+
+      - name: Check Quarto
+        run: |
+          quarto --version
+          quarto check
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = TRUE)
+        run: |
+          pkgdown::build_site_github_pages(
+            new_process = FALSE,
+            install = TRUE,
+            quiet = FALSE
+          )
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
