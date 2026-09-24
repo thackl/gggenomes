@@ -66,8 +66,8 @@ rlang::reset_message_verbosity("gggenomes-layout-marginal")
 # plot some genomes and hilight genes ending with "10" in their ID
 p4 <- gggenomes(seqs = emale_seqs, genes = emale_genes, links = emale_ava) +
   geom_seq() +
-  geom_link(aes(fill=if_else(.marginal, "marginal", NA))) +
-  geom_gene(aes(fill=case_when(
+  geom_link(aes(fill=dplyr::if_else(.marginal, "marginal", NA))) +
+  geom_gene(aes(fill=dplyr::case_when(
     stringr::str_detect(feat_id, "10$") ~ "target",
     .marginal ~ "marginal",
     .default = NA
