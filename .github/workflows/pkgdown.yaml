@@ -36,6 +36,8 @@ jobs:
           extra-packages: |
             any::pkgdown
             any::quarto
+            # for quarto rendering, I need gggenomes installed locally, so it can be used in external quarto render process
+            local::.
           needs: website
           install-quarto: true
           quarto-version: release
@@ -49,7 +51,7 @@ jobs:
         run: |
           pkgdown::build_site_github_pages(
             new_process = FALSE,
-            install = TRUE,
+            install = FALSE, # no need to install, already done with local::.
             quiet = FALSE
           )
         shell: Rscript {0}
