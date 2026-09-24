@@ -16,6 +16,8 @@ genomic architecture of 6 viral genomes initially described in [Hackl et
 al.: Endogenous virophages populate the genomes of a marine
 heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
 
+![](articles/emales-final.png)
+
 ![](reference/figures/emales.png)
 
 ``` r

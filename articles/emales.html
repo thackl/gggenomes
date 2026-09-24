@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Viral synteny maps in minutes • gggenomes</title>
+<title>Synteny maps: a reproducible recipe to go from sequences to plots in minutes • gggenomes</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -15,8 +15,11 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<script src="../extra.js"></script><meta property="og:title" content="Viral synteny maps in minutes">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="emales_files/libs/quarto-html/popper.min.js"></script><script src="emales_files/libs/quarto-html/tippy.umd.min.js"></script><link href="emales_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="emales_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../extra.js"></script><meta property="og:title" content="Synteny maps: a reproducible recipe to go from sequences to plots in minutes">
+<meta property="og:image" content="https://thackl.github.io/gggenomes/logo.svg">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -26,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,8 +43,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+<li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -56,70 +60,48 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.svg" class="logo" alt=""><h1>Viral synteny maps in minutes</h1>
-                        <h4 data-toc-skip class="author">Thomas
-Hackl</h4>
-            
-            <h4 data-toc-skip class="date">2026-08-29</h4>
-      
-      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/vignettes/emales.Rmd" class="external-link"><code>vignettes/emales.Rmd</code></a></small>
-      <div class="d-none name"><code>emales.Rmd</code></div>
+      <img src="../logo.svg" class="logo" alt=""><h1>Synteny maps: a reproducible recipe to go from sequences to plots in minutes</h1>
+
+      <p class="author">Thomas Hackl</p>
+      <p class="date">2026-09-24</p>
+
+      <small class="dont-index">Source: <a href="https://github.com/thackl/gggenomes/blob/main/vignettes/emales.qmd" class="external-link"><code>vignettes/emales.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>This tutorial uses a real-world dataset to show how
-<code>gggenomes</code> can be used to explore synteny among viral
-genomes. We start with six viral genomes and progressively add gene
-annotations, terminal repeats, pairwise genome alignments, GC content,
-protein clusters, and functional annotations.</p>
-<p>Along the way, we introduce the main data types and plotting layers
-used by <code>gggenomes</code> and build the final synteny map one step
-at a time. The final figure will look like this:</p>
-<p><img src="emales-p7.png"></p>
-<p>All processed data files are provided in the <code>data/</code>
-directory, so you can run the complete R workflow without installing any
-external bioinformatics tools. For reproducibility, we also show the
-command-line steps used to generate these files, but running them is
-optional.</p>
-<p>The example is based on endogenous mavirus-like elements (EMALEs)
-from the marine heterotrophic flagellate <em>Cafeteria burkhardae</em>,
-described by <a href="https://doi.org/10.7554/elife.72674" class="external-link">Hackl et
-al. 2021</a>.</p>
-<p>The data used in this example is also bundled as R objects in the
-package; see <code>data(package = "gggenomes")</code>.</p>
-<div class="section level3">
-<h3 id="download-and-unpack-the-tutorial-data">Download and unpack the tutorial data<a class="anchor" aria-label="anchor" href="#download-and-unpack-the-tutorial-data"></a>
-</h3>
-<p>To follow the tutorial locally, download and unpack the tutorial data
-from R:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+
+
+
+
+
+    <p>This tutorial uses a real-world dataset to show how <code>gggenomes</code> can be used to explore synteny among viral genomes. We start with six viral genomes and progressively add gene annotations, terminal repeats, pairwise genome alignments, GC content, protein clusters, and functional annotations.</p>
+<p>Along the way, we introduce the main data types and plotting layers used by <code>gggenomes</code> and build the final synteny map one step at a time. The final figure will look like this:</p>
+<p><img src="emales-final.png"></p>
+<p>All processed data files are provided in the <code>data/</code> directory, so you can run the complete R workflow without installing any external bioinformatics tools. For reproducibility, we also show the command-line steps used to generate these files, but running them is optional.</p>
+<p>The example is based on endogenous mavirus-like elements (EMALEs) from the marine heterotrophic flagellate <em>Cafeteria burkhardae</em>, described by <a href="https://doi.org/10.7554/elife.72674" class="external-link">Hackl et al. 2021</a>.</p>
+<p>The data used in this example is also bundled as R objects in the package; see <code>data(package = "gggenomes")</code>.</p>
+<section class="section level2"><h2 id="download-and-unpack-the-tutorial-data">Download and unpack the tutorial data<a class="anchor" aria-label="anchor" href="#download-and-unpack-the-tutorial-data"></a>
+</h2>
+<p>To follow the tutorial locally, download and unpack the tutorial data from R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"https://github.com/thackl/gggenomes/releases/download/v1.1.3/vignettes.tar.gz"</span>,</span>
+<span>  <span class="st">"https://github.com/thackl/gggenomes/releases/latest/download/vignettes.tar.gz"</span>,</span>
 <span>  <span class="st">"gggenomes-tutorials.tar.gz"</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/untar.html" class="external-link">untar</a></span><span class="op">(</span><span class="st">"gggenomes-tutorials.tar.gz"</span>, exdir <span class="op">=</span> <span class="st">"gggenomes-tutorials"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"gggenomes-tutorials"</span><span class="op">)</span></span></code></pre></div>
-<p>You can now copy the R code below into an interactive R session, or
-open the included <code>emales.Rmd</code> file and run the tutorial from
-there.</p>
 </div>
-<div class="section level3">
-<h3 id="read-in-the-genomes">Read in the genomes<a class="anchor" aria-label="anchor" href="#read-in-the-genomes"></a>
-</h3>
-<p>We start with a FASTA file containing six viral genomes.
-<code><a href="../reference/read_tracks.html">read_seqs()</a></code> reads the sequence lengths and metadata from
-the FASTA headers into a table that can be passed directly to
-<code>gggenomes</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>You can now copy the R code below into an interactive R session, or open the included <code>emales.Rmd</code> file and run the tutorial from there.</p>
+</section><section class="section level2"><h2 id="read-in-the-genomes">Read in the genomes<a class="anchor" aria-label="anchor" href="#read-in-the-genomes"></a>
+</h2>
+<p>We start with a FASTA file containing six viral genomes. <code><a href="../reference/read_tracks.html">read_seqs()</a></code> reads the sequence lengths and metadata from the FASTA headers into a table that can be passed directly to <code>gggenomes</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thackl.github.io/gggenomes/">gggenomes</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Read one row of sequence information per genome</span></span>
@@ -127,28 +109,26 @@ the FASTA headers into a table that can be passed directly to
 <span></span>
 <span><span class="co"># Initialize a plot with one genome ("bin") per sequence</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>       <span class="co"># draw the sequence backbone</span></span>
-<span>  <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span>   <span class="co"># label each genome</span></span>
+<span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># draw the sequence backbone</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># label each genome</span></span>
 <span></span>
 <span><span class="va">p1</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p1.png"</span>, <span class="va">p1</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">3</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p1.png"></p>
-<p>At this stage, the plot contains only the genome sequences and their
-labels. Next, we add information about the genes encoded by each
-genome.</p>
+<span><span class="co"># Note: we are only saving at a low resolution (dpi) because this</span></span>
+<span><span class="co"># vignette is packaged with gggenomes, and we want a slim package</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p1.png"</span>, <span class="va">p1</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="annotate-genes">Annotate genes<a class="anchor" aria-label="anchor" href="#annotate-genes"></a>
-</h3>
-<p>The supplied gene annotations were generated with Prodigal-GV. This
-preprocessing step is shown for reproducibility; the resulting GFF file
-is already included with the tutorial data.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">bin/prodigal-gv</span> <span class="at">-i</span> data/emales.fna <span class="at">-o</span> data/emales.gff <span class="at">-f</span> gff <span class="at">-a</span> data/emales.faa</span></code></pre></div>
-<p><code><a href="../reference/read_tracks.html">read_feats()</a></code> reads the GFF annotations as genomic
-features. Here we color genes by their GC content to add a first layer
-of information to the genome map.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p><img src="emales-p1.png" alt="genome sequences as lines with labels"></p>
+<p>At this stage, the plot contains only the genome sequences and their labels. Next, we add information about the genes encoded by each genome.</p>
+</section><section class="section level2"><h2 id="annotate-genes">Annotate genes<a class="anchor" aria-label="anchor" href="#annotate-genes"></a>
+</h2>
+<p>The supplied gene annotations were generated with Prodigal-GV. This preprocessing step is shown for reproducibility; the resulting GFF file is already included with the tutorial data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/prodigal-gv</span> <span class="at">-i</span> data/emales.fna <span class="at">-o</span> data/emales.gff <span class="at">-f</span> gff <span class="at">-a</span> data/emales.faa</span></code></pre></div>
+</div>
+<p><code><a href="../reference/read_tracks.html">read_feats()</a></code> reads the GFF annotations as genomic features. Here we color genes by their GC content to add a first layer of information to the genome map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">emale_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_tracks.html">read_feats</a></span><span class="op">(</span><span class="st">"data/emales.gff"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># GC content is stored as text in the GFF attributes; convert it to numeric</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>gc_cont <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">gc_cont</span><span class="op">)</span><span class="op">)</span></span>
@@ -161,30 +141,26 @@ of information to the genome map.</p>
 <span></span>
 <span><span class="va">p2</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p2.png"</span>, <span class="va">p2</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">3</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p2.png"></p>
-<p>The genome backbones are now accompanied by gene arrows, with color
-showing variation in GC content among genes.</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p2.png"</span>, <span class="va">p2</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="find-terminal-inverted-repeats">Find terminal inverted repeats<a class="anchor" aria-label="anchor" href="#find-terminal-inverted-repeats"></a>
-</h3>
-<p>These types of viruses often have linear genomes with terminal
-inverted repeats (TIRs), so we look for matching regions at opposite
-ends of each genome. The commands below split the genomes and self-align
-their opposite strands; the resulting PAF file is already provided.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Split into one genome per file | https://bioinf.shenwei.me/seqkit/</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">bin/seqkit</span> split <span class="at">--force</span> <span class="at">-i</span> data/emales.fna</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Self-align opposite strands</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="cf">for</span> fna <span class="kw">in</span> <span class="kw">`</span><span class="fu">ls</span> data/emales.fna.split/<span class="pp">*</span>.fna<span class="kw">`;</span> <span class="cf">do</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="ex">bin/minimap2</span> <span class="at">-c</span> <span class="at">-B5</span> <span class="at">-O6</span> <span class="at">-E3</span> <span class="at">--rev-only</span> <span class="va">$fna</span> <span class="va">$fna</span> <span class="op">&gt;</span> <span class="va">$fna</span>.paf<span class="kw">;</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="cf">done</span><span class="kw">;</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">cat</span> data/emales.fna.split/<span class="pp">*</span>.paf <span class="op">&gt;</span> data/emales-tirs.paf</span></code></pre></div>
-<p>We read the alignments as features and retain only sufficiently long,
-closely matching hits. <code><a href="../reference/geom_feat.html">geom_feat()</a></code> then adds these regions
-to the genome tracks.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p><img src="emales-p2.png" alt="genes as arrows colored by GC content"></p>
+<p>The genome backbones are now accompanied by gene arrows, with color showing variation in GC content among genes.</p>
+</section><section class="section level2"><h2 id="find-terminal-inverted-repeats">Find terminal inverted repeats<a class="anchor" aria-label="anchor" href="#find-terminal-inverted-repeats"></a>
+</h2>
+<p>These types of viruses often have linear genomes with terminal inverted repeats (TIRs), so we look for matching regions at opposite ends of each genome. The commands below split the genomes and self-align their opposite strands; the resulting PAF file is already provided.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split into one genome per file | https://bioinf.shenwei.me/seqkit/</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/seqkit</span> split <span class="at">--force</span> <span class="at">-i</span> data/emales.fna</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Self-align opposite strands</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fna <span class="kw">in</span> <span class="kw">`</span><span class="fu">ls</span> data/emales.fna.split/<span class="pp">*</span>.fna<span class="kw">`;</span> <span class="cf">do</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bin/minimap2</span> <span class="at">-c</span> <span class="at">-B5</span> <span class="at">-O6</span> <span class="at">-E3</span> <span class="at">--rev-only</span> <span class="va">$fna</span> <span class="va">$fna</span> <span class="op">&gt;</span> <span class="va">$fna</span>.paf<span class="kw">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span><span class="kw">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/emales.fna.split/<span class="pp">*</span>.paf <span class="op">&gt;</span> data/emales-tirs.paf</span></code></pre></div>
+</div>
+<p>We read the alignments as features and retain only sufficiently long, closely matching hits. <code><a href="../reference/geom_feat.html">geom_feat()</a></code> then adds these regions to the genome tracks.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Keep candidate TIRs of at least 100 bp and less than 10% divergence</span></span>
 <span><span class="va">emale_tirs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_tracks.html">read_links</a></span><span class="op">(</span><span class="st">"data/emales-tirs.paf"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">map_length</span> <span class="op">&gt;</span> <span class="fl">99</span> <span class="op">&amp;</span> <span class="va">de</span> <span class="op">&lt;</span> <span class="fl">0.1</span><span class="op">)</span></span>
@@ -202,20 +178,19 @@ to the genome tracks.</p>
 <span></span>
 <span><span class="va">p3</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p3.png"</span>, <span class="va">p3</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">3</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p3.png"></p>
-<p>The thick feature segments mark the candidate terminal repeats,
-adding structural information beyond the gene annotations.</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p3.png"</span>, <span class="va">p3</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="compare-genome-synteny">Compare genome synteny<a class="anchor" aria-label="anchor" href="#compare-genome-synteny"></a>
-</h3>
-<p>To compare genome organization, we align all genomes against each
-other with minimap2. <code>gggenomes</code> represents these pairwise
-alignments as links between homologous regions.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># All-vs-all genome alignment | https://github.com/lh3/minimap2</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">bin/minimap2</span> <span class="at">-X</span> <span class="at">-N</span> 50 <span class="at">-p</span> 0.1 <span class="at">-c</span> data/emales.fna data/emales.fna <span class="op">&gt;</span> data/emales.paf</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p><img src="emales-p3.png" alt="Terminal repeats indicated by thick lines at ends of sequences"></p>
+<p>The thick feature segments mark the candidate terminal repeats, adding structural information beyond the gene annotations.</p>
+</section><section class="section level2"><h2 id="compare-genome-synteny">Compare genome synteny<a class="anchor" aria-label="anchor" href="#compare-genome-synteny"></a>
+</h2>
+<p>To compare genome organization, we align all genomes against each other with minimap2. <code>gggenomes</code> represents these pairwise alignments as links between homologous regions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All-vs-all genome alignment | https://github.com/lh3/minimap2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/minimap2</span> <span class="at">-X</span> <span class="at">-N</span> 50 <span class="at">-p</span> 0.1 <span class="at">-c</span> data/emales.fna data/emales.fna <span class="op">&gt;</span> data/emales.paf</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">emale_links</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_paf.html">read_paf</a></span><span class="op">(</span><span class="st">"data/emales.paf"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span></span>
@@ -231,39 +206,37 @@ alignments as links between homologous regions.</p>
 <span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Flip genomes 4-6 so that shared regions are easier to compare visually</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p4a.png"</span>, <span class="va">p4</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p><img src="emales-p4a.png" alt="syntenic regions visually connected by gray polygons"></p>
+<p>The links reveal shared regions and their relative orientation across genomes. <code><a href="../reference/flip.html">flip()</a></code> changes the orientation in which selected genomes are displayed, making the syntenic structure easier to follow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Flip genomes 4-6 so that shared regions are easier to compare visually</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/flip.html">flip</a></span><span class="op">(</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span>
 <span><span class="va">p4</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p4.png"</span>, <span class="va">p4</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">3</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p4.png"></p>
-<p>The links reveal shared regions and their relative orientation across
-genomes. <code><a href="../reference/flip.html">flip()</a></code> changes only how selected genomes are
-displayed, making the syntenic structure easier to follow.</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p4b.png"</span>, <span class="va">p4</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="add-genome-wide-gc-content">Add genome-wide GC content<a class="anchor" aria-label="anchor" href="#add-genome-wide-gc-content"></a>
-</h3>
-<p>So far, GC content is shown only for individual genes. We can also
-calculate it across the entire genome in fixed windows and display the
-result as a continuous track.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Compute GC content in non-overlapping 50 bp windows | https://bioinf.shenwei.me/seqkit/</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">bin/seqkit</span> sliding <span class="at">-s</span> 50 <span class="at">-W</span> 50 data/emales.fna <span class="kw">|</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="ex">bin/seqkit</span> fx2tab <span class="at">--gc</span> <span class="at">-ni</span> <span class="op">&gt;</span> data/emales-gc.tsv</span></code></pre></div>
-<p>The output is a simple table of window IDs and GC content. We extract
-the sequence ID and coordinates from each window ID to turn it into a
-feature table understood by <code>gggenomes</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p><img src="emales-p4b.png" alt="all genomes oriented consistently"></p>
+</section><section class="section level2"><h2 id="add-genome-wide-gc-content">Add genome-wide GC content<a class="anchor" aria-label="anchor" href="#add-genome-wide-gc-content"></a>
+</h2>
+<p>So far, GC content is shown only for individual genes. We can also calculate it across the entire genome in fixed windows and display the result as a continuous track.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute GC content in non-overlapping 50 bp windows | https://bioinf.shenwei.me/seqkit/</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/seqkit</span> sliding <span class="at">-s</span> 50 <span class="at">-W</span> 50 data/emales.fna <span class="kw">|</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bin/seqkit</span> fx2tab <span class="at">--gc</span> <span class="at">-ni</span> <span class="op">&gt;</span> data/emales-gc.tsv</span></code></pre></div>
+</div>
+<p>The output is a simple table of window IDs and GC content. We extract the sequence ID and coordinates from each window ID to turn it into a feature table understood by <code>gggenomes</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">emale_gc</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span></span>
 <span>  <span class="st">"data/emales-gc.tsv"</span>,</span>
 <span>  col_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"window_id"</span>, <span class="st">"gc_content"</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Window IDs have the form "seq_id_sliding:start-end"</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    seq_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">window_id</span>, <span class="st">"_sliding:.*"</span><span class="op">)</span>,</span>
-<span>    start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span><span class="va">window_id</span>, <span class="st">"(?&lt;=_sliding:)\\d+"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span><span class="va">window_id</span>, <span class="st">"\\d+$"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html" class="external-link">separate</a></span><span class="op">(</span><span class="va">window_id</span>, <span class="st">"_sliding:"</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq_id"</span>, <span class="st">"range"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html" class="external-link">separate</a></span><span class="op">(</span><span class="va">range</span>, <span class="st">"-"</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"start"</span>, <span class="st">"end"</span><span class="op">)</span>, convert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Register the GC windows as an additional feature set</span></span>
 <span><span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p4</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/add_tracks.html">add_feats</a></span><span class="op">(</span><span class="va">emale_gc</span><span class="op">)</span></span>
@@ -279,26 +252,20 @@ feature table understood by <code>gggenomes</code>.</p>
 <span></span>
 <span><span class="va">p5</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p5.png"</span>, <span class="va">p5</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">3</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p5.png"></p>
-<p>The GC-content profile is now shown as an additional quantitative
-track along each genome. This illustrates how arbitrary position-based
-measurements can be added as feature sets and plotted alongside genes
-and synteny links.</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p5.png"</span>, <span class="va">p5</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="cluster-proteins-into-orthogroups">Cluster proteins into orthogroups<a class="anchor" aria-label="anchor" href="#cluster-proteins-into-orthogroups"></a>
-</h3>
-<p>The next step groups similar proteins across genomes. We use DIAMOND
-to cluster the predicted proteins; the cluster assignments are again
-included with the tutorial data.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">bin/diamond</span> makedb <span class="at">--in</span> data/emales.faa <span class="at">--db</span> data/emales.dmnd</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="ex">bin/diamond</span> cluster <span class="at">--db</span> data/emales.dmnd <span class="at">-o</span> data/emales-clusters.tsv</span></code></pre></div>
-<p>We count the number of genes in each cluster and create labels only
-for clusters represented by at least six genes. These shared clusters
-can then be used to color homologous genes consistently across
-genomes.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="emales-p5.png" alt="GC-content profile along each sequence shown as histogram"></p>
+<p>The GC-content profile is now shown as an additional quantitative track along each genome. This illustrates how arbitrary position-based measurements can be added as feature sets and plotted alongside genes and synteny links.</p>
+</section><section class="section level2"><h2 id="cluster-proteins-into-orthogroups">Cluster proteins into orthogroups<a class="anchor" aria-label="anchor" href="#cluster-proteins-into-orthogroups"></a>
+</h2>
+<p>The next step groups similar proteins across genomes. We use DIAMOND to cluster the predicted proteins; the cluster assignments are again included with the tutorial data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/diamond</span> makedb <span class="at">--in</span> data/emales.faa <span class="at">--db</span> data/emales.dmnd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/diamond</span> cluster <span class="at">--db</span> data/emales.dmnd <span class="at">-o</span> data/emales-clusters.tsv</span></code></pre></div>
+</div>
+<p>We count the number of genes in each cluster and create labels only for clusters represented by at least six genes. These shared clusters can then be used to color homologous genes consistently across genomes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read cluster assignments and count genes per cluster</span></span>
 <span><span class="va">emale_clusters</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_tsv</a></span><span class="op">(</span></span>
 <span>  <span class="st">"data/emales-clusters.tsv"</span>,</span>
@@ -313,7 +280,8 @@ genomes.</p>
 <span>    cluster_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">cluster_id</span>, <span class="st">" ("</span>, <span class="va">cluster_n</span>, <span class="st">")"</span><span class="op">)</span>,</span>
 <span>    <span class="co"># Highlight only clusters with at least six members</span></span>
 <span>    cluster_label <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu">fct_lump_min</span><span class="op">(</span></span>
-<span>      <span class="va">cluster_label</span>, <span class="fl">6</span>, other_level <span class="op">=</span> <span class="cn">NA_character_</span></span>
+<span>      <span class="va">cluster_label</span>, <span class="fl">6</span>,</span>
+<span>      other_level <span class="op">=</span> <span class="cn">NA_character_</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -343,31 +311,27 @@ genomes.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="../reference/geom_feat.html">geom_feat</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span>, data <span class="op">=</span> <span class="fu"><a href="../reference/pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_feat.html">geom_feat</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">5</span>, data <span class="op">=</span> <span class="fu"><a href="../reference/pull_track.html">feats</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">cluster_label</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p6</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p6.png"</span>, <span class="va">p6</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">3.5</span>, dpi <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p6.png"></p>
-<p>Genes belonging to the same abundant protein cluster now share a
-color. This makes conserved gene content visible together with
-larger-scale genome synteny.</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p6.png"</span>, <span class="va">p6</span>, width <span class="op">=</span> <span class="fl">9</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="add-functional-annotations">Add functional annotations<a class="anchor" aria-label="anchor" href="#add-functional-annotations"></a>
-</h3>
-<p>Finally, we add functional information based on similarity to
-proteins from mavirus. DIAMOND is used for the similarity search; the
-resulting table is included with the tutorial data.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Search predicted EMALE proteins against published mavirus proteins</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="ex">bin/diamond</span> makedb <span class="at">--in</span> data/mavirus.faa <span class="at">--db</span> data/mavirus.dmnd</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="ex">bin/diamond</span> blastp <span class="at">--db</span> data/mavirus.dmnd <span class="at">-q</span> data/emales.faa <span class="at">--very-sensitive</span> <span class="at">--outfmt</span> 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore stitle <span class="op">&gt;</span> data/emales_mavirus.o6</span></code></pre></div>
-<p>We extract gene names and product descriptions from significant hits
-and attach these annotations to the corresponding genes and protein
-clusters.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<p><img src="emales-p6.png" alt="genes colored by orthologous clusters"></p>
+<p>Genes belonging to the same abundant protein cluster now share a color. This makes conserved gene content visible together with larger-scale genome synteny.</p>
+</section><section class="section level2"><h2 id="add-functional-annotations">Add functional annotations<a class="anchor" aria-label="anchor" href="#add-functional-annotations"></a>
+</h2>
+<p>Finally, we add functional information based on similarity to proteins from mavirus. DIAMOND is used for the similarity search; the resulting table is included with the tutorial data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search predicted EMALE proteins against published mavirus proteins</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/diamond</span> makedb <span class="at">--in</span> data/mavirus.faa <span class="at">--db</span> data/mavirus.dmnd</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/diamond</span> blastp <span class="at">--db</span> data/mavirus.dmnd <span class="at">-q</span> data/emales.faa <span class="at">--very-sensitive</span> <span class="at">--outfmt</span> 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore stitle <span class="op">&gt;</span> data/emales_mavirus.o6</span></code></pre></div>
+</div>
+<p>We extract gene names and product descriptions from significant hits and attach these annotations to the corresponding genes and protein clusters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract functional annotations from significant mavirus protein hits</span></span>
 <span><span class="va">emale_blast</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_blast.html">read_blast</a></span><span class="op">(</span><span class="st">"data/emales_mavirus.o6"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>feat_id <span class="op">=</span> <span class="va">seq_id</span>, blast_desc <span class="op">=</span> <span class="va">X13</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -399,7 +363,7 @@ clusters.</p>
 <span>  <span class="fu"><a href="../reference/add_tracks.html">add_subfeats</a></span><span class="op">(</span><span class="va">emale_blast</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># Reorder the genomes for the final figure</span></span>
 <span>  <span class="fu"><a href="../reference/pick.html">pick</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="co"># Use the synteny links to orient genomes consistently</span></span>
+<span>  <span class="co"># Use the synteny links to orient genomes automatically &amp; consistently ("auto-flip")</span></span>
 <span>  <span class="fu"><a href="../reference/flip.html">sync</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span></span>
 <span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -407,7 +371,7 @@ clusters.</p>
 <span>  <span class="co"># Leave some extra space around genome tracks for the annotations below</span></span>
 <span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span>offset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># geom_feat(aes(color = "integrated transposon"),</span></span>
-<span>  <span class="co">#   feats(emale_transposons), size = 7) +</span></span>
+<span>  <span class="co">#   feats(emale_transposons), linewidth = 7) +</span></span>
 <span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">product</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_feat_text.html">geom_gene_tag</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">gene</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span>, nudge_y <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># Mark genes with significant mavirus protein hits</span></span>
@@ -427,7 +391,8 @@ clusters.</p>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Conserved genes"</span>, palette <span class="op">=</span> <span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span></span>
+<span>    <span class="st">"Conserved genes"</span>,</span>
+<span>    palette <span class="op">=</span> <span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_d</a></span><span class="op">(</span><span class="st">"Blast hits &amp; Features"</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_linetype.html" class="external-link">scale_linetype</a></span><span class="op">(</span><span class="st">"Graphs"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -438,19 +403,124 @@ clusters.</p>
 <span></span>
 <span><span class="va">p7</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p7.png"</span>, <span class="va">p7</span>, width <span class="op">=</span> <span class="fl">12</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span></code></pre></div>
-<p><img src="emales-p7.png"></p>
-<p>The final figure combines genome structure, pairwise synteny,
-conserved gene content, functional annotations, and GC content in a
-single view. More importantly for this tutorial, each of these layers
-was added independently: the same pattern can be used to build genome
-comparison figures from many different combinations of sequence,
-feature, link, and quantitative data.</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-p7.png"</span>, <span class="va">p7</span>, width <span class="op">=</span> <span class="fl">10</span>, height <span class="op">=</span> <span class="fl">5</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
+<p><img src="emales-p7.png" alt="genes clusters annotated with functions"></p>
+<p>The final figure combines genome structure, pairwise synteny, conserved gene content, functional annotations, and GC content in a single view. More importantly for this tutorial, each of these layers was added independently: the same pattern can be used to build genome comparison figures from many different combinations of sequence, feature, link, and quantitative data.</p>
+</section><section class="section level2"><h2 id="create-a-polished-plot-including-manually-curated-information">Create a polished plot including manually curated information<a class="anchor" aria-label="anchor" href="#create-a-polished-plot-including-manually-curated-information"></a>
+</h2>
+<p>Until here, we’ve relied on displaying data directly generated by bioinformatics command tools, such as gene annotators (<code>prodigal-gv</code>) and alignment programs (<code>minimap2</code>, <code>DIAMOND</code>). Ultimately, however, science is also about using your own expertise and interpretation to go beyond that. I did so for these viral genomes in the context of the manuscript <a href="http://dx.doi.org/10.1101/2020.11.30.404863" class="external-link">Hackl et al.: Endogenous virophages populate the genomes of a marine heterotrophic flagellate</a>. The resulting curated information is packaged with gggenomes as datasets. It reveals the presense of transposons that have integrated into the viral genomes, and some additional information about the annotated genes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># to inspect the example data shipped with gggenomes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">"gggenomes"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p8</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gggenomes.html">gggenomes</a></span><span class="op">(</span></span>
+<span>  genes <span class="op">=</span> <span class="va">emale_genes</span>, seqs <span class="op">=</span> <span class="va">emale_seqs</span>, links <span class="op">=</span> <span class="va">emale_ava</span>,</span>
+<span>  feats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">emale_tirs</span>, ngaros<span class="op">=</span><span class="va">emale_ngaros</span>, gc<span class="op">=</span><span class="va">emale_gc</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/add_tracks.html">add_sublinks</a></span><span class="op">(</span><span class="va">emale_prot_ava</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/flip.html">sync</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># synchronize genome directions based on links</span></span>
+<span>  <span class="fu"><a href="../reference/geom_feat.html">geom_feat</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"identity"</span>, size<span class="op">=</span><span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_link.html">geom_link</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="../reference/pull_track.html">links</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_feat_text.html">geom_gene_tag</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="va">name</span><span class="op">)</span>, nudge_y<span class="op">=</span><span class="fl">0.1</span>, check_overlap <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_feat.html">geom_feat</a></span><span class="op">(</span>data<span class="op">=</span><span class="fu"><a href="../reference/pull_track.html">feats</a></span><span class="op">(</span><span class="va">ngaros</span><span class="op">)</span>, alpha<span class="op">=</span><span class="fl">.3</span>, size<span class="op">=</span><span class="fl">10</span>, position<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_feat_text.html">geom_feat_note</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label<span class="op">=</span><span class="st">"Ngaro-transposon"</span><span class="op">)</span>, data<span class="op">=</span><span class="fu"><a href="../reference/pull_track.html">feats</a></span><span class="op">(</span><span class="va">ngaros</span><span class="op">)</span>,</span>
+<span>      nudge_y<span class="op">=</span><span class="fl">.1</span>, vjust<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="../reference/geom_wiggle.html">geom_wiggle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>z<span class="op">=</span><span class="va">score</span>, linetype<span class="op">=</span><span class="st">"GC-content"</span><span class="op">)</span>, <span class="fu"><a href="../reference/pull_track.html">feats</a></span><span class="op">(</span><span class="va">gc</span><span class="op">)</span>,</span>
+<span>      fill<span class="op">=</span><span class="st">"lavenderblush4"</span>, position<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_nudge.html" class="external-link">position_nudge</a></span><span class="op">(</span>y<span class="op">=</span><span class="op">-</span><span class="fl">.2</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Genes"</span>, palette<span class="op">=</span><span class="st">"Dark2"</span>, na.value<span class="op">=</span><span class="st">"cornsilk3"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"emales-final.png"</span>, <span class="va">p8</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">4</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code></pre></div>
 </div>
-
+<p><img src="emales-final.png" alt="refined annotations using manually curated data"></p>
+</section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main>
+</div>
 
 
     <footer><div class="pkgdown-footer-left">

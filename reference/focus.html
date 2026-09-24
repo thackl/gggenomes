@@ -19,7 +19,7 @@ will have their locus_id as their new seq_id."><meta property="og:image" content
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,8 +31,9 @@ will have their locus_id as their new seq_id."><meta property="og:image" content
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -68,7 +69,7 @@ will have their <code>locus_id</code> as their new <code>seq_id</code>.</p>
 <span>  .track_id <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  .max_dist <span class="op">=</span> <span class="fl">10000</span>,</span>
 <span>  .expand <span class="op">=</span> <span class="fl">5000</span>,</span>
-<span>  .overhang <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"drop"</span>, <span class="st">"trim"</span>, <span class="st">"keep"</span><span class="op">)</span>,</span>
+<span>  .marginal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"drop"</span>, <span class="st">"keep"</span>, <span class="st">"trim"</span><span class="op">)</span>,</span>
 <span>  .locus_id <span class="op">=</span> <span class="fu">str_glue</span><span class="op">(</span><span class="st">"{seq_id}_lc{row_number()}"</span><span class="op">)</span>,</span>
 <span>  .locus_id_group <span class="op">=</span> <span class="va">seq_id</span>,</span>
 <span>  .locus_bin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bin"</span>, <span class="st">"seq"</span>, <span class="st">"locus"</span><span class="op">)</span>,</span>
@@ -127,11 +128,12 @@ target features. Default 2kb. Give two values for different up- and
 downstream expansions.</p></dd>
 
 
-<dt id="arg--overhang">.overhang<a class="anchor" aria-label="anchor" href="#arg--overhang"></a></dt>
-<dd><p>How to handle features overlapping the locus boundaries
-(including expand). Options are to "keep" them, "trim" them exactly at the
-boundaries, or "drop" all features not fully included within the
-boundaries.</p></dd>
+<dt id="arg--marginal">.marginal<a class="anchor" aria-label="anchor" href="#arg--marginal"></a></dt>
+<dd><p>How to handle feats/genes and links overlapping edges
+of zoomed in on regions. Choices are to "drop", "keep" or "trim", with "drop"
+as the default. You can provide two values to specify different behavior
+for feats/genes and links.
+See <code><a href="../articles/marginal.html">vignette("marginal", package = "gggenomes")</a></code> for more details.</p></dd>
 
 
 <dt id="arg--locus-id-locus-id-group">.locus_id, .locus_id_group<a class="anchor" aria-label="anchor" href="#arg--locus-id-locus-id-group"></a></dt>
@@ -188,14 +190,14 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span><span class="co"># read the genomes</span></span></span>
 <span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg.fna.fai"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fai' with `read_fai()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg.fna [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.fna.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg.fna [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna.fai]</span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># strip trailing number from contigs to get bins</span></span></span>
 <span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>bin_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove</a></span><span class="op">(</span><span class="va">seq_id</span>, <span class="st">"_\\d+$"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># gene annotations from prokka</span></span></span>
 <span class="r-in"><span><span class="va">g0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg.gff.xz"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.gff.xz]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff.xz]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -213,7 +215,7 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span><span class="co">#     --greedy-best-hits</span></span></span>
 <span class="r-in"><span><span class="va">f0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_feats</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"gorg/gorg-pads-defense.o6"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'blast' with `read_blast()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg-pads-defense [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]</span>
 <span class="r-in"><span><span class="va">f1</span> <span class="op">&lt;-</span> <span class="va">f0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="co"># parser system/gene info</span></span></span>
 <span class="r-in"><span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html" class="external-link">separate</a></span><span class="op">(</span><span class="va">seq_id2</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"seq_id2"</span>, <span class="st">"system"</span>, <span class="st">"gene"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -249,12 +251,7 @@ at least 3 target features.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">system</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_feat_text.html">geom_feat_tag</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">gene</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Showing 36 loci with the following size distribution</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> min: 2500</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> q25: 6464</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> med: 9739</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> q75: 10714</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> max: 19561</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Focusing on 36 loci, 2500-19561 bp wide, with .marginal='drop/drop'</span>
 <span class="r-plt img"><img src="focus-3.png" alt="" width="960" height="480"></span>
 </code></pre></div>
     </div>

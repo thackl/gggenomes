@@ -11,7 +11,7 @@ It is used to declare the input data for gggenomes' track system.
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,8 +23,9 @@ It is used to declare the input data for gggenomes' track system.
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -61,6 +62,7 @@ It is used to declare the input data for gggenomes' track system.</p>
 <span>  adjacent_only <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  infer_bin_id <span class="op">=</span> <span class="va">seq_id</span>,</span>
 <span>  infer_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
+<span>  marginal <span class="op">=</span> <span class="st">"drop"</span>,</span>
 <span>  infer_end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
 <span>  infer_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span>,</span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"clean"</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
@@ -115,9 +117,20 @@ per line.</p></dd>
 
 
 <dt id="arg-adjacent-only">adjacent_only<a class="anchor" aria-label="anchor" href="#arg-adjacent-only"></a></dt>
-<dd><p>Indicates whether links should be created between adjacent sequences/chromosomes only.
-By default it is set to <code>adjacent_only = TRUE</code>. If <code>FALSE</code>, links will be created between all sequences</p>
-<p>(<em>not recommended for large data sets</em>)</p></dd>
+<dd><p>Indicates whether links should be created between
+adjacent sequences/chromosomes only. By default it is set to <code>TRUE</code>.
+If set to <code>FALSE</code>, links will be created between all sequences. This
+is <em>not recommended for large data sets</em> as it slow and plots become
+way to cluttered to be legible.</p></dd>
+
+
+<dt id="arg-marginal">marginal<a class="anchor" aria-label="anchor" href="#arg-marginal"></a></dt>
+<dd><p>How to handle feats/genes and links overlapping edges
+of sequence regions when providing sequence start/end or after zooming
+in with <code><a href="focus.html">focus()</a></code>. Choices are to "drop", "keep" or "trim", with "drop"
+as the default. You can provide two values to specify different behavior
+for feats/genes and links.
+See <code><a href="../articles/marginal.html">vignette("marginal", package = "gggenomes")</a></code> for more details.</p></dd>
 
 
 <dt id="arg-infer-length-infer-start-infer-end-infer-bin-id">infer_length, infer_start, infer_end, infer_bin_id<a class="anchor" aria-label="anchor" href="#arg-infer-length-infer-start-infer-end-infer-bin-id"></a></dt>
@@ -195,10 +208,7 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span><span class="st">"Conserved genes"</span>, palette <span class="op">=</span> <span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(feat_id)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: Cflag_017B,BVI_069,BVI_008A</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> wiggle bounds</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> mid:  0.38</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> low:  0.2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> high: 0.76</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> using wiggle bounds: mid=0.38, low=0.2, high=0.76</span>
 <span class="r-plt img"><img src="gggenomes-2.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># initialize plot directly from files</span></span></span>
@@ -209,7 +219,7 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-in"><span>  <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.paf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_link.html">geom_link</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -220,7 +230,7 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    CDS     143</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales-tirs.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -230,23 +240,23 @@ and we can use that information to set sensible default aesthetic mappings for m
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    repeat_region    12</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'paf' with `read_paf()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.paf]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.paf]</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Found tags in max_tags column, you should increase max_tags to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Read and tidied up a .paf file with 10 optional tag fields:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> NM, ms, AS, nn, tp, cm, s1, de, rl, cg</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Note: warnings about fewer than expected columns are expected for this format.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Note: .paf files use 0-based coordinate starts - transforming to 1-based</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_seq_len()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
 <span class="r-plt img"><img src="gggenomes-3.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># multi-contig genomes wrap to fixed width</span></span></span>
 <span class="r-in"><span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_tracks.html">read_seqs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"cafeteria"</span><span class="op">)</span>, <span class="st">"Cr.*\\.fa.fai$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fai' with `read_fai()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrBVI.fa.fai]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrCflag.fa.fai]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrE410P.fa.fai]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970.fa [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrBVI.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrBVI.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrCflag.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrCflag.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrE410P.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrE410P.fa.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: CrRCC970.fa [/home/runner/work/_temp/Library/gggenomes/extdata/cafeteria/CrRCC970.fa.fai]</span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="va">s0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">length</span> <span class="op">&gt;</span> <span class="fl">5e5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">gggenomes</span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">s1</span>, infer_bin_id <span class="op">=</span> <span class="va">file_id</span>, wrap <span class="op">=</span> <span class="fl">5e6</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_seq_label.html">geom_seq_label</a></span><span class="op">(</span><span class="op">)</span></span></span>

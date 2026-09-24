@@ -153,12 +153,7 @@ gggenomes(emale_genes, emale_seqs) |>
   focus(.expand = 1e3, .max_dist = 1e3) +
   geom_seq() + geom_gene() +
   geom_seq_break()
-#> Showing 10 loci with the following size distribution
-#> • min: 3853
-#> • q25: 9284
-#> • med: 12695
-#> • q75: 18007
-#> • max: 21311
+#> ℹ Focusing on 10 loci, 3853-21311 bp wide, with .marginal='drop/drop'
 
 
 # customize decorations
@@ -166,12 +161,7 @@ gggenomes(emale_genes, emale_seqs) |>
   focus(.expand = 1e3, .max_dist = 1e3) +
   geom_seq() + geom_gene() +
   geom_seq_break(label = c("[", "]"), size = 3, color = "#1b9e77")
-#> Showing 10 loci with the following size distribution
-#> • min: 3853
-#> • q25: 9284
-#> • med: 12695
-#> • q75: 18007
-#> • max: 21311
+#> ℹ Focusing on 10 loci, 3853-21311 bp wide, with .marginal='drop/drop'
 
 
 # decorate manually truncated sequences

@@ -32,7 +32,7 @@ geom_wiggle(
   inherit.aes = TRUE,
   offset = 0,
   height = 0.8,
-  bounds = Hmisc::smedian.hilow,
+  bounds = hmisc_smedian_hilow,
   ...
 )
 ```
@@ -202,8 +202,7 @@ geom_wiggle(
 
   geom_wiggle uses mid, low and high boundary values for plotting wiggle
   data. Can be both a function or a vector returning those three values.
-  Defaults to
-  [Hmisc::smedian.hilow](https://rdrr.io/pkg/Hmisc/man/smean.sd.html).
+  Defaults to Hmisc::smedian.hilow.
 
 ## Value
 
@@ -254,35 +253,34 @@ gggenomes(seqs = emale_seqs, feats = emale_gc) +
 #> coverage max
 #> • max: 0.88
 
-
-# wiggle's default bounds function requires Hmisc
-if (requireNamespace("Hmisc", quietly = TRUE)) {
-
 # Plot varying GC-content along sequences as ribbon
 gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_wiggle(aes(z = score)) +
   geom_seq()
+#> ℹ using wiggle bounds: mid=0.38, low=0.2, high=0.76
+
 
 # customize color and position
 gggenomes(genes = emale_genes, seqs = emale_seqs, feats = emale_gc) +
   geom_wiggle(aes(z = score), fill = "lavenderblush3", offset = -.3, height = .5) +
   geom_seq() + geom_gene()
+#> ℹ using wiggle bounds: mid=0.38, low=0.2, high=0.76
+
 
 # GC-content as line and with variable color
 gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_wiggle(aes(z = score, color = score), geom = "line", bounds = c(.5, 0, 1)) +
   geom_seq() +
   scale_colour_viridis_b(option = "A")
+#> ℹ using wiggle bounds: mid=0.5, low=0, high=1
+
 
 # or as lineranges
 gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_wiggle(aes(z = score, color = score), geom = "linerange") +
   geom_seq() +
   scale_colour_viridis_b(option = "A")
+#> ℹ using wiggle bounds: mid=0.38, low=0.2, high=0.76
 
-}
-#> wiggle bounds
-#> • mid:  0.38
-#> • low:  0.2
-#> • high: 0.76
+
 ```

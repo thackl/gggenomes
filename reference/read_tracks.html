@@ -19,7 +19,7 @@ folder of gff-files with each file containing genes of a different genome."><met
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,8 +31,9 @@ folder of gff-files with each file containing genes of a different genome."><met
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -143,7 +144,7 @@ sequences.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># read genes/features from a gff file</span></span></span>
 <span class="r-in"><span><span class="fu">read_feats</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"eden-utr.gff"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: eden-utr [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/eden-utr.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: eden-utr [/home/runner/work/_temp/Library/gggenomes/extdata/eden-utr.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -191,7 +192,7 @@ sequences.</p></li>
 <span class="r-in"><span><span class="co"># read all gff files from a directory</span></span></span>
 <span class="r-in"><span><span class="fu">read_feats</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/"</span><span class="op">)</span>, <span class="st">"*.gff$"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_gff3()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-ngaros [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales//emales-ngaros.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-ngaros [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-ngaros.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Features read</span>
@@ -199,7 +200,7 @@ sequences.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   source type              n</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    repeat_region     3</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales//emales-tirs.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-tirs.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -208,7 +209,7 @@ sequences.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   source type              n</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> MFG    repeat_region    12</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales//emales.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales.gff]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Harmonizing attribute names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> ID -&gt; feat_id</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> Name -&gt; name</span>
@@ -312,7 +313,7 @@ sequences.</p></li>
 <span class="r-in"><span><span class="co"># read sequences from a fasta file.</span></span></span>
 <span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span>, parse_desc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.fna]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file_id seq_id      seq_desc                                            length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -327,7 +328,7 @@ sequences.</p></li>
 <span class="r-in"><span><span class="co"># pairs are removed from `seq_desc` and parsed into columns with `key` as name</span></span></span>
 <span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fasta' with `read_seq_len()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.fna]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file_id seq_id      seq_desc length emale_type is_typespecies has_tir</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
@@ -341,7 +342,7 @@ sequences.</p></li>
 <span class="r-in"><span><span class="co"># read sequence info from samtools/seqkit style index</span></span></span>
 <span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.fna.seqkit.fai"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'fai' with `read_fai()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales.fna.seqkit [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.fna.seqkit.fai]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales.fna.seqkit [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna.seqkit.fai]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   file_id           seq_id     seq_desc length emale_type is_typespecies has_tir</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
@@ -355,8 +356,8 @@ sequences.</p></li>
 <span class="r-in"><span><span class="co"># read sequence info from multiple gff file</span></span></span>
 <span class="r-in"><span><span class="fu">read_seqs</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales.gff"</span><span class="op">)</span>, <span class="fu"><a href="ex.html">ex</a></span><span class="op">(</span><span class="st">"emales/emales-tirs.gff"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Reading 'gff3' with `read_seq_len()`:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.gff]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales-tirs.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    file_id     seq_id      seq_desc length</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>

@@ -80,7 +80,7 @@ p1 <- p %>%
 p2 <- p %>%
   add_links(emale_ava) %>%
   sync() + labs(caption = "genome alignments")
-#> Flipping: E4-10_086,E4-10_112,RCC970_016B
+#> All bins appear to be flipped nicely based on the givenlinks. Maybe change `min_coverage` or flip manually
 
 # flip automatically based on protein-protein links
 p3 <- p %>%

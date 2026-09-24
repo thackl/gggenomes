@@ -6,10 +6,10 @@
 <url><loc>https://thackl.github.io/gggenomes/articles/flip.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/articles/gggenomes.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/articles/index.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/articles/marginal.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/authors.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/index.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/news/index.html</loc></url>
-<url><loc>https://thackl.github.io/gggenomes/reference/GeomFeatText.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/add_seqs.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/add_tracks.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/align.html</loc></url>
@@ -18,11 +18,13 @@
 <url><loc>https://thackl.github.io/gggenomes/reference/as_seqs.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/as_subfeats.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/as_sublinks.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/axis_scalebar.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/check_strand.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/combine_strands.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/def_formats.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/def_names.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/dim.gggenomes_layout.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/draw_scalebar_grob.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/drop_feat_layout.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/drop_layout.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/drop_link_layout.html</loc></url>
@@ -61,6 +63,7 @@
 <url><loc>https://thackl.github.io/gggenomes/reference/layout.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/layout_genomes.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/layout_seqs.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/nice_scalebar_length.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/pick.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/position_strand.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/position_variant.html</loc></url>
@@ -78,8 +81,11 @@
 <url><loc>https://thackl.github.io/gggenomes/reference/read_vcf.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/reexports.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/require_vars.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/resolve_scalebar_label.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/resolve_scalebar_length.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/scale_color_variant.html</loc></url>
-<url><loc>https://thackl.github.io/gggenomes/reference/scale_x_bp.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/scale_x_genomic.html</loc></url>
+<url><loc>https://thackl.github.io/gggenomes/reference/scalebar_style.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/set_class.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/shift.html</loc></url>
 <url><loc>https://thackl.github.io/gggenomes/reference/split_by.html</loc></url>

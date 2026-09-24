@@ -16,6 +16,8 @@ genomic architecture of 6 viral genomes initially described in [Hackl et
 al.: Endogenous virophages populate the genomes of a marine
 heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
 
+![](articles/emales-final.png)
+
 ![](reference/figures/emales.png)
 
 ``` r
@@ -148,6 +150,10 @@ Set up the plot, rearrange stuff, zoom in on what matters
 - [`geom_coverage()`](https://thackl.github.io/gggenomes/reference/geom_wiggle.md)
   [`geom_wiggle()`](https://thackl.github.io/gggenomes/reference/geom_wiggle.md)
   : Draw wiggle ribbons or lines
+- [`geom_bin_label()`](https://thackl.github.io/gggenomes/reference/geom_bin_label.md)
+  : Draw bin labels
+- [`geom_seq_label()`](https://thackl.github.io/gggenomes/reference/geom_seq_label.md)
+  : Draw seq labels
 - [`geom_feat_text()`](https://thackl.github.io/gggenomes/reference/geom_feat_text.md)
   [`geom_feat_tag()`](https://thackl.github.io/gggenomes/reference/geom_feat_text.md)
   [`geom_feat_note()`](https://thackl.github.io/gggenomes/reference/geom_feat_text.md)
@@ -155,18 +161,12 @@ Set up the plot, rearrange stuff, zoom in on what matters
   [`geom_gene_tag()`](https://thackl.github.io/gggenomes/reference/geom_feat_text.md)
   [`geom_gene_note()`](https://thackl.github.io/gggenomes/reference/geom_feat_text.md)
   : Add text to genes, features, etc.
-- [`geom_bin_label()`](https://thackl.github.io/gggenomes/reference/geom_bin_label.md)
-  : Draw bin labels
 - [`geom_gene_label()`](https://thackl.github.io/gggenomes/reference/geom_gene_label.md)
   [`geom_feat_label()`](https://thackl.github.io/gggenomes/reference/geom_gene_label.md)
   [`geom_link_label()`](https://thackl.github.io/gggenomes/reference/geom_gene_label.md)
   : Draw feat/link labels
 - [`geom_seq_break()`](https://thackl.github.io/gggenomes/reference/geom_seq_break.md)
   : Decorate truncated sequences
-- [`geom_seq_label()`](https://thackl.github.io/gggenomes/reference/geom_seq_label.md)
-  : Draw seq labels
-- [`geom_variant()`](https://thackl.github.io/gggenomes/reference/geom_variant.md)
-  : Draw place of mutation
 - [`position_strand()`](https://thackl.github.io/gggenomes/reference/position_strand.md)
   [`position_pile()`](https://thackl.github.io/gggenomes/reference/position_strand.md)
   [`position_strandpile()`](https://thackl.github.io/gggenomes/reference/position_strand.md)
@@ -174,14 +174,22 @@ Set up the plot, rearrange stuff, zoom in on what matters
   : Stack features
 - [`position_variant()`](https://thackl.github.io/gggenomes/reference/position_variant.md)
   : Plot types of mutations with different offsets
-- [`scale_x_bp()`](https://thackl.github.io/gggenomes/reference/scale_x_bp.md)
-  [`label_bp()`](https://thackl.github.io/gggenomes/reference/scale_x_bp.md)
-  : X-scale for genomic data
+- [`axis_scalebar()`](https://thackl.github.io/gggenomes/reference/axis_scalebar.md)
+  [`guide_scalebar()`](https://thackl.github.io/gggenomes/reference/axis_scalebar.md)
+  [`theme_scalebar()`](https://thackl.github.io/gggenomes/reference/axis_scalebar.md)
+  [`geom_scalebar()`](https://thackl.github.io/gggenomes/reference/axis_scalebar.md)
+  : Scalebars for gggenomes plots
+- [`scale_x_genomic()`](https://thackl.github.io/gggenomes/reference/scale_x_genomic.md)
+  [`format_bp()`](https://thackl.github.io/gggenomes/reference/scale_x_genomic.md)
+  [`label_bp()`](https://thackl.github.io/gggenomes/reference/scale_x_genomic.md)
+  : Genomic scales and base-pair labels
 - [`scale_color_variant()`](https://thackl.github.io/gggenomes/reference/scale_color_variant.md)
   [`scale_shape_variant()`](https://thackl.github.io/gggenomes/reference/scale_color_variant.md)
   : Default colors and shapes for mutation types.
 - [`theme_gggenomes_clean()`](https://thackl.github.io/gggenomes/reference/theme_gggenomes_clean.md)
   : gggenomes default theme
+- [`geom_variant()`](https://thackl.github.io/gggenomes/reference/geom_variant.md)
+  : Draw place of mutation
 
 ## Read data from common files
 
@@ -291,8 +299,6 @@ power-users.
 - [`qw()`](https://thackl.github.io/gggenomes/reference/qw.md)
   [`qc()`](https://thackl.github.io/gggenomes/reference/qw.md) : Create
   a vector from unquoted words.
-- [`GeomFeatText`](https://thackl.github.io/gggenomes/reference/GeomFeatText.md)
-  : Geom for feature text
 - [`check_strand()`](https://thackl.github.io/gggenomes/reference/check_strand.md)
   : Check strand
 - [`combine_strands()`](https://thackl.github.io/gggenomes/reference/combine_strands.md)
@@ -347,9 +353,11 @@ power-users.
 
 ### All vignettes
 
-- [Viral synteny maps in
+- [Synteny maps: a reproducible recipe to go from sequences to plots in
   minutes](https://thackl.github.io/gggenomes/articles/emales.md):
-- [Advanced flip
-  examples](https://thackl.github.io/gggenomes/articles/flip.md):
+- [Wrong direction: reorienting sequences automatically or in complex
+  cases](https://thackl.github.io/gggenomes/articles/flip.md):
 - [gggenomes - a multi-track ggplot2 extension for comparative
   genomics](https://thackl.github.io/gggenomes/articles/gggenomes.md):
+- [Edge cases: handling plotting in the
+  margins](https://thackl.github.io/gggenomes/articles/marginal.md):

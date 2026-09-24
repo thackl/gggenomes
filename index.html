@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,8 +43,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="articles/flip.html">Advanced flip examples</a></li>
+<li><a class="dropdown-item" href="articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -75,6 +76,7 @@
 <h2 id="a-realistic-use-case-comparing-six-viral-genomes">A realistic use case comparing six viral genomes<a class="anchor" aria-label="anchor" href="#a-realistic-use-case-comparing-six-viral-genomes"></a>
 </h2>
 <p>gggenomes makes it easy to combine data and annotations from different sources into one comprehensive and elegant plot. Here we compare the genomic architecture of 6 viral genomes initially described in <a href="http://dx.doi.org/10.1101/2020.11.30.404863" class="external-link">Hackl et al.: Endogenous virophages populate the genomes of a marine heterotrophic flagellate</a></p>
+<p><img src="articles/emales-final.png" fig-alt="A synteny map of six viral genomes"></p>
 <p><img src="reference/figures/emales.png"></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thackl.github.io/gggenomes/">gggenomes</a></span><span class="op">)</span></span>

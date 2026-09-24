@@ -9,7 +9,7 @@ etc."><meta property="og:image" content="https://thackl.github.io/gggenomes/logo
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,8 +21,9 @@ etc."><meta property="og:image" content="https://thackl.github.io/gggenomes/logo
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -73,7 +74,7 @@ etc.</p>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  offset <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  height <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>  bounds <span class="op">=</span> <span class="fu">Hmisc</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/Hmisc/man/smean.sd.html" class="external-link">smedian.hilow</a></span>,</span>
+<span>  bounds <span class="op">=</span> <span class="va">hmisc_smedian_hilow</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -208,7 +209,7 @@ lists which parameters it can accept.</p></li>
 <dt id="arg-bounds">bounds<a class="anchor" aria-label="anchor" href="#arg-bounds"></a></dt>
 <dd><p>geom_wiggle uses mid, low and high boundary values for plotting wiggle data. Can
 be both a function or a vector returning those three values. Defaults to
-<a href="https://rdrr.io/pkg/Hmisc/man/smean.sd.html" class="external-link">Hmisc::smedian.hilow</a>.</p></dd>
+Hmisc::smedian.hilow.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -255,38 +256,37 @@ aesthetic is:</p><ul><li><p><strong>z</strong></p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> coverage max</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> max: 0.88</span>
 <span class="r-plt img"><img src="geom_wiggle-3.png" alt="" width="960" height="480"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># wiggle's default bounds function requires Hmisc</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"Hmisc"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot varying GC-content along sequences as ribbon</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span>, feats <span class="op">=</span> <span class="va">emale_gc</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_wiggle</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">score</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> using wiggle bounds: mid=0.38, low=0.2, high=0.76</span>
+<span class="r-plt img"><img src="geom_wiggle-4.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># customize color and position</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>genes <span class="op">=</span> <span class="va">emale_genes</span>, seqs <span class="op">=</span> <span class="va">emale_seqs</span>, feats <span class="op">=</span> <span class="va">emale_gc</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_wiggle</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">score</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"lavenderblush3"</span>, offset <span class="op">=</span> <span class="op">-</span><span class="fl">.3</span>, height <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_gene.html">geom_gene</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> using wiggle bounds: mid=0.38, low=0.2, high=0.76</span>
+<span class="r-plt img"><img src="geom_wiggle-5.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># GC-content as line and with variable color</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span>, feats <span class="op">=</span> <span class="va">emale_gc</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_wiggle</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">score</span>, color <span class="op">=</span> <span class="va">score</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"line"</span>, bounds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_colour_viridis_b</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> using wiggle bounds: mid=0.5, low=0, high=1</span>
+<span class="r-plt img"><img src="geom_wiggle-6.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># or as lineranges</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gggenomes.html">gggenomes</a></span><span class="op">(</span>seqs <span class="op">=</span> <span class="va">emale_seqs</span>, feats <span class="op">=</span> <span class="va">emale_gc</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_wiggle</span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">score</span>, color <span class="op">=</span> <span class="va">score</span><span class="op">)</span>, geom <span class="op">=</span> <span class="st">"linerange"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_seq.html">geom_seq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_colour_viridis_b</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> using wiggle bounds: mid=0.38, low=0.2, high=0.76</span>
+<span class="r-plt img"><img src="geom_wiggle-7.png" alt="" width="960" height="480"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> wiggle bounds</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> mid:  0.38</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> low:  0.2</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> high: 0.76</span>
-<span class="r-plt img"><img src="geom_wiggle-4.png" alt="" width="960" height="480"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

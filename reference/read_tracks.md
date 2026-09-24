@@ -101,7 +101,7 @@ tibble with sequence information
 # read genes/features from a gff file
 read_feats(ex("eden-utr.gff"))
 #> Reading 'gff3' with `read_gff3()`:
-#> * file_id: eden-utr [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/eden-utr.gff]
+#> * file_id: eden-utr [/home/runner/work/_temp/Library/gggenomes/extdata/eden-utr.gff]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -149,7 +149,7 @@ read_feats(ex("eden-utr.gff"))
 # read all gff files from a directory
 read_feats(list.files(ex("emales/"), "*.gff$", full.names = TRUE))
 #> Reading 'gff3' with `read_gff3()`:
-#> * file_id: emales-ngaros [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales//emales-ngaros.gff]
+#> * file_id: emales-ngaros [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-ngaros.gff]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> Features read
@@ -157,7 +157,7 @@ read_feats(list.files(ex("emales/"), "*.gff$", full.names = TRUE))
 #>   source type              n
 #>   <chr>  <chr>         <int>
 #> 1 MFG    repeat_region     3
-#> * file_id: emales-tirs [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales//emales-tirs.gff]
+#> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales-tirs.gff]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -166,7 +166,7 @@ read_feats(list.files(ex("emales/"), "*.gff$", full.names = TRUE))
 #>   source type              n
 #>   <chr>  <chr>         <int>
 #> 1 MFG    repeat_region    12
-#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales//emales.gff]
+#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales//emales.gff]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -270,7 +270,7 @@ read_feats(gbk_phages)
 # read sequences from a fasta file.
 read_seqs(ex("emales/emales.fna"), parse_desc = FALSE)
 #> Reading 'fasta' with `read_seq_len()`:
-#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.fna]
+#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]
 #> # A tibble: 6 × 4
 #>   file_id seq_id      seq_desc                                            length
 #>   <chr>   <chr>       <chr>                                                <int>
@@ -285,7 +285,7 @@ read_seqs(ex("emales/emales.fna"), parse_desc = FALSE)
 # pairs are removed from `seq_desc` and parsed into columns with `key` as name
 read_seqs(ex("emales/emales.fna"))
 #> Reading 'fasta' with `read_seq_len()`:
-#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.fna]
+#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna]
 #> # A tibble: 6 × 7
 #>   file_id seq_id      seq_desc length emale_type is_typespecies has_tir
 #>   <chr>   <chr>       <chr>     <int> <chr>      <lgl>          <lgl>  
@@ -299,7 +299,7 @@ read_seqs(ex("emales/emales.fna"))
 # read sequence info from samtools/seqkit style index
 read_seqs(ex("emales/emales.fna.seqkit.fai"))
 #> Reading 'fai' with `read_fai()`:
-#> * file_id: emales.fna.seqkit [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.fna.seqkit.fai]
+#> * file_id: emales.fna.seqkit [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.fna.seqkit.fai]
 #> # A tibble: 6 × 7
 #>   file_id           seq_id     seq_desc length emale_type is_typespecies has_tir
 #>   <chr>             <chr>      <chr>     <int> <chr>      <lgl>          <lgl>  
@@ -313,8 +313,8 @@ read_seqs(ex("emales/emales.fna.seqkit.fai"))
 # read sequence info from multiple gff file
 read_seqs(c(ex("emales/emales.gff"), ex("emales/emales-tirs.gff")))
 #> Reading 'gff3' with `read_seq_len()`:
-#> * file_id: emales [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales.gff]
-#> * file_id: emales-tirs [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/emales/emales-tirs.gff]
+#> * file_id: emales [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales.gff]
+#> * file_id: emales-tirs [/home/runner/work/_temp/Library/gggenomes/extdata/emales/emales-tirs.gff]
 #> # A tibble: 12 × 4
 #>    file_id     seq_id      seq_desc length
 #>    <chr>       <chr>       <chr>     <dbl>

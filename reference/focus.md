@@ -18,7 +18,7 @@ focus(
   .track_id = 2,
   .max_dist = 10000,
   .expand = 5000,
-  .overhang = c("drop", "trim", "keep"),
+  .marginal = c("drop", "keep", "trim"),
   .locus_id = str_glue("{seq_id}_lc{row_number()}"),
   .locus_id_group = seq_id,
   .locus_bin = c("bin", "seq", "locus"),
@@ -75,12 +75,14 @@ locate(
   features. Default 2kb. Give two values for different up- and
   downstream expansions.
 
-- .overhang:
+- .marginal:
 
-  How to handle features overlapping the locus boundaries (including
-  expand). Options are to "keep" them, "trim" them exactly at the
-  boundaries, or "drop" all features not fully included within the
-  boundaries.
+  How to handle feats/genes and links overlapping edges of zoomed in on
+  regions. Choices are to "drop", "keep" or "trim", with "drop" as the
+  default. You can provide two values to specify different behavior for
+  feats/genes and links. See
+  [`vignette("marginal", package = "gggenomes")`](https://thackl.github.io/gggenomes/articles/marginal.md)
+  for more details.
 
 - .locus_id, .locus_id_group:
 
@@ -139,14 +141,14 @@ A gggenomes object with the new loci track added
 # read the genomes
 s0 <- read_seqs(ex("gorg/gorg.fna.fai"))
 #> Reading 'fai' with `read_fai()`:
-#> * file_id: gorg.fna [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.fna.fai]
+#> * file_id: gorg.fna [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.fna.fai]
 s1 <- s0 %>%
   # strip trailing number from contigs to get bins
   dplyr::mutate(bin_id = stringr::str_remove(seq_id, "_\\d+$"))
 # gene annotations from prokka
 g0 <- read_feats(ex("gorg/gorg.gff.xz"))
 #> Reading 'gff3' with `read_gff3()`:
-#> * file_id: gorg [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg.gff.xz]
+#> * file_id: gorg [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg.gff.xz]
 #> Harmonizing attribute names
 #> • ID -> feat_id
 #> • Name -> name
@@ -164,7 +166,7 @@ g0 <- read_feats(ex("gorg/gorg.gff.xz"))
 #     --greedy-best-hits
 f0 <- read_feats(ex("gorg/gorg-pads-defense.o6"))
 #> Reading 'blast' with `read_blast()`:
-#> * file_id: gorg-pads-defense [/tmp/RtmpQope50/temp_libpath1e053e78cb44/gggenomes/extdata/gorg/gorg-pads-defense.o6]
+#> * file_id: gorg-pads-defense [/home/runner/work/_temp/Library/gggenomes/extdata/gorg/gorg-pads-defense.o6]
 f1 <- f0 %>%
   # parser system/gene info
   tidyr::separate(seq_id2, into = c("seq_id2", "system", "gene"), sep = ",") %>%
@@ -200,10 +202,5 @@ gggenomes(g0, s1, f1, wrap = 5e4) %>%
   geom_feat(aes(color = system)) +
   geom_feat_tag(aes(label = gene)) +
   scale_color_brewer(palette = "Dark2")
-#> Showing 36 loci with the following size distribution
-#> • min: 2500
-#> • q25: 6464
-#> • med: 9739
-#> • q75: 10714
-#> • max: 19561
+#> ℹ Focusing on 36 loci, 2500-19561 bp wide, with .marginal='drop/drop'
 ```

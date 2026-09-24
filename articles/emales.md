@@ -1,4 +1,4 @@
-# Viral synteny maps in minutes
+# Synteny maps: a reproducible recipe to go from sequences to plots in minutes
 
 This tutorial uses a real-world dataset to show how `gggenomes` can be
 used to explore synteny among viral genomes. We start with six viral
@@ -10,7 +10,7 @@ Along the way, we introduce the main data types and plotting layers used
 by `gggenomes` and build the final synteny map one step at a time. The
 final figure will look like this:
 
-![](emales-p7.png)
+![](emales-final.png)
 
 All processed data files are provided in the `data/` directory, so you
 can run the complete R workflow without installing any external
@@ -24,7 +24,7 @@ the marine heterotrophic flagellate *Cafeteria burkhardae*, described by
 The data used in this example is also bundled as R objects in the
 package; see `data(package = "gggenomes")`.
 
-### Download and unpack the tutorial data
+## Download and unpack the tutorial data
 
 To follow the tutorial locally, download and unpack the tutorial data
 from R:
@@ -32,7 +32,7 @@ from R:
 ``` r
 
 download.file(
-  "https://github.com/thackl/gggenomes/releases/download/v1.1.3/vignettes.tar.gz",
+  "https://github.com/thackl/gggenomes/releases/latest/download/vignettes.tar.gz",
   "gggenomes-tutorials.tar.gz",
   mode = "wb"
 )
@@ -43,7 +43,7 @@ setwd("gggenomes-tutorials")
 You can now copy the R code below into an interactive R session, or open
 the included `emales.Rmd` file and run the tutorial from there.
 
-### Read in the genomes
+## Read in the genomes
 
 We start with a FASTA file containing six viral genomes.
 [`read_seqs()`](https://thackl.github.io/gggenomes/reference/read_tracks.md)
@@ -59,20 +59,22 @@ emale_seqs <- read_seqs("data/emales.fna")
 
 # Initialize a plot with one genome ("bin") per sequence
 p1 <- gggenomes(seqs = emale_seqs) +
-  geom_seq() +       # draw the sequence backbone
-  geom_bin_label()   # label each genome
+  geom_seq() + # draw the sequence backbone
+  geom_bin_label() # label each genome
 
 p1
 
-ggsave("emales-p1.png", p1, width = 10, height = 3, dpi = 100)
+# Note: we are only saving at a low resolution (dpi) because this
+# vignette is packaged with gggenomes, and we want a slim package
+ggsave("emales-p1.png", p1, width = 8, height = 4, dpi = 150)
 ```
 
-![](emales-p1.png)
+![genome sequences as lines with labels](emales-p1.png)
 
 At this stage, the plot contains only the genome sequences and their
 labels. Next, we add information about the genes encoded by each genome.
 
-### Annotate genes
+## Annotate genes
 
 The supplied gene annotations were generated with Prodigal-GV. This
 preprocessing step is shown for reproducibility; the resulting GFF file
@@ -100,15 +102,15 @@ p2 <- gggenomes(genes = emale_genes, seqs = emale_seqs) +
 
 p2
 
-ggsave("emales-p2.png", p2, width = 10, height = 3, dpi = 100)
+ggsave("emales-p2.png", p2, width = 8, height = 4, dpi = 150)
 ```
 
-![](emales-p2.png)
+![genes as arrows colored by GC content](emales-p2.png)
 
 The genome backbones are now accompanied by gene arrows, with color
 showing variation in GC content among genes.
 
-### Find terminal inverted repeats
+## Find terminal inverted repeats
 
 These types of viruses often have linear genomes with terminal inverted
 repeats (TIRs), so we look for matching regions at opposite ends of each
@@ -150,15 +152,16 @@ p3 <- gggenomes(
 
 p3
 
-ggsave("emales-p3.png", p3, width = 10, height = 3, dpi = 100)
+ggsave("emales-p3.png", p3, width = 8, height = 4, dpi = 150)
 ```
 
-![](emales-p3.png)
+![Terminal repeats indicated by thick lines at ends of
+sequences](emales-p3.png)
 
 The thick feature segments mark the candidate terminal repeats, adding
 structural information beyond the gene annotations.
 
-### Compare genome synteny
+## Compare genome synteny
 
 To compare genome organization, we align all genomes against each other
 with minimap2. `gggenomes` represents these pairwise alignments as links
@@ -186,22 +189,29 @@ p4 <- gggenomes(
   geom_link() +
   scale_fill_distiller(palette = "Spectral")
 
-# Flip genomes 4-6 so that shared regions are easier to compare visually
-p4 <- p4 |> flip(4:6)
-p4
-
-ggsave("emales-p4.png", p4, width = 10, height = 3, dpi = 100)
+ggsave("emales-p4a.png", p4, width = 8, height = 4, dpi = 150)
 ```
 
-![](emales-p4.png)
+![syntenic regions visually connected by gray polygons](emales-p4a.png)
 
 The links reveal shared regions and their relative orientation across
 genomes.
 [`flip()`](https://thackl.github.io/gggenomes/reference/flip.md) changes
-only how selected genomes are displayed, making the syntenic structure
-easier to follow.
+the orientation in which selected genomes are displayed, making the
+syntenic structure easier to follow.
 
-### Add genome-wide GC content
+``` r
+
+# Flip genomes 4-6 so that shared regions are easier to compare visually
+p4 <- p4 |> flip(4:6)
+p4
+
+ggsave("emales-p4b.png", p4, width = 8, height = 4, dpi = 150)
+```
+
+![all genomes oriented consistently](emales-p4b.png)
+
+## Add genome-wide GC content
 
 So far, GC content is shown only for individual genes. We can also
 calculate it across the entire genome in fixed windows and display the
@@ -224,11 +234,8 @@ emale_gc <- readr::read_tsv(
   col_names = c("window_id", "gc_content")
 ) |>
   # Window IDs have the form "seq_id_sliding:start-end"
-  dplyr::mutate(
-    seq_id = stringr::str_remove(window_id, "_sliding:.*"),
-    start = as.integer(stringr::str_extract(window_id, "(?<=_sliding:)\\d+")),
-    end = as.integer(stringr::str_extract(window_id, "\\d+$"))
-  )
+  tidyr::separate(window_id, "_sliding:", into = c("seq_id", "range")) |>
+  tidyr::separate(range, "-", into = c("start", "end"), convert = TRUE)
 
 # Register the GC windows as an additional feature set
 p5 <- p4 |> add_feats(emale_gc)
@@ -244,17 +251,18 @@ p5 <- p5 +
 
 p5
 
-ggsave("emales-p5.png", p5, width = 10, height = 3, dpi = 100)
+ggsave("emales-p5.png", p5, width = 8, height = 4, dpi = 150)
 ```
 
-![](emales-p5.png)
+![GC-content profile along each sequence shown as
+histogram](emales-p5.png)
 
 The GC-content profile is now shown as an additional quantitative track
 along each genome. This illustrates how arbitrary position-based
 measurements can be added as feature sets and plotted alongside genes
 and synteny links.
 
-### Cluster proteins into orthogroups
+## Cluster proteins into orthogroups
 
 The next step groups similar proteins across genomes. We use DIAMOND to
 cluster the predicted proteins; the cluster assignments are again
@@ -285,7 +293,8 @@ emale_clusters <- emale_clusters |>
     cluster_label = paste0(cluster_id, " (", cluster_n, ")"),
     # Highlight only clusters with at least six members
     cluster_label = forcats::fct_lump_min(
-      cluster_label, 6, other_level = NA_character_
+      cluster_label, 6,
+      other_level = NA_character_
     )
   )
 
@@ -315,22 +324,22 @@ p6 <- gggenomes(
   ) +
   geom_seq() +
   geom_bin_label() +
-  geom_feat(size = 5, data = feats()) +
+  geom_feat(linewidth = 5, data = feats()) +
   geom_gene(aes(fill = cluster_label)) +
   geom_link()
 
 p6
 
-ggsave("emales-p6.png", p6, width = 10, height = 3.5, dpi = 100)
+ggsave("emales-p6.png", p6, width = 9, height = 4, dpi = 150)
 ```
 
-![](emales-p6.png)
+![genes colored by orthologous clusters](emales-p6.png)
 
 Genes belonging to the same abundant protein cluster now share a color.
 This makes conserved gene content visible together with larger-scale
 genome synteny.
 
-### Add functional annotations
+## Add functional annotations
 
 Finally, we add functional information based on similarity to proteins
 from mavirus. DIAMOND is used for the similarity search; the resulting
@@ -379,7 +388,7 @@ p7 <- gggenomes(
   add_subfeats(emale_blast) |>
   # Reorder the genomes for the final figure
   pick(6, 4, 3, 2, 1, 5) |>
-  # Use the synteny links to orient genomes consistently
+  # Use the synteny links to orient genomes automatically & consistently ("auto-flip")
   sync() +
 
   geom_seq() +
@@ -387,7 +396,7 @@ p7 <- gggenomes(
   # Leave some extra space around genome tracks for the annotations below
   geom_link(offset = c(0.3, 0.2)) +
   # geom_feat(aes(color = "integrated transposon"),
-  #   feats(emale_transposons), size = 7) +
+  #   feats(emale_transposons), linewidth = 7) +
   geom_gene(aes(fill = product)) +
   geom_gene_tag(aes(label = gene), size = 3, nudge_y = 0.1) +
   # Mark genes with significant mavirus protein hits
@@ -407,7 +416,8 @@ p7 <- gggenomes(
   ) +
 
   scale_fill_brewer(
-    "Conserved genes", palette = "Dark2", na.value = "cornsilk3"
+    "Conserved genes",
+    palette = "Dark2", na.value = "cornsilk3"
   ) +
   scale_color_viridis_d("Blast hits & Features", direction = -1) +
   scale_linetype("Graphs") +
@@ -418,10 +428,10 @@ p7 <- gggenomes(
 
 p7
 
-ggsave("emales-p7.png", p7, width = 12, height = 4, dpi = 200)
+ggsave("emales-p7.png", p7, width = 10, height = 5, dpi = 150)
 ```
 
-![](emales-p7.png)
+![genes clusters annotated with functions](emales-p7.png)
 
 The final figure combines genome structure, pairwise synteny, conserved
 gene content, functional annotations, and GC content in a single view.
@@ -429,3 +439,45 @@ More importantly for this tutorial, each of these layers was added
 independently: the same pattern can be used to build genome comparison
 figures from many different combinations of sequence, feature, link, and
 quantitative data.
+
+## Create a polished plot including manually curated information
+
+Until here, we’ve relied on displaying data directly generated by
+bioinformatics command tools, such as gene annotators (`prodigal-gv`)
+and alignment programs (`minimap2`, `DIAMOND`). Ultimately, however,
+science is also about using your own expertise and interpretation to go
+beyond that. I did so for these viral genomes in the context of the
+manuscript [Hackl et al.: Endogenous virophages populate the genomes of
+a marine heterotrophic
+flagellate](http://dx.doi.org/10.1101/2020.11.30.404863). The resulting
+curated information is packaged with gggenomes as datasets. It reveals
+the presense of transposons that have integrated into the viral genomes,
+and some additional information about the annotated genes.
+
+``` r
+
+# to inspect the example data shipped with gggenomes
+data(package="gggenomes")
+
+p8 <- gggenomes(
+  genes = emale_genes, seqs = emale_seqs, links = emale_ava,
+  feats = list(emale_tirs, ngaros=emale_ngaros, gc=emale_gc)) |> 
+  add_sublinks(emale_prot_ava) |>
+  sync() + # synchronize genome directions based on links
+  geom_feat(position="identity", size=6) +
+  geom_seq() +
+  geom_link(data=links(2)) +
+  geom_bin_label() +
+  geom_gene(aes(fill=name)) +
+  geom_gene_tag(aes(label=name), nudge_y=0.1, check_overlap = TRUE) +
+  geom_feat(data=feats(ngaros), alpha=.3, size=10, position="identity") +
+  geom_feat_note(aes(label="Ngaro-transposon"), data=feats(ngaros),
+      nudge_y=.1, vjust=0) +
+  geom_wiggle(aes(z=score, linetype="GC-content"), feats(gc),
+      fill="lavenderblush4", position=position_nudge(y=-.2), height = .2) +
+  scale_fill_brewer("Genes", palette="Dark2", na.value="cornsilk3")
+
+ggsave("emales-final.png", p8, width = 8, height = 4, dpi = 150)
+```
+
+![refined annotations using manually curated data](emales-final.png)

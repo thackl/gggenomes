@@ -17,7 +17,7 @@ the .justify."><meta property="og:image" content="https://thackl.github.io/gggen
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,8 +29,9 @@ the .justify."><meta property="og:image" content="https://thackl.github.io/gggen
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -98,6 +99,12 @@ numeric between 0 and 1, default "left"</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span>, na.value <span class="op">=</span> <span class="st">"cornsilk3"</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_bin_label.html">geom_bin_label</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> No seqs provided, inferring seqs from feats</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">ℹ</span> Marginal items detected</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some of your feats, genes or links extend across the edges of your specified sequence loci and into the margins. By default, these marginal items are dropped. Adjust with:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `gggenomes(marginal = c('drop', 'keep', 'trim'))`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `focus(.marginal = c('drop', 'keep', 'trim'))``.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> See `vignette('marginal', package = 'gggenomes')` for details.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;">This message is displayed once every 8 hours.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pp</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="co"># left-align on MCP gene</span></span></span>
@@ -109,7 +116,7 @@ numeric between 0 and 1, default "left"</p></dd>
 <span class="r-in"><span>    <span class="co"># and highlight the feature block we are aligning to</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="focus.html">locate</a></span><span class="op">(</span><span class="va">name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MCP"</span>, <span class="st">"pri-hel"</span><span class="op">)</span>, .expand <span class="op">=</span> <span class="fl">0</span>, .max_dist <span class="op">=</span> <span class="fl">1e6</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="geom_feat.html">geom_feat</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="pull_track.html">feats</a></span><span class="op">(</span><span class="va">loci</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"plum3"</span>, alpha <span class="op">=</span> <span class="fl">.5</span>, linewidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Flipping: E4-10_086,E4-10_112,RCC970_016B</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All bins appear to be flipped nicely based on the givenlinks. Maybe change `min_coverage` or flip manually</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Adding 'loci' track. Plot with `geom_feat(data=feats(loci))`</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pp</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>guides <span class="op">=</span> <span class="st">"collect"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>

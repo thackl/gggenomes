@@ -1,5 +1,17 @@
 # Changelog
 
+## gggenomes 1.2.0
+
+- added an
+  [`axis_scalebar()`](https://thackl.github.io/gggenomes/reference/axis_scalebar.md)
+  as default x-axis and an optional
+  [`geom_scalebar()`](https://thackl.github.io/gggenomes/reference/axis_scalebar.md).
+- revamped handling of items outside or on the edge of the plotting
+  area. See
+  [`vignette("marginal")`](https://thackl.github.io/gggenomes/articles/marginal.md).
+- made a stand-alone, reproducible tutorial including raw data out of
+  [`vignette("emales")`](https://thackl.github.io/gggenomes/articles/emales.md).
+
 ## gggenomes 1.1.3
 
 CRAN release: 2026-02-23

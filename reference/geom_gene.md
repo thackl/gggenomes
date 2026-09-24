@@ -250,6 +250,8 @@ gggenomes(genes = g0) +
   ) +
   annotate("text", label = "intron_types", x = -15, y = 1.2)
 #> No seqs provided, inferring seqs from feats
+#> Scale for x is already present.
+#> Adding another scale for x, which will replace the existing scale.
 #> Warning: Ignoring unknown aesthetics: yend
 
 

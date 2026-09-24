@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gggenomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,8 +19,9 @@
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Viral synteny maps in minutes</a></li>
-    <li><a class="dropdown-item" href="../articles/flip.html">Advanced flip examples</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/emales.html">Synteny maps: a reproducible recipe to go from sequences to plots in minutes</a></li>
+    <li><a class="dropdown-item" href="../articles/flip.html">Wrong direction: reorienting sequences automatically or in complex cases</a></li>
+    <li><a class="dropdown-item" href="../articles/marginal.html">Edge cases: handling plotting in the margins</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -134,17 +135,24 @@
 
         <dt>
 
-          <code><a href="geom_feat_text.html">geom_feat_text()</a></code> <code><a href="geom_feat_text.html">geom_feat_tag()</a></code> <code><a href="geom_feat_text.html">geom_feat_note()</a></code> <code><a href="geom_feat_text.html">geom_gene_text()</a></code> <code><a href="geom_feat_text.html">geom_gene_tag()</a></code> <code><a href="geom_feat_text.html">geom_gene_note()</a></code>
-
-        </dt>
-        <dd>Add text to genes, features, etc.</dd>
-
-        <dt>
-
           <code><a href="geom_bin_label.html">geom_bin_label()</a></code>
 
         </dt>
         <dd>Draw bin labels</dd>
+
+        <dt>
+
+          <code><a href="geom_seq_label.html">geom_seq_label()</a></code>
+
+        </dt>
+        <dd>Draw seq labels</dd>
+
+        <dt>
+
+          <code><a href="geom_feat_text.html">geom_feat_text()</a></code> <code><a href="geom_feat_text.html">geom_feat_tag()</a></code> <code><a href="geom_feat_text.html">geom_feat_note()</a></code> <code><a href="geom_feat_text.html">geom_gene_text()</a></code> <code><a href="geom_feat_text.html">geom_gene_tag()</a></code> <code><a href="geom_feat_text.html">geom_gene_note()</a></code>
+
+        </dt>
+        <dd>Add text to genes, features, etc.</dd>
 
         <dt>
 
@@ -162,20 +170,6 @@
 
         <dt>
 
-          <code><a href="geom_seq_label.html">geom_seq_label()</a></code>
-
-        </dt>
-        <dd>Draw seq labels</dd>
-
-        <dt>
-
-          <code><a href="geom_variant.html">geom_variant()</a></code>
-
-        </dt>
-        <dd>Draw place of mutation</dd>
-
-        <dt>
-
           <code><a href="position_strand.html">position_strand()</a></code> <code><a href="position_strand.html">position_pile()</a></code> <code><a href="position_strand.html">position_strandpile()</a></code> <code><a href="position_strand.html">position_sixframe()</a></code>
 
         </dt>
@@ -190,10 +184,17 @@
 
         <dt>
 
-          <code><a href="scale_x_bp.html">scale_x_bp()</a></code> <code><a href="scale_x_bp.html">label_bp()</a></code>
+          <code><a href="axis_scalebar.html">axis_scalebar()</a></code> <code><a href="axis_scalebar.html">guide_scalebar()</a></code> <code><a href="axis_scalebar.html">theme_scalebar()</a></code> <code><a href="axis_scalebar.html">geom_scalebar()</a></code>
 
         </dt>
-        <dd>X-scale for genomic data</dd>
+        <dd>Scalebars for gggenomes plots</dd>
+
+        <dt>
+
+          <code><a href="scale_x_genomic.html">scale_x_genomic()</a></code> <code><a href="scale_x_genomic.html">format_bp()</a></code> <code><a href="scale_x_genomic.html">label_bp()</a></code>
+
+        </dt>
+        <dd>Genomic scales and base-pair labels</dd>
 
         <dt>
 
@@ -208,6 +209,13 @@
 
         </dt>
         <dd>gggenomes default theme</dd>
+
+        <dt>
+
+          <code><a href="geom_variant.html">geom_variant()</a></code>
+
+        </dt>
+        <dd>Draw place of mutation</dd>
       </dl></div><div class="section level2">
       <h2 id="read-data-from-common-files">Read data from common files<a class="anchor" aria-label="anchor" href="#read-data-from-common-files"></a></h2>
 
@@ -466,13 +474,6 @@
 
         </dt>
         <dd>Create a vector from unquoted words.</dd>
-
-        <dt>
-
-          <code><a href="GeomFeatText.html">GeomFeatText</a></code>
-
-        </dt>
-        <dd>Geom for feature text</dd>
 
         <dt>
 

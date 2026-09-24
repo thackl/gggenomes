@@ -49,6 +49,12 @@ p <- gggenomes(emale_genes, links = emale_ava) +
   scale_fill_brewer(palette = "Dark2", na.value = "cornsilk3") +
   geom_bin_label()
 #> No seqs provided, inferring seqs from feats
+#> ℹ Marginal items detected
+#> Some of your feats, genes or links extend across the edges of your specified sequence loci and into the margins. By default, these marginal items are dropped. Adjust with:
+#> • `gggenomes(marginal = c('drop', 'keep', 'trim'))`
+#> • `focus(.marginal = c('drop', 'keep', 'trim'))``.
+#> See `vignette('marginal', package = 'gggenomes')` for details.
+#> This message is displayed once every 8 hours.
 
 pp <-
   # left-align on MCP gene
@@ -60,7 +66,7 @@ pp <-
     # and highlight the feature block we are aligning to
     locate(name %in% c("MCP", "pri-hel"), .expand = 0, .max_dist = 1e6) +
     geom_feat(data = feats(loci), color = "plum3", alpha = .5, linewidth = 5)
-#> Flipping: E4-10_086,E4-10_112,RCC970_016B
+#> All bins appear to be flipped nicely based on the givenlinks. Maybe change `min_coverage` or flip manually
 #> Adding 'loci' track. Plot with `geom_feat(data=feats(loci))`
 
 pp + plot_layout(guides = "collect") & geom_vline(xintercept = 0, linetype = 2)

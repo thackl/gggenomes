@@ -1,4 +1,4 @@
-# Advanced flip examples
+# Wrong direction: reorienting sequences automatically or in complex cases
 
 ``` r
 
@@ -7,7 +7,7 @@ library(gggenomes)
 
     ## Loading required package: ggplot2
 
-    ## gggenomes v1.1.3.9000
+    ## gggenomes v1.2.0
     ## 
     ## If you use 'gggenomes' in published research, please cite:
     ## 
@@ -43,6 +43,16 @@ p <- gggenomes(genes=emale_genes) +
 
 # nothing flipped
 p0 <- p %>% add_links(emale_ava)
+```
+
+    ## ℹ Marginal items detected
+    ## Some of your feats, genes or links extend across the edges of your specified sequence loci and into the margins. By default, these marginal items are dropped. Adjust with:
+    ## • `gggenomes(marginal = c('drop', 'keep', 'trim'))`
+    ## • `focus(.marginal = c('drop', 'keep', 'trim'))``.
+    ## See `vignette('marginal', package = 'gggenomes')` for details.
+    ## This message is displayed once every 8 hours.
+
+``` r
 
 # flip manually
 p1 <- p %>% add_links(emale_ava) %>%
@@ -53,7 +63,8 @@ p2 <- p %>% add_links(emale_ava) %>%
   sync() + labs(caption="genome alignments")
 ```
 
-    ## Flipping: E4-10_086,E4-10_112,RCC970_016B
+    ## All bins appear to be flipped nicely based on the givenlinks. Maybe change
+    ## `min_coverage` or flip manually
 
 ``` r
 
