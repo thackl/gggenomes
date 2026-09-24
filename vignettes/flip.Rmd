@@ -1,5 +1,5 @@
 ---
-title: "Advanced flip examples"
+title: "Wrong direction: reorienting sequences automatically or in complex cases"
 author: "Thomas Hackl"
 date: "`r format(Sys.Date())`"
 vignette: >

@@ -1,0 +1,106 @@
+---
+title: "Edge cases: handling plotting in the margins"
+author: "Thomas Hackl"
+date: "`r format(Sys.Date())`"
+---
+
+# Feats, genes and links not matching a sequence are dropped
+By default, `gggenomes` arranges the plotting area around the specified sequence set. It matches all provided feats, genes and links against the sequences and drops everything that doesn't match. This makes it easy to manipulate what is shown on the plot by selecting/rearranging sequences of interest.
+
+Because feats, genes or links not matching sequences could also be the result of a data mismatch rather then a intentional selection (e.g. misformatted IDs), `gggenomes` issues a notification about this behavior every once in a while.
+
+Let's try this out with some data. We use set of six viral genomes with sequences, genes and links. First, we plot all seqs and genes, then we change the sequence set while still providing the full gene set. 
+
+```{r}
+#| fig-width: 10
+#| fig-height: 4
+#| fig-dpi: 100
+
+library(patchwork)
+library(gggenomes)
+
+# This message only triggers once in a while. Let's reset its counter here
+# to ensure it triggers for this tutorial
+rlang::reset_message_verbosity("gggenomes-layout-outside")
+
+p1 <- gggenomes(seqs = emale_seqs, genes = emale_genes, links = emale_ava, marginal="keep") +
+  geom_seq() + geom_link() + geom_gene() + geom_seq_label()
+
+# preselect a subset of 3 genomes
+emale_seqs_3 <- head(emale_seqs, n=3)
+p2 <- gggenomes(seqs = emale_seqs_3, genes = emale_genes, links = emale_ava) +
+  geom_seq() + geom_gene() + geom_link() + geom_seq_label()
+
+# or pick/reorder with gggenomes::pick()
+p3 <- p1 |> pick(2, 6, 4, 5)
+
+# plot next to each other
+p1 + p2 + p3 + plot_annotation(title="Genes, feats and links mapping to dropped sequence are also dropped from the plot")
+```
+
+When using `gggenomes` with a sequence set that does not cover all provided genes, links etc., you receive a notification about items not matching the sequence set. When plotting, we can also directly see that only genes and links matching the specified sequence set are shown.
+
+
+# When zooming in, edge case handling can be customized
+With `gggenomes`, we cannot only subset sequences, but also zoom in on specific regions or *loci*. This is done either by explicitly providing `start` and `end` coordinates for sequences or by using functions like `focus()`. As a result, only the parts of the orginial sequences within the specified loci will be plotted.
+
+Genes, feats or links falling outside these new loci are dropped, similar to items not matching any sequence. However, there is a special case here: items that sit right at the edge of sequence loci and extend into the plot margins.
+
+How these marginal items are handled, can be configured. By default marginal feats, genes and links are *"drop"ped*, but can be set to *"keep"* or *"trim"* instead. The latter will cut off the parts of the items that fall outside the loci, while keeping the rest.
+
+*Dropping* as default was chosen because *keeping* marginal items sometimes leads to odd plotting behavior, e.g. when links are very long and cross the entire plot area, and then no changes are made to the link coordinates when zooming in. *Trimming* genes, i.e. showing something like half a gene is also easily misinterpreted (unless intentionally plotted as such). For links, *trimming* also not always makes sense, because even iftwo larger regions are "related" - as indicated by a link - that does not necessarily apply to different subregions of those larger regions.
+
+Internally, marginal items are flagged in the their track tables with a logical column `.marginal=TRUE/FALSE`. To ensure users are aware of the existence of these edge cases and how they are handled, `gggenomes` issues a notification every once in a while if marginal features are encountered in the data.
+
+Let's look at some examples to showcase the different behaviors and options.
+
+```{r}
+#| fig-width: 6
+#| fig-height: 15
+#| fig-dpi: 100
+
+# This message usually only trigger once in a time. Let's reset its counter here
+# to ensure it triggers for this tutorial
+rlang::reset_message_verbosity("gggenomes-layout-marginal")
+
+# plot some genomes and hilight genes ending with "10" in their ID
+p4 <- gggenomes(seqs = emale_seqs, genes = emale_genes, links = emale_ava) +
+  geom_seq() +
+  geom_link(aes(fill=dplyr::if_else(.marginal, "marginal", NA))) +
+  geom_gene(aes(fill=dplyr::case_when(
+    stringr::str_detect(feat_id, "10$") ~ "target",
+    .marginal ~ "marginal",
+    .default = NA
+  ))) +
+  geom_seq_label() +
+  scale_fill_manual("genes", values=c("target" = "#d95f02",
+    marginal = "#1b9e77"), na.value="cornsilk3") +
+    labs(title = "Full plot with targets for zoom hilighted")
+
+# zoom in on the neighborhood of all genes ending with "10"
+p5 <- p4 |> 
+  focus(stringr::str_detect(feat_id, "10$"), .expand = 1200) +
+  labs(title = "Focus on targets with marginal genes and links dropped",
+    subtitle = "clean, but can obscure existence of genes at edges")
+
+p6 <- p4 |>
+  focus(stringr::str_detect(feat_id, "10$"), .expand = 1200,
+  .marginal = "trim") +
+  labs(title = "Marginal genes and links trimmed exactly at locus boundaries",
+    subtitle = "good fit, but trimmed genes can be misinterpreted as short genes")
+
+p7 <- p4 |>
+  focus(stringr::str_detect(feat_id, "10$"), .expand = 1200,
+  .marginal = "keep") +
+  labs(title = "Marginal genes and links kept at locus boundaries",
+    subtitle = "odd because of links extending way beyond locus")
+
+p8 <- p4 |> focus(stringr::str_detect(feat_id, "10$"), .expand = 1200,
+  .marginal = c("keep", "trim")) +
+  labs(title = "Marginal genes kept and links trimmed",
+    subtitle = "combines pros and cons from above")
+
+p4 / p5 / p6 / p7 / p8
+```
+
+None of the options are always perfect, but depending on what you want to showcase, customizing the handling of marginal items should allow you to find a good solution.

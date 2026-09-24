@@ -13,7 +13,7 @@ My goal is to have reproducible vignettes that can be easily run by users. The m
 ```{zsh}
 # to upload the raw data to github as an asset, run the following command in the terminal:
 tar --dereference -czf ../assets/vignettes.tar.gz .
-gh release upload v1.1.3 ../assets/vignettes.tar.gz
+gh release upload v1.2.0 ../assets/vignettes.tar.gz
 ```
 
 # EMALES vignette - demonstrating main functionality of the package

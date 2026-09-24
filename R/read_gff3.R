@@ -114,7 +114,15 @@ read_gff3 <- function(
   if (infer_cds_parents) {
     # this is a fallback primarily to pass tests in r-devel where IRanges is not always available
     if (!requireNamespace("IRanges", quietly = TRUE)) {
-      warn("Bioconductor IRanges missing but required for CDS parent inference. Skipping inference.")
+      rlang::inform(c(
+          "{.pkg IRanges} is required for for CDS parent inference.",
+          "i" = "Install it with {.code pak::pkg_install(\"bioc::IRanges\")}.",
+          "i" = "Alternatively, use {.code BiocManager::install(\"IRanges\")}.",
+          "*" = "Skipping inference for now, which can affect multi-exon genes."),
+        .frequency = "regularly",
+        .frequency_id = "gggenomes-iranges-gff",
+        use_cli_format = TRUE
+      )
     }else{
       x <- infer_cds_parent(x)
     }

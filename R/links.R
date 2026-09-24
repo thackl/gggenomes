@@ -75,18 +75,20 @@ as_links.tbl_df <- function(x, seqs, ..., everything = TRUE) {
 #' @noRd
 layout_links <- function(
     x, seqs, keep = "strand", adjacent_only = TRUE,
-    marginal = c("trim", "drop", "keep"), ...) {
+    marginal = c("drop", "keep", "trim"), ...) {
   marginal <- match.arg(marginal)
+
   # get rid of old layout
-  x <- drop_link_layout(x, keep)
+  x2 <- drop_link_layout(x, keep)
 
   # get layout vars necessary for projecting feats from seqs
-  x <- add_link_layout_scaffold(x, seqs)
+  x <- add_link_layout_scaffold(x2, seqs)
+  check_layout_outside(x2, x)
 
   if (adjacent_only) {
     x <- filter(x, abs(.data$y - .data$yend) == 1)
     if (nrow(x) == 0) {
-      warning("No links found between adjacent genomes in provided order of genomes, consider reordering genomes")
+      rlang::warn("No links found between adjacent genomes in provided order of genomes, consider reordering genomes")
       return(tibble())
     }
   }
@@ -95,9 +97,8 @@ layout_links <- function(
   x <- trim_links_to_subseqs(x, marginal)
 
   # project feats onto new layout and clean up aux vars (.seq)
-  x <- project_links(x) %>%
+  project_links(x) |>
     select("y", "x", "xend", "yend", "xmin", "xmax", everything(), -starts_with(".seq"))
-  x
 }
 
 
@@ -133,9 +134,8 @@ add_links.gggenomes_layout <- function(x, ..., .adjacent_only = TRUE) {
   add_link_tracks(x, tracks, adjacent_only = .adjacent_only)
 }
 
-add_link_tracks <- function(x, tracks, adjacent_only = TRUE) {
-  x$links <- c(x$links, purrr::map(tracks, as_links, get_seqs(x),
-    adjacent_only = adjacent_only
+add_link_tracks <- function(x, tracks, ...) {
+  x$links <- c(x$links, purrr::map(tracks, as_links, get_seqs(x), ...
   )) # this is lossy, so
   x$orig_links <- c(x$orig_links, purrr::map(tracks, as_orig_links, get_seqs(x))) # also store orig links for re-layout
   x
@@ -186,13 +186,16 @@ add_link_layout_scaffold <- function(x, seqs) {
 }
 
 trim_links_to_subseqs <- function(x, marginal) {
+  # always compute .marginal so we can run a check
+  x <- mutate(x,
+    .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end),
+    .marginal2 = is_marginal(.data$start2, .data$end2, .data$.seq_start2, .data$.seq_end2)
+  )
+
+  check_layout_marginal(x)
+
   if (marginal == "drop") {
     x <- mutate(x, .marginal = FALSE, .marginal2 = FALSE)
-  } else {
-    x <- mutate(x,
-      .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end),
-      .marginal2 = is_marginal(.data$start2, .data$end2, .data$.seq_start2, .data$.seq_end2)
-    )
   }
 
   if (marginal == "trim") {

@@ -169,7 +169,7 @@ geom_gene_note <- function(
 
 
 #' Geom for feature text
-#' @export
+#' @noRd
 GeomFeatText <- ggproto("GeomFeatText", Geom,
   required_aes = c("x", "xend", "y", "label"),
   optional_aes = c("type"),

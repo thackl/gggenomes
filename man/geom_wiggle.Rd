@@ -31,7 +31,7 @@ geom_wiggle(
   inherit.aes = TRUE,
   offset = 0,
   height = 0.8,
-  bounds = Hmisc::smedian.hilow,
+  bounds = hmisc_smedian_hilow,
   ...
 )
 }
@@ -188,10 +188,6 @@ gggenomes(seqs = emale_seqs, feats = emale_gc) +
 gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_coverage(aes(z = score, color = score), height = 0.5, geom = "point") +
   geom_seq()
-
-# wiggle's default bounds function requires Hmisc
-if (requireNamespace("Hmisc", quietly = TRUE)) {
-
 # Plot varying GC-content along sequences as ribbon
 gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_wiggle(aes(z = score)) +
@@ -214,5 +210,5 @@ gggenomes(seqs = emale_seqs, feats = emale_gc) +
   geom_seq() +
   scale_colour_viridis_b(option = "A")
 
-}
+
 }

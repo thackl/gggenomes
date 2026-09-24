@@ -1,3 +1,8 @@
+# gggenomes 1.2.0
+* added an `axis_scalebar()` as default x-axis and an optional `geom_scalebar()`.
+* revamped handling of items outside or on the edge of the plotting area. See `vignette("marginal")`.
+* made a stand-alone, reproducible tutorial including raw data out of `vignette("emales")`.
+ 
 # gggenomes 1.1.3
 * make "id" global variable for compatibility with dplyr 1.2.0
 

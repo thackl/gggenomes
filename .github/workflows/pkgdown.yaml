@@ -33,11 +33,28 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown
+        # for quarto rendering, I need gggenomes installed locally, so it can be used in external quarto render process, hence local::.
+          extra-packages: |
+            any::pkgdown
+            any::quarto
+            local::.
           needs: website
+          install-quarto: true
+          quarto-version: release
+
+      - name: Check Quarto
+        run: |
+          quarto --version
+          quarto check
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = TRUE)
+        # no need to install, already done with local::.
+        run: |
+          pkgdown::build_site_github_pages(
+            new_process = FALSE,
+            install = FALSE, 
+            quiet = FALSE
+          )
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀

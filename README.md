@@ -8,6 +8,8 @@ gggenomes is a versatile graphics package for comparative genomics. It extends t
 
 gggenomes makes it easy to combine data and annotations from different sources into one comprehensive and elegant plot. Here we compare the genomic architecture of 6 viral genomes initially described in [Hackl et al.: Endogenous virophages populate the genomes of a marine heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
 
+![](vignettes/emales-final.png){fig-alt="A synteny map of six viral genomes"}
+
 ![](man/figures/emales.png)
 
 ```R

@@ -11,7 +11,7 @@ focus(
   .track_id = 2,
   .max_dist = 10000,
   .expand = 5000,
-  .overhang = c("drop", "trim", "keep"),
+  .marginal = c("drop", "keep", "trim"),
   .locus_id = str_glue("{seq_id}_lc{row_number()}"),
   .locus_id_group = seq_id,
   .locus_bin = c("bin", "seq", "locus"),
@@ -57,10 +57,11 @@ into the same locus, default 10kb.}
 target features. Default 2kb. Give two values for different up- and
 downstream expansions.}
 
-\item{.overhang}{How to handle features overlapping the locus boundaries
-(including expand). Options are to "keep" them, "trim" them exactly at the
-boundaries, or "drop" all features not fully included within the
-boundaries.}
+\item{.marginal}{How to handle feats/genes and links overlapping edges
+of zoomed in on regions. Choices are to "drop", "keep" or "trim", with "drop"
+as the default. You can provide two values to specify different behavior
+for feats/genes and links.
+See \code{vignette("marginal", package = "gggenomes")} for more details.}
 
 \item{.locus_id, .locus_id_group}{How to generate the ids for the new loci
 which will eventually become their new \code{seq_id}s.}

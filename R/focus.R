@@ -24,10 +24,11 @@
 #' @param .expand The amount to nucleotides to expand the focus around the
 #'   target features. Default 2kb. Give two values for different up- and
 #'   downstream expansions.
-#' @param .overhang How to handle features overlapping the locus boundaries
-#'   (including expand). Options are to "keep" them, "trim" them exactly at the
-#'   boundaries, or "drop" all features not fully included within the
-#'   boundaries.
+#' @param .marginal How to handle feats/genes and links overlapping edges
+#' of zoomed in on regions. Choices are to "drop", "keep" or "trim", with "drop"
+#' as the default. You can provide two values to specify different behavior
+#' for feats/genes and links.
+#' See \code{vignette("marginal", package = "gggenomes")} for more details.
 #' @param .locus_id,.locus_id_group How to generate the ids for the new loci
 #'   which will eventually become their new `seq_id`s.
 #' @param .locus_bin What bin to assign new locus to. Defaults to keeping the
@@ -96,12 +97,16 @@
 #' @describeIn focus Identify regions of interest and zoom in on them
 focus <- function(
     x, ..., .track_id = 2, .max_dist = 10e3, .expand = 5e3,
-    .overhang = c("drop", "trim", "keep"),
+    .marginal = c("drop", "keep", "trim"),
     .locus_id = str_glue("{seq_id}_lc{row_number()}"), .locus_id_group = seq_id,
     .locus_bin = c("bin", "seq", "locus"),
     .locus_score = n(), .locus_filter = TRUE, .loci = NULL) {
-  if (length(.expand == 1)) .expand <- c(.expand, .expand)
-  marginal <- match.arg(.overhang)
+  if (length(.expand) == 1) .expand <- c(.expand, .expand)
+
+  # duplicate first if only one value given or all choices returned by match_arg
+  .marginal <- match_arg(.marginal, several.ok = TRUE)
+  if (length(.marginal) != 2) .marginal <-c(.marginal[1], .marginal[1])
+
   bin_id <- paste0(match.arg(.locus_bin), "_id")
 
   # construct loci from predicate hits
@@ -144,8 +149,8 @@ focus <- function(
   qs_lab <- c("min", "q25", "med", "q75", "max")
 
   inform(c(
-    str_glue("Showing {nrow(loci)} loci with the following size distribution"),
-    str_glue("{qs_lab}: {qs}")
+    "i" = str_glue("Focusing on {nrow(loci)} loci, {qs[1]}-{qs[5]} bp wide, ",
+    "with .marginal='", paste(.marginal, collapse = '/'), "'")
   ))
 
 
@@ -170,7 +175,8 @@ focus <- function(
   }
 
   x <- set_seqs(x, s)
-  layout(x, args_feats = list(marginal = marginal))
+  layout(x, args_feats = list(marginal = .marginal[1]),
+         args_links = list(marginal = .marginal[2]))
 }
 
 #' @export

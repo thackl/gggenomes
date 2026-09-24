@@ -76,22 +76,22 @@ as_feats.tbl_df <- function(x, seqs, ..., everything = TRUE) {
 #' @noRd
 layout_feats <- function(
     x, seqs, keep = "strand",
-    marginal = c("trim", "drop", "keep"), ...) {
+    marginal = c("drop", "keep", "trim"), ...) {
   marginal <- match.arg(marginal)
 
   # get rid of old layout
-  x <- drop_feat_layout(x, keep)
+  x2 <- drop_feat_layout(x, keep)
 
   # get layout vars necessary for projecting feats from seqs
-  x <- add_feat_layout_scaffold(x, seqs)
+  x <- add_feat_layout_scaffold(x2, seqs)
+  check_layout_outside(x2, x)
 
   # ignore feats outside subseqs
   x <- trim_feats_to_subseqs(x, marginal)
 
   # project feats onto new layout and clean up aux vars (.seq)
-  x <- project_feats(x) %>%
+  project_feats(x) |>
     select("y", "x", "xend", "bin_id", everything(), -starts_with(".seq"))
-  x
 }
 
 #' Drop feature layout
@@ -136,8 +136,8 @@ add_feats.gggenomes_layout <- function(x, ...) {
   add_feat_tracks(x, tracks)
 }
 
-add_feat_tracks <- function(x, tracks) {
-  x$feats <- c(x$feats, purrr::map(tracks, as_feats, get_seqs(x)))
+add_feat_tracks <- function(x, tracks, ...) {
+  x$feats <- c(x$feats, purrr::map(tracks, as_feats, get_seqs(x), ...))
   x
 }
 
@@ -153,10 +153,13 @@ add_feat_layout_scaffold <- function(x, seqs) {
 }
 
 trim_feats_to_subseqs <- function(x, marginal) {
+  # always compute .marginal so we can run a check
+  x <- mutate(x, .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end))
+
+  check_layout_marginal(x)
+
   if (marginal == "drop") {
     x <- mutate(x, .marginal = FALSE)
-  } else {
-    x <- mutate(x, .marginal = is_marginal(.data$start, .data$end, .data$.seq_start, .data$.seq_end))
   }
 
   if (marginal == "trim") {

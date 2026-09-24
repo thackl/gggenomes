@@ -61,7 +61,8 @@ has_vars <- function(x, vars, any = FALSE) {
 #' match.arg defaulting to all choices
 #'
 #' equivalent to base::match.arg, but returns all choices on arg=NULL if
-#' several.ok=TRUE
+#' several.ok=TRUE, and fails if any of the provided args are not in
+#' choices.
 #' @keywords internal
 #' @noRd
 match_arg <- function(arg, choices, several.ok = FALSE) {
@@ -74,7 +75,7 @@ match_arg <- function(arg, choices, several.ok = FALSE) {
   if (is.null(arg)) {
     if (several.ok) {
       return(choices)
-    } else {
+    } else { # only return first choice if not arg
       return(choices[1L])
     }
   } else if (!is.character(arg)) {
@@ -91,7 +92,7 @@ match_arg <- function(arg, choices, several.ok = FALSE) {
     stop("'arg' must be of length >= 1")
   }
   i <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
-  if (all(i == 0L)) {
+  if (any(i == 0L)) {
     stop(gettextf("'arg' should be one of %s", paste(dQuote(choices),
       collapse = ", "
     )), domain = NA)
