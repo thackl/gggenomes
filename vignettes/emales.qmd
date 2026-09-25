@@ -4,6 +4,15 @@ author: "Thomas Hackl"
 date: "`r format(Sys.Date())`"
 execute:
   eval: false
+format:
+  pdf:
+    pdf-engine: lualatex
+    fontsize: 10pt
+    mainfont: "Libertinus Serif"
+    sansfont: "Libertinus Sans"
+    monofont: "DejaVu Sans Mono"
+    geometry:
+      - margin=25mm
 ---
 
 This tutorial uses a real-world dataset to show how `gggenomes` can be used to explore synteny among viral genomes. We start with six viral genomes and progressively add gene annotations, terminal repeats, pairwise genome alignments, GC content, protein clusters, and functional annotations. 
@@ -301,7 +310,9 @@ Finally, we add functional information based on similarity to proteins from mavi
 ``` {bash}
 # Search predicted EMALE proteins against published mavirus proteins
 bin/diamond makedb --in data/mavirus.faa --db data/mavirus.dmnd
-bin/diamond blastp --db data/mavirus.dmnd -q data/emales.faa --very-sensitive --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore stitle > data/emales_mavirus.o6
+bin/diamond blastp --db data/mavirus.dmnd -q data/emales.faa --very-sensitive --outfmt 6 \
+  qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore stitle \
+  > data/emales_mavirus.o6
 ```
 
 We extract gene names and product descriptions from significant hits and attach these annotations to the corresponding genes and protein clusters.
