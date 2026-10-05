@@ -79,6 +79,8 @@ reference:
 - title: "Data sets"
 - contents:
   - starts_with("emale_")
+  - sim_genomes
+  - fragment_genomes
 figures:
   fig.width: 10
   fig.height: 5
