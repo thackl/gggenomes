@@ -6,7 +6,7 @@ gggenomes is a versatile graphics package for comparative genomics. It extends t
 
 ## A realistic use case comparing six viral genomes
 
-gggenomes makes it easy to combine data and annotations from different sources into one comprehensive and elegant plot. Here we compare the genomic architecture of 6 viral genomes initially described in [Hackl et al.: Endogenous virophages populate the genomes of a marine heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
+gggenomes makes it easy to combine data and annotations from different sources into one comprehensive and elegant plot. In the example below, we compare the genomic architecture of 6 viral genomes initially described in [Hackl et al.: Endogenous virophages populate the genomes of a marine heterotrophic flagellate](http://dx.doi.org/10.1101/2020.11.30.404863)
 
 ![A synteny map of six viral genomes](vignettes/emales-final.png)
 
@@ -37,8 +37,7 @@ gggenomes(
 ggsave("emales.png", width=8, height=4)
 ```
 
-For a reproducible recipe describing the full *evolution* of an earlier version of this plot with an older version of gggenomes starting from a mere set of contigs, and including the bioinformatics analysis workflow, have a look at [From a few sequences to a complex map in
-minutes](https://thackl.github.io/gggenomes/articles/emales.html).
+For a reproducible recipe of plot, starting from a mere set of contigs, and optionally including the bioinformatics analysis workflow, have a look at the tutorial: [Synteny maps: a reproducible recipe to go from sequences to plots in minutes](https://thackl.github.io/gggenomes/articles/emales.html).
 
 ## Motivation & concept
 
@@ -73,7 +72,9 @@ gggenomes draws inspiration from some brilliant packages, in particular:
 
 ## Installation
 
-gggenomes is available as stable release on CRAN (from v1.0.1). The latest developmental versions are available on github.
+gggenomes is available from [CRAN](https://cran.r-project.org/package=gggenomes). 
+
+The latest developmental updates are available from github.
 
 ```R
 # Install from CRAN
