@@ -82,12 +82,9 @@ gggenomes is available as stable release on CRAN (from v1.0.1). The latest devel
 install.packages("gggenomes") 
 
 # optionally install ggtree to plot genomes next to trees
-# https://bioconductor.org/packages/release/bioc/html/ggtree.html
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("ggtree")
+pak::pkg_install("ggtree")
 
 # Install latest developmental version from github
-devtools::install_github("thackl/gggenomes")
+pak::pkg_install("thackl/gggenomes")
 ```
 
