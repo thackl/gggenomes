@@ -150,6 +150,11 @@ size_expand <- function(...) {
 
 
 #' GeomGene
+#'
+#' Exons are only unnested for features that actually have introns, and all
+#' feature polygons are batched into a single polygonGrob per feature class
+#' (see makeContent.genetree()). The previous implementation, which draws one
+#' polygonGrob per feature, is kept as GeomGeneLegacy in geom_gene_legacy.R.
 #' @noRd
 GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
   required_aes = c("x", "xend", "y"),
@@ -182,7 +187,7 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
       introns = purrr::map(introns, ~ .x - c(1, 0)) # convert 1[s,e] to 0[s,e) for drawing
     )
 
-    data <- unnest_exons(data)
+    data <- unnest_exons_fast(data)
   },
   draw_panel = function(self, data, panel_params, coord, sizes, cds_aes, rna_aes, intron_aes, intron_types) {
     if (!coord$is_linear()) {
@@ -206,8 +211,9 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
 
     # after-scale modify other aes
     data <- mutate(data,
-      # convert to alpha hex color: color fill
-      across(c(fill, colour), ~ purrr::map2_chr(.x, alpha, ggplot2::alpha)),
+      # convert to alpha hex color: color fill (ggplot2::alpha() is vectorized)
+      fill = ggplot2::alpha(fill, alpha),
+      colour = ggplot2::alpha(colour, alpha),
       # convert to pt: stroke
       stroke = stroke * ggplot2::.pt
     )
@@ -223,6 +229,7 @@ GeomGene <- ggplot2::ggproto("GeomGene", ggplot2::Geom,
   }
 )
 
+
 native_height <- function(x) {
   as.numeric(grid::convertHeight(grid::unit(x, "mm"), "native")) / 2
 }
@@ -233,103 +240,329 @@ native_width <- function(x) {
 
 #' @export
 makeContent.genetree <- function(x) {
+
   data <- x$data
 
+  # -----------------------------------------------------------------------
+  # Flipped coordinates
+  # -----------------------------------------------------------------------
+
   coord_flipped <- FALSE
+
   if (names(data)[1] == "x") {
     coord_flipped <- TRUE
-    data <- rename(data, y = "x", x = "y", xend = "yend")
+
+    data <- rename(
+      data,
+      y = "x",
+      x = "y",
+      xend = "yend"
+    )
   }
 
+
+  # -----------------------------------------------------------------------
+  # Convert physical dimensions to native coordinates
+  # -----------------------------------------------------------------------
+
   s <- x$sizes
-  height <- native_height(s[1])
-  arrow_height <- native_height(s[2])
-  arrow_width <- native_width(s[3])
-  rna_height <- native_height(s[4])
+
+  height           <- native_height(s[1])
+  arrow_height     <- native_height(s[2])
+  arrow_width      <- native_width(s[3])
+
+  rna_height       <- native_height(s[4])
   rna_arrow_height <- native_height(s[5])
-  rna_arrow_width <- native_width(s[6])
-  intron_height <- native_height(s[7])
+  rna_arrow_width  <- native_width(s[6])
+
+  intron_height    <- native_height(s[7])
+
+
+  # -----------------------------------------------------------------------
+  # Separate single-exon and multi-exon features
+  # -----------------------------------------------------------------------
+
+  multi <- duplicated(data$id) |
+    duplicated(data$id, fromLast = TRUE)
+
+  single_data <- data[!multi, , drop = FALSE]
+  multi_data  <- data[multi,  , drop = FALSE]
 
   grobs <- list()
 
-  # CDS
-  cds_exons <- tibble()
-  cds_data <- data %>% filter(.data$type == "CDS")
-  if (nrow(cds_data) > 0) {
-    cds_exons <- cds_data %>%
-      dplyr::group_by(.data$id) %>%
-      dplyr::summarize(
-        dplyr::across(c(-x, -xend, -y), first),
-        exons = list(exon_polys(.data$x, .data$xend, .data$y, height, arrow_width, arrow_height))
-      )
-  }
 
-  # RNA (mRNA, tRNA)
-  rna_exons <- tibble()
-  rna_data <- data %>% filter(.data$type != "CDS")
-  if (nrow(rna_data) > 0) {
-    rna_exons <- rna_data %>%
-      dplyr::group_by(.data$id) %>%
-      dplyr::summarize(
-        dplyr::across(c(-x, -xend, -y), first),
-        exons = list(exon_polys(.data$x, .data$xend, .data$y, rna_height, rna_arrow_width, rna_arrow_height))
-      )
-  }
+  # =======================================================================
+  # SINGLE-EXON FEATURES
+  #
+  # Fully vectorized fast path.
+  # =======================================================================
 
-  # one grob per feature for feature-wise aes (all exons same)
-  all_exons <- bind_rows(rna_exons, cds_exons)
-  grobs <- purrr::pmap(all_exons, function(exons, fill, colour, linetype, stroke, ...) {
-    grid::polygonGrob(
-      x = exons$x, y = exons$y, id = exons$id,
-      gp = grid::gpar(fill = fill, col = colour, lty = linetype, lwd = stroke)
-    )
-  })
+  if (nrow(single_data) > 0) {
 
-  if (nrow(data) > 0) {
-    rna_introns <- data %>%
-      dplyr::group_by(.data$group) %>%
-      # remove CDS if group has mRNA
-      dplyr::filter(.data$type != (if ("mRNA" %in% .data$type) "CDS" else "!bogus")) %>%
-      dplyr::group_by(.data$id) %>%
-      dplyr::filter(n() > 1) %>%
-      dplyr::summarize(
-        dplyr::across(c(-x, -xend, -y), first),
-        introns = list(intron_polys(.data$x, .data$xend, .data$y, intron_height))
-      )
+    cds_data <- single_data[
+      single_data$type == "CDS",
+      ,
+      drop = FALSE
+    ]
 
-    # after-scale modify intron aes
-    rna_introns <- mutate(rna_introns, !!!x$intron_aes,
-      # recomp. alpha b/c colour modification can strip it
-      colour = ggplot2::alpha(.data$colour, alpha),
-      stroke = .data$stroke * ggplot2::.pt
+    rna_data <- single_data[
+      single_data$type != "CDS",
+      ,
+      drop = FALSE
+    ]
+
+
+    # CDS
+    cds_grob <- gene_polygon_grob(
+      cds_data,
+      height,
+      arrow_width,
+      arrow_height
     )
 
-    grobs <- c(purrr::pmap(rna_introns, function(introns, colour, alpha, linetype, stroke, ...) {
-      grid::polylineGrob(
-        x = introns$x,
-        y = introns$y,
-        id = introns$id,
+
+    # RNA / other
+    rna_grob <- gene_polygon_grob(
+      rna_data,
+      rna_height,
+      rna_arrow_width,
+      rna_arrow_height
+    )
+
+
+    if (!is.null(rna_grob)) {
+      grobs <- c(grobs, list(rna_grob))
+    }
+
+    if (!is.null(cds_grob)) {
+      grobs <- c(grobs, list(cds_grob))
+    }
+  }
+
+
+  # =======================================================================
+  # MULTI-EXON FEATURES
+  #
+  # Use existing exon/intron machinery only for this subset.
+  # =======================================================================
+
+  if (nrow(multi_data) > 0) {
+
+
+    # ---------------------------------------------------------------------
+    # CDS exons
+    # ---------------------------------------------------------------------
+
+    cds_exons <- tibble()
+
+    cds_data <- multi_data |>
+      filter(.data$type == "CDS")
+
+    if (nrow(cds_data) > 0) {
+
+      cds_exons <- cds_data |>
+        group_by(.data$id) |>
+        summarize(
+          across(
+            c(-x, -xend, -y),
+            first
+          ),
+          exons = list(
+            exon_polys(
+              .data$x,
+              .data$xend,
+              .data$y,
+              height,
+              arrow_width,
+              arrow_height
+            )
+          )
+        )
+    }
+
+
+    # ---------------------------------------------------------------------
+    # RNA exons
+    # ---------------------------------------------------------------------
+
+    rna_exons <- tibble()
+
+    rna_data <- multi_data |>
+      filter(.data$type != "CDS")
+
+    if (nrow(rna_data) > 0) {
+
+      rna_exons <- rna_data |>
+        group_by(.data$id) |>
+        summarize(
+          across(
+            c(-x, -xend, -y),
+            first
+          ),
+          exons = list(
+            exon_polys(
+              .data$x,
+              .data$xend,
+              .data$y,
+              rna_height,
+              rna_arrow_width,
+              rna_arrow_height
+            )
+          )
+        )
+    }
+
+
+    # ---------------------------------------------------------------------
+    # Batch multi-exon polygons
+    # ---------------------------------------------------------------------
+
+    all_exons <- bind_rows(
+      rna_exons,
+      cds_exons
+    )
+
+    if (nrow(all_exons) > 0) {
+
+      p <- combine_gene_polys(
+        all_exons$exons
+      )
+
+      feature <- p$feature
+
+      exon_grob <- grid::polygonGrob(
+        x = p$vertices$x,
+        y = p$vertices$y,
+        id = p$vertices$id,
+        default.units = "native",
         gp = grid::gpar(
-          col = colour,
-          lty = linetype,
-          lwd = stroke,
-          lineend = "butt",
-          linejoin = "round"
+          fill = all_exons$fill[feature],
+          col = all_exons$colour[feature],
+          lty = all_exons$linetype[feature],
+          lwd = all_exons$stroke[feature]
         )
       )
-    }), grobs)
+
+      grobs <- c(
+        grobs,
+        list(exon_grob)
+      )
+    }
+
+
+    # ---------------------------------------------------------------------
+    # Introns
+    #
+    # Crucially this now only operates on multi-exon features.
+    # ---------------------------------------------------------------------
+
+    # Remove CDS if group also contains an mRNA. Groups need to be looked up
+    # in the full data, because the mRNA itself may be single-exon (e.g. with
+    # intron_types = "CDS"). Like `type != ...`, this also drops NA types.
+    mrna_groups <- unique(data$group[data$type %in% "mRNA"])
+    cds_in_mrna <- multi_data$type %in% "CDS" &
+      multi_data$group %in% mrna_groups
+
+    rna_introns <- multi_data[!is.na(multi_data$type) & !cds_in_mrna, , drop = FALSE] |>
+      group_by(.data$id) |>
+      filter(n() > 1) |>
+
+      summarize(
+        across(
+          c(-x, -xend, -y),
+          first
+        ),
+        introns = list(
+          intron_polys(
+            .data$x,
+            .data$xend,
+            .data$y,
+            intron_height
+          )
+        )
+      )
+
+
+    if (nrow(rna_introns) > 0) {
+
+      rna_introns <- mutate(
+        rna_introns,
+        !!!x$intron_aes,
+
+        colour = ggplot2::alpha(
+          .data$colour,
+          alpha
+        ),
+
+        stroke = .data$stroke * ggplot2::.pt
+      )
+
+
+      intron_grobs <- purrr::pmap(
+        rna_introns,
+        function(
+            introns,
+            colour,
+            alpha,
+            linetype,
+            stroke,
+            ...) {
+
+          grid::polylineGrob(
+            x = introns$x,
+            y = introns$y,
+            id = introns$id,
+            default.units = "native",
+            gp = grid::gpar(
+              col = colour,
+              lty = linetype,
+              lwd = stroke,
+              lineend = "butt",
+              linejoin = "round"
+            )
+          )
+        }
+      )
+
+
+      # Preserve original layering:
+      # introns underneath exon polygons
+      grobs <- c(
+        intron_grobs,
+        grobs
+      )
+    }
   }
+
+
+  # -----------------------------------------------------------------------
+  # Restore flipped coordinates
+  # -----------------------------------------------------------------------
 
   if (coord_flipped) {
-    grobs <- purrr::map(grobs, function(x) {
-      x[1:2] <- x[2:1]
-      x
-    })
+
+    grobs <- purrr::map(
+      grobs,
+      function(g) {
+        g[1:2] <- g[2:1]
+        g
+      }
+    )
   }
 
+
+  # -----------------------------------------------------------------------
+  # Attach children
+  # -----------------------------------------------------------------------
+
   class(grobs) <- "gList"
-  grid::setChildren(x, grobs)
+
+  grid::setChildren(
+    x,
+    grobs
+  )
 }
+
 
 exon_spans <- function(x, xend, introns, ...) {
   n <- length(introns)
@@ -410,10 +643,232 @@ intron_polys <- function(x, xend, y, height) {
 #' @return data with unnested exons
 #' @export
 unnest_exons <- function(x) {
-  rowwise(x) %>%
+  rowwise(x) |>
     mutate(
       exons = list(exon_spans(x, xend, .data$introns)),
       x = NULL, xend = NULL, introns = NULL
-    ) %>%
-    unnest(exons)
+    ) |>
+  unnest(exons)
+}
+
+
+# ---------------------------------------------------------------------------
+# Combine feature polygons
+#
+# `all_exons$exons` contains one tibble per feature. Each tibble can itself
+# contain multiple polygons (one per exon), identified by its local `id`.
+#
+# For a single polygonGrob() we need:
+#
+#   1. one combined vector of vertices;
+#   2. globally unique polygon IDs;
+#   3. a mapping from each polygon back to the feature supplying its
+#      graphical parameters.
+#
+# Returned structure:
+#
+#   vertices:
+#       x, y, polygon_id
+#
+#   feature:
+#       one feature-row index per polygon
+#
+# Thus:
+#
+#   gp$fill = all_exons$fill[feature]
+#
+# supplies one fill value for every polygon in the combined grob.
+# ---------------------------------------------------------------------------
+
+combine_gene_polys <- function(exons) {
+
+  if (!length(exons)) {
+    return(NULL)
+  }
+
+  n_polys <- vapply(
+    exons,
+    function(z) length(unique(z$id)),
+    integer(1)
+  )
+
+  n_vertices <- vapply(
+    exons,
+    nrow,
+    integer(1)
+  )
+
+  # Offset each feature's local polygon IDs so that polygon IDs are globally
+  # unique across the complete grob.
+  offsets <- c(
+    0L,
+    head(cumsum(n_polys), -1L)
+  )
+
+  polygon_id <- unlist(
+    Map(
+      function(z, offset) {
+        match(z$id, unique(z$id)) + offset
+      },
+      exons,
+      offsets
+    ),
+    use.names = FALSE
+  )
+
+  vertices <- tibble::tibble(
+    x = unlist(
+      lapply(exons, `[[`, "x"),
+      use.names = FALSE
+    ),
+    y = unlist(
+      lapply(exons, `[[`, "y"),
+      use.names = FALSE
+    ),
+    id = polygon_id
+  )
+
+  list(
+    vertices = vertices,
+
+    # One feature index for every polygon, not every vertex.
+    feature = rep(
+      seq_along(exons),
+      n_polys
+    )
+  )
+}
+
+
+unnest_exons_fast <- function(data) {
+  has_introns <- lengths(data$introns) >= 2
+
+  if (!any(has_introns)) {
+    data <- data |>
+      relocate(x, xend, .after = last_col()) |>
+      select(-introns)
+
+    return(data)
+  }
+
+  unnest_exons(data)
+}
+
+
+# Vectorized equivalent of span2arrow() for single-exon features.
+#
+# Returns flat vertex vectors plus:
+#   id      polygon ID per vertex
+#   feature feature/row corresponding to each polygon
+#
+span2arrow_vec <- function(x, xend, y, height, arrow_width, arrow_height) {
+
+  short <- abs(x - xend) <= arrow_width
+
+  # ---- normal 8-vertex arrows --------------------------------------------
+
+  i <- which(!short)
+
+  xa <- ifelse(
+    x[i] < xend[i],
+    xend[i] - arrow_width,
+    xend[i] + arrow_width
+  )
+
+  x8 <- cbind(
+    x[i],
+    x[i],
+    xa,
+    xa,
+    xend[i],
+    xa,
+    xa,
+    x[i]
+  )
+
+  y8 <- cbind(
+    y[i] + height,
+    y[i] - height,
+    y[i] - height,
+    y[i] - arrow_height,
+    y[i],
+    y[i] + arrow_height,
+    y[i] + height,
+    y[i] + height
+  )
+
+  # ---- short 4-vertex arrows ---------------------------------------------
+
+  j <- which(short)
+
+  x4 <- cbind(
+    x[j],
+    x[j],
+    xend[j],
+    x[j]
+  )
+
+  y4 <- cbind(
+    y[j] + arrow_height,
+    y[j] - arrow_height,
+    y[j],
+    y[j] + arrow_height
+  )
+
+  # We can concatenate the two sets because polygon order doesn't
+  # affect rendering. Keep feature index for matching aesthetics.
+
+  xx <- c(t(x8), t(x4))
+  yy <- c(t(y8), t(y4))
+
+  feature <- c(i, j)
+  lengths <- c(
+    rep.int(8L, length(i)),
+    rep.int(4L, length(j))
+  )
+
+  list(
+    x = xx,
+    y = yy,
+    id.lengths = lengths,
+    feature = feature
+  )
+}
+
+
+# Make one batched polygon grob from a set of single-exon rows.
+gene_polygon_grob <- function(
+    data,
+    height,
+    arrow_width,
+    arrow_height) {
+
+  if (!nrow(data))
+    return(NULL)
+
+  p <- span2arrow_vec(
+    data$x,
+    data$xend,
+    data$y,
+    height,
+    arrow_width,
+    arrow_height
+  )
+
+  # p$feature is important because span2arrow_vec() rearranges rows:
+  # normal arrows first, short arrows second.
+  aes <- data[p$feature, , drop = FALSE]
+
+  grid::polygonGrob(
+    x = p$x,
+    y = p$y,
+    id.lengths = p$id.lengths,
+    default.units = "native",
+    gp = grid::gpar(
+      fill = aes$fill,
+      col = aes$colour,
+      lty = aes$linetype,
+      lwd = aes$stroke
+    )
+  )
 }
